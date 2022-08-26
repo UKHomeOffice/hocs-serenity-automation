@@ -111,7 +111,7 @@ Feature: Registration
 
 #     IEDET COMPLAINTS
 
-  @ComplaintsWorkflow @IDETAndSMCRegression @IEDETComplaints
+  @ComplaintsWorkflow @IEDETAndSMCRegression @IEDETComplaints
   Scenario: User can complete the Registration stage for an IEDET complaint case
     Given I am logged into "CS" as user "IEDET_USER"
     And I create a single "IEDET" case
@@ -132,7 +132,7 @@ Feature: Registration
 
 #     SMC COMPLAINTS
 
-  @ComplaintsWorkflow @IDETAndSMCRegression @SMCComplaints
+  @ComplaintsWorkflow @IEDETAndSMCRegression @SMCComplaints
   Scenario: User is able to complete the Registration stage for an SMC complaint case
     Given I am logged into "CS" as user "SMC_USER"
     And I create a single "SMC" case

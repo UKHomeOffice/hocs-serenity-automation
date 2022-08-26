@@ -178,7 +178,7 @@ Feature: Complaints End To End
     When I create a "IEDET" case and move it to the "Send" stage
     Then the case should be moved to the "Send" stage
 
-  @IDETAndSMCRegression @IEDETComplaints
+  @IEDETAndSMCRegression @IEDETComplaints
   Scenario: User is able to close an IEDET complaint case
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to "Case Closed"
@@ -205,7 +205,7 @@ Feature: Complaints End To End
     When I create a "SMC" case and move it to the "Send" stage
     Then the case should be moved to the "Send" stage
 
-  @IDETAndSMCRegression @SMCComplaints
+  @IEDETAndSMCRegression @SMCComplaints
   Scenario: User is able to close an SMC complaint case
     Given I am logged into "CS" as user "SMC_USER"
     When I create a "SMC" case and move it to "Case Closed"

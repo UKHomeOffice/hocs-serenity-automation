@@ -302,7 +302,7 @@ Feature: Complaints Triage
 
 #     IEDET COMPLAINTS
 
-  @ComplaintsWorkflow @IDETAndSMCRegression @IEDETComplaints
+  @ComplaintsWorkflow @IEDETAndSMCRegression @IEDETComplaints
   Scenario: User completes the Triage stage for an IEDET complaint case
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to the "Triage" stage
@@ -313,7 +313,7 @@ Feature: Complaints Triage
     And the summary should display the owning team as "IE Detention"
     And the read-only Case Details accordion should contain all case information entered during the "Triage" stage
 
-  @IDETAndSMCRegression @IEDETComplaints
+  @IEDETAndSMCRegression @IEDETComplaints
   Scenario: User can close an IEDET complaint case at the Triage stage
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to the "Triage" stage
@@ -324,7 +324,7 @@ Feature: Complaints Triage
 
 #     SMC COMPLAINTS
 
-  @ComplaintsWorkflow @IDETAndSMCRegression @SMCComplaints
+  @ComplaintsWorkflow @IEDETAndSMCRegression @SMCComplaints
   Scenario: User completes the Triage stage for an SMC complaint case
     Given I am logged into "CS" as user "SMC_USER"
     When I create a "SMC" case and move it to the "Triage" stage
@@ -340,7 +340,7 @@ Feature: Complaints Triage
     And the read-only Case Details accordion should contain all case information entered during the "Triage" stage
 
   # Expected failure. Defect HOCS-3980 raised.
-  @ComplaintsWorkflow @IDETAndSMCRegression @SMCComplaints
+  @ComplaintsWorkflow @IEDETAndSMCRegression @SMCComplaints
   Scenario: User can transfer a SMC complaint case to a UKVI complaint case at Triage stage
     Given I am logged into "CS" as user "SMC_USER"
     When I create a "SMC" case and move it to the "Triage" stage
@@ -350,7 +350,7 @@ Feature: Complaints Triage
     Then the case should be closed
 
   # Expected failure. Defect HOCS-3980 raised.
-  @ComplaintsWorkflow @IDETAndSMCRegression @SMCComplaints
+  @ComplaintsWorkflow @IEDETAndSMCRegression @SMCComplaints
   Scenario: User can transfer a SMC complaint case to an IEDET complaint case at Triage stage
     Given I am logged into "CS" as user "SMC_USER"
     When I create a "SMC" case and move it to the "Triage" stage
@@ -501,7 +501,7 @@ Feature: Complaints Triage
   @ComplaintsWorkflow @POGRRegression @POGRComplaints
   Scenario: User is able to complete the Investigation stage for a POGR complaint case with HMPO as the business area
     Given I am logged into "CS" as user "POGR_USER"
-    When I get a POGR case with "HMPO" as the Business Area at the "Investigation" stage
+    When I get a "POGR" case with "HMPO" as the Business Area at the "Investigation" stage
     And I "Accept" the case at the Investigation stage
     And I enter any required information at the Investigation stage
     And I complete the "All Information Collected - Respond" action at the Investigation stage
@@ -512,7 +512,7 @@ Feature: Complaints Triage
   @ComplaintsWorkflow @POGRRegression @POGRComplaints
   Scenario: User is able to complete the Investigation stage for a POGR complaint case with GRO as the business area
     Given I am logged into "CS" as user "POGR_USER"
-    When I get a POGR case with "GRO" as the Business Area at the "Investigation" stage
+    When I get a "POGR" case with "GRO" as the Business Area at the "Investigation" stage
     And I "Accept" the case at the Investigation stage
     And I enter any required information at the Investigation stage
     And I complete the "All Information Collected - Respond" action at the Investigation stage
@@ -523,7 +523,7 @@ Feature: Complaints Triage
   @ComplaintsWorkflow @POGRRegression @POGRComplaints
   Scenario Outline: User is able to close a POGR complaint case at the Investigation stage
     Given I am logged into "CS" as user "POGR_USER"
-    When I get a POGR case with "<businessArea>" as the Business Area at the "Investigation" stage
+    When I get a "POGR" case with "<businessArea>" as the Business Area at the "Investigation" stage
     And I "Accept" the case at the Investigation stage
     And I complete the "No Response - Complete the Case" action at the Investigation stage
     Then the case should be closed
@@ -536,7 +536,7 @@ Feature: Complaints Triage
   @ComplaintsWorkflow @POGRRegression @POGRComplaints
   Scenario: User is able to transfer a POGR complaint case with HMPO business area to an external team at the Investigation stage
     Given I am logged into "CS" as user "POGR_USER"
-    When I get a POGR case with "HMPO" as the Business Area at the "Investigation" stage
+    When I get a "POGR" case with "HMPO" as the Business Area at the "Investigation" stage
     And I "Reject" the case at the Investigation stage
     And I enter a transfer reason at the Investigation stage
     Then the case should be closed
@@ -546,7 +546,7 @@ Feature: Complaints Triage
   @ComplaintsWorkflow @POGRRegression @POGRComplaints
   Scenario: User is able to transfer a POGR complaint case with GRO business area to an external team at the Investigation stage
     Given I am logged into "CS" as user "POGR_USER"
-    When I get a POGR case with "GRO" as the Business Area at the "Investigation" stage
+    When I get a "POGR" case with "GRO" as the Business Area at the "Investigation" stage
     And I "Reject" the case at the Investigation stage
     And I enter a transfer reason at the Investigation stage
     And I select that the case is to be transferred to an "External" team
@@ -557,7 +557,7 @@ Feature: Complaints Triage
   @ComplaintsWorkflow @POGRRegression @POGRComplaints
   Scenario: User is able to transfer a POGR complaint case with GRO business area to an internal team at the Investigation stage
     Given I am logged into "CS" as user "POGR_USER"
-    When I get a POGR case with "GRO" as the Business Area at the "Investigation" stage
+    When I get a "POGR" case with "GRO" as the Business Area at the "Investigation" stage
     And I "Reject" the case at the Investigation stage
     And I enter a transfer reason at the Investigation stage
     And I select that the case is to be transferred to an "Internal" team
@@ -570,7 +570,7 @@ Feature: Complaints Triage
   @ComplaintsWorkflow @POGRRegression @POGRComplaints
   Scenario Outline: User is able to escalate a POGR complaint case to workflow manager at the Investigation stage
     Given I am logged into "CS" as user "POGR_USER"
-    When I get a POGR case with "<businessArea>" as the Business Area at the "Investigation" stage
+    When I get a "POGR" case with "<businessArea>" as the Business Area at the "Investigation" stage
     And I "Accept" the case at the Investigation stage
     And I escalate the case to WFM at Investigation stage
     Then the case should be moved to the "Escalated" stage

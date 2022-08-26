@@ -194,7 +194,7 @@ Feature: Complaints Escalated
   @ComplaintsWorkflow @POGRRegression @POGRComplaints
   Scenario Outline: User can send a POGR complaint case to Draft stage from Escalated
     Given I am logged into "CS" as user "POGR_USER"
-    When I get a POGR case with "<businessArea>" as the Business Area at the "Escalated" stage
+    When I get a "POGR" case with "<businessArea>" as the Business Area at the "Escalated" stage
     And I select to return the case to Draft
     Then the case should be moved to the "Draft" stage
     And the POGR case should be assigned to the correct investigating team
@@ -207,7 +207,7 @@ Feature: Complaints Escalated
   @ComplaintsWorkflow @POGRRegression @POGRComplaints
   Scenario Outline: User can send a POGR complaint case to Investigation stage from Escalated
     Given I am logged into "CS" as user "POGR_USER"
-    When I get a POGR case with "<businessArea>" as the Business Area at the "Escalated" stage
+    When I get a "POGR" case with "<businessArea>" as the Business Area at the "Escalated" stage
     And I select to return the case to Investigation
     Then the case should be moved to the "Investigation" stage
     And the POGR case should be assigned to the correct investigating team

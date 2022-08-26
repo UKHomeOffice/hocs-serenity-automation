@@ -318,7 +318,7 @@ public class SearchStepDefs extends BasePage {
         search.waitForResultsPage();
     }
 
-    @And("I load the stage 2 UKVI complaints case by selecting its case reference from the Escalate Case column")
+    @And("I load the stage 2 complaints case by selecting its case reference from the Escalate Case column")
     public void iLoadTheStage2CaseBySelectingTheCaseReferenceInTheEscalateCaseColumn() {
         search.selectComplaintsStage2CaseRefOfEscalatedComplaintsCase(sessionVariableCalled("stage1CaseReference"));
     }

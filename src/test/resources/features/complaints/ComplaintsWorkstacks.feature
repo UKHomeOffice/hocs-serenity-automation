@@ -51,7 +51,7 @@ Feature: Complaints Workstacks
 
 #     IEDET COMPLAINTS
 
-  @IDETAndSMCRegression @IEDETComplaints
+  @IEDETAndSMCRegression @IEDETComplaints
   Scenario: IEDET complaints user sees the required information when viewing a workstack
     Given I am logged into "CS" as user "IEDET_USER"
     And I enter the "IE Detention" workstack
@@ -60,7 +60,7 @@ Feature: Complaints Workstacks
 
 #     SMC COMPLAINTS
 
-  @IDETAndSMCRegression @IEDETComplaints
+  @IEDETAndSMCRegression @IEDETComplaints
   Scenario Outline: Serious Misconduct complaints user sees the required information when viewing a workstack
     Given I am logged into "CS" as user "SMC_USER"
     And I enter the "<workstack>" workstack
@@ -70,7 +70,7 @@ Feature: Complaints Workstacks
       | Serious Misconduct          |
       | Serious Misconduct My Cases |
 
-  @IDETAndSMCRegression
+  @IEDETAndSMCRegression
   Scenario Outline: SMC User is able to see the deadline of a case close to its deadline highlighted in yellow
     Given I am logged into "CS" as user "SMC_USER"
     When I create an SMC case received <amountOfDays> workdays in the past and move it to the "<stage>" stage
@@ -81,7 +81,7 @@ Feature: Complaints Workstacks
       | 55           | Registration | SMC Registration   |
       | 55           | Triage       | Serious Misconduct |
 
-  @IDETAndSMCRegression
+  @IEDETAndSMCRegression
   Scenario Outline: SMC User is able to see an overdue case deadline highlighted in red
     Given I am logged into "CS" as user "SMC_USER"
     When I create an SMC case received <amountOfDays> workdays in the past and move it to the "<stage>" stage
