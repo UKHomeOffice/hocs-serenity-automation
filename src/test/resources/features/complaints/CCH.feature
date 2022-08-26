@@ -7,7 +7,7 @@ Feature: CCH
 #    UKVI COMPLAINTS
 
 #    HOCS-2944
-  @ComplaintsWorkflow @ComplaintsRegression1 @UKVIComplaints
+  @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can transfer a UKVI complaints case to CCT
     When I create a "COMP" case and move it to the "CCH" stage
     And I load and claim the current case
@@ -17,7 +17,7 @@ Feature: CCH
     And the summary should display "Service" for "Complaint Type"
     And the read-only Case Details accordion should contain all case information entered during the "CCH" stage
 
-  @ComplaintsWorkflow @ComplaintsRegression1 @UKVIComplaints
+  @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can transfer a UKVI complaints case to Ex-Gratia
     When I create a "COMP" case and move it to the "CCH" stage
     And I load and claim the current case
@@ -27,7 +27,7 @@ Feature: CCH
     And the summary should display "Ex-Gratia" for "Complaint Type"
     And the read-only Case Details accordion should contain all case information entered during the "CCH" stage
 
-  @ComplaintsWorkflow @ComplaintsRegression1 @UKVIComplaints
+  @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can transfer a UKVI complaints case to Minor Misconduct
     When I create a "COMP" case and move it to the "CCH" stage
     And I load and claim the current case
@@ -38,7 +38,7 @@ Feature: CCH
     And the read-only Case Details accordion should contain all case information entered during the "CCH" stage
 
 #    HOCS-3025
-  @ComplaintsWorkflow @ComplaintsRegression1 @UKVIComplaints
+  @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can hard close a UKVI complaints case at CCH stage
     When I create a "COMP" case and move it to the "CCH" stage
     And I load and claim the current case
@@ -64,7 +64,7 @@ Feature: CCH
 
 #    UKVI COMPLAINTS STAGE 2
 
-  @ComplaintsWorkflow @ComplaintsRegression1 @UKVIComplaints
+  @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can transfer a UKVI stage 2 complaints case to CCT
     When I create a "COMP2" case and move it to the "CCH" stage
     And I load and claim the current case
@@ -74,7 +74,7 @@ Feature: CCH
     And the summary should display "Service" for "Complaint Type"
     And the read-only Case Details accordion should contain all case information entered during the "Stage 2 CCH" stage
 
-  @ComplaintsWorkflow @ComplaintsRegression1 @UKVIComplaints
+  @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can hard close a UKVI stage 2 complaints case at CCH stage
     When I create a "COMP2" case and move it to the "CCH" stage
     And I load and claim the current case

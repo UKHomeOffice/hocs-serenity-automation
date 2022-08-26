@@ -700,9 +700,9 @@ public class BasePage extends PageObject {
     }
 
     public void checkSpecificCheckbox(String checkboxLabelText) {
-        WebElementFacade checkbox =
-                findBy("//input[@type='checkbox']/following-sibling::label[text()=" + sanitiseXpathAttributeString(checkboxLabelText) + "]");
-        safeClickOn(checkbox);
+        List<WebElementFacade> checkboxElements =
+                findAll("//input[@type='checkbox']/following-sibling::label[text()=" + sanitiseXpathAttributeString(checkboxLabelText) + "]");
+        safeClickOn(getOnlyCurrentlyVisibleElementFromList(checkboxElements));
     }
 
     public boolean checkboxWithLabelIsCurrentlyVisible(String checkboxLabelText) {

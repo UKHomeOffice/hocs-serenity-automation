@@ -68,14 +68,16 @@ public class ExGratiaTab extends BasePage {
         String businessArea = sessionVariableCalled("businessArea");
         if (businessArea.equalsIgnoreCase("HMPO")) {
             enterDateIntoDateFieldsWithHeading(getTodaysDate(), "Date of Claim");
+            selectRandomOptionFromDropdownWithHeading("Second Reason for Refund");
+            selectRandomOptionFromDropdownWithHeading("Third Reason for Refund");
         } else if (businessArea.equalsIgnoreCase("GRO")) {
             selectRandomRadioButtonFromGroupWithHeading("Refund Required");
-            selectRandomOptionFromDropdownWithHeading("Type of Refund");
-            selectRandomOptionFromDropdownWithHeading("Primary Reason for Refund");
             enterSpecificTextIntoTextFieldWithHeading("10.00", "Amount");
-            selectRandomOptionFromDropdownWithHeading("Payment Method");
-            enterTextIntoTextFieldWithHeading("Payment Reference Number");
         }
+        selectRandomOptionFromDropdownWithHeading("Type of Refund");
+        selectRandomOptionFromDropdownWithHeading("Primary Reason for Refund");
+        selectRandomOptionFromDropdownWithHeading("Payment Method");
+        enterTextIntoTextFieldWithHeading("Payment Reference Number");
         enterTextIntoTextFieldWithHeading("Authorised By");
         enterSpecificTextIntoTextFieldWithHeading("10.00", "Total Amount (GBP)");
         clickTheButton("Submit");
