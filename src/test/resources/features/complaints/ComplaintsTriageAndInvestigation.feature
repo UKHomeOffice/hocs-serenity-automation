@@ -438,7 +438,7 @@ Feature: Complaints Triage
     And I enter information on the Triage Details page
     And I send the case to drafting
     Then the case should be moved to the "DRAFT (STAGE 2)" stage
-    And the summary should display the owning team as "Border Force (Stage 2)"
+    And the summary should display the owning team as "Border Force Complaints (Stage 2)"
     And the read-only Case Details accordion should contain all case information entered during the "Case Triage (Stage 2)" stage
 
   @ComplaintsWorkflow @BFRegression @BFComplaints
@@ -449,7 +449,7 @@ Feature: Complaints Triage
     And I enter information on the Triage Details page
     And I escalate the case to WFM at Triage stage
     Then the case should be moved to the "Escalated to WFM (Stage 2)" stage
-    And the summary should display the owning team as "Border Force (Stage 2)"
+    And the summary should display the owning team as "Border Force Complaints (Stage 2)"
     And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
     And the read-only Case Details accordion should contain all case information entered during the "Case Triage (Stage 2)" stage
 
