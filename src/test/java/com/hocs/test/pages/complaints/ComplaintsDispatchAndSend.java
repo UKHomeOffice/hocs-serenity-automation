@@ -70,11 +70,11 @@ public class ComplaintsDispatchAndSend extends BasePage {
     public void enterGratisOfferedDetails() {
         String gratisOffered = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Gratis Offered");
         if (gratisOffered.equalsIgnoreCase("YES")) {
-            recordCaseData.selectRandomOptionFromDropdownWithHeading("Document lost of damaged");
+            recordCaseData.selectRandomOptionFromDropdownWithHeading("Document lost or damaged");
             recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Document replaced/replacement ordered");
             String documentType = recordCaseData.selectRandomOptionFromDropdownWithHeading("Type of document lost or damaged");
             if (documentType.equalsIgnoreCase("OTHER")) {
-                recordCaseData.enterTextIntoTextAreaWithHeading("Type of document lost or damage (other)");
+                recordCaseData.enterTextIntoTextAreaWithHeading("Type of document lost or damaged (other)");
             }
         }
     }

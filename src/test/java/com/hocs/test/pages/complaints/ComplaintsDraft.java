@@ -42,10 +42,7 @@ public class ComplaintsDraft extends BasePage {
 
     public void selectActionAtDraft(String action) {
         recordCaseData.selectSpecificRadioButton(action);
-        if (pogrCase()) {
-            if (action.equalsIgnoreCase("Close the case")) {
-                recordCaseData.selectRandomOptionFromDropdownWithHeading("Close Reason");
-            }
+        if (pogrCase() || pogr2Case()) {
             safeClickOn(finishButton);
         } else {
             safeClickOn(continueButton);

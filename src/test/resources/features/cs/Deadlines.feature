@@ -39,7 +39,6 @@ Feature: Deadlines
       | BF       |
       | BF2      |
       | POGR     |
-      | POGR2    |
 
   @DCURegression
   Scenario: As a DCU User, when I select that the Home Secretary is the Private Office team, I expect the cases deadlines to reflect a 10 day SLA

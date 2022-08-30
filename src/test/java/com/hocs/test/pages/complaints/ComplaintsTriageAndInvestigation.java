@@ -272,7 +272,14 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     }
 
     public void enterCompletionReason() {
-        String enteredText = enterTextIntoTextAreaWithHeading("Enter note for case completion");
+        String enteredText;
+        if (pogrCase() || pogr2Case()) {
+            enteredText = enterTextIntoTextAreaWithHeading("Enter a note for case closure");
+
+        } else {
+            enteredText = enterTextIntoTextAreaWithHeading("Enter note for case completion");
+
+        }
         setSessionVariable("closureReason").to(enteredText);
     }
 
@@ -330,6 +337,10 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
             recordCaseData.enterTextIntoTextAreaWithHeading("Reason for closing");
         }
         clickTheButton("Continue");
+    }
+
+    public void selectAClosureReason() {
+        recordCaseData.selectRandomOptionFromDropdownWithHeading("Closure Reason");
     }
 
     public void acceptCaseAtInvestigation() {
