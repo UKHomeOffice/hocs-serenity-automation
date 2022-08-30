@@ -97,9 +97,6 @@ public class ContributionRequests extends BasePage {
             case "BUSINESS":
                 safeClickOn(addBusinessContributionHypertext);
                 contributionRequestBusinessArea.selectByIndex(1);
-                if (pogrCase()) {
-                    selectRandomOptionFromDropdownWithHeading("Business Unit");
-                }
                 break;
             case "FOI":
                 safeClickOn(addAContributionHypertext);
