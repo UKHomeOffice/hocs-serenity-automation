@@ -84,10 +84,10 @@ public class Dashboard extends BasePage {
 
     // BF Teams
 
-    @FindBy(xpath = "//span[text()='Border Force']")
+    @FindBy(xpath = "//span[text()='Border Force Complaints']")
     public WebElementFacade borderForceWorkstack;
 
-    @FindBy(xpath = "//span[text()='Border Force (Stage 2)']")
+    @FindBy(xpath = "//span[text()='Border Force Complaints (Stage 2)']")
     public WebElementFacade borderForceStage2Workstack;
 
     //TO Teams
