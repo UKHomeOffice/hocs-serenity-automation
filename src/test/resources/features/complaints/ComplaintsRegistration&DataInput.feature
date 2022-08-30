@@ -231,8 +231,7 @@ Feature: Registration
   @ComplaintsWorkflow @ComplaintsRegression2 @POGRComplaints
   Scenario: User is able to complete the Data Input stage for a POGR stage 2 complaint case with HMPO as the business area
     Given I am logged into "CS" as user "POGR_USER"
-    When I create a "POGR2" case with "HMPO" as the Business Area and move it to the "Data Input" stage
-    And I load and claim the current case
+    When I get a "POGR2" case with "HMPO" as the Business Area at the "Data Input" stage
     And I add a "Complainant" correspondent
     And I confirm the primary correspondent
     And I enter details on the Data Input screen
@@ -245,8 +244,7 @@ Feature: Registration
   @ComplaintsWorkflow @ComplaintsRegression2 @POGRComplaints
   Scenario: User is able to complete the Data Input stage for a POGR stage 2 complaint case with GRO as the business area
     Given I am logged into "CS" as user "POGR_USER"
-    When I create a "POGR2" case with "GRO" as the Business Area and move it to the "Data Input" stage
-    And I load and claim the current case
+    When I get a "POGR2" case with "GRO" as the Business Area at the "Data Input" stage
     And I add a "Complainant" correspondent
     And I confirm the primary correspondent
     And I enter details on the Data Input screen
