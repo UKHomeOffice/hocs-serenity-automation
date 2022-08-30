@@ -56,6 +56,7 @@ public class POGRProgressCase extends BasePage {
 
     public void createCaseAndMoveItToTargetStageWithSpecificBusinessArea(String caseType, String businessArea, String targetStage) {
         this.businessArea = businessArea;
+        setSessionVariable("businessArea").to(businessArea);
         moveCaseFromCurrentStageToTargetStage(caseType, "N/A", targetStage);
     }
 

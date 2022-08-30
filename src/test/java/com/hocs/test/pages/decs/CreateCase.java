@@ -5,6 +5,7 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
+import com.hocs.test.pages.complaints.ComplaintsRegistrationAndDataInput;
 import com.hocs.test.pages.managementUI.MUI;
 
 import config.User;
@@ -27,6 +28,8 @@ public class CreateCase extends BasePage {
     Documents documents;
 
     ConfirmationScreens confirmationScreens;
+
+    ComplaintsRegistrationAndDataInput complaintsRegistrationAndDataInput;
 
     Dashboard dashboard;
 
@@ -362,6 +365,17 @@ public class CreateCase extends BasePage {
 
     public void createAndWithDrawACSCaseOfType(String caseType) {
         createCSCaseOfType(caseType);
+        if (stage1CaseType.equalsIgnoreCase("POGR")) {
+            dashboard.goToDashboard();
+            dashboard.getAndClaimCurrentCase();
+            String businessArea = sessionVariableCalled("businessArea");
+            if (businessArea != null) {
+                complaintsRegistrationAndDataInput.selectSpecificBusinessArea(businessArea);
+            } else {
+                complaintsRegistrationAndDataInput.selectBusinessArea();
+            }
+            clickTheButton("Continue");
+        }
         mui.withdrawACaseInMUI(getCurrentCaseReference());
         loginPage.navigateToCS();
     }
@@ -376,7 +390,11 @@ public class CreateCase extends BasePage {
         if (specificStage1CaseProvided) {
             searchForClosedStage1Case(stage1CaseReference);
         } else {
-            if (!checkIfRandomStage1CaseEligibleForEscalationCanBeFound()) {
+            if (!stage1CaseType.equalsIgnoreCase("POGR")) {
+                if (!checkIfRandomStage1CaseEligibleForEscalationCanBeFound()) {
+                    getStage1CaseEligibleForEscalation();
+                }
+            } else {
                 getStage1CaseEligibleForEscalation();
             }
         }
@@ -390,7 +408,6 @@ public class CreateCase extends BasePage {
         selectStage1CaseTypeSearchCriteriaIfVisible();
         if (!this.stage1CaseType.equalsIgnoreCase("POGR")) {
             search.enterComplaintsSearchCriteria("Complainant Home Office Reference", getCurrentMonth() + "/" + getCurrentYear());
-
         }
         search.clickTheButton("Search");
         search.waitForResultsPage();
