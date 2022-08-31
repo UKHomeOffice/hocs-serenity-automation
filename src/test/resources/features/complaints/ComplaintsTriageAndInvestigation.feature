@@ -599,3 +599,111 @@ Feature: Complaints Triage
       | Complainant      | Cancel   | Cancelled |
       | Business         | Complete | Complete  |
       | Business         | Cancel   | Cancelled |
+
+
+#     POGR (STAGE 2) COMPLAINTS
+
+
+  @ComplaintsWorkflow @POGRRegression @POGRComplaints
+  Scenario: User is able to complete the Investigation stage for a POGR stage 2 complaint case with HMPO as the business area
+    Given I am logged into "CS" as user "POGR_USER"
+    When I get a "POGR2" case with "HMPO" as the Business Area at the "Investigation" stage
+    And I "Accept" the case at the Investigation stage
+    And I enter any required information at the Investigation stage
+    And I complete the "All Information Collected - Respond" action at the Investigation stage
+    Then the case should be moved to the "Draft" stage
+    And the summary should display the owning team as "HMPO Complaints"
+    And the read-only Case Details accordion should contain all case information entered during the "Investigation" stage
+
+  @ComplaintsWorkflow @POGRRegression @POGRComplaints
+  Scenario: User is able to complete the Investigation stage for a POGR stage 2 complaint case with GRO as the business area
+    Given I am logged into "CS" as user "POGR_USER"
+    When I get a "POGR2" case with "GRO" as the Business Area at the "Investigation" stage
+    And I "Accept" the case at the Investigation stage
+    And I enter any required information at the Investigation stage
+    And I complete the "All Information Collected - Respond" action at the Investigation stage
+    Then the case should be moved to the "Draft" stage
+    And the POGR case should be assigned to the correct investigating team
+    And the read-only Case Details accordion should contain all case information entered during the "Investigation" stage
+
+  @ComplaintsWorkflow @POGRRegression @POGRComplaints
+  Scenario Outline: User is able to close a POGR stage 2 complaint case at the Investigation stage
+    Given I am logged into "CS" as user "POGR_USER"
+    When I get a "POGR2" case with "<businessArea>" as the Business Area at the "Investigation" stage
+    And I "Accept" the case at the Investigation stage
+    And I complete the "No Response - Complete the Case" action at the Investigation stage
+    And I select a Closure Reason
+    And I enter a reason for closing the case
+    Then the case should be closed
+    And the read-only Case Details accordion should contain all case information entered during the "Investigation" stage
+    And a Case closure note should be visible in the timeline showing the submitted reason for closing the case
+    Examples:
+      | businessArea |
+      | HMPO         |
+      | GRO          |
+
+
+# Currently broken due to HOCS-5547
+  @ComplaintsWorkflow @POGRRegression @POGRComplaints
+  Scenario: User is able to transfer a POGR stage 2 complaint case with HMPO business area to an external team at the Investigation stage
+    Given I am logged into "CS" as user "POGR_USER"
+    When I get a "POGR2" case with "HMPO" as the Business Area at the "Investigation" stage
+    And I "Reject" the case at the Investigation stage
+    And I enter a transfer reason at the Investigation stage
+    Then the case should be closed
+    And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
+    And the read-only Case Details accordion should contain all case information entered during the "Investigation" stage
+
+  @ComplaintsWorkflow @POGRRegression @POGRComplaints
+  Scenario: User is able to transfer a POGR stage 2 complaint case with GRO business area to an external team at the Investigation stage
+    Given I am logged into "CS" as user "POGR_USER"
+    When I get a "POGR2" case with "GRO" as the Business Area at the "Investigation" stage
+    And I "Reject" the case at the Investigation stage
+    And I enter a transfer reason at the Investigation stage
+    And I select that the case is to be transferred to an "External" team
+    Then the case should be closed
+    And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
+    And the read-only Case Details accordion should contain all case information entered during the "Investigation" stage
+
+  @ComplaintsWorkflow @POGRRegression @POGRComplaints
+  Scenario: User is able to transfer a POGR stage 2 complaint case with GRO business area to an internal team at the Investigation stage
+    Given I am logged into "CS" as user "POGR_USER"
+    When I get a "POGR2" case with "GRO" as the Business Area at the "Investigation" stage
+    And I "Reject" the case at the Investigation stage
+    And I enter a transfer reason at the Investigation stage
+    And I select that the case is to be transferred to an "Internal" team
+    And I select an investigating team
+    Then the case should be at the "Investigation" stage
+    And the POGR case should be assigned to the correct investigating team
+    And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
+    And the read-only Case Details accordion should contain all case information entered during the "Investigation" stage
+
+  @ComplaintsWorkflow @POGRRegression @POGRComplaints
+  Scenario Outline: User is able to escalate a POGR stage 2 complaint case to workflow manager at the Investigation stage
+    Given I am logged into "CS" as user "POGR_USER"
+    When I get a "POGR2" case with "<businessArea>" as the Business Area at the "Investigation" stage
+    And I "Accept" the case at the Investigation stage
+    And I escalate the case to WFM at Investigation stage
+    Then the case should be moved to the "Escalated" stage
+    And the POGR case should be assigned to the correct Escalation team
+    And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
+    And the read-only Case Details accordion should contain all case information entered during the "Investigation" stage
+    Examples:
+      | businessArea |
+      | HMPO         |
+      | GRO          |
+
+  @POGRRegression @POGRComplaints
+  Scenario Outline: User can add and complete or cancel contributions for POGR stage 2 complaint cases as part of the Investigation stage
+    Given I am logged into "CS" as user "POGR_USER"
+    When I get a "POGR2" case at the "Investigation" stage
+    And I "Accept" the case at the Investigation stage
+    And I add a "<contributionType>" contribution request
+    And I "<action>" the contribution request
+    Then the "<contributionType>" contribution request should be marked as "<status>"
+    Examples:
+      | contributionType | action   | status    |
+      | Complainant      | Complete | Complete  |
+      | Complainant      | Cancel   | Cancelled |
+      | Business         | Complete | Complete  |
+      | Business         | Cancel   | Cancelled |

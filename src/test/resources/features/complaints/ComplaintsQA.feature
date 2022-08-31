@@ -211,3 +211,41 @@ Feature: Complaints QA
     And the case "should" be allocated to me in the summary
     And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
     And the read-only Case Details accordion should contain all case information entered during the "QA" stage
+
+
+#       POGR (STAGE 2) COMPLAINTS
+
+
+  @ComplaintsWorkflow @POGRRegression @POGRComplaints
+  Scenario Outline: As a POGR QA user, I want to be able to approve the draft, so that the stage 2 response can be dispatched
+    Given I am logged into "CS" as user "POGR_USER"
+    When I get a "POGR2" case with "<businessArea>" as the Business Area at the "QA" stage
+    When I "accept" the response to the complaint at the QA stage
+    Then the case should be moved to the "Dispatch" stage
+    And the read-only Case Details accordion should contain all case information entered during the "QA" stage
+    Examples:
+      | businessArea |
+      | HMPO         |
+      | GRO          |
+
+  @ComplaintsWorkflow @POGRRegression @POGRComplaints
+  Scenario: As a POGR QA user, I want to return a POGR stage 2 complaint case with HMPO as the business area to Draft, so corrections can be made
+    Given I am logged into "CS" as user "POGR_USER"
+    When I get a "POGR2" case with "HMPO" as the Business Area at the "QA" stage
+    When I "reject" the response to the complaint at the QA stage
+    Then the case should be moved to the "Draft" stage
+    And the summary should display the owning team as "HMPO Complaints"
+    And the case "should" be allocated to me in the summary
+    And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
+    And the read-only Case Details accordion should contain all case information entered during the "QA" stage
+
+  @ComplaintsWorkflow @POGRRegression @POGRComplaints
+  Scenario: As a POGR QA user, I want to return a POGR stage 2 complaint case with GRO as the business area to Draft, so corrections can be made
+    Given I am logged into "CS" as user "POGR_USER"
+    When I get a "POGR2" case with "GRO" as the Business Area at the "QA" stage
+    When I "reject" the response to the complaint at the QA stage
+    Then the case should be moved to the "Draft" stage
+    Then the POGR case should be assigned to the correct investigating team
+    And the case "should" be allocated to me in the summary
+    And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
+    And the read-only Case Details accordion should contain all case information entered during the "QA" stage

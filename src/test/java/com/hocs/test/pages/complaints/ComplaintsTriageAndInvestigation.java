@@ -74,7 +74,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
 
     public void enterTransferReason() {
         String enteredText;
-        if (pogrCase()) {
+        if (pogrCase() || pogr2Case()) {
             if (sessionVariableCalled("businessArea").equals("GRO")) {
                 waitForPageWithTitle("Investigation - Transfer Case");
             } else {
@@ -232,7 +232,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
 
     public void enterLoAReceivedDetails() {
         if (pogrCase() || pogr2Case()) {
-            recordCaseData.checkSpecificCheckbox("Yes");
+            checkSpecificCheckbox("Yes");
             recordCaseData.enterDateIntoDateFieldsWithHeading(getTodaysDate(), "Letter of Authority Date Received");
         } else {
             recordCaseData.checkSpecificCheckbox("Has Letter of Authority been received?");

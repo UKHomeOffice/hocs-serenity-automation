@@ -34,7 +34,7 @@ public class ComplaintsDraftStepDefs extends BasePage {
     @And("I submit a rejection reason")
     public void iSubmitARejectionReason() {
         String rejectionReason;
-        if (pogrCase()) {
+        if (pogrCase() || pogr2Case()) {
             rejectionReason = enterTextIntoTextAreaWithHeading("Reason for rejection");
         } else {
             rejectionReason = enterTextIntoTextAreaWithHeading("Enter reason for rejection");

@@ -137,3 +137,26 @@ Feature: Complaints Dispatch & Send
     And I select a Dispatch Outcome
     And I submit the Response details
     Then the case should be closed
+
+
+#     POGR (STAGE 2) COMPLAINTS
+
+  @ComplaintsWorkflow @POGRRegression @POGRComplaints
+  Scenario: User can complete the Dispatch stage for a HMPO POGR stage 2 complaint case
+    Given I am logged into "CS" as user "POGR_USER"
+    When I get a "POGR2" case with "HMPO" as the Business Area at the "Dispatch" stage
+    And I add a "Final Response" type document to the case
+    And I select a Dispatch Outcome
+    And I select if a refund is required
+    And I enter details of any Gratis offered
+    And I submit the Response details
+    Then the case should be closed
+
+  @ComplaintsWorkflow @POGRRegression @POGRComplaints
+  Scenario: User can complete the Dispatch stage for a GRO POGR stage 2 complaint case
+    Given I am logged into "CS" as user "POGR_USER"
+    When I get a "POGR2" case with "GRO" as the Business Area at the "Dispatch" stage
+    And I add a "Final Response" type document to the case
+    And I select a Dispatch Outcome
+    And I submit the Response details
+    Then the case should be closed
