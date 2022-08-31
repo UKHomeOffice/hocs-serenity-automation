@@ -391,8 +391,9 @@ Feature: Complaints Draft
 
 #     POGR (STAGE 2) COMPLAINTS
 
+  #Broken currently due to HOCS-5551
   @ComplaintsWorkflow @POGRRegression @POGRComplaints
-#  Scenario Outline: As a POGR Draft user, I want to be able to mark a stage 2 case as resolved by a telephone call, so that the case is closed
+  Scenario Outline: As a POGR Draft user, I want to be able to mark a stage 2 case as resolved by a telephone call, so that the case is closed
     Given I am logged into "CS" as user "POGR_USER"
     When I get a "POGR2" case with "<businessArea>" as the Business Area at the "Draft" stage
     And I select the "Respond by Phone" action at the Draft stage
@@ -407,9 +408,10 @@ Feature: Complaints Draft
       | HMPO         |
       | GRO          |
 
+  #Broken currently due to HOCS-5551
   @ComplaintsWorkflow @POGRRegression @POGRComplaints
-#  Scenario Outline: As a POGR Draft user, I want to be able to submit details of a non-resolving phone call for a stage 2 case, so a further response
-#  can be drafted
+  Scenario Outline: As a POGR Draft user, I want to be able to submit details of a non-resolving phone call for a stage 2 case, so a further response
+  can be drafted
     Given I am logged into "CS" as user "POGR_USER"
     When I get a "POGR2" case with "<businessArea>" as the Business Area at the "Draft" stage
     And I select the "Respond by Phone" action at the Draft stage
