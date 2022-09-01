@@ -19,7 +19,7 @@ public class ComplaintsDispatchAndSendStepDefs extends BasePage {
             complaintsDispatchAndSend.selectAResponseChannel();
         }
         complaintsDispatchAndSend.enterADateOfResponse();
-        if (!pogrCase()) {
+        if (!pogrCase() && !pogr2Case()) {
             clickTheButton("Complete");
         } else {
             clickTheButton("Dispatch and Close case");

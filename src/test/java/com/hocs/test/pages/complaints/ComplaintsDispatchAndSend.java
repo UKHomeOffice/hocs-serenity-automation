@@ -15,9 +15,8 @@ public class ComplaintsDispatchAndSend extends BasePage {
 
     public void selectACaseOutcome() {
         String caseOutcome;
-        if (!pogrCase()) {
+        if (!pogrCase() && !pogr2Case()) {
             caseOutcome = recordCaseData.selectRandomOptionFromDropdownWithHeading("Case Outcome");
-
         } else {
             caseOutcome = recordCaseData.selectRandomOptionFromDropdownWithHeading("Dispatch Outcome");
         }
@@ -33,7 +32,7 @@ public class ComplaintsDispatchAndSend extends BasePage {
     }
 
     public void selectAResponseChannel() {
-        if (!pogrCase()) {
+        if (!pogrCase() && !pogr2Case()) {
             recordCaseData.selectRandomOptionFromDropdownWithHeading("Response Channel");
         } else {
             recordCaseData.selectRandomOptionFromDropdownWithHeading("Dispatch Channel");
@@ -46,7 +45,7 @@ public class ComplaintsDispatchAndSend extends BasePage {
             headerText = "Date of Response";
         } else if (iedetCase() || smcCase()) {
             headerText = "Response date";
-        } else if (pogrCase()) {
+        } else if (pogrCase() || pogr2Case()) {
             headerText = "Dispatch Date";
         }
         recordCaseData.enterDateIntoDateFieldsWithHeading(getDatePlusMinusNDaysAgo(-1), headerText);

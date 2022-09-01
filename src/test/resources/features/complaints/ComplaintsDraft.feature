@@ -387,3 +387,112 @@ Feature: Complaints Draft
       | businessArea |
       | HMPO         |
       | GRO          |
+
+
+#     POGR (STAGE 2) COMPLAINTS
+
+  #Broken currently due to HOCS-5551
+  @ComplaintsWorkflow @POGRRegression @POGRComplaints
+  Scenario Outline: As a POGR Draft user, I want to be able to mark a stage 2 case as resolved by a telephone call, so that the case is closed
+    Given I am logged into "CS" as user "POGR_USER"
+    When I get a "POGR2" case with "<businessArea>" as the Business Area at the "Draft" stage
+    And I select the "Respond by Phone" action at the Draft stage
+    And I select that the case was resolved by the phone call
+    And I submit details of the phone call
+    Then the case should be closed
+    And a Phone Call Summary note should be visible in the timeline containing the details of the Phone Call
+    And the summary should contain details of the phone call
+    And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
+    Examples:
+      | businessArea |
+      | HMPO         |
+      | GRO          |
+
+  #Broken currently due to HOCS-5551
+  @ComplaintsWorkflow @POGRRegression @POGRComplaints
+  Scenario Outline: As a POGR Draft user, I want to be able to submit details of a non-resolving phone call for a stage 2 case, so a further response
+  can be drafted
+    Given I am logged into "CS" as user "POGR_USER"
+    When I get a "POGR2" case with "<businessArea>" as the Business Area at the "Draft" stage
+    And I select the "Respond by Phone" action at the Draft stage
+    And I select that the case was not resolved by the phone call
+    And I submit details of the phone call
+    Then I should be returned to the "Draft" page
+    And a Phone Call Summary note should be visible in the timeline containing the details of the Phone Call
+    And the summary should contain details of the phone call
+    Examples:
+      | businessArea |
+      | HMPO         |
+      | GRO          |
+
+  @ComplaintsWorkflow @POGRRegression @POGRComplaints
+  Scenario Outline: As a POGR Draft user, I want to be able to return a stage 2 case to the Investigation stage, so that corrections can be made
+    Given I am logged into "CS" as user "POGR_USER"
+    When I get a "POGR2" case with "<businessArea>" as the Business Area at the "Draft" stage
+    And I select the "Return to Investigation" action at the Draft stage
+    And I submit a rejection reason
+    Then the case should be returned to the "Investigation" stage
+    And the case "should" be allocated to me in the summary
+    And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
+    And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
+    Examples:
+      | businessArea |
+      | HMPO         |
+      | GRO          |
+
+  @ComplaintsWorkflow @POGRRegression @POGRComplaints
+  Scenario Outline: As a POGR Draft user, I want to be able to send a stage 2 case to QA stage, so my Draft response can be reviewed
+    Given I am logged into "CS" as user "POGR_USER"
+    When I get a "POGR2" case with "<businessArea>" as the Business Area at the "Draft" stage
+    And I upload my Primary "Draft" document
+    And I select the "Send to QA" action at the Draft stage
+    Then the case should be moved to the "QA" stage
+    And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
+    And the selected document should be tagged as the primary draft
+    Examples:
+      | businessArea |
+      | HMPO         |
+      | GRO          |
+
+  @ComplaintsWorkflow @POGRRegression @POGRComplaints
+  Scenario Outline: As a POGR Draft user, I want to be able to send a stage 2 case to Dispatch stage, so my Draft response can be sent out
+    Given I am logged into "CS" as user "POGR_USER"
+    When I get a "POGR2" case with "<businessArea>" as the Business Area at the "Draft" stage
+    And I upload my Primary "Draft" document
+    And I select the "Send to Dispatch" action at the Draft stage
+    Then the case should be moved to the "Dispatch" stage
+    And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
+    And the selected document should be tagged as the primary draft
+    Examples:
+      | businessArea |
+      | HMPO         |
+      | GRO          |
+
+  @ComplaintsWorkflow @POGRRegression @POGRComplaints
+  Scenario Outline: User is able to escalate a POGR stage 2 complaint case to workflow manager at the Investigation stage
+    Given I am logged into "CS" as user "POGR_USER"
+    When I get a "POGR2" case with "<businessArea>" as the Business Area at the "Draft" stage
+    And I escalate the case to WFM at Draft stage
+    Then the case should be moved to the "Escalated" stage
+    And the POGR case should be assigned to the correct Escalation team
+    And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
+    And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
+    Examples:
+      | businessArea |
+      | HMPO         |
+      | GRO          |
+
+  @ComplaintsWorkflow @POGRRegression @POGRComplaints
+  Scenario Outline: As a POGR Draft user, I want to be able to close a stage 2 case at the Draft stage
+    Given I am logged into "CS" as user "POGR_USER"
+    When I get a "POGR2" case with "<businessArea>" as the Business Area at the "Draft" stage
+    And I select the "Close the case" action at the Draft stage
+    And I select a Closure Reason
+    And I enter a reason for closing the case
+    Then the case should be closed
+    And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
+    And a Case closure note should be visible in the timeline showing the submitted reason for closing the case
+    Examples:
+      | businessArea |
+      | HMPO         |
+      | GRO          |

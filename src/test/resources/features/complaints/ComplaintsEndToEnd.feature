@@ -363,3 +363,41 @@ Feature: Complaints End To End
     Given I am logged into "CS" as user "POGR_USER"
     When I create a "POGR" case and move it to the "Case Closed" stage
     Then the case should be closed
+
+#     POGR (STAGE 2) COMPLAINTS
+
+  @POGRComplaints
+  Scenario: User creates a POGR stage 2 complaint case and it should be at the Data Input stage
+    Given I am logged into "CS" as user "POGR_USER"
+    When I create a "POGR2" case and move it to the "Data Input" stage
+    Then the case should be moved to the "Data Input" stage
+
+  @POGRComplaints
+  Scenario: User moves a POGR stage 2 complaint case to the Investigation stage
+    Given I am logged into "CS" as user "POGR_USER"
+    When I create a "POGR2" case and move it to the "Investigation" stage
+    Then the case should be moved to the "Investigation" stage
+
+  @POGRComplaints
+  Scenario: User moves a POGR stage 2 complaint case to the Draft stage
+    Given I am logged into "CS" as user "POGR_USER"
+    When I create a "POGR2" case and move it to the "Draft" stage
+    Then the case should be moved to the "Draft" stage
+
+  @POGRComplaints
+  Scenario: User moves a POGR stage 2 complaint case to the QA stage
+    Given I am logged into "CS" as user "POGR_USER"
+    When I create a "POGR2" case and move it to the "QA" stage
+    Then the case should be moved to the "QA" stage
+
+  @POGRComplaints
+  Scenario: User moves a POGR stage 2 complaint case to the QA stage
+    Given I am logged into "CS" as user "POGR_USER"
+    When I create a "POGR2" case and move it to the "Dispatch" stage
+    Then the case should be moved to the "Disptach" stage
+
+  @POGRRegression @POGRComplaints
+  Scenario: User is able to close a POGR stage 2 complaint case
+    Given I am logged into "CS" as user "POGR_USER"
+    When I create a "POGR2" case and move it to the "Case Closed" stage
+    Then the case should be closed

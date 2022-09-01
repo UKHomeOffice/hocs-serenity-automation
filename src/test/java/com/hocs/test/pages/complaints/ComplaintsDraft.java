@@ -52,7 +52,7 @@ public class ComplaintsDraft extends BasePage {
     public void submitEscalationReason() {
         String enteredText = recordCaseData.enterTextIntoTextAreaWithHeading("Enter reason for escalation");
         setSessionVariable("escalationReason").to(enteredText);
-        if (pogrCase()) {
+        if (pogrCase() || pogr2Case()) {
             safeClickOn(continueButton);
         } else {
             clickTheButton("Escalate case");
