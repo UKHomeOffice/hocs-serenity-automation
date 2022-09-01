@@ -340,7 +340,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     }
 
     public void selectAClosureReason() {
-        recordCaseData.selectRandomOptionFromDropdownWithHeading("Closure Reason");
+        selectRandomOptionFromDropdownWithHeading("Closure Reason");
     }
 
     public void acceptCaseAtInvestigation() {
