@@ -353,10 +353,10 @@ Feature: Complaints End To End
     Then the case should be moved to the "QA" stage
 
   @POGRComplaints
-  Scenario: User moves a POGR complaint case to the QA stage
+  Scenario: User moves a POGR complaint case to the Dispatch stage
     Given I am logged into "CS" as user "POGR_USER"
     When I create a "POGR" case and move it to the "Dispatch" stage
-    Then the case should be moved to the "Disptach" stage
+    Then the case should be moved to the "Dispatch" stage
 
   @POGRRegression @POGRComplaints
   Scenario: User is able to close a POGR complaint case
@@ -391,10 +391,10 @@ Feature: Complaints End To End
     Then the case should be moved to the "QA" stage
 
   @POGRComplaints
-  Scenario: User moves a POGR stage 2 complaint case to the QA stage
+  Scenario: User moves a POGR stage 2 complaint case to the Dispatch stage
     Given I am logged into "CS" as user "POGR_USER"
     When I create a "POGR2" case and move it to the "Dispatch" stage
-    Then the case should be moved to the "Disptach" stage
+    Then the case should be moved to the "Dispatch" stage
 
   @POGRRegression @POGRComplaints
   Scenario: User is able to close a POGR stage 2 complaint case
