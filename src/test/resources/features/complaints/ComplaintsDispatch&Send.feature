@@ -128,6 +128,7 @@ Feature: Complaints Dispatch & Send
     And I enter details of any Gratis offered
     And I submit the Response details
     Then the case should be closed
+    And the read-only Case Details accordion should contain all case information entered during the "Dispatch" stage
 
   @ComplaintsWorkflow @POGRRegression @POGRComplaints
   Scenario: User can complete the Dispatch stage for a GRO POGR complaint case
@@ -137,6 +138,7 @@ Feature: Complaints Dispatch & Send
     And I select a Dispatch Outcome
     And I submit the Response details
     Then the case should be closed
+    And the read-only Case Details accordion should contain all case information entered during the "Dispatch" stage
 
 
 #     POGR (STAGE 2) COMPLAINTS
@@ -151,6 +153,8 @@ Feature: Complaints Dispatch & Send
     And I enter details of any Gratis offered
     And I submit the Response details
     Then the case should be closed
+#    And the read-only Case Details accordion should contain all case information entered during the "Dispatch" stage
+# Remove comment above once HOCS-5570 is resolved
 
   @ComplaintsWorkflow @POGRRegression @POGRComplaints
   Scenario: User can complete the Dispatch stage for a GRO POGR stage 2 complaint case
@@ -160,3 +164,5 @@ Feature: Complaints Dispatch & Send
     And I select a Dispatch Outcome
     And I submit the Response details
     Then the case should be closed
+#    And the read-only Case Details accordion should contain all case information entered during the "Dispatch" stage
+# Remove comment above once HOCS-5570 is resolved
