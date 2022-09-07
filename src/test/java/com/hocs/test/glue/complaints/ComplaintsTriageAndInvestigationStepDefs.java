@@ -236,8 +236,8 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
             case "ALL INFORMATION COLLECTED - RESPOND":
                 complaintsTriageAndInvestigation.selectAllInformationCollectedRespondAction();
                 break;
-            case "NO RESPONSE - COMPLETE THE CASE":
-                complaintsTriageAndInvestigation.selectNoResponseCloseCaseAction();
+            case "CLOSE THE CASE":
+                complaintsTriageAndInvestigation.selectCloseCaseAction();
                 break;
             default:
                 pendingStep(action + " is not defined within " + getMethodName());

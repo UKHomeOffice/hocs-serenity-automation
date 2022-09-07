@@ -375,7 +375,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
         selectSpecificRadioButtonFromGroupWithHeading("All information collected - respond", "Actions");
     }
 
-    public void selectNoResponseCloseCaseAction() {
-        selectSpecificRadioButtonFromGroupWithHeading("No response - complete the case", "Actions");
+    public void selectCloseCaseAction() {
+        selectSpecificRadioButtonFromGroupWithHeading("Close the case", "Actions");
     }
 }
