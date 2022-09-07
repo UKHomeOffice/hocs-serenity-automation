@@ -525,7 +525,7 @@ Feature: Complaints Triage
     Given I am logged into "CS" as user "POGR_USER"
     When I get a "POGR" case with "<businessArea>" as the Business Area at the "Investigation" stage
     And I "Accept" the case at the Investigation stage
-    And I complete the "No Response - Complete the Case" action at the Investigation stage
+    And I complete the "Close the Case" action at the Investigation stage
     And I select a Closure Reason
     And I enter a reason for closing the case
     Then the case should be closed
@@ -631,7 +631,7 @@ Feature: Complaints Triage
     Given I am logged into "CS" as user "POGR_USER"
     When I get a "POGR2" case with "<businessArea>" as the Business Area at the "Investigation" stage
     And I "Accept" the case at the Investigation stage
-    And I complete the "No Response - Complete the Case" action at the Investigation stage
+    And I complete the "Close the Case" action at the Investigation stage
     And I select a Closure Reason
     And I enter a reason for closing the case
     Then the case should be closed
