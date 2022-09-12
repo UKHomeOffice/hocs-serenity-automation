@@ -368,13 +368,7 @@ public class CreateCase extends BasePage {
         if (stage1CaseType.equalsIgnoreCase("POGR")) {
             dashboard.goToDashboard();
             dashboard.getAndClaimCurrentCase();
-            String businessArea = sessionVariableCalled("businessArea");
-            if (businessArea != null) {
-                complaintsRegistrationAndDataInput.selectSpecificBusinessArea(businessArea);
-            } else {
-                complaintsRegistrationAndDataInput.selectBusinessArea();
-            }
-            clickTheButton("Continue");
+            complaintsRegistrationAndDataInput.setPOGRCaseBusinessArea();
         }
         mui.withdrawACaseInMUI(getCurrentCaseReference());
         loginPage.navigateToCS();

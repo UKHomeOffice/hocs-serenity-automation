@@ -269,4 +269,15 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         String investigatingTeam = selectRandomOptionFromDropdownWithHeading("Investigating Team");
         setSessionVariable("investigatingTeam").to(investigatingTeam);
     }
+
+    public void setPOGRCaseBusinessArea() {
+        String businessArea = sessionVariableCalled("businessArea");
+        if (businessArea != null) {
+            selectSpecificBusinessArea(businessArea);
+        } else {
+            selectBusinessArea();
+        }
+        clickTheButton("Continue");
+        waitForPageWithTitle("Complaint Correspondents");
+    }
 }
