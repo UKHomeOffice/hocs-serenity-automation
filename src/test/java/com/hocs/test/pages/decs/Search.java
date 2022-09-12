@@ -56,6 +56,7 @@ public class Search extends BasePage {
     //Enter search criteria
 
     public void enterSearchCriteria(String criteria, String value) {
+        String validatedHeaderText;
         switch (criteria.toUpperCase()) {
             case "CASE TYPE":
                 switch (value.toUpperCase()) {
@@ -127,15 +128,18 @@ public class Search extends BasePage {
                 setSessionVariable("searchCaseType").to(value);
                 break;
             case "CORRESPONDENT FULL NAME":
-                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent full name");
+                validatedHeaderText = getValidFieldLabelCase("Correspondent full name");
+                enterSpecificTextIntoTextFieldWithHeading(value, validatedHeaderText);
                 setSessionVariable("searchCorrespondentFullName").to(value);
                 break;
             case "CORRESPONDENT POSTCODE":
-                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent Postcode");
+                validatedHeaderText = getValidFieldLabelCase("Correspondent Postcode");
+                enterSpecificTextIntoTextFieldWithHeading(value, validatedHeaderText);
                 setSessionVariable("searchCorrespondentPostcode").to(value);
                 break;
             case "CORRESPONDENT EMAIL ADDRESS":
-                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent Email Address");
+                validatedHeaderText = getValidFieldLabelCase("Correspondent Email Address");
+                enterSpecificTextIntoTextFieldWithHeading(value, validatedHeaderText);
                 setSessionVariable("searchCorrespondentEmailAddress").to(value);
                 break;
             case "COMPLAINANT DATE OF BIRTH":
@@ -154,7 +158,8 @@ public class Search extends BasePage {
                 setSessionVariable("searchReceivedOnOrBeforeDate").to(value);
                 break;
             case "MEMBER OF PARLIAMENT NAME":
-                selectSpecificOptionFromTypeaheadWithHeading(value, "Member of Parliament name");
+                validatedHeaderText = getValidFieldLabelCase("Member of Parliament name");
+                selectSpecificOptionFromTypeaheadWithHeading(value, validatedHeaderText);
                 setSessionVariable("searchMemberOfParliamentName").to(value);
                 break;
             case "PUBLIC CORRESPONDENT NAME":
@@ -185,6 +190,10 @@ public class Search extends BasePage {
                 setSessionVariable("searchCorrespondentReferenceNumber").to(value);
                 break;
             case "COMPLAINANT HOME OFFICE REFERENCE":
+                enterSpecificTextIntoTextFieldWithHeading(value, "Complainant Home Office Reference");
+                setSessionVariable("searchComplainantHomeOfficeReference").to(value);
+                break;
+            case "PSU REFERENCE":
                 enterSpecificTextIntoTextFieldWithHeading(value, "PSU Reference");
                 setSessionVariable("searchPSUReference").to(value);
                 break;

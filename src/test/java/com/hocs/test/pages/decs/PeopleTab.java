@@ -184,7 +184,6 @@ public class PeopleTab extends BasePage {
             n++;
         }
         assertThat(correspondentPresent, is(true));
-
     }
 
     public void assertCorrespondentEmailAddress(String emailAddress) {

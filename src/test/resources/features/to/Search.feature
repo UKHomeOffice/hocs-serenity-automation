@@ -12,13 +12,13 @@ Feature: Search
     Then I check that the search results have the correct "<infoType>"
     Examples:
     | infoType                        | infoValue             |
-#    | Received on or after date       | 01/02/2022            |
-#    | Received on or before date      | 01/01/2022            |
-#    | Correspondent full name         | Sam McTester          |
-#    | Correspondent postcode          | AB1 2CD               |
-#    | Correspondent email address     | SamMcTester@Test.com  |
-#    | Correspondent reference number  | Ref-ABCD-1234         |
-#    | Active Cases only               | Yes                   |
+    | Received on or after date       | 01/02/2022            |
+    | Received on or before date      | 01/01/2022            |
+    | Correspondent full name         | Sam McTester          |
+    | Correspondent postcode          | AB1 2CD               |
+    | Correspondent email address     | SamMcTester@Test.com  |
+    | Correspondent reference number  | Ref-ABCD-1234         |
+    | Active Cases only               | Yes                   |
     | Campaign                        | Test campaign 1       |
 
   @TORegression
