@@ -11,14 +11,14 @@ Feature: MPAM Search
     And I click the search button on the search page
     Then I check that the search results have the correct "<infoType>"
     Examples:
-      | infoType                              | infoValue      |
-      | Reference Type                        | Ministerial    |
-      | Reference Type                        | Official       |
-      | Member of Parliament Name             | Boris Johnson  |
-      | Correspondent Reference Number        | TestRefNumber1 |
-      | Campaign                              | Small boats    |
-      | Ministerial Sign Off Team             | Home Secretary |
-      | Public Correspondent Name             | Sam McTester   |
+      | infoType                                            | infoValue      |
+      | Reference Type                                      | Ministerial    |
+      | Reference Type                                      | Official       |
+      | Member of Parliament Name                           | Boris Johnson  |
+      | Correspondent Reference Number                      | TestRefNumber1 |
+      | Campaign                                            | Small boats    |
+      | Ministerial Sign Off Team                           | Home Secretary |
+      | Correspondent full name (applicant or constituent)  | Sam McTester   |
 
 
   Scenario: User searches by case reference from the search page

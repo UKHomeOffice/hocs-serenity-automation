@@ -407,7 +407,7 @@ public class CreateCase extends BasePage {
         dashboard.selectSearchLinkFromMenuBar();
         selectStage1CaseTypeSearchCriteriaIfVisible();
         if (!this.stage1CaseType.equalsIgnoreCase("POGR")) {
-            search.enterComplaintsSearchCriteria("Complainant Home Office Reference", getCurrentMonth() + "/" + getCurrentYear());
+            search.enterSearchCriteria("Complainant Home Office Reference", getCurrentMonth() + "/" + getCurrentYear());
         }
         search.clickTheButton("Search");
         search.waitForResultsPage();

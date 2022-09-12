@@ -67,25 +67,15 @@ public class SearchStepDefs extends BasePage {
         setSessionVariable("searchConfig").to(searchConfig);
         switch (searchConfig.toUpperCase()) {
             case "DCU":
-                search.enterDCUSearchCriteria(criteria, value);
-                break;
             case "MPAM":
-                search.enterMPAMSearchCriteria(criteria, value);
-                break;
             case "COMP":
             case "IEDET":
             case "SMC":
             case "POGR":
-                search.enterComplaintsSearchCriteria(criteria, value);
-                break;
             case "FOI":
-                search.enterFOISearchCriteria(criteria, value);
-                break;
             case "BF":
-                search.enterBFSearchCriteria(criteria, value);
-                break;
             case "TO":
-                search.enterTOSearchCriteria(criteria, value);
+                search.enterSearchCriteria(criteria, value);
                 break;
             default:
                 pendingStep(searchConfig + " is not defined within " + getMethodName());
@@ -232,7 +222,7 @@ public class SearchStepDefs extends BasePage {
             } catch (AssertionError a) {
                 retest ++;
                 dashboard.selectSearchLinkFromMenuBar();
-                search.enterDCUSearchCriteria(sessionVariableCalled("searchCriteria"), sessionVariableCalled("searchValue"));
+                search.enterSearchCriteria(sessionVariableCalled("searchCriteria"), sessionVariableCalled("searchValue"));
                 safeClickOn(searchButton);
             }
         }
@@ -291,7 +281,7 @@ public class SearchStepDefs extends BasePage {
 
     @And("I enter the current case reference into the case reference search field")
     public void iEnterTheCurrentCaseReferenceIntoTheCaseReferenceSearchField() {
-        search.enterComplaintsSearchCriteria("Case Reference", getCurrentCaseReference());
+        search.enterSearchCriteria("Case Reference", getCurrentCaseReference());
     }
 
     @And("I search for the case by its case reference")
@@ -299,7 +289,7 @@ public class SearchStepDefs extends BasePage {
         int i = 0;
         while (i < 6) {
             dashboard.selectSearchLinkFromMenuBar();
-            search.enterComplaintsSearchCriteria("Case Reference", getCurrentCaseReference());
+            search.enterSearchCriteria("Case Reference", getCurrentCaseReference());
             safeClickOn(searchButton);
             search.waitForResultsPage();
             if(!search.zeroSearchResultsReturned()) {
@@ -313,7 +303,7 @@ public class SearchStepDefs extends BasePage {
     @And("I search for the complaints case escalated to stage 2 by it's case reference")
     public void iSearchForTheEscalatedComplaintsCaseByCaseReference() {
         String complaintCaseRef = sessionVariableCalled("stage1CaseReference");
-        search.enterComplaintsSearchCriteria("Case Reference", complaintCaseRef);
+        search.enterSearchCriteria("Case Reference", complaintCaseRef);
         safeClickOn(searchButton);
         search.waitForResultsPage();
     }
@@ -326,7 +316,7 @@ public class SearchStepDefs extends BasePage {
     @And("I search for the case by the newly updated primary correspondent")
     public void iSearchForTheCaseByTheNewlyUpdatedPrimaryCorrespondent() {
         String correspondent = sessionVariableCalled("correspondentFullName");
-        search.enterDCUSearchCriteria("Member of Parliament Name", correspondent);
+        search.enterSearchCriteria("Member of Parliament Name", correspondent);
         safeClickOn(searchButton);
     }
 }

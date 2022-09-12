@@ -174,8 +174,8 @@ Feature: Complaints Search
 
 #     POGR2 STAGE 2 COMPLAINTS
 
-  @BFRegression @BFComplaints
-  Scenario: User is able to select a BF2 case reference from the escalate case column of a BF case
+  @POGRRegression @POGRComplaints
+  Scenario: User is able to select a POGR2 case reference from the escalate case column of a POGR case
     Given I am logged into "CS" as user "POGR_USER"
     When I create a "POGR2" case and move it to the "Data Input" stage
     And I navigate to the "Search" page

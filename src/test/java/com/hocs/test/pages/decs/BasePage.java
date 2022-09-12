@@ -488,11 +488,27 @@ public class BasePage extends PageObject {
 
     //Helper methods
 
+    //Ignore field label case
+
+    private String getValidFieldLabelCase(String fieldLabelText) {
+        int n = 0;
+        List<WebElementFacade> listOfFieldLabelsOnPage = findAll("//label");
+        while (n < listOfFieldLabelsOnPage.size()) {
+            String displayedFieldLabel = listOfFieldLabelsOnPage.get(n).getText();
+            if (displayedFieldLabel.equalsIgnoreCase(fieldLabelText)) {
+                return displayedFieldLabel;
+            }
+            n++;
+        }
+        System.out.println("The " + fieldLabelText + " field isn't displayed on this screen");
+        return null;
+    }
+
     //Radio buttons
 
     public String selectRandomRadioButtonFromGroupWithHeading(String headingText) {
-        waitForHeadingToBeVisible(headingText);
-        List<WebElementFacade> radioButtonElements = getRadioButtonElementsInGroupWithHeading(headingText);
+        String validatedHeadingText = getValidFieldLabelCase(headingText);
+        List<WebElementFacade> radioButtonElements = getRadioButtonElementsInGroupWithHeading(validatedHeadingText);
         WebElementFacade radioButtonElementToSelect = getRandomCurrentlyVisibleElementFromList(radioButtonElements);
         safeClickOn(radioButtonElementToSelect);
         return radioButtonElementToSelect.getText();
@@ -507,22 +523,23 @@ public class BasePage extends PageObject {
     }
 
     public void selectSpecificRadioButtonFromGroupWithHeading(String radioButtonText, String headingText) {
-        waitForHeadingToBeVisible(headingText);
+        String validatedHeadingText = getValidFieldLabelCase(headingText);
         WebElementFacade radioButtonElement =
-                findBy("//span[contains(@class,'govuk-fieldset__heading')][text() =" + sanitiseXpathAttributeString(headingText) + "]/ancestor"
+                findBy("//span[contains(@class,'govuk-fieldset__heading')][text() =" + sanitiseXpathAttributeString(validatedHeadingText) + "]/ancestor"
                 + "::fieldset//input/following-sibling::label[text()=" + sanitiseXpathAttributeString(radioButtonText) + "]");
         safeClickOn(radioButtonElement);
     }
 
     public String selectDifferentRadioButtonFromGroupWithHeading(String headingText) {
-        List<String> radioButtonLabels = getRadioButtonLabelsInGroupWithHeading(headingText);
+        String validatedHeadingText = getValidFieldLabelCase(headingText);
+        List<String> radioButtonLabels = getRadioButtonLabelsInGroupWithHeading(validatedHeadingText);
         WebElementFacade currentlySelectedRadioButton =
-                findBy("//span[contains(@class,'govuk-fieldset__heading')][text() =" + sanitiseXpathAttributeString(headingText) + "]/ancestor"
+                findBy("//span[contains(@class,'govuk-fieldset__heading')][text() =" + sanitiseXpathAttributeString(validatedHeadingText) + "]/ancestor"
                         + "::fieldset//input[@checked]/following-sibling::label");
         radioButtonLabels.remove(currentlySelectedRadioButton.getText());
         Random random = new Random();
         String radioButtonLabelToSelect = radioButtonLabels.get(random.nextInt(radioButtonLabels.size()));
-        selectSpecificRadioButtonFromGroupWithHeading(radioButtonLabelToSelect, headingText);
+        selectSpecificRadioButtonFromGroupWithHeading(radioButtonLabelToSelect, validatedHeadingText);
         return radioButtonLabelToSelect;
     }
 
@@ -547,7 +564,6 @@ public class BasePage extends PageObject {
     //Date fields
 
     public void enterDateIntoDateFieldsWithHeading(String date, String headingText) {
-        waitForHeadingToBeVisible(headingText);
         WebElementFacade dayField = getVisibleDayFieldWithMatchingHeading(headingText);
         WebElementFacade monthField = getVisibleMonthFieldWithMatchingHeading(headingText);
         WebElementFacade yearField = getVisibleYearFieldWithMatchingHeading(headingText);
@@ -579,7 +595,8 @@ public class BasePage extends PageObject {
     }
 
     public String getDisplayedDateInDateFieldsWithHeading(String headingText) {
-        return getVisibleDayFieldWithMatchingHeading(headingText).getText() + "/" + getVisibleMonthFieldWithMatchingHeading(headingText).getText() + "/" + getVisibleYearFieldWithMatchingHeading(headingText).getText();
+        String validatedHeadingText = getValidFieldLabelCase(headingText);
+        return getVisibleDayFieldWithMatchingHeading(validatedHeadingText).getText() + "/" + getVisibleMonthFieldWithMatchingHeading(validatedHeadingText).getText() + "/" + getVisibleYearFieldWithMatchingHeading(validatedHeadingText).getText();
     }
 
     public boolean dateFieldsWithHeadingAreCurrentlyVisible(String headingText) {
@@ -591,20 +608,22 @@ public class BasePage extends PageObject {
     //Text fields
 
     public String enterTextIntoTextFieldWithHeading(String headingText) {
-        String textToEnter = "Test entry for " + headingText;
-        enterSpecificTextIntoTextFieldWithHeading(textToEnter, headingText);
+        String validatedHeadingText = getValidFieldLabelCase(headingText);
+        String textToEnter = "Test entry for " + validatedHeadingText;
+        enterSpecificTextIntoTextFieldWithHeading(textToEnter, validatedHeadingText);
         return textToEnter;
     }
 
     public void enterSpecificTextIntoTextFieldWithHeading(String textToEnter, String headingText) {
-        waitForHeadingToBeVisible(headingText);
-        WebElementFacade textField = getVisibleTextFieldWithMatchingHeading(headingText);
+        String validatedHeadingText = getValidFieldLabelCase(headingText);
+        WebElementFacade textField = getVisibleTextFieldWithMatchingHeading(validatedHeadingText);
         textField.clear();
         textField.sendKeys(textToEnter);
     }
 
     private WebElementFacade getVisibleTextFieldWithMatchingHeading(String headingText) {
-        List<WebElementFacade> textFieldsWithMatchingHeading = findAll("//label[text()=" + sanitiseXpathAttributeString(headingText) + "]/following"
+        String validatedHeadingText = getValidFieldLabelCase(headingText);
+        List<WebElementFacade> textFieldsWithMatchingHeading = findAll("//label[text()=" + sanitiseXpathAttributeString(validatedHeadingText) + "]/following"
                 + "-sibling::div/input");
         return getOnlyCurrentlyVisibleElementFromList(textFieldsWithMatchingHeading);
     }
@@ -612,21 +631,24 @@ public class BasePage extends PageObject {
     // Text areas
 
     public String enterTextIntoTextAreaWithHeading(String headingText) {
-        String textToEnter = "Test entry for " + headingText +" 1\nTest entry for " + headingText + " 2\nTest entry for " + headingText + " 3";
-        enterSpecificTextIntoTextAreaWithHeading(textToEnter, headingText);
+        String validatedHeadingText = getValidFieldLabelCase(headingText);
+        String textToEnter = "Test entry for " + validatedHeadingText +" 1\nTest entry for " + validatedHeadingText + " 2\nTest entry for " + validatedHeadingText +
+                " 3";
+        enterSpecificTextIntoTextAreaWithHeading(textToEnter, validatedHeadingText);
         String sanitisedText = textToEnter.replace("\n", " ");
         return sanitisedText;
     }
 
     public void enterSpecificTextIntoTextAreaWithHeading(String textToEnter, String headingText) {
-        waitForHeadingToBeVisible(headingText);
-        WebElementFacade textArea = getVisibleTextAreaWithMatchingHeading(headingText);
+        String validatedHeadingText = getValidFieldLabelCase(headingText);
+        WebElementFacade textArea = getVisibleTextAreaWithMatchingHeading(validatedHeadingText);
         textArea.clear();
         textArea.sendKeys(textToEnter);
     }
 
     private WebElementFacade getVisibleTextAreaWithMatchingHeading(String headingText) {
-        List<WebElementFacade> textAreasWithMatchingHeading = findAll("//label[text()=" + sanitiseXpathAttributeString(headingText) + "]/following"
+        String validatedHeadingText = getValidFieldLabelCase(headingText);
+        List<WebElementFacade> textAreasWithMatchingHeading = findAll("//label[text()=" + sanitiseXpathAttributeString(validatedHeadingText) + "]/following"
                 + "-sibling::textarea");
         return getOnlyCurrentlyVisibleElementFromList(textAreasWithMatchingHeading);
     }
@@ -634,8 +656,8 @@ public class BasePage extends PageObject {
     //Drop downs
 
     public String selectRandomOptionFromDropdownWithHeading(String headingText) {
-        waitForHeadingToBeVisible(headingText);
-        List<WebElementFacade> optionElements = getOptionElementsForDropdownWithHeading(headingText);
+        String validatedHeadingText = getValidFieldLabelCase(headingText);
+        List<WebElementFacade> optionElements = getOptionElementsForDropdownWithHeading(validatedHeadingText);
         optionElements.remove(0);
         WebElementFacade optionElementToSelect = getRandomCurrentlyVisibleElementFromList(optionElements);
         safeClickOn(optionElementToSelect);
@@ -643,31 +665,34 @@ public class BasePage extends PageObject {
     }
 
     public void selectSpecificOptionFromDropdownWithHeading(String optionText, String headingText) {
-        waitForHeadingToBeVisible(headingText);
+        String validatedHeadingText = getValidFieldLabelCase(headingText);
         WebElementFacade optionElement =
-                findBy("//div[@class='govuk-form-group']//*[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling::select"
+                findBy("//div[@class='govuk-form-group']//*[text()=" + sanitiseXpathAttributeString(validatedHeadingText) + "]/following-sibling::select"
                         + "/option[text()='" + optionText + "']");
         safeClickOn(optionElement);
     }
 
     public String selectDifferentOptionFromDropdownWithHeading(String headingText) {
-        waitForHeadingToBeVisible(headingText);
-        Select dropdown = new Select(findBy("//div[@class='govuk-form-group']//*[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling::select"));
+        String validatedHeadingText = getValidFieldLabelCase(headingText);
+        Select dropdown = new Select(findBy("//div[@class='govuk-form-group']//*[text()=" + sanitiseXpathAttributeString(validatedHeadingText) + "]/following-sibling"
+                + "::select"));
         List<WebElement> options = dropdown.getOptions();
         options.remove(0);
         options.remove(dropdown.getFirstSelectedOption());
         Random random = new Random();
         String optionToSelect = options.get(random.nextInt(options.size())).getText();
-        selectSpecificOptionFromDropdownWithHeading(optionToSelect, headingText);
+        selectSpecificOptionFromDropdownWithHeading(optionToSelect, validatedHeadingText);
         return optionToSelect;
     }
 
     public List<WebElementFacade> getOptionElementsForDropdownWithHeading(String headingText) {
-        return findAll("//div[@class='govuk-form-group']//*[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling::select/option");
+        String validatedHeadingText = getValidFieldLabelCase(headingText);
+        return findAll("//div[@class='govuk-form-group']//*[text()=" + sanitiseXpathAttributeString(validatedHeadingText) + "]/following-sibling::select/option");
     }
 
     public List<String> getSelectableOptionsFromDropdownWithHeading(String headingText) {
-        List<WebElementFacade> optionElements = findAll("//div[@class='govuk-form-group']//*[text()=" + sanitiseXpathAttributeString(headingText) +
+        String validatedHeadingText = getValidFieldLabelCase(headingText);
+        List<WebElementFacade> optionElements = findAll("//div[@class='govuk-form-group']//*[text()=" + sanitiseXpathAttributeString(validatedHeadingText) +
                 "]/following-sibling::select/option");
         optionElements.remove(0);
         List<String> selectableOptions = new ArrayList<>();
@@ -679,7 +704,8 @@ public class BasePage extends PageObject {
     }
 
     public Boolean checkIfSelectableOptionsPresentInDropdownWithHeading(String headingText) {
-        return (getOptionElementsForDropdownWithHeading(headingText).size() > 1);
+        String validatedHeadingText = getValidFieldLabelCase(headingText);
+        return (getOptionElementsForDropdownWithHeading(validatedHeadingText).size() > 1);
     }
 
     //Checkboxes
@@ -691,9 +717,9 @@ public class BasePage extends PageObject {
     }
 
     public String checkRandomCheckboxUnderHeading(String headingText) {
-        waitForHeadingToBeVisible(headingText);
+        String validatedHeadingText = getValidFieldLabelCase(headingText);
         List<WebElementFacade> checkboxElements =
-                findAll("//h2[contains(text(), " + sanitiseXpathAttributeString(headingText) + ")]/parent::div//label");
+                findAll("//h2[contains(text(), " + sanitiseXpathAttributeString(validatedHeadingText) + ")]/parent::div//label");
         WebElementFacade checkboxToCheck = getRandomCurrentlyVisibleElementFromList(checkboxElements);
         safeClickOn(checkboxToCheck);
         return checkboxToCheck.getText();
@@ -714,7 +740,8 @@ public class BasePage extends PageObject {
     // Typeaheads
 
     public String selectRandomOptionFromTypeaheadWithHeading(String headingText) {
-        WebElementFacade typeahead = findBy("//label[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling::div//input");
+        String validatedHeadingText = getValidFieldLabelCase(headingText);
+        WebElementFacade typeahead = findBy("//label[text()=" + sanitiseXpathAttributeString(validatedHeadingText) + "]/following-sibling::div//input");
         safeClickOn(typeahead);
         waitABit(200);
         boolean selectableOptionVisibleInTypeahead = false;
@@ -737,7 +764,8 @@ public class BasePage extends PageObject {
     }
 
     public String selectSpecificOptionFromTypeaheadWithHeading(String optionText, String headingText) {
-        WebElementFacade typeahead = findBy("//label[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling::div//input");
+        String validatedHeadingText = getValidFieldLabelCase(headingText);
+        WebElementFacade typeahead = findBy("//label[text()=" + sanitiseXpathAttributeString(validatedHeadingText) + "]/following-sibling::div//input");
         safeClickOn(typeahead);
         waitABit(200);
         typeahead.sendKeys(optionText);

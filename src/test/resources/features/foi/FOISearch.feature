@@ -11,11 +11,11 @@ Feature: FOI Search
     And I click the search button on the search page
     Then I check that the search results have the correct "<infoType>"
     Examples:
-    | infoType                | infoValue                 |
-    | Case Type               | FOI                       |
-    | Received on or After    | 01/09/2021                |
-    | Received on or Before   | 01/09/2021                |
-    | Correspondent (non-MP)  | Sam McTester             |
+    | infoType                     | infoValue                 |
+    | Case Type                    | FOI                       |
+    | Received on or After Date    | 01/09/2021                |
+    | Received on or Before Date   | 01/09/2021                |
+    | Public Correspondent Name    | Sam McTester              |
 #    | Topic                   | Animal alternatives (3Rs) | Topic search criteria doesn't work properly
 #    | Active Cases Only       | Yes                       | In FOI no cases are technically 'closed' so active search isn't really necessary
 
