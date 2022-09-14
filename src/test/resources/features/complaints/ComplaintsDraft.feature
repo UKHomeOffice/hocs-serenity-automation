@@ -359,6 +359,7 @@ Feature: Complaints Draft
       | HMPO         |
       | GRO          |
 
+#     HMPO example broken by HOCS-5580
   @ComplaintsWorkflow @POGRRegression @POGRComplaints
   Scenario Outline: User is able to escalate a POGR complaint case to workflow manager at the Investigation stage
     Given I am logged into "CS" as user "POGR_USER"
