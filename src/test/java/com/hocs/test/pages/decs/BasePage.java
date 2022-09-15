@@ -507,6 +507,7 @@ public class BasePage extends PageObject {
     //Radio buttons
 
     public String selectRandomRadioButtonFromGroupWithHeading(String headingText) {
+        waitForHeadingToBeVisible(headingText);
         List<WebElementFacade> radioButtonElements = getRadioButtonElementsInGroupWithHeading(headingText);
         WebElementFacade radioButtonElementToSelect = getRandomCurrentlyVisibleElementFromList(radioButtonElements);
         safeClickOn(radioButtonElementToSelect);
@@ -522,6 +523,7 @@ public class BasePage extends PageObject {
     }
 
     public void selectSpecificRadioButtonFromGroupWithHeading(String radioButtonText, String headingText) {
+        waitForHeadingToBeVisible(headingText);
         WebElementFacade radioButtonElement =
                 findBy("//span[contains(@class,'govuk-fieldset__heading')][text() =" + sanitiseXpathAttributeString(headingText) + "]/ancestor"
                 + "::fieldset//input/following-sibling::label[text()=" + sanitiseXpathAttributeString(radioButtonText) + "]");
@@ -561,6 +563,7 @@ public class BasePage extends PageObject {
     //Date fields
 
     public void enterDateIntoDateFieldsWithHeading(String date, String headingText) {
+        waitForHeadingToBeVisible(headingText);
         WebElementFacade dayField = getVisibleDayFieldWithMatchingHeading(headingText);
         WebElementFacade monthField = getVisibleMonthFieldWithMatchingHeading(headingText);
         WebElementFacade yearField = getVisibleYearFieldWithMatchingHeading(headingText);
@@ -604,12 +607,14 @@ public class BasePage extends PageObject {
     //Text fields
 
     public String enterTextIntoTextFieldWithHeading(String headingText) {
+        waitForHeadingToBeVisible(headingText);
         String textToEnter = "Test entry for " + headingText;
         enterSpecificTextIntoTextFieldWithHeading(textToEnter, headingText);
         return textToEnter;
     }
 
     public void enterSpecificTextIntoTextFieldWithHeading(String textToEnter, String headingText) {
+        waitForHeadingToBeVisible(headingText);
         WebElementFacade textField = getVisibleTextFieldWithMatchingHeading(headingText);
         textField.clear();
         textField.sendKeys(textToEnter);
@@ -624,8 +629,7 @@ public class BasePage extends PageObject {
     // Text areas
 
     public String enterTextIntoTextAreaWithHeading(String headingText) {
-        String textToEnter =
-                "Test entry for " + headingText +" 1\nTest entry for " + headingText + " 2\nTest entry for " + headingText +
+        String textToEnter = "Test entry for " + headingText +" 1\nTest entry for " + headingText + " 2\nTest entry for " + headingText +
                 " 3";
         enterSpecificTextIntoTextAreaWithHeading(textToEnter, headingText);
         String sanitisedText = textToEnter.replace("\n", " ");
@@ -633,6 +637,7 @@ public class BasePage extends PageObject {
     }
 
     public void enterSpecificTextIntoTextAreaWithHeading(String textToEnter, String headingText) {
+        waitForHeadingToBeVisible(headingText);
         WebElementFacade textArea = getVisibleTextAreaWithMatchingHeading(headingText);
         textArea.clear();
         textArea.sendKeys(textToEnter);
@@ -647,6 +652,7 @@ public class BasePage extends PageObject {
     //Drop downs
 
     public String selectRandomOptionFromDropdownWithHeading(String headingText) {
+        waitForHeadingToBeVisible(headingText);
         List<WebElementFacade> optionElements = getOptionElementsForDropdownWithHeading(headingText);
         optionElements.remove(0);
         WebElementFacade optionElementToSelect = getRandomCurrentlyVisibleElementFromList(optionElements);
@@ -655,6 +661,7 @@ public class BasePage extends PageObject {
     }
 
     public void selectSpecificOptionFromDropdownWithHeading(String optionText, String headingText) {
+        waitForHeadingToBeVisible(headingText);
         WebElementFacade optionElement =
                 findBy("//div[@class='govuk-form-group']//*[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling::select"
                         + "/option[text()='" + optionText + "']");
@@ -662,6 +669,7 @@ public class BasePage extends PageObject {
     }
 
     public String selectDifferentOptionFromDropdownWithHeading(String headingText) {
+        waitForHeadingToBeVisible(headingText);
         Select dropdown = new Select(findBy("//div[@class='govuk-form-group']//*[text()=" + sanitiseXpathAttributeString(headingText) +
                 "]/following-sibling"
                 + "::select"));
@@ -704,6 +712,7 @@ public class BasePage extends PageObject {
     }
 
     public String checkRandomCheckboxUnderHeading(String headingText) {
+        waitForHeadingToBeVisible(headingText);
         List<WebElementFacade> checkboxElements =
                 findAll("//h2[contains(text(), " + sanitiseXpathAttributeString(headingText) + ")]/parent::div//label");
         WebElementFacade checkboxToCheck = getRandomCurrentlyVisibleElementFromList(checkboxElements);
