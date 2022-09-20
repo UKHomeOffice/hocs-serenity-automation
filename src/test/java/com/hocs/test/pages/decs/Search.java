@@ -55,7 +55,8 @@ public class Search extends BasePage {
 
     //Enter search criteria
 
-    public void enterDCUSearchCriteria(String criteria, String value) {
+    public void enterSearchCriteria(String criteria, String value) {
+        String validatedHeaderText;
         switch (criteria.toUpperCase()) {
             case "CASE TYPE":
                 switch (value.toUpperCase()) {
@@ -85,10 +86,65 @@ public class Search extends BasePage {
                         checkSpecificCheckbox("DCU Treat Official");
                         checkSpecificCheckbox("DCU Number 10");
                         break;
+                    case "MPAM":
+                        checkSpecificCheckbox("MPAM Case");
+                        break;
+                    case "MTS":
+                        checkSpecificCheckbox("MTS Case");
+                        break;
+                    case "COMP":
+                        checkSpecificCheckbox("Complaint Case");
+                        break;
+                    case "COMP2":
+                        checkSpecificCheckbox("Complaint Case - Stage 2");
+                        break;
+                    case "BF":
+                        checkSpecificCheckbox("Border Force Case");
+                        break;
+                    case "BF2":
+                        checkSpecificCheckbox("Border Force (Stage 2)");
+                        break;
+                    case "IEDET":
+                        checkSpecificCheckbox("IE Detention Case");
+                        break;
+                    case "SMC":
+                        checkSpecificCheckbox("Serious Misconduct Case");
+                        break;
+                    case "POGR":
+                        checkSpecificCheckbox("HMPO/GRO Complaint Case");
+                        break;
+                    case "POGR2":
+                        checkSpecificCheckbox("HMPO/GRO Complaint Case - Stage 2");
+                        break;
+                    case "FOI":
+                        checkSpecificCheckbox("FOI Request");
+                        break;
+                    case "TO":
+                        checkSpecificCheckbox("Treat Official");
+                        break;
                     default:
                         pendingStep(value + " is not defined within " + getMethodName());
                 }
                 setSessionVariable("searchCaseType").to(value);
+                break;
+            case "CORRESPONDENT FULL NAME":
+                validatedHeaderText = getValidFieldLabelCase("Correspondent full name");
+                enterSpecificTextIntoTextFieldWithHeading(value, validatedHeaderText);
+                setSessionVariable("searchCorrespondentFullName").to(value);
+                break;
+            case "CORRESPONDENT POSTCODE":
+                validatedHeaderText = getValidFieldLabelCase("Correspondent Postcode");
+                enterSpecificTextIntoTextFieldWithHeading(value, validatedHeaderText);
+                setSessionVariable("searchCorrespondentPostcode").to(value);
+                break;
+            case "CORRESPONDENT EMAIL ADDRESS":
+                validatedHeaderText = getValidFieldLabelCase("Correspondent Email Address");
+                enterSpecificTextIntoTextFieldWithHeading(value, validatedHeaderText);
+                setSessionVariable("searchCorrespondentEmailAddress").to(value);
+                break;
+            case "COMPLAINANT DATE OF BIRTH":
+                enterDateIntoDateFieldsWithHeading(value, "Complainant date of birth");
+                setSessionVariable("searchComplainantDateOfBirth").to(value);
                 break;
             case "CASE REFERENCE":
                 enterSpecificTextIntoTextFieldWithHeading(value, "Case reference");
@@ -98,25 +154,17 @@ public class Search extends BasePage {
                 setSessionVariable("searchReceivedOnOrAfterDate").to(value);
                 break;
             case "RECEIVED ON OR BEFORE DATE":
-                checkSpecificCheckbox("DCU Ministerial");
                 enterDateIntoDateFieldsWithHeading(value, "Received on or before");
                 setSessionVariable("searchReceivedOnOrBeforeDate").to(value);
                 break;
             case "MEMBER OF PARLIAMENT NAME":
-                selectSpecificOptionFromTypeaheadWithHeading(value, "Member of Parliament name");
+                validatedHeaderText = getValidFieldLabelCase("Member of Parliament name");
+                selectSpecificOptionFromTypeaheadWithHeading(value, validatedHeaderText);
                 setSessionVariable("searchMemberOfParliamentName").to(value);
                 break;
             case "PUBLIC CORRESPONDENT NAME":
                 enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent (non-MP)");
                 setSessionVariable("searchCorrespondentName").to(value);
-                break;
-            case "CORRESPONDENT POSTCODE":
-                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent Postcode");
-                setSessionVariable("searchCorrespondentPostcode").to(value);
-                break;
-            case "CORRESPONDENT EMAIL ADDRESS":
-                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent Email Address");
-                setSessionVariable("searchCorrespondentEmailAddress").to(value);
                 break;
             case "TOPIC":
                 enterSpecificTextIntoTextFieldWithHeading(value, "Topic");
@@ -137,118 +185,9 @@ public class Search extends BasePage {
                     checkSpecificCheckbox("Include Home Secretary Interest Cases only");
                 }
                 break;
-            default:
-                pendingStep(criteria + " is not defined within " + getMethodName());
-        }
-    }
-
-    public void enterMPAMSearchCriteria(String criteria, String value) {
-        if (mpamCaseCheckbox.isCurrentlyVisible()) {
-            safeClickOn(mpamCaseCheckbox);
-        }
-        if (mtsCaseCheckbox.isCurrentlyVisible()) {
-            safeClickOn(mtsCaseCheckbox);
-        }
-        switch (criteria.toUpperCase()) {
-            case "CASE REFERENCE":
-                enterSpecificTextIntoTextFieldWithHeading(value, "Case reference");
-                setSessionVariable("searchCaseReference").to(value);
-                break;
-            case "REFERENCE TYPE":
-                switch (value.toUpperCase()) {
-                    case "MINISTERIAL":
-                        selectSpecificOptionFromDropdownWithHeading("Ministerial", "Reference type");
-                        break;
-                    case "OFFICIAL":
-                        selectSpecificOptionFromDropdownWithHeading("Official", "Reference type");
-                        break;
-                    default:
-                        pendingStep(value + " is not defined within " + getMethodName());
-                }
-                setSessionVariable("searchReferenceType").to(value);
-                break;
-            case "MINISTERIAL SIGN OFF TEAM":
-                selectSpecificOptionFromDropdownWithHeading(value, "Ministerial sign off team");
-                setSessionVariable("searchMinisterialSignOffTeam").to(value);
-                break;
-            case "MEMBER OF PARLIAMENT NAME":
-                selectSpecificOptionFromTypeaheadWithHeading(value, "Member of parliament name");
-                setSessionVariable("searchMemberOfParliamentName").to(value);
-                break;
             case "CORRESPONDENT REFERENCE NUMBER":
                 enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent reference number");
                 setSessionVariable("searchCorrespondentReferenceNumber").to(value);
-                break;
-            case "RECEIVED ON OR BEFORE DATE":
-                enterDateIntoDateFieldsWithHeading(value, "Received on or before");
-                setSessionVariable("searchReceivedOnOrBeforeDate").to(value);
-                break;
-            case "RECEIVED ON OR AFTER DATE":
-                enterDateIntoDateFieldsWithHeading(value, "Received on or after");
-                setSessionVariable("searchReceivedOnOrAfterDate").to(value);
-                break;
-            case "CAMPAIGN":
-                selectSpecificOptionFromTypeaheadWithHeading(value, "Campaign");
-                setSessionVariable("searchCampaign").to(value);
-                break;
-            case "PUBLIC CORRESPONDENT NAME":
-                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent full name (applicant or constituent)");
-                setSessionVariable("searchCorrespondentName").to(value);
-                break;
-            case "ACTIVE CASES ONLY":
-                if (value.equalsIgnoreCase("YES")) {
-                    checkSpecificCheckbox("Include Active Only");
-                }
-                setSessionVariable("searchActiveCases").to(value);
-                break;
-            default:
-                pendingStep(criteria + " is not defined within " + getMethodName());
-        }
-    }
-
-    public void enterComplaintsSearchCriteria(String criteria, String value) {
-        switch (criteria.toUpperCase()) {
-            case "CASE TYPE":
-                switch (value.toUpperCase()) {
-                    case "COMP":
-                        checkSpecificCheckbox("Complaint Case");
-                        break;
-                    case "COMP2":
-                        checkSpecificCheckbox("Complaint Case - Stage 2");
-                        break;
-                    case "IEDET":
-                        checkSpecificCheckbox("IE Detention Case");
-                        break;
-                    case "SMC":
-                        checkSpecificCheckbox("Serious Misconduct");
-                        break;
-                    case "POGR":
-                        checkSpecificCheckbox("HMPO/GRO Complaint Case");
-                        break;
-                    default:
-                        pendingStep(value + " is not defined within " + getMethodName());
-                }
-                setSessionVariable("searchCaseType").to(value);
-                break;
-            case "CORRESPONDENT FULL NAME":
-                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent full name");
-                setSessionVariable("searchCorrespondentFullName").to(value);
-                break;
-            case "CORRESPONDENT POSTCODE":
-                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent postcode");
-                setSessionVariable("searchCorrespondentPostcode").to(value);
-                break;
-            case "CORRESPONDENT EMAIL ADDRESS":
-                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent email address");
-                setSessionVariable("searchCorrespondentEmailAddress").to(value);
-                break;
-            case "COMPLAINANT DATE OF BIRTH":
-                enterDateIntoDateFieldsWithHeading(value, "Complainant date of birth");
-                setSessionVariable("searchComplainantDateOfBirth").to(value);
-                break;
-            case "CASE REFERENCE":
-                enterSpecificTextIntoTextFieldWithHeading(value, "Case reference");
-                setSessionVariable("searchCaseReference").to(value);
                 break;
             case "COMPLAINANT HOME OFFICE REFERENCE":
                 enterSpecificTextIntoTextFieldWithHeading(value, "Complainant Home Office Reference");
@@ -258,110 +197,17 @@ public class Search extends BasePage {
                 enterSpecificTextIntoTextFieldWithHeading(value, "PSU Reference");
                 setSessionVariable("searchPSUReference").to(value);
                 break;
-            default:
-                pendingStep(criteria + " is not defined within " + getMethodName());
-        }
-    }
-
-    public void enterBFSearchCriteria(String criteria, String value) {
-        switch (criteria.toUpperCase()) {
-            case "CORRESPONDENT FULL NAME":
-                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent full name");
-                setSessionVariable("searchCorrespondentFullName").to(value);
+            case "REFERENCE TYPE":
+                selectSpecificOptionFromDropdownWithHeading(value, "Reference type");
+                setSessionVariable("searchReferenceType").to(value);
                 break;
-            case "CORRESPONDENT POSTCODE":
-                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent postcode");
-                setSessionVariable("searchCorrespondentPostcode").to(value);
+            case "MINISTERIAL SIGN OFF TEAM":
+                selectSpecificOptionFromDropdownWithHeading(value, "Ministerial sign off team");
+                setSessionVariable("searchMinisterialSignOffTeam").to(value);
                 break;
-            case "CORRESPONDENT EMAIL ADDRESS":
-                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent email address");
-                setSessionVariable("searchCorrespondentEmailAddress").to(value);
-                break;
-            case "COMPLAINANT DATE OF BIRTH":
-                enterDateIntoDateFieldsWithHeading(value, "Complainant date of birth");
-                setSessionVariable("searchComplainantDateOfBirth").to(value);
-                break;
-            case "CASE REFERENCE":
-                enterSpecificTextIntoTextFieldWithHeading(value, "Case reference");
-                setSessionVariable("searchCaseReference").to(value);
-                break;
-            case "COMPLAINANT HOME OFFICE REFERENCE":
-                complainantHomeOfficeReferenceTextField.sendKeys(value);
-                setSessionVariable("searchComplainantHomeOfficeReference").to(value);
-                break;
-            default:
-                pendingStep(criteria + " is not defined within " + getMethodName());
-        }
-    }
-
-    public void enterFOISearchCriteria(String criteria, String value) {
-        switch (criteria.toUpperCase()) {
-            case "CASE TYPE":
-                checkSpecificCheckbox("FOI Request");
-                break;
-            case "CASE REFERENCE":
-                enterSpecificTextIntoTextFieldWithHeading(value, "Case reference");
-                setSessionVariable("searchCaseReference").to(value);
-                break;
-            case "RECEIVED ON OR AFTER":
-                enterDateIntoDateFieldsWithHeading(value, "Received on or after");
-                setSessionVariable("searchReceivedOnOrAfterDate").to(value);
-                break;
-            case "RECEIVED ON OR BEFORE":
-                enterDateIntoDateFieldsWithHeading(value, "Received on or before");
-                setSessionVariable("searchReceivedOnOrBeforeDate").to(value);
-                break;
-            case "CORRESPONDENT (NON-MP)":
-                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent (non-MP)");
+            case "CORRESPONDENT FULL NAME (APPLICANT OR CONSTITUENT)":
+                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent full name (applicant or constituent)");
                 setSessionVariable("searchCorrespondentName").to(value);
-                break;
-            case "TOPIC":
-                enterSpecificTextIntoTextFieldWithHeading(value, "Topic");
-                setSessionVariable("searchTopic").to(value);
-                break;
-            case "ACTIVE CASES ONLY":
-                //This doesn't really work since the 'soft closed' cases are still technically active
-                checkSpecificCheckbox("Include Active Cases only");
-                break;
-            default:
-                pendingStep(criteria + " is not defined within " + getMethodName());
-        }
-    }
-
-    public void enterTOSearchCriteria(String criteria, String value) {
-        checkSpecificCheckbox("Treat Official");
-        switch (criteria.toUpperCase()) {
-            case "CASE REFERENCE":
-                enterSpecificTextIntoTextFieldWithHeading(value, "Case reference");
-                setSessionVariable("searchCaseReference").to(value);
-                break;
-            case "RECEIVED ON OR AFTER":
-                enterDateIntoDateFieldsWithHeading(value, "Received on or after");
-                setSessionVariable("searchReceivedOnOrAfterDate").to(value);
-                break;
-            case "RECEIVED ON OR BEFORE":
-                enterDateIntoDateFieldsWithHeading(value, "Received on or before");
-                setSessionVariable("searchReceivedOnOrBeforeDate").to(value);
-                break;
-            case "CORRESPONDENT FULL NAME":
-                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent full name");
-                setSessionVariable("searchCorrespondentFullName").to(value);
-                break;
-            case "CORRESPONDENT POSTCODE":
-                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent postcode");
-                setSessionVariable("searchCorrespondentPostcode").to(value);
-                break;
-            case "CORRESPONDENT EMAIL ADDRESS":
-                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent email address");
-                setSessionVariable("searchCorrespondentEmailAddress").to(value);
-                break;
-            case "CORRESPONDENT REFERENCE NUMBER":
-                enterSpecificTextIntoTextFieldWithHeading(value, "Correspondent reference number");
-                setSessionVariable("searchCorrespondentReferenceNumber").to(value);
-                break;
-            case "ACTIVE CASES ONLY":
-                checkSpecificCheckbox("Include Active Cases only");
-                setSessionVariable("searchActiveCases").to(true);
                 break;
             case "CAMPAIGN":
                 selectSpecificOptionFromTypeaheadWithHeading(value, "Campaign");
@@ -584,7 +430,7 @@ public class Search extends BasePage {
                 summaryTab.selectSummaryTab();
                 summaryTab.assertCampaignInSummaryTabIsCorrect(sessionVariableCalled("searchCampaign"));
                 break;
-            case "PUBLIC CORRESPONDENT NAME":
+            case "CORRESPONDENT FULL NAME (APPLICANT OR CONSTITUENT)":
                 safeClickOn(randomSearchResult);
                 peopleTab.selectPeopleTab();
                 peopleTab.assertPublicCorrespondentAddedToTheCase(sessionVariableCalled("searchCorrespondentName"));
@@ -802,7 +648,7 @@ public class Search extends BasePage {
                 String caseRef = sessionVariableCalled("searchCaseReference");
                 assertThat(randomSearchResult.equals(caseRef), is(true));
                 break;
-            case "RECEIVED ON OR AFTER":
+            case "RECEIVED ON OR AFTER DATE":
                 while (n < numberOfCasesDisplayed) {
                     try {
                         searchDate = new SimpleDateFormat("dd/MM/yyyy").parse(sessionVariableCalled("searchReceivedOnOrAfterDate"));
@@ -816,7 +662,7 @@ public class Search extends BasePage {
                     n++;
                 }
                 break;
-            case "RECEIVED ON OR BEFORE":
+            case "RECEIVED ON OR BEFORE DATE":
                 while (n < numberOfCasesDisplayed) {
                     try {
                         searchDate = new SimpleDateFormat("dd/MM/yyyy").parse(sessionVariableCalled("searchReceivedOnOrBeforeDate"));
@@ -830,7 +676,7 @@ public class Search extends BasePage {
                     n++;
                 }
                 break;
-            case "CORRESPONDENT (NON-MP)":
+            case "PUBLIC CORRESPONDENT NAME":
                 String correspondentName = sessionVariableCalled("searchCorrespondentName").toString().toUpperCase();
                 List<WebElementFacade> listOfCasesWithCorrespondent = findAll("//td[contains(text(), '" + correspondentName + "')]");
                 while (n < listOfCasesWithCorrespondent.size()) {
@@ -868,7 +714,7 @@ public class Search extends BasePage {
                 String caseRef = sessionVariableCalled("searchCaseReference");
                 assertThat(randomSearchResult.equals(caseRef), is(true));
                 break;
-            case "RECEIVED ON OR AFTER":
+            case "RECEIVED ON OR AFTER DATE":
                 safeClickOn(randomSearchResultHypertext);
                 summaryTab.selectSummaryTab();
                 displayedReceivedDate = randomResultReceivedDateCell.getText();
@@ -876,7 +722,7 @@ public class Search extends BasePage {
                 caseDate = new SimpleDateFormat("dd/MM/yyyy").parse(displayedReceivedDate);
                 assertThat(!caseDate.before(searchDate), is(true));
                 break;
-            case "RECEIVED ON OR BEFORE":
+            case "RECEIVED ON OR BEFORE DATE":
                 safeClickOn(randomSearchResultHypertext);
                 summaryTab.selectSummaryTab();
                 displayedReceivedDate = randomResultReceivedDateCell.getText();

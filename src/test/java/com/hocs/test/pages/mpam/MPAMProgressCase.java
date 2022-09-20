@@ -266,7 +266,7 @@ public class MPAMProgressCase extends BasePage {
                 dashboard.getAndClaimCurrentCase();
                 campaign.moveCaseFromAStageToCampaign(infoValue);
                 break;
-            case "PUBLIC CORRESPONDENT NAME":
+            case "CORRESPONDENT FULL NAME (APPLICANT OR CONSTITUENT)":
                 createCase.createCSCaseOfType("MPAM");
                 dashboard.goToDashboard();
                 dashboard.getAndClaimCurrentCase();

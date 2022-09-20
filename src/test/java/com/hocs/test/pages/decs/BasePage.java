@@ -488,6 +488,22 @@ public class BasePage extends PageObject {
 
     //Helper methods
 
+    //Ignore field label case
+
+    public String getValidFieldLabelCase(String fieldLabelText) {
+        int n = 0;
+        List<WebElementFacade> listOfFieldLabelsOnPage = findAll("//label");
+        while (n < listOfFieldLabelsOnPage.size()) {
+            String displayedFieldLabel = listOfFieldLabelsOnPage.get(n).getText();
+            if (displayedFieldLabel.equalsIgnoreCase(fieldLabelText)) {
+                return displayedFieldLabel;
+            }
+            n++;
+        }
+        System.out.println("The " + fieldLabelText + " field isn't displayed on this screen");
+        return null;
+    }
+
     //Radio buttons
 
     public String selectRandomRadioButtonFromGroupWithHeading(String headingText) {
@@ -591,6 +607,7 @@ public class BasePage extends PageObject {
     //Text fields
 
     public String enterTextIntoTextFieldWithHeading(String headingText) {
+        waitForHeadingToBeVisible(headingText);
         String textToEnter = "Test entry for " + headingText;
         enterSpecificTextIntoTextFieldWithHeading(textToEnter, headingText);
         return textToEnter;
@@ -612,7 +629,8 @@ public class BasePage extends PageObject {
     // Text areas
 
     public String enterTextIntoTextAreaWithHeading(String headingText) {
-        String textToEnter = "Test entry for " + headingText +" 1\nTest entry for " + headingText + " 2\nTest entry for " + headingText + " 3";
+        String textToEnter = "Test entry for " + headingText +" 1\nTest entry for " + headingText + " 2\nTest entry for " + headingText +
+                " 3";
         enterSpecificTextIntoTextAreaWithHeading(textToEnter, headingText);
         String sanitisedText = textToEnter.replace("\n", " ");
         return sanitisedText;
@@ -652,7 +670,9 @@ public class BasePage extends PageObject {
 
     public String selectDifferentOptionFromDropdownWithHeading(String headingText) {
         waitForHeadingToBeVisible(headingText);
-        Select dropdown = new Select(findBy("//div[@class='govuk-form-group']//*[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling::select"));
+        Select dropdown = new Select(findBy("//div[@class='govuk-form-group']//*[text()=" + sanitiseXpathAttributeString(headingText) +
+                "]/following-sibling"
+                + "::select"));
         List<WebElement> options = dropdown.getOptions();
         options.remove(0);
         options.remove(dropdown.getFirstSelectedOption());
@@ -663,7 +683,8 @@ public class BasePage extends PageObject {
     }
 
     public List<WebElementFacade> getOptionElementsForDropdownWithHeading(String headingText) {
-        return findAll("//div[@class='govuk-form-group']//*[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling::select/option");
+        return findAll("//div[@class='govuk-form-group']//*[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling::select"
+                + "/option");
     }
 
     public List<String> getSelectableOptionsFromDropdownWithHeading(String headingText) {
