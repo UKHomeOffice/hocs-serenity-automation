@@ -54,24 +54,29 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
 
     @And("I select a {string} Complaint Category")
     public void iSelectAComplaintCategory(String complaintCategory) {
-        switch (complaintCategory.toUpperCase()) {
-            case "SERVICE":
-                complaintsRegistrationAndDataInput.openTheServiceComplaintCategoryAccordion();
-                break;
-            case "SERIOUS AND MINOR":
-                complaintsTriageAndInvestigation.openTheSeriousAndMinorComplaintCategoryAccordion();
-                break;
-            case "SERIOUS":
-                complaintsRegistrationAndDataInput.openTheSeriousComplaintCategoryAccordion();
-                break;
-            case "EX-GRATIA":
-                complaintsTriageAndInvestigation.openExGratiaAccordion();
-                break;
-            default:
-                pendingStep(complaintCategory + " is not defined within " + getMethodName());
+        if(!iedetCase()){
+            switch (complaintCategory.toUpperCase()) {
+                case "SERVICE":
+                    complaintsRegistrationAndDataInput.openTheServiceComplaintCategoryAccordion();
+                    break;
+                case "SERIOUS AND MINOR":
+                    complaintsTriageAndInvestigation.openTheSeriousAndMinorComplaintCategoryAccordion();
+                    break;
+                case "SERIOUS":
+                    complaintsRegistrationAndDataInput.openTheSeriousComplaintCategoryAccordion();
+                    break;
+                case "EX-GRATIA":
+                    complaintsTriageAndInvestigation.openExGratiaAccordion();
+                    break;
+                default:
+                    pendingStep(complaintCategory + " is not defined within " + getMethodName());
         }
-        waitABit(1000);
-        complaintsRegistrationAndDataInput.selectAVisibleClaimCategory();
+            waitABit(1000);
+            complaintsRegistrationAndDataInput.selectAVisibleClaimCategory();
+        }
+        else {
+            complaintsTriageAndInvestigation.selectIEDETClaimCategory(complaintCategory);
+        }
     }
 
     @And("I select a Owning CSU")

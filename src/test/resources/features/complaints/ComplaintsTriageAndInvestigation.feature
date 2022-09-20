@@ -307,8 +307,12 @@ Feature: Complaints Triage
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to the "Triage" stage
     And I load and claim the current case
-    And I select the "Transferred to Third Party Supplier" action for an IEDET case at the Triage stage
-    And I submit details on the Triage Capture Reason page
+    And I select "Service" as the Complaint Type
+    And I select a "Service" Complaint Category
+    And I click the "Continue" button
+    And I enter the complaint details on the Complaint Input page
+    And I click the "Continue" button
+    And I select the "Third party supplier" action for an IEDET case at the Triage stage
     Then the case should be moved to the "Draft" stage
     And the summary should display the owning team as "IE Detention"
     And the read-only Case Details accordion should contain all case information entered during the "Triage" stage

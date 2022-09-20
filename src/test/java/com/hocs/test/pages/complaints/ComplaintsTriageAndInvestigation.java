@@ -159,6 +159,17 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
         openOrCloseAccordionSection("Serious and Minor");
     }
 
+    public void selectIEDETClaimCategory(String category) {
+        List<WebElementFacade> claimCategories = findAll("//span[text()='" + category + "']/parent::legend/following-sibling::div//input");
+        List<WebElementFacade> visibleClaimCategories = new ArrayList<>();
+        for (WebElementFacade claimCategory: claimCategories) {
+            if (claimCategory.isCurrentlyVisible()) {
+                visibleClaimCategories.add(claimCategory);
+            }
+        }
+        recordCaseData.checkRandomCheckboxFromList(claimCategories);
+    }
+
     public void selectAVisibleClaimCategory() {
         List<WebElementFacade> claimCategories = findAll("//input[not(@checked)]/following-sibling::label[contains(@for,'Cat')]");
         List<WebElementFacade> visibleClaimCategories = new ArrayList<>();
@@ -288,21 +299,24 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
         clickTheButton("Confirm");
     }
 
-    public void selectTransferredToThirdPartySupplier() {
-        recordCaseData.selectSpecificRadioButton("Yes - transferred to third party supplier");
+    public void selectThirdPartySupplier() {
+        recordCaseData.selectSpecificRadioButton("Third party supplier");
     }
 
-    public void selectTransferredToIEDetentionComplianceTeam() {
-        recordCaseData.selectSpecificRadioButton("Yes - transferred to IE Detention Compliance Team");
+    public void selecIEDetentionComplianceTeam() {
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("IE Detention compliance team","Who will investigate the complaint?");
     }
 
-    public void selectNoFurtherConsideration() {
-        recordCaseData.selectSpecificRadioButton("No - no further consideration");
-        recordCaseData.enterTextIntoTextAreaWithHeading("Please provide further details");
+    public void selectIEDETBusinessArea() {
+        recordCaseData.selectRandomOptionFromDropdownWithHeading("Business area");
     }
 
-    public void selectTransferComplaintToCCH() {
-        recordCaseData.selectSpecificRadioButton("No - transfer the complaint to CCH");
+    public void selectDEPMU() {
+        recordCaseData.selectSpecificRadioButton("DEPMU");
+    }
+
+    public void selectSendToCCH() {
+        recordCaseData.selectSpecificRadioButton("Send to CCH");
     }
 
     public void openExGratiaAccordion() {
