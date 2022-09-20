@@ -59,73 +59,104 @@ public class Search extends BasePage {
         String validatedHeaderText;
         switch (criteria.toUpperCase()) {
             case "CASE TYPE":
+                List<WebElementFacade> listOfCaseTypeCheckboxes = findAll("//fieldset[@id='caseTypes']//input[not(@checked)]");
                 switch (value.toUpperCase()) {
                     case "MIN":
                         checkSpecificCheckbox("DCU Ministerial");
+                        setSessionVariable("searchCaseType").to(value);
                         break;
                     case "DTEN":
                         checkSpecificCheckbox("DCU Number 10");
+                        setSessionVariable("searchCaseType").to(value);
                         break;
                     case "TRO":
                         checkSpecificCheckbox("DCU Treat Official");
+                        setSessionVariable("searchCaseType").to(value);
                         break;
                     case "MIN + TRO":
                         checkSpecificCheckbox("DCU Ministerial");
                         checkSpecificCheckbox("DCU Treat Official");
+                        setSessionVariable("searchCaseType").to(value);
                         break;
                     case "MIN + DTEN":
                         checkSpecificCheckbox("DCU Ministerial");
                         checkSpecificCheckbox("DCU Number 10");
+                        setSessionVariable("searchCaseType").to(value);
                         break;
                     case "TRO + DTEN":
                         checkSpecificCheckbox("DCU Treat Official");
                         checkSpecificCheckbox("DCU Number 10");
+                        setSessionVariable("searchCaseType").to(value);
                         break;
                     case "ALL DCU CASE TYPES":
                         checkSpecificCheckbox("DCU Ministerial");
                         checkSpecificCheckbox("DCU Treat Official");
                         checkSpecificCheckbox("DCU Number 10");
+                        setSessionVariable("searchCaseType").to(value);
                         break;
                     case "MPAM":
                         checkSpecificCheckbox("MPAM Case");
+                        setSessionVariable("searchCaseType").to(value);
                         break;
                     case "MTS":
                         checkSpecificCheckbox("MTS Case");
+                        setSessionVariable("searchCaseType").to(value);
                         break;
                     case "COMP":
                         checkSpecificCheckbox("Complaint Case");
+                        setSessionVariable("searchCaseType").to(value);
                         break;
                     case "COMP2":
                         checkSpecificCheckbox("Complaint Case - Stage 2");
+                        setSessionVariable("searchCaseType").to(value);
                         break;
                     case "BF":
                         checkSpecificCheckbox("Border Force Case");
+                        setSessionVariable("searchCaseType").to(value);
                         break;
                     case "BF2":
                         checkSpecificCheckbox("Border Force (Stage 2)");
+                        setSessionVariable("searchCaseType").to(value);
                         break;
                     case "IEDET":
                         checkSpecificCheckbox("IE Detention Case");
+                        setSessionVariable("searchCaseType").to(value);
                         break;
                     case "SMC":
                         checkSpecificCheckbox("Serious Misconduct Case");
+                        setSessionVariable("searchCaseType").to(value);
                         break;
                     case "POGR":
                         checkSpecificCheckbox("HMPO/GRO Complaint Case");
+                        setSessionVariable("searchCaseType").to(value);
                         break;
                     case "POGR2":
                         checkSpecificCheckbox("HMPO/GRO Complaint Case - Stage 2");
+                        setSessionVariable("searchCaseType").to(value);
                         break;
                     case "FOI":
                         checkSpecificCheckbox("FOI Request");
+                        setSessionVariable("searchCaseType").to(value);
                         break;
                     case "TO":
                         checkSpecificCheckbox("Treat Official");
+                        setSessionVariable("searchCaseType").to(value);
+                        break;
+                    case "RANDOM":
+                        String randomCaseType = checkRandomCheckboxFromList(listOfCaseTypeCheckboxes);
+                        setSessionVariable("searchCaseType").to(randomCaseType);
+                        break;
+                    case "MULTIPLE RANDOM":
+                        String randomCaseType1 = checkRandomCheckboxFromList(listOfCaseTypeCheckboxes);
+                        setSessionVariable("searchRandomCaseType1").to(randomCaseType1);
+                        String randomCaseType2 = checkRandomCheckboxFromList(listOfCaseTypeCheckboxes);
+                        setSessionVariable("searchRandomCaseType2").to(randomCaseType2);
+                        String randomCaseType3 = checkRandomCheckboxFromList(listOfCaseTypeCheckboxes);
+                        setSessionVariable("searchRandomCaseType3").to(randomCaseType3);
                         break;
                     default:
                         pendingStep(value + " is not defined within " + getMethodName());
                 }
-                setSessionVariable("searchCaseType").to(value);
                 break;
             case "CORRESPONDENT FULL NAME":
                 validatedHeaderText = getValidFieldLabelCase("Correspondent full name");

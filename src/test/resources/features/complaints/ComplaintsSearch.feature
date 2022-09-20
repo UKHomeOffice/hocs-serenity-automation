@@ -68,7 +68,7 @@ Feature: Complaints Search
     | Complainant date of birth         | 01/01/2001                            |
     | Complainant Home Office Reference | Test entry for Home Office Reference  |
 
-  # HOCS-4079
+  # HOCS-4079S
   @BFRegression @BFComplaints
   Scenario: User can search for a BF complaint case by its case reference
     Given I am logged into "CS" as user "BF_USER"
