@@ -160,13 +160,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     }
 
     public void selectIEDETClaimCategory(String category) {
-        List<WebElementFacade> claimCategories = findAll("//span[text()='" + category + "']/parent::legend/following-sibling::div//input");
-        List<WebElementFacade> visibleClaimCategories = new ArrayList<>();
-        for (WebElementFacade claimCategory: claimCategories) {
-            if (claimCategory.isCurrentlyVisible()) {
-                visibleClaimCategories.add(claimCategory);
-            }
-        }
+        List<WebElementFacade> claimCategories = findAll("//span[text()='" + category + "']/parent::legend/following-sibling::div//label");
         recordCaseData.checkRandomCheckboxFromList(claimCategories);
     }
 
