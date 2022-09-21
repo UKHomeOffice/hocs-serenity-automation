@@ -303,7 +303,7 @@ Feature: Complaints Triage
 #     IEDET COMPLAINTS
 
   @ComplaintsWorkflow @IEDETAndSMCRegression @IEDETComplaints
-  Scenario: User completes the Triage stage for an IEDET complaint case
+  Scenario Outline: User completes the Triage stage for an IEDET complaint case
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to the "Triage" stage
     And I load and claim the current case
@@ -312,17 +312,23 @@ Feature: Complaints Triage
     And I click the "Continue" button
     And I enter the complaint details on the Complaint Input page
     And I click the "Continue" button
-    And I select the "Third party supplier" action for an IEDET case at the Triage stage
+    And I select the "<investigationTeam>" action for an IEDET case at the Triage stage
     Then the case should be moved to the "Draft" stage
     And the summary should display the owning team as "IE Detention"
     And the read-only Case Details accordion should contain all case information entered during the "Triage" stage
+    Examples:
+      | investigationTeam           |
+      | Third party supplier        |
+      | IE Detention compliance team|
+      | DEPMU                       |
 
+  # Expected failure. Defect HOCS-5635 raised.
   @IEDETAndSMCRegression @IEDETComplaints
-  Scenario: User can close an IEDET complaint case at the Triage stage
+  Scenario: User can transfer a IEDET complaints case to CCH
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to the "Triage" stage
     And I load and claim the current case
-    And I select the "No Further Consideration" action for an IEDET case at the Triage stage
+    And I select the "Send to CCH" action for an IEDET case at the Triage stage
     Then the case should be closed
 
 

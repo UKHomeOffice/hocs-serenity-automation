@@ -21,13 +21,7 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
 
     @And("I enter the Complainant Details")
     public void iEnterTheComplainantDetails() {
-        complaintsRegistrationAndDataInput.enterComplainantDOB(getDatePlusMinusNDaysAgo(-14600));
-        complaintsRegistrationAndDataInput.selectAGender();
-        complaintsRegistrationAndDataInput.selectANationality();
-        complaintsRegistrationAndDataInput.enterACompanyName();
-        complaintsRegistrationAndDataInput.enterAHomeOfficeReference("Test entry for Home Office Reference");
-        complaintsRegistrationAndDataInput.enterAPortReference();
-        clickTheButton("Continue");
+          complaintsRegistrationAndDataInput.enterComplainantDetails();
     }
 
     @And("I select {string} as the Complaint Type")
