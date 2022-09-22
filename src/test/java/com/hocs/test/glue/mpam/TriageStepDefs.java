@@ -138,7 +138,7 @@ public class TriageStepDefs extends BasePage {
 
     @When("I select {string} as the new Business Area of the case")
     public void iSelectAsTheNewBusinessAreaOfTheCase(String businessArea) {
-        creation.selectBusinessArea(businessArea);
+        creation.selectASpecificBusinessArea(businessArea);
     }
 
     @And("I select the {string} action at the Triage-Escalated stage")
@@ -172,7 +172,7 @@ public class TriageStepDefs extends BasePage {
     public void iChangeTheBusinessAreaOfTheCaseTo(String businessArea) {
         iSelectToChangeTheBusinessArea();
         waitABit(1000);
-        creation.selectBusinessArea(businessArea);
+        creation.selectASpecificBusinessArea(businessArea);
         triage.setBusinessUnit();
         clickContinueButton();
     }

@@ -695,7 +695,7 @@ public class ValidationStepDefs extends BasePage {
                     case "CREATION":
                         switch (errorMessage.toUpperCase()) {
                             case "BUSINESS AREA REQUIRED":
-                                creation.selectRefType("Ministerial");
+                                creation.selectASpecificRefType("Ministerial");
                                 creation.ministerialSignOffTeamDropdown.selectByVisibleText("Home Secretary");
                                 creation.addresseeDropdown.selectByVisibleText("Home Secretary");
                                 creation.selectUrgency("Standard");
@@ -708,40 +708,40 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(continueButton);
                                 break;
                             case "MINISTERIAL SIGN OFF TEAM REQUIRED":
-                                safeClickOn(creation.businessAreaUKVIRadioButton);
-                                creation.selectRefType("Ministerial");
+                                creation.selectASpecificBusinessArea("UKVI");
+                                creation.selectASpecificRefType("Ministerial");
                                 creation.addresseeDropdown.selectByVisibleText("Home Secretary");
                                 creation.selectUrgency("Standard");
                                 creation.selectInboundChannel("Email");
                                 safeClickOn(continueButton);
                                 break;
                             case "ADDRESSEE REQUIRED":
-                                creation.selectBusinessArea("UKVI");
-                                creation.selectRefType("Ministerial");
+                                creation.selectASpecificBusinessArea("UKVI");
+                                creation.selectASpecificRefType("Ministerial");
                                 creation.ministerialSignOffTeamDropdown.selectByVisibleText("Home Secretary");
                                 creation.selectUrgency("Standard");
                                 creation.selectInboundChannel("Email");
                                 safeClickOn(continueButton);
                                 break;
                             case "URGENCY REQUIRED":
-                                creation.selectBusinessArea("UKVI");
-                                creation.selectRefType("Ministerial");
+                                creation.selectASpecificBusinessArea("UKVI");
+                                creation.selectASpecificRefType("Ministerial");
                                 creation.ministerialSignOffTeamDropdown.selectByVisibleText("Home Secretary");
                                 creation.addresseeDropdown.selectByVisibleText("Home Secretary");
                                 creation.selectInboundChannel("Email");
                                 safeClickOn(continueButton);
                                 break;
                             case "CHANNEL RECEIVED REQUIRED":
-                                creation.selectBusinessArea("UKVI");
-                                creation.selectRefType("Ministerial");
+                                creation.selectASpecificBusinessArea("UKVI");
+                                creation.selectASpecificRefType("Ministerial");
                                 creation.ministerialSignOffTeamDropdown.selectByVisibleText("Home Secretary");
                                 creation.addresseeDropdown.selectByVisibleText("Home Secretary");
                                 creation.selectUrgency("Standard");
                                 safeClickOn(continueButton);
                                 break;
                             case "PRIMARY CORRESPONDENT REQUIRED":
-                                creation.selectBusinessArea("UKVI");
-                                creation.selectRefType("Ministerial");
+                                creation.selectASpecificBusinessArea("UKVI");
+                                creation.selectASpecificRefType("Ministerial");
                                 creation.ministerialSignOffTeamDropdown.selectByVisibleText("Home Secretary");
                                 creation.addresseeDropdown.selectByVisibleText("Home Secretary");
                                 creation.selectUrgency("Standard");
@@ -1041,8 +1041,8 @@ public class ValidationStepDefs extends BasePage {
                             mtsDataInput.selectAnUrgency();
                             mtsDataInput.selectAChannelReceived();
                             mtsDataInput.selectAnEnquirySubject();
-                            mtsDataInput.enquiryReasonDropdown.selectByIndex(1);
-                            typeInto(mtsDataInput.supportNoteTextArea, "Test");
+                            mtsDataInput.selectAnEnquiryReason();
+                            mtsDataInput.enterASupportNote();
                             mtsDataInput.selectYourBusinessArea();
                             clickTheButton("Complete and Close Case");
                             break;
@@ -1050,11 +1050,11 @@ public class ValidationStepDefs extends BasePage {
                             correspondents.addAMemberCorrespondent();
                             safeClickOn(continueButton);
                             mtsDataInput.selectABusinessArea();
-                            mtsDataInput.businessUnitDropdown.selectByIndex(1);
+                            mtsDataInput.selectABusinessUnit();
                             mtsDataInput.selectAChannelReceived();
                             mtsDataInput.selectAnEnquirySubject();
-                            mtsDataInput.enquiryReasonDropdown.selectByIndex(1);
-                            typeInto(mtsDataInput.supportNoteTextArea, "Test");
+                            mtsDataInput.selectAnEnquiryReason();
+                            mtsDataInput.enterASupportNote();
                             mtsDataInput.selectYourBusinessArea();
                             clickTheButton("Complete and Close Case");
                             break;
@@ -1062,11 +1062,11 @@ public class ValidationStepDefs extends BasePage {
                             correspondents.addAMemberCorrespondent();
                             safeClickOn(continueButton);
                             mtsDataInput.selectABusinessArea();
-                            mtsDataInput.businessUnitDropdown.selectByIndex(1);
+                            mtsDataInput.selectABusinessUnit();
                             mtsDataInput.selectAnUrgency();
                             mtsDataInput.selectAnEnquirySubject();
-                            mtsDataInput.enquiryReasonDropdown.selectByIndex(1);
-                            typeInto(mtsDataInput.supportNoteTextArea, "Test");
+                            mtsDataInput.selectAnEnquiryReason();
+                            mtsDataInput.enterASupportNote();
                             mtsDataInput.selectYourBusinessArea();
                             clickTheButton("Complete and Close Case");
                             break;
@@ -1075,10 +1075,10 @@ public class ValidationStepDefs extends BasePage {
                             correspondents.addAMemberCorrespondent();
                             safeClickOn(continueButton);
                             mtsDataInput.selectABusinessArea();
-                            mtsDataInput.businessUnitDropdown.selectByIndex(1);
+                            mtsDataInput.selectABusinessUnit();
                             mtsDataInput.selectAnUrgency();
                             mtsDataInput.selectAChannelReceived();
-                            typeInto(mtsDataInput.supportNoteTextArea, "Test");
+                            mtsDataInput.enterASupportNote();
                             mtsDataInput.selectYourBusinessArea();
                             clickTheButton("Complete and Close Case");
                             break;
@@ -1086,11 +1086,11 @@ public class ValidationStepDefs extends BasePage {
                             correspondents.addAMemberCorrespondent();
                             safeClickOn(continueButton);
                             mtsDataInput.selectABusinessArea();
-                            mtsDataInput.businessUnitDropdown.selectByIndex(1);
+                            mtsDataInput.selectABusinessUnit();
                             mtsDataInput.selectAnUrgency();
                             mtsDataInput.selectAChannelReceived();
                             mtsDataInput.selectAnEnquirySubject();
-                            mtsDataInput.enquiryReasonDropdown.selectByIndex(1);
+                            mtsDataInput.selectAnEnquiryReason();
                             mtsDataInput.selectYourBusinessArea();
                             clickTheButton("Complete and Close Case");
                             break;
@@ -1098,12 +1098,12 @@ public class ValidationStepDefs extends BasePage {
                             correspondents.addAMemberCorrespondent();
                             safeClickOn(continueButton);
                             mtsDataInput.selectABusinessArea();
-                            mtsDataInput.businessUnitDropdown.selectByIndex(1);
+                            mtsDataInput.selectABusinessUnit();
                             mtsDataInput.selectAnUrgency();
                             mtsDataInput.selectAChannelReceived();
                             mtsDataInput.selectAnEnquirySubject();
-                            mtsDataInput.enquiryReasonDropdown.selectByIndex(1);
-                            typeInto(mtsDataInput.supportNoteTextArea, "Test");
+                            mtsDataInput.selectAnEnquiryReason();
+                            mtsDataInput.enterASupportNote();
                             clickTheButton("Complete and Close Case");
                             break;
                         default:

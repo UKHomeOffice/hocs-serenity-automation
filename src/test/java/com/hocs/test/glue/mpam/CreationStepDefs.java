@@ -6,7 +6,6 @@ import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.SummaryTab;
-import com.hocs.test.pages.decs.Workstacks;
 import com.hocs.test.pages.mpam.Creation;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -29,13 +28,13 @@ public class CreationStepDefs extends BasePage {
 
     @When("I select {string} as the Business Area and {string} as the Reference Type")
     public void selectSpecificBusinessAreaAndRefType(String businessArea, String refType) {
-        creation.selectBusinessArea(businessArea);
-        creation.selectRefType(refType);
+        creation.selectASpecificBusinessArea(businessArea);
+        creation.selectASpecificRefType(refType);
     }
 
     @And("I complete the other required fields for Creation stage")
     public void iCompleteTheOtherRequiredFieldsForCaseCreation() {
-        creation.selectMinisterialSignOffTeam("Home Secretary");
+        creation.selectASpecificMinisterialSignOffTeam("Home Secretary");
         creation.selectAddressee("Home Secretary");
         creation.selectUrgency("Standard");
         creation.selectInboundChannel("Email");
@@ -51,13 +50,13 @@ public class CreationStepDefs extends BasePage {
     @When("I select {string} as the Urgency and {string} as the Reference Type")
     public void selectSpecificUrgencyAndReferenceType(String urgency, String refType) {
         creation.selectUrgency(urgency);
-        creation.selectRefType(refType);
+        creation.selectASpecificRefType(refType);
     }
 
     @And("I select {string} as the Ministerial sign off team when completing the creation stage")
     public void selectAsSignOffTeamWhenCompletingTheCreationStage(String signOffTeam) {
         creation.completeRequiredQuestions();
-        creation.selectMinisterialSignOffTeam(signOffTeam);
+        creation.selectASpecificMinisterialSignOffTeam(signOffTeam);
         creation.selectAddressee(signOffTeam);
         clickTheButton("Continue");
         correspondents.addAMemberCorrespondent();

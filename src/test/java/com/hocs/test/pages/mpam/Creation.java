@@ -1,10 +1,10 @@
 package com.hocs.test.pages.mpam;
 
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.RecordCaseData;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -12,65 +12,7 @@ public class Creation extends BasePage {
 
     Correspondents correspondents;
 
-    @FindBy(xpath = "//label[text()='UKVI']")
-    public WebElementFacade businessAreaUKVIRadioButton;
-
-    @FindBy(css = "label[for='BusArea-BF']")
-    public WebElementFacade businessAreaBFRadioButton;
-
-    @FindBy(css = "label[for='BusArea-IE']")
-    public WebElementFacade businessAreaIERadioButton;
-
-    @FindBy(css = "label[for='BusArea-EUSS']")
-    public WebElementFacade businessAreaEUSSRadioButton;
-
-    @FindBy(css = "label[for='BusArea-HMPO']")
-    public WebElementFacade businessAreaHMPORadioButton;
-
-    @FindBy(css = "label[for='BusArea-Windrush']")
-    public WebElementFacade businessAreaWindrushRadioButton;
-
-    @FindBy(css = "label[for='BusArea-Coronavirus']")
-    public WebElementFacade businessAreaCoronavirusRadioButton;
-
-    @FindBy(css = "label[for='BusArea-TransferToOgd']")
-    public WebElementFacade businessAreaTransferToOGDRadioButton;
-
-    @FindBy(css = "label[for='BusArea-TransferToOther']")
-    public WebElementFacade businessAreaTransferToOtherRadioButton;
-
-    @FindBy(xpath = "//label[text()='Yes (Ministerial)']")
-    public WebElementFacade refTypeMRefRadioButton;
-
-    @FindBy(xpath = "//label[text()='No (Official)']")
-    public WebElementFacade refTypeBRefRadioButton;
-
-    @FindBy(css = "label[for='Priority-Standard']")
-    public WebElementFacade urgencyStandardRadioButton;
-
-    @FindBy(css = "label[for='Priority-Priority']")
-    public WebElementFacade urgencyPriorityRadioButton;
-
-    @FindBy(css = "label[for='Priority-Immediate']")
-    public WebElementFacade urgencyImmediateRadioButton;
-
-    @FindBy(css = "label[for='ChannelIn-Email']")
-    public WebElementFacade channelEmailRadioButton;
-
-    @FindBy(css = "label[for='ChannelIn-Post']")
-    public WebElementFacade channelPostRadioButton;
-
-    @FindBy(css = "label[for='ChannelIn-Phone-replied']")
-    public WebElementFacade channelPhoneReplyGivenRadioButton;
-
-    @FindBy(css = "label[for='ChannelIn-Phone-required']")
-    public WebElementFacade channelPhoneResponseRequiredRadioButton;
-
-    @FindBy(css = "label[for='ChannelIn-PO']")
-    public WebElementFacade channelPrivateOfficeRadioButton;
-
-    @FindBy(css = "label[for='ChannelIn-Outreach']")
-    public WebElementFacade channelOutreachRadioButton;
+    RecordCaseData recordCaseData;
 
     @FindBy(id = "MinSignOffTeam")
     public WebElementFacade ministerialSignOffTeamDropdown;
@@ -79,27 +21,33 @@ public class Creation extends BasePage {
     public WebElementFacade addresseeDropdown;
 
     public void completeRequiredQuestions() {
-        selectBusinessArea("UKVI");
-        selectRefType("Ministerial");
-        selectMinisterialSignOffTeam("Home Secretary");
+        selectASpecificBusinessArea("UKVI");
+        selectASpecificRefType("Ministerial");
+        selectASpecificMinisterialSignOffTeam("Home Secretary");
         selectAddressee("Home Secretary");
         selectUrgency("Standard");
         selectInboundChannel("Email");
     }
 
-    public void selectBusinessArea(String businessArea) {
-        selectSpecificRadioButton(businessArea);
+    public void selectASpecificBusinessArea(String businessArea) {
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(businessArea, "Business Area");
         setSessionVariable("businessArea").to(businessArea);
         System.out.println(businessArea + " is the business area");
     }
 
-    public void selectRefType(String refType) {
-        selectSpecificRadioButton(refType);
+    public void selectASpecificRefType(String refType) {
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(refType, "Does this correspondence need a Ministerial response?");
         setSessionVariable("refType").to(refType);
         System.out.println(refType + " is the reference type");
     }
 
-    public void selectMinisterialSignOffTeam(String signOffTeam) {
+    public void selectAMinisterialSignOffTeam() {
+        String signOffTeam = recordCaseData.selectRandomOptionFromDropdownWithHeading("Minsiterial sign off team");
+        setSessionVariable("ministerialSignOffTeam").to(signOffTeam);
+        setSessionVariable("signOffTeam").to(signOffTeam);
+    }
+
+    public void selectASpecificMinisterialSignOffTeam(String signOffTeam) {
         ministerialSignOffTeamDropdown.selectByVisibleText(signOffTeam);
         setSessionVariable("ministerialSignOffTeam").to(signOffTeam);
         setSessionVariable("signOffTeam").to(signOffTeam);
@@ -127,9 +75,9 @@ public class Creation extends BasePage {
     }
 
     public void moveCaseWithSpecifiedMPCorrespondentToTriageStage(String correspondent) {
-        selectBusinessArea("UKVI");
-        selectRefType("Ministerial");
-        selectMinisterialSignOffTeam("Home Secretary");
+        selectASpecificBusinessArea("UKVI");
+        selectASpecificRefType("Ministerial");
+        selectASpecificMinisterialSignOffTeam("Home Secretary");
         selectAddressee("Home Secretary");
         selectUrgency("Standard");
         selectInboundChannel("Email");
@@ -139,8 +87,8 @@ public class Creation extends BasePage {
     }
 
     public void triggerMPCorrespondentIsMandatoryScreen() {
-        selectBusinessArea("UKVI");
-        selectRefType("Official");
+        selectASpecificBusinessArea("UKVI");
+        selectASpecificRefType("Official");
         selectUrgency("Standard");
         selectInboundChannel("Email");
         safeClickOn(continueButton);

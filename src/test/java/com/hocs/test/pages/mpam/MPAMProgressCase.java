@@ -166,10 +166,10 @@ public class MPAMProgressCase extends BasePage {
     }
 
     public void moveCaseFromCreationToTriage() {
-        creation.selectBusinessArea(businessArea);
-        creation.selectRefType(refType);
+        creation.selectASpecificBusinessArea(businessArea);
+        creation.selectASpecificRefType(refType);
         if (refType.equalsIgnoreCase("MINISTERIAL")) {
-            creation.selectMinisterialSignOffTeam(signOffTeam);
+            creation.selectASpecificMinisterialSignOffTeam(signOffTeam);
             creation.selectAddressee(signOffTeam);
         }
         creation.selectUrgency(urgency);

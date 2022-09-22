@@ -19,7 +19,7 @@ Feature: Create case
       | MTS      | Data Input                  | Original correspondence | MTS Team                          |
       | COMP     | Registration                | To document             | Complaint Registration            |
       | COMP2    | Stage 2 Registration        | To document             | Stage 2 Complaint Registration    |
-      | IEDET    | Registration                | To document             | IE Detention                      |
+      | IEDET    | IEDET Registration          | Original complaint      | IE Detention                      |
       | SMC      | Registration                | To document             | SMC Registration                  |
       | FOI      | Case Creation               | Request                 | FOI Creation                      |
       | TO       | Data Input                  | Initial Correspondence  | Treat Official Creation           |
