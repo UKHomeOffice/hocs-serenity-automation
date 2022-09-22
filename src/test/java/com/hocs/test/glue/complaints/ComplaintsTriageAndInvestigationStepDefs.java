@@ -119,22 +119,25 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
     @And("I select the {string} action for an IEDET case at the Triage stage")
     public void iSelectTheActionForAnIEDETCaseAtTriage(String action) {
         switch (action.toUpperCase()) {
-            case "TRANSFERRED TO THIRD PARTY SUPPLIER":
-                complaintsTriageAndInvestigation.selectTransferredToThirdPartySupplier();
+            case "THIRD PARTY SUPPLIER":
+                complaintsTriageAndInvestigation.selectThirdPartySupplier();
+                complaintsTriageAndInvestigation.selectIEDETBusinessArea();
                 break;
-            case "TRANSFERRED TO IE DETENTION COMPLIANCE TEAM":
-                complaintsTriageAndInvestigation.selectTransferredToIEDetentionComplianceTeam();
+            case "IE DETENTION COMPLIANCE TEAM":
+                complaintsTriageAndInvestigation.selecIEDetentionComplianceTeam();
+                complaintsTriageAndInvestigation.selectIEDETBusinessArea();
                 break;
-            case "NO FURTHER CONSIDERATION":
-                complaintsTriageAndInvestigation.selectNoFurtherConsideration();
+            case "DEPMU":
+                complaintsTriageAndInvestigation.selectDEPMU();
+                complaintsTriageAndInvestigation.selectIEDETBusinessArea();
                 break;
-            case "TRANSFER COMPLAINT TO CCH":
-                complaintsTriageAndInvestigation.selectTransferComplaintToCCH();
+            case "Send to CCH":
+                complaintsTriageAndInvestigation.selectSendToCCH();
                 break;
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
         }
-        clickTheButton("Continue");
+        clickTheButton("Finish");
     }
 
     @And("I enter details on PSU Reference page")

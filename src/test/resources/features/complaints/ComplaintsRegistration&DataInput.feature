@@ -119,15 +119,9 @@ Feature: Registration
     And I add a "Complainant" correspondent
     And I click the "Continue" button
     And I enter the Complainant Details
-    And I select "Ex-Gratia" as the Complaint Type
-    And I enter the complaint details on the Complaint Input page
-    And I click the "Continue" button
-    And I select a "Service" Complaint Category
-    And I select a Owning CSU
-    And I click the "Finish" button
     Then the case should be moved to the "Triage" stage
     And the summary should display the owning team as "IE Detention"
-    And the read-only Case Details accordion should contain all case information entered during the "Registration" stage
+    And the read-only Case Details accordion should contain all case information entered during the "IEDET Registration" stage
 
 
 #     SMC COMPLAINTS
