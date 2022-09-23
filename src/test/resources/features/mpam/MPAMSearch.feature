@@ -4,23 +4,6 @@ Feature: MPAM Search
   Background:
     Given I am logged into "CS" as user "MPAM_USER"
 
-  @MPAMRegression2
-  Scenario Outline: User tests MPAM search criteria
-    When I navigate to the "Search" page
-    And I enter "<infoValue>" into the "<infoType>" search field in the "MPAM" search configuration
-    And I click the search button on the search page
-    Then I check that the search results have the correct "<infoType>"
-    Examples:
-      | infoType                                            | infoValue      |
-      | Reference Type                                      | Ministerial    |
-      | Reference Type                                      | Official       |
-      | Member of Parliament Name                           | Boris Johnson  |
-      | Correspondent Reference Number                      | TestRefNumber1 |
-      | Campaign                                            | Small boats    |
-      | Ministerial Sign Off Team                           | Home Secretary |
-      | Correspondent full name (applicant or constituent)  | Sam McTester   |
-
-
   Scenario: User searches by case reference from the search page
     And I create a MPAM case with "UKVI" as the Business Area and "Ministerial" as the Reference Type and move it to the "Triage" stage
     And I navigate to the "Search" page

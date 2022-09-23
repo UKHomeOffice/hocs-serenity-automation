@@ -75,6 +75,7 @@ public class SearchStepDefs extends BasePage {
             case "FOI":
             case "BF":
             case "TO":
+            case "DECS":
                 search.enterSearchCriteria(criteria, value);
                 break;
             default:
@@ -84,10 +85,16 @@ public class SearchStepDefs extends BasePage {
 
     @And("I check that the search results have the correct {string}")
     public void iCheckThatTheSearchResultsHaveTheCorrect(String criteria) throws ParseException {
+        String caseTypeToGenerate;
         String searchConfig = sessionVariableCalled("searchConfig");
         String infoValue = sessionVariableCalled("searchValue");
+        if (searchConfig.equalsIgnoreCase("DECS")) {
+            caseTypeToGenerate = sessionVariableCalled("validRandomCaseType");
+        } else {
+            caseTypeToGenerate = searchConfig;
+        }
         if (search.zeroSearchResultsReturned()) {
-            switch (searchConfig.toUpperCase()) {
+            switch (caseTypeToGenerate.toUpperCase()) {
                 case "DCU":
                     dcuProgressCase.generateDCUSearchCaseData(infoValue, criteria);
                     break;
@@ -126,25 +133,18 @@ public class SearchStepDefs extends BasePage {
         }
         switch (searchConfig.toUpperCase()) {
             case "DCU":
-                search.assertDCUInformationRandomSearchResult(criteria);
-                break;
             case "MPAM":
-                search.assertMPAMInformationRandomSearchResult(criteria);
-                break;
             case "COMP":
             case "IEDET":
             case "SMC":
             case "POGR":
-                search.assertComplaintsInformationRandomSearchResult(criteria);
-                break;
             case "FOI":
-                search.assertFOIInformationRandomSearchResult(criteria);
-                break;
             case "BF":
-                search.assertBFInformationRandomSearchResult(criteria);
-                break;
             case "TO":
-                search.assertTOInformationRandomSearchResult(criteria);
+                search.assertSearchResults(criteria, searchConfig);
+                break;
+            case "DECS":
+                search.assertSearchResults(criteria, null);
                 break;
             default:
                 pendingStep(searchConfig + " is not defined within " + getMethodName());

@@ -1,28 +1,6 @@
 @Search @DCU
 Feature: DCU Search
 
-#    Expected intermittent failure for Sign off team example. Defect HOCS-4148 raised.
-  @DCURegression
-  Scenario Outline: User tests DCU search criteria
-    Given I am logged into "CS" as user "DCU_USER"
-    When I navigate to the "Search" page
-    And I enter "<infoValue>" into the "<infoType>" search field in the "DCU" search configuration
-    And I click the search button on the search page
-    Then I check that the search results have the correct "<infoType>"
-    Examples:
-      | infoType                    | infoValue                 |
-      | Case Type                   | MIN                       |
-      | Received on or Before date  | 01/01/2021                |
-      | Received on or After date   | 01/01/2021                |
-      | Member of Parliament Name   | Boris Johnson             |
-      | Public Correspondent Name   | Sam McTester              |
-      | Correspondent Postcode      | AB1 2CD                   |
-      | Correspondent Email Address | SamMcTester@Test.com      |
-      | Topic                       | Animal alternatives (3Rs) |
-      | Sign off team               | Minister for Lords        |
-      | Home Secretary Interest     | Yes                       |
-      | Active Cases Only           | Yes                       |
-
   Scenario Outline: User can search for DCU case types
     Given I am logged into "CS" as user "DCU_USER"
     When I navigate to the "Search" page

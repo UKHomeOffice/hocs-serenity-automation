@@ -100,7 +100,7 @@ public class SummaryTab extends BasePage {
     @FindBy(xpath = "//th[text()='Follow-up due by']/following-sibling::td")
     private WebElementFacade followUpDueDate;
 
-    @FindBy(xpath = "//th[text()='Campaign']/following-sibling::td")
+    @FindBy(xpath = "//th[contains(text(), 'Campaign')]/following-sibling::td")
     private WebElementFacade campaign;
 
     @FindBy(xpath = "//th[contains(text(), 'Home Secretary')]/following-sibling::td")
