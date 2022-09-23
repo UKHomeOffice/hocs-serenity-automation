@@ -96,25 +96,21 @@ public class IEDETProgressCase extends BasePage {
         correspondents.addANonMemberCorrespondentOfType("Complainant");
         correspondents.confirmPrimaryCorrespondent();
         complaintsRegistrationAndDataInput.enterComplainantDetails();
+        System.out.println("Case moved from Registration to Triage");
+    }
+
+    public void moveIEDETCaseFromTriageToDraft() {
         complaintsRegistrationAndDataInput.selectASpecificComplaintType("Service");
+        complaintsRegistrationAndDataInput.selectAVisibleClaimCategory();
+        clickTheButton("Continue");
         complaintsRegistrationAndDataInput.selectAComplaintChannel();
         complaintsRegistrationAndDataInput.selectComplaintOrigin();
         complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
         complaintsRegistrationAndDataInput.enterAThirdPartyReference();
         clickTheButton("Continue");
-        complaintsRegistrationAndDataInput.openTheServiceComplaintCategoryAccordion();
-        waitABit(1000);
-        complaintsRegistrationAndDataInput.selectAVisibleClaimCategory();
-        complaintsRegistrationAndDataInput.selectAnOwningCSU();
+        complaintsTriageAndInvestigation.selecIEDetentionComplianceTeam();
+        complaintsTriageAndInvestigation.selectIEDETBusinessArea();
         clickTheButton("Finish");
-        System.out.println("Case moved from Registration to Triage");
-    }
-
-    public void moveIEDETCaseFromTriageToDraft() {
-        complaintsTriageAndInvestigation.selectTransferredToIEDetentionComplianceTeam();
-        clickTheButton("Continue");
-        complaintsTriageAndInvestigation.enterDetailsOnTriageCaptureReasonPage();
-        safeClickOn(continueButton);
         System.out.println("Case moved from Triage to Draft");
     }
 
@@ -124,7 +120,7 @@ public class IEDETProgressCase extends BasePage {
     }
 
     public void moveIEDETCaseFromSendToCaseClosed() {
-        documents.addADocumentOfDocumentType("Final Response");
+        documents.addADocumentOfDocumentType("Final response");
         complaintsDispatchAndSend.selectACaseOutcome();
         complaintsDispatchAndSend.enterADateOfResponse();
         clickTheButton("Complete");
