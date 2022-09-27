@@ -1,6 +1,26 @@
 @Search @DCU
 Feature: DCU Search
 
+  @DCURegression
+  Scenario: User tests DCU case search criteria
+    Given I am logged into "CS" as user "DCU_USER"
+    When I generate a "DCU" case to validate search functionality
+    And I navigate to the "Search" page
+    And I enter "MIN" into the "Case Type" search field in the "DCU" search configuration
+    And I enter "01/01/2022" into the "Received on or After Date" search field in the "DCU" search configuration
+    And I enter "01/01/2022" into the "Received on or Before Date" search field in the "DCU" search configuration
+    And I enter "Boris Johnson" into the "Member of Parliament Name" search field in the "DCU" search configuration
+    And I enter "Sam McTester" into the "Public Correspondent Name" search field in the "DCU" search configuration
+    And I enter "AB1 2CD" into the "Correspondent Postcode" search field in the "DCU" search configuration
+    And I enter "SamMcTester@Test.com" into the "Correspondent Email Address" search field in the "DCU" search configuration
+    And I enter "Animal alternatives (3Rs)" into the "Topic" search field in the "DCU" search configuration
+    And I enter "Minister for Lords" into the "Sign off team" search field in the "DCU" search configuration
+    And I enter "Yes" into the "Home Secretary Interest" search field in the "DCU" search configuration
+    And I enter "Yes" into the "Active Cases Only" search field in the "DCU" search configuration
+    And I enter the current case reference into the Case Reference field on the search screen
+    And I click the search button on the search page
+    Then the created case should be the only case visible in the search results
+
   Scenario Outline: User can search for DCU case types
     Given I am logged into "CS" as user "DCU_USER"
     When I navigate to the "Search" page

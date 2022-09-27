@@ -236,10 +236,19 @@ public class TOProgressCase extends BasePage {
                 createCase.createCSCaseOfType("TO");
                 break;
             case "RECEIVED ON OR AFTER":
-                createCase.createCaseReceivedFiveDaysBeforeOrAfterDate("TO", "After", infoValue);
-                break;
             case "RECEIVED ON OR BEFORE":
-                createCase.createCaseReceivedFiveDaysBeforeOrAfterDate("TO", "Before", infoValue);
+                dashboard.selectCreateSingleCaseLinkFromMenuBar();
+                if (!nextButton.isVisible()) {
+                    dashboard.selectCreateSingleCaseLinkFromMenuBar();
+                }
+                createCase.selectCaseType("TO");
+                clickTheButton("Next");
+                createCase.editReceivedDate(infoValue);
+                createCase.storeCorrespondenceReceivedDate();
+                documents.uploadFileOfType("docx");
+                clickTheButton("Create case");
+                confirmationScreens.storeCaseReference();
+                dashboard.goToDashboard();
                 break;
             case "CORRESPONDENT FULL NAME":
             case "CORRESPONDENT POSTCODE":
@@ -265,17 +274,48 @@ public class TOProgressCase extends BasePage {
                 correspondents.confirmPrimaryCorrespondent();
                 dataInput.selectWhetherToAddRecipient("No");
                 clickTheButton("Continue");
-                triage.selectSetEnquirySubjectAndReasonLink();
+                dashboard.getAndClaimCurrentCase();
                 triage.selectAnEnquirySubject();
-                clickTheButton("Continue");
                 triage.selectAnEnquiryReason();
-                clickTheButton("Continue");
                 triage.selectABusinessUnitType();
                 triage.selectABusinessUnit();
                 selectTheStageAction("Put case into a campaign");
                 clickTheButton("Finish");
                 campaign.selectASpecificCampaign(infoValue);
                 clickTheButton("Confirm");
+                dashboard.goToDashboard();
+                break;
+            case "ALL":
+                dashboard.selectCreateSingleCaseLinkFromMenuBar();
+                if (!nextButton.isVisible()) {
+                    dashboard.selectCreateSingleCaseLinkFromMenuBar();
+                }
+                createCase.selectCaseType("TO");
+                clickTheButton("Next");
+                createCase.editReceivedDate("01/01/2022");
+                createCase.storeCorrespondenceReceivedDate();
+                documents.uploadFileOfType("docx");
+                clickTheButton("Create case");
+                confirmationScreens.storeCaseReference();
+                dashboard.goToDashboard();
+                dashboard.getAndClaimCurrentCase();
+                dataInput.selectABusinessArea();
+                dataInput.selectAChannelRecieved();
+                clickTheButton("Continue");
+                correspondents.addANonMemberCorrespondentOfType("Correspondent");
+                correspondents.confirmPrimaryCorrespondent();
+                dataInput.selectWhetherToAddRecipient("No");
+                clickTheButton("Continue");
+                dashboard.getAndClaimCurrentCase();
+                triage.selectAnEnquirySubject();
+                triage.selectAnEnquiryReason();
+                triage.selectABusinessUnitType();
+                triage.selectABusinessUnit();
+                selectTheStageAction("Put case into a campaign");
+                clickTheButton("Finish");
+                campaign.selectASpecificCampaign("Test campaign 1");
+                clickTheButton("Confirm");
+                dashboard.goToDashboard();
                 break;
             default:
                 pendingStep(infoType + " is not defined within " + getMethodName());

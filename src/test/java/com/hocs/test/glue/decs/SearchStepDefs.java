@@ -241,7 +241,6 @@ public class SearchStepDefs extends BasePage {
                 dashboard.selectSearchLinkFromMenuBar();
                 if (getCurrentCaseType().equalsIgnoreCase("MIN") || getCurrentCaseType().equalsIgnoreCase("TRO") || getCurrentCaseType().equalsIgnoreCase("DTEN")) {
                     iEnterIntoTheSearchFieldForTheCaseType(getCurrentCaseReference(), "Case Reference", "DCU");
-
                 } else {
                     iEnterIntoTheSearchFieldForTheCaseType(getCurrentCaseReference(), "Case Reference", getCurrentCaseType());
                 }
@@ -284,12 +283,17 @@ public class SearchStepDefs extends BasePage {
         search.enterSearchCriteria("Case Reference", getCurrentCaseReference());
     }
 
+    @And("I enter the current case reference into the Case Reference field on the search screen")
+    public void iEnterTheCurrentCaseReferenceIntoTheCaseReferenceFieldOnTheSearchScreen() {
+        search.enterSearchCriteria("Case Reference", getCurrentCaseReference());
+    }
+
     @And("I search for the case by its case reference")
     public void iSearchForTheCaseByItsCaseReference() {
         int i = 0;
         while (i < 6) {
             dashboard.selectSearchLinkFromMenuBar();
-            search.enterSearchCriteria("Case Reference", getCurrentCaseReference());
+            iEnterTheCurrentCaseReferenceIntoTheCaseReferenceFieldOnTheSearchScreen();
             safeClickOn(searchButton);
             search.waitForResultsPage();
             if(!search.zeroSearchResultsReturned()) {

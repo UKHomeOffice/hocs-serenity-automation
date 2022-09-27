@@ -5,9 +5,11 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.ConfirmationScreens;
 import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
+import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
 import java.text.ParseException;
 
@@ -15,7 +17,11 @@ public class MPAMProgressCase extends BasePage {
 
     CreateCase createCase;
 
+    ConfirmationScreens confirmationScreens;
+
     Dashboard dashboard;
+
+    Documents documents;
 
     Campaign campaign;
 
@@ -253,10 +259,19 @@ public class MPAMProgressCase extends BasePage {
                 creation.addCorrespondentWithSpecificReferenceToCase(infoValue);
                 break;
             case "RECEIVED ON OR BEFORE DATE":
-                createCase.createCaseReceivedFiveDaysBeforeOrAfterDate("MPAM", "Before", infoValue);
-                break;
             case "RECEIVED ON OR AFTER DATE":
-                createCase.createCaseReceivedFiveDaysBeforeOrAfterDate("MPAM", "After", infoValue);
+                dashboard.selectCreateSingleCaseLinkFromMenuBar();
+                if (!nextButton.isVisible()) {
+                    dashboard.selectCreateSingleCaseLinkFromMenuBar();
+                }
+                createCase.selectCaseType("MPAM");
+                clickTheButton("Next");
+                createCase.editReceivedDate(infoValue);
+                createCase.storeCorrespondenceReceivedDate();
+                documents.uploadFileOfType("docx");
+                clickTheButton("Create case");
+                confirmationScreens.storeCaseReference();
+                dashboard.goToDashboard();
                 break;
             case "CAMPAIGN":
                 createCase.createCSCaseOfType("MPAM");
@@ -278,6 +293,34 @@ public class MPAMProgressCase extends BasePage {
                 dashboard.goToDashboard();
                 dashboard.getAndClaimCurrentCase();
                 mtsDataInput.completeDataInputStageAndCloseMTSCase();
+                break;
+            case "ALL":
+                dashboard.selectCreateSingleCaseLinkFromMenuBar();
+                if (!nextButton.isVisible()) {
+                    dashboard.selectCreateSingleCaseLinkFromMenuBar();
+                }
+                createCase.selectCaseType("MPAM");
+                clickTheButton("Next");
+                createCase.editReceivedDate("01/01/2022");
+                createCase.storeCorrespondenceReceivedDate();
+                documents.uploadFileOfType("docx");
+                clickTheButton("Create case");
+                confirmationScreens.storeCaseReference();
+                dashboard.goToDashboard();
+                dashboard.getAndClaimCurrentCase();
+                creation.selectBusinessArea(businessArea);
+                creation.selectRefType("Yes (Ministerial)");
+                creation.selectMinisterialSignOffTeam("Home Secretary");
+                creation.selectAddressee("Home Secretary");
+                creation.selectUrgency(urgency);
+                creation.selectInboundChannel("Email");
+                clickTheButton("Continue");
+                correspondents.addASpecificMemberCorrespondent("Boris Johnson");
+                correspondents.addANonMemberCorrespondentOfType("Constituent");
+                correspondents.confirmPrimaryCorrespondent();
+                dashboard.getAndClaimCurrentCase();
+                campaign.moveCaseFromAStageToCampaign("Small boats");
+                dashboard.goToDashboard();
                 break;
             default:
                 pendingStep(infoType + " is not defined within " + getMethodName());
