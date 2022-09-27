@@ -89,7 +89,7 @@ public class SearchStepDefs extends BasePage {
         String searchConfig = sessionVariableCalled("searchConfig");
         String infoValue = sessionVariableCalled("searchValue");
         if (searchConfig.equalsIgnoreCase("DECS")) {
-            caseTypeToGenerate = sessionVariableCalled("validRandomCaseType");
+            caseTypeToGenerate = sessionVariableCalled("randomCaseType");
         } else {
             caseTypeToGenerate = searchConfig;
         }
