@@ -482,9 +482,9 @@ public class Search extends BasePage {
                         searchValue = sessionVariableCalled("searchSignOffTeam");
                         summaryTab.selectSummaryTab();
                         if (summaryTab.overridePrivateOfficeTeam.isVisible()) {
-                            signOffTeam = summaryTab.overridePrivateOfficeTeam.getText();
+                           signOffTeam = summaryTab.overridePrivateOfficeTeam.getText();
                         } else {
-                            signOffTeam = summaryTab.privateOfficeTeam.getText();
+                           signOffTeam = summaryTab.privateOfficeTeam.getText();
                         }
                         assertThat(signOffTeam.equalsIgnoreCase(searchValue), is(true));
                         break;
