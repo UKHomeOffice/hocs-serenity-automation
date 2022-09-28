@@ -324,9 +324,10 @@ public class Search extends BasePage {
         Date caseDate = null;
         List<WebElementFacade> listOfCasesWithValue;
         int numberOfCasesDisplayed = getNumberOfSearchResults();
-        int randomNumber = new Random().nextInt(numberOfCasesDisplayed) + 1;
-        WebElementFacade unallocatedRandomResultHypertext = findBy("//tr[" + randomNumber + "]/td[not(text()='" + getCurrentUser().getUsername() +
-                "')]/preceding-sibling::td/a");
+        int numberOfUnallocatedCases = findAll("//td[3][not(text()='" + getCurrentUser().getUsername() + "')]/ancestor::tbody/tr/td/a").size();
+        int randomNumber = new Random().nextInt(numberOfUnallocatedCases) + 1;
+        WebElementFacade unallocatedRandomResultHypertext =
+                findBy("//td[3][not(text()='" + getCurrentUser().getUsername() + "')]/ancestor::tbody/tr[" + randomNumber + "]/td/a");
         String randomSearchResult = unallocatedRandomResultHypertext.getText();
         System.out.println("Random case selected for search verification: " + randomSearchResult);
         setSessionVariable("randomCaseRef").to(randomSearchResult);
