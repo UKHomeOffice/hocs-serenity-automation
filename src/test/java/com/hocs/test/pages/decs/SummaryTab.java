@@ -200,7 +200,6 @@ public class SummaryTab extends BasePage {
                     expectedNumberOfWorkdaysTillDeadline = 20;
                     break;
                 case "EX-GRATIA":
-                case "SMC":
                     expectedNumberOfWorkdaysTillDeadline = 60;
                     break;
                 default:

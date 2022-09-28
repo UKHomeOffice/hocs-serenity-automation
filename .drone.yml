@@ -482,7 +482,7 @@ services:
 ---
 kind: pipeline
 type: kubernetes
-name: IEDET-SMC-Regression
+name: IEDET-Regression
 depends_on:
   - SMOKE
 trigger:
@@ -495,7 +495,7 @@ steps:
   - name: execute tests
     image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
     commands:
-      - sh bin/iedetandsmc.sh
+      - sh bin/iedet.sh
     environment:
       ARTIFACTORY_PASSWORD:
         from_secret: artifactory_password
@@ -506,7 +506,7 @@ steps:
     commands:
       - > # yaml folded style
         aws s3 cp
-        --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/$${DRONE_BUILD_NUMBER}_IEDET_SMC/
+        --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/$${DRONE_BUILD_NUMBER}_IEDET/
         --sse aws:kms
         --sse-kms-key-id $${AWS_KMS_KEY}
     environment:
