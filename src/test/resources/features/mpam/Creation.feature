@@ -6,6 +6,15 @@ Feature: Creation
     And I create a "MPAM" case and move it to the "Creation" stage
     And I load and claim the current case
 
+  @MPAMWorkflow @MPAMRegression1
+  Scenario: As an MPAM Creation user, I want to be able to enter all case details, so the case can progress to Triage
+    When I select "UKVI" as the Business Area and "Ministerial" as the Reference Type
+    And I complete the other required fields for Creation stage
+    And I click the "Continue" button
+    And I add a "Member" correspondent
+    And I confirm the primary correspondent
+    Then the case should be moved to the "Triage" stage
+
   @Navigation
   Scenario: User should be on the MPAM Data Input Page
     Then the "MPAM Data Input" page should be displayed
