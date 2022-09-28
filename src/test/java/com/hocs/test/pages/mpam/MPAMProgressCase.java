@@ -170,10 +170,10 @@ public class MPAMProgressCase extends BasePage {
         creation.selectASpecificRefType(refType);
         if (refType.equalsIgnoreCase("MINISTERIAL")) {
             creation.selectASpecificMinisterialSignOffTeam(signOffTeam);
-            creation.selectAddressee(signOffTeam);
+            creation.selectASpecificAddressee(signOffTeam);
         }
-        creation.selectUrgency(urgency);
-        creation.selectInboundChannel("Email");
+        creation.selectASpecificUrgency(urgency);
+        creation.selectASpecificInboundChannel("Email");
         clickTheButton("Continue");
         correspondents.addAMemberCorrespondent();
         clickTheButton("Move to Triage");

@@ -35,9 +35,9 @@ public class CreationStepDefs extends BasePage {
     @And("I complete the other required fields for Creation stage")
     public void iCompleteTheOtherRequiredFieldsForCaseCreation() {
         creation.selectASpecificMinisterialSignOffTeam("Home Secretary");
-        creation.selectAddressee("Home Secretary");
-        creation.selectUrgency("Standard");
-        creation.selectInboundChannel("Email");
+        creation.selectASpecificAddressee("Home Secretary");
+        creation.selectASpecificUrgency("Standard");
+        creation.selectASpecificInboundChannel("Email");
     }
 
     @Then("the case summary should list the correct primary correspondent")
@@ -49,15 +49,18 @@ public class CreationStepDefs extends BasePage {
 
     @When("I select {string} as the Urgency and {string} as the Reference Type")
     public void selectSpecificUrgencyAndReferenceType(String urgency, String refType) {
-        creation.selectUrgency(urgency);
+        creation.selectASpecificUrgency(urgency);
         creation.selectASpecificRefType(refType);
     }
 
     @And("I select {string} as the Ministerial sign off team when completing the creation stage")
     public void selectAsSignOffTeamWhenCompletingTheCreationStage(String signOffTeam) {
-        creation.completeRequiredQuestions();
+        creation.selectASpecificBusinessArea("UKVI");
+        creation.selectASpecificRefType("Ministerial");
         creation.selectASpecificMinisterialSignOffTeam(signOffTeam);
-        creation.selectAddressee(signOffTeam);
+        creation.selectASpecificAddressee(signOffTeam);
+        creation.selectASpecificUrgency("Standard");
+        creation.selectASpecificInboundChannel("Email");
         clickTheButton("Continue");
         correspondents.addAMemberCorrespondent();
         clickTheButton("Move to Triage");

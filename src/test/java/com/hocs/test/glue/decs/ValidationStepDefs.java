@@ -698,29 +698,29 @@ public class ValidationStepDefs extends BasePage {
                                 creation.selectASpecificRefType("Ministerial");
                                 creation.ministerialSignOffTeamDropdown.selectByVisibleText("Home Secretary");
                                 creation.addresseeDropdown.selectByVisibleText("Home Secretary");
-                                creation.selectUrgency("Standard");
-                                creation.selectInboundChannel("Email");
+                                creation.selectASpecificUrgency("Standard");
+                                creation.selectASpecificInboundChannel("Email");
                                 safeClickOn(continueButton);
                                 break;
                             case "IS MINISTERIAL RESPONSE REQUIRED REQUIRED":
-                                creation.selectUrgency("Standard");
-                                creation.selectInboundChannel("Email");
+                                creation.selectASpecificUrgency("Standard");
+                                creation.selectASpecificInboundChannel("Email");
                                 safeClickOn(continueButton);
                                 break;
                             case "MINISTERIAL SIGN OFF TEAM REQUIRED":
                                 creation.selectASpecificBusinessArea("UKVI");
                                 creation.selectASpecificRefType("Ministerial");
                                 creation.addresseeDropdown.selectByVisibleText("Home Secretary");
-                                creation.selectUrgency("Standard");
-                                creation.selectInboundChannel("Email");
+                                creation.selectASpecificUrgency("Standard");
+                                creation.selectASpecificInboundChannel("Email");
                                 safeClickOn(continueButton);
                                 break;
                             case "ADDRESSEE REQUIRED":
                                 creation.selectASpecificBusinessArea("UKVI");
                                 creation.selectASpecificRefType("Ministerial");
                                 creation.ministerialSignOffTeamDropdown.selectByVisibleText("Home Secretary");
-                                creation.selectUrgency("Standard");
-                                creation.selectInboundChannel("Email");
+                                creation.selectASpecificUrgency("Standard");
+                                creation.selectASpecificInboundChannel("Email");
                                 safeClickOn(continueButton);
                                 break;
                             case "URGENCY REQUIRED":
@@ -728,7 +728,7 @@ public class ValidationStepDefs extends BasePage {
                                 creation.selectASpecificRefType("Ministerial");
                                 creation.ministerialSignOffTeamDropdown.selectByVisibleText("Home Secretary");
                                 creation.addresseeDropdown.selectByVisibleText("Home Secretary");
-                                creation.selectInboundChannel("Email");
+                                creation.selectASpecificInboundChannel("Email");
                                 safeClickOn(continueButton);
                                 break;
                             case "CHANNEL RECEIVED REQUIRED":
@@ -736,7 +736,7 @@ public class ValidationStepDefs extends BasePage {
                                 creation.selectASpecificRefType("Ministerial");
                                 creation.ministerialSignOffTeamDropdown.selectByVisibleText("Home Secretary");
                                 creation.addresseeDropdown.selectByVisibleText("Home Secretary");
-                                creation.selectUrgency("Standard");
+                                creation.selectASpecificUrgency("Standard");
                                 safeClickOn(continueButton);
                                 break;
                             case "PRIMARY CORRESPONDENT REQUIRED":
@@ -744,8 +744,8 @@ public class ValidationStepDefs extends BasePage {
                                 creation.selectASpecificRefType("Ministerial");
                                 creation.ministerialSignOffTeamDropdown.selectByVisibleText("Home Secretary");
                                 creation.addresseeDropdown.selectByVisibleText("Home Secretary");
-                                creation.selectUrgency("Standard");
-                                creation.selectInboundChannel("Email");
+                                creation.selectASpecificUrgency("Standard");
+                                creation.selectASpecificInboundChannel("Email");
                                 safeClickOn(continueButton);
                                 waitABit(500);
                                 clickTheButton("Move to Triage");

@@ -68,8 +68,8 @@ public class Misallocations extends BasePage {
             case "CREATION":
                 creation.selectASpecificRefType("Ministerial");
                 creation.selectASpecificMinisterialSignOffTeam("Home Secretary");
-                creation.selectAddressee("Home Secretary");
-                creation.selectInboundChannel("Email");
+                creation.selectASpecificAddressee("Home Secretary");
+                creation.selectASpecificInboundChannel("Email");
                 safeClickOn(continueButton);
                 correspondents.addAMemberCorrespondent();
                 clickTheButton("Move to Transfer");
@@ -113,8 +113,8 @@ public class Misallocations extends BasePage {
         creation.selectASpecificBusinessArea("UKVI");
         creation.selectASpecificRefType("Ministerial");
         creation.selectASpecificMinisterialSignOffTeam("Home Secretary");
-        creation.selectAddressee("Home Secretary");
-        creation.selectUrgency("Standard");
+        creation.selectASpecificAddressee("Home Secretary");
+        creation.selectASpecificUrgency("Standard");
         clickTheButton("Move to Triage");
     }
 

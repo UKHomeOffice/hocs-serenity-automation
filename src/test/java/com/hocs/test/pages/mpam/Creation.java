@@ -14,6 +14,7 @@ public class Creation extends BasePage {
 
     RecordCaseData recordCaseData;
 
+
     @FindBy(id = "MinSignOffTeam")
     public WebElementFacade ministerialSignOffTeamDropdown;
 
@@ -24,9 +25,9 @@ public class Creation extends BasePage {
         selectASpecificBusinessArea("UKVI");
         selectASpecificRefType("Ministerial");
         selectASpecificMinisterialSignOffTeam("Home Secretary");
-        selectAddressee("Home Secretary");
-        selectUrgency("Standard");
-        selectInboundChannel("Email");
+        selectASpecificAddressee("Home Secretary");
+        selectASpecificUrgency("Standard");
+        selectASpecificInboundChannel("Email");
     }
 
     public void selectASpecificBusinessArea(String businessArea) {
@@ -36,7 +37,7 @@ public class Creation extends BasePage {
     }
 
     public void selectASpecificRefType(String refType) {
-        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(refType, "Does this correspondence need a Ministerial response?");
+        recordCaseData.selectSpecificRadioButton(refType);
         setSessionVariable("refType").to(refType);
         System.out.println(refType + " is the reference type");
     }
@@ -48,23 +49,38 @@ public class Creation extends BasePage {
     }
 
     public void selectASpecificMinisterialSignOffTeam(String signOffTeam) {
-        ministerialSignOffTeamDropdown.selectByVisibleText(signOffTeam);
+        recordCaseData.selectSpecificOptionFromDropdownWithHeading(signOffTeam, "Minsiterial sign off team");
         setSessionVariable("ministerialSignOffTeam").to(signOffTeam);
         setSessionVariable("signOffTeam").to(signOffTeam);
     }
 
-    public void selectAddressee(String addressee) {
-        addresseeDropdown.selectByVisibleText(addressee);
+    public void selectAnAddressee() {
+        String addressee = recordCaseData.selectRandomOptionFromDropdownWithHeading("Addressee");
         setSessionVariable("addressee").to(addressee);
     }
 
-    public void selectUrgency(String urgency) {
-        selectSpecificRadioButton(urgency);
+    public void selectASpecificAddressee(String addressee) {
+        recordCaseData.selectSpecificOptionFromDropdownWithHeading(addressee, "Adressee");
+        setSessionVariable("addressee").to(addressee);
+    }
+
+    public void selectAnUrgency() {
+        String urgency = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Urgency");
         setSessionVariable("urgency").to(urgency);
     }
 
-    public void selectInboundChannel(String inboundChannel) {
-        selectSpecificRadioButton(inboundChannel);
+    public void selectASpecificUrgency(String urgency) {
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(urgency, "Urgency");
+        setSessionVariable("urgency").to(urgency);
+    }
+
+    public void selectAnInboundChannel() {
+        String inboundChannel = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Channel received");
+        setSessionVariable("inboundChannel").to(inboundChannel);
+    }
+
+    public void selectASpecificInboundChannel(String inboundChannel) {
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(inboundChannel, "Channel received");
         setSessionVariable("inboundChannel").to(inboundChannel);
     }
 
@@ -78,9 +94,9 @@ public class Creation extends BasePage {
         selectASpecificBusinessArea("UKVI");
         selectASpecificRefType("Ministerial");
         selectASpecificMinisterialSignOffTeam("Home Secretary");
-        selectAddressee("Home Secretary");
-        selectUrgency("Standard");
-        selectInboundChannel("Email");
+        selectASpecificAddressee("Home Secretary");
+        selectASpecificUrgency("Standard");
+        selectASpecificInboundChannel("Email");
         safeClickOn(continueButton);
         correspondents.addASpecificMemberCorrespondent(correspondent);
         clickTheButton("Move to Triage");
@@ -89,8 +105,8 @@ public class Creation extends BasePage {
     public void triggerMPCorrespondentIsMandatoryScreen() {
         selectASpecificBusinessArea("UKVI");
         selectASpecificRefType("Official");
-        selectUrgency("Standard");
-        selectInboundChannel("Email");
+        selectASpecificUrgency("Standard");
+        selectASpecificInboundChannel("Email");
         safeClickOn(continueButton);
         correspondents.addANonMemberCorrespondentOfType("Constituent");
         correspondents.confirmPrimaryCorrespondent();
