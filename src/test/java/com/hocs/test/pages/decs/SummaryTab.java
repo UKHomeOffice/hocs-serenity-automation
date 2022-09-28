@@ -113,8 +113,6 @@ public class SummaryTab extends BasePage {
     public WebElementFacade previousCOMPCaseReference;
 
 
-
-
     public void selectSummaryTab() {
         selectTheTab("Summary");
     }
@@ -132,6 +130,18 @@ public class SummaryTab extends BasePage {
                 Assert.fail("Summary Tab value incorrect for: " + header + "\nExpected value was: \"" + value + "\"\nDisplayed value was: \"" +
                         displayedValue + "\"");
             }
+        }
+    }
+
+    public void assertPrimaryCorrespondentDetailMatchValue(String correspondentDetail) {
+        int n = 0;
+        List<WebElementFacade> primaryCorrespondentDetails = findAll("//th[text()='Primary correspondent']/following-sibling::td/span");
+        while (n < primaryCorrespondentDetails.size()) {
+            String displayedDetail = primaryCorrespondentDetails.get(n).getText();
+            if (displayedDetail.equalsIgnoreCase(correspondentDetail)) {
+                assertThat(displayedDetail.equalsIgnoreCase(correspondentDetail), is(true));
+            }
+            n++;
         }
     }
 

@@ -328,6 +328,7 @@ public class Search extends BasePage {
         WebElementFacade unallocatedRandomResultHypertext = findBy("//tr[" + randomNumber + "]/td[not(text()='" + getCurrentUser().getUsername() +
                 "')]/preceding-sibling::td/a");
         String randomSearchResult = unallocatedRandomResultHypertext.getText();
+        System.out.println("Random case selected for search verification: " + randomSearchResult);
         setSessionVariable("randomCaseRef").to(randomSearchResult);
         waitForResultsPage();
         if (config == null) {
@@ -335,7 +336,7 @@ public class Search extends BasePage {
                 searchFieldUsedInCaseTypes = Arrays.asList("DCU", "MPAM", "COMP", "IEDET", "SMC", "POGR", "BF", "FOI", "TO");
                 setSessionVariable("randomCaseType").to(returnRandomStringFromList(searchFieldUsedInCaseTypes));
                 searchValue = sessionVariableCalled("searchCaseType");
-                listOfCasesWithValue = findAll("//a[contains(text(), '" + searchValue + "')]");
+                listOfCasesWithValue = findAll("//a[contains(text(), '" + searchValue + "/')]");
                 assertThat(listOfCasesWithValue.size() == numberOfCasesDisplayed, is(true));
             } else if (criteria.equalsIgnoreCase("CASE REFERENCE")) {
                 searchFieldUsedInCaseTypes = Arrays.asList("DCU", "MPAM", "COMP", "IEDET", "SMC", "POGR", "BF", "FOI", "TO");
@@ -357,22 +358,37 @@ public class Search extends BasePage {
                         searchFieldUsedInCaseTypes = Arrays.asList("COMP", "IEDET", "SMC", "POGR", "BF", "TO");
                         setSessionVariable("randomCaseType").to(returnRandomStringFromList(searchFieldUsedInCaseTypes));
                         searchValue = sessionVariableCalled("searchCorrespondentFullName");
-                        peopleTab.selectPeopleTab();
-                        peopleTab.assertCorrespondentIsAttachedToCase(searchValue);
+                        if (!randomSearchResult.contains("FOI")) {
+                            peopleTab.selectPeopleTab();
+                            peopleTab.assertCorrespondentIsAttachedToCase(searchValue);
+                        } else {
+                            summaryTab.selectSummaryTab();
+                            summaryTab.assertPrimaryCorrespondentDetailMatchValue(searchValue);
+                        }
                         break;
                     case "CORRESPONDENT POSTCODE":
                         searchFieldUsedInCaseTypes = Arrays.asList("DCU", "COMP", "IEDET", "SMC", "POGR", "BF", "TO");
                         setSessionVariable("randomCaseType").to(returnRandomStringFromList(searchFieldUsedInCaseTypes));
                         searchValue = sessionVariableCalled("searchCorrespondentPostcode");
-                        peopleTab.selectPeopleTab();
-                        peopleTab.assertCorrespondentPostcode(searchValue);
+                        if (!randomSearchResult.contains("FOI")) {
+                            peopleTab.selectPeopleTab();
+                            peopleTab.assertCorrespondentPostcode(searchValue);
+                        } else {
+                            summaryTab.selectSummaryTab();
+                            summaryTab.assertPrimaryCorrespondentDetailMatchValue(searchValue);
+                        }
                         break;
                     case "CORRESPONDENT EMAIL ADDRESS":
                         searchFieldUsedInCaseTypes = Arrays.asList("DCU", "COMP", "IEDET", "SMC", "POGR", "BF", "FOI", "TO");
                         setSessionVariable("randomCaseType").to(returnRandomStringFromList(searchFieldUsedInCaseTypes));
                         searchValue = sessionVariableCalled("searchCorrespondentEmailAddress");
-                        peopleTab.selectPeopleTab();
-                        peopleTab.assertCorrespondentEmailAddress(searchValue);
+                        if (!randomSearchResult.contains("FOI")) {
+                            peopleTab.selectPeopleTab();
+                            peopleTab.assertCorrespondentEmailAddress(searchValue);
+                        } else {
+                            summaryTab.selectSummaryTab();
+                            summaryTab.assertPrimaryCorrespondentDetailMatchValue(searchValue);
+                        }
                         break;
                     case "COMPLAINANT DATE OF BIRTH":
                         searchFieldUsedInCaseTypes = Arrays.asList("COMP", "IEDET", "SMC", "POGR", "BF", "TO");
@@ -380,6 +396,8 @@ public class Search extends BasePage {
                         searchValue = sessionVariableCalled("searchComplainantDateOfBirth");
                         if (accordionSectionIsVisible("Registration")) {
                             openOrCloseAccordionSection("Registration");
+                        } else if (accordionSectionIsVisible("IEDET Registration")) {
+                            openOrCloseAccordionSection("IEDET Registration");
                         } else if (accordionSectionIsVisible("Data Input")) {
                             openOrCloseAccordionSection("Data Input");
                         } else if (accordionSectionIsVisible("Case Registration")) {
@@ -397,8 +415,14 @@ public class Search extends BasePage {
                         searchValue = sessionVariableCalled("searchReceivedOnOrAfterDate");
                         try {
                             searchDate = new SimpleDateFormat("dd/MM/yyyy").parse(searchValue);
-                            caseDate = new SimpleDateFormat("dd/MM/yyyy").parse(summaryTab.getSummaryTabValueForGivenHeader("When was the correspondence "
-                                    + "received?"));
+                            if (!randomSearchResult.contains("TO/")) {
+                                caseDate = new SimpleDateFormat("dd/MM/yyyy")
+                                        .parse(summaryTab.getSummaryTabValueForGivenHeader("When was the correspondence "
+                                                + "received?"));
+                            } else {
+                                caseDate = new SimpleDateFormat("dd/MM/yyyy")
+                                        .parse(summaryTab.getSummaryTabValueForGivenHeader("Date Received"));
+                            }
                         } catch (ParseException pE) {
                             System.out.println("Could not parse dates");
                         }
@@ -411,8 +435,14 @@ public class Search extends BasePage {
                         searchValue = sessionVariableCalled("searchReceivedOnOrBeforeDate");
                         try {
                             searchDate = new SimpleDateFormat("dd/MM/yyyy").parse(searchValue);
-                            caseDate = new SimpleDateFormat("dd/MM/yyyy").parse(summaryTab.getSummaryTabValueForGivenHeader("When was the correspondence "
-                                    + "received?"));
+                            if (!randomSearchResult.contains("TO/")) {
+                                caseDate = new SimpleDateFormat("dd/MM/yyyy")
+                                        .parse(summaryTab.getSummaryTabValueForGivenHeader("When was the correspondence "
+                                                + "received?"));
+                            } else {
+                                caseDate = new SimpleDateFormat("dd/MM/yyyy")
+                                        .parse(summaryTab.getSummaryTabValueForGivenHeader("Date Received"));
+                            }
                         } catch (ParseException pE) {
                             System.out.println("Could not parse dates");
                         }
@@ -430,8 +460,13 @@ public class Search extends BasePage {
                         searchFieldUsedInCaseTypes = Arrays.asList("DCU", "MPAM", "FOI");
                         setSessionVariable("randomCaseType").to(returnRandomStringFromList(searchFieldUsedInCaseTypes));
                         searchValue = sessionVariableCalled("searchCorrespondentName");
-                        peopleTab.selectPeopleTab();
-                        peopleTab.assertPublicCorrespondentAddedToTheCase(searchValue);
+                        if (!randomSearchResult.contains("FOI")) {
+                            peopleTab.selectPeopleTab();
+                            peopleTab.assertCorrespondentIsAttachedToCase(searchValue);
+                        } else {
+                            summaryTab.selectSummaryTab();
+                            summaryTab.assertPrimaryCorrespondentDetailMatchValue(searchValue);
+                        }
                         break;
                     case "TOPIC":
                         searchFieldUsedInCaseTypes = Arrays.asList("DCU", "FOI");
@@ -463,9 +498,14 @@ public class Search extends BasePage {
                         searchFieldUsedInCaseTypes = Arrays.asList("MPAM", "TO");
                         setSessionVariable("randomCaseType").to(returnRandomStringFromList(searchFieldUsedInCaseTypes));
                         searchValue = sessionVariableCalled("searchCorrespondentReferenceNumber");
-                        peopleTab.selectPeopleTab();
-                        WebElementFacade correspondentReferenceNumber = findBy("//th[text()='Reference']/following-sibling::td");
-                        assertThat(correspondentReferenceNumber.getText().equalsIgnoreCase(searchValue), is(true));
+                        if (!randomSearchResult.contains("FOI")) {
+                            peopleTab.selectPeopleTab();
+                            WebElementFacade correspondentReferenceNumber = findBy("//th[text()='Reference']/following-sibling::td");
+                            assertThat(correspondentReferenceNumber.getText().equalsIgnoreCase(searchValue), is(true));
+                        } else {
+                            summaryTab.selectSummaryTab();
+                            summaryTab.assertPrimaryCorrespondentDetailMatchValue(searchValue);
+                        }
                         break;
                     case "COMPLAINANT HOME OFFICE REFERENCE":
                         searchFieldUsedInCaseTypes = Arrays.asList("COMP", "IEDET", "SMC", "BF");
@@ -473,6 +513,8 @@ public class Search extends BasePage {
                         searchValue = sessionVariableCalled("searchComplainantHomeOfficeReference");
                         if (accordionSectionIsVisible("Registration")) {
                             openOrCloseAccordionSection("Registration");
+                        } else if (accordionSectionIsVisible("IEDET Registration")) {
+                            openOrCloseAccordionSection("IEDET Registration");
                         } else if (accordionSectionIsVisible("Data Input")) {
                             openOrCloseAccordionSection("Data Input");
                         } else if (accordionSectionIsVisible("Case Registration")) {
