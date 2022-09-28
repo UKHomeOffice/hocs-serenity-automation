@@ -103,7 +103,6 @@ public class IEDETProgressCase extends BasePage {
         complaintsRegistrationAndDataInput.selectASpecificComplaintType("Service");
         complaintsRegistrationAndDataInput.selectAVisibleClaimCategory();
         clickTheButton("Continue");
-        complaintsRegistrationAndDataInput.selectAComplaintChannel();
         complaintsRegistrationAndDataInput.selectComplaintOrigin();
         complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
         complaintsRegistrationAndDataInput.enterAThirdPartyReference();

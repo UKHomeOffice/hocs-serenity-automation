@@ -31,7 +31,9 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
 
     @And("I enter the complaint details on the Complaint Input page")
     public void iEnterTheComplaintDetailsOnTheComplaintInputPage() {
-        complaintsRegistrationAndDataInput.selectAComplaintChannel();
+        if(!iedetCase()) {
+            complaintsRegistrationAndDataInput.selectAComplaintChannel();
+        }
         if (iedetCase() | smcCase()) {
             complaintsRegistrationAndDataInput.selectComplaintOrigin();
         }
