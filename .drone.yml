@@ -3,8 +3,6 @@ kind: pipeline
 type: kubernetes
 name: SMOKE
 trigger:
-  branch:
-    - main
   event:
     - push
 
@@ -78,8 +76,6 @@ name: DCU-Regression
 depends_on:
   - SMOKE
 trigger:
-  branch:
-    - main
   event:
     - push
 steps:
@@ -137,8 +133,6 @@ name: CS-Regression
 depends_on:
   - SMOKE
 trigger:
-  branch:
-    - main
   event:
     - push
 
@@ -195,8 +189,6 @@ name: MPAM-1-Regression
 depends_on:
   - SMOKE
 trigger:
-  branch:
-    - main
   event:
     - push
 
@@ -253,8 +245,6 @@ name: MPAM-2-Regression
 depends_on:
   - SMOKE
 trigger:
-  branch:
-    - main
   event:
     - push
 
@@ -312,8 +302,6 @@ name: COMP-Regression
 depends_on:
   - SMOKE
 trigger:
-  branch:
-    - main
   event:
     - push
 
@@ -370,8 +358,6 @@ name: BF-Regression
 depends_on:
   - SMOKE
 trigger:
-  branch:
-    - main
   event:
     - push
 
@@ -428,8 +414,6 @@ name: POGR-Regression
 depends_on:
   - SMOKE
 trigger:
-  branch:
-    - main
   event:
     - push
 
@@ -486,8 +470,6 @@ name: IEDET-SMC-Regression
 depends_on:
   - SMOKE
 trigger:
-  branch:
-    - main
   event:
     - push
 
@@ -544,8 +526,6 @@ name: WCS-Regression
 depends_on:
   - SMOKE
 trigger:
-  branch:
-    - main
   event:
     - push
 steps:
@@ -602,8 +582,6 @@ name: FOI-Regression
 depends_on:
   - SMOKE
 trigger:
-  branch:
-    - main
   event:
     - push
 steps:
@@ -660,8 +638,6 @@ name: TO-Regression
 depends_on:
   - SMOKE
 trigger:
-  branch:
-    - main
   event:
     - push
 steps:
