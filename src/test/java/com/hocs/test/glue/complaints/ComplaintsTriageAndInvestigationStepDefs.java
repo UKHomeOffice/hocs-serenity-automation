@@ -4,6 +4,7 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
+import com.hocs.test.pages.complaints.ComplaintsRegistrationAndDataInput;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.complaints.ComplaintsTriageAndInvestigation;
 import io.cucumber.java.en.And;
@@ -277,5 +278,10 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
     @And("I select a Closure Reason")
     public void iSelectAClosureReason() {
         complaintsTriageAndInvestigation.selectAClosureReason();
+    }
+
+    @And("I complete Triage and escalate the case to PSU")
+    public void iCompleteTriageAndEscalateTheCaseToPSU() {
+        clickTheButton("Finish and escalate to PSU");
     }
 }

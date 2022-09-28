@@ -41,7 +41,7 @@ public class IEDETProgressCase extends BasePage {
             if (!precedingStage.equalsIgnoreCase(currentStage)) {
                 moveCaseFromCurrentStageToTargetStage(currentStage, precedingStage);
             }
-            completeTheIEDETStage(precedingStage);
+            completeTheIEDETStage(precedingStage, targetStage);
         }
     }
 
@@ -55,6 +55,7 @@ public class IEDETProgressCase extends BasePage {
                 precedingStage = "REGISTRATION";
                 break;
             case "DRAFT":
+            case "PSU REGISTRATION":
                 precedingStage = "TRIAGE";
                 break;
             case "SEND":
@@ -69,14 +70,24 @@ public class IEDETProgressCase extends BasePage {
         return precedingStage;
     }
 
-    public void completeTheIEDETStage(String stageToComplete) {
+    public void completeTheIEDETStage(String stageToComplete, String targetStage) {
         dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
         switch (stageToComplete.toUpperCase()) {
             case "REGISTRATION":
                 moveIEDETCaseFromRegistrationToTriage();
                 break;
             case "TRIAGE":
-                moveIEDETCaseFromTriageToDraft();
+                switch (targetStage.toUpperCase()) {
+                    case "DRAFT":
+                    case "HAPPY PATH":
+                        moveIEDETCaseFromTriageToDraft();
+                        break;
+                    case "PSU REGISTRATION":
+                        moveIEDETCaseFromTriageToPSURegistration();
+                        break;
+                    default:
+                        pendingStep(targetStage + " is not defined within " + getMethodName());
+                }
                 break;
             case "DRAFT":
                 moveIEDETCaseFromDraftToSend();
@@ -111,6 +122,16 @@ public class IEDETProgressCase extends BasePage {
         complaintsTriageAndInvestigation.selectIEDETBusinessArea();
         clickTheButton("Finish");
         System.out.println("Case moved from Triage to Draft");
+    }
+
+    private void moveIEDETCaseFromTriageToPSURegistration() {
+        complaintsRegistrationAndDataInput.selectASpecificComplaintType("Serious misconduct");
+        complaintsTriageAndInvestigation.selectIEDETClaimCategory("Serious misconduct");
+        clickTheButton("Continue");
+        complaintsRegistrationAndDataInput.selectComplaintOrigin();
+        complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
+        complaintsRegistrationAndDataInput.enterAThirdPartyReference();
+        clickTheButton("Finish and escalate to PSU");
     }
 
     public void moveIEDETCaseFromDraftToSend() {

@@ -21,7 +21,7 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
 
     @And("I enter the Complainant Details")
     public void iEnterTheComplainantDetails() {
-          complaintsRegistrationAndDataInput.enterComplainantDetails();
+        complaintsRegistrationAndDataInput.enterComplainantDetails();
     }
 
     @And("I select {string} as the Complaint Type")
@@ -31,7 +31,7 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
 
     @And("I enter the complaint details on the Complaint Input page")
     public void iEnterTheComplaintDetailsOnTheComplaintInputPage() {
-        if(!iedetCase()) {
+        if (!iedetCase()) {
             complaintsRegistrationAndDataInput.selectAComplaintChannel();
         }
         if (iedetCase() | smcCase()) {
@@ -50,7 +50,7 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
 
     @And("I select a {string} Complaint Category")
     public void iSelectAComplaintCategory(String complaintCategory) {
-        if(!iedetCase()){
+        if (!iedetCase()) {
             switch (complaintCategory.toUpperCase()) {
                 case "SERVICE":
                     complaintsRegistrationAndDataInput.openTheServiceComplaintCategoryAccordion();
@@ -66,12 +66,12 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
                     break;
                 default:
                     pendingStep(complaintCategory + " is not defined within " + getMethodName());
-        }
+            }
             waitABit(1000);
             complaintsRegistrationAndDataInput.selectAVisibleClaimCategory();
-        }
-        else {
+        } else {
             complaintsTriageAndInvestigation.selectIEDETClaimCategory(complaintCategory);
+            clickTheButton("Continue");
         }
     }
 
@@ -137,5 +137,20 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
         }
         safeClickOn(continueButton);
         waitABit(1000);
+    }
+
+    @And("I escalate the case to PSU")
+    public void iEscalateTheCaseToPSU() {
+        complaintsRegistrationAndDataInput.selectASpecificComplaintType("Serious misconduct");
+        complaintsTriageAndInvestigation.selectIEDETClaimCategory("Serious misconduct");
+        clickTheButton("Continue");
+        iEnterTheComplaintDetailsOnTheComplaintInputPage();
+        clickTheButton("Finish and escalate to PSU");
+    }
+
+    @And("I submit a PSU reference")
+    public void iSubmitAPSUReference() {
+        complaintsRegistrationAndDataInput.enterAPSUReference();
+        clickTheButton("Submit");
     }
 }
