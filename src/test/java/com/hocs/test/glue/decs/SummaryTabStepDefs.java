@@ -229,6 +229,11 @@ public class SummaryTabStepDefs extends BasePage {
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("stopList"), "Stop List name");
     }
 
+    @And("the summary should contain the PSU reference")
+    public void theSummaryShouldContainThePSUReference() {
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("psuReference"), "PSU reference");
+    }
+
     @And("the closure reason and details should be visible in the Summary tab")
     public void theClosureReasonAndDetailsShouldBeVisibleInTheSummaryTab() {
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("closureReason"), "Why should this case be closed?");
