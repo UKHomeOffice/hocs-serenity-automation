@@ -30,26 +30,28 @@ public class Creation extends BasePage {
         selectASpecificInboundChannel("Email");
     }
 
+    public void selectABusinessArea() {
+        String businessArea = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Business Area");
+        setSessionVariable("businessArea").to(businessArea);
+    }
     public void selectASpecificBusinessArea(String businessArea) {
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(businessArea, "Business Area");
         setSessionVariable("businessArea").to(businessArea);
-        System.out.println(businessArea + " is the business area");
     }
 
     public void selectASpecificRefType(String refType) {
         recordCaseData.selectSpecificRadioButton(refType);
         setSessionVariable("refType").to(refType);
-        System.out.println(refType + " is the reference type");
     }
 
     public void selectAMinisterialSignOffTeam() {
-        String signOffTeam = recordCaseData.selectRandomOptionFromDropdownWithHeading("Minsiterial sign off team");
+        String signOffTeam = recordCaseData.selectRandomOptionFromDropdownWithHeading("Ministerial sign off team");
         setSessionVariable("ministerialSignOffTeam").to(signOffTeam);
         setSessionVariable("signOffTeam").to(signOffTeam);
     }
 
     public void selectASpecificMinisterialSignOffTeam(String signOffTeam) {
-        recordCaseData.selectSpecificOptionFromDropdownWithHeading(signOffTeam, "Minsiterial sign off team");
+        recordCaseData.selectSpecificOptionFromDropdownWithHeading(signOffTeam, "Ministerial sign off team");
         setSessionVariable("ministerialSignOffTeam").to(signOffTeam);
         setSessionVariable("signOffTeam").to(signOffTeam);
     }
@@ -60,7 +62,7 @@ public class Creation extends BasePage {
     }
 
     public void selectASpecificAddressee(String addressee) {
-        recordCaseData.selectSpecificOptionFromDropdownWithHeading(addressee, "Adressee");
+        recordCaseData.selectSpecificOptionFromDropdownWithHeading(addressee, "Addressee");
         setSessionVariable("addressee").to(addressee);
     }
 

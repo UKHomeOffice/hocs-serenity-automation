@@ -7,13 +7,18 @@ Feature: Creation
     And I load and claim the current case
 
   @MPAMWorkflow @MPAMRegression1
-  Scenario: As an MPAM Creation user, I want to be able to enter all case details, so the case can progress to Triage
-    When I select "UKVI" as the Business Area and "Ministerial" as the Reference Type
-    And I complete the other required fields for Creation stage
-    And I click the "Continue" button
+  Scenario Outline: As an MPAM Creation user, I want to be able to enter all relevant case details, so the case can be Triaged
+    When I enter the details of a "<refType>" MPAM case
     And I add a "Member" correspondent
     And I confirm the primary correspondent
     Then the case should be moved to the "Triage" stage
+    And the summary should display the correct MPAM "Triage" stage team as the owning team
+    And the read-only Case Details accordion should contain all case information entered during the "Creation" stage
+    And the summary should contain the Business Area, Channel Received, Reference Type and Urgency
+    Examples:
+      | refType     |
+      | Ministerial |
+      | Ministerial |
 
   @Navigation
   Scenario: User should be on the MPAM Data Input Page
@@ -55,15 +60,6 @@ Feature: Creation
     Then the "Record Correspondent Details" page should be displayed
     And the header tags in the HTML of the page are properly structured
     And the accessibility statement link should be visible
-
-  @MPAMWorkflow @MPAMRegression1
-  Scenario: User completes Case Creation stage
-    When I select "UKVI" as the Business Area and "Ministerial" as the Reference Type
-    And I complete the other required fields for Creation stage
-    And I click the "Continue" button
-    And I add a "Member" correspondent
-    And I confirm the primary correspondent
-    Then the case should be moved to the "Triage" stage
 
   @MPAMWorkflow
   Scenario Outline: User completes Case Creation stage with specific Business Area and Reference Type

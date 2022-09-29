@@ -75,4 +75,17 @@ public class CreationStepDefs extends BasePage {
     public void theMPCorrespondentIsMandatoryScreenIsDisplayed() {
         creation.assertMPCorrespondentIsRequiredScreenIsDisplayed();
     }
+
+    @When("I enter the details of a/an {string} MPAM case")
+    public void iEnterTheDetailsOfAMPAMCase(String refType) {
+        creation.selectABusinessArea();
+        creation.selectASpecificRefType(refType);
+        if (refType.equalsIgnoreCase("MINISTERIAL")) {
+            creation.selectAMinisterialSignOffTeam();
+            creation.selectAnAddressee();
+        }
+        creation.selectAnUrgency();
+        creation.selectAnInboundChannel();
+        clickTheButton("Continue");
+    }
 }

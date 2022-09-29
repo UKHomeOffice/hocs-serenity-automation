@@ -117,6 +117,11 @@ public class SummaryTabStepDefs extends BasePage {
         summaryTab.assertAllocatedMPAMTeam(stage);
     }
 
+    @And("the summary should display the correct MPAM {string} stage team as the owning team")
+    public void theSummaryShouldDisplayTheCorrectMPAMStageTeamAsTheOwningTeam(String stage) {
+        summaryTab.assertAllocatedMPAMTeam(stage);
+    }
+
     @Then("the claim should be sent/returned to the correct WCS Casework team")
     public void theClaimShouldBeReturnedToTheCaseworkTeamThatLastWorkedTheClaim() {
         dashboard.getCurrentCase();
@@ -227,6 +232,14 @@ public class SummaryTabStepDefs extends BasePage {
     @And("the summary should contain the selected/new stop list")
     public void theSummaryShouldContainTheSelectedStopList() {
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("stopList"), "Stop List name");
+    }
+
+    @And("the summary should contain the Business Area, Channel Received, Reference Type and Urgency")
+    public void theSummaryShouldContainTheBusinessAreaChannelReceivedReferenceTypeAndUrgency() {
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("businessArea"), "Business Area");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("inboundChannel"), "Channel received");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("refType"), "Does this correspondence need a Ministerial response?");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("urgency"), "Urgency");
     }
 
     @And("the closure reason and details should be visible in the Summary tab")
