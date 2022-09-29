@@ -1,4 +1,4 @@
-@Search @TO
+@TO @Search
 Feature: Search
 
   Background:

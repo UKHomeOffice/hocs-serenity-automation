@@ -1,4 +1,4 @@
-@Search @MPAM
+@MPAM @Search
 Feature: MPAM Search
 
   Background:

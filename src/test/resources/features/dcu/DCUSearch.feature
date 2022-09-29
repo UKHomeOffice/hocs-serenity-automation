@@ -1,4 +1,4 @@
-@Search @DCU
+@DCU @Search
 Feature: DCU Search
 
   @DCURegression
@@ -21,17 +21,6 @@ Feature: DCU Search
     And I click the search button on the search page
     Then the created case should be the only case visible in the search results
 
-  Scenario Outline: User can search for DCU case types
-    Given I am logged into "CS" as user "DCU_USER"
-    When I navigate to the "Search" page
-    And I enter "<infoValue>" into the "Case Type" search field
-    And I click the search button on the search page
-    Then I check that the search results have the correct "Case Type"
-    Examples:
-      | infoValue |
-      | TRO       |
-      | DTEN      |
-
   @SearchByCaseReferenceNumber
   Scenario: User should be be taken directly to a case when they for enter a valid case reference in the Load Case bar
     Given I am logged into "CS" as user "DCU_USER"
@@ -50,16 +39,6 @@ Feature: DCU Search
     When I press enter in the Load Case search bar
     Then an error message should be displayed stating that a case reference is required
 
-  @SearchByCaseType
-  Scenario: User should be able to click on the case link when cases are displayed in the results list
-    Given I am logged into "CS" as user "DCU_USER"
-    And I create a single "MIN" case
-    And I navigate to the "search" page
-    And I enter "MIN" into the "Case Type" search field
-    And I click the search button on the search page
-    And I click the case reference of the case in search results
-    Then I should be taken directly to the case
-
   @SearchByCaseType @Workstacks @DCURegression
   Scenario Outline: DCU Search workstack should contain the Case Reference, Current Stage, Owner, Team, Primary Topic and Deadline
     Given I am logged into "CS" as user "DCU_USER"
@@ -77,17 +56,6 @@ Feature: DCU Search
     | MIN        | MIN + DTEN          |
     | TRO        | TRO + DTEN          |
     | MIN        | All DCU Case Types  |
-
-  @SearchByCaseType @SearchByTopic
-  Scenario: User should be able to search by multiple parameters
-    Given I am logged into "CS" as user "DCU_USER"
-    And I create a "MIN" case with "Animal alternatives (3Rs)" as the primary topic
-    And I navigate to the "search" page
-    When I enter "MIN" into the "Case Type" search field
-    And I enter "Animal alternatives (3Rs)" into the "Topic" search field
-    And I click the search button on the search page
-    Then I check that the search results have the correct "Case Type"
-    And I check that the search results have the correct "Topic"
 
   @SearchByDateReceived
   Scenario Outline: No cases should be displayed if a user searches for a criteria that would contain no cases

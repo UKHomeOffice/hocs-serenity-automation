@@ -4,7 +4,7 @@ Feature: FOI Search
   Background:
     Given I am logged into "CS" as user "FOI_USER"
 
-  @FOIRegression
+  @FOIRegression @Search
   Scenario: User tests FOI search criteria
     When I generate a "FOI" case to validate search functionality
     And I navigate to the "Search" page

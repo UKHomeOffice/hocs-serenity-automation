@@ -1,4 +1,4 @@
-@ComplaintsSearch @Complaints
+@ComplaintsSearch @Complaints @Search
 Feature: Complaints Search
 
 #     UKVI COMPLAINTS
