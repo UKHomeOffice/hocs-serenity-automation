@@ -8,12 +8,12 @@ Feature: Complaints Search
     Given I am logged into "CS" as user "COMP_USER"
     When I generate a "COMP" case to validate search functionality
     And I navigate to the "Search" page
-    And I enter "COMP" into the "Case Type" search field in the "COMP" search configuration
-    And I enter "Sam McTester" into the "Correspondent Full Name" search field in the "COMP" search configuration
-    And I enter "AB1 2CD" into the "Correspondent Postcode" search field in the "COMP" search configuration
-    And I enter "SamMcTester@Test.com" into the "Correspondent Email Address" search field in the "COMP" search configuration
-    And I enter "01/01/2001" into the "Complainant Date of Birth" search field in the "COMP" search configuration
-    And I enter "Test entry for HO Reference" into the "Complainant Home Office Reference" search field in the "COMP" search configuration
+    And I enter "COMP" into the "Case Type" search field
+    And I enter "Sam McTester" into the "Correspondent Full Name" search field
+    And I enter "AB1 2CD" into the "Correspondent Postcode" search field
+    And I enter "SamMcTester@Test.com" into the "Correspondent Email Address" search field
+    And I enter "01/01/2001" into the "Complainant Date of Birth" search field
+    And I enter "Test entry for HO Reference" into the "Complainant Home Office Reference" search field
     And I enter the current case reference into the Case Reference field on the search screen
     And I click the search button on the search page
     Then the created case should be the only case visible in the search results
@@ -22,17 +22,9 @@ Feature: Complaints Search
   Scenario: User can search for a stage 2 UKVI complaint case
     Given I am logged into "CS" as user "COMP_USER"
     When I navigate to the "Search" page
-    And I enter "COMP2" into the "Case Type" search field in the "COMP" search configuration
+    And I enter "COMP2" into the "Case Type" search field
     And I click the search button on the search page
     Then I check that the search results have the correct "Case Type"
-
-  # HOCS-2838
-  @COMPRegression @UKVIComplaints
-  Scenario: User can search for a UKVI complaint case by its case reference
-    Given I am logged into "CS" as user "COMP_USER"
-    When I create a single "COMP" case
-    And I search for the case by its case reference
-    Then the created case should be the only case visible in the search results
 
     # HOCS-2847 HOCS-3161
   @COMPRegression @UKVIComplaints
@@ -62,11 +54,11 @@ Feature: Complaints Search
     Given I am logged into "CS" as user "BF_USER"
     When I generate a "BF" case to validate search functionality
     And I navigate to the "Search" page
-    And I enter "Sam McTester" into the "Correspondent Full Name" search field in the "BF" search configuration
-    And I enter "AB1 2CD" into the "Correspondent Postcode" search field in the "BF" search configuration
-    And I enter "SamMcTester@Test.com" into the "Correspondent Email Address" search field in the "BF" search configuration
-    And I enter "01/01/2001" into the "Complainant Date of Birth" search field in the "BF" search configuration
-    And I enter "Test entry for HO Reference" into the "Complainant Home Office Reference" search field in the "BF" search configuration
+    And I enter "Sam McTester" into the "Correspondent Full Name" search field
+    And I enter "AB1 2CD" into the "Correspondent Postcode" search field
+    And I enter "SamMcTester@Test.com" into the "Correspondent Email Address" search field
+    And I enter "01/01/2001" into the "Complainant Date of Birth" search field
+    And I enter "Test entry for HO Reference" into the "Complainant Home Office Reference" search field
     And I enter the current case reference into the Case Reference field on the search screen
     And I click the search button on the search page
     Then the created case should be the only case visible in the search results
@@ -99,11 +91,11 @@ Feature: Complaints Search
     Given I am logged into "CS" as user "IEDET_USER"
     When I generate a "IEDET" case to validate search functionality
     And I navigate to the "Search" page
-    And I enter "Sam McTester" into the "Correspondent Full Name" search field in the "IEDET" search configuration
-    And I enter "AB1 2CD" into the "Correspondent Postcode" search field in the "IEDET" search configuration
-    And I enter "SamMcTester@Test.com" into the "Correspondent Email Address" search field in the "IEDET" search configuration
-    And I enter "01/01/2001" into the "Complainant Date of Birth" search field in the "IEDET" search configuration
-    And I enter "Test entry for HO Reference" into the "Complainant Home Office Reference" search field in the "IEDET" search configuration
+    And I enter "Sam McTester" into the "Correspondent Full Name" search field
+    And I enter "AB1 2CD" into the "Correspondent Postcode" search field
+    And I enter "SamMcTester@Test.com" into the "Correspondent Email Address" search field
+    And I enter "01/01/2001" into the "Complainant Date of Birth" search field
+    And I enter "Test entry for HO Reference" into the "Complainant Home Office Reference" search field
     And I enter the current case reference into the Case Reference field on the search screen
     And I click the search button on the search page
     Then the created case should be the only case visible in the search results
@@ -116,12 +108,12 @@ Feature: Complaints Search
     Given I am logged into "CS" as user "SMC_USER"
     When I generate a "SMC" case to validate search functionality
     And I navigate to the "Search" page
-    And I enter "Sam McTester" into the "Correspondent Full Name" search field in the "SMC" search configuration
-    And I enter "AB1 2CD" into the "Correspondent Postcode" search field in the "SMC" search configuration
-    And I enter "SamMcTester@Test.com" into the "Correspondent Email Address" search field in the "SMC" search configuration
-    And I enter "01/01/2001" into the "Complainant Date of Birth" search field in the "SMC" search configuration
-    And I enter "Test entry for HO Reference" into the "Complainant Home Office Reference" search field in the "SMC" search configuration
-    And I enter "123456789" into the "PSU Reference" search field in the "SMC" search configuration
+    And I enter "Sam McTester" into the "Correspondent Full Name" search field
+    And I enter "AB1 2CD" into the "Correspondent Postcode" search field
+    And I enter "SamMcTester@Test.com" into the "Correspondent Email Address" search field
+    And I enter "01/01/2001" into the "Complainant Date of Birth" search field
+    And I enter "Test entry for HO Reference" into the "Complainant Home Office Reference" search field
+    And I enter "123456789" into the "PSU Reference" search field
     And I enter the current case reference into the Case Reference field on the search screen
     And I click the search button on the search page
     Then the created case should be the only case visible in the search results
@@ -134,10 +126,10 @@ Feature: Complaints Search
     Given I am logged into "CS" as user "POGR_USER"
     When I generate a "POGR" case to validate search functionality
     And I navigate to the "Search" page
-    And I enter "Sam McTester" into the "Correspondent Full Name" search field in the "POGR" search configuration
-    And I enter "AB1 2CD" into the "Correspondent Postcode" search field in the "POGR" search configuration
-    And I enter "SamMcTester@Test.com" into the "Correspondent Email Address" search field in the "POGR" search configuration
-    And I enter "01/01/2001" into the "Complainant Date of Birth" search field in the "POGR" search configuration
+    And I enter "Sam McTester" into the "Correspondent Full Name" search field
+    And I enter "AB1 2CD" into the "Correspondent Postcode" search field
+    And I enter "SamMcTester@Test.com" into the "Correspondent Email Address" search field
+    And I enter "01/01/2001" into the "Complainant Date of Birth" search field
     And I enter the current case reference into the Case Reference field on the search screen
     And I click the search button on the search page
     Then the created case should be the only case visible in the search results

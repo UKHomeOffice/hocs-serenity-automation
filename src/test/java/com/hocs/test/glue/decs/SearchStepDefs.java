@@ -60,39 +60,18 @@ public class SearchStepDefs extends BasePage {
 
     POGRProgressCase pogrProgressCase;
 
-    @And("I enter {string} into the {string} search field in the {string} search configuration")
-    public void iEnterIntoTheSearchFieldForTheCaseType(String value, String criteria, String searchConfig) {
+    @And("I enter {string} into the {string} search field")
+    public void iEnterIntoTheSearchFieldForTheCaseType(String value, String criteria) {
         setSessionVariable("searchValue").to(value);
         setSessionVariable("searchCriteria").to(criteria);
-        setSessionVariable("searchConfig").to(searchConfig);
-        switch (searchConfig.toUpperCase()) {
-            case "DCU":
-            case "MPAM":
-            case "COMP":
-            case "IEDET":
-            case "SMC":
-            case "POGR":
-            case "FOI":
-            case "BF":
-            case "TO":
-            case "DECS":
-                search.enterSearchCriteria(criteria, value);
-                break;
-            default:
-                pendingStep(searchConfig + " is not defined within " + getMethodName());
-        }
+        search.enterSearchCriteria(criteria, value);
     }
 
     @And("I check that the search results have the correct {string}")
     public void iCheckThatTheSearchResultsHaveTheCorrect(String criteria) throws ParseException {
         String caseTypeToGenerate;
-        String searchConfig = sessionVariableCalled("searchConfig");
         String infoValue = sessionVariableCalled("searchValue");
-        if (searchConfig.equalsIgnoreCase("DECS")) {
-            caseTypeToGenerate = sessionVariableCalled("randomCaseType");
-        } else {
-            caseTypeToGenerate = searchConfig;
-        }
+        caseTypeToGenerate = sessionVariableCalled("randomCaseType");
         if (search.zeroSearchResultsReturned()) {
             switch (caseTypeToGenerate.toUpperCase()) {
                 case "DCU":
@@ -123,32 +102,15 @@ public class SearchStepDefs extends BasePage {
                     toProgressCase.generateTOSearchCaseData(infoValue, criteria);
                     break;
                 default:
-                    pendingStep(searchConfig + " is not defined within " + getMethodName());
+                    pendingStep(caseTypeToGenerate + " is not defined within " + getMethodName());
             }
             dashboard.selectSearchLinkFromMenuBar();
             search.waitForSearchCriteriaPage();
-            iEnterIntoTheSearchFieldForTheCaseType(infoValue, criteria, searchConfig);
+            iEnterIntoTheSearchFieldForTheCaseType(infoValue, criteria);
             safeClickOn(search.searchButton);
             search.waitForResultsPage();
         }
-        switch (searchConfig.toUpperCase()) {
-            case "DCU":
-            case "MPAM":
-            case "COMP":
-            case "IEDET":
-            case "SMC":
-            case "POGR":
-            case "FOI":
-            case "BF":
-            case "TO":
-                search.assertSearchResults(criteria, searchConfig);
-                break;
-            case "DECS":
-                search.assertSearchResults(criteria, null);
-                break;
-            default:
-                pendingStep(searchConfig + " is not defined within " + getMethodName());
-        }
+        search.assertSearchResults(criteria);
     }
 
     @When("I click the search button on the search page")
@@ -240,9 +202,9 @@ public class SearchStepDefs extends BasePage {
                 retest ++;
                 dashboard.selectSearchLinkFromMenuBar();
                 if (getCurrentCaseType().equalsIgnoreCase("MIN") || getCurrentCaseType().equalsIgnoreCase("TRO") || getCurrentCaseType().equalsIgnoreCase("DTEN")) {
-                    iEnterIntoTheSearchFieldForTheCaseType(getCurrentCaseReference(), "Case Reference", "DCU");
+                    iEnterIntoTheSearchFieldForTheCaseType(getCurrentCaseReference(), "Case Reference");
                 } else {
-                    iEnterIntoTheSearchFieldForTheCaseType(getCurrentCaseReference(), "Case Reference", getCurrentCaseType());
+                    iEnterIntoTheSearchFieldForTheCaseType(getCurrentCaseReference(), "Case Reference");
                 }
                 safeClickOn(searchButton);
                 workstacks.filterByCurrentCaseReference();
