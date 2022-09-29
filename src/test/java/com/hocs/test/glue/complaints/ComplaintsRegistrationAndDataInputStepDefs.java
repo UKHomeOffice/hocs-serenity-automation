@@ -153,4 +153,9 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
         complaintsRegistrationAndDataInput.enterAPSUReference();
         clickTheButton("Submit");
     }
+
+    @And("I chose not to upload an interim letter")
+    public void iChoseNotToUploadAnInterimLetter() {
+        clickTheButton("Continue");
+    }
 }
