@@ -178,37 +178,10 @@ Feature: Complaints End To End
     When I create a "IEDET" case and move it to the "Send" stage
     Then the case should be moved to the "Send" stage
 
-  @IEDETAndSMCRegression @IEDETComplaints
+  @IEDETRegression @IEDETComplaints
   Scenario: User is able to close an IEDET complaint case
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to "Case Closed"
-    Then the case should be closed
-
-
-#     SMC COMPLAINTS
-
-  @SMCComplaints
-  Scenario: User creates a SMC complaint case and it starts at the Registration stage
-    Given I am logged into "CS" as user "SMC_USER"
-    When I create a "SMC" case and move it to the "Registration" stage
-    Then the case should be moved to the "Registration" stage
-
-  @SMCComplaints
-  Scenario: User moves an SMC complaint case to the Triage stage
-    Given I am logged into "CS" as user "SMC_USER"
-    When I create a "SMC" case and move it to the "Triage" stage
-    Then the case should be moved to the "Triage" stage
-
-  @SMCComplaints
-  Scenario: User moves an SMC complaint case to the Send stage
-    Given I am logged into "CS" as user "SMC_USER"
-    When I create a "SMC" case and move it to the "Send" stage
-    Then the case should be moved to the "Send" stage
-
-  @IEDETAndSMCRegression @SMCComplaints
-  Scenario: User is able to close an SMC complaint case
-    Given I am logged into "CS" as user "SMC_USER"
-    When I create a "SMC" case and move it to "Case Closed"
     Then the case should be closed
 
 
@@ -400,4 +373,33 @@ Feature: Complaints End To End
   Scenario: User is able to close a POGR stage 2 complaint case
     Given I am logged into "CS" as user "POGR_USER"
     When I create a "POGR2" case and move it to the "Case Closed" stage
+    Then the case should be closed
+
+
+#  SMC workflow cancelled. Steps and code might be useful for future work implementing PSU specific sub-workflow into other complaints workflows
+
+#     SMC COMPLAINTS
+
+  @SMCComplaints
+  Scenario: User creates a SMC complaint case and it starts at the Registration stage
+    Given I am logged into "CS" as user "SMC_USER"
+    When I create a "SMC" case and move it to the "Registration" stage
+    Then the case should be moved to the "Registration" stage
+
+  @SMCComplaints
+  Scenario: User moves an SMC complaint case to the Triage stage
+    Given I am logged into "CS" as user "SMC_USER"
+    When I create a "SMC" case and move it to the "Triage" stage
+    Then the case should be moved to the "Triage" stage
+
+  @SMCComplaints
+  Scenario: User moves an SMC complaint case to the Send stage
+    Given I am logged into "CS" as user "SMC_USER"
+    When I create a "SMC" case and move it to the "Send" stage
+    Then the case should be moved to the "Send" stage
+
+  @SMCComplaints
+  Scenario: User is able to close an SMC complaint case
+    Given I am logged into "CS" as user "SMC_USER"
+    When I create a "SMC" case and move it to "Case Closed"
     Then the case should be closed
