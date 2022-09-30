@@ -31,7 +31,7 @@ public class CaseView extends BasePage {
     @FindBy(xpath = "//h2[contains(@class,'section-heading')]/button[text()='Case Details']")
     public WebElementFacade wcsCaseDetailsAccordion;
 
-    @FindBy(xpath = "//div[@class='tabs']")
+    @FindBy(xpath = "//div[@class='govuk-tabs']")
     public WebElementFacade tabs;
 
     // Basic methods
@@ -125,9 +125,7 @@ public class CaseView extends BasePage {
     }
 
     public void expandAllCaseDetailsAccordionSections() {
-        List<WebElementFacade> accordionSectionButtons = findAll("//button[@class='govuk-accordion__section-button']");
-        for (WebElementFacade accordionSectionButton : accordionSectionButtons) {
-            safeClickOn(accordionSectionButton);
-        }
+        WebElementFacade showAllAccordionSectionsButton = findBy("//button[@class='govuk-accordion__show-all']");
+        safeClickOn(showAllAccordionSectionsButton);
     }
 }

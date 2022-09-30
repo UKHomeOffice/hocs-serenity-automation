@@ -67,7 +67,7 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         } else {
             recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(complaintType, "Complaint Type");
         }
-        setSessionVariable("complaintType").to("Service");
+        setSessionVariable("complaintType").to(complaintType);
         clickTheButton("Continue");
         System.out.println("Complaint type: " + complaintType);
     }
