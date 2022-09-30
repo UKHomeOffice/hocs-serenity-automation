@@ -64,7 +64,7 @@ public class ProgressCaseStepDefs extends BasePage {
                 compProgressCase.completeTheCOMPStageSoThatCaseMovesToTargetStage(stage, "N/A");
                 break;
             case "IEDET":
-                iedetProgressCase.completeTheIEDETStage(stage);
+                iedetProgressCase.completeTheIEDETStage(stage,  "Happy Path");
                 break;
             case "SMC":
                 smcProgressCase.completeTheSMCStage(stage);
@@ -143,7 +143,7 @@ public class ProgressCaseStepDefs extends BasePage {
         iMoveTheCaseFromCurrentStageToTargetStage("N/A", targetStage);
     }
 
-    @And("I get a {string} case/claim at (the ){string}( stage)")
+    @And("I get a/an {string} case/claim at (the ){string}( stage)")
     public void iGetACaseAtAStage(String caseType, String stage) {
         iCreateACaseAndMoveItToAStage(caseType, stage);
         if (stage.equalsIgnoreCase("CASE CLOSED") || previousStageWouldHaveAutoAllocated(caseType, stage)) {

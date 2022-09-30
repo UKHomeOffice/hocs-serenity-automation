@@ -309,7 +309,6 @@ Feature: Complaints Triage
     And I load and claim the current case
     And I select "Service" as the Complaint Type
     And I select a "Service" Complaint Category
-    And I click the "Continue" button
     And I enter the complaint details on the Complaint Input page
     And I click the "Continue" button
     And I select the "<investigationTeam>" action for an IEDET case at the Triage stage
@@ -317,13 +316,13 @@ Feature: Complaints Triage
     And the summary should display the owning team as "IE Detention"
     And the read-only Case Details accordion should contain all case information entered during the "Triage" stage
     Examples:
-      | investigationTeam           |
-      | Third party supplier        |
-      | IE Detention compliance team|
-      | DEPMU                       |
+      | investigationTeam            |
+      | Third party supplier         |
+      | IE Detention compliance team |
+      | DEPMU                        |
 
   # Expected failure. Defect HOCS-5635 raised.
-  @IEDETRegression @IEDETComplaints
+  @ComplaintsWorkflow @IEDETRegression @IEDETComplaints
   Scenario: User can transfer a IEDET complaints case to CCH
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to the "Triage" stage
@@ -379,11 +378,11 @@ Feature: Complaints Triage
     And I "<action>" the contribution request
     Then the "<contributionType>" contribution request should be marked as "<action>"
     Examples:
-    | contributionType  | action    |
-    | Complainant       | Complete  |
-    | Complainant       | Cancel    |
-    | Business          | Complete  |
-    | Business          | Cancel    |
+      | contributionType | action   |
+      | Complainant      | Complete |
+      | Complainant      | Cancel   |
+      | Business         | Complete |
+      | Business         | Cancel   |
 
   @BFRegression @BFComplaints
   Scenario: User is able to add Consolatory and Ex-Gratia payment offers to a BF case at Triage
@@ -447,11 +446,11 @@ Feature: Complaints Triage
     And I "<action>" the contribution request
     Then the "<contributionType>" contribution request should be marked as "<action>"
     Examples:
-      | contributionType  | action    |
-      | Complainant       | Complete  |
-      | Complainant       | Cancel    |
-      | Business          | Complete  |
-      | Business          | Cancel    |
+      | contributionType | action   |
+      | Complainant      | Complete |
+      | Complainant      | Cancel   |
+      | Business         | Complete |
+      | Business         | Cancel   |
 
   @BFRegression @BFComplaints
   Scenario: User is able to add Consolatory and Ex-Gratia payment offers to a BF2 case at Triage
