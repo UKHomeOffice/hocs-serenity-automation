@@ -323,7 +323,6 @@ public class Documents extends BasePage {
                 break;
             case "COMP":
             case "COMP2":
-            case "SMC":
                 requiredDocumentTypes.addAll(Arrays.asList("To document", "Public correspondence", "Complaint leaflet", "Complaint letter", "Email"
                         , "CRF", "DRAFT", "Appeal Leaflet", "IMB Letter", "Final Response"));
                 break;

@@ -302,7 +302,7 @@ Feature: Complaints Triage
 
 #     IEDET COMPLAINTS
 
-  @ComplaintsWorkflow @IEDETAndSMCRegression @IEDETComplaints
+  @ComplaintsWorkflow @IEDETRegression @IEDETComplaints
   Scenario Outline: User completes the Triage stage for an IEDET complaint case
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to the "Triage" stage
@@ -322,75 +322,12 @@ Feature: Complaints Triage
       | DEPMU                        |
 
   # Expected failure. Defect HOCS-5635 raised.
-  @ComplaintsWorkflow @IEDETAndSMCRegression @IEDETComplaints
+  @ComplaintsWorkflow @IEDETRegression @IEDETComplaints
   Scenario: User can transfer a IEDET complaints case to CCH
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to the "Triage" stage
     And I load and claim the current case
     And I select the "Send to CCH" action for an IEDET case at the Triage stage
-    Then the case should be closed
-
-  # Expected failure. Defect HOCS-5632 raised.
-  @ComplaintsWorkflow @IEDETAndSMCRegression @IEDETComplaints
-  Scenario: As an IEDET complaints user, I can escalate a case to PSU, so that the correct team can casework the case
-    Given I am logged into "CS" as user "IEDET_USER"
-    When I get an "IEDET" case at "Triage" stage
-    And I select "Serious misconduct" as the Complaint Type
-    And I select a "Serious misconduct" Complaint Category
-    And I enter the complaint details on the Complaint Input page
-    And I complete Triage and escalate the case to PSU
-    Then the case should be moved to the "PSU Registration" stage
-    And the summary should display the owning team as "PSU Complaints"
-    And the read-only Case Details accordion should contain all case information entered during the "Triage" stage
-
-  # will fail until HOCS-5544 is reworked to meet all AC
-  @ComplaintsWorkflow @IEDETAndSMCRegression @IEDETComplaints
-  Scenario: As a PSU complaints user, I can register a complaint escalated by IEDET, so that the case can progress
-    Given I am logged into "CS" as user "IEDET_USER"
-    When I create a "IEDET" case and move it to the "PSU Registration" stage
-    And I switch to user "SMC_USER"
-    And I load and claim the current case
-    And I submit a PSU reference
-    Then the case should be moved to the "PSU Triage" stage
-    And the summary should contain the PSU reference
-    And the read-only Case Details accordion should contain all case information entered during the "PSU Registration" stage
-
-
-#     SMC COMPLAINTS
-
-  @ComplaintsWorkflow @IEDETAndSMCRegression @SMCComplaints
-  Scenario: User completes the Triage stage for an SMC complaint case
-    Given I am logged into "CS" as user "SMC_USER"
-    When I create a "SMC" case and move it to the "Triage" stage
-    And I load and claim the current case
-    And I accept the case at Triage stage
-    And I enter details on PSU Reference page
-    And I accept the previous Claim Category selection
-    And I accept the previous Case Details selection
-    And I submit details on the Triage Capture Reason page
-    And I send the case to drafting
-    And I load the current case
-    And the summary should display the owning team as "Serious Misconduct"
-    And the read-only Case Details accordion should contain all case information entered during the "Triage" stage
-
-  # Expected failure. Defect HOCS-3980 raised.
-  @ComplaintsWorkflow @IEDETAndSMCRegression @SMCComplaints
-  Scenario: User can transfer a SMC complaint case to a UKVI complaint case at Triage stage
-    Given I am logged into "CS" as user "SMC_USER"
-    When I create a "SMC" case and move it to the "Triage" stage
-    And I load and claim the current case
-    And I select to Transfer the complaint
-    And I enter a reason for "CCH" transfer and continue
-    Then the case should be closed
-
-  # Expected failure. Defect HOCS-3980 raised.
-  @ComplaintsWorkflow @IEDETAndSMCRegression @SMCComplaints
-  Scenario: User can transfer a SMC complaint case to an IEDET complaint case at Triage stage
-    Given I am logged into "CS" as user "SMC_USER"
-    When I create a "SMC" case and move it to the "Triage" stage
-    And I load and claim the current case
-    And I select to Transfer the complaint
-    And I enter a reason for "IE Detention" transfer and continue
     Then the case should be closed
 
 
@@ -741,3 +678,43 @@ Feature: Complaints Triage
       | Complainant      | Cancel   | Cancelled |
       | Business         | Complete | Complete  |
       | Business         | Cancel   | Cancelled |
+
+
+#  SMC workflow cancelled. Steps and code might be useful for future work implementing PSU specific sub-workflow into other complaints workflows
+
+#     SMC COMPLAINTS
+
+  @ComplaintsWorkflow @SMCComplaints
+  Scenario: User completes the Triage stage for an SMC complaint case
+    Given I am logged into "CS" as user "SMC_USER"
+    When I create a "SMC" case and move it to the "Triage" stage
+    And I load and claim the current case
+    And I accept the case at Triage stage
+    And I enter details on PSU Reference page
+    And I accept the previous Claim Category selection
+    And I accept the previous Case Details selection
+    And I submit details on the Triage Capture Reason page
+    And I send the case to drafting
+    And I load the current case
+    And the summary should display the owning team as "Serious Misconduct"
+    And the read-only Case Details accordion should contain all case information entered during the "Triage" stage
+
+  # Expected failure. Defect HOCS-3980 raised.
+  @ComplaintsWorkflow @SMCComplaints
+  Scenario: User can transfer a SMC complaint case to a UKVI complaint case at Triage stage
+    Given I am logged into "CS" as user "SMC_USER"
+    When I create a "SMC" case and move it to the "Triage" stage
+    And I load and claim the current case
+    And I select to Transfer the complaint
+    And I enter a reason for "CCH" transfer and continue
+    Then the case should be closed
+
+  # Expected failure. Defect HOCS-3980 raised.
+  @ComplaintsWorkflow @SMCComplaints
+  Scenario: User can transfer a SMC complaint case to an IEDET complaint case at Triage stage
+    Given I am logged into "CS" as user "SMC_USER"
+    When I create a "SMC" case and move it to the "Triage" stage
+    And I load and claim the current case
+    And I select to Transfer the complaint
+    And I enter a reason for "IE Detention" transfer and continue
+    Then the case should be closed

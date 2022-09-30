@@ -1,6 +1,8 @@
 @ComplaintsActions @Complaints
 Feature: Actions
 
+#      BF COMPLAINTS
+
   # HOCS-4395, HOCS-4396, HOCS-5437
   @BFRegression @BFComplaints
   Scenario: User is able to add and update a Registered Interest in a Border Force Complaints case
@@ -32,7 +34,12 @@ Feature: Actions
     And the updated details of the interest should be visible in the actions tab
     And an Interest Updated log should be visible in the timeline for the interested party
 
-  @IEDETAndSMCRegression @SMCComplaints
+
+#  SMC workflow cancelled. Steps and code might be useful for future work implementing PSU specific sub-workflow into other complaints workflows
+
+#     SMC COMPLAINTS
+
+  @SMCComplaints
   Scenario: As a SMC caseworker, I want to be able to suspend a case, so that the case and its SLA reflect its current status
     Given I am logged into "CS" as user "SMC_USER"
     And I get a new "SMC" case
@@ -45,7 +52,7 @@ Feature: Actions
     And the deadline of the case should be replaced with the word "Suspended" in the "SMC Registration" workstack
     And the deadline of the case should be replaced with the word "Suspended" in the My Cases workstack
 
-  @IEDETAndSMCRegression @SMCComplaints
+  @SMCComplaints
   Scenario: As a SMC caseworker, I want to be able to remove the suspension on a case, so that the case reflect its current status
     Given I am logged into "CS" as user "SMC_USER"
     And I get a new "SMC" case

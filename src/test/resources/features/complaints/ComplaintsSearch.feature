@@ -86,8 +86,8 @@ Feature: Complaints Search
 
 #     IEDET COMPLAINTS
 
-  @IEDETAndSMCRegression @IEDETComplaints
-  Scenario: User tests IEDET complaints case search criteria
+  @IEDETRegression @IEDETComplaints
+  Scenario: User tests IEDET complaint case search criteria
     Given I am logged into "CS" as user "IEDET_USER"
     When I generate a "IEDET" case to validate search functionality
     And I navigate to the "Search" page
@@ -96,24 +96,6 @@ Feature: Complaints Search
     And I enter "SamMcTester@Test.com" into the "Correspondent Email Address" search field
     And I enter "01/01/2001" into the "Complainant Date of Birth" search field
     And I enter "Test entry for HO Reference" into the "Complainant Home Office Reference" search field
-    And I enter the current case reference into the Case Reference field on the search screen
-    And I click the search button on the search page
-    Then the created case should be the only case visible in the search results
-
-
-#     SMC COMPLAINTS
-
-  @IEDETAndSMCRegression @SMCComplaints
-  Scenario: User tests SMC complaints case search criteria
-    Given I am logged into "CS" as user "SMC_USER"
-    When I generate a "SMC" case to validate search functionality
-    And I navigate to the "Search" page
-    And I enter "Sam McTester" into the "Correspondent Full Name" search field
-    And I enter "AB1 2CD" into the "Correspondent Postcode" search field
-    And I enter "SamMcTester@Test.com" into the "Correspondent Email Address" search field
-    And I enter "01/01/2001" into the "Complainant Date of Birth" search field
-    And I enter "Test entry for HO Reference" into the "Complainant Home Office Reference" search field
-    And I enter "123456789" into the "PSU Reference" search field
     And I enter the current case reference into the Case Reference field on the search screen
     And I click the search button on the search page
     Then the created case should be the only case visible in the search results
@@ -145,3 +127,23 @@ Feature: Complaints Search
     And I search for the complaints case escalated to stage 2 by it's case reference
     And I load the stage 2 complaints case by selecting its case reference from the Escalate Case column
     Then the case should be loaded
+
+
+#  SMC workflow cancelled. Steps and code might be useful for future work implementing PSU specific sub-workflow into other complaints workflows
+
+#     SMC COMPLAINTS
+
+  @SMCComplaints
+  Scenario: User tests SMC complaints case search criteria
+    Given I am logged into "CS" as user "SMC_USER"
+    When I generate a "SMC" case to validate search functionality
+    And I navigate to the "Search" page
+    And I enter "Sam McTester" into the "Correspondent Full Name" search field
+    And I enter "AB1 2CD" into the "Correspondent Postcode" search field
+    And I enter "SamMcTester@Test.com" into the "Correspondent Email Address" search field
+    And I enter "01/01/2001" into the "Complainant Date of Birth" search field
+    And I enter "Test entry for HO Reference" into the "Complainant Home Office Reference" search field
+    And I enter "123456789" into the "PSU Reference" search field
+    And I enter the current case reference into the Case Reference field on the search screen
+    And I click the search button on the search page
+    Then the created case should be the only case visible in the search results
