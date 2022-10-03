@@ -4,8 +4,44 @@ Feature: PeopleTab
   Background:
     Given I am logged into "CS" as user "DECS_USER"
 
+  Scenario: User adds an MP correspondent to a case as part of a stage
+    When I complete all required fields for Creation stage
+    And I click the "Continue" button
+    And I add a "Member" correspondent
+    Then the submitted correspondent should be visible in the list of correspondents
+
+  Scenario: User adds a non-mp correspondent to a case as part of a stage
+    When I complete all required fields for Creation stage
+    And I click the "Continue" button
+    When I select to add a correspondent that "is not" a member of parliament
+    And I fill all mandatory fields on the "CORRESPONDENT DETAILS" page with valid data
+    Then the submitted correspondent should be visible in the list of correspondents
+
+  Scenario: User removes the primary correspondent from a case as part of a stage
+    When I complete all required fields for Creation stage
+    And I click the "Continue" button
+    When I add a "Constituent" correspondent
+    And I remove the primary correspondent
+    Then there shouldn't be a primary correspondent displayed
+
+  Scenario: User edits an existing correspondents name as part of a stage
+    When I complete all required fields for Creation stage
+    And I click the "Continue" button
+    When I add a "Constituent" correspondent
+    And I edit the primary correspondents name
+    Then the correspondents name should be updated
+
+  Scenario: User adds a second correspondent and selects them as the primary correspondent as part of a stage
+    When I complete all required fields for Creation stage
+    And I click the "Continue" button
+    And I add a "Member" correspondent
+    And I add a "Constituent" correspondent
+    When I select the primary correspondent radio button for a different correspondent
+    And I click the "Move to Triage" button
+    Then the case summary should list the correct primary correspondent
+
   @CSRegression
-  Scenario Outline: User changes the primary correspondent of the case
+  Scenario Outline: User changes the primary correspondent of the case via the people tab
     And I create a "MIN" case and move it to the "DATA INPUT" stage
     And I load and claim the current case
     And I complete the Data Input stage adding 3 member correspondents
@@ -18,7 +54,7 @@ Feature: PeopleTab
       | Nicola Sturgeon |
 
   @CSRegression
-  Scenario: User is able to remove non-primary correspondents from the case
+  Scenario: User is able to remove non-primary correspondents from the case via the people tab
     And I create a "MIN" case and move it to the "DATA INPUT" stage
     And I load and claim the current case
     And I complete the Data Input stage adding 3 member correspondents
@@ -37,7 +73,6 @@ Feature: PeopleTab
       | Member            |
       | Public            |
 
-#    Expected failure for MLA example. Defect HOCS-4266 raised.
   @CSRegression
   Scenario Outline: User can add a Member of Parliament as a Correspondent
     When I create a "MIN" case and move it to the "Data Input" stage
