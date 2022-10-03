@@ -28,24 +28,6 @@ public class DataInputStepDefs extends BasePage {
 
     SummaryTab summaryTab;
 
-    @When("I add an additional correspondent")
-    public void iAddAnAdditionalCorrespondent() {
-        addACorrespondentThatIsOrIsNotAnMP("Is not");
-        correspondents.fillMandatoryCorrespondentFieldsForSecondaryContact();
-        clickAddButton();
-    }
-
-    @When("I select to add a correspondent that {string} a member of parliament")
-    public void addACorrespondentThatIsOrIsNotAnMP(String isOrIsNot) {
-        waitABit(2000);
-        correspondents.selectToAddACorrespondent();
-        if (isOrIsNot.equalsIgnoreCase("IS")) {
-            correspondents.selectCorrespondentIsMP();
-        } else if (isOrIsNot.equalsIgnoreCase("IS NOT")) {
-            correspondents.selectCorrespondentIsNotMP();
-        }
-    }
-
     @Then("an error message should be displayed as I have not entered text in the full name field")
     public void assertThatCorrespondentNameNotEnteredErrorMessageIsShown() {
         correspondents.assertCorrespondentFullNameErrorMessage();
@@ -64,28 +46,6 @@ public class DataInputStepDefs extends BasePage {
     @Then("an error message should be displayed as I must select a correspondent type on this screen")
     public void assertThatCorrespondentTypeErrorMessageIsShown() {
         correspondents.assertCorrespondentTypeMustBeSelectedErrorMessage();
-    }
-
-    @And("a case has a {string} correspondent")
-    public void aCaseHasACorrespondent(String ordinal) {
-        switch (ordinal.toUpperCase()) {
-            case "PRIMARY":
-                dataInput.fillAllMandatoryCorrespondenceFields();
-                clickTheButton("Continue");
-                addACorrespondentThatIsOrIsNotAnMP("Is not");
-                correspondents.selectCorrespondentTypeFromDropdown("Constituent");
-                correspondents.fillCorrespondentFields();
-                dataInput.clickAddButton();
-                correspondents.assertPrimaryCorrespondent();
-                break;
-            case "SECONDARY":
-                aCaseHasACorrespondent("PRIMARY");
-                iAddAnAdditionalCorrespondent();
-                correspondents.assertSecondaryCorrespondent();
-                break;
-            default:
-                pendingStep(ordinal + " is not defined within " + getMethodName());
-        }
     }
 
     @When("I enter an invalid date")

@@ -5,14 +5,15 @@ Feature: PeopleTab
     Given I am logged into "CS" as user "DECS_USER"
 
   Scenario: User adds an MP correspondent to a case as part of a stage
-    When I complete all required fields for Creation stage
-    And I click the "Continue" button
+    When I create a case that allows adding an MP correspondent
+    And I progress to the point of adding correspondents
     And I add a "Member" correspondent
     Then the submitted correspondent should be visible in the list of correspondents
+    And the primary correspondent details should be visible in the summary tab
 
   Scenario: User adds a non-mp correspondent to a case as part of a stage
-    When I complete all required fields for Creation stage
-    And I click the "Continue" button
+    When I create a case that allows adding an MP correspondent
+    And I progress to the point of adding correspondents
     When I select to add a correspondent that "is not" a member of parliament
     And I fill all mandatory fields on the "CORRESPONDENT DETAILS" page with valid data
     Then the submitted correspondent should be visible in the list of correspondents
