@@ -34,6 +34,9 @@ public class CaseView extends BasePage {
     @FindBy(xpath = "//div[@class='govuk-tabs']")
     public WebElementFacade tabs;
 
+    @FindBy(xpath = "//button[@class='govuk-accordion__show-all']")
+    public WebElementFacade showAllAccordionSectionsButton;
+
     // Basic methods
 
     public void clickAllocateToMeLink() {
@@ -125,7 +128,15 @@ public class CaseView extends BasePage {
     }
 
     public void expandAllCaseDetailsAccordionSections() {
-        WebElementFacade showAllAccordionSectionsButton = findBy("//button[@class='govuk-accordion__show-all']");
-        safeClickOn(showAllAccordionSectionsButton);
+        if (showAllAccordionSectionsButton.isVisible()) {
+            safeClickOn(showAllAccordionSectionsButton);
+        } else {
+            int n = 0;
+            List<WebElementFacade> listOfShowButtons = findAll("//span[@class='govuk-accordion__section-toggle-text']");
+            while (n < listOfShowButtons.size()) {
+                safeClickOn(listOfShowButtons.get(n));
+                n++;
+            }
+        }
     }
 }
