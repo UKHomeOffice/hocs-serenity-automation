@@ -152,6 +152,7 @@ Feature: Complaints Dispatch & Send
     And I submit the Response details
     Then the case should be closed
     And the read-only Case Details accordion should contain all case information entered during the "Dispatch" stage
+    And the read-only Case Details accordion should contain all case information entered during the "Dispatch" stage
 
 
 #  SMC workflow cancelled. Steps and code might be useful for future work implementing PSU specific sub-workflow into other complaints workflows
