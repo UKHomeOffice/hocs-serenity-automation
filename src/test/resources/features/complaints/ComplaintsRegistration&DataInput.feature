@@ -111,7 +111,7 @@ Feature: Registration
 
 #     IEDET COMPLAINTS
 
-  @ComplaintsWorkflow @IEDETAndSMCRegression @IEDETComplaints
+  @ComplaintsWorkflow @IEDETRegression @IEDETComplaints
   Scenario: User can complete the Registration stage for an IEDET complaint case
     Given I am logged into "CS" as user "IEDET_USER"
     And I create a single "IEDET" case
@@ -122,26 +122,6 @@ Feature: Registration
     Then the case should be moved to the "Triage" stage
     And the summary should display the owning team as "IE Detention"
     And the read-only Case Details accordion should contain all case information entered during the "IEDET Registration" stage
-
-
-#     SMC COMPLAINTS
-
-  @ComplaintsWorkflow @IEDETAndSMCRegression @SMCComplaints
-  Scenario: User is able to complete the Registration stage for an SMC complaint case
-    Given I am logged into "CS" as user "SMC_USER"
-    And I create a single "SMC" case
-    And I allocate the case to myself via the successful case creation screen
-    And I add a "Complainant" correspondent
-    And I click the "Continue" button
-    And I enter the Complainant Details
-    And I enter the complaint details on the Complaint Input page
-    And I click the "Continue" button
-    And I select a "Serious" Complaint Category
-    And I select a Owning CSU
-    And I click the "Finish" button
-    Then the case should be moved to the "Triage" stage
-    And the summary should display the owning team as "Serious Misconduct"
-    And the read-only Case Details accordion should contain all case information entered during the "Registration" stage
 
 
 #     BF COMPLAINTS
@@ -220,6 +200,29 @@ Feature: Registration
     And the POGR case should be assigned to the correct investigating team
     And the read-only Case Details accordion should contain all case information entered during the "Data Input" stage
 
+  @POGRRegression @POGRComplaints
+  Scenario: User is not required to add a interim letter to a POGR complaint case with HMPO as the business area
+    Given I am logged into "CS" as user "POGR_USER"
+    And I get a "POGR" case at the "Data Input" stage
+    When I select "HMPO" as the business area for the POGR case
+    And I add a "Complainant" correspondent
+    And I confirm the primary correspondent
+    And I enter details on the Data Input screen
+    And I chose not to upload an interim letter
+    Then I am returned to the dashboard
+
+  @POGRRegression @POGRComplaints
+  Scenario: User is not required to add a interim letter to a POGR complaint case with GRO as the business area
+    Given I am logged into "CS" as user "POGR_USER"
+    And I get a "POGR" case at the "Data Input" stage
+    When I select "GRO" as the business area for the POGR case
+    And I add a "Complainant" correspondent
+    And I confirm the primary correspondent
+    And I enter details on the Data Input screen
+    And I chose not to upload an interim letter
+    Then the "Investigation - Team Allocation" page should be displayed
+
+
 #     POGR Stage 2 Complaints
 
   @ComplaintsWorkflow @ComplaintsRegression2 @POGRComplaints
@@ -233,7 +236,7 @@ Feature: Registration
     And I enter the date that the Interim letter was sent
     Then the case should be moved to the "Investigation" stage
     And the summary should display the owning team as "HMPO Complaints"
-#    And the read-only Case Details accordion should contain all case information entered during the "Data Input" stage
+    And the read-only Case Details accordion should contain all case information entered during the "Data Input" stage
 
   @ComplaintsWorkflow @ComplaintsRegression2 @POGRComplaints
   Scenario: User is able to complete the Data Input stage for a POGR stage 2 complaint case with GRO as the business area
@@ -247,4 +250,48 @@ Feature: Registration
     And I select the investigating team for the case
     Then the case should be moved to the "Investigation" stage
     And the POGR case should be assigned to the correct investigating team
-#    And the read-only Case Details accordion should contain all case information entered during the "Data Input" stage
+    And the read-only Case Details accordion should contain all case information entered during the "Data Input" stage
+
+  @POGRRegression @POGRComplaints
+  Scenario: User is not required to add a interim letter to a POGR complaint case with HMPO as the business area
+    Given I am logged into "CS" as user "POGR_USER"
+    When I get a "POGR2" case with "HMPO" as the Business Area at the "Data Input" stage
+    And I add a "Complainant" correspondent
+    And I confirm the primary correspondent
+    And I enter details on the Data Input screen
+    And I chose not to upload an interim letter
+    Then I am returned to the dashboard
+
+  @POGRRegression @POGRComplaints
+  Scenario: User is not required to add a interim letter to a POGR complaint case with GRO as the business area
+    Given I am logged into "CS" as user "POGR_USER"
+    When I get a "POGR2" case with "GRO" as the Business Area at the "Data Input" stage
+    When I select "GRO" as the business area for the POGR case
+    And I add a "Complainant" correspondent
+    And I confirm the primary correspondent
+    And I enter details on the Data Input screen
+    And I chose not to upload an interim letter
+    Then the "Investigation - Team Allocation" page should be displayed
+    And the read-only Case Details accordion should contain all case information entered during the "Data Input" stage
+
+
+#  SMC workflow cancelled. Steps and code might be useful for future work implementing PSU specific sub-workflow into other complaints workflows
+
+#     SMC COMPLAINTS
+
+  @ComplaintsWorkflow @SMCComplaints
+  Scenario: User is able to complete the Registration stage for an SMC complaint case
+    Given I am logged into "CS" as user "SMC_USER"
+    And I create a single "SMC" case
+    And I allocate the case to myself via the successful case creation screen
+    And I add a "Complainant" correspondent
+    And I click the "Continue" button
+    And I enter the Complainant Details
+    And I enter the complaint details on the Complaint Input page
+    And I click the "Continue" button
+    And I select a "Serious" Complaint Category
+    And I select a Owning CSU
+    And I click the "Finish" button
+    Then the case should be moved to the "Triage" stage
+    And the summary should display the owning team as "Serious Misconduct"
+    And the read-only Case Details accordion should contain all case information entered during the "Registration" stage

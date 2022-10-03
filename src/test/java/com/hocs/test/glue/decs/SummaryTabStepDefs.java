@@ -208,8 +208,8 @@ public class SummaryTabStepDefs extends BasePage {
 
     @And("the summary should contain the Enquiry Subject, Enquiry Reason and Business Unit")
     public void theSummaryShouldContainTheEnquiryReasonAndEnquirySubjectAndBusinessUnit() {
-        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("enquirySubject"), "Enquiry Subject");
-        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("enquiryReason"), "Enquiry Reason");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("enquirySubject"), "Enquiry subject");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("enquiryReason"), "Enquiry reason");
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("businessUnit"), "Business Unit");
     }
 
@@ -232,6 +232,11 @@ public class SummaryTabStepDefs extends BasePage {
     @And("the summary should contain the selected/new stop list")
     public void theSummaryShouldContainTheSelectedStopList() {
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("stopList"), "Stop List name");
+    }
+
+    @And("the summary should contain the PSU reference")
+    public void theSummaryShouldContainThePSUReference() {
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("psuReference"), "PSU reference");
     }
 
     @And("the summary should contain the Business Area, Channel Received, Reference Type and Urgency")

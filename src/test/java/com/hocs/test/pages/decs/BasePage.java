@@ -143,45 +143,43 @@ public class BasePage extends PageObject {
     }
 
     public void selectTheTab(String tabName) {
-        WebElementFacade tab = findBy("//div[@class='tabs']//a[text()='" + tabName + "']");
-        try {
-            tab.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
-        }catch (TimeoutException e) {
-            waitABit(500);
-            tab = findBy("//div[@class='tabs']//a[text()='" + tabName + "']");
-            tab.withTimeoutOf(Duration.ofSeconds(5)).waitUntilVisible();
-        }
-        if (!tab.getAttribute("class").contains("active")) {
+        WebElementFacade tab = getTabElementUsingTabName(tabName);
+        tab.withTimeoutOf(Duration.ofSeconds(20)).waitUntilVisible();
+        if (!tab.getAttribute("class").contains("selected")) {
             try {
                 tab.click();
             } catch (ElementNotVisibleException | StaleElementReferenceException ex) {
                 waitABit(500);
-                tab = findBy("//div[@class='tabs']//a[text()='" + tabName + "']");
+                tab = getTabElementUsingTabName(tabName);
                 tab.click();
             }
         }
     }
 
+    private WebElementFacade getTabElementUsingTabName(String tabName) {
+        return findBy("//a[text()='" + tabName + "']/parent::li[contains(@class,'govuk-tabs__list-item')]");
+    }
+
     public void refreshTheTab(String tabName) {
-        WebElementFacade nonActiveTab = findBy("//a[@class='tab'][not(@class='tab__active')]");
+        WebElementFacade nonActiveTab = findBy("//li[@class='govuk-tabs__list-item'][not(@class='govuk-tabs__list-item--selected')]");
         nonActiveTab.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
             try {
                 nonActiveTab.click();
             } catch (ElementNotVisibleException | StaleElementReferenceException ex) {
                 waitABit(500);
-                nonActiveTab = findBy("//a[@class='tab'][not(@class='tab__active')]");
+                nonActiveTab = findBy("//li[@class='govuk-tabs__list-item'][not(@class='govuk-tabs__list-item--selected')]");
                 nonActiveTab.click();
             }
         selectTheTab(tabName);
     }
 
     public boolean accordionSectionIsVisible(String accordionLabel) {
-        WebElementFacade accordionSectionButton = findBy("//button[text()='" + accordionLabel +"']");
+        WebElementFacade accordionSectionButton = findBy("//button/span/span[text()='" + accordionLabel +"']");
         return accordionSectionButton.isCurrentlyVisible();
     }
 
     public void openOrCloseAccordionSection(String accordionLabel) {
-        WebElementFacade accordionSectionButton = findBy("//button[text()='" + accordionLabel +"']");
+        WebElementFacade accordionSectionButton = findBy("//button/span/span[text()='" + accordionLabel +"']");
         safeClickOn(accordionSectionButton);
     }
 

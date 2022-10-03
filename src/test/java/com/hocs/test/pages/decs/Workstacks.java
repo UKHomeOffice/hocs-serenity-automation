@@ -29,7 +29,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Workstacks extends BasePage {
 
-    @FindBy(xpath = "//span[@class='govuk-hint'][1]")
+    @FindBy(css = "div[class='govuk-hint']")
     public WebElementFacade totalNumberOfCases;
 
     @FindBy(xpath = "//button[text()='Allocate selected to me']")
@@ -218,7 +218,7 @@ public class Workstacks extends BasePage {
     }
 
     public int getTotalOfCases() {
-        totalNumberOfCases.withTimeoutOf(Duration.ofSeconds(150)).waitUntilVisible();
+        totalNumberOfCases.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
         String numberOfCases = totalNumberOfCases.getText().split(" ")[0];
         return Integer.parseInt(numberOfCases);
     }
@@ -799,7 +799,7 @@ public class Workstacks extends BasePage {
                 requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current Stage", "Contributions", "Owner", "Deadline", "Severity"));
                 break;
             case "IE DETENTION":
-                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current Stage", "Owner", "Deadline", "Business Area"));
+                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current Stage", "Deadline", "Business Area"));
                 break;
             case "SERIOUS MISCONDUCT":
                 requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current Stage", "Owner", "Deadline","PSU Reference"));
