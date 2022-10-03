@@ -45,27 +45,6 @@ public class DocumentsStepDefs extends BasePage {
         safeClickOn(documents.manageDocumentsLink);
     }
 
-    @And("I manage the documents of a new DCU case")
-    public void iManageTheDocumentsOfANewDCUCase() {
-        createCase.createDCUCaseOfRandomType();
-        confirmationScreens.goToCaseFromConfirmationScreen();
-        safeClickOn(documents.manageDocumentsLink);
-    }
-
-    @And("I manage the documents of a new MPAM or MTS case")
-    public void iManageTheDocumentsOfANewMPAMOrMTSCase() {
-        createCase.createMPAMOrMTSCaseOfRandomType();
-        confirmationScreens.goToCaseFromConfirmationScreen();
-        safeClickOn(documents.manageDocumentsLink);
-    }
-
-    @And("I manage the documents of a new Complaints case")
-    public void iManageTheDocumentsOfANewUKVIComplaintsCase() {
-        createCase.createComplaintsCaseOfRandomType();
-        confirmationScreens.goToCaseFromConfirmationScreen();
-        safeClickOn(documents.manageDocumentsLink);
-    }
-
     @And("I click manage documents")
     public void iClickManageDocuments() {
         safeClickOn(documents.manageDocumentsLink);

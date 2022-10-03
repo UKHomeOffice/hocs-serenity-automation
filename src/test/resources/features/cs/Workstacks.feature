@@ -110,12 +110,12 @@ Feature: Workstacks
       | Telephone Surgery Official Engagement | Highest to Lowest |
 
   @CSRegression
-  Scenario: User is able to see a highlighted deadline on an MPAM case that is 5 days from its deadline date
+  Scenario: User is able to see a red highlighted deadline on an MPAM case that is 5 days from its deadline date
     When I create a single "MPAM" case with the correspondence received date set 15 workdays ago
     And I view the MPAM case in the appropriate "Creation" stage workstack
     Then the case deadline "should" be highlighted
 
-  Scenario: User is unable to see a highlighted deadline on an MPAM case that is 6 days from its deadline date
+  Scenario: User is unable to see a red highlighted deadline on an MPAM case that is 6 days from its deadline date
     When I create a single "MPAM" case with the correspondence received date set 14 workdays ago
     And I view the MPAM case in the appropriate "Creation" stage workstack
     Then the case deadline "should not" be highlighted
