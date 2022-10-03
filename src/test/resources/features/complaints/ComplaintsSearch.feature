@@ -99,7 +99,7 @@ Feature: Complaints Search
 
 #     IEDET COMPLAINTS
 
-  @IEDETAndSMCRegression @IEDETComplaints
+  @IEDETRegression @IEDETComplaints
   Scenario Outline: User tests IEDET complaint case search criteria
     Given I am logged into "CS" as user "IEDET_USER"
     When I navigate to the "Search" page
@@ -114,36 +114,10 @@ Feature: Complaints Search
       | Complainant Date Of Birth         | 01/01/2001                           |
       | Complainant Home Office Reference | Test entry for Home Office Reference |
 
-  @IEDETAndSMCRegression @IEDETComplaints
+  @IEDETRegression @IEDETComplaints
   Scenario: User can search for a IEDET complaint case by its case reference
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a single "IEDET" case
-    And I search for the case by its case reference
-    Then the created case should be the only case visible in the search results
-
-
-#     SMC COMPLAINTS
-
-  @IEDETAndSMCRegression @SMCComplaints
-  Scenario Outline: User tests SMC complaint case search criteria
-    Given I am logged into "CS" as user "SMC_USER"
-    When I navigate to the "Search" page
-    And I enter "<infoValue>" into the "<infoType>" search field in the "SMC" search configuration
-    And I click the search button on the search page
-    Then I check that the search results have the correct "<infoType>"
-    Examples:
-      | infoType                          | infoValue                             |
-      | Correspondent full name           | Sam McTester                          |
-      | Correspondent postcode            | AB1 2CD                               |
-      | Correspondent email address       | SamMcTester@Test.com                  |
-      | Complainant date of birth         | 01/01/2001                            |
-      | Complainant Home Office Reference | Test entry for Home Office Reference  |
-      | PSU Reference                     | 123456789                             |
-
-  @IEDETAndSMCRegression @SMCComplaints
-  Scenario: User can search for a SMC complaint case by its case reference
-    Given I am logged into "CS" as user "SMC_USER"
-    When I create a single "SMC" case
     And I search for the case by its case reference
     Then the created case should be the only case visible in the search results
 
@@ -174,11 +148,39 @@ Feature: Complaints Search
 
 #     POGR2 STAGE 2 COMPLAINTS
 
-  @BFRegression @BFComplaints
-  Scenario: User is able to select a BF2 case reference from the escalate case column of a BF case
+  @POGRRegression @POGRComplaints
+  Scenario: User is able to select a POGR2 case reference from the escalate case column of a POGR case
     Given I am logged into "CS" as user "POGR_USER"
     When I create a "POGR2" case and move it to the "Data Input" stage
     And I navigate to the "Search" page
     And I search for the complaints case escalated to stage 2 by it's case reference
     And I load the stage 2 complaints case by selecting its case reference from the Escalate Case column
     Then the case should be loaded
+
+
+#  SMC workflow cancelled. Steps and code might be useful for future work implementing PSU specific sub-workflow into other complaints workflows
+
+#     SMC COMPLAINTS
+
+  @SMCComplaints
+  Scenario Outline: User tests SMC complaint case search criteria
+    Given I am logged into "CS" as user "SMC_USER"
+    When I navigate to the "Search" page
+    And I enter "<infoValue>" into the "<infoType>" search field in the "SMC" search configuration
+    And I click the search button on the search page
+    Then I check that the search results have the correct "<infoType>"
+    Examples:
+      | infoType                          | infoValue                             |
+      | Correspondent full name           | Sam McTester                          |
+      | Correspondent postcode            | AB1 2CD                               |
+      | Correspondent email address       | SamMcTester@Test.com                  |
+      | Complainant date of birth         | 01/01/2001                            |
+      | Complainant Home Office Reference | Test entry for Home Office Reference  |
+      | PSU Reference                     | 123456789                             |
+
+  @SMCComplaints
+  Scenario: User can search for a SMC complaint case by its case reference
+    Given I am logged into "CS" as user "SMC_USER"
+    When I create a single "SMC" case
+    And I search for the case by its case reference
+    Then the created case should be the only case visible in the search results

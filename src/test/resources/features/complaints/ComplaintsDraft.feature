@@ -174,7 +174,7 @@ Feature: Complaints Draft
 
 #     IEDET COMPLAINTS
 
-  @ComplaintsWorkflow @IEDETAndSMCRegression @IEDETComplaints
+  @ComplaintsWorkflow @IEDETRegression @IEDETComplaints
   Scenario: User completes the Draft stage for an IEDET complaint case
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to the "Draft" stage
@@ -182,20 +182,6 @@ Feature: Complaints Draft
     And I click the "Proceed to recording outcome" button
     Then the case should be moved to the "Send" stage
     And the summary should display the owning team as "IE Detention"
-
-
-#     SMC COMPLAINTS
-
-  @ComplaintsWorkflow @IEDETAndSMCRegression @SMCComplaints
-  Scenario: User completes the Draft stage for an SMC complaint case
-    Given I am logged into "CS" as user "SMC_USER"
-    When I create a "SMC" case and move it to the "Draft" stage
-    And I load and claim the current case
-    And I upload my Primary "DRAFT" document
-    And I click the "Response Ready" button
-    Then the case should be moved to the "Send" stage
-    And the summary should display the owning team as "Serious Misconduct"
-    And the selected document should be tagged as the primary draft
 
 
 #     BF COMPLAINTS
@@ -359,6 +345,7 @@ Feature: Complaints Draft
       | HMPO         |
       | GRO          |
 
+#     HMPO example broken by HOCS-5580
   @ComplaintsWorkflow @POGRRegression @POGRComplaints
   Scenario Outline: User is able to escalate a POGR complaint case to workflow manager at the Investigation stage
     Given I am logged into "CS" as user "POGR_USER"
@@ -496,3 +483,19 @@ Feature: Complaints Draft
       | businessArea |
       | HMPO         |
       | GRO          |
+
+
+#  SMC workflow cancelled. Steps and code might be useful for future work implementing PSU specific sub-workflow into other complaints workflows
+
+#     SMC COMPLAINTS
+
+  @ComplaintsWorkflow @SMCComplaints
+  Scenario: User completes the Draft stage for an SMC complaint case
+    Given I am logged into "CS" as user "SMC_USER"
+    When I create a "SMC" case and move it to the "Draft" stage
+    And I load and claim the current case
+    And I upload my Primary "DRAFT" document
+    And I click the "Response Ready" button
+    Then the case should be moved to the "Send" stage
+    And the summary should display the owning team as "Serious Misconduct"
+    And the selected document should be tagged as the primary draft

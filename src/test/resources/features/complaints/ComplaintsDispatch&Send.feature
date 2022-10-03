@@ -66,24 +66,12 @@ Feature: Complaints Dispatch & Send
 
 #     IEDET COMPLAINTS
 
-  @ComplaintsWorkflow @IEDETAndSMCRegression @IEDETComplaints
+  @ComplaintsWorkflow @IEDETRegression @IEDETComplaints
   Scenario: User can complete the Send stage for an IEDET complaint case
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to the "Send" stage
     And I load the current case
     And I upload a copy of the Final Response
-    And I select a Case Outcome
-    And I submit the Response details
-    Then the case should be closed
-
-
-#     SMC COMPLAINTS
-
-  @ComplaintsPWorkflow @IEDETAndSMCRegression @SMCComplaints
-  Scenario: User can complete the Send stage for an SMC complaint case
-    Given I am logged into "CS" as user "SMC_USER"
-    When I get a "SMC" case at the "Send" stage
-    And I add a "Final Response" type document to the case
     And I select a Case Outcome
     And I submit the Response details
     Then the case should be closed
@@ -164,3 +152,18 @@ Feature: Complaints Dispatch & Send
     And I submit the Response details
     Then the case should be closed
     And the read-only Case Details accordion should contain all case information entered during the "Dispatch" stage
+    And the read-only Case Details accordion should contain all case information entered during the "Dispatch" stage
+
+
+#  SMC workflow cancelled. Steps and code might be useful for future work implementing PSU specific sub-workflow into other complaints workflows
+
+#     SMC COMPLAINTS
+
+  @ComplaintsPWorkflow @SMCComplaints
+  Scenario: User can complete the Send stage for an SMC complaint case
+    Given I am logged into "CS" as user "SMC_USER"
+    When I get a "SMC" case at the "Send" stage
+    And I add a "Final Response" type document to the case
+    And I select a Case Outcome
+    And I submit the Response details
+    Then the case should be closed

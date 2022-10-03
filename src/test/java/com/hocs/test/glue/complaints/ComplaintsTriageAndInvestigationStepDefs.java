@@ -4,6 +4,7 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
+import com.hocs.test.pages.complaints.ComplaintsRegistrationAndDataInput;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.complaints.ComplaintsTriageAndInvestigation;
 import io.cucumber.java.en.And;
@@ -119,22 +120,25 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
     @And("I select the {string} action for an IEDET case at the Triage stage")
     public void iSelectTheActionForAnIEDETCaseAtTriage(String action) {
         switch (action.toUpperCase()) {
-            case "TRANSFERRED TO THIRD PARTY SUPPLIER":
-                complaintsTriageAndInvestigation.selectTransferredToThirdPartySupplier();
+            case "THIRD PARTY SUPPLIER":
+                complaintsTriageAndInvestigation.selectThirdPartySupplier();
+                complaintsTriageAndInvestigation.selectIEDETBusinessArea();
                 break;
-            case "TRANSFERRED TO IE DETENTION COMPLIANCE TEAM":
-                complaintsTriageAndInvestigation.selectTransferredToIEDetentionComplianceTeam();
+            case "IE DETENTION COMPLIANCE TEAM":
+                complaintsTriageAndInvestigation.selecIEDetentionComplianceTeam();
+                complaintsTriageAndInvestigation.selectIEDETBusinessArea();
                 break;
-            case "NO FURTHER CONSIDERATION":
-                complaintsTriageAndInvestigation.selectNoFurtherConsideration();
+            case "DEPMU":
+                complaintsTriageAndInvestigation.selectDEPMU();
+                complaintsTriageAndInvestigation.selectIEDETBusinessArea();
                 break;
-            case "TRANSFER COMPLAINT TO CCH":
-                complaintsTriageAndInvestigation.selectTransferComplaintToCCH();
+            case "Send to CCH":
+                complaintsTriageAndInvestigation.selectSendToCCH();
                 break;
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
         }
-        clickTheButton("Continue");
+        clickTheButton("Finish");
     }
 
     @And("I enter details on PSU Reference page")
@@ -274,5 +278,10 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
     @And("I select a Closure Reason")
     public void iSelectAClosureReason() {
         complaintsTriageAndInvestigation.selectAClosureReason();
+    }
+
+    @And("I complete Triage and escalate the case to PSU")
+    public void iCompleteTriageAndEscalateTheCaseToPSU() {
+        clickTheButton("Finish and escalate to PSU");
     }
 }

@@ -51,46 +51,11 @@ Feature: Complaints Workstacks
 
 #     IEDET COMPLAINTS
 
-  @IEDETAndSMCRegression @IEDETComplaints
+  @IEDETRegression @IEDETComplaints
   Scenario: IEDET complaints user sees the required information when viewing a workstack
     Given I am logged into "CS" as user "IEDET_USER"
     And I enter the "IE Detention" workstack
     Then the "IE Detention" workstack should contain only the expected columns
-
-
-#     SMC COMPLAINTS
-
-  @IEDETAndSMCRegression @IEDETComplaints
-  Scenario Outline: Serious Misconduct complaints user sees the required information when viewing a workstack
-    Given I am logged into "CS" as user "SMC_USER"
-    And I enter the "<workstack>" workstack
-    Then the "<workstack>" workstack should contain only the expected columns
-    Examples:
-      | workstack                   |
-      | Serious Misconduct          |
-      | Serious Misconduct My Cases |
-
-  @IEDETAndSMCRegression
-  Scenario Outline: SMC User is able to see the deadline of a case close to its deadline highlighted in yellow
-    Given I am logged into "CS" as user "SMC_USER"
-    When I create an SMC case received <amountOfDays> workdays in the past and move it to the "<stage>" stage
-    And I click to view the case in the "<workstack>" workstack
-    Then the case deadline should be highlighted "yellow"
-    Examples:
-      | amountOfDays | stage        | workstack          |
-      | 55           | Registration | SMC Registration   |
-      | 55           | Triage       | Serious Misconduct |
-
-  @IEDETAndSMCRegression
-  Scenario Outline: SMC User is able to see an overdue case deadline highlighted in red
-    Given I am logged into "CS" as user "SMC_USER"
-    When I create an SMC case received <amountOfDays> workdays in the past and move it to the "<stage>" stage
-    And I click to view the case in the "<workstack>" workstack
-    Then the case deadline should be highlighted "red"
-    Examples:
-      | amountOfDays | stage        | workstack          |
-      | 61           | Registration | SMC Registration   |
-      | 61           | Triage       | Serious Misconduct |
 
 
 #     BF COMPLAINTS
@@ -166,3 +131,40 @@ Feature: Complaints Workstacks
       | BF2      | BF_USER    | 21           | Border Force Complaints (Stage 2) |
       | POGR     | POGR_USER  | 11           | HMPO/GRO Registration             |
       | POGR2    | POGR_USER  | 11           | HMPO/GRO Registration (Stage 2)   |
+
+
+#  SMC workflow cancelled. Steps and code might be useful for future work implementing PSU specific sub-workflow into other complaints workflows
+
+#     SMC COMPLAINTS
+
+  @SMCComplaints
+  Scenario Outline: Serious Misconduct complaints user sees the required information when viewing a workstack
+    Given I am logged into "CS" as user "SMC_USER"
+    And I enter the "<workstack>" workstack
+    Then the "<workstack>" workstack should contain only the expected columns
+    Examples:
+      | workstack                   |
+      | Serious Misconduct          |
+      | Serious Misconduct My Cases |
+
+  @SMCComplaints
+  Scenario Outline: SMC User is able to see the deadline of a case close to its deadline highlighted in yellow
+    Given I am logged into "CS" as user "SMC_USER"
+    When I create an SMC case received <amountOfDays> workdays in the past and move it to the "<stage>" stage
+    And I click to view the case in the "<workstack>" workstack
+    Then the case deadline should be highlighted "yellow"
+    Examples:
+      | amountOfDays | stage        | workstack          |
+      | 55           | Registration | SMC Registration   |
+      | 55           | Triage       | Serious Misconduct |
+
+  @SMCComplaints
+  Scenario Outline: SMC User is able to see an overdue case deadline highlighted in red
+    Given I am logged into "CS" as user "SMC_USER"
+    When I create an SMC case received <amountOfDays> workdays in the past and move it to the "<stage>" stage
+    And I click to view the case in the "<workstack>" workstack
+    Then the case deadline should be highlighted "red"
+    Examples:
+      | amountOfDays | stage        | workstack          |
+      | 61           | Registration | SMC Registration   |
+      | 61           | Triage       | Serious Misconduct |

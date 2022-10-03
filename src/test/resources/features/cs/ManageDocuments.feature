@@ -41,7 +41,6 @@ Feature: Manage Documents
       | COMP     |
       | COMP2    |
       | IEDET    |
-      | SMC      |
       | BF       |
       | BF2      |
       | TO       |

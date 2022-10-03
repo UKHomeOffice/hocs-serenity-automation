@@ -247,7 +247,7 @@ public class CreateCase extends BasePage {
     }
 
     public String getRandomCSCaseType() {
-        List<String> list = Arrays.asList("MIN", "TRO", "DTEN", "MPAM", "MTS", "COMP", "IEDET", "SMC", "TO", "BF", "POGR");
+        List<String> list = Arrays.asList("MIN", "TRO", "DTEN", "MPAM", "MTS", "COMP", "COMP2", "IEDET", "TO", "BF", "BF2", "POGR", "POGR2");
         return list.get(new Random().nextInt(list.size()));
     }
 
@@ -257,7 +257,7 @@ public class CreateCase extends BasePage {
     }
 
     public String getRandomComplaintsCaseType() {
-        List<String> list = Arrays.asList("COMP", "COMP2", "SMC", "IEDET", "BF", "POGR");
+        List<String> list = Arrays.asList("COMP", "COMP2", "IEDET", "BF", "BF2", "POGR", "POGR2");
         return list.get(new Random().nextInt(list.size()));
     }
 
@@ -401,7 +401,7 @@ public class CreateCase extends BasePage {
         dashboard.selectSearchLinkFromMenuBar();
         selectStage1CaseTypeSearchCriteriaIfVisible();
         if (!this.stage1CaseType.equalsIgnoreCase("POGR")) {
-            search.enterComplaintsSearchCriteria("Complainant Home Office Reference", getCurrentMonth() + "/" + getCurrentYear());
+            search.enterSearchCriteria("Complainant Home Office Reference", getCurrentMonth() + "/" + getCurrentYear());
         }
         search.clickTheButton("Search");
         search.waitForResultsPage();

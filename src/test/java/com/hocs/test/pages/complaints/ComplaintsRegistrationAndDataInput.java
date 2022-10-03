@@ -53,26 +53,21 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         enterACompanyName();
         enterAHomeOfficeReference(getCurrentMonth() +"/" + getCurrentYear());
         enterAPortReference();
-        clickTheButton("Continue");
+        if(iedetCase()){
+            clickTheButton("Finish");
+        } else {
+            clickTheButton("Continue");
+        }
+
     }
 
     public void selectASpecificComplaintType(String complaintType) {
-        switch (complaintType.toUpperCase()) {
-            case "SERVICE":
-                recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Service", "Complaint Type");
-                setSessionVariable("complaintType").to("Service");
-                break;
-            case "MINOR MISCONDUCT":
-                recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Minor Misconduct", "Complaint Type");
-                setSessionVariable("complaintType").to("Minor Misconduct");
-                break;
-            case "EX-GRATIA":
-                recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Ex-Gratia", "Complaint Type");
-                setSessionVariable("complaintType").to("Ex-Gratia");
-                break;
-            default:
-                pendingStep(complaintType + " is not defined within " + getMethodName());
+        if(iedetCase()){
+            recordCaseData.selectSpecificRadioButton(complaintType);
+        } else {
+            recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(complaintType, "Complaint Type");
         }
+        setSessionVariable("complaintType").to(complaintType);
         clickTheButton("Continue");
         System.out.println("Complaint type: " + complaintType);
     }
@@ -279,5 +274,10 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         }
         clickTheButton("Continue");
         waitForPageWithTitle("Complaint Correspondents");
+    }
+
+    public void enterAPSUReference() {
+        String psuReference = recordCaseData.enterTextIntoTextFieldWithHeading("PSU reference");
+        setSessionVariable("psuReference").to(psuReference);
     }
 }

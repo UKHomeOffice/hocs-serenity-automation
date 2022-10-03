@@ -143,45 +143,43 @@ public class BasePage extends PageObject {
     }
 
     public void selectTheTab(String tabName) {
-        WebElementFacade tab = findBy("//div[@class='tabs']//a[text()='" + tabName + "']");
-        try {
-            tab.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
-        }catch (TimeoutException e) {
-            waitABit(500);
-            tab = findBy("//div[@class='tabs']//a[text()='" + tabName + "']");
-            tab.withTimeoutOf(Duration.ofSeconds(5)).waitUntilVisible();
-        }
-        if (!tab.getAttribute("class").contains("active")) {
+        WebElementFacade tab = getTabElementUsingTabName(tabName);
+        tab.withTimeoutOf(Duration.ofSeconds(20)).waitUntilVisible();
+        if (!tab.getAttribute("class").contains("selected")) {
             try {
                 tab.click();
             } catch (ElementNotVisibleException | StaleElementReferenceException ex) {
                 waitABit(500);
-                tab = findBy("//div[@class='tabs']//a[text()='" + tabName + "']");
+                tab = getTabElementUsingTabName(tabName);
                 tab.click();
             }
         }
     }
 
+    private WebElementFacade getTabElementUsingTabName(String tabName) {
+        return findBy("//a[text()='" + tabName + "']/parent::li[contains(@class,'govuk-tabs__list-item')]");
+    }
+
     public void refreshTheTab(String tabName) {
-        WebElementFacade nonActiveTab = findBy("//a[@class='tab'][not(@class='tab__active')]");
+        WebElementFacade nonActiveTab = findBy("//li[@class='govuk-tabs__list-item'][not(@class='govuk-tabs__list-item--selected')]");
         nonActiveTab.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
             try {
                 nonActiveTab.click();
             } catch (ElementNotVisibleException | StaleElementReferenceException ex) {
                 waitABit(500);
-                nonActiveTab = findBy("//a[@class='tab'][not(@class='tab__active')]");
+                nonActiveTab = findBy("//li[@class='govuk-tabs__list-item'][not(@class='govuk-tabs__list-item--selected')]");
                 nonActiveTab.click();
             }
         selectTheTab(tabName);
     }
 
     public boolean accordionSectionIsVisible(String accordionLabel) {
-        WebElementFacade accordionSectionButton = findBy("//button[text()='" + accordionLabel +"']");
+        WebElementFacade accordionSectionButton = findBy("//button/span/span[text()='" + accordionLabel +"']");
         return accordionSectionButton.isCurrentlyVisible();
     }
 
     public void openOrCloseAccordionSection(String accordionLabel) {
-        WebElementFacade accordionSectionButton = findBy("//button[text()='" + accordionLabel +"']");
+        WebElementFacade accordionSectionButton = findBy("//button/span/span[text()='" + accordionLabel +"']");
         safeClickOn(accordionSectionButton);
     }
 
@@ -488,6 +486,22 @@ public class BasePage extends PageObject {
 
     //Helper methods
 
+    //Ignore field label case
+
+    public String getValidFieldLabelCase(String fieldLabelText) {
+        int n = 0;
+        List<WebElementFacade> listOfFieldLabelsOnPage = findAll("//label");
+        while (n < listOfFieldLabelsOnPage.size()) {
+            String displayedFieldLabel = listOfFieldLabelsOnPage.get(n).getText();
+            if (displayedFieldLabel.equalsIgnoreCase(fieldLabelText)) {
+                return displayedFieldLabel;
+            }
+            n++;
+        }
+        System.out.println("The " + fieldLabelText + " field isn't displayed on this screen");
+        return null;
+    }
+
     //Radio buttons
 
     public String selectRandomRadioButtonFromGroupWithHeading(String headingText) {
@@ -591,6 +605,7 @@ public class BasePage extends PageObject {
     //Text fields
 
     public String enterTextIntoTextFieldWithHeading(String headingText) {
+        waitForHeadingToBeVisible(headingText);
         String textToEnter = "Test entry for " + headingText;
         enterSpecificTextIntoTextFieldWithHeading(textToEnter, headingText);
         return textToEnter;
@@ -612,7 +627,8 @@ public class BasePage extends PageObject {
     // Text areas
 
     public String enterTextIntoTextAreaWithHeading(String headingText) {
-        String textToEnter = "Test entry for " + headingText +" 1\nTest entry for " + headingText + " 2\nTest entry for " + headingText + " 3";
+        String textToEnter = "Test entry for " + headingText +" 1\nTest entry for " + headingText + " 2\nTest entry for " + headingText +
+                " 3";
         enterSpecificTextIntoTextAreaWithHeading(textToEnter, headingText);
         String sanitisedText = textToEnter.replace("\n", " ");
         return sanitisedText;
@@ -652,7 +668,9 @@ public class BasePage extends PageObject {
 
     public String selectDifferentOptionFromDropdownWithHeading(String headingText) {
         waitForHeadingToBeVisible(headingText);
-        Select dropdown = new Select(findBy("//div[@class='govuk-form-group']//*[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling::select"));
+        Select dropdown = new Select(findBy("//div[@class='govuk-form-group']//*[text()=" + sanitiseXpathAttributeString(headingText) +
+                "]/following-sibling"
+                + "::select"));
         List<WebElement> options = dropdown.getOptions();
         options.remove(0);
         options.remove(dropdown.getFirstSelectedOption());
@@ -663,7 +681,8 @@ public class BasePage extends PageObject {
     }
 
     public List<WebElementFacade> getOptionElementsForDropdownWithHeading(String headingText) {
-        return findAll("//div[@class='govuk-form-group']//*[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling::select/option");
+        return findAll("//div[@class='govuk-form-group']//*[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling::select"
+                + "/option");
     }
 
     public List<String> getSelectableOptionsFromDropdownWithHeading(String headingText) {
