@@ -18,14 +18,6 @@ Feature: Complaints Search
     And I click the search button on the search page
     Then the created case should be the only case visible in the search results
 
-  @COMPRegression @UKVIComplaints
-  Scenario: User can search for a stage 2 UKVI complaint case
-    Given I am logged into "CS" as user "COMP_USER"
-    When I navigate to the "Search" page
-    And I enter "COMP2" into the "Case Type" search field
-    And I click the search button on the search page
-    Then I check that the search results have the correct "Case Type"
-
     # HOCS-2847 HOCS-3161
   @COMPRegression @UKVIComplaints
   Scenario: UKVI complaints user sees the required information when viewing search results

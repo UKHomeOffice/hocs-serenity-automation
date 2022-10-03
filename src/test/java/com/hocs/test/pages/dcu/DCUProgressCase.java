@@ -261,24 +261,14 @@ public class DCUProgressCase extends BasePage {
         safeClickOn(continueButton);
     }
 
-    public void generateDCUSearchCaseData(String infoValue, String infoType) throws ParseException {
+    public void generateDCUSearchCaseData(String infoValue, String infoType) {
         switch (infoType.toUpperCase()) {
             case "CASE TYPE":
                 createCase.createCSCaseOfType(infoValue);
                 break;
             case "RECEIVED ON OR AFTER DATE":
             case "RECEIVED ON OR BEFORE DATE":
-                dashboard.selectCreateSingleCaseLinkFromMenuBar();
-                if (!nextButton.isVisible()) {
-                    dashboard.selectCreateSingleCaseLinkFromMenuBar();
-                }
-                createCase.selectCaseType("MIN");
-                clickTheButton("Next");
-                createCase.editReceivedDate(infoValue);
-                createCase.storeCorrespondenceReceivedDate();
-                documents.uploadFileOfType("docx");
-                clickTheButton("Create case");
-                confirmationScreens.storeCaseReference();
+                createCase.createCSCase("MIN", false, infoValue);
                 dashboard.goToDashboard();
                 break;
             case "MEMBER OF PARLIAMENT NAME":
@@ -327,17 +317,7 @@ public class DCUProgressCase extends BasePage {
                 correspondents.confirmPrimaryCorrespondent();
                 break;
             case "ALL":
-                dashboard.selectCreateSingleCaseLinkFromMenuBar();
-                if (!nextButton.isVisible()) {
-                    dashboard.selectCreateSingleCaseLinkFromMenuBar();
-                }
-                createCase.selectCaseType("MIN");
-                clickTheButton("Next");
-                createCase.editReceivedDate("01/01/2022");
-                createCase.storeCorrespondenceReceivedDate();
-                documents.uploadFileOfType("docx");
-                clickTheButton("Create case");
-                confirmationScreens.storeCaseReference();
+                createCase.createCSCase("MIN", false, "01/01/2001");
                 dashboard.goToDashboard();
                 dashboard.getAndClaimCurrentCase();
                 dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));

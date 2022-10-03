@@ -69,9 +69,8 @@ public class SearchStepDefs extends BasePage {
 
     @And("I check that the search results have the correct {string}")
     public void iCheckThatTheSearchResultsHaveTheCorrect(String criteria) throws ParseException {
-        String caseTypeToGenerate;
         String infoValue = sessionVariableCalled("searchValue");
-        caseTypeToGenerate = sessionVariableCalled("randomCaseType");
+        String caseTypeToGenerate = sessionVariableCalled("randomCaseType");
         if (search.zeroSearchResultsReturned()) {
             switch (caseTypeToGenerate.toUpperCase()) {
                 case "DCU":
@@ -201,11 +200,7 @@ public class SearchStepDefs extends BasePage {
             if (numberOfResults < 1) {
                 retest ++;
                 dashboard.selectSearchLinkFromMenuBar();
-                if (getCurrentCaseType().equalsIgnoreCase("MIN") || getCurrentCaseType().equalsIgnoreCase("TRO") || getCurrentCaseType().equalsIgnoreCase("DTEN")) {
-                    iEnterIntoTheSearchFieldForTheCaseType(getCurrentCaseReference(), "Case Reference");
-                } else {
-                    iEnterIntoTheSearchFieldForTheCaseType(getCurrentCaseReference(), "Case Reference");
-                }
+                iEnterIntoTheSearchFieldForTheCaseType(getCurrentCaseReference(), "Case Reference");
                 safeClickOn(searchButton);
                 workstacks.filterByCurrentCaseReference();
                 waitABit(1000);

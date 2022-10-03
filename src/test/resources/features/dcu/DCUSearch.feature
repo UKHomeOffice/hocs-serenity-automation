@@ -57,19 +57,6 @@ Feature: DCU Search
     | TRO        | TRO + DTEN          |
     | MIN        | All DCU Case Types  |
 
-  @SearchByDateReceived
-  Scenario Outline: No cases should be displayed if a user searches for a criteria that would contain no cases
-    Given I am logged into "CS" as user "DCU_USER"
-    And I navigate to the "search" page
-    When I enter "<infoValue>" into the "<infoType>" search field
-    And I click the search button on the search page
-    Then 0 cases should be displayed
-    Examples:
-    | infoType                    | infoValue     |
-    | Topic                       | Made up Topic |
-    | Public Correspondent Name   | Humpty Dumpty |
-    | Received on or before date  | 01/01/1901    |
-
   @SearchByCaseReferenceNumber @DCURegression
   Scenario Outline: User searches for DCU cases using a substring of a case reference
     Given I am logged into "CS" as user "DECS_USER"

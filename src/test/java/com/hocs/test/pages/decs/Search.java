@@ -60,8 +60,6 @@ public class Search extends BasePage {
         String validatedHeaderText;
         switch (criteria.toUpperCase()) {
             case "CASE TYPE":
-                List<WebElementFacade> listOfCaseTypeCheckboxes = findAll("//fieldset[@id='caseTypes']//input[not(@checked)"
-                        + "]/following-sibling::label");
                 switch (value.toUpperCase()) {
                     case "MIN":
                         checkSpecificCheckbox("DCU Ministerial");
@@ -145,6 +143,8 @@ public class Search extends BasePage {
                         setSessionVariable("searchCaseType").to(value);
                         break;
                     case "RANDOM":
+                        List<WebElementFacade> listOfCaseTypeCheckboxes = findAll("//fieldset[@id='caseTypes']//input[not(@checked)"
+                                + "]/following-sibling::label");
                         String randomCaseTypeFullText = checkRandomCheckboxFromList(listOfCaseTypeCheckboxes);
                         String randomCaseType = null;
                         switch (randomCaseTypeFullText.toUpperCase()) {
@@ -322,33 +322,39 @@ public class Search extends BasePage {
         String searchValue;
         Date searchDate = null;
         Date caseDate = null;
-        List<WebElementFacade> listOfCasesWithValue;
+        List<WebElementFacade> caseTypesSearchFieldIsAvailableFor;
         int numberOfCasesDisplayed = getNumberOfSearchResults();
         int numberOfUnallocatedCases = findAll("//td[3][not(text()='" + getCurrentUser().getUsername() + "')]/ancestor::tbody/tr/td/a").size();
         int randomNumber = new Random().nextInt(numberOfUnallocatedCases) + 1;
         WebElementFacade unallocatedRandomResultHypertext =
                 findBy("//td[3][not(text()='" + getCurrentUser().getUsername() + "')]/ancestor::tbody/tr[" + randomNumber + "]/td/a");
-        String randomSearchResult = unallocatedRandomResultHypertext.getText();
-        System.out.println("Random case selected for search verification: " + randomSearchResult);
-        setSessionVariable("randomCaseRef").to(randomSearchResult);
+        String searchValidationCaseReference = unallocatedRandomResultHypertext.getText();
+        System.out.println("Random case selected for search verification: " + searchValidationCaseReference);
+        setSessionVariable("randomCaseRef").to(searchValidationCaseReference);
         waitForResultsPage();
-        if (criteria.equalsIgnoreCase("CASE TYPE")) {
-            searchFieldUsedInCaseTypes = Arrays.asList("DCU", "MPAM", "COMP", "IEDET", "SMC", "POGR", "BF", "FOI", "TO");
-            setSessionVariable("randomCaseType").to(returnRandomStringFromList(searchFieldUsedInCaseTypes));
-            searchValue = sessionVariableCalled("searchCaseType");
-            listOfCasesWithValue = findAll("//a[contains(text(), '" + searchValue + "/')]");
-            assertThat(listOfCasesWithValue.size() == numberOfCasesDisplayed, is(true));
-        } else if (criteria.equalsIgnoreCase("CASE REFERENCE")) {
-            searchFieldUsedInCaseTypes = Arrays.asList("DCU", "MPAM", "COMP", "IEDET", "SMC", "POGR", "BF", "FOI", "TO");
-            setSessionVariable("randomCaseType").to(returnRandomStringFromList(searchFieldUsedInCaseTypes));
-            searchValue = sessionVariableCalled("searchCaseReference");
-            assertThat(randomSearchResult.equalsIgnoreCase(searchValue), is(true));
-        } else if (criteria.equalsIgnoreCase("ACTIVE CASES ONLY")) {
-            searchFieldUsedInCaseTypes = Arrays.asList("DCU", "MPAM", "FOI", "TO");
-            setSessionVariable("randomCaseType").to(returnRandomStringFromList(searchFieldUsedInCaseTypes));
-            listOfCasesWithValue = findAll("//td[2][not(text() = 'Closed')]");
-            if (sessionVariableCalled("searchActiveCases").toString().toUpperCase().equals("YES")) {
-                assertThat(!listOfCasesWithValue.isEmpty(), is(true));
+        if (criteria.equalsIgnoreCase("CASE TYPE") || criteria.equalsIgnoreCase("CASE REFERENCE") || criteria.equalsIgnoreCase("ACTIVE CASES ONLY")) {
+            switch (criteria.toUpperCase()) {
+                case "CASE TYPE":
+                    searchFieldUsedInCaseTypes = Arrays.asList("DCU", "MPAM", "COMP", "IEDET", "SMC", "POGR", "BF", "FOI", "TO");
+                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(searchFieldUsedInCaseTypes));
+                    searchValue = sessionVariableCalled("searchCaseType");
+                    caseTypesSearchFieldIsAvailableFor = findAll("//a[contains(text(), '" + searchValue + "/')]");
+                    assertThat(caseTypesSearchFieldIsAvailableFor.size() == numberOfCasesDisplayed, is(true));
+                    break;
+                case "CASE REFERENCE":
+                    searchFieldUsedInCaseTypes = Arrays.asList("DCU", "MPAM", "COMP", "IEDET", "SMC", "POGR", "BF", "FOI", "TO");
+                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(searchFieldUsedInCaseTypes));
+                    searchValue = sessionVariableCalled("searchCaseReference");
+                    assertThat(searchValidationCaseReference.equalsIgnoreCase(searchValue), is(true));
+                    break;
+                case "ACTIVE CASES ONLY":
+                    searchFieldUsedInCaseTypes = Arrays.asList("DCU", "MPAM", "FOI", "TO");
+                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(searchFieldUsedInCaseTypes));
+                    caseTypesSearchFieldIsAvailableFor = findAll("//td[2][not(text() = 'Closed')]");
+                    if (sessionVariableCalled("searchActiveCases").toString().toUpperCase().equals("YES")) {
+                        assertThat(!caseTypesSearchFieldIsAvailableFor.isEmpty(), is(true));
+                    }
+                    break;
             }
         } else {
             safeClickOn(unallocatedRandomResultHypertext);
@@ -358,7 +364,7 @@ public class Search extends BasePage {
                     searchFieldUsedInCaseTypes = Arrays.asList("COMP", "IEDET", "SMC", "POGR", "BF", "TO");
                     setSessionVariable("randomCaseType").to(returnRandomStringFromList(searchFieldUsedInCaseTypes));
                     searchValue = sessionVariableCalled("searchCorrespondentFullName");
-                    if (!randomSearchResult.contains("FOI")) {
+                    if (!searchValidationCaseReference.contains("FOI")) {
                         peopleTab.selectPeopleTab();
                         peopleTab.assertCorrespondentIsAttachedToCase(searchValue);
                     } else {
@@ -370,7 +376,7 @@ public class Search extends BasePage {
                     searchFieldUsedInCaseTypes = Arrays.asList("DCU", "COMP", "IEDET", "SMC", "POGR", "BF", "TO");
                     setSessionVariable("randomCaseType").to(returnRandomStringFromList(searchFieldUsedInCaseTypes));
                     searchValue = sessionVariableCalled("searchCorrespondentPostcode");
-                    if (!randomSearchResult.contains("FOI")) {
+                    if (!searchValidationCaseReference.contains("FOI")) {
                         peopleTab.selectPeopleTab();
                         peopleTab.assertCorrespondentPostcode(searchValue);
                     } else {
@@ -382,7 +388,7 @@ public class Search extends BasePage {
                     searchFieldUsedInCaseTypes = Arrays.asList("DCU", "COMP", "IEDET", "SMC", "POGR", "BF", "FOI", "TO");
                     setSessionVariable("randomCaseType").to(returnRandomStringFromList(searchFieldUsedInCaseTypes));
                     searchValue = sessionVariableCalled("searchCorrespondentEmailAddress");
-                    if (!randomSearchResult.contains("FOI")) {
+                    if (!searchValidationCaseReference.contains("FOI")) {
                         peopleTab.selectPeopleTab();
                         peopleTab.assertCorrespondentEmailAddress(searchValue);
                     } else {
@@ -403,7 +409,7 @@ public class Search extends BasePage {
                     searchValue = sessionVariableCalled("searchReceivedOnOrAfterDate");
                     try {
                         searchDate = new SimpleDateFormat("dd/MM/yyyy").parse(searchValue);
-                        if (!randomSearchResult.contains("TO/")) {
+                        if (!searchValidationCaseReference.contains("TO/")) {
                             caseDate = new SimpleDateFormat("dd/MM/yyyy")
                                     .parse(summaryTab.getSummaryTabValueForGivenHeader("When was the correspondence "
                                             + "received?"));
@@ -423,7 +429,7 @@ public class Search extends BasePage {
                     searchValue = sessionVariableCalled("searchReceivedOnOrBeforeDate");
                     try {
                         searchDate = new SimpleDateFormat("dd/MM/yyyy").parse(searchValue);
-                        if (!randomSearchResult.contains("TO/")) {
+                        if (!searchValidationCaseReference.contains("TO/")) {
                             caseDate = new SimpleDateFormat("dd/MM/yyyy")
                                     .parse(summaryTab.getSummaryTabValueForGivenHeader("When was the correspondence "
                                             + "received?"));
@@ -448,7 +454,7 @@ public class Search extends BasePage {
                     searchFieldUsedInCaseTypes = Arrays.asList("DCU", "MPAM", "FOI");
                     setSessionVariable("randomCaseType").to(returnRandomStringFromList(searchFieldUsedInCaseTypes));
                     searchValue = sessionVariableCalled("searchCorrespondentName");
-                    if (!randomSearchResult.contains("FOI")) {
+                    if (!searchValidationCaseReference.contains("FOI")) {
                         peopleTab.selectPeopleTab();
                         peopleTab.assertCorrespondentIsAttachedToCase(searchValue);
                     } else {
@@ -486,7 +492,7 @@ public class Search extends BasePage {
                     searchFieldUsedInCaseTypes = Arrays.asList("MPAM", "TO");
                     setSessionVariable("randomCaseType").to(returnRandomStringFromList(searchFieldUsedInCaseTypes));
                     searchValue = sessionVariableCalled("searchCorrespondentReferenceNumber");
-                    if (!randomSearchResult.contains("FOI")) {
+                    if (!searchValidationCaseReference.contains("FOI")) {
                         peopleTab.selectPeopleTab();
                         WebElementFacade correspondentReferenceNumber = findBy("//th[text()='Reference']/following-sibling::td");
                         assertThat(correspondentReferenceNumber.getText().equalsIgnoreCase(searchValue), is(true));
@@ -562,7 +568,7 @@ public class Search extends BasePage {
     }
 
     public void waitForResultsPage() {
-        numberOfSearchResults.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
+        waitForPageWithTitle("Search Results");
     }
 
     public void waitForSearchCriteriaPage() {
