@@ -192,7 +192,6 @@ public class SearchStepDefs extends BasePage {
 
     @And("the created case should be the only case visible in the search results")
     public void createdCaseShouldBeVisibleInTheSearchResults(){
-        workstacks.filterByCurrentCaseReference();
         waitABit(1000);
         int numberOfResults = search.getNumberOfSearchResults();
         int retest = 0;
@@ -202,7 +201,6 @@ public class SearchStepDefs extends BasePage {
                 dashboard.selectSearchLinkFromMenuBar();
                 iEnterIntoTheSearchFieldForTheCaseType(getCurrentCaseReference(), "Case Reference");
                 safeClickOn(searchButton);
-                workstacks.filterByCurrentCaseReference();
                 waitABit(1000);
             } else if (numberOfResults > 1) {
                 Assert.fail("More than one case has matching case reference");
