@@ -38,9 +38,6 @@ public class Search extends BasePage {
     @FindBy(xpath = "//a[text()='No search criteria specified']")
     public WebElementFacade noSearchCriteriaErrorMessage;
 
-    @FindBy(css = "div span[class='govuk-hint']")
-    public WebElementFacade numberOfSearchResults;
-
     @FindBy(xpath = "//label[text()='MPAM Case']")
     public WebElementFacade mpamCaseCheckbox;
 
@@ -834,7 +831,7 @@ public class Search extends BasePage {
                 String correspondentName = sessionVariableCalled("searchCorrespondentName").toString().toUpperCase();
                 List<WebElementFacade> listOfCasesWithCorrespondent = findAll("//td[contains(text(), '" + correspondentName + "')]");
                 while (n < listOfCasesWithCorrespondent.size()) {
-                    assertThat(listOfCasesWithCorrespondent.get(n).equals(numberOfSearchResults), is(true));
+                    assertThat(listOfCasesWithCorrespondent.get(n).equals(workstacks.totalNumberOfCases), is(true));
                     n++;
                 }
                 break;
@@ -942,7 +939,7 @@ public class Search extends BasePage {
     }
 
     public void waitForResultsPage() {
-        numberOfSearchResults.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
+        workstacks.totalNumberOfCases.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
     }
 
     public void waitForSearchCriteriaPage() {
@@ -950,7 +947,7 @@ public class Search extends BasePage {
     }
 
     public int getNumberOfSearchResults() {
-        return Integer.parseInt(numberOfSearchResults.getText().split("\\s+")[0]);
+        return Integer.parseInt(workstacks.totalNumberOfCases.getText().split("\\s+")[0]);
     }
 
     public boolean zeroSearchResultsReturned() {
