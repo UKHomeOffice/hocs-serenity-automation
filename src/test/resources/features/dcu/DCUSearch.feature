@@ -1,25 +1,38 @@
-@DCU @Search
+@Search @DCU
 Feature: DCU Search
 
+#    Expected intermittent failure for Sign off team example. Defect HOCS-4148 raised.
   @DCURegression
-  Scenario: User tests DCU case search criteria
+  Scenario Outline: User tests DCU search criteria
     Given I am logged into "CS" as user "DCU_USER"
-    When I generate a "DCU" case to validate search functionality
-    And I navigate to the "Search" page
-    And I enter "MIN" into the "Case Type" search field
-    And I enter "01/01/2022" into the "Received on or After Date" search field
-    And I enter "01/01/2022" into the "Received on or Before Date" search field
-    And I enter "Boris Johnson" into the "Member of Parliament Name" search field
-    And I enter "Sam McTester" into the "Public Correspondent Name" search field
-    And I enter "AB1 2CD" into the "Correspondent Postcode" search field
-    And I enter "SamMcTester@Test.com" into the "Correspondent Email Address" search field
-    And I enter "Animal alternatives (3Rs)" into the "Topic" search field
-    And I enter "Minister for Lords" into the "Sign off team" search field
-    And I enter "Yes" into the "Home Secretary Interest" search field
-    And I enter "Yes" into the "Active Cases Only" search field
-    And I enter the current case reference into the Case Reference field on the search screen
+    When I navigate to the "Search" page
+    And I enter "<infoValue>" into the "<infoType>" search field in the "DCU" search configuration
     And I click the search button on the search page
-    Then the created case should be the only case visible in the search results
+    Then I check that the search results have the correct "<infoType>"
+    Examples:
+      | infoType                    | infoValue                 |
+      | Case Type                   | MIN                       |
+      | Received on or Before date  | 01/01/2021                |
+      | Received on or After date   | 01/01/2021                |
+      | Member of Parliament Name   | Boris Johnson             |
+      | Public Correspondent Name   | Sam McTester              |
+      | Correspondent Postcode      | AB1 2CD                   |
+      | Correspondent Email Address | SamMcTester@Test.com      |
+      | Topic                       | Animal alternatives (3Rs) |
+      | Sign off team               | Minister for Lords        |
+      | Home Secretary Interest     | Yes                       |
+      | Active Cases Only           | Yes                       |
+
+  Scenario Outline: User can search for DCU case types
+    Given I am logged into "CS" as user "DCU_USER"
+    When I navigate to the "Search" page
+    And I enter "<infoValue>" into the "Case Type" search field in the "DCU" search configuration
+    And I click the search button on the search page
+    Then I check that the search results have the correct "Case Type"
+    Examples:
+      | infoValue |
+      | TRO       |
+      | DTEN      |
 
   @SearchByCaseReferenceNumber
   Scenario: User should be be taken directly to a case when they for enter a valid case reference in the Load Case bar
@@ -39,12 +52,22 @@ Feature: DCU Search
     When I press enter in the Load Case search bar
     Then an error message should be displayed stating that a case reference is required
 
+  @SearchByCaseType
+  Scenario: User should be able to click on the case link when cases are displayed in the results list
+    Given I am logged into "CS" as user "DCU_USER"
+    And I create a single "MIN" case
+    And I navigate to the "search" page
+    And I enter "MIN" into the "Case Type" search field in the "DCU" search configuration
+    And I click the search button on the search page
+    And I click the case reference of the case in search results
+    Then I should be taken directly to the case
+
   @SearchByCaseType @Workstacks @DCURegression
   Scenario Outline: DCU Search workstack should contain the Case Reference, Current Stage, Owner, Team, Primary Topic and Deadline
     Given I am logged into "CS" as user "DCU_USER"
     And I create a single "<createCase>" case
     And I navigate to the "search" page
-    And I enter "<searchCase>" into the "Case Type" search field
+    And I enter "<searchCase>" into the "Case Type" search field in the "DCU" search configuration
     And I click the search button on the search page
     Then the "DCU Search" workstack should contain only the expected columns
     Examples:
@@ -56,6 +79,17 @@ Feature: DCU Search
     | MIN        | MIN + DTEN          |
     | TRO        | TRO + DTEN          |
     | MIN        | All DCU Case Types  |
+
+  @SearchByCaseType @SearchByTopic
+  Scenario: User should be able to search by multiple parameters
+    Given I am logged into "CS" as user "DCU_USER"
+    And I create a "MIN" case with "Animal alternatives (3Rs)" as the primary topic
+    And I navigate to the "search" page
+    When I enter "MIN" into the "Case Type" search field in the "DCU" search configuration
+    And I enter "Animal alternatives (3Rs)" into the "Topic" search field in the "DCU" search configuration
+    And I click the search button on the search page
+    Then I check that the search results have the correct "Case Type"
+    And I check that the search results have the correct "Topic"
 
   @SearchByCaseReferenceNumber @DCURegression
   Scenario Outline: User searches for DCU cases using a substring of a case reference
