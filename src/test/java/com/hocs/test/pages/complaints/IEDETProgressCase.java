@@ -203,6 +203,7 @@ public class IEDETProgressCase extends BasePage {
                 complaintsRegistrationAndDataInput.enterAHomeOfficeReference("Test entry for HO Reference");
                 complaintsRegistrationAndDataInput.enterAPortReference();
                 clickTheButton("Finish");
+                dashboard.goToDashboard();
                 break;
             default:
                 pendingStep(infoType + " is not defined within " + getMethodName());

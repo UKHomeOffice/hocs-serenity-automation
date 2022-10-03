@@ -194,7 +194,7 @@ public class SearchStepDefs extends BasePage {
     public void createdCaseShouldBeVisibleInTheSearchResults(){
         workstacks.filterByCurrentCaseReference();
         waitABit(1000);
-        int numberOfResults = workstacks.getTotalOfCases();
+        int numberOfResults = search.getNumberOfSearchResults();
         int retest = 0;
         while (retest < 5) {
             if (numberOfResults < 1) {

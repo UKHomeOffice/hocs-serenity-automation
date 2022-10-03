@@ -39,7 +39,7 @@ public class Search extends BasePage {
     @FindBy(xpath = "//a[text()='No search criteria specified']")
     public WebElementFacade noSearchCriteriaErrorMessage;
 
-    @FindBy(css = "div span[class='govuk-hint']")
+    @FindBy(xpath = "//div[@class='govuk-hint'][1]")
     public WebElementFacade numberOfSearchResults;
 
     @FindBy(xpath = "//label[text()='MPAM Case']")
