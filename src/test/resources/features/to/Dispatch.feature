@@ -15,7 +15,7 @@ Feature: Dispatch
 
   @TORegression
   Scenario: As a Dispatch user, I want to be able to save changes to the case, so corrections can be made
-    When I open the "Case Details" accordion section
+    When I open the "Case Details" accordion
     And I change the channel the correspondence was received by
     And I save the changes
     Then the amended value for Channel Received should be saved to the case
