@@ -66,9 +66,9 @@ Feature: Home Secretary Interest
   @TORegression
   Scenario: As a Home Secretary Interest user, I want to be able to save changes to the case, so corrections can be made
     And I get a "TO" case at the "Home Secretary Interest" stage
-    When I open the "Case Details" accordion section
+    When I open the "Case Details" accordion
     And I upload another "Initial Draft" document as a replacement
-    When I open the "Case Details" accordion section
+    When I open the "Case Details" accordion
     And I select the "replacement draft" document as the primary draft
     And I save the change of the primary draft
     And the replacement document should be tagged as the primary draft

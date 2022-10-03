@@ -247,22 +247,7 @@ public class CreateCase extends BasePage {
     }
 
     public String getRandomCSCaseType() {
-        List<String> list = Arrays.asList("MIN", "TRO", "DTEN", "MPAM", "MTS", "COMP", "COMP2", "IEDET", "TO", "BF", "BF2", "POGR", "POGR2");
-        return list.get(new Random().nextInt(list.size()));
-    }
-
-    public String getRandomDCUCaseType() {
-        List<String> list = Arrays.asList("MIN", "TRO", "DTEN");
-        return list.get(new Random().nextInt(list.size()));
-    }
-
-    public String getRandomComplaintsCaseType() {
-        List<String> list = Arrays.asList("COMP", "COMP2", "IEDET", "BF", "BF2", "POGR", "POGR2");
-        return list.get(new Random().nextInt(list.size()));
-    }
-
-    public String getRandomMPAMOrMTSCaseType() {
-        List<String> list = Arrays.asList("MPAM", "MTS");
+        List<String> list = Arrays.asList("MIN", "TRO", "DTEN", "MPAM", "MTS", "COMP", "IEDET", "TO", "BF", "POGR");
         return list.get(new Random().nextInt(list.size()));
     }
 
@@ -314,18 +299,6 @@ public class CreateCase extends BasePage {
 
     public void createCSCaseOfRandomType() {
         createCSCaseOfTypeWithoutDocument(getRandomCSCaseType());
-    }
-
-    public void createDCUCaseOfRandomType() {
-        createCSCaseOfTypeWithoutDocument(getRandomDCUCaseType());
-    }
-
-    public void createComplaintsCaseOfRandomType() {
-        createCSCaseOfType(getRandomComplaintsCaseType());
-    }
-
-    public void createMPAMOrMTSCaseOfRandomType() {
-        createCSCaseOfTypeWithoutDocument(getRandomMPAMOrMTSCaseType());
     }
 
     public void createCSCaseOfTypeWithoutDocument(String caseType) {
