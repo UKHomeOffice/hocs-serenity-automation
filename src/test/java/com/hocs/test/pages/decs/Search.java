@@ -576,7 +576,7 @@ public class Search extends BasePage {
     }
 
     public int getNumberOfSearchResults() {
-        return Integer.parseInt(numberOfSearchResults.getText().split("\\s+")[0]);
+        return Integer.parseInt(workstacks.totalNumberOfCases.getText().split("\\s+")[0]);
     }
 
     public boolean zeroSearchResultsReturned() {
