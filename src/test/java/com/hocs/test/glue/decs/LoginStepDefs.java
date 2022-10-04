@@ -129,7 +129,7 @@ public class LoginStepDefs extends BasePage {
         targetUser = User.valueOf(user);
         loginPage.enterUsername(targetUser.getUsername());
         loginPage.enterPassword(targetUser.getPassword());
-        safeClickOn(loginPage.continueButton);
+        clickContinueButton();
         setCurrentUser(targetUser);
     }
 
@@ -141,7 +141,7 @@ public class LoginStepDefs extends BasePage {
     @When("I enter invalid login credentials on the login screen")
     public void enterInvalidLoginCredentials() {
         loginPage.enterLoginDetails(FAKE);
-        safeClickOn(loginPage.continueButton);
+        clickContinueButton();
     }
 
     @Then("an error message should be displayed as the credentials are invalid")
@@ -159,7 +159,7 @@ public class LoginStepDefs extends BasePage {
         if (currentPlatform.contains("Management UI")){
             safeClickOn(muiDashboard.logoutButton);
         } else {
-            safeClickOn(dashboard.logoutButton);
+            clickTheLink("Logout");
         }
         loginPage.usernameField.waitUntilVisible();
 
@@ -169,13 +169,13 @@ public class LoginStepDefs extends BasePage {
     public void loginAsDifferentUserAfterLogout(String user) {
         loginPage.enterUsername(User.valueOf(user).getUsername());
         loginPage.enterPassword(User.valueOf(user).getPassword());
-        safeClickOn(loginPage.continueButton);
+        clickContinueButton();
     }
 
     @And("I am prompted to log in")
     public void iAmPromptedToLogIn() {
         if (!isElementDisplayed($(loginPage.usernameField))) {
-            safeClickOn(dashboard.logoutButton);
+            clickTheLink("Logout");
             navigateToPlatform(currentPlatform);
         }
     }

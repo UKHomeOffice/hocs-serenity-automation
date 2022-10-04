@@ -155,7 +155,7 @@ public class DCUProgressCase extends BasePage {
         if (dtenCase()) {
             dataInput.enterDTENDraftingDeadline(getDatePlusMinusNDaysAgo(+10));
             dataInput.enterDTENDispatchDeadline(getDatePlusMinusNDaysAgo(+20));
-            safeClickOn(continueButton);
+            clickContinueButton();
         }
         dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
         dataInput.selectACorrespondenceReceivedChannel();
@@ -170,14 +170,14 @@ public class DCUProgressCase extends BasePage {
         if (minCase()) {
             dataInput.selectAHomeSecReplyOption();
         }
-        safeClickOn(continueButton);
+        clickContinueButton();
         correspondents.addANonMemberCorrespondentOfType("Constituent");
         correspondents.confirmPrimaryCorrespondent();
     }
 
     public void moveCaseFromMarkupToInitialDraft() {
         markup.selectPolicyResponseRadioButton();
-        safeClickOn(continueButton);
+        clickContinueButton();
         markup.addTopicToCase("Animal alternatives (3Rs)");
         markup.confirmPrimaryTopic();
         markup.confirmInitialDraftAndOrPrivateOfficeTeam();
@@ -185,7 +185,7 @@ public class DCUProgressCase extends BasePage {
 
     public void moveCaseFromMarkupToInitialDraftWithSpecificTopic(String topic) {
         markup.selectPolicyResponseRadioButton();
-        safeClickOn(continueButton);
+        clickContinueButton();
         markup.addTopicToCase(topic);
         markup.confirmPrimaryTopic();
         markup.confirmInitialDraftAndOrPrivateOfficeTeam();
@@ -193,25 +193,25 @@ public class DCUProgressCase extends BasePage {
 
     public void moveCaseFromMarkupToNRNConfirmation() {
         markup.selectNoResponseNeededRadioButton();
-        safeClickOn(continueButton);
+        clickContinueButton();
         markup.enterANoResponseNeededReason();
-        safeClickOn(finishButton);
+        clickFinishButton();
     }
 
     public void moveCaseFromMarkupToTransferConfirmation() {
         markup.selectReferToOGDRadioButton();
-        safeClickOn(continueButton);
+        clickContinueButton();
         markup.enterAOGDDestination();
         markup.enterAOGDReason();
-        safeClickOn(finishButton);
+        clickFinishButton();
     }
 
     public void moveCaseFromInitialDraftToQaResponse() {
         initialDraft.selectIfCaseCanBeAnsweredByTeam("Yes");
-        safeClickOn(continueButton);
+        clickContinueButton();
         if (!dtenCase()) {
             initialDraft.selectSpecificResponseChannel("Letter");
-            safeClickOn(continueButton);
+            clickContinueButton();
         }
         documents.addADocumentOfDocumentType("DRAFT");
         waitABit(1000);
@@ -223,19 +223,19 @@ public class DCUProgressCase extends BasePage {
 
     public void moveCaseFromInitialDraftToPrivateOfficeApprovalOrDispatch() {
         initialDraft.selectIfCaseCanBeAnsweredByTeam("Yes");
-        safeClickOn(continueButton);
+        clickContinueButton();
         if (!dtenCase()) {
             initialDraft.selectSpecificResponseChannel("Letter");
-            safeClickOn(continueButton);
+            clickContinueButton();
         }
         documents.addADocumentOfDocumentType("DRAFT");
         waitABit(1000);
         documents.recordPrimaryDraftDocument();
         clickTheButton("Continue");
         initialDraft.selectQAOfflineDecision("Yes");
-        safeClickOn(continueButton);
+        clickContinueButton();
         initialDraft.selectAOfflineQAIndividual();
-        safeClickOn(finishButton);
+        clickFinishButton();
     }
 
     public void moveCaseFromQAResponseToPrivateOfficeApprovalOrDispatch() {
@@ -245,17 +245,17 @@ public class DCUProgressCase extends BasePage {
 
     public void moveCaseFromPrivateOfficeApprovalToMinisterialSignOffOrDispatch() {
         privateOfficeApproval.selectIfApproveResponse("Yes");
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     public void moveCaseFromMinisterialSignOffToDispatch() {
         ministerialSignOff.selectToApproveResponse("Yes");
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     public void moveCaseFromDispatchToCaseClosedOrCopyToNumber10() {
         dispatch.selectAbleToDispatch("Yes");
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     public void generateDCUSearchCaseData(String infoValue, String infoType) throws ParseException {
@@ -276,7 +276,7 @@ public class DCUProgressCase extends BasePage {
                 dataInput.fillAllMandatoryCorrespondenceFields();
                 clickContinueButton();
                 correspondents.addASpecificMemberCorrespondent(infoValue);
-                safeClickOn(finishButton);
+                clickFinishButton();
                 break;
             case "PUBLIC CORRESPONDENT NAME":
             case "CORRESPONDENT POSTCODE":
@@ -310,7 +310,7 @@ public class DCUProgressCase extends BasePage {
                 dataInput.selectASpecificCopyToNoTenOption("No");
                 dataInput.selectASpecificHomeSecInterestOption(infoValue);
                 dataInput.selectAHomeSecReplyOption();
-                safeClickOn(continueButton);
+                clickContinueButton();
                 correspondents.addANonMemberCorrespondentOfType("Constituent");
                 correspondents.confirmPrimaryCorrespondent();
                 break;

@@ -99,7 +99,7 @@ public class CreateCaseStepDefs extends BasePage {
         setSessionVariable("bulkCaseNumber").to(cases);
         dashboard.selectCreateBulkCasesLinkFromMenuBar();
         createCase.selectCaseType(caseType);
-        safeClickOn(createCase.nextButton);
+        clickNextButton();
         documents.bulkUploadDocuments(cases);
         createCase.clickCreateCasesButton();
     }
@@ -118,7 +118,7 @@ public class CreateCaseStepDefs extends BasePage {
     @When("I do not select a type of correspondence when creating a case")
     public void doNotSelectCorrespondenceWhenCreatingCase() {
         dashboard.selectCreateSingleCaseLinkFromMenuBar();
-        clickTheButton("Next");
+        clickNextButton();
     }
 
     @When("I create a {string} case with {string} as the primary topic")
@@ -129,7 +129,7 @@ public class CreateCaseStepDefs extends BasePage {
         dcuProgressCase.moveCaseFromDataInputToMarkup();
         dashboard.getAndClaimCurrentCase();
         markup.selectPolicyResponseRadioButton();
-        safeClickOn(continueButton);
+        clickContinueButton();
         waitABit(1000);
         markup.addTopicToCase(topic);
         markup.confirmPrimaryTopic();
@@ -217,7 +217,7 @@ public class CreateCaseStepDefs extends BasePage {
     @When("they create the bulk cases without adding a document")
     public void userCreatesBulkCasesWithoutAddingADocument() {
         safeClickOn(createCase.dcuMinRadioButton);
-        safeClickOn(createCase.nextButton);
+        clickNextButton();
         createCase.clickCreateCaseButton();
     }
 
@@ -235,13 +235,13 @@ public class CreateCaseStepDefs extends BasePage {
     @When("I select a case type and continue")
     public void getToWhenWasCorrespondenceReceivedPage() {
         createCase.selectCaseType("CS");
-        safeClickOn(nextButton);
+        clickNextButton();
         waitABit(100);
     }
     @When("I select the FOI case type and continue")
     public void iSelectFOICaseTypeAndContinue() {
         createCase.selectCaseType("FOI");
-        safeClickOn(nextButton);
+        clickNextButton();
         waitABit(100);
     }
 
@@ -258,7 +258,7 @@ public class CreateCaseStepDefs extends BasePage {
         dataInput.fillAllMandatoryCorrespondenceFields();
         clickContinueButton();
         correspondents.addASpecificMemberCorrespondent(correspondent);
-        safeClickOn(finishButton);
+        clickFinishButton();
     }
 
     @And("I create a single {string} case with the correspondence received date as: {string}")
@@ -383,5 +383,10 @@ public class CreateCaseStepDefs extends BasePage {
     public void iEscalateTheClosedCaseToStage() {
         createCase.createAStage2CaseFromASpecificClosedStage1Case(getCurrentCaseReference());
         confirmationScreens.goToCaseFromConfirmationScreen();
+    }
+
+    @And("I get a new case that allows adding an MP correspondent")
+    public void iGetANewCaseThatAllowsAddingAnMPCorrespondent() {
+
     }
 }

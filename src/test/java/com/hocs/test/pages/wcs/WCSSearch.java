@@ -58,30 +58,30 @@ public class WCSSearch extends BasePage {
     public void searchByWCSReference(String reference) {
         referenceTextbox.click();
         typeInto(referenceTextbox, reference);
-        clickOn(searchButton);
+        clickSearchButton();
     }
 
     public void searchByClaimantName(String name) {
         claimantNameTextbox.click();
         typeInto(claimantNameTextbox, name);
-        clickOn(searchButton);
+        clickSearchButton();
     }
 
     public void searchByClaimantsDOB(String date) {
         typeIntoDateFields(claimantDOBDayTextbox, claimantDOBMonthTextbox, claimantDOBYearTextbox, date);
-        clickOn(searchButton);
+        clickSearchButton();
     }
 
     public void searchByNationalInsuranceNo(String niNo) {
         nationalInsuranceNoTextbox.click();
         typeInto(nationalInsuranceNoTextbox, niNo);
-        clickOn(searchButton);
+        clickSearchButton();
     }
 
     public void searchByPreviousHOCSRef(String ref) {
         prevHocsRefTextbox.click();
         typeInto(prevHocsRefTextbox, ref);
-        clickOn(searchButton);
+        clickSearchButton();
     }
 
     public void assertNoSearchCriteriaErrorMessage() {

@@ -62,29 +62,29 @@ public class QA extends BasePage {
 
     public void putQACaseOnHold() {
         safeClickOn(onHoldRadioButton);
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void selectEscalateQACaseToWorkflowManager() {
         safeClickOn(escalateToWorkflowManagerRadioButton);
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void selectToRejectCaseToDraft() {
         safeClickOn(rejectQAToDraftRadioButton);
-        safeClickOn(confirmButton);
+        clickConfirmButton();
         setSessionVariable("rejectionStage").to("QA");
     }
 
     public void selectToRejectCaseToTriage() {
         safeClickOn(rejectQAToTriageRadioButton);
-        safeClickOn(confirmButton);
+        clickConfirmButton();
         setSessionVariable("rejectionStage").to("QA");
     }
 
     public void selectToRequestSecretariatClearance() {
         selectSpecificRadioButtonFromGroupWithHeading("Request Secretariat Clearance", "Actions");
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void addAClearanceRequest() {
@@ -99,47 +99,47 @@ public class QA extends BasePage {
 
     public void submitReasonToEscalateCase(String escalationReason) {
         escalationReasonTextArea.sendKeys(escalationReason);
-        safeClickOn(confirmButton);
+        clickConfirmButton();
         setSessionVariable("escalationReason").to(escalationReason);
     }
 
     public void submitReasonToRejectToDraft(String rejectionReason) {
         draftRejectionTextField.sendKeys(rejectionReason);
-        safeClickOn(confirmButton);
+        clickConfirmButton();
         setSessionVariable("rejectionReason").to(rejectionReason);
     }
 
     public void submitReasonToRejectToTriage(String rejectionReason) {
         triageRejectionTextField.sendKeys(rejectionReason);
-        safeClickOn(confirmButton);
+        clickConfirmButton();
         setSessionVariable("rejectionReason").to(rejectionReason);
     }
 
     //QA (Escalated) Actions
     public void keepCaseEscalated() {
         safeClickOn(keepEscalatedRadioButton);
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void takeCaseOffEscalation() {
         safeClickOn(escalationCompleteRadioButton);
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void selectToCloseEscalatedCase() {
         safeClickOn(closeCaseRadioButton);
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     //QA (On Hold) Actions
     public void keepCaseOnHold() {
         safeClickOn(keepOnHoldRadioButton);
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void takeCaseOffHold() {
         safeClickOn(takeOffHoldRadioButton);
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     //QA (Secretariat Clearance Requested) Actions

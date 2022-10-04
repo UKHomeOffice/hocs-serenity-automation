@@ -48,7 +48,7 @@ public class EligibilityStepDefs extends BasePage {
     @And("I select an Eligibility rejection reason")
     public void iSelectAnEligibilityRejectionReason() {
         eligibility.selectRejectionReasonByIndex(1);
-        clickOn(confirmButton);
+        clickConfirmButton();
     }
 
     @And("I confirm the claim should be closed")

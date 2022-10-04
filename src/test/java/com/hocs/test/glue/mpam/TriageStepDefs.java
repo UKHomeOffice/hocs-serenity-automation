@@ -106,20 +106,20 @@ public class TriageStepDefs extends BasePage {
         switch (errorMessage.toUpperCase()) {
             case "ACTIONS REQUIRED":
                 triage.businessUnitDropdown.selectByIndex(1);
-                safeClickOn(triage.confirmButton);
+                clickConfirmButton();
                 break;
             case "BUSINESS UNIT REQUIRED":
                 safeClickOn(triage.readyToDraftRadioButton);
-                safeClickOn(triage.confirmButton);
+                clickConfirmButton();
                 break;
             case "ENQUIRY SUBJECT REQUIRED":
                 safeClickOn(triage.setEnquiryHypertext);
-                safeClickOn(continueButton);
+                clickContinueButton();
                 break;
             case "ENQUIRY REASON REQUIRED":
                 safeClickOn(triage.setEnquiryHypertext);
                 triage.selectEnquirySubject("Other");
-                safeClickOn(continueButton);
+                clickContinueButton();
                 break;
             default:
                 pendingStep(errorMessage + " is not defined within " + getMethodName());

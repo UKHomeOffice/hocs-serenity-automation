@@ -184,7 +184,7 @@ public class AccordionMPAM extends BasePage {
         waitABit(1000);
         selectBusinessArea(businessArea);
         businessUnitDropdown.selectByIndex(1);
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     public void changeRefTypeConvertingACase() {

@@ -74,7 +74,7 @@ public class ActionsTab extends BasePage {
         if (option.equalsIgnoreCase("YES")) {
             enterTextIntoTextAreaWithHeading("Reason");
         }
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     public void addAnAppealToTheCase() {

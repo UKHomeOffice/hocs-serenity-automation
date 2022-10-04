@@ -77,13 +77,13 @@ public class MPAMCaseDetailsAccordionStepDefs extends BasePage {
         safeClickOn(accordionMPAM.changeBusinessAreaHypertext);
         switch (errorMessage.toUpperCase()) {
             case "BUSINESS UNIT REQUIRED":
-                safeClickOn(continueButton);
+                clickContinueButton();
                 break;
             case "ACTIONS REQUIRED":
                 accordionMPAM.selectBusinessArea("UKVI");
                 accordionMPAM.businessUnitDropdown.selectByIndex(1);
-                safeClickOn(continueButton);
-                safeClickOn(confirmButton);
+                clickContinueButton();
+                clickConfirmButton();
                 break;
             default:
                 pendingStep(errorMessage + " is not defined within " + getMethodName());

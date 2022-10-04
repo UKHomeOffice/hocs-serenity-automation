@@ -1,18 +1,13 @@
 package com.hocs.test.pages.decs;
 
-import static jnr.posix.util.MethodName.getMethodName;
-import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.time.Duration;
-import java.util.List;
-import java.util.Random;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
-import org.openqa.selenium.Keys;
 
 public class Correspondents extends BasePage {
 
@@ -84,8 +79,10 @@ public class Correspondents extends BasePage {
     @FindBy(xpath = "//a[text()='Edit']")
     public WebElementFacade editCorrespondentHyperText;
 
+    String correspondenceReference = "Ref-ABCD-1234";
+
     private void selectAddACorrespondentLink() {
-        safeClickOn(addACorrespondentLink);
+        clickTheLink("Add a correspondent");
     }
 
     public void selectToAddACorrespondent() {
@@ -112,7 +109,7 @@ public class Correspondents extends BasePage {
             waitABit(2000);
             selectCorrespondentIsMPRadioButton();
         }
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     public void selectCorrespondentIsNotMP() {
@@ -122,7 +119,7 @@ public class Correspondents extends BasePage {
             waitABit(2000);
             selectCorrespondentNotMPRadioButton();
         }
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     public void enterCorrespondentFullName(String fullName) {
@@ -214,11 +211,11 @@ public class Correspondents extends BasePage {
         selectACorrespondentCountry();
         enterCorrespondentTelephoneNumber("01234 567890");
         enterCorrespondentEmailAddress("SamMcTester@Test.com");
-        enterCorrespondenceReference("Ref-ABCD-1234");
+        enterCorrespondenceReference(correspondenceReference);
     }
 
     public void fillMandatoryCorrespondentFieldsForSecondaryContact() {
-        selectCorrespondentTypeFromDropdown("Correspondent");
+        selectASpecificCorrespondentType("Correspondent");
         enterCorrespondentFullName("Sam McTester");
         setSessionVariable("secondCorrespondentFullName").to("Sam McTester");
         enterCorrespondentBuilding("1 Test House");
@@ -227,9 +224,12 @@ public class Correspondents extends BasePage {
         enterCorrespondentPostcode("AB1 2CD");
     }
 
-    public void selectCorrespondentTypeFromDropdown(String correspondentType) {
-        correspondentTypeDropdown.waitUntilVisible();
-        correspondentTypeDropdown.selectByVisibleText(correspondentType);
+    public void selectACorrespondentType() {
+        selectRandomOptionFromDropdownWithHeading("Correspondent Type");
+    }
+
+    public void selectASpecificCorrespondentType(String correspondentType) {
+        selectSpecificOptionFromDropdownWithHeading(correspondentType, "Correspondent Type");
     }
 
     public void selectSpecificMemberOfParliament(String member) {
@@ -248,7 +248,7 @@ public class Correspondents extends BasePage {
         selectToAddACorrespondent();
         selectCorrespondentIsMP();
         selectSpecificMemberOfParliament(member);
-        correspondentTypeDropdown.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
+        waitForPageWithTitle("Member Details");
         clickAddButton();
     }
 
@@ -256,7 +256,7 @@ public class Correspondents extends BasePage {
         selectToAddACorrespondent();
         selectCorrespondentIsMP();
         selectRandomMemberOfParliament();
-        correspondentTypeDropdown.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
+        waitForPageWithTitle("Member Details");
         clickAddButton();
     }
 
@@ -265,19 +265,19 @@ public class Correspondents extends BasePage {
         if (!complaintCase() && !toCase()) {
             selectCorrespondentIsNotMP();
         }
-        selectCorrespondentTypeFromDropdown(correspondentType);
+        if (correspondentType.equalsIgnoreCase("NON-MEMBER")) {
+            selectACorrespondentType();
+        } else {
+            selectASpecificCorrespondentType(correspondentType);
+        }
         fillCorrespondentFields();
         clickAddButton();
     }
 
-    public void addAPublicCorrespondentWithAReferenceNumber(String refNumber) {
+    public void addANonMemberCorrespondentWithASpecificReferenceNumber(String refNumber) {
+        this.correspondenceReference = refNumber;
+        addANonMemberCorrespondentOfType("Non-member");
         setSessionVariable("correspondentReferenceNumber").to(refNumber);
-        selectToAddACorrespondent();
-        selectCorrespondentIsNotMP();
-        selectCorrespondentTypeFromDropdown("Constituent");
-        fillCorrespondentFields();
-        enterCorrespondenceReference(refNumber);
-        clickAddButton();
     }
 
     public void removePrimaryCorrespondent() {
@@ -286,8 +286,7 @@ public class Correspondents extends BasePage {
     }
 
     public void editPrimaryCorrespondent() {
-        safeClickOn(editCorrespondentHyperText);
-        correspondentFullNameField.clear();
+        clickTheLink("Edit");
         enterCorrespondentFullName("Edited Correspondent-" + generateRandomString());
         clickTheButton("Save");
     }
@@ -295,8 +294,9 @@ public class Correspondents extends BasePage {
     public void confirmPrimaryCorrespondent() {
         WebElementFacade selectedPrimaryCorrespondent = findBy("//input[@name='Correspondents'][@checked]/following-sibling::label");
         selectedPrimaryCorrespondent.waitUntilVisible();
-        recordCaseData.addHeadingAndValueRecord("Which is the primary correspondent?", selectedPrimaryCorrespondent.getText());
-        setSessionVariable("primaryCorrespondent").to(selectedPrimaryCorrespondent.getText());
+        String primaryCorrespondentsName = selectedPrimaryCorrespondent.getText();
+        recordCaseData.addHeadingAndValueRecord("Which is the primary correspondent?", primaryCorrespondentsName);
+        setSessionVariable("primaryCorrespondent").to(primaryCorrespondentsName);
         if (dcuCase()) {
             clickTheButton("Finish");
         }
@@ -311,10 +311,6 @@ public class Correspondents extends BasePage {
     public void assertAddACorrespondentLinkIsDisplayed() {
         waitFor(addACorrespondentLink);
         assert (addACorrespondentLink.isDisplayed());
-    }
-
-    public void assertPageTitle() {
-        assertPageTitle("Record Correspondent Details");
     }
 
     public void assertPrimaryCorrespondent() {

@@ -45,7 +45,7 @@ public class CCH extends BasePage {
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
         }
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     public void submitReasonForCaseCompletion() {

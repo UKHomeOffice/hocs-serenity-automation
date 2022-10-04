@@ -246,14 +246,14 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
         }
-        safeClickOn(finishButton);
+        clickFinishButton();
     }
 
     @And("I enter a transfer reason at the Investigation stage")
     public void iEnterATransferReasonAtTheInvestigationStage() {
         complaintsTriageAndInvestigation.enterTransferReason();
         if (sessionVariableCalled("businessArea").equals("HMPO")) {
-            safeClickOn(continueButton);
+            clickContinueButton();
         }
     }
 
@@ -265,7 +265,7 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
     @And("I select an investigating team")
     public void iSelectAnInvestigatingTeam() {
         complaintsTriageAndInvestigation.selectInvestigatingTeam();
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     @And("I enter any required information at the Investigation stage")

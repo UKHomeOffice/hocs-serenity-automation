@@ -23,7 +23,7 @@ public class CloseCaseTelephone extends BasePage {
 
     public void selectCloseCaseTelephone() {
         safeClickOn(closeCaseTelephoneRadioButton);
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void selectResponseChannel(String responseChannel) {

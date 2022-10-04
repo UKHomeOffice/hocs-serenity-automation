@@ -137,7 +137,7 @@ public class Documents extends BasePage {
         clickVisibleAddDocumentsLink();
         selectDocumentTypeByText(docType);
         uploadFileOfType("docx");
-        safeClickOn(addButton);
+        clickAddButton();
         setSessionVariable(docType.toLowerCase()).to("docx");
         waitABit(500);
     }
@@ -158,7 +158,7 @@ public class Documents extends BasePage {
         clickVisibleAddDocumentsLink();
         selectADocumentType();
         uploadFileOfType(fileType);
-        safeClickOn(addButton);
+        clickAddButton();
         waitABit(500);
     }
 
@@ -166,7 +166,7 @@ public class Documents extends BasePage {
         clickVisibleAddDocumentsLink();
         selectDocumentTypeByText(docType);
         uploadFileOfType(fileType);
-        safeClickOn(addButton);
+        clickAddButton();
         waitABit(500);
     }
 
@@ -215,7 +215,7 @@ public class Documents extends BasePage {
 
     public void assertFileIsNotVisible(String fileIdentifier) {
         if (!manageDocumentsLink.isCurrentlyVisible()) {
-            clickBackButton();
+            clickTheLink("Back");
         }
         WebElementFacade uploadedFile = findBy(
                 "//caption[text() = 'Documents']/parent::table//td[contains(text(), '." + fileIdentifier + "')]");

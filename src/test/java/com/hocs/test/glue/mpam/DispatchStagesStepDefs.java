@@ -32,7 +32,7 @@ public class DispatchStagesStepDefs extends BasePage {
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
         }
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     @When("I select the {string} action at Private Office stage")
@@ -52,7 +52,7 @@ public class DispatchStagesStepDefs extends BasePage {
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
         }
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     @And("I submit a reason to reject the case back to Draft stage")
@@ -89,7 +89,7 @@ public class DispatchStagesStepDefs extends BasePage {
     @And("I enter follow-up details and confirm")
     public void iEnterFollowUpDetailsAndConfirm() {
         dispatchStages.enterFollowUpDetails("test follow-up details");
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     @And("enter a reason for not completing the follow up action")

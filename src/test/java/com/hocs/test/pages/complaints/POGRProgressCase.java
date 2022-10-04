@@ -143,22 +143,22 @@ public class POGRProgressCase extends BasePage {
             } else {
                 complaintsRegistrationAndDataInput.selectSpecificBusinessArea(businessArea);
             }
-            safeClickOn(continueButton);
+            clickContinueButton();
         } else {
             summaryTab.selectSummaryTab();
             String businessArea = summaryTab.getSummaryTabValueForGivenHeader("Business Area");
             setSessionVariable("businessArea").to(businessArea);
         }
         correspondents.addANonMemberCorrespondentOfType("Complainant");
-        safeClickOn(continueButton);
+        clickContinueButton();
         complaintsRegistrationAndDataInput.completeDataInputScreen();
-        safeClickOn(continueButton);
+        clickContinueButton();
         documents.addADocumentOfDocumentType("Interim Letter");
         complaintsRegistrationAndDataInput.enterDateInterimLetterSent();
-        safeClickOn(continueButton);
+        clickContinueButton();
         if (sessionVariableCalled("businessArea").toString().equalsIgnoreCase("GRO")) {
             complaintsRegistrationAndDataInput.selectInvestigatingTeam();
-            safeClickOn(finishButton);
+            clickFinishButton();
         }
     }
 
@@ -168,7 +168,7 @@ public class POGRProgressCase extends BasePage {
             complaintsTriageAndInvestigation.enterLoAReceivedDetails();
         }
         complaintsTriageAndInvestigation.selectAllInformationCollectedRespondAction();
-        safeClickOn(finishButton);
+        clickFinishButton();
     }
 
     private void movePOGRCaseFromInvestigationToEscalated() {

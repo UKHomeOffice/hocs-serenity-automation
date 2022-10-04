@@ -177,7 +177,7 @@ public class DocumentsStepDefs extends BasePage {
 
     @And("I confirm/approve the (new )primary draft document")
     public void iConfirmThePrimaryDraftDocument() {
-        if (continueButton.isCurrentlyVisible()) {
+        if (checkButtonIsVisible("Continue")) {
             clickTheButton("Continue");
         } else {
             clickTheButton("Approve primary draft");
@@ -246,7 +246,7 @@ public class DocumentsStepDefs extends BasePage {
     public void iSelectADocumentToBeAddedToTheCaseAsAnAppealResponseDocument() {
         clickTheLink("Add a document");
         documents.uploadFileOfType("docx");
-        safeClickOn(addButton);
+        clickAddButton();
     }
 
     @And("I upload another {string} document as a replacement")

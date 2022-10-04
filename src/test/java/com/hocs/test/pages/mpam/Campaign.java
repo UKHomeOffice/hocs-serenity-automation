@@ -31,10 +31,10 @@ public class Campaign extends BasePage {
 
     public void moveCaseFromAStageToCampaign(String campaign) {
         safeClickOn(putCaseIntoCampaignRadioButton);
-        safeClickOn(confirmButton);
+        clickConfirmButton();
         String selectedCampaign = selectSpecificOptionFromTypeaheadWithHeading(campaign, "Campaign");
         setSessionVariable("campaign").to(selectedCampaign);
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void moveCaseFromCampaignToStage(String stage) {
@@ -48,7 +48,7 @@ public class Campaign extends BasePage {
             default:
                 pendingStep(stage + " is not defined within " + getMethodName());
         }
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void assertCaseIsMovedToCorrectCampaign() {

@@ -70,13 +70,13 @@ public class Misallocations extends BasePage {
                 creation.selectASpecificMinisterialSignOffTeam("Home Secretary");
                 creation.selectASpecificAddressee("Home Secretary");
                 creation.selectASpecificInboundChannel("Email");
-                safeClickOn(continueButton);
+                clickContinueButton();
                 correspondents.addAMemberCorrespondent();
                 clickTheButton("Move to Transfer");
                 break;
             case "TRIAGE":
             case "DRAFT":
-                safeClickOn(continueButton);
+                clickContinueButton();
                 break;
             default:
                 pendingStep(stage + " is not defined within " + getMethodName());
@@ -105,7 +105,7 @@ public class Misallocations extends BasePage {
                 pendingStep(action + " is not defined within " + getMethodName());
         }
         radioButton.waitUntilClickable().withTimeoutOf(Duration.ofSeconds(30)).click();
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void completeRequiredFieldsForTriage() {

@@ -73,7 +73,7 @@ public class MTSDataInput extends BasePage {
 
     public void completeDataInputStageAndCloseMTSCase() {
         correspondents.addAMemberCorrespondent();
-        safeClickOn(continueButton);
+        clickContinueButton();
         selectABusinessArea();
         selectABusinessUnit();
         selectAnUrgency();

@@ -65,11 +65,11 @@ public class COMPProgressCase extends BasePage {
     }
 
     private void setComplaintTypeFromStageName(String targetStage) {
-        if (containsIgnoreCase(targetStage, "Service")) {
+        if (stringContainsCheckIgnoringCase(targetStage, "Service")) {
             complaintType = "Service";
-        } else if (containsIgnoreCase(targetStage, "Ex-Gratia")) {
+        } else if (stringContainsCheckIgnoringCase(targetStage, "Ex-Gratia")) {
             complaintType = "Ex-Gratia";
-        } else if (containsIgnoreCase(targetStage, "Minor Misconduct") || containsIgnoreCase(targetStage, "MM")) {
+        } else if (stringContainsCheckIgnoringCase(targetStage, "Minor Misconduct") || stringContainsCheckIgnoringCase(targetStage, "MM")) {
             complaintType = "Minor Misconduct";
         }
     }
@@ -248,15 +248,15 @@ public class COMPProgressCase extends BasePage {
                 complaintsRegistrationAndDataInput.enterACompanyName();
                 complaintsRegistrationAndDataInput.enterAHomeOfficeReference("Test entry for Home Office Reference");
                 complaintsRegistrationAndDataInput.enterAPortReference();
-                safeClickOn(continueButton);
+                clickContinueButton();
                 complaintsRegistrationAndDataInput.selectASpecificComplaintType("Service");
                 complaintsRegistrationAndDataInput.selectAComplaintChannel();
                 complaintsRegistrationAndDataInput.selectASeverity();
-                safeClickOn(continueButton);
+                clickContinueButton();
                 complaintsRegistrationAndDataInput.openTheServiceComplaintCategoryAccordion();
                 complaintsRegistrationAndDataInput.selectAVisibleClaimCategory();
                 complaintsRegistrationAndDataInput.selectAnOwningCSU();
-                safeClickOn(finishButton);
+                clickFinishButton();
                 break;
             case "CASE REFERENCE":
                 createCase.createCSCaseOfType("COMP");
@@ -272,7 +272,7 @@ public class COMPProgressCase extends BasePage {
                 complaintsRegistrationAndDataInput.enterACompanyName();
                 complaintsRegistrationAndDataInput.enterAHomeOfficeReference(infoValue);
                 complaintsRegistrationAndDataInput.enterAPortReference();
-                safeClickOn(continueButton);
+                clickContinueButton();
                 break;
             default:
                 pendingStep(infoType + " is not defined within " + getMethodName());

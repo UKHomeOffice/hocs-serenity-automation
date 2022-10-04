@@ -20,10 +20,11 @@ public class ComplaintsEscalated extends BasePage {
 
     public void selectActionAtEscalatedStage(String action) {
         recordCaseData.selectSpecificRadioButton(action);
-        if (continueButton.isVisible()) {
-            safeClickOn(continueButton);
+        waitForPageWithTitle("Complaint Escalated");
+        if (checkButtonIsCurrentlyVisible("Continue")) {
+            clickContinueButton();
         } else {
-            safeClickOn(confirmButton);
+            clickConfirmButton();
         }
 
     }

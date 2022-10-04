@@ -217,7 +217,7 @@ public class Search extends BasePage {
 
     public void searchByCaseReference(String caseReference) {
         enterSpecificTextIntoTextFieldWithHeading(caseReference, "Case reference");
-        safeClickOn(searchButton);
+        clickSearchButton();
     }
 
     public void searchBySubstringOfCaseReference() {
@@ -789,7 +789,7 @@ public class Search extends BasePage {
     }
 
     public void waitForSearchCriteriaPage() {
-        searchButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
+        getButtonElementFromDisplayedText("Search").withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
     }
 
     public int getNumberOfSearchResults() {

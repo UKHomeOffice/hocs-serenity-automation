@@ -192,7 +192,7 @@ public class BFProgressCase extends BasePage {
                 complaintsRegistrationAndDataInput.enterACompanyName();
                 complaintsRegistrationAndDataInput.enterAHomeOfficeReference("Test entry for Home Office Reference");
                 complaintsRegistrationAndDataInput.enterAPortReference();
-                safeClickOn(continueButton);
+                clickContinueButton();
                 break;
             case "CASE REFERENCE":
                 createCase.createCSCaseOfType("BF");
@@ -208,7 +208,7 @@ public class BFProgressCase extends BasePage {
                 complaintsRegistrationAndDataInput.enterACompanyName();
                 complaintsRegistrationAndDataInput.enterAHomeOfficeReference(infoValue);
                 complaintsRegistrationAndDataInput.enterAPortReference();
-                safeClickOn(continueButton);
+                clickContinueButton();
                 break;
             default:
                 pendingStep(infoType + " is not defined within " + getMethodName());

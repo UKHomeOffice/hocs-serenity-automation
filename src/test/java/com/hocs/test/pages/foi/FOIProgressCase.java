@@ -106,7 +106,7 @@ public class FOIProgressCase extends BasePage {
     public void moveCaseFromCaseCreationToAllocation() {
         clickTheButton("Confirm");
         caseCreationStage.selectValidityOfRequest("Valid");
-        safeClickOn(continueButton);
+        clickContinueButton();
         waitABit(250);
         documents.addADocumentOfDocumentType("Initial response");
         caseCreationStage.enterAValidRequestAcknowledgementResponseDate();
@@ -166,11 +166,11 @@ public class FOIProgressCase extends BasePage {
                 break;
             case "RECEIVED ON OR AFTER":
                 dashboard.selectCreateSingleCaseLinkFromMenuBar();
-                if (!nextButton.isVisible()) {
+                if (!checkButtonIsVisible("Next")) {
                     dashboard.selectCreateSingleCaseLinkFromMenuBar();
                 }
                 createCase.selectCaseType("FOI");
-                clickTheButton("Next");
+                clickNextButton();
                 createCase.editReceivedDate(getTodaysDate());
                 createCase.storeCorrespondenceReceivedDate();
                 createCase.storeCorrespondenceReceivedInKIMUDate();
@@ -184,11 +184,11 @@ public class FOIProgressCase extends BasePage {
                 break;
             case "RECEIVED ON OR BEFORE":
                 dashboard.selectCreateSingleCaseLinkFromMenuBar();
-                if (!nextButton.isVisible()) {
+                if (!checkButtonIsVisible("Next")) {
                     dashboard.selectCreateSingleCaseLinkFromMenuBar();
                 }
                 createCase.selectCaseType("FOI");
-                clickTheButton("Next");
+                clickNextButton();
                 createCase.editReceivedDate("01/01/2010");
                 createCase.storeCorrespondenceReceivedDate();
                 createCase.storeCorrespondenceReceivedInKIMUDate();

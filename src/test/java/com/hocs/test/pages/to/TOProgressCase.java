@@ -200,7 +200,7 @@ public class TOProgressCase extends BasePage {
         clickTheLink("Change business area");
         waitABit(500);
         selectSpecificRadioButtonFromGroupWithHeading("UKVI", "Business Area");
-        safeClickOn(finishButton);
+        clickFinishButton();
     }
 
     private void moveCaseFromDraftToQA() {

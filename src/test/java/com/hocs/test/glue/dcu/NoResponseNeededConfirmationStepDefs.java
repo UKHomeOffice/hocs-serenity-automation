@@ -11,12 +11,12 @@ public class NoResponseNeededConfirmationStepDefs extends BasePage {
     @When("I agree that there is no need to respond to this correspondence")
     public void iAgreeThatThereIsNoNeedToRespondToThisCorrespondence() {
         noResponseNeededConfirmation.selectAgreeNoResponseNeeded();
-        safeClickOn(finishButton);
+        clickFinishButton();
     }
 
     @When("I disagree that there is no need to respond to this correspondence")
     public void iDisagreeThatThereIsNoNeedToRespondToThisCorrespondence() {
         noResponseNeededConfirmation.selectDisagreeNoResponseNeeded();
-        safeClickOn(finishButton);
+        clickFinishButton();
     }
 }

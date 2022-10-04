@@ -186,24 +186,24 @@ public class MPAMProgressCase extends BasePage {
         triage.setBusinessUnit();
         safeClickOn(triage.readyToDraftRadioButton);
         setSessionVariable("action").to("Ready to draft");
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void moveCaseFromDraftToQA() {
         safeClickOn(draft.moveToQARadioButton);
         setSessionVariable("action").to("Move to QA");
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void moveCaseFromQAToNextStage() {
         safeClickOn(qa.approvedAtQARadioButton);
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void moveCaseFromPrivateOfficeToCaseClosed() {
         dispatchStages.selectAResponseChannel();
         safeClickOn(dispatchStages.dispatchedRadioButtonAtPrivateOffice);
-        safeClickOn(confirmButton);
+        clickConfirmButton();
         dispatchStages.inputDispatchedDate(getDatePlusMinusNDaysAgo(-1));
         safeClickOn(dispatchStages.confirmAndCloseCaseButton);
     }
@@ -211,20 +211,20 @@ public class MPAMProgressCase extends BasePage {
     public void moveCaseFromPrivateOfficeToAwaitingDispatchLocal() {
         dispatchStages.selectAResponseChannel();
         selectSpecificRadioButtonFromGroupWithHeading("Approved (local dispatch)", "Actions");
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void moveCaseFromPrivateOfficeToAwaitingDispatchMinisterial() {
         dispatchStages.selectAResponseChannel();
         selectSpecificRadioButtonFromGroupWithHeading("Approved (ministerial dispatch)", "Actions");
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void moveCaseFromAwaitingDispatchToCaseClosed() {
         dispatchStages.selectAResponseChannel();
         dispatchStages.inputDispatchedDate(getDatePlusMinusNDaysAgo(-1));
         safeClickOn(dispatchStages.dispatchedRadioButtonAtDispatch);
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void generateMPAMSearchCaseData(String infoValue, String infoType) throws ParseException {

@@ -19,7 +19,7 @@ public class QAStepDefs extends BasePage {
         switch (action.toUpperCase()) {
             case "APPROVE":
                 safeClickOn(qa.approvedAtQARadioButton);
-                safeClickOn(confirmButton);
+                clickConfirmButton();
                 break;
             case "REJECTED, MOVE BACK TO DRAFTING":
                 qa.selectToRejectCaseToDraft();
@@ -46,7 +46,7 @@ public class QAStepDefs extends BasePage {
         switch (action.toUpperCase()) {
             case "APPROVE":
                 safeClickOn(qa.approvedAtQARadioButton);
-                safeClickOn(confirmButton);
+                clickConfirmButton();
                 break;
             case "REJECTED, MOVE BACK TO DRAFTING":
                 qa.selectToRejectCaseToDraft();
@@ -127,19 +127,19 @@ public class QAStepDefs extends BasePage {
     public void triggerErrorMessage(String errorMessage) {
         switch (errorMessage.toUpperCase()) {
             case "ACTIONS REQUIRED":
-                safeClickOn(qa.confirmButton);
+                clickConfirmButton();
                 break;
             case "REJECT AT TRIAGE REASON REQUIRED":
                 safeClickOn(qa.rejectQAToTriageRadioButton);
-                safeClickOn(confirmButton);
+                clickConfirmButton();
                 safeClickOn(qa.triageRejectionTextField);
-                safeClickOn(confirmButton);
+                clickConfirmButton();
                 break;
             case "REJECT AT DRAFT REASON REQUIRED":
                 safeClickOn(qa.rejectQAToDraftRadioButton);
-                safeClickOn(confirmButton);
+                clickConfirmButton();
                 safeClickOn(qa.draftRejectionTextField);
-                safeClickOn(confirmButton);
+                clickConfirmButton();
                 break;
             default:
                 pendingStep(errorMessage + " is not defined within " + getMethodName());

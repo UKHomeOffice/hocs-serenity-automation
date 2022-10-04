@@ -140,7 +140,7 @@ public class DataInput extends BasePage {
         if (dtenCase()) {
             enterDTENDraftingDeadline(getDatePlusMinusNDaysAgo(+10));
             enterDTENDispatchDeadline(getDatePlusMinusNDaysAgo(+20));
-            safeClickOn(continueButton);
+            clickContinueButton();
         }
         enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
         selectACorrespondenceReceivedChannel();
@@ -151,11 +151,5 @@ public class DataInput extends BasePage {
         if (minCase()) {
             selectAHomeSecReplyOption();
         }
-    }
-
-    // Assertions
-
-    public void assertPageTitle() {
-        assertPageTitle("Data Input");
     }
 }

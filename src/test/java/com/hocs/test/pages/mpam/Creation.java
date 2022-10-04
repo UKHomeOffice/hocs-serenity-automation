@@ -88,8 +88,8 @@ public class Creation extends BasePage {
 
     public void addCorrespondentWithSpecificReferenceToCase(String refNumber) {
         completeRequiredQuestions();
-        safeClickOn(continueButton);
-        correspondents.addAPublicCorrespondentWithAReferenceNumber(refNumber);
+        clickContinueButton();
+        correspondents.addANonMemberCorrespondentWithASpecificReferenceNumber(refNumber);
     }
 
     public void moveCaseWithSpecifiedMPCorrespondentToTriageStage(String correspondent) {
@@ -99,7 +99,7 @@ public class Creation extends BasePage {
         selectASpecificAddressee("Home Secretary");
         selectASpecificUrgency("Standard");
         selectASpecificInboundChannel("Email");
-        safeClickOn(continueButton);
+        clickContinueButton();
         correspondents.addASpecificMemberCorrespondent(correspondent);
         clickTheButton("Move to Triage");
     }
@@ -109,7 +109,7 @@ public class Creation extends BasePage {
         selectASpecificRefType("Official");
         selectASpecificUrgency("Standard");
         selectASpecificInboundChannel("Email");
-        safeClickOn(continueButton);
+        clickContinueButton();
         correspondents.addANonMemberCorrespondentOfType("Constituent");
         correspondents.confirmPrimaryCorrespondent();
     }

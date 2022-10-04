@@ -51,7 +51,7 @@ public class LoginPage extends BasePage {
 
     public void logInAsUser(User user) {
         enterLoginDetails(user);
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     public void assertLoginErrorMessage() {

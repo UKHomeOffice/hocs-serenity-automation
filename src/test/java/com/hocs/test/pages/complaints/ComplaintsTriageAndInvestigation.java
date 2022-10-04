@@ -353,7 +353,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
 
     public void acceptCaseAtInvestigation() {
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Yes - accept the complaint", "Can your team respond to this complaint?");
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     public void rejectCaseAtInvestigation() {
@@ -361,7 +361,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
             recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No - close and transfer to external team", "Can your team respond to this complaint?");
         } else if (sessionVariableCalled("businessArea").toString().equalsIgnoreCase("GRO")) {
             recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No - transfer the case", "Can your team respond to this complaint?");
-            safeClickOn(continueButton);
+            clickContinueButton();
         }
     }
 
@@ -370,7 +370,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
             selectSpecificRadioButtonFromGroupWithHeading("Internal", "Internal or external transfer");
         } else if (transferAction.equalsIgnoreCase("EXTERNAL")) {
             selectSpecificRadioButtonFromGroupWithHeading("External - close the case", "Internal or external transfer");
-            safeClickOn(continueButton);
+            clickContinueButton();
         }
     }
 

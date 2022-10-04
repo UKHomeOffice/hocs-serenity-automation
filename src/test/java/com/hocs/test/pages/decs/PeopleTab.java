@@ -86,7 +86,7 @@ public class PeopleTab extends BasePage {
             default:
                 pendingStep(detail + " is not defined within " + getMethodName());
         }
-        safeClickOn(saveButton);
+        clickTheButton("Save");
     }
 
     public void removeCorrespondent(String correspondent) {
@@ -100,14 +100,14 @@ public class PeopleTab extends BasePage {
         safeClickOn(managePeopleHypertext);
         WebElementFacade radioButtonOfNewPrimaryCorrespondent = findBy("//label[contains(text(), '"+ newPrimaryCorrespondent + "')]");
         safeClickOn(radioButtonOfNewPrimaryCorrespondent);
-        safeClickOn(finishButton);
+        clickFinishButton();
     }
 
     public void changePrimaryCorrespondent() {
         safeClickOn(managePeopleHypertext);
         WebElementFacade nonCheckedRadioButton = findBy("//input[not(@checked)]/following-sibling::label");
         safeClickOn(nonCheckedRadioButton);
-        safeClickOn(finishButton);
+        clickFinishButton();
     }
 
     public void assertNewCorrespondentIsDisplayed() {
@@ -135,7 +135,7 @@ public class PeopleTab extends BasePage {
     }
 
     public void assertCorrespondentHasBeenRemoved(String correspondent) {
-        continueButton.waitUntilVisible();
+        getButtonElementFromDisplayedText("Continue").waitUntilVisible();
         selectPeopleTab();
         List<WebElementFacade> correspondentNames = findAll("//th[text()='Name']/following-sibling::td");
         int n = 0;

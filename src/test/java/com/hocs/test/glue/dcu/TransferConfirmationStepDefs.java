@@ -11,12 +11,12 @@ public class TransferConfirmationStepDefs extends BasePage {
     @When("I confirm the case should be transferred")
     public void iConfirmTheCaseShouldBeTransferred() {
         transferConfirmation.selectCaseShouldBeTransferred();
-        safeClickOn(finishButton);
+        clickFinishButton();
     }
 
     @When("I confirm the case should not be transferred")
     public void iConfirmTheCaseShouldNotBeTransferred() {
         transferConfirmation.selectCaseShouldNotBeTransferred();
-        safeClickOn(finishButton);
+        clickFinishButton();
     }
 }

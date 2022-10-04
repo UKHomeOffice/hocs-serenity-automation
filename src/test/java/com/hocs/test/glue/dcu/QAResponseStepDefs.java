@@ -18,7 +18,7 @@ public class QAResponseStepDefs extends BasePage {
     @And("I select to modify the primary draft")
     public void iSelectToModifyThePrimaryDraft() {
         qaResponse.selectModifyPrimaryDraftRadioButton();
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     @And("the case should( still)( be owned by)( be returned to) the Private Office team")
@@ -31,14 +31,14 @@ public class QAResponseStepDefs extends BasePage {
     @And("I approve the Primary Draft")
     public void iApproveThePrimaryDraft() {
         qaResponse.selectApprovePrimaryDraftRadioButton();
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     @And("I reject the case at the QA Response stage")
     public void iRejectTheCaseAtTheQAResponseStage() {
         qaResponse.selectReturnCaseToDraftingTeamRadioButton();
-        safeClickOn(continueButton);
+        clickContinueButton();
         qaResponse.enterRejectionReason();
-        safeClickOn(finishButton);
+        clickFinishButton();
     }
 }

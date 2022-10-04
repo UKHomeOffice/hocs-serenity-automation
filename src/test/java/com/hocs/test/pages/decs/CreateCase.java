@@ -263,11 +263,11 @@ public class CreateCase extends BasePage {
             escalateAStage1CaseToStage2();
         } else {
             dashboard.selectCreateSingleCaseLinkFromMenuBar();
-            if (!nextButton.isVisible()) {
+            if (!checkButtonIsVisible("Next")) {
                 dashboard.selectCreateSingleCaseLinkFromMenuBar();
             }
             selectCaseType(caseType);
-            safeClickOn(nextButton);
+            clickNextButton();
         }
         waitFor(correspondenceReceivedDayField);
         if (!receivedDate.equalsIgnoreCase("N/A")) {
@@ -445,7 +445,7 @@ public class CreateCase extends BasePage {
 
     public boolean checkTargetUserIsLoggedInUsingCreateCasePage(User targetUser) {
         boolean correctUser = false;
-        backLink.waitUntilVisible().withTimeoutOf(Duration.ofSeconds(10));
+        getLinkElementFromDisplayedText("Back").waitUntilVisible().withTimeoutOf(Duration.ofSeconds(10));
         switch (targetUser.toString()) {
             case "DECS_USER":
                 if (mtsRadioButton.isVisible() && dcuMinRadioButton.isVisible()) {
@@ -558,10 +558,6 @@ public class CreateCase extends BasePage {
     }
 
     //Assertions
-
-    public void assertPageTitle() {
-        assertPageTitle("Create case");
-    }
 
     public void assertCaseTypeErrorMessage() {
         caseTypeIsRequiredErrorMessage.shouldContainText("Case type is required");

@@ -5,23 +5,21 @@ Feature: PeopleTab
     Given I am logged into "CS" as user "DECS_USER"
 
   Scenario: User adds an MP correspondent to a case as part of a stage
-    When I create a case that allows adding an MP correspondent
+    And I get a new case that allows adding an MP correspondent
     And I progress to the point of adding correspondents
     And I add a "Member" correspondent
     Then the submitted correspondent should be visible in the list of correspondents
-    And the primary correspondent details should be visible in the summary tab
 
   Scenario: User adds a non-mp correspondent to a case as part of a stage
-    When I create a case that allows adding an MP correspondent
+    And I get a new "CS" case
     And I progress to the point of adding correspondents
-    When I select to add a correspondent that "is not" a member of parliament
-    And I fill all mandatory fields on the "CORRESPONDENT DETAILS" page with valid data
+    When I add a "Non-Member" correspondent
     Then the submitted correspondent should be visible in the list of correspondents
 
   Scenario: User removes the primary correspondent from a case as part of a stage
-    When I complete all required fields for Creation stage
-    And I click the "Continue" button
-    When I add a "Constituent" correspondent
+    And I get a new "CS" case
+    And I progress to the point of adding correspondents
+    When I add a "Non-Member" correspondent
     And I remove the primary correspondent
     Then there shouldn't be a primary correspondent displayed
 
@@ -78,7 +76,7 @@ Feature: PeopleTab
   Scenario Outline: User can add a Member of Parliament as a Correspondent
     When I create a "MIN" case and move it to the "Data Input" stage
     And I load and claim the current case
-    And I fill all mandatory fields on the "Data Input" page with valid data
+    And I fill all mandatory fields on the Data Input page
     And I click the "Continue" button
     And I add "<mpName>" MP as a correspondent
     Then the submitted correspondent should be visible in the list of correspondents

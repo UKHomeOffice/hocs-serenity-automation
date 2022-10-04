@@ -284,7 +284,7 @@ public class WorkstacksStepDefs extends BasePage {
         dashboard.selectSearchLinkFromMenuBar();
         safeClickOn(search.mpamCaseCheckbox);
         safeClickOn(search.caseStatusActiveCheckbox);
-        safeClickOn(searchButton);
+        clickSearchButton();();
         workstacks.orderMPAMWorkstackColumn(column, order);
     }
 

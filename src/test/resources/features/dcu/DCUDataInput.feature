@@ -26,7 +26,7 @@ Feature: DCU Data Input
   @Navigation
   Scenario: DCU data entry user selects correspondence channel and date of correspondence
     When I get a "MIN" case at the "Data Input" stage
-    And I fill all mandatory fields on the "Data Input" page with valid data
+    And I fill all mandatory fields on the Data Input page
     And I click the "Continue" button
     Then the Add a correspondent link is displayed
     And the header tags in the HTML of the page are properly structured
@@ -47,7 +47,7 @@ Feature: DCU Data Input
   @Validation
   Scenario Outline: DCU data entry user must enter valid dates on Data Input
     When I get a "MIN" case at the "Data Input" stage
-    And I fill all mandatory fields on the "Data Input" page with valid data
+    And I fill all mandatory fields on the Data Input page
     But I submit an invalid "<field>" date
     Then "Invalid date" error message is displayed
     Examples:
@@ -58,7 +58,7 @@ Feature: DCU Data Input
   @Validation
   Scenario Outline: DCU data entry user cannot leave dates blank on Data Input
     When I get a "MIN" case at the "Data Input" stage
-    And I fill all mandatory fields on the "Data Input" page with valid data
+    And I fill all mandatory fields on the Data Input page
     But I do not enter a "<field>" date
     Then "<errorMessage>" error message is displayed
     Examples:

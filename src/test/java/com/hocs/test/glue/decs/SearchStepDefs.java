@@ -121,7 +121,7 @@ public class SearchStepDefs extends BasePage {
             dashboard.selectSearchLinkFromMenuBar();
             search.waitForSearchCriteriaPage();
             iEnterIntoTheSearchFieldForTheCaseType(infoValue, criteria, searchConfig);
-            safeClickOn(search.searchButton);
+            clickSearchButton();
             search.waitForResultsPage();
         }
         switch (searchConfig.toUpperCase()) {
@@ -153,7 +153,7 @@ public class SearchStepDefs extends BasePage {
 
     @When("I click the search button on the search page")
     public void clickSearchButtonOnSearchPageWithNoCriteria() {
-        safeClickOn(search.searchButton);
+        clickSearchButton();
         search.waitForResultsPage();
     }
 
@@ -223,7 +223,7 @@ public class SearchStepDefs extends BasePage {
                 retest ++;
                 dashboard.selectSearchLinkFromMenuBar();
                 search.enterSearchCriteria(sessionVariableCalled("searchCriteria"), sessionVariableCalled("searchValue"));
-                safeClickOn(searchButton);
+                clickSearchButton();
             }
         }
         search.assertCurrentCaseIsDisplayed();
@@ -245,7 +245,7 @@ public class SearchStepDefs extends BasePage {
                 } else {
                     iEnterIntoTheSearchFieldForTheCaseType(getCurrentCaseReference(), "Case Reference", getCurrentCaseType());
                 }
-                safeClickOn(searchButton);
+                clickSearchButton();
                 workstacks.filterByCurrentCaseReference();
                 waitABit(1000);
             } else if (numberOfResults > 1) {
@@ -290,7 +290,7 @@ public class SearchStepDefs extends BasePage {
         while (i < 6) {
             dashboard.selectSearchLinkFromMenuBar();
             search.enterSearchCriteria("Case Reference", getCurrentCaseReference());
-            safeClickOn(searchButton);
+            clickSearchButton();
             search.waitForResultsPage();
             if(!search.zeroSearchResultsReturned()) {
                 break;
@@ -304,7 +304,7 @@ public class SearchStepDefs extends BasePage {
     public void iSearchForTheEscalatedComplaintsCaseByCaseReference() {
         String complaintCaseRef = sessionVariableCalled("stage1CaseReference");
         search.enterSearchCriteria("Case Reference", complaintCaseRef);
-        safeClickOn(searchButton);
+        clickSearchButton();
         search.waitForResultsPage();
     }
 
@@ -317,6 +317,6 @@ public class SearchStepDefs extends BasePage {
     public void iSearchForTheCaseByTheNewlyUpdatedPrimaryCorrespondent() {
         String correspondent = sessionVariableCalled("correspondentFullName");
         search.enterSearchCriteria("Member of Parliament Name", correspondent);
-        safeClickOn(searchButton);
+        clickSearchButton();
     }
 }

@@ -25,7 +25,6 @@ import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -34,32 +33,13 @@ public class BasePage extends PageObject {
 
     public static String currentPlatform = "";
 
-
-
     public static boolean keepAllCaseData = false;
-
-    private static final String CHAR_LIST = "abcdefghijklmnopqrstuvwxyz";
 
     private static final SimpleDateFormat dayFormat = new SimpleDateFormat("dd");
 
     private static final SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
 
     private static final SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
-
-    @FindBy(xpath = "//a[contains(text(),'Logout')]")
-    public WebElementFacade logoutButton;
-
-    @FindBy(css = "[value='Accept']")
-    public WebElementFacade acceptButton;
-
-    @FindBy(css = "[value = 'Add']")
-    public WebElementFacade addButton;
-
-    @FindBy(xpath = "//a[@class='govuk-back-link']")
-    public WebElementFacade backLink;
-
-    @FindBy(css = "[value='Continue']")
-    public WebElementFacade continueButton;
 
     @FindBy(className = "govuk-error-summary")
     protected WebElementFacade errorMessageList;
@@ -73,9 +53,6 @@ public class BasePage extends PageObject {
     @FindBy(linkText = "Correspondence System Management")
     public WebElementFacade muiDashboardLink;
 
-    @FindBy(css = "[value = 'Next']")
-    public WebElementFacade nextButton;
-
     @FindBy(xpath = "//h1[@class='govuk-heading-l']")
     protected WebElementFacade header1;
 
@@ -85,32 +62,8 @@ public class BasePage extends PageObject {
     @FindBy(xpath = "//h1")
     protected WebElementFacade managementUIPageTitle;
 
-    @FindBy(css = "[value='Reject']")
-    public WebElementFacade rejectButton;
-
-    @FindBy(css = "[value = 'Save']")
-    public WebElementFacade saveButton;
-
-    @FindBy(css = "[value = 'Search']")
-    public WebElementFacade searchButton;
-
-    @FindBy(css = "[value = 'Finish']")
-    public WebElementFacade finishButton;
-
-    @FindBy(css = "[value='Confirm']")
-    public WebElementFacade confirmButton;
-
-    @FindBy(xpath = "//a[text()='Accessibility']")
-    public WebElementFacade accessibilityLink;
-
     @FindBy(xpath = "//input[@id='case-reference']")
     public WebElementFacade caseReferenceSearchBar;
-
-    @FindBy(xpath = "//label[text()='Save changes']")
-    public WebElementFacade saveChangesRadioButton;
-
-    @FindBy(xpath = "//a[@class='tab'][not(@class='tab__active')]")
-    public WebElementFacade nonActiveTab;
 
     public void waitABit(int milliseconds) {
         try {
@@ -120,72 +73,68 @@ public class BasePage extends PageObject {
         }
     }
 
-    public void typeIntoDateFields(WebElementFacade ddField, WebElementFacade mmField, WebElementFacade yyyyField, String date) {
-        String dd = date.split("/")[0];
-        String mm = date.split("/")[1];
-        String yyyy = date.split("/")[2];
-        ddField.withTimeoutOf(Duration.ofSeconds(20)).waitUntilVisible().clear();
-        ddField.sendKeys(dd);
-        mmField.clear();
-        mmField.sendKeys(mm);
-        yyyyField.clear();
-        yyyyField.sendKeys(yyyy);
-    }
-
-    public void clickTheButton(String buttonLabel) {
-        WebElementFacade button = find(By.cssSelector("input[value='" + buttonLabel + "' i]"));
-        safeClickOn(button);
-    }
-
-    public void clickTheLink(String linkText) {
-        WebElementFacade link = findBy("//a[contains(text(), '" + linkText + "')]");
-        safeClickOn(link);
-    }
-
-    public void selectTheTab(String tabName) {
-        WebElementFacade tab = getTabElementUsingTabName(tabName);
-        tab.withTimeoutOf(Duration.ofSeconds(20)).waitUntilVisible();
-        if (!tab.getAttribute("class").contains("selected")) {
-            try {
-                tab.click();
-            } catch (ElementNotVisibleException | StaleElementReferenceException ex) {
-                waitABit(500);
-                tab = getTabElementUsingTabName(tabName);
-                tab.click();
-            }
+    public boolean isElementDisplayed(WebElementFacade element) {
+        try {
+            return element.isDisplayed();
+        } catch (org.openqa.selenium.NoSuchElementException e) {
+            return false;
         }
     }
 
-    private WebElementFacade getTabElementUsingTabName(String tabName) {
-        return findBy("//a[text()='" + tabName + "']/parent::li[contains(@class,'govuk-tabs__list-item')]");
+    public void assertElementIsDisplayed(WebElementFacade element) {
+        assertThat(isElementDisplayed(element), is(true));
     }
 
-    public void refreshTheTab(String tabName) {
-        WebElementFacade nonActiveTab = findBy("//li[@class='govuk-tabs__list-item'][not(@class='govuk-tabs__list-item--selected')]");
-        nonActiveTab.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
-            try {
-                nonActiveTab.click();
-            } catch (ElementNotVisibleException | StaleElementReferenceException ex) {
-                waitABit(500);
-                nonActiveTab = findBy("//li[@class='govuk-tabs__list-item'][not(@class='govuk-tabs__list-item--selected')]");
-                nonActiveTab.click();
-            }
-        selectTheTab(tabName);
+    public void javascriptScrollToElem(WebElementFacade element) {
+        ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
     }
 
-    public boolean accordionSectionIsVisible(String accordionLabel) {
-        WebElementFacade accordionSectionButton = findBy("//button/span/span[text()='" + accordionLabel +"']");
-        return accordionSectionButton.isCurrentlyVisible();
+    public void assertElementTextIs(WebElementFacade elem, String thisElementsText) {
+        assertThat(elem.getValue(), is(thisElementsText));
     }
 
-    public void openOrCloseAccordionSection(String accordionLabel) {
-        WebElementFacade accordionSectionButton = findBy("//button/span/span[text()='" + accordionLabel +"']");
-        safeClickOn(accordionSectionButton);
+    public void safeClickOn(WebElementFacade webElementFacade) {
+        webElementFacade.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible().waitUntilClickable();
+        try {
+            javascriptScrollToElem(webElementFacade);
+            webElementFacade.click();
+        } catch (StaleElementReferenceException e) {
+            waitABit(500);
+            javascriptScrollToElem(webElementFacade);
+            webElementFacade.click();
+        }
     }
 
-    public void assertErrorMessageText(String text) {
-        assertThat(getAllErrorMessageText(), containsString(text));
+    public void jsClickOn(WebElementFacade webElementFacade) {
+        JavascriptExecutor jse = (JavascriptExecutor) getDriver();
+        jse.executeScript("arguments[0].click()", webElementFacade);
     }
+
+    public void selectTheStageAction(String action) {
+        selectSpecificRadioButtonFromGroupWithHeading(action, "Actions");
+    }
+
+    // Strings
+
+    protected String generateRandomString() {
+        return generateRandomStringOfLength(8);
+    }
+
+    protected String generateRandomStringOfLength(int length) {
+        StringBuilder randStr = new StringBuilder();
+        Random randomGenerator = new Random();
+        for (int i = 1; i <= length; i++) {
+            char ch = (char) ('a' + randomGenerator.nextInt(26));
+            randStr.append(ch);
+        }
+        return randStr.toString();
+    }
+
+    public Boolean stringContainsCheckIgnoringCase(String stringToCheck, String stringToCheckFor) {
+        return Pattern.compile(Pattern.quote(stringToCheckFor), Pattern.CASE_INSENSITIVE).matcher(stringToCheck).find();
+    }
+
+    //Page Titles
 
     public void assertPageTitle(String title) {
         WebElementFacade pageTitle = find(By.xpath("//h1[@class='govuk-heading-l' and contains(text(), '" + title + "')]"));
@@ -223,17 +172,84 @@ public class BasePage extends PageObject {
         }
     }
 
-    public void clickAddButton() {
-        safeClickOn(addButton);
+    // Tabs
+
+    public void selectTheTab(String tabName) {
+        WebElementFacade tab = getTabElementUsingTabName(tabName);
+        tab.withTimeoutOf(Duration.ofSeconds(20)).waitUntilVisible();
+        if (!tab.getAttribute("class").contains("selected")) {
+            try {
+                tab.click();
+            } catch (ElementNotVisibleException | StaleElementReferenceException ex) {
+                waitABit(500);
+                tab = getTabElementUsingTabName(tabName);
+                tab.click();
+            }
+        }
     }
 
-    public void clickBackButton() {
-        safeClickOn(backLink);
+    private WebElementFacade getTabElementUsingTabName(String tabName) {
+        return findBy("//a[text()='" + tabName + "']/parent::li[contains(@class,'govuk-tabs__list-item')]");
     }
 
-    public void clickContinueButton() {
-        waitFor(continueButton).waitUntilClickable();
-        safeClickOn(continueButton);
+    public void refreshTheTab(String tabName) {
+        WebElementFacade nonActiveTab = findBy("//li[@class='govuk-tabs__list-item'][not(@class='govuk-tabs__list-item--selected')]");
+        nonActiveTab.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
+        try {
+            nonActiveTab.click();
+        } catch (ElementNotVisibleException | StaleElementReferenceException ex) {
+            waitABit(500);
+            nonActiveTab = findBy("//li[@class='govuk-tabs__list-item'][not(@class='govuk-tabs__list-item--selected')]");
+            nonActiveTab.click();
+        }
+        selectTheTab(tabName);
+    }
+
+    // Accordions
+
+    public boolean accordionSectionIsVisible(String accordionLabel) {
+        WebElementFacade accordionSectionButton = findBy("//button/span/span[text()='" + accordionLabel +"']");
+        return accordionSectionButton.isCurrentlyVisible();
+    }
+
+    public void openOrCloseAccordionSection(String accordionLabel) {
+        WebElementFacade accordionSectionButton = findBy("//button/span/span[text()='" + accordionLabel +"']");
+        safeClickOn(accordionSectionButton);
+    }
+
+    // Case Reference and Type
+
+    public String setCaseReferenceFromAssignedCase() {
+        headerCaption1.waitUntilVisible().withTimeoutOf(Duration.ofSeconds(10));
+        waitFor(ExpectedConditions.textToBePresentInElement(headerCaption1, sessionVariableCalled("caseType")))
+                .withTimeoutOf(Duration.ofSeconds(20));
+        setSessionVariable("caseReference").to(headerCaption1.getText());
+        return headerCaption1.getText();
+    }
+
+    public String setCaseReferenceFromUnassignedCase() {
+        waitFor(ExpectedConditions.textToBePresentInElement(header1, sessionVariableCalled("caseType"))).withTimeoutOf(Duration.ofSeconds(20));
+        setSessionVariable("caseReference").to(header1.getText());
+        return header1.getText();
+    }
+
+    public String getCurrentCaseReference() {
+        return sessionVariableCalled("caseReference");
+    }
+
+    public String getCaseTypeFromCaseReference(String caseReference) {
+        return caseReference.split("/")[0];
+    }
+
+    public String getCurrentCaseReferenceFromTransferredCase(String newCaseType) {
+        String newCaseRef = getCurrentCaseReference().replace(sessionVariableCalled("caseType"),newCaseType);
+        setSessionVariable("newCaseReference").to(newCaseRef);
+        return sessionVariableCalled("newCaseReference");
+    }
+
+    public String getCurrentCaseType() {
+        String caseType = getCurrentCaseReference().split("/")[0];
+        return caseType.toUpperCase();
     }
 
     public boolean dcuCase() { return minCase() | dtenCase() | troCase(); }
@@ -284,8 +300,10 @@ public class BasePage extends PageObject {
         return sessionVariableCalled("caseType").toString().equals("WCS");
     }
 
-    public void javascriptScrollToElem(WebElementFacade element) {
-        ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
+    // Validation errors
+
+    public void assertErrorMessageText(String text) {
+        assertThat(getAllErrorMessageText(), containsString(text));
     }
 
     public void assertThatAnErrorMessageIsDisplayed() {
@@ -296,145 +314,13 @@ public class BasePage extends PageObject {
         return errorMessageList.getText();
     }
 
-    protected String generateRandomString() {
-        return generateRandomStringOfLength(8);
-    }
-
-    protected String generateRandomStringOfLength(int length) {
-        StringBuilder randStr = new StringBuilder();
-        Random randomGenerator = new Random();
-        for (int i = 1; i <= length; i++) {
-            char ch = (char) ('a' + randomGenerator.nextInt(26));
-            randStr.append(ch);
-        }
-        return randStr.toString();
-    }
-
-    public Boolean containsIgnoreCase(String stringToCheck, String stringToCheckFor) {
-        return Pattern.compile(Pattern.quote(stringToCheckFor), Pattern.CASE_INSENSITIVE).matcher(stringToCheck).find();
-    }
-
-    public boolean isElementDisplayed(WebElementFacade element) {
-        try {
-            return element.isDisplayed();
-        } catch (org.openqa.selenium.NoSuchElementException e) {
-            return false;
+    public void assertExpectedErrorMessageIsDisplayed(String errorMessageText) {
+        if (!getAllErrorMessageText().contains(errorMessageText)) {
+            Assert.fail("Expected error message '" + errorMessageText + "' is not contained in the displayed list of error messages:\n" + getAllErrorMessageText());
         }
     }
 
-    public boolean isElementDisplayed(WebElement element) {
-        try {
-            return element.isDisplayed();
-        } catch (org.openqa.selenium.NoSuchElementException | StaleElementReferenceException | NullPointerException e) {
-            return false;
-        }
-    }
-
-    public String getCurrentDay() {
-        Calendar cal = Calendar.getInstance();
-
-        return dayFormat.format(cal.getTime());
-    }
-
-    public String getCurrentMonth() {
-        Calendar cal = Calendar.getInstance();
-
-        return monthFormat.format(cal.getTime());
-    }
-
-    public String getCurrentYear() {
-        Calendar cal = Calendar.getInstance();
-
-        return yearFormat.format(cal.getTime());
-    }
-
-    public String getTodaysDate() {
-        return getDatePlusMinusNDaysAgo(0);
-    }
-
-    public String getDatePlusMinusNDaysAgo(int days) {
-        return todayPlusMinusNDaysGetDay(days) + "/" + todayPlusMinusNDaysGetMonth(days) + "/" + todayPlusMinusNDaysGetYear(days);
-    }
-
-    private String todayPlusMinusNDaysGetDay(int days) {
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, days);
-
-        return dayFormat.format(cal.getTime());
-    }
-
-    private String todayPlusMinusNDaysGetMonth(int days) {
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, days);
-
-        return monthFormat.format(cal.getTime());
-    }
-
-    private String todayPlusMinusNDaysGetYear(int days) {
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, days);
-
-        return yearFormat.format(cal.getTime());
-    }
-
-    public void assertElementIsDisplayed(WebElementFacade element) {
-        assertThat(isElementDisplayed(element), is(true));
-    }
-
-    public void assertElementTextIs(WebElementFacade elem, String thisElementsText) {
-        System.out.println(thisElementsText);
-        assertThat(elem.getValue(), is(thisElementsText));
-    }
-
-    public String setCaseReferenceFromAssignedCase() {
-        headerCaption1.waitUntilVisible().withTimeoutOf(Duration.ofSeconds(10));
-        waitFor(ExpectedConditions.textToBePresentInElement(headerCaption1, sessionVariableCalled("caseType")))
-                .withTimeoutOf(Duration.ofSeconds(20));
-        setSessionVariable("caseReference").to(headerCaption1.getText());
-        return headerCaption1.getText();
-    }
-
-    public String setCaseReferenceFromUnassignedCase() {
-        waitFor(ExpectedConditions.textToBePresentInElement(header1, sessionVariableCalled("caseType"))).withTimeoutOf(Duration.ofSeconds(20));
-        setSessionVariable("caseReference").to(header1.getText());
-        return header1.getText();
-    }
-
-    public String getCurrentCaseReference() {
-        return sessionVariableCalled("caseReference");
-    }
-
-    public String getCaseTypeFromCaseReference(String caseReference) {
-        return caseReference.split("/")[0];
-    }
-
-    public String getCurrentCaseReferenceFromTransferredCase(String newCaseType) {
-        String newCaseRef = getCurrentCaseReference().replace(sessionVariableCalled("caseType"),newCaseType);
-        setSessionVariable("newCaseReference").to(newCaseRef);
-        return sessionVariableCalled("newCaseReference");
-    }
-
-    public String getCurrentCaseType() {
-        String caseType = getCurrentCaseReference().split("/")[0];
-        return caseType.toUpperCase();
-    }
-
-    public void safeClickOn(WebElementFacade webElementFacade) {
-        webElementFacade.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible().waitUntilClickable();
-        try {
-            javascriptScrollToElem(webElementFacade);
-            webElementFacade.click();
-        } catch (StaleElementReferenceException e) {
-            waitABit(500);
-            javascriptScrollToElem(webElementFacade);
-            webElementFacade.click();
-        }
-    }
-
-    public void jsClickOn(WebElementFacade webElementFacade) {
-        JavascriptExecutor jse = (JavascriptExecutor) getDriver();
-        jse.executeScript("arguments[0].click()", webElementFacade);
-    }
+    // Users
 
     public void setCurrentUser(User user) {
         CurrentUser.getInstance().setUser(user);
@@ -454,9 +340,7 @@ public class BasePage extends PageObject {
         return PreviousUser.getInstance().getUser();
     }
 
-    public void keepAllCaseDataWhenProgressingCase() {
-        keepAllCaseData = true;
-    }
+    // Accessibility
 
     protected void checkOrderOfHeaderTagsOnCaseView() {
         int n = 2;
@@ -471,38 +355,88 @@ public class BasePage extends PageObject {
     }
 
     public void assertVisibilityOfAccessibilityLink() {
-        accessibilityLink.shouldBeVisible();
+        assertLinkIsVisible("Accessibility");
     }
 
-    public void assertExpectedErrorMessageIsDisplayed(String errorMessageText) {
-        if (!getAllErrorMessageText().contains(errorMessageText)) {
-            Assert.fail("Expected error message '" + errorMessageText + "' is not contained in the displayed list of error messages:\n" + getAllErrorMessageText());
+    // Buttons
+
+    public WebElementFacade getButtonElementFromDisplayedText(String buttonLabel) {
+        return find(By.cssSelector("input[value='" + buttonLabel + "' i]"));
+    }
+
+    public void clickTheButton(String buttonLabel) {
+        WebElementFacade button = getButtonElementFromDisplayedText(buttonLabel);
+        safeClickOn(button);
+    }
+
+    public Boolean checkButtonIsVisible(String buttonLabel) {
+        WebElementFacade button = getButtonElementFromDisplayedText(buttonLabel);
+        return button.isVisible();
+    }
+
+    public Boolean checkButtonIsCurrentlyVisible(String buttonLabel) {
+        WebElementFacade button = getButtonElementFromDisplayedText(buttonLabel);
+        return button.isCurrentlyVisible();
+    }
+
+    public void assertButtonIsVisible(String buttonLabel) {
+        if (checkButtonIsVisible(buttonLabel)) {
+            Assert.fail("Button with text '" + buttonLabel +"' is not visible on page.");
         }
     }
 
-    public void selectTheStageAction(String action) {
-        selectSpecificRadioButtonFromGroupWithHeading(action, "Actions");
+    public void clickAddButton() {
+        clickTheButton("Add");
     }
 
-    //Helper methods
+    public void clickContinueButton() {
+        clickTheButton("Continue");
+    }
 
-    //Ignore field label case
+    public void clickConfirmButton() {
+        clickTheButton("Confirm");
+    }
 
-    public String getValidFieldLabelCase(String fieldLabelText) {
-        int n = 0;
-        List<WebElementFacade> listOfFieldLabelsOnPage = findAll("//label");
-        while (n < listOfFieldLabelsOnPage.size()) {
-            String displayedFieldLabel = listOfFieldLabelsOnPage.get(n).getText();
-            if (displayedFieldLabel.equalsIgnoreCase(fieldLabelText)) {
-                return displayedFieldLabel;
-            }
-            n++;
+    public void clickFinishButton() {
+        clickTheButton("Finish");
+    }
+
+    public void clickNextButton() {
+        clickTheButton("Next");
+    }
+
+    public void clickSearchButton() {
+        clickTheButton("Search");
+    }
+
+    // Links
+
+    public WebElementFacade getLinkElementFromDisplayedText(String linkText) {
+        return findBy("//a[contains(text(), '" + linkText + "')]");
+    }
+
+    public void clickTheLink(String linkText) {
+        WebElementFacade link = getLinkElementFromDisplayedText(linkText);
+        safeClickOn(link);
+    }
+
+    public Boolean checkLinkIsVisible(String linkText) {
+        WebElementFacade link = getLinkElementFromDisplayedText(linkText);
+        return link.withTimeoutOf(Duration.ofSeconds(10)).isVisible();
+    }
+
+    public Boolean checkLinkIsCurrentlyVisible(String linkText) {
+        WebElementFacade link = getLinkElementFromDisplayedText(linkText);
+        return link.withTimeoutOf(Duration.ofSeconds(10)).isVisible();
+    }
+
+    public void assertLinkIsVisible(String linkText) {
+        if (checkLinkIsVisible(linkText)) {
+            Assert.fail("Link with text '" + linkText +"' is not visible on page.");
         }
-        System.out.println("The " + fieldLabelText + " field isn't displayed on this screen");
-        return null;
     }
 
-    //Radio buttons
+    // Radio buttons
 
     public String selectRandomRadioButtonFromGroupWithHeading(String headingText) {
         waitForHeadingToBeVisible(headingText);
@@ -558,7 +492,68 @@ public class BasePage extends PageObject {
         return radioButtonLabels;
     }
 
-    //Date fields
+    //Dates
+
+    public String getCurrentDay() {
+        Calendar cal = Calendar.getInstance();
+
+        return dayFormat.format(cal.getTime());
+    }
+
+    public String getCurrentMonth() {
+        Calendar cal = Calendar.getInstance();
+
+        return monthFormat.format(cal.getTime());
+    }
+
+    public String getCurrentYear() {
+        Calendar cal = Calendar.getInstance();
+
+        return yearFormat.format(cal.getTime());
+    }
+
+    public String getTodaysDate() {
+        return getDatePlusMinusNDaysAgo(0);
+    }
+
+    public String getDatePlusMinusNDaysAgo(int days) {
+        return todayPlusMinusNDaysGetDay(days) + "/" + todayPlusMinusNDaysGetMonth(days) + "/" + todayPlusMinusNDaysGetYear(days);
+    }
+
+    private String todayPlusMinusNDaysGetDay(int days) {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, days);
+
+        return dayFormat.format(cal.getTime());
+    }
+
+    private String todayPlusMinusNDaysGetMonth(int days) {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, days);
+
+        return monthFormat.format(cal.getTime());
+    }
+
+    private String todayPlusMinusNDaysGetYear(int days) {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, days);
+
+        return yearFormat.format(cal.getTime());
+    }
+
+    // Date fields
+
+    public void typeIntoDateFields(WebElementFacade ddField, WebElementFacade mmField, WebElementFacade yyyyField, String date) {
+        String dd = date.split("/")[0];
+        String mm = date.split("/")[1];
+        String yyyy = date.split("/")[2];
+        ddField.withTimeoutOf(Duration.ofSeconds(20)).waitUntilVisible().clear();
+        ddField.sendKeys(dd);
+        mmField.clear();
+        mmField.sendKeys(mm);
+        yyyyField.clear();
+        yyyyField.sendKeys(yyyy);
+    }
 
     public void enterDateIntoDateFieldsWithHeading(String date, String headingText) {
         waitForHeadingToBeVisible(headingText);
@@ -602,7 +597,7 @@ public class BasePage extends PageObject {
         return dayFieldWithMatchingHeading.isCurrentlyVisible();
     }
 
-    //Text fields
+    // Text fields
 
     public String enterTextIntoTextFieldWithHeading(String headingText) {
         waitForHeadingToBeVisible(headingText);
@@ -647,7 +642,7 @@ public class BasePage extends PageObject {
         return getOnlyCurrentlyVisibleElementFromList(textAreasWithMatchingHeading);
     }
 
-    //Drop downs
+    // Drop downs
 
     public String selectRandomOptionFromDropdownWithHeading(String headingText) {
         waitForHeadingToBeVisible(headingText);
@@ -701,7 +696,7 @@ public class BasePage extends PageObject {
         return (getOptionElementsForDropdownWithHeading(headingText).size() > 1);
     }
 
-    //Checkboxes
+    // Checkboxes
 
     public String checkRandomCheckboxFromList(List<WebElementFacade> checkboxes) {
         WebElementFacade checkboxToCheck = getRandomCurrentlyVisibleElementFromList(checkboxes);
@@ -767,7 +762,21 @@ public class BasePage extends PageObject {
         return selectedOption.getText();
     }
 
-    // Other methods
+    // Other page interaction methods
+
+    public String getValidFieldLabelCase(String fieldLabelText) {
+        int n = 0;
+        List<WebElementFacade> listOfFieldLabelsOnPage = findAll("//label");
+        while (n < listOfFieldLabelsOnPage.size()) {
+            String displayedFieldLabel = listOfFieldLabelsOnPage.get(n).getText();
+            if (displayedFieldLabel.equalsIgnoreCase(fieldLabelText)) {
+                return displayedFieldLabel;
+            }
+            n++;
+        }
+        System.out.println("The " + fieldLabelText + " field isn't displayed on this screen");
+        return null;
+    }
 
     private void waitForHeadingToBeVisible(String headingText) {
         List<WebElementFacade> matchingHeadings;
@@ -820,5 +829,9 @@ public class BasePage extends PageObject {
             attribute = "'" + attribute + "'";
         }
         return attribute;
+    }
+
+    public void keepAllCaseDataWhenProgressingCase() {
+        keepAllCaseData = true;
     }
 }

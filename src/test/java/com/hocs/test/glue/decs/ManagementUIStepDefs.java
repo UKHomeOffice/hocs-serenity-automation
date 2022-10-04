@@ -251,7 +251,7 @@ public class ManagementUIStepDefs extends BasePage {
         dcuProgressCase.moveCaseFromDataInputToMarkup();
         dashboard.getAndClaimCurrentCase();
         markup.selectPolicyResponseRadioButton();
-        safeClickOn(continueButton);
+        clickContinueButton();
         waitABit(1000);
         markup.addTopicToCase("101 non-emergency number (cost)");
         markup.confirmPrimaryTopic();
@@ -307,7 +307,7 @@ public class ManagementUIStepDefs extends BasePage {
         dcuProgressCase.moveCaseFromDataInputToMarkup();
         dashboard.getAndClaimCurrentCase();
         markup.selectPolicyResponseRadioButton();
-        safeClickOn(continueButton);
+        clickContinueButton();
         waitABit(1000);
         markup.addTopicToCase("101 non-emergency number (cost)");
         markup.confirmPrimaryTopic();
@@ -363,7 +363,7 @@ public class ManagementUIStepDefs extends BasePage {
     public void iCreateACaseAndProgressToThePointOfAddingATopic() {
         dashboard.getAndClaimCurrentCase();
         markup.selectPolicyResponseRadioButton();
-        safeClickOn(continueButton);
+        clickContinueButton();
         waitABit(1000);
     }
 

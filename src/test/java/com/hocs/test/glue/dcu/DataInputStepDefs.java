@@ -79,7 +79,7 @@ public class DataInputStepDefs extends BasePage {
         correspondents.addASpecificMemberCorrespondent("Boris Johnson");
         correspondents.addASpecificMemberCorrespondent("Nicola Sturgeon");
         correspondents.addASpecificMemberCorrespondent("Theresa May");
-        safeClickOn(finishButton);
+        clickFinishButton();
     }
 
     @And("I complete the Data Input stage adding 3 public correspondents")
@@ -100,20 +100,11 @@ public class DataInputStepDefs extends BasePage {
         correspondents.clickAddButton();
     }
 
-    @When("I fill all mandatory fields on the {string} page with valid data")
-    public void fillMandatoryFields(String pageName) {
-        switch (pageName.toUpperCase()) {
-            case "DATA INPUT":
-                dataInput.fillAllMandatoryCorrespondenceFields();
-                break;
-            case "CORRESPONDENT DETAILS":
-                correspondents.selectCorrespondentTypeFromDropdown("Constituent");
+    @When("I fill all mandatory fields on the Data Input page")
+    public void fillMandatoryFields() {
+                correspondents.selectASpecificCorrespondentType("Constituent");
                 correspondents.fillCorrespondentFields();
                 dataInput.clickAddButton();
-                break;
-            default:
-                pendingStep(pageName + " is not defined within " + getMethodName());
-        }
     }
 
     @Then("the submitted correspondent should be visible in the list of correspondents")
@@ -151,7 +142,7 @@ public class DataInputStepDefs extends BasePage {
         if (minCase()) {
             dataInput.selectAHomeSecReplyOption();
         }
-        safeClickOn(continueButton);
+        clickContinueButton();
         correspondents.addANonMemberCorrespondentOfType("Constituent");
         correspondents.confirmPrimaryCorrespondent();
     }
@@ -169,7 +160,7 @@ public class DataInputStepDefs extends BasePage {
         dataInput.selectASpecificCopyToNoTenOption("No");
         dataInput.selectAHomeSecInterestOption();
         dataInput.selectASpecificHomeSecReplyOption("Yes");
-        safeClickOn(continueButton);
+        clickContinueButton();
         correspondents.addANonMemberCorrespondentOfType("Constituent");
         correspondents.confirmPrimaryCorrespondent();
     }
@@ -186,7 +177,7 @@ public class DataInputStepDefs extends BasePage {
             default:
                 pendingStep(dateField + " is not defined within " + getMethodName());
         }
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     @But("I do not enter a {string} date")
@@ -201,7 +192,7 @@ public class DataInputStepDefs extends BasePage {
             default:
                 pendingStep(fieldName + " is not defined within " + getMethodName());
         }
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     @Then("{string} error message is displayed")
