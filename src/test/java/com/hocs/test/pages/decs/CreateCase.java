@@ -251,6 +251,11 @@ public class CreateCase extends BasePage {
         return list.get(new Random().nextInt(list.size()));
     }
 
+    public String getRandomCaseTypeThatAllowsMemberCorrespondents() {
+        List<String> list = Arrays.asList("MIN", "TRO", "DTEN", "MPAM", "MTS");
+        return list.get(new Random().nextInt(list.size()));
+    }
+
     public void editReceivedDate(String date) {
         enterDateIntoDateFieldsWithHeading(date, "When was the correspondence received?");
     }

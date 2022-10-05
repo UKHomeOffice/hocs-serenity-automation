@@ -104,23 +104,6 @@ public class CreateCaseStepDefs extends BasePage {
         createCase.clickCreateCasesButton();
     }
 
-    @Given("I am presented with {string}")
-    public void iAmPresentedWith(String userView) {
-        switch (userView.toUpperCase()) {
-            case "NO CASE TYPES":
-                createCase.assertNoOptionsAvailable();
-                break;
-            default:
-                pendingStep(userView + " is not defined within " + getMethodName());
-        }
-    }
-
-    @When("I do not select a type of correspondence when creating a case")
-    public void doNotSelectCorrespondenceWhenCreatingCase() {
-        dashboard.selectCreateSingleCaseLinkFromMenuBar();
-        clickNextButton();
-    }
-
     @When("I create a {string} case with {string} as the primary topic")
     public void aCaseWithSpecificTopicIsCreated(String caseType, String topic) {
         createCase.createCSCaseOfType(caseType);
@@ -150,39 +133,6 @@ public class CreateCaseStepDefs extends BasePage {
     @When("I go to the case from the successful case creation screen")
     public void goToSuccessfullyCreatedCase() {
         confirmationScreens.goToCaseFromConfirmationScreen();
-    }
-
-    @Then("the case should be visible in the Performance and Process Team workstack")
-    public void assertThatNewMinCaseIsInPerformanceAndProcessTeam() {
-        safeClickOn(dashboard.csDashboardLink);
-        safeClickOn(dashboard.performanceProcessTeam);
-        workstacks.assertVisibilityOfCaseReference(true);
-    }
-
-    @When("I navigate to the {string} and select the check box against the newly created"
-            + " case and allocate it to myself")
-    public void allocateCaseUsingCheckbox(String workstack) {
-        safeClickOn(createCase.$("//input[@id='submit']"));
-        String newCaseReference = workstacks.$("//h1").getText();
-        setSessionVariable("caseReference").to(newCaseReference);
-        switch (workstack.toUpperCase()) {
-            case "PERFORMANCE AND PROCESS TEAM":
-                safeClickOn(dashboard.csDashboardLink);
-                safeClickOn(dashboard.performanceProcessTeam);
-                workstacks.clickCheckboxRelevantToCaseReference();
-                safeClickOn(workstacks.allocateSelectedToMeButton);
-                safeClickOn(workstacks.csDashboardLink);
-                break;
-            case "TRANSFERS AND N10 TEAM":
-                safeClickOn(dashboard.csDashboardLink);
-                safeClickOn(dashboard.transferN10Team);
-                workstacks.clickCheckboxRelevantToCaseReference();
-                safeClickOn(workstacks.allocateSelectedToMeButton);
-                safeClickOn(workstacks.csDashboardLink);
-                break;
-            default:
-                pendingStep(workstack + " is not defined within " + getMethodName());
-        }
     }
 
     @Then("a case is created successfully")
@@ -385,8 +335,8 @@ public class CreateCaseStepDefs extends BasePage {
         confirmationScreens.goToCaseFromConfirmationScreen();
     }
 
-    @And("I get a new case that allows adding an MP correspondent")
-    public void iGetANewCaseThatAllowsAddingAnMPCorrespondent() {
-
+    @And("I get a new case that allows adding a Member correspondent")
+    public void iGetANewCaseThatAllowsAddingAMemberCorrespondent() {
+        createCase.createCSCaseOfType(createCase.getRandomCaseTypeThatAllowsMemberCorrespondents());
     }
 }

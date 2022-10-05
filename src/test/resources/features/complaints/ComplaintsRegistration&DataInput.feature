@@ -253,7 +253,7 @@ Feature: Registration
     And the read-only Case Details accordion should contain all case information entered during the "Data Input" stage
 
   @POGRRegression @POGRComplaints
-  Scenario: User is not required to add a interim letter to a POGR complaint case with HMPO as the business area
+  Scenario: User is not required to add a interim letter to a POGR stage 2 complaint case with HMPO as the business area
     Given I am logged into "CS" as user "POGR_USER"
     When I get a "POGR2" case with "HMPO" as the Business Area at the "Data Input" stage
     And I add a "Complainant" correspondent
@@ -263,10 +263,9 @@ Feature: Registration
     Then I am returned to the dashboard
 
   @POGRRegression @POGRComplaints
-  Scenario: User is not required to add a interim letter to a POGR complaint case with GRO as the business area
+  Scenario: User is not required to add a interim letter to a POGR stage 2 complaint case with GRO as the business area
     Given I am logged into "CS" as user "POGR_USER"
     When I get a "POGR2" case with "GRO" as the Business Area at the "Data Input" stage
-    When I select "GRO" as the business area for the POGR case
     And I add a "Complainant" correspondent
     And I confirm the primary correspondent
     And I enter details on the Data Input screen

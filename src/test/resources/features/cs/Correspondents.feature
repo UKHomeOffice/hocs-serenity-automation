@@ -4,18 +4,21 @@ Feature: PeopleTab
   Background:
     Given I am logged into "CS" as user "DECS_USER"
 
+  @CSRegression
   Scenario: User adds an MP correspondent to a case as part of a stage
-    And I get a new case that allows adding an MP correspondent
+    And I get a new case that allows adding a Member correspondent
     And I progress to the point of adding correspondents
     And I add a "Member" correspondent
     Then the submitted correspondent should be visible in the list of correspondents
 
+  @CSRegression
   Scenario: User adds a non-mp correspondent to a case as part of a stage
     And I get a new "CS" case
     And I progress to the point of adding correspondents
     When I add a "Non-Member" correspondent
     Then the submitted correspondent should be visible in the list of correspondents
 
+  @CSRegression
   Scenario: User removes the primary correspondent from a case as part of a stage
     And I get a new "CS" case
     And I progress to the point of adding correspondents
@@ -23,34 +26,32 @@ Feature: PeopleTab
     And I remove the primary correspondent
     Then there shouldn't be a primary correspondent displayed
 
+  @CSRegression
   Scenario: User edits an existing correspondents name as part of a stage
-    When I complete all required fields for Creation stage
-    And I click the "Continue" button
-    When I add a "Constituent" correspondent
+    And I get a new "CS" case
+    And I progress to the point of adding correspondents
+    When I add a "Non-Member" correspondent
     And I edit the primary correspondents name
     Then the correspondents name should be updated
 
+  @CSRegression
   Scenario: User adds a second correspondent and selects them as the primary correspondent as part of a stage
-    When I complete all required fields for Creation stage
-    And I click the "Continue" button
+    And I get a new case that allows adding a Member correspondent
+    And I progress to the point of adding correspondents
     And I add a "Member" correspondent
-    And I add a "Constituent" correspondent
+    And I add a "Non-Member" correspondent
     When I select the primary correspondent radio button for a different correspondent
-    And I click the "Move to Triage" button
+    And I progress the case to save the change of primary correspondent
     Then the case summary should list the correct primary correspondent
 
   @CSRegression
-  Scenario Outline: User changes the primary correspondent of the case via the people tab
-    And I create a "MIN" case and move it to the "DATA INPUT" stage
-    And I load and claim the current case
-    And I complete the Data Input stage adding 3 member correspondents
-    And I load and claim the current case
+  Scenario: User changes the primary correspondent of the case via the people tab
+    And I get a new case that allows adding a Member correspondent
+    And I progress to the point of adding correspondents
+    And I add 3 "Member" correspondents
+    When I manage the correspondents using the People tab
     And I change the primary correspondent of the case to "<correspondent>"
     Then the primary correspondent should be "<correspondent>"
-    Examples:
-      | correspondent   |
-      | Theresa May     |
-      | Nicola Sturgeon |
 
   @CSRegression
   Scenario: User is able to remove non-primary correspondents from the case via the people tab

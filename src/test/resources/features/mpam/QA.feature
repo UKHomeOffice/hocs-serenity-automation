@@ -133,7 +133,7 @@ Feature: QA
     Examples:
     | action                        | qaStage       |
     | Put On Hold                   | QA-On Hold    |
-    | Escalate To Workflow Manager  | QA-Escalated  |
+#    | Escalate To Workflow Manager  | QA-Escalated  |
 
   #To be added to regression once HOCS-3268 is developed
   Scenario: User can request Secretariat clearance for a UKVI/BF/IE Ministerial case at QA
