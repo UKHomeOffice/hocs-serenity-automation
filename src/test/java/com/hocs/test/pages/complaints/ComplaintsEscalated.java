@@ -1,8 +1,5 @@
 package com.hocs.test.pages.complaints;
 
-import static jnr.posix.util.MethodName.getMethodName;
-import static net.serenitybdd.core.Serenity.pendingStep;
-
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.RecordCaseData;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -20,7 +17,7 @@ public class ComplaintsEscalated extends BasePage {
 
     public void selectActionAtEscalatedStage(String action) {
         recordCaseData.selectSpecificRadioButton(action);
-        waitForPageWithTitle("Complaint Escalated");
+        waitForDECSPageWithTitle("Complaint Escalated");
         if (checkButtonIsCurrentlyVisible("Continue")) {
             clickContinueButton();
         } else {

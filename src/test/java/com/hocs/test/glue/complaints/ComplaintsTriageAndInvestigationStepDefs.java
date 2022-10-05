@@ -4,7 +4,6 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
-import com.hocs.test.pages.complaints.ComplaintsRegistrationAndDataInput;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.complaints.ComplaintsTriageAndInvestigation;
 import io.cucumber.java.en.And;
@@ -107,13 +106,13 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
 
     @And("I accept the (previous )Claim Category selection")
     public void iAcceptThePreviousClaimCategorySelection() {
-        waitForPageWithTitle("Complaint Category");
+        waitForDECSPageWithTitle("Complaint Category");
         clickTheButton("Continue");
     }
 
     @And("I accept the (previous )Case Details selection")
     public void iAcceptThePreviousSeveritySelection() {
-        waitForPageWithTitle("Triage Case Details");
+        waitForDECSPageWithTitle("Triage Case Details");
         clickTheButton("Continue");
     }
 

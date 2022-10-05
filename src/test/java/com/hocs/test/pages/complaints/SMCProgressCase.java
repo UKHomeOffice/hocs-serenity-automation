@@ -118,13 +118,13 @@ public class SMCProgressCase extends BasePage {
         clickTheButton("Continue");
         complaintsTriageAndInvestigation.enterPSUReference();
         clickTheButton("Continue");
-        waitForPageWithTitle("Complaint Category");
+        waitForDECSPageWithTitle("Complaint Category");
         clickTheButton("Continue");
-        waitForPageWithTitle("Triage Case Details");
+        waitForDECSPageWithTitle("Triage Case Details");
         clickTheButton("Continue");
         complaintsTriageAndInvestigation.enterDetailsOnTriageCaptureReasonPage();
         clickTheButton("Continue");
-        waitForPageWithTitle("Triage Contributions");
+        waitForDECSPageWithTitle("Triage Contributions");
         if(sessionVariableCalled("isLoARequired").equals("Yes")) {
             complaintsTriageAndInvestigation.enterLoAReceivedDetails();
         }

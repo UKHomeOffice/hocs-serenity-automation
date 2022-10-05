@@ -12,6 +12,8 @@ import com.hocs.test.pages.complaints.POGRProgressCase;
 import com.hocs.test.pages.complaints.SMCProgressCase;
 import com.hocs.test.pages.dcu.DCUProgressCase;
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.CaseView;
+import com.hocs.test.pages.decs.ConfirmationScreens;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Workdays;
 import com.hocs.test.pages.foi.FOIProgressCase;
@@ -26,6 +28,10 @@ public class ProgressCaseStepDefs extends BasePage {
     Dashboard dashboard;
 
     Workdays workdays;
+
+    ConfirmationScreens confirmationScreens;
+
+    CaseView caseView;
 
     DCUProgressCase dcuProgressCase;
 
@@ -202,6 +208,26 @@ public class ProgressCaseStepDefs extends BasePage {
             dashboard.getCurrentCase();
         } else {
             dashboard.getAndClaimCurrentCase();
+        }
+    }
+
+    @And("I progress to the point of adding correspondents")
+    public void iProgressToThePointOfAddingCorrespondents() {
+        String caseType = getCurrentCaseType();
+        switch(caseType) {
+            case "MIN":
+            case "DTEN":
+            case "TRO":
+                dcuProgressCase.getDCUCaseToPointOfAddingCorrespondents();
+                break;
+            case "MPAM":
+                mpamProgressCase.getMPAMCaseToPointOfAddingCorrespondents();
+                break;
+            case "POGR":
+                pogrProgressCase.getPOGRCaseToPointOfAddingCorrespondents();
+                break;
+            case "TO":
+                toProgressCase.getTOCaseToPointOfAddingCorrespondents();
         }
     }
 

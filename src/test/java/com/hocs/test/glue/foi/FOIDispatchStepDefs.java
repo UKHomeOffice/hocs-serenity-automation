@@ -39,21 +39,21 @@ public class FOIDispatchStepDefs extends BasePage {
 
     @And("I select an Exception")
     public void iSelectRandomException() {
-        waitForPageWithTitle("Which exceptions were applied?");
+        waitForDECSPageWithTitle("Which exceptions were applied?");
         foiDispatch.selectRandomException();
         clickTheButton("Continue");
     }
 
     @And("I select an Exemption")
     public void iSelectRandomExemption() {
-        waitForPageWithTitle("Which exemptions were applied?");
+        waitForDECSPageWithTitle("Which exemptions were applied?");
         foiDispatch.selectRandomExemption();
         clickTheButton("Continue");
     }
 
     @And("I select an Exception and an Exemption")
     public void iSelectRandomExceptionAndExemption() {
-        waitForPageWithTitle("Which exemptions and exceptions were applied?");
+        waitForDECSPageWithTitle("Which exemptions and exceptions were applied?");
         foiDispatch.selectRandomException();
         foiDispatch.selectRandomExemption();
         clickTheButton("Continue");

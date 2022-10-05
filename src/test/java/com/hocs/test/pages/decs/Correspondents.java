@@ -5,7 +5,6 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import java.time.Duration;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -73,16 +72,13 @@ public class Correspondents extends BasePage {
     @FindBy(xpath = "//a[contains(@href, '#fullname-error')]")
     public WebElementFacade correspondentNameMustBeEnteredErrorMessage;
 
-    @FindBy(xpath = "//a[text()='Remove']")
-    public WebElementFacade removeCorrespondentHyperText;
-
     @FindBy(xpath = "//a[text()='Edit']")
     public WebElementFacade editCorrespondentHyperText;
 
     String correspondenceReference = "Ref-ABCD-1234";
 
     private void selectAddACorrespondentLink() {
-        clickTheLink("Add a correspondent");
+        clickTheLink("Add a");
     }
 
     public void selectToAddACorrespondent() {
@@ -194,9 +190,14 @@ public class Correspondents extends BasePage {
         return secondaryCorrespondentName.getText();
     }
 
-    public void setSecondCorrespondentAsPrimaryCorrespondent() {
-        setSessionVariable("primaryCorrespondent").to(secondaryCorrespondentName.getText());
-        safeClickOn(secondaryCorrespondentName);
+    public void changePrimaryCorrespondent() {
+        String newPrimaryCorrespondent;
+        if (getDECSCurrentPageTitle().equals("Manage People")) {
+            newPrimaryCorrespondent = selectDifferentRadioButtonFromGroupWithHeading("Person we will write back to");
+        } else {
+            newPrimaryCorrespondent = selectDifferentRadioButtonFromGroupWithHeading("Which is the primary correspondent?");
+        }
+        setSessionVariable("primaryCorrespondent").to(newPrimaryCorrespondent);
     }
 
     public void fillCorrespondentFields() {
@@ -248,7 +249,7 @@ public class Correspondents extends BasePage {
         selectToAddACorrespondent();
         selectCorrespondentIsMP();
         selectSpecificMemberOfParliament(member);
-        waitForPageWithTitle("Member Details");
+        waitForDECSPageWithTitle("Member Details");
         clickAddButton();
     }
 
@@ -256,7 +257,7 @@ public class Correspondents extends BasePage {
         selectToAddACorrespondent();
         selectCorrespondentIsMP();
         selectRandomMemberOfParliament();
-        waitForPageWithTitle("Member Details");
+        waitForDECSPageWithTitle("Member Details");
         clickAddButton();
     }
 
@@ -280,8 +281,14 @@ public class Correspondents extends BasePage {
         setSessionVariable("correspondentReferenceNumber").to(refNumber);
     }
 
-    public void removePrimaryCorrespondent() {
-        safeClickOn(removeCorrespondentHyperText);
+    public void removeACorrespondent() {
+        clickTheLink("Remove");
+        clickTheButton("Remove");
+    }
+
+    public void removeASpecificCorrespondent(String correspondent) {
+        WebElementFacade correspondentSpecificRemoveLink = findBy("//label[contains(text(), '" + correspondent + "')]/ancestor::tr//a[text()='Remove']");
+        safeClickOn(correspondentSpecificRemoveLink);
         clickTheButton("Remove");
     }
 
@@ -340,6 +347,6 @@ public class Correspondents extends BasePage {
     }
 
     public void assertNoPrimaryCorrespondentDisplayed() {
-        assertThat(removeCorrespondentHyperText.isVisible(), is(false));
+        assertThat(checkLinkIsCurrentlyVisible("Edit"), is(false));
     }
 }

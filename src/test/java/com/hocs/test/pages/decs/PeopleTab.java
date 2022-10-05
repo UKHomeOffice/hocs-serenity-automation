@@ -14,23 +14,11 @@ public class PeopleTab extends BasePage {
 
     Correspondents correspondents;
 
-    @FindBy(xpath = "//a[text()='Manage People']")
-    public WebElementFacade managePeopleHypertext;
-
-    @FindBy(xpath = "//a[text()='correspondent']")
-    public WebElementFacade addACorrespondentHypertext;
-
-    @FindBy(xpath = "//h2[contains(text(), '(primary)')]/following-sibling::table[1]//th[text()='Name']/following-sibling::td")
-    public WebElementFacade primaryCorrespondentName;
-
     @FindBy(xpath = "//h2[contains(text(), '(primary)')]/following-sibling::table[1]//th[text()='Address']/following-sibling::td")
     public WebElementFacade primaryCorrespondentAddress;
 
     @FindBy(xpath = "//h2[contains(text(), '(primary)')]/following-sibling::table[1]//th[text()='Email address']/following-sibling::td")
     public WebElementFacade primaryCorrespondentEmailAddress;
-
-    @FindBy(xpath = "//input[@value='Remove']")
-    public WebElementFacade removeButton;
 
     public void selectPeopleTab() {
         selectTheTab("People");
@@ -40,18 +28,22 @@ public class PeopleTab extends BasePage {
         refreshTheTab("People");
     }
 
+    public void selectToManagePeople() {
+        clickTheLink("Manage People");
+    }
+
     public void addAMemberCorrespondent() {
-        safeClickOn(managePeopleHypertext);
+        selectToManagePeople();
         correspondents.addAMemberCorrespondent();
     }
 
     public void addAPublicCorrespondent() {
-        safeClickOn(managePeopleHypertext);
+        selectToManagePeople();
         correspondents.addANonMemberCorrespondentOfType("Constituent");
     }
 
     public void editCorrespondent(String detail, String correspondent) {
-        safeClickOn(managePeopleHypertext);
+        selectToManagePeople();
         WebElementFacade editHypertext = findBy("//label[contains(text(), '" + correspondent + "')]/ancestor::tr//a[text()='Edit']");
         safeClickOn(editHypertext);
         switch (detail.toUpperCase()) {
@@ -89,35 +81,19 @@ public class PeopleTab extends BasePage {
         clickTheButton("Save");
     }
 
-    public void removeCorrespondent(String correspondent) {
-        safeClickOn(managePeopleHypertext);
-        WebElementFacade removeHypertext = findBy("//label[contains(text(), '" + correspondent + "')]/ancestor::tr//a[text()='Remove']");
-        safeClickOn(removeHypertext);
-        safeClickOn(removeButton);
-    }
-
-    public void changePrimaryCorrespondentToSpecificCorrespondent(String newPrimaryCorrespondent) {
-        safeClickOn(managePeopleHypertext);
-        WebElementFacade radioButtonOfNewPrimaryCorrespondent = findBy("//label[contains(text(), '"+ newPrimaryCorrespondent + "')]");
-        safeClickOn(radioButtonOfNewPrimaryCorrespondent);
-        clickFinishButton();
-    }
-
     public void changePrimaryCorrespondent() {
-        safeClickOn(managePeopleHypertext);
+        selectToManagePeople();
         WebElementFacade nonCheckedRadioButton = findBy("//input[not(@checked)]/following-sibling::label");
         safeClickOn(nonCheckedRadioButton);
         clickFinishButton();
     }
 
-    public void assertNewCorrespondentIsDisplayed() {
-        int n = 0;
-        if (!managePeopleHypertext.isVisible()) {
-            selectPeopleTab();
-        }
+    public void assertAddedCorrespondentIsDisplayed() {
+        selectPeopleTab();
         List<WebElementFacade> correspondentNames = findAll("//th[text()='Name']/following-sibling::td");
         int listSize = correspondentNames.size();
         boolean isCorrespondentDisplayed = false;
+        int n = 0;
         while (n <= (listSize - 1) && !isCorrespondentDisplayed) {
             if (correspondentNames.get(n).getText().contains(sessionVariableCalled("correspondentFullName"))) {
                 isCorrespondentDisplayed = true;
@@ -127,15 +103,7 @@ public class PeopleTab extends BasePage {
         assertThat(isCorrespondentDisplayed, is(true));
     }
 
-    public void assertNewPrimaryCorrespondent(String newPrimaryCorrespondent) {
-        if (!managePeopleHypertext.isVisible()) {
-            selectPeopleTab();
-        }
-        assertThat(primaryCorrespondentName.getText().contains(newPrimaryCorrespondent), is(true));
-    }
-
     public void assertCorrespondentHasBeenRemoved(String correspondent) {
-        getButtonElementFromDisplayedText("Continue").waitUntilVisible();
         selectPeopleTab();
         List<WebElementFacade> correspondentNames = findAll("//th[text()='Name']/following-sibling::td");
         int n = 0;

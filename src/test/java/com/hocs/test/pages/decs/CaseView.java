@@ -71,14 +71,6 @@ public class CaseView extends BasePage {
         safeClickOn(allocateButton);
     }
 
-    public boolean caseDetailsAccordionIsVisible() {
-        if (wcsCase()) {
-            return wcsCaseDetailsAccordion.isCurrentlyVisible();
-        } else {
-            return csCaseDetailsAccordion.isCurrentlyVisible();
-        }
-    }
-
     public void waitForCaseToLoad() {
         tabs.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
     }

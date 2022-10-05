@@ -227,4 +227,9 @@ public class POGRProgressCase extends BasePage {
                 pendingStep(infoType + " is not defined within " + getMethodName());
         }
     }
+
+    public void getPOGRCaseToPointOfAddingCorrespondents() {
+        complaintsRegistrationAndDataInput.selectBusinessArea();
+        clickContinueButton();
+    }
 }

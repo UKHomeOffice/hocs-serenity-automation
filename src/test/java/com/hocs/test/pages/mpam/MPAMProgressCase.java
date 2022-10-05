@@ -5,6 +5,8 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.CaseView;
+import com.hocs.test.pages.decs.ConfirmationScreens;
 import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
@@ -32,6 +34,10 @@ public class MPAMProgressCase extends BasePage {
     DispatchStages dispatchStages;
 
     MTSDataInput mtsDataInput;
+
+    ConfirmationScreens confirmationScreens;
+
+    CaseView caseView;
 
     String businessArea = "UKVI";
 
@@ -242,14 +248,14 @@ public class MPAMProgressCase extends BasePage {
                 break;
             case "MEMBER OF PARLIAMENT NAME":
                 createCase.createCSCaseOfType("MPAM");
-                dashboard.goToDashboard();
-                dashboard.getAndClaimCurrentCase();
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();
                 creation.moveCaseWithSpecifiedMPCorrespondentToTriageStage(infoValue);
                 break;
             case "CORRESPONDENT REFERENCE NUMBER":
                 createCase.createCSCaseOfType("MPAM");
-                dashboard.goToDashboard();
-                dashboard.getAndClaimCurrentCase();
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();
                 creation.addCorrespondentWithSpecificReferenceToCase(infoValue);
                 break;
             case "RECEIVED ON OR BEFORE DATE":
@@ -260,27 +266,32 @@ public class MPAMProgressCase extends BasePage {
                 break;
             case "CAMPAIGN":
                 createCase.createCSCaseOfType("MPAM");
-                dashboard.goToDashboard();
-                dashboard.getAndClaimCurrentCase();
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();;
                 moveCaseFromCreationToTriage();
                 dashboard.getAndClaimCurrentCase();
                 campaign.moveCaseFromAStageToCampaign(infoValue);
                 break;
             case "CORRESPONDENT FULL NAME (APPLICANT OR CONSTITUENT)":
                 createCase.createCSCaseOfType("MPAM");
-                dashboard.goToDashboard();
-                dashboard.getAndClaimCurrentCase();
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();
                 creation.triggerMPCorrespondentIsMandatoryScreen();
                 dashboard.goToDashboard();
                 break;
             case "TELEPHONE SURGERY OFFICIAL ENGAGEMENT":
                 createCase.createCSCaseOfType("MTS");
-                dashboard.goToDashboard();
-                dashboard.getAndClaimCurrentCase();
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();
                 mtsDataInput.completeDataInputStageAndCloseMTSCase();
                 break;
             default:
                 pendingStep(infoType + " is not defined within " + getMethodName());
         }
+    }
+
+    public void getMPAMCaseToPointOfAddingCorrespondents() {
+        creation.completeRequiredQuestions();
+        clickContinueButton();
     }
 }

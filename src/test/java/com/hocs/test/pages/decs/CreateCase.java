@@ -256,6 +256,11 @@ public class CreateCase extends BasePage {
         return list.get(new Random().nextInt(list.size()));
     }
 
+    public String getRandomCaseTypeThatAllowsMultipleCorrespondents() {
+        List<String> list = Arrays.asList("MIN", "TRO", "DTEN", "MPAM", "MTS", "COMP", "BF", "POGR", "TO");
+        return list.get(new Random().nextInt(list.size()));
+    }
+
     public void editReceivedDate(String date) {
         enterDateIntoDateFieldsWithHeading(date, "When was the correspondence received?");
     }

@@ -1,7 +1,5 @@
 package com.hocs.test.pages.complaints;
 
-import static jnr.posix.util.MethodName.getMethodName;
-import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
@@ -273,7 +271,7 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
             selectBusinessArea();
         }
         clickTheButton("Continue");
-        waitForPageWithTitle("Complaint Correspondents");
+        waitForDECSPageWithTitle("Complaint Correspondents");
     }
 
     public void enterAPSUReference() {

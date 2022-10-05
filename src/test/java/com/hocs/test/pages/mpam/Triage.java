@@ -75,7 +75,7 @@ public class Triage extends BasePage {
     private List<String> recordedBusinessUnitOptions = new ArrayList<>();
 
     public void selectEnquirySubject(String subject) {
-        waitForPageWithTitle("Enquiry subject");
+        waitForDECSPageWithTitle("Enquiry subject");
         selectSpecificRadioButton(subject);
         setSessionVariable("enquirySubject").to(subject);
         clickContinueButton();

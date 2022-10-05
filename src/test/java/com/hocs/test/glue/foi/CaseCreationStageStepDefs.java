@@ -37,7 +37,7 @@ public class CaseCreationStageStepDefs extends BasePage {
     public void iEnterAnInvalidRequestResponseDate() {
         caseCreationStage.enterAnInvalidRequestResponseDate();
         clickTheButton("Complete Create");
-        waitForPageWithTitle("Case soft closed");
+        waitForDECSPageWithTitle("Case soft closed");
     }
 
     @And("I {string} Case Creation check your answers")

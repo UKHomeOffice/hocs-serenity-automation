@@ -2,6 +2,8 @@ package com.hocs.test.glue.decs;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CaseView;
@@ -58,7 +60,7 @@ public class CorrespondentsStepDefs extends BasePage {
         }
     }
 
-    @And("I add {string} MP as a correspondent")
+    @And("I add {string} as a correspondent")
     public void IAddMPCorrespondent(String name) {
         correspondents.addASpecificMemberCorrespondent(name);
     }
@@ -70,10 +72,11 @@ public class CorrespondentsStepDefs extends BasePage {
 
     @When("I manage the correspondents using the People tab")
     public void iManageTheCorrespondentsUsingThePeopleTab() {
-
+        peopleTab.selectPeopleTab();
+        peopleTab.selectToManagePeople();
     }
 
-    @And("I add a {string} correspondent to the case")
+    @And("I add a {string} correspondent using the People tab")
     public void iAddANewCorrespondent(String correspondentType) {
         peopleTab.selectPeopleTab();
         switch (correspondentType.toUpperCase()) {
@@ -93,20 +96,6 @@ public class CorrespondentsStepDefs extends BasePage {
         peopleTab.editCorrespondent(detail, correspondent);
     }
 
-    @And("I remove {string} as a correspondent of the case")
-    public void iRemoveACorrespondentFromTheCase(String correspondent) {
-        caseView.waitForCaseToLoad();
-        peopleTab.refreshPeopleTab();
-        peopleTab.removeCorrespondent(correspondent);
-    }
-
-    @And("I change the primary correspondent of the case to {string}")
-    public void iChangePrimaryCorrespondent(String correspondent) {
-        caseView.waitForCaseToLoad();
-        peopleTab.refreshPeopleTab();
-        peopleTab.changePrimaryCorrespondentToSpecificCorrespondent(correspondent);
-    }
-
     @And("I change the primary correspondent of the case")
     public void iChangeThePrimaryCorrespondentOfTheCase() {
         caseView.waitForCaseToLoad();
@@ -114,18 +103,38 @@ public class CorrespondentsStepDefs extends BasePage {
         peopleTab.changePrimaryCorrespondent();
     }
 
-    @Then("the new correspondent is added to the case")
+    @Then("the correspondent is added to the case")
     public void assertNewCorrespondentIsAddedToTheCase() {
-        peopleTab.assertNewCorrespondentIsDisplayed();
+        peopleTab.assertAddedCorrespondentIsDisplayed();
     }
 
-    @Then("the primary correspondent should be {string}")
-    public void assertPrimaryCorrespondentHasChangedTo(String correspondent) {
-        peopleTab.assertNewPrimaryCorrespondent(correspondent);
+    @And("I progress the case to save the change of primary correspondent")
+    public void iProgressTheCaseToSaveTheChangeOfPrimaryCorrespondent() {
+        if (dcuCase()) {
+            clickTheButton("Finish");
+        }
+        if (mpamCase()) {
+            clickTheButton("Move to Triage");
+        }
+        if (mtsCase() | complaintCase() | toCase()) {
+            clickTheButton("Continue");
+        }
     }
 
-    @Then("{string} should be removed as a correspondent on the case")
-    public void assertCorrespondentRemovedFromCase(String correspondent) {
-        peopleTab.assertCorrespondentHasBeenRemoved(correspondent);
+    @And("I confirm the change of primary correspondent")
+    public void iConfirmTheChangeOfPrimaryCorrespondent() {
+        clickTheButton("Finish");
+    }
+
+    @And("I remove a non-primary correspondent from the case")
+    public void iRemoveANonPrimaryCorrespondentFromTheCase() {
+        String correspondentToRemove = getLabelOfAnUnselectedRadioButtonFromGroupWithHeading("Person we will write back to");
+        correspondents.removeASpecificCorrespondent(correspondentToRemove);
+        setSessionVariable("removedCorrespondent").to(correspondentToRemove);
+    }
+
+    @Then("the removed correspondent should no longer be visible")
+    public void theRemovedCorrespondentShouldNoLongerBeVisible() {
+        peopleTab.assertCorrespondentHasBeenRemoved(sessionVariableCalled("removedCorrespondent"));
     }
 }

@@ -42,7 +42,7 @@ public class CreationStepDefs extends BasePage {
 
     @Then("the case summary should list the correct primary correspondent")
     public void theSummaryShouldListTheCorrectPrimaryCorrespondent() {
-        dashboard.getCurrentCase();
+        dashboard.ensureViewingCurrentCase();
         summaryTab.selectSummaryTab();
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("primaryCorrespondent"), "Primary correspondent");
     }

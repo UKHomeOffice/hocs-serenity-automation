@@ -3,6 +3,8 @@ package com.hocs.test.pages.dcu;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
+import com.hocs.test.pages.decs.CaseView;
+import com.hocs.test.pages.decs.ConfirmationScreens;
 import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
@@ -34,6 +36,10 @@ public class DCUProgressCase extends BasePage {
     MinisterialSignOff ministerialSignOff;
 
     Dispatch dispatch;
+
+    ConfirmationScreens confirmationScreens;
+
+    CaseView caseView;
 
     Boolean copyToNumber10 = false;
 
@@ -271,8 +277,8 @@ public class DCUProgressCase extends BasePage {
                 break;
             case "MEMBER OF PARLIAMENT NAME":
                 createCase.createCSCaseOfType("MIN");
-                dashboard.goToDashboard();
-                dashboard.getAndClaimCurrentCase();
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();
                 dataInput.fillAllMandatoryCorrespondenceFields();
                 clickContinueButton();
                 correspondents.addASpecificMemberCorrespondent(infoValue);
@@ -282,8 +288,8 @@ public class DCUProgressCase extends BasePage {
             case "CORRESPONDENT POSTCODE":
             case "CORRESPONDENT EMAIL ADDRESS":
                 createCase.createCSCaseOfType("MIN");
-                dashboard.goToDashboard();
-                dashboard.getAndClaimCurrentCase();
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();
                 dataInput.fillAllMandatoryCorrespondenceFields();
                 clickContinueButton();
                 correspondents.addANonMemberCorrespondentOfType("Constituent");
@@ -303,8 +309,8 @@ public class DCUProgressCase extends BasePage {
                 break;
             case "HOME SECRETARY INTEREST":
                 createCase.createCSCaseOfType("MIN");
-                dashboard.goToDashboard();
-                dashboard.getAndClaimCurrentCase();
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();
                 dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
                 dataInput.selectACorrespondenceReceivedChannel();
                 dataInput.selectASpecificCopyToNoTenOption("No");
@@ -317,5 +323,10 @@ public class DCUProgressCase extends BasePage {
             default:
                 pendingStep(infoType + " is not defined within " + getMethodName());
         }
+    }
+
+    public void getDCUCaseToPointOfAddingCorrespondents() {
+                dataInput.fillAllMandatoryCorrespondenceFields();
+                clickContinueButton();
     }
 }

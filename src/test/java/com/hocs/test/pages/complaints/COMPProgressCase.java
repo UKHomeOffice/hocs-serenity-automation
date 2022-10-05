@@ -168,15 +168,15 @@ public class COMPProgressCase extends BasePage {
             complaintsTriageAndInvestigation.enterDateOfAcceptance();
         }
         clickTheButton("Continue");
-        waitForPageWithTitle("Complaint Category");
+        waitForDECSPageWithTitle("Complaint Category");
         complaintsTriageAndInvestigation.enterDetailsOnComplaintCategoryPage();
         clickTheButton("Continue");
-        waitForPageWithTitle("Triage Case Details");
+        waitForDECSPageWithTitle("Triage Case Details");
         clickTheButton("Continue");
-        waitForPageWithTitle("Triage Capture Reason");
+        waitForDECSPageWithTitle("Triage Capture Reason");
         complaintsTriageAndInvestigation.enterDetailsOnTriageCaptureReasonPage();
         clickTheButton("Continue");
-        waitForPageWithTitle("Triage Contributions");
+        waitForDECSPageWithTitle("Triage Contributions");
         if(sessionVariableCalled("isLoARequired").equals("Yes")) {
             complaintsTriageAndInvestigation.enterLoAReceivedDetails();
         }
@@ -189,12 +189,12 @@ public class COMPProgressCase extends BasePage {
             complaintsTriageAndInvestigation.enterDateOfAcceptance();
         }
         clickTheButton("Continue");
-        waitForPageWithTitle("Complaint Category");
+        waitForDECSPageWithTitle("Complaint Category");
         complaintsTriageAndInvestigation.enterDetailsOnComplaintCategoryPage();
         clickTheButton("Continue");
-        waitForPageWithTitle("Triage Case Details");
+        waitForDECSPageWithTitle("Triage Case Details");
         clickTheButton("Continue");
-        waitForPageWithTitle("Triage Capture Reason");
+        waitForDECSPageWithTitle("Triage Capture Reason");
         complaintsTriageAndInvestigation.enterDetailsOnTriageCaptureReasonPage();
         clickTheButton("Continue");
         complaintsTriageAndInvestigation.escalateCaseToWFM();

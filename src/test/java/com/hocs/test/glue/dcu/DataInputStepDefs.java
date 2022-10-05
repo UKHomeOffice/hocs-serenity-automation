@@ -59,27 +59,17 @@ public class DataInputStepDefs extends BasePage {
         correspondents.assertSecondaryCorrespondent();
     }
 
-    @When("I select the primary correspondent radio button for a different correspondent")
+    @When("I select a different correspondent as the primary correspondent")
     public void iSelectThePrimaryCorrespondentRadioButtonForADifferentCorrespondent() {
-        correspondents.setSecondCorrespondentAsPrimaryCorrespondent();
+        correspondents.changePrimaryCorrespondent();
     }
 
     @Then("the correct correspondent is recorded as the primary correspondent")
     public void theCorrectCorrespondentIsRecordedAsTheCorrespondent() {
-        dashboard.getCurrentCase();
+        dashboard.ensureViewingCurrentCase();
         caseView.openOrCloseAccordionSection("Data Input");
         caseView.assertExpectedValueIsVisibleInOpenCaseDetailsAccordionForGivenKey(sessionVariableCalled("primaryCorrespondent"), "Which is the "
                         + "primary correspondent?");
-    }
-
-    @And("I complete the Data Input stage adding 3 member correspondents")
-    public void iCompleteTheDataInputStageWithMultipleMemberCorrespondents() {
-        dataInput.fillAllMandatoryCorrespondenceFields();
-        clickContinueButton();
-        correspondents.addASpecificMemberCorrespondent("Boris Johnson");
-        correspondents.addASpecificMemberCorrespondent("Nicola Sturgeon");
-        correspondents.addASpecificMemberCorrespondent("Theresa May");
-        clickFinishButton();
     }
 
     @And("I complete the Data Input stage adding 3 public correspondents")
@@ -102,9 +92,7 @@ public class DataInputStepDefs extends BasePage {
 
     @When("I fill all mandatory fields on the Data Input page")
     public void fillMandatoryFields() {
-                correspondents.selectASpecificCorrespondentType("Constituent");
-                correspondents.fillCorrespondentFields();
-                dataInput.clickAddButton();
+        dataInput.fillAllMandatoryCorrespondenceFields();
     }
 
     @Then("the submitted correspondent should be visible in the list of correspondents")
@@ -114,7 +102,7 @@ public class DataInputStepDefs extends BasePage {
 
     @And("I remove the primary correspondent")
     public void removePrimaryCorrespondent() {
-        correspondents.removePrimaryCorrespondent();
+        correspondents.removeACorrespondent();
     }
 
     @Then("there shouldn't be a primary correspondent displayed")
@@ -127,8 +115,8 @@ public class DataInputStepDefs extends BasePage {
         correspondents.editPrimaryCorrespondent();
     }
 
-    @Then("the correspondents name should be updated")
-    public void theCorrespondentsNameShouldBeUpdated() {
+    @Then("the primary correspondents name should be updated")
+    public void thePrimaryCorrespondentsNameShouldBeUpdated() {
         correspondents.assertPrimaryCorrespondent();
     }
 

@@ -6,6 +6,8 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.dcu.DCUProgressCase;
+import com.hocs.test.pages.decs.CaseView;
+import com.hocs.test.pages.decs.ConfirmationScreens;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.managementUI.MUI;
 import com.hocs.test.pages.managementUI.TemplateManagement;
@@ -59,6 +61,10 @@ public class ManagementUIStepDefs extends BasePage {
     Dashboard dashboard;
 
     WithdrawACase withdrawACase;
+
+    ConfirmationScreens confirmationScreens;
+
+    CaseView caseView;
 
     TemplateManagement templateManagement;
 
@@ -247,7 +253,8 @@ public class ManagementUIStepDefs extends BasePage {
     @And("I discover the current default team links for a topic")
     public void iDiscoverTheCurrentDefaultTeamLinksForATopic() {
         createCase.createCSCaseOfType("MIN");
-        dashboard.getAndClaimCurrentCase();
+        confirmationScreens.goToCaseFromConfirmationScreen();
+        caseView.clickAllocateToMeLink();
         dcuProgressCase.moveCaseFromDataInputToMarkup();
         dashboard.getAndClaimCurrentCase();
         markup.selectPolicyResponseRadioButton();
@@ -303,7 +310,8 @@ public class ManagementUIStepDefs extends BasePage {
     public void iCheckTheDefaultTeamLinksInCSAgain() {
         loginPage.open();
         createCase.createCSCaseOfType("MIN");
-        dashboard.getAndClaimCurrentCase();
+        confirmationScreens.goToCaseFromConfirmationScreen();
+        caseView.clickAllocateToMeLink();
         dcuProgressCase.moveCaseFromDataInputToMarkup();
         dashboard.getAndClaimCurrentCase();
         markup.selectPolicyResponseRadioButton();

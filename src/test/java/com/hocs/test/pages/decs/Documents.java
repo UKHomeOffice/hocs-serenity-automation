@@ -151,7 +151,7 @@ public class Documents extends BasePage {
                 break;
             }
         }
-        waitForPageWithTitle("Add Documents");
+        waitForDECSPageWithTitle("Add Documents");
     }
 
     public void addADocumentOfFileType(String fileType) {
@@ -184,7 +184,7 @@ public class Documents extends BasePage {
     }
 
     public void clickRemoveLinkForFile(String fileIdentifier) {
-        waitForPageWithTitle("Manage Documents");
+        waitForDECSPageWithTitle("Manage Documents");
         WebElementFacade removeLink =
                 findBy("//td[contains(text(), '" + fileIdentifier
                         + "')]/following-sibling::td/a[contains(text(), 'Remove')]");

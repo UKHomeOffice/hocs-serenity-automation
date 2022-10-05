@@ -15,6 +15,8 @@ import static config.User.WCS_USER;
 
 import com.hocs.test.pages.MuiLoginPage;
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.CaseView;
+import com.hocs.test.pages.decs.ConfirmationScreens;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.LoginPage;
@@ -46,6 +48,10 @@ public class LoginStepDefs extends BasePage {
     Workstacks workstacks;
 
     CreateCase createCase;
+
+    ConfirmationScreens confirmationScreens;
+
+    CaseView caseView;
 
     User targetUser;
 
@@ -211,7 +217,8 @@ public class LoginStepDefs extends BasePage {
             if (workstacks.getTotalOfCases() == 0) {
                 if (currentPlatform.equals("CS")){
                 createCase.createCSCaseOfType("CS");
-                dashboard.getAndClaimCurrentCase();
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();
                 }
                 else if (currentPlatform.equals("WCS")) {
                     createCase.createWCSCase();

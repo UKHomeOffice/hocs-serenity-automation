@@ -136,23 +136,28 @@ public class BasePage extends PageObject {
 
     //Page Titles
 
-    public void assertPageTitle(String title) {
-        WebElementFacade pageTitle = find(By.xpath("//h1[@class='govuk-heading-l' and contains(text(), '" + title + "')]"));
-        pageTitle.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
-        assert (pageTitle.isVisible());
+    public String getDECSCurrentPageTitle() {
+        WebElementFacade pageTitle = findBy("//h1[@class='govuk-heading-l']");
+        return pageTitle.getText();
+    }
+
+    public void assertDECSPageTitle(String title) {
+        WebElementFacade expectedPageTitle = find(By.xpath("//h1[@class='govuk-heading-l' and contains(text(), '" + title + "')]"));
+        expectedPageTitle.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
+        assert (expectedPageTitle.isVisible());
     }
 
     public void assertManagementUIPageTitle(String title) {
-        WebElementFacade pageTitle = find(By.xpath("//h1[@class='govuk-heading-xl' and contains(text(), '" + title + "')]"));
-        pageTitle.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
-        assert (pageTitle.isVisible());
+        WebElementFacade expectedPageTitle = find(By.xpath("//h1[@class='govuk-heading-xl' and contains(text(), '" + title + "')]"));
+        expectedPageTitle.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
+        assert (expectedPageTitle.isVisible());
     }
 
-    public void waitForPageWithTitle(String pageTitle) {
+    public void waitForDECSPageWithTitle(String pageTitle) {
         int retries = 0;
         while (retries < 3) {
             try {
-                assertPageTitle(pageTitle);
+                assertDECSPageTitle(pageTitle);
                 break;
             } catch (AssertionError e) {
                 retries++;
@@ -176,8 +181,15 @@ public class BasePage extends PageObject {
 
     public void selectTheTab(String tabName) {
         WebElementFacade tab = getTabElementUsingTabName(tabName);
-        tab.withTimeoutOf(Duration.ofSeconds(20)).waitUntilVisible();
-        if (!tab.getAttribute("class").contains("selected")) {
+        tab.waitUntilVisible();
+        Boolean tabIsCurrentlySelected;
+        try {
+            tabIsCurrentlySelected = tab.getAttribute("class").contains("selected");
+        } catch (StaleElementReferenceException e) {
+            tab = getTabElementUsingTabName(tabName);
+            tabIsCurrentlySelected = tab.getAttribute("class").contains("selected");
+        }
+        if (!tabIsCurrentlySelected) {
             try {
                 tab.click();
             } catch (ElementNotVisibleException | StaleElementReferenceException ex) {
@@ -463,15 +475,19 @@ public class BasePage extends PageObject {
     }
 
     public String selectDifferentRadioButtonFromGroupWithHeading(String headingText) {
+        String radioButtonLabelToSelect = getLabelOfAnUnselectedRadioButtonFromGroupWithHeading(headingText);
+        selectSpecificRadioButtonFromGroupWithHeading(radioButtonLabelToSelect, headingText);
+        return radioButtonLabelToSelect;
+    }
+
+    public String getLabelOfAnUnselectedRadioButtonFromGroupWithHeading(String headingText) {
         List<String> radioButtonLabels = getRadioButtonLabelsInGroupWithHeading(headingText);
         WebElementFacade currentlySelectedRadioButton =
                 findBy("//span[contains(@class,'govuk-fieldset__heading')][text() =" + sanitiseXpathAttributeString(headingText) + "]/ancestor"
                         + "::fieldset//input[@checked]/following-sibling::label");
         radioButtonLabels.remove(currentlySelectedRadioButton.getText());
         Random random = new Random();
-        String radioButtonLabelToSelect = radioButtonLabels.get(random.nextInt(radioButtonLabels.size()));
-        selectSpecificRadioButtonFromGroupWithHeading(radioButtonLabelToSelect, headingText);
-        return radioButtonLabelToSelect;
+        return radioButtonLabels.get(random.nextInt(radioButtonLabels.size()));
     }
 
     private WebElementFacade getRadioButtonLabelElementWithSpecifiedText(String elementText) {

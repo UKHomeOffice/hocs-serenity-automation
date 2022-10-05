@@ -124,7 +124,7 @@ public class SummaryTabStepDefs extends BasePage {
 
     @Then("the claim should be sent/returned to the correct WCS Casework team")
     public void theClaimShouldBeReturnedToTheCaseworkTeamThatLastWorkedTheClaim() {
-        dashboard.getCurrentCase();
+        dashboard.ensureViewingCurrentCase();
         summaryTab.selectSummaryTab();
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("selectedCaseworkTeam"), "Team");
     }
@@ -159,7 +159,7 @@ public class SummaryTabStepDefs extends BasePage {
 
     @And("the case should still be owned by the correct Treat Official team for the selected business area")
     public void theCaseShouldStillBeOwnedByTheCorrectTreatOfficialTeamForTheSelectedBusinessArea() {
-        waitForPageWithTitle(getCurrentCaseReference());
+        waitForDECSPageWithTitle(getCurrentCaseReference());
         String teamName = "Treat Official " + sessionVariableCalled("businessArea");
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(teamName, "Team");
     }

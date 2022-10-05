@@ -118,7 +118,7 @@ public class FOIProgressCase extends BasePage {
         allocation.selectAGroup();
         allocation.selectAnAccountManager();
         clickTheButton("Allocate Case");
-        waitForPageWithTitle("FOI Allocation");
+        waitForDECSPageWithTitle("FOI Allocation");
         clickTheButton("Confirm Allocation");
     }
 

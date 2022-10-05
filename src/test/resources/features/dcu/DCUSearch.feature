@@ -122,7 +122,7 @@ Feature: DCU Search
     Given I am logged into "CS" as user "DCU_USER"
     And I create a "MIN" case with "Boris Johnson" as the correspondent
     And I load the current case
-    And I add a "Member" correspondent to the case
+    And I add a "Member" correspondent using the People tab
     And I change the primary correspondent of the case
     And I navigate to the "search" page
     And I enter the current case reference into the case reference search field

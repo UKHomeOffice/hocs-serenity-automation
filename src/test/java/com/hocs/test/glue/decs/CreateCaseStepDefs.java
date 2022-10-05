@@ -107,8 +107,8 @@ public class CreateCaseStepDefs extends BasePage {
     @When("I create a {string} case with {string} as the primary topic")
     public void aCaseWithSpecificTopicIsCreated(String caseType, String topic) {
         createCase.createCSCaseOfType(caseType);
-        safeClickOn(dashboard.csDashboardLink);
-        dashboard.getAndClaimCurrentCase();
+        confirmationScreens.goToCaseFromConfirmationScreen();
+        caseView.clickAllocateToMeLink();
         dcuProgressCase.moveCaseFromDataInputToMarkup();
         dashboard.getAndClaimCurrentCase();
         markup.selectPolicyResponseRadioButton();
@@ -225,8 +225,6 @@ public class CreateCaseStepDefs extends BasePage {
     public void iCreateAnSMCCaseReceivedNWorkdaysAgo(int days, String stage) {
         createCase.createCaseReceivedNWorkdaysAgo("SMC", days);
         if (!stage.equalsIgnoreCase("REGISTRATION")) {
-            dashboard.goToDashboard();
-            dashboard.getAndClaimCurrentCase();
             smcProgressCase.moveCaseFromCurrentStageToTargetStage("Registration", stage);
         }
     }
@@ -338,5 +336,14 @@ public class CreateCaseStepDefs extends BasePage {
     @And("I get a new case that allows adding a Member correspondent")
     public void iGetANewCaseThatAllowsAddingAMemberCorrespondent() {
         createCase.createCSCaseOfType(createCase.getRandomCaseTypeThatAllowsMemberCorrespondents());
+        confirmationScreens.goToCaseFromConfirmationScreen();
+        caseView.clickAllocateToMeLink();
+    }
+
+    @And("I get a new case that requires correspondents to be added as part of a stage")
+    public void iGetANewCaseThatRequiresCorrespondentsToBeAddedAsPartOfAStage() {
+        createCase.createCSCaseOfType(createCase.getRandomCaseTypeThatAllowsMultipleCorrespondents());
+        confirmationScreens.goToCaseFromConfirmationScreen();
+        caseView.clickAllocateToMeLink();
     }
 }

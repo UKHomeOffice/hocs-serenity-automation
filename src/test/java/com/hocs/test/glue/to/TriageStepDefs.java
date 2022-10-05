@@ -33,7 +33,7 @@ public class TriageStepDefs extends BasePage {
     @And("I change the Business Area of the TO case to {string}")
     public void iChangeTheBusinessAreaOfTheCase(String businessArea) {
         triage.selectToChangeTheBusinessArea();
-        waitForPageWithTitle("Transfer To Business Area");
+        waitForDECSPageWithTitle("Transfer To Business Area");
         dataInput.selectSpecificBusinessArea(businessArea);
         dataInput.enterReallocationReason();
         clickTheButton("Finish");

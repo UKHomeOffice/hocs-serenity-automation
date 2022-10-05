@@ -76,7 +76,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
         String enteredText;
         if (pogrCase() || pogr2Case()) {
             if (sessionVariableCalled("businessArea").equals("GRO")) {
-                waitForPageWithTitle("Investigation - Transfer Case");
+                waitForDECSPageWithTitle("Investigation - Transfer Case");
             } else {
                 waitABit(500);
             }

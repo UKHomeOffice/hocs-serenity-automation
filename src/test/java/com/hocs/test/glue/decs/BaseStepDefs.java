@@ -33,12 +33,12 @@ public class BaseStepDefs extends BasePage {
 
     @Then("the {string} page should be displayed")
     public void thePageShouldBeDisplayed(String pageTitle) {
-        assertPageTitle(pageTitle);
+        assertDECSPageTitle(pageTitle);
     }
 
     @Then("I should be returned to the {string} page")
     public void iShouldBeReturnedToTheScreen(String pageTitle) {
-        assertPageTitle(pageTitle);
+        assertDECSPageTitle(pageTitle);
     }
 
     @Then("an error message is displayed")
@@ -78,7 +78,7 @@ public class BaseStepDefs extends BasePage {
 
     @Then("the case/claim should be closed")
     public void theCaseShouldBeClosed() {
-        dashboard.getCurrentCase();
+        dashboard.ensureViewingCurrentCase();
         caseView.assertCaseCannotBeAllocated();
         summaryTab.assertNoActiveStageVisible();
         timelineTab.assertCaseLogWithTitleIsVisible("Case Closed");

@@ -281,4 +281,10 @@ public class TOProgressCase extends BasePage {
                 pendingStep(infoType + " is not defined within " + getMethodName());
         }
     }
+
+    public void getTOCaseToPointOfAddingCorrespondents() {
+        dataInput.selectABusinessArea();
+        dataInput.selectAChannelRecieved();
+        clickTheButton("Continue");
+    }
 }

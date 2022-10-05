@@ -115,7 +115,7 @@ public class Dashboard extends BasePage {
 
     public void selectSearchLinkFromMenuBar() {
         safeClickOn(searchLink);
-        waitForPageWithTitle("Search");
+        waitForDECSPageWithTitle("Search");
     }
 
     public void selectCreateSingleCaseLinkFromMenuBar() {
@@ -286,12 +286,23 @@ public class Dashboard extends BasePage {
         claimCurrentCase();
     }
 
-    public void ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser() {
-        if (!caseView.currentCaseIsLoaded()) {
-                goToDashboard();
-                waitForDashboard();
+    public void ensureViewingCurrentCase(){
+        if (caseView.currentCaseIsLoaded()) {
+            // protects against check occurring before DECS has chance to navigate away from case view
+            waitABit(1000);
+            if (!caseView.currentCaseIsLoaded()) {
                 getCurrentCase();
             }
+        } else {
+            if (!onDashboard()) {
+                goToDashboard();
+            }
+            getCurrentCase();
+        }
+    }
+
+    public void ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser() {
+        ensureViewingCurrentCase();
         if (caseView.caseCanBeAllocated()) {
             claimCurrentCase();
             caseView.waitForCaseToLoad();
