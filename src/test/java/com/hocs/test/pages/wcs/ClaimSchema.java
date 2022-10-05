@@ -410,9 +410,6 @@ public class ClaimSchema extends BasePage {
     @FindBy(xpath = ".//button[contains(text(), 'Claim categories')]")
     public WebElementFacade claimCategoriesAccordionButton;
 
-    @FindBy(xpath = ".//button[contains(text(), 'Case Details')]")
-    public WebElementFacade caseDetailsAccordion;
-
     @FindBy(xpath = "//input[@id='Tier2AdjudicatorsOfficeDecision']")
     public WebElementFacade tier2AdjudicatorsOfficeDecision;
 
@@ -550,7 +547,7 @@ public class ClaimSchema extends BasePage {
     }
 
     public void assertCaseInfoFieldsPopulated() {
-        clickOn(caseDetailsAccordion);
+        openOrCloseAccordionSection("Case Details");
         assertThat(receivedDateDayTextbox.getValue().equals(""), is(false));
         assertThat(receivedDateMonthTextbox.getValue().equals(""), is(false));
         assertThat(receivedDateYearTextbox.getValue().equals(""), is(false));

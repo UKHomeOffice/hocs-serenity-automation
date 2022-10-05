@@ -39,7 +39,7 @@ public class Tier2StepDefs extends BasePage {
 
     @Then("the adjudicators office decision details are correctly displayed in the case details accordion")
     public void adjudicatorsDecisionDetailsAreCorrectlyDisplayedInCaseDetails() {
-        clickOn(claimSchema.caseDetailsAccordion);
+        openOrCloseAccordionSection("Case Details");
         tier2Coordination.assertTier2AdjudicatorsOfficeDecisionInformationIsCorrectInAccordion();
     }
 

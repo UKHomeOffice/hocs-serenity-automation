@@ -386,4 +386,9 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     public void selectCloseCaseAction() {
         selectSpecificRadioButtonFromGroupWithHeading("Close the case", "Actions");
     }
+
+    public void enterReasonForTransfer() {
+        String enteredReason = recordCaseData.enterTextIntoTextAreaWithHeading("Reason for transfer");
+        setSessionVariable("transferReason").to(enteredReason);
+    }
 }

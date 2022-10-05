@@ -131,8 +131,9 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
                 complaintsTriageAndInvestigation.selectDEPMU();
                 complaintsTriageAndInvestigation.selectIEDETBusinessArea();
                 break;
-            case "Send to CCH":
+            case "SEND TO CCH":
                 complaintsTriageAndInvestigation.selectSendToCCH();
+                complaintsTriageAndInvestigation.enterReasonForTransfer();
                 break;
             default:
                 pendingStep(action + " is not defined within " + getMethodName());

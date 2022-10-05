@@ -27,6 +27,9 @@ public class Triage extends BasePage {
 
     public void selectAnEnquiryReason() {
         String enquiryReason = recordCaseData.selectRandomOptionFromDropdownWithHeading("Enquiry reason");
+        if (enquiryReason.equalsIgnoreCase("OTHER")) {
+            recordCaseData.enterTextIntoTextAreaWithHeading("Other enquiry reason");
+        }
         setSessionVariable("enquiryReason").to(enquiryReason);
     }
 
