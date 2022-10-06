@@ -41,6 +41,6 @@ public class WithdrawACase extends BasePage {
         enterWithdrawalDate(date);
         enterWithdrawalNotes(withdrawalNotes);
         clickTheButton("Withdraw");
-        waitABit(500);
+        waitForMUIPageWithTitle("Choose an area to manage");
     }
 }

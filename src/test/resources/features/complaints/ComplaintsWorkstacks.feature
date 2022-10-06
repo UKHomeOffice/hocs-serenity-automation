@@ -129,8 +129,17 @@ Feature: Complaints Workstacks
       | IEDET    | IEDET_USER | 21           | IE Detention                      |
       | BF       | BF_USER    | 21           | Border Force Complaints           |
       | BF2      | BF_USER    | 21           | Border Force Complaints (Stage 2) |
-      | POGR     | POGR_USER  | 11           | HMPO/GRO Registration             |
-      | POGR2    | POGR_USER  | 11           | HMPO/GRO Registration (Stage 2)   |
+
+  @CSRegression
+  Scenario Outline: POGR Complaints user is able to see a red highlighted deadline on an complaint case that is due today
+    Given I am logged into "CS" as user "<user>"
+    When I create a single "<caseType>" case with the correspondence received date set <amountOfDays> workdays ago
+    And I click to view the case in the "<workstack>" workstack
+    Then the case deadline should be highlighted "red"
+    Examples:
+      | caseType | user       | amountOfDays | workstack                         |
+      | POGR     | POGR_USER  | 10           | HMPO/GRO Registration             |
+      | POGR2    | POGR_USER  | 10           | HMPO/GRO Registration (Stage 2)   |
 
 
 #  SMC workflow cancelled. Steps and code might be useful for future work implementing PSU specific sub-workflow into other complaints workflows

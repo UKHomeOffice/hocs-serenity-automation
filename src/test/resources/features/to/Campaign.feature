@@ -24,7 +24,7 @@ Feature: Campaign
   Scenario Outline: As a Campaign user, I want to be able to change the business area of the case, so that the correct team can casework it
     When I get a TO case with "<initialBusinessArea>" as the business area and move the case to the "Campaign" stage
     And I load and claim the current case
-    And I open the "Case Details" accordion section
+    And I open the "Case Details" accordion
     And I change the Business Area of the TO case to "<finalBusinessArea>"
     Then the case should be moved to the correct Treat Official team for the new business area
     And a Case transfer reason note is visible in the timeline showing the reason for reallocation

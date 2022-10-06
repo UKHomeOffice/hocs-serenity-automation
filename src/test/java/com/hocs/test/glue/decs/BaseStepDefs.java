@@ -68,7 +68,7 @@ public class BaseStepDefs extends BasePage {
         }
     }
 
-    @When("I open/close the {string} accordion section")
+    @When("I open/close the {string} accordion( section)")
     public void iOpenCloseTheAccordionSection(String accordionLabel) {
         try {
             openOrCloseAccordionSection(accordionLabel);

@@ -38,7 +38,7 @@ Feature: Triage
   Scenario Outline: As a Triage user, I want to be able to change the business area of the case to UKVI, so that the case is moved to the CCH stage
     When I get a TO case with "<businessArea>" as the business area and move the case to the "Triage" stage
     And I load and claim the current case
-    And I open the "Case Details" accordion section
+    And I open the "Case Details" accordion
     And I change the Business Area of the TO case to "UKVI"
     Then the case should be moved to the "CCH Returns" stage
     And the summary should display the owning team as "Treat Official CCH"
@@ -52,7 +52,7 @@ Feature: Triage
   Scenario Outline: As a Triage user, I want to be able to change the business area of the case, so that the correct team can casework it
     When I get a TO case with "<initialBusinessArea>" as the business area and move the case to the "Triage" stage
     And I load and claim the current case
-    And I open the "Case Details" accordion section
+    And I open the "Case Details" accordion
     And I change the Business Area of the TO case to "<finalBusinessArea>"
     Then the case should be moved to the correct Treat Official team for the new business area
     And a Case transfer reason note is visible in the timeline showing the reason for reallocation
@@ -91,7 +91,7 @@ Feature: Triage
   @TORegression
   Scenario: As a Triage user, I want to be able to save changes to the case, so corrections can be made
     When I get a "TO" case at "Triage" stage
-    And I open the "Case Details" accordion section
+    And I open the "Case Details" accordion
     And I change the channel the correspondence was received by
     And I save the changes
     Then the amended value for Channel Received should be saved to the case

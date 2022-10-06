@@ -54,7 +54,7 @@ public class MPAMCaseDetailsAccordionStepDefs extends BasePage {
 
     @And("I change the business area of the case to {string}")
     public void iChangeTheBusinessAreaOfTheCase(String newBusinessArea) {
-        safeClickOn(accordionMPAM.caseDetailsAccordionButton);
+        accordionMPAM.openCaseDetailsAccordion();
         accordionMPAM.changeBusinessAreaAndUnit(newBusinessArea);
     }
 
