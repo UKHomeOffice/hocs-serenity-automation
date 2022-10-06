@@ -257,7 +257,7 @@ public class CreateCase extends BasePage {
 
     // Multi Step Methods
 
-    private void createCSCase(String caseType, boolean addDocument, String receivedDate) {
+    public void createCSCase(String caseType, boolean addDocument, String receivedDate) {
         if(caseType.contains("2")) {
             this.stage1CaseType = caseType.substring(0, caseType.indexOf("2"));
             escalateAStage1CaseToStage2();

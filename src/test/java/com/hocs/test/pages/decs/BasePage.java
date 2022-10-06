@@ -330,6 +330,11 @@ public class BasePage extends PageObject {
         }
     }
 
+    public String returnRandomStringFromList(List<String> inputList) {
+        int randomListNumber = new Random().nextInt(inputList.size());
+        return inputList.get(randomListNumber);
+    }
+
     public String getCurrentDay() {
         Calendar cal = Calendar.getInstance();
 

@@ -174,7 +174,7 @@ public class IEDETProgressCase extends BasePage {
                 complaintsRegistrationAndDataInput.enterACompanyName();
                 complaintsRegistrationAndDataInput.enterAHomeOfficeReference(getCurrentMonth() +"/" + getCurrentYear());
                 complaintsRegistrationAndDataInput.enterAPortReference();
-                clickTheButton("Continue");
+                clickTheButton("Finish");
                 break;
             case "COMPLAINANT HOME OFFICE REFERENCE":
                 createCase.createCSCaseOfType("IEDET");
@@ -188,7 +188,22 @@ public class IEDETProgressCase extends BasePage {
                 complaintsRegistrationAndDataInput.enterACompanyName();
                 complaintsRegistrationAndDataInput.enterAHomeOfficeReference(infoValue);
                 complaintsRegistrationAndDataInput.enterAPortReference();
-                clickTheButton("Continue");
+                clickTheButton("Finish");
+                break;
+            case "ALL":
+                createCase.createCSCaseOfType("IEDET");
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();
+                correspondents.addANonMemberCorrespondentOfType("Complainant");
+                correspondents.confirmPrimaryCorrespondent();
+                complaintsRegistrationAndDataInput.enterComplainantDOB("01/01/2001");
+                complaintsRegistrationAndDataInput.selectAGender();
+                complaintsRegistrationAndDataInput.selectANationality();
+                complaintsRegistrationAndDataInput.enterACompanyName();
+                complaintsRegistrationAndDataInput.enterAHomeOfficeReference("Test entry for HO Reference");
+                complaintsRegistrationAndDataInput.enterAPortReference();
+                clickTheButton("Finish");
+                dashboard.goToDashboard();
                 break;
             default:
                 pendingStep(infoType + " is not defined within " + getMethodName());

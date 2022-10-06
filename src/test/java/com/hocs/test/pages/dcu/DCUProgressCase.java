@@ -3,6 +3,7 @@ package com.hocs.test.pages.dcu;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
+import com.hocs.test.pages.decs.ConfirmationScreens;
 import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
@@ -18,6 +19,8 @@ public class DCUProgressCase extends BasePage {
     CreateCase createCase;
 
     Correspondents correspondents;
+
+    ConfirmationScreens confirmationScreens;
 
     Documents documents;
 
@@ -258,16 +261,15 @@ public class DCUProgressCase extends BasePage {
         safeClickOn(continueButton);
     }
 
-    public void generateDCUSearchCaseData(String infoValue, String infoType) throws ParseException {
+    public void generateDCUSearchCaseData(String infoValue, String infoType) {
         switch (infoType.toUpperCase()) {
             case "CASE TYPE":
                 createCase.createCSCaseOfType(infoValue);
                 break;
             case "RECEIVED ON OR AFTER DATE":
-                createCase.createCaseReceivedFiveDaysBeforeOrAfterDate("MIN", "After", infoValue);
-                break;
             case "RECEIVED ON OR BEFORE DATE":
-                createCase.createCaseReceivedFiveDaysBeforeOrAfterDate("MIN", "Before", infoValue);
+                createCase.createCSCase("MIN", false, infoValue);
+                dashboard.goToDashboard();
                 break;
             case "MEMBER OF PARLIAMENT NAME":
                 createCase.createCSCaseOfType("MIN");
@@ -313,6 +315,22 @@ public class DCUProgressCase extends BasePage {
                 safeClickOn(continueButton);
                 correspondents.addANonMemberCorrespondentOfType("Constituent");
                 correspondents.confirmPrimaryCorrespondent();
+                break;
+            case "ALL":
+                createCase.createCSCase("MIN", false, "01/01/2001");
+                dashboard.goToDashboard();
+                dashboard.getAndClaimCurrentCase();
+                dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
+                dataInput.selectACorrespondenceReceivedChannel();
+                dataInput.selectASpecificCopyToNoTenOption("No");
+                dataInput.selectASpecificHomeSecInterestOption("Yes");
+                dataInput.selectAHomeSecReplyOption();
+                safeClickOn(continueButton);
+                correspondents.addASpecificMemberCorrespondent("Boris Johnson");
+                correspondents.addANonMemberCorrespondentOfType("Constituent");
+                correspondents.confirmPrimaryCorrespondent();
+                dashboard.getAndClaimCurrentCase();
+                moveCaseFromMarkupToInitialDraftWithSpecificTopic("Animal alternatives (3Rs)");
                 break;
             default:
                 pendingStep(infoType + " is not defined within " + getMethodName());

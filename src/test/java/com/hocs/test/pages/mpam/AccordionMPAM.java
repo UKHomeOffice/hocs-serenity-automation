@@ -19,13 +19,13 @@ public class AccordionMPAM extends BasePage {
     @FindBy(xpath = "//button[text()='Case details']/parent::h2/following-sibling::span")
     public WebElementFacade caseDetailsAccordionButton;
 
-    @FindBy(xpath = "//button[text()='Creation']/parent::h2/following-sibling::span")
+    @FindBy(xpath = "//span[text()='Creation']/parent::span/following-sibling::span")
     public WebElementFacade creationAccordionButton;
 
-    @FindBy(xpath = "//button[text()='Triage']/parent::h2/following-sibling::span")
+    @FindBy(xpath = "//span[text()='Triage']/parent::span/following-sibling::span")
     public WebElementFacade triageAccordionButton;
 
-    @FindBy(xpath = "//button[text()='Draft']/parent::h2/following-sibling::span")
+    @FindBy(xpath = "//span[text()='Draft']/parent::span/following-sibling::span")
     public WebElementFacade draftAccordionButton;
 
     @FindBy(xpath = "//strong[contains(text(), 'Business Area')]/parent::span")
