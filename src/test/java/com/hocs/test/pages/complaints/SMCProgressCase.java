@@ -197,6 +197,37 @@ public class SMCProgressCase extends BasePage {
                 complaintsTriageAndInvestigation.enterSpecificPSUReference(infoValue);
                 clickTheButton("Continue");
                 break;
+            case "ALL":
+                createCase.createCSCaseOfType("SMC");
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();
+                correspondents.addANonMemberCorrespondentOfType("Complainant");
+                correspondents.confirmPrimaryCorrespondent();
+                complaintsRegistrationAndDataInput.enterComplainantDOB("01/01/2001");
+                complaintsRegistrationAndDataInput.selectAGender();
+                complaintsRegistrationAndDataInput.selectANationality();
+                complaintsRegistrationAndDataInput.enterACompanyName();
+                complaintsRegistrationAndDataInput.enterAHomeOfficeReference("Test entry for HO Reference");
+                complaintsRegistrationAndDataInput.enterAPortReference();
+                clickTheButton("Continue");
+                complaintsRegistrationAndDataInput.selectAComplaintChannel();
+                complaintsRegistrationAndDataInput.selectComplaintOrigin();
+                complaintsRegistrationAndDataInput.selectAdditionalInformation();
+                complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
+                complaintsRegistrationAndDataInput.enterAPreviousUKVIComplaintReference();
+                complaintsRegistrationAndDataInput.enterAThirdPartyReference();
+                clickTheButton("Continue");
+                complaintsRegistrationAndDataInput.openTheSeriousComplaintCategoryAccordion();
+                waitABit(1000);
+                complaintsRegistrationAndDataInput.selectAVisibleClaimCategory();
+                complaintsRegistrationAndDataInput.selectAnOwningCSU();
+                clickTheButton("Finish");
+                dashboard.getAndClaimCurrentCase();
+                complaintsTriageAndInvestigation.selectAcceptCase();
+                clickTheButton("Continue");
+                complaintsTriageAndInvestigation.enterSpecificPSUReference("123456789");
+                clickTheButton("Continue");
+                break;
             default:
                 pendingStep(infoType + " is not defined within " + getMethodName());
         }

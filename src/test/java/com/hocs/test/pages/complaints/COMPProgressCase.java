@@ -274,6 +274,19 @@ public class COMPProgressCase extends BasePage {
                 complaintsRegistrationAndDataInput.enterAPortReference();
                 clickContinueButton();
                 break;
+            case "ALL":
+                createCase.createCSCaseOfType("COMP");
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();
+                correspondents.addANonMemberCorrespondentOfType("Complainant");
+                correspondents.confirmPrimaryCorrespondent();
+                complaintsRegistrationAndDataInput.enterComplainantDOB("01/01/2001");
+                complaintsRegistrationAndDataInput.selectAGender();
+                complaintsRegistrationAndDataInput.enterACompanyName();
+                complaintsRegistrationAndDataInput.enterAHomeOfficeReference("Test entry for HO Reference");
+                complaintsRegistrationAndDataInput.enterAPortReference();
+                safeClickOn(continueButton);
+                break;
             default:
                 pendingStep(infoType + " is not defined within " + getMethodName());
         }

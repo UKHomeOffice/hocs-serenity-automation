@@ -134,6 +134,11 @@ public class BasePage extends PageObject {
         return Pattern.compile(Pattern.quote(stringToCheckFor), Pattern.CASE_INSENSITIVE).matcher(stringToCheck).find();
     }
 
+    public String returnRandomStringFromList(List<String> inputList) {
+        int randomListNumber = new Random().nextInt(inputList.size());
+        return inputList.get(randomListNumber);
+    }
+
     //Page Titles
 
     public String getDECSCurrentPageTitle() {

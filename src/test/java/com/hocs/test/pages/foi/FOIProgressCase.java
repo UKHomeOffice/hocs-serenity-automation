@@ -4,6 +4,7 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.ConfirmationScreens;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
@@ -12,6 +13,8 @@ import com.hocs.test.pages.decs.RecordCaseData;
 public class FOIProgressCase extends BasePage {
 
     CreateCase createCase;
+
+    ConfirmationScreens confirmationScreens;
 
     Dashboard dashboard;
 
@@ -165,23 +168,6 @@ public class FOIProgressCase extends BasePage {
                 dashboard.goToDashboard();
                 break;
             case "RECEIVED ON OR AFTER":
-                dashboard.selectCreateSingleCaseLinkFromMenuBar();
-                if (!checkButtonIsVisible("Next")) {
-                    dashboard.selectCreateSingleCaseLinkFromMenuBar();
-                }
-                createCase.selectCaseType("FOI");
-                clickNextButton();
-                createCase.editReceivedDate(getTodaysDate());
-                createCase.storeCorrespondenceReceivedDate();
-                createCase.storeCorrespondenceReceivedInKIMUDate();
-                documents.uploadFileOfType("docx");
-                createCase.selectCorrespondenceInboundChannel();
-                createCase.enterCorrespondentDetails();
-                createCase.selectFOITopic("Animal alternatives (3Rs)");
-                createCase.enterRequestQuestion();
-                clickTheButton("Submit");
-                dashboard.goToDashboard();
-                break;
             case "RECEIVED ON OR BEFORE":
                 dashboard.selectCreateSingleCaseLinkFromMenuBar();
                 if (!checkButtonIsVisible("Next")) {
@@ -189,7 +175,7 @@ public class FOIProgressCase extends BasePage {
                 }
                 createCase.selectCaseType("FOI");
                 clickNextButton();
-                createCase.editReceivedDate("01/01/2010");
+                createCase.editReceivedDate(infoValue);
                 createCase.storeCorrespondenceReceivedDate();
                 createCase.storeCorrespondenceReceivedInKIMUDate();
                 documents.uploadFileOfType("docx");
@@ -198,6 +184,26 @@ public class FOIProgressCase extends BasePage {
                 createCase.selectFOITopic("Animal alternatives (3Rs)");
                 createCase.enterRequestQuestion();
                 clickTheButton("Submit");
+                confirmationScreens.storeCaseReference();
+                dashboard.goToDashboard();
+                break;
+            case "ALL":
+                dashboard.selectCreateSingleCaseLinkFromMenuBar();
+                if (!checkButtonIsVisible("Next")) {
+                    dashboard.selectCreateSingleCaseLinkFromMenuBar();
+                }
+                createCase.selectCaseType("FOI");
+                clickNextButton();
+                createCase.editReceivedDate("01/01/2022");
+                createCase.storeCorrespondenceReceivedDate();
+                createCase.storeCorrespondenceReceivedInKIMUDate();
+                documents.uploadFileOfType("docx");
+                createCase.selectCorrespondenceInboundChannel();
+                createCase.enterCorrespondentDetails();
+                createCase.selectFOITopic("Animal alternatives (3Rs)");
+                createCase.enterRequestQuestion();
+                clickTheButton("Submit");
+                confirmationScreens.storeCaseReference();
                 dashboard.goToDashboard();
                 break;
             default:

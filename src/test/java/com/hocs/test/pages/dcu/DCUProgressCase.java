@@ -264,16 +264,15 @@ public class DCUProgressCase extends BasePage {
         clickContinueButton();
     }
 
-    public void generateDCUSearchCaseData(String infoValue, String infoType) throws ParseException {
+    public void generateDCUSearchCaseData(String infoValue, String infoType) {
         switch (infoType.toUpperCase()) {
             case "CASE TYPE":
                 createCase.createCSCaseOfType(infoValue);
                 break;
             case "RECEIVED ON OR AFTER DATE":
-                createCase.createCaseReceivedFiveDaysBeforeOrAfterDate("MIN", "After", infoValue);
-                break;
             case "RECEIVED ON OR BEFORE DATE":
-                createCase.createCaseReceivedFiveDaysBeforeOrAfterDate("MIN", "Before", infoValue);
+                createCase.createCSCase("MIN", false, infoValue);
+                dashboard.goToDashboard();
                 break;
             case "MEMBER OF PARLIAMENT NAME":
                 createCase.createCSCaseOfType("MIN");
@@ -319,6 +318,22 @@ public class DCUProgressCase extends BasePage {
                 clickContinueButton();
                 correspondents.addANonMemberCorrespondentOfType("Constituent");
                 correspondents.confirmPrimaryCorrespondent();
+                break;
+            case "ALL":
+                createCase.createCSCase("MIN", false, "01/01/2001");
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();
+                dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
+                dataInput.selectACorrespondenceReceivedChannel();
+                dataInput.selectASpecificCopyToNoTenOption("No");
+                dataInput.selectASpecificHomeSecInterestOption("Yes");
+                dataInput.selectAHomeSecReplyOption();
+                clickContinueButton();
+                correspondents.addASpecificMemberCorrespondent("Boris Johnson");
+                correspondents.addANonMemberCorrespondentOfType("Constituent");
+                correspondents.confirmPrimaryCorrespondent();
+                dashboard.getAndClaimCurrentCase();
+                moveCaseFromMarkupToInitialDraftWithSpecificTopic("Animal alternatives (3Rs)");
                 break;
             default:
                 pendingStep(infoType + " is not defined within " + getMethodName());

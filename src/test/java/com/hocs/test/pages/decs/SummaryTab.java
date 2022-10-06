@@ -100,7 +100,7 @@ public class SummaryTab extends BasePage {
     @FindBy(xpath = "//th[text()='Follow-up due by']/following-sibling::td")
     private WebElementFacade followUpDueDate;
 
-    @FindBy(xpath = "//th[text()='Campaign']/following-sibling::td")
+    @FindBy(xpath = "//th[contains(text(), 'Campaign')]/following-sibling::td")
     private WebElementFacade campaign;
 
     @FindBy(xpath = "//th[contains(text(), 'Home Secretary')]/following-sibling::td")
@@ -111,8 +111,6 @@ public class SummaryTab extends BasePage {
 
     @FindBy(xpath = "//caption[text()='Previous Case']/following-sibling::tbody//a")
     public WebElementFacade previousCOMPCaseReference;
-
-
 
 
     public void selectSummaryTab() {
@@ -132,6 +130,18 @@ public class SummaryTab extends BasePage {
                 Assert.fail("Summary Tab value incorrect for: " + header + "\nExpected value was: \"" + value + "\"\nDisplayed value was: \"" +
                         displayedValue + "\"");
             }
+        }
+    }
+
+    public void assertPrimaryCorrespondentDetailMatchValue(String correspondentDetail) {
+        int n = 0;
+        List<WebElementFacade> primaryCorrespondentDetails = findAll("//th[text()='Primary correspondent']/following-sibling::td/span");
+        while (n < primaryCorrespondentDetails.size()) {
+            String displayedDetail = primaryCorrespondentDetails.get(n).getText();
+            if (displayedDetail.equalsIgnoreCase(correspondentDetail)) {
+                assertThat(displayedDetail.equalsIgnoreCase(correspondentDetail), is(true));
+            }
+            n++;
         }
     }
 

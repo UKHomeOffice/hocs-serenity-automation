@@ -1,32 +1,21 @@
-@ComplaintsSearch @Complaints
+@ComplaintsSearch @Complaints @Search
 Feature: Complaints Search
 
 #     UKVI COMPLAINTS
 
-  # HOCS-2838, HOCS-3036
   @COMPRegression @UKVIComplaints
-  Scenario Outline: User tests UKVI complaint case search criteria
+  Scenario: User tests UKVI complaints case search criteria
     Given I am logged into "CS" as user "COMP_USER"
-    When I navigate to the "Search" page
-    And I enter "<infoValue>" into the "<infoType>" search field in the "COMP" search configuration
+    When I generate a "COMP" case to validate search functionality
+    And I navigate to the "Search" page
+    And I enter "COMP" into the "Case Type" search field
+    And I enter "Sam McTester" into the "Correspondent Full Name" search field
+    And I enter "AB1 2CD" into the "Correspondent Postcode" search field
+    And I enter "SamMcTester@Test.com" into the "Correspondent Email Address" search field
+    And I enter "01/01/2001" into the "Complainant Date of Birth" search field
+    And I enter "Test entry for HO Reference" into the "Complainant Home Office Reference" search field
+    And I enter the current case reference into the Case Reference field on the search screen
     And I click the search button on the search page
-    Then I check that the search results have the correct "<infoType>"
-    Examples:
-      | infoType                          | infoValue                            |
-      | Case Type                         | COMP                                 |
-      | Case Type                         | COMP2                                |
-      | Correspondent Full Name           | Sam McTester                         |
-      | Correspondent Postcode            | AB1 2CD                              |
-      | Correspondent Email Address       | SamMcTester@Test.com                 |
-      | Complainant Date Of Birth         | 01/01/2001                           |
-      | Complainant Home Office Reference | Test entry for Home Office Reference |
-
-  # HOCS-2838
-  @COMPRegression @UKVIComplaints
-  Scenario: User can search for a UKVI complaint case by its case reference
-    Given I am logged into "CS" as user "COMP_USER"
-    When I create a single "COMP" case
-    And I search for the case by its case reference
     Then the created case should be the only case visible in the search results
 
     # HOCS-2847 HOCS-3161
@@ -52,28 +41,18 @@ Feature: Complaints Search
 
 #     BF COMPLAINTS
 
-  # HOCS-4079
   @BFRegression @BFComplaints
-  Scenario Outline: User tests BF complaint case search criteria
+  Scenario: User tests BF complaints case search criteria
     Given I am logged into "CS" as user "BF_USER"
-    When I navigate to the "Search" page
-    And I enter "<infoValue>" into the "<infoType>" search field in the "BF" search configuration
+    When I generate a "BF" case to validate search functionality
+    And I navigate to the "Search" page
+    And I enter "Sam McTester" into the "Correspondent Full Name" search field
+    And I enter "AB1 2CD" into the "Correspondent Postcode" search field
+    And I enter "SamMcTester@Test.com" into the "Correspondent Email Address" search field
+    And I enter "01/01/2001" into the "Complainant Date of Birth" search field
+    And I enter "Test entry for HO Reference" into the "Complainant Home Office Reference" search field
+    And I enter the current case reference into the Case Reference field on the search screen
     And I click the search button on the search page
-    Then I check that the search results have the correct "<infoType>"
-    Examples:
-    | infoType                          | infoValue                             |
-    | Correspondent full name           | Sam McTester                          |
-    | Correspondent postcode            | AB1 2CD                               |
-    | Correspondent email address       | SamMcTester@Test.com                  |
-    | Complainant date of birth         | 01/01/2001                            |
-    | Complainant Home Office Reference | Test entry for Home Office Reference  |
-
-  # HOCS-4079
-  @BFRegression @BFComplaints
-  Scenario: User can search for a BF complaint case by its case reference
-    Given I am logged into "CS" as user "BF_USER"
-    When I create a single "BF" case
-    And I search for the case by its case reference
     Then the created case should be the only case visible in the search results
 
   #HOCS-4079, HOCS-4222
@@ -100,49 +79,33 @@ Feature: Complaints Search
 #     IEDET COMPLAINTS
 
   @IEDETRegression @IEDETComplaints
-  Scenario Outline: User tests IEDET complaint case search criteria
+  Scenario: User tests IEDET complaint case search criteria
     Given I am logged into "CS" as user "IEDET_USER"
-    When I navigate to the "Search" page
-    And I enter "<infoValue>" into the "<infoType>" search field in the "IEDET" search configuration
+    When I generate a "IEDET" case to validate search functionality
+    And I navigate to the "Search" page
+    And I enter "Sam McTester" into the "Correspondent Full Name" search field
+    And I enter "AB1 2CD" into the "Correspondent Postcode" search field
+    And I enter "SamMcTester@Test.com" into the "Correspondent Email Address" search field
+    And I enter "01/01/2001" into the "Complainant Date of Birth" search field
+    And I enter "Test entry for HO Reference" into the "Complainant Home Office Reference" search field
+    And I enter the current case reference into the Case Reference field on the search screen
     And I click the search button on the search page
-    Then I check that the search results have the correct "<infoType>"
-    Examples:
-      | infoType                          | infoValue                            |
-      | Correspondent Full Name           | Sam McTester                         |
-      | Correspondent Postcode            | AB1 2CD                              |
-      | Correspondent Email Address       | SamMcTester@Test.com                 |
-      | Complainant Date Of Birth         | 01/01/2001                           |
-      | Complainant Home Office Reference | Test entry for Home Office Reference |
-
-  @IEDETRegression @IEDETComplaints
-  Scenario: User can search for a IEDET complaint case by its case reference
-    Given I am logged into "CS" as user "IEDET_USER"
-    When I create a single "IEDET" case
-    And I search for the case by its case reference
     Then the created case should be the only case visible in the search results
 
 
 #     POGR COMPLAINTS
 
   @POGRRegression @POGRComplaints
-  Scenario Outline: User tests POGR complaint case search criteria
+  Scenario: User tests POGR complaints case search criteria
     Given I am logged into "CS" as user "POGR_USER"
-    When I navigate to the "Search" page
-    And I enter "<infoValue>" into the "<infoType>" search field in the "POGR" search configuration
+    When I generate a "POGR" case to validate search functionality
+    And I navigate to the "Search" page
+    And I enter "Sam McTester" into the "Correspondent Full Name" search field
+    And I enter "AB1 2CD" into the "Correspondent Postcode" search field
+    And I enter "SamMcTester@Test.com" into the "Correspondent Email Address" search field
+    And I enter "01/01/2001" into the "Complainant Date of Birth" search field
+    And I enter the current case reference into the Case Reference field on the search screen
     And I click the search button on the search page
-    Then I check that the search results have the correct "<infoType>"
-    Examples:
-      | infoType                          | infoValue                             |
-      | Correspondent full name           | Sam McTester                          |
-      | Correspondent postcode            | AB1 2CD                               |
-      | Correspondent email address       | SamMcTester@Test.com                  |
-      | Complainant date of birth         | 01/01/2001                            |
-
-  @POGRRegression @POGRComplaints
-  Scenario: User can search for a POGR complaint case by its case reference
-    Given I am logged into "CS" as user "POGR_USER"
-    When I create a single "POGR" case
-    And I search for the case by its case reference
     Then the created case should be the only case visible in the search results
 
 
@@ -163,24 +126,16 @@ Feature: Complaints Search
 #     SMC COMPLAINTS
 
   @SMCComplaints
-  Scenario Outline: User tests SMC complaint case search criteria
+  Scenario: User tests SMC complaints case search criteria
     Given I am logged into "CS" as user "SMC_USER"
-    When I navigate to the "Search" page
-    And I enter "<infoValue>" into the "<infoType>" search field in the "SMC" search configuration
+    When I generate a "SMC" case to validate search functionality
+    And I navigate to the "Search" page
+    And I enter "Sam McTester" into the "Correspondent Full Name" search field
+    And I enter "AB1 2CD" into the "Correspondent Postcode" search field
+    And I enter "SamMcTester@Test.com" into the "Correspondent Email Address" search field
+    And I enter "01/01/2001" into the "Complainant Date of Birth" search field
+    And I enter "Test entry for HO Reference" into the "Complainant Home Office Reference" search field
+    And I enter "123456789" into the "PSU Reference" search field
+    And I enter the current case reference into the Case Reference field on the search screen
     And I click the search button on the search page
-    Then I check that the search results have the correct "<infoType>"
-    Examples:
-      | infoType                          | infoValue                             |
-      | Correspondent full name           | Sam McTester                          |
-      | Correspondent postcode            | AB1 2CD                               |
-      | Correspondent email address       | SamMcTester@Test.com                  |
-      | Complainant date of birth         | 01/01/2001                            |
-      | Complainant Home Office Reference | Test entry for Home Office Reference  |
-      | PSU Reference                     | 123456789                             |
-
-  @SMCComplaints
-  Scenario: User can search for a SMC complaint case by its case reference
-    Given I am logged into "CS" as user "SMC_USER"
-    When I create a single "SMC" case
-    And I search for the case by its case reference
     Then the created case should be the only case visible in the search results

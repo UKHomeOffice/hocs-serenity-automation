@@ -10,6 +10,7 @@ import com.hocs.test.pages.decs.ConfirmationScreens;
 import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
+import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
 import java.text.ParseException;
 
@@ -18,6 +19,8 @@ public class MPAMProgressCase extends BasePage {
     CreateCase createCase;
 
     Dashboard dashboard;
+
+    Documents documents;
 
     Campaign campaign;
 
@@ -259,15 +262,24 @@ public class MPAMProgressCase extends BasePage {
                 creation.addCorrespondentWithSpecificReferenceToCase(infoValue);
                 break;
             case "RECEIVED ON OR BEFORE DATE":
-                createCase.createCaseReceivedFiveDaysBeforeOrAfterDate("MPAM", "Before", infoValue);
-                break;
             case "RECEIVED ON OR AFTER DATE":
-                createCase.createCaseReceivedFiveDaysBeforeOrAfterDate("MPAM", "After", infoValue);
+                dashboard.selectCreateSingleCaseLinkFromMenuBar();
+                if (!checkButtonIsVisible("Next")) {
+                    dashboard.selectCreateSingleCaseLinkFromMenuBar();
+                }
+                createCase.selectCaseType("MPAM");
+                clickTheButton("Next");
+                createCase.editReceivedDate(infoValue);
+                createCase.storeCorrespondenceReceivedDate();
+                documents.uploadFileOfType("docx");
+                clickTheButton("Create case");
+                confirmationScreens.storeCaseReference();
+                dashboard.goToDashboard();
                 break;
             case "CAMPAIGN":
                 createCase.createCSCaseOfType("MPAM");
-                confirmationScreens.goToCaseFromConfirmationScreen();
-                caseView.clickAllocateToMeLink();;
+                dashboard.goToDashboard();
+                dashboard.getAndClaimCurrentCase();
                 moveCaseFromCreationToTriage();
                 dashboard.getAndClaimCurrentCase();
                 campaign.moveCaseFromAStageToCampaign(infoValue);
@@ -284,6 +296,34 @@ public class MPAMProgressCase extends BasePage {
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 mtsDataInput.completeDataInputStageAndCloseMTSCase();
+                break;
+            case "ALL":
+                dashboard.selectCreateSingleCaseLinkFromMenuBar();
+                if (!checkButtonIsVisible("Next")) {
+                    dashboard.selectCreateSingleCaseLinkFromMenuBar();
+                }
+                createCase.selectCaseType("MPAM");
+                clickTheButton("Next");
+                createCase.editReceivedDate("01/01/2022");
+                createCase.storeCorrespondenceReceivedDate();
+                documents.uploadFileOfType("docx");
+                clickTheButton("Create case");
+                confirmationScreens.storeCaseReference();
+                dashboard.goToDashboard();
+                dashboard.getAndClaimCurrentCase();
+                creation.selectASpecificBusinessArea(businessArea);
+                creation.selectASpecificRefType("Yes (Ministerial)");
+                creation.selectASpecificMinisterialSignOffTeam("Home Secretary");
+                creation.selectASpecificAddressee("Home Secretary");
+                creation.selectASpecificUrgency(urgency);
+                creation.selectASpecificInboundChannel("Email");
+                clickTheButton("Continue");
+                correspondents.addASpecificMemberCorrespondent("Boris Johnson");
+                correspondents.addANonMemberCorrespondentOfType("Constituent");
+                correspondents.confirmPrimaryCorrespondent();
+                dashboard.getAndClaimCurrentCase();
+                campaign.moveCaseFromAStageToCampaign("Small boats");
+                dashboard.goToDashboard();
                 break;
             default:
                 pendingStep(infoType + " is not defined within " + getMethodName());

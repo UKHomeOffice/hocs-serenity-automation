@@ -9,6 +9,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.complaints.BFProgressCase;
 import com.hocs.test.pages.complaints.COMPProgressCase;
+import com.hocs.test.pages.complaints.IEDETProgressCase;
 import com.hocs.test.pages.complaints.POGRProgressCase;
 import com.hocs.test.pages.complaints.SMCProgressCase;
 import com.hocs.test.pages.dcu.DCUProgressCase;
@@ -23,6 +24,7 @@ import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.Workstacks;
 import com.hocs.test.pages.dcu.DataInput;
 import com.hocs.test.pages.dcu.Markup;
+import com.hocs.test.pages.foi.FOIProgressCase;
 import com.hocs.test.pages.mpam.MPAMProgressCase;
 
 import com.hocs.test.pages.to.TOProgressCase;
@@ -31,6 +33,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import java.text.ParseException;
 
 public class CreateCaseStepDefs extends BasePage {
 
@@ -46,7 +49,11 @@ public class CreateCaseStepDefs extends BasePage {
 
     COMPProgressCase compProgressCase;
 
+    FOIProgressCase foiProgressCase;
+
     SMCProgressCase smcProgressCase;
+
+    IEDETProgressCase iedetProgressCase;
 
     TOProgressCase toProgressCase;
 
@@ -345,5 +352,40 @@ public class CreateCaseStepDefs extends BasePage {
         createCase.createCSCaseOfType(createCase.getRandomCaseTypeThatAllowsMultipleCorrespondents());
         confirmationScreens.goToCaseFromConfirmationScreen();
         caseView.clickAllocateToMeLink();
+    }
+
+    @And("I generate a {string} case to validate search functionality")
+    public void iGenerateACaseToValidateSearchFunctionality(String caseType) throws ParseException {
+        switch (caseType.toUpperCase()) {
+            case "DCU":
+                dcuProgressCase.generateDCUSearchCaseData("N/A", "ALL");
+                break;
+            case "MPAM":
+                mpamProgressCase.generateMPAMSearchCaseData("N/A", "ALL");
+                break;
+            case "COMP":
+                compProgressCase.generateCOMPSearchCaseData("N/A", "ALL");
+                break;
+            case "BF":
+                bfProgressCase.generateBFSearchCaseData("N/A", "ALL");
+                break;
+            case "IEDET":
+                iedetProgressCase.generateIEDETSearchCaseData("N/A", "ALL");
+                break;
+            case "SMC":
+                smcProgressCase.generateSMCSearchCaseData("N/A", "ALL");
+                break;
+            case "POGR":
+                pogrProgressCase.generatePOGRSearchCaseData("N/A", "ALL");
+                break;
+            case "FOI":
+                foiProgressCase.generateFOISearchCaseData("N/A", "ALL");
+                break;
+            case "TO":
+                toProgressCase.generateTOSearchCaseData("N/A", "ALL");
+                break;
+            default:
+                pendingStep(caseType + " is not contained within " + getMethodName());
+        }
     }
 }

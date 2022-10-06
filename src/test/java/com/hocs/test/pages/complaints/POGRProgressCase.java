@@ -223,6 +223,18 @@ public class POGRProgressCase extends BasePage {
                 complaintsRegistrationAndDataInput.enterComplainantDOB(infoValue);
                 clickTheButton("Continue");
                 break;
+            case "ALL":
+                createCase.createCSCaseOfType("POGR");
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();
+                complaintsRegistrationAndDataInput.selectBusinessArea();
+                clickTheButton("Continue");
+                correspondents.addANonMemberCorrespondentOfType("Complainant");
+                correspondents.confirmPrimaryCorrespondent();
+                complaintsRegistrationAndDataInput.completeDataInputScreen();
+                complaintsRegistrationAndDataInput.enterComplainantDOB("01/01/2001");
+                clickTheButton("Continue");
+                break;
             default:
                 pendingStep(infoType + " is not defined within " + getMethodName());
         }
