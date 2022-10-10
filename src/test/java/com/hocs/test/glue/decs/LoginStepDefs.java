@@ -216,7 +216,7 @@ public class LoginStepDefs extends BasePage {
             dashboard.selectMyCases();
             if (workstacks.getTotalOfCases() == 0) {
                 if (currentPlatform.equals("CS")){
-                createCase.createCSCaseOfType("CS");
+                createCase.createCSCaseOfTypeWithDocument(createCase.getRandomCSCaseType());
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 }

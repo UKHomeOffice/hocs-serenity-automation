@@ -14,6 +14,7 @@ import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Search;
 import com.hocs.test.pages.decs.Workstacks;
 import com.hocs.test.pages.mpam.MPAMProgressCase;
+import config.CaseType;
 import config.User;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -94,21 +95,9 @@ public class WorkstacksStepDefs extends BasePage {
     }
 
     @When("I click the {string} case type filter card")
-    public void clickCaseTypeFilterCard(String caseTypeCard) {
-        safeClickOn(dashboard.performanceProcessTeam);
-        switch (caseTypeCard.toUpperCase()) {
-            case "MIN":
-                safeClickOn(workstacks.dcuMINFilterCard);
-                break;
-            case "DTEN":
-                safeClickOn(workstacks.dcuN10FilterCard);
-                break;
-            case "TRO":
-                safeClickOn(workstacks.dcuTROFilterCard);
-                break;
-            default:
-                pendingStep(caseTypeCard + " is not defined within " + getMethodName());
-        }
+    public void clickCaseTypeFilterCard(String caseTypeString) {
+        WebElementFacade filterCard = findBy("//span[text()='" + CaseType.valueOf(caseTypeString).getCorrespondenceTypeLabel() + "']");
+        safeClickOn(filterCard);
     }
 
     @Then("the cases should be filtered by the {string} Current Stage")
@@ -145,7 +134,7 @@ public class WorkstacksStepDefs extends BasePage {
 
     @And("I create a new case and view it in the Performance and Process team workstack")
     public void iCreateANewCaseAndViewItInThePerformanceAndProcessTeamWorkstack() {
-        createCase.createCSCaseOfType("MIN");
+        createCase.createCSCaseOfTypeWithDocument(CaseType.MIN);
         dashboard.goToDashboard();
         safeClickOn(dashboard.performanceProcessTeam);
         waitABit(1000);
@@ -174,15 +163,15 @@ public class WorkstacksStepDefs extends BasePage {
 
     @When("I create three cases, and view them in performance and process workstack")
     public void createThreeCasesAndReassign() {
-        createCase.createCSCaseOfType("TRO");
+        createCase.createCSCaseOfTypeWithDocument(CaseType.TRO);
         setSessionVariable("caseReference1").to(getCurrentCaseReference());
         dashboard.goToDashboard();
         waitABit(1000);
-        createCase.createCSCaseOfType("TRO");
+        createCase.createCSCaseOfTypeWithDocument(CaseType.TRO);
         setSessionVariable("caseReference2").to(getCurrentCaseReference());
         dashboard.goToDashboard();
         waitABit(1000);
-        createCase.createCSCaseOfType("TRO");
+        createCase.createCSCaseOfTypeWithDocument(CaseType.TRO);
         setSessionVariable("caseReference3").to(getCurrentCaseReference());
         dashboard.goToDashboard();
         waitABit(1000);
@@ -203,7 +192,7 @@ public class WorkstacksStepDefs extends BasePage {
     public void iCreateThreeCasesAndAssignToUser(String user) {
         int n = 0;
         while (n < 3) {
-            createCase.createCSCaseOfType("TRO");
+            createCase.createCSCaseOfTypeWithDocument(CaseType.TRO);
             safeClickOn(confirmationScreens.caseReference);
             caseView.allocateToUserByVisibleText(User.valueOf(user).getAllocationText());
             dashboard.goToDashboard();
@@ -232,17 +221,17 @@ public class WorkstacksStepDefs extends BasePage {
     }
 
     @When("I enter the correct Data Input team workstack for {string} cases")
-    public void iEnterTheCorrectDataInputTeamWorkstackForCases(String caseType) {
-        switch (caseType.toUpperCase()) {
-            case "MIN":
-            case "TRO":
+    public void iEnterTheCorrectDataInputTeamWorkstackForCases(String caseTypeString) {
+        switch (CaseType.valueOf(caseTypeString)) {
+            case MIN:
+            case TRO:
                 dashboard.selectPerformanceProcessTeam();
                 break;
-            case "DTEN":
+            case DTEN:
                 dashboard.selectTransferN10Team();
                 break;
             default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
+                pendingStep(caseTypeString + " is not defined within " + getMethodName());
                 break;
         }
         workstacks.waitForWorkstackToLoad();
@@ -251,11 +240,6 @@ public class WorkstacksStepDefs extends BasePage {
     @Then("the created case should be visible in the workstack")
     public void theCreatedCaseShouldBeVisibleInTheWorkstack() {
         workstacks.assertVisibilityOfCaseReference(true);
-    }
-
-    @Then("only {string} cases should be visible")
-    public void onlyCasesShouldBeVisible(String caseType) {
-        workstacks.assertThatTheOnlyDCUCaseTypePresentIs(caseType.toUpperCase());
     }
 
     @Then("the case should be assigned {string} points")
@@ -282,7 +266,7 @@ public class WorkstacksStepDefs extends BasePage {
     @And("I search for active MPAM cases and order the {string} column from {string}")
     public void orderSearchResultColumns(String column, String order) {
         dashboard.selectSearchLinkFromMenuBar();
-        safeClickOn(search.mpamCaseCheckbox);
+        search.selectCaseTypeSearchCheckboxForCaseType(CaseType.MPAM);
         safeClickOn(search.caseStatusActiveCheckbox);
         clickSearchButton();
         workstacks.orderMPAMWorkstackColumn(column, order);
@@ -366,7 +350,7 @@ public class WorkstacksStepDefs extends BasePage {
         switch (workstack.toUpperCase()) {
             case "DCU MY CASES":
                 if (dashboard.getNumberOfCasesInWorkstackFromDashboardCard("My Cases") == 0) {
-                    createCase.createCSCaseOfType("MIN");
+                    createCase.createCSCaseOfTypeWithDocument(CaseType.MIN);
                     confirmationScreens.goToCaseFromConfirmationScreen();
                     caseView.clickAllocateToMeLink();
                     dashboard.goToDashboard();
@@ -377,14 +361,14 @@ public class WorkstacksStepDefs extends BasePage {
                 try {
                     dashboard.selectTransferN10Team();
                 } catch (NoSuchElementException e) {
-                    createCase.createCSCaseOfType("MIN");
+                    createCase.createCSCaseOfTypeWithDocument(CaseType.MIN);
                     dashboard.goToDashboard();
                     dashboard.selectPerformanceProcessTeam();
                 }
                 break;
             case "MPAM MY CASES":
                 if (dashboard.getNumberOfCasesInWorkstackFromDashboardCard("My Cases") == 0) {
-                    createCase.createCSCaseOfType("MPAM");
+                    createCase.createCSCaseOfTypeWithDocument(CaseType.MPAM);
                     confirmationScreens.goToCaseFromConfirmationScreen();
                     caseView.clickAllocateToMeLink();
                     dashboard.goToDashboard();
@@ -395,7 +379,7 @@ public class WorkstacksStepDefs extends BasePage {
                 try {
                     dashboard.selectMTSTeam();
                 } catch (NoSuchElementException e) {
-                    createCase.createCSCaseOfType("MTS");
+                    createCase.createCSCaseOfTypeWithDocument(CaseType.MTS);
                     dashboard.goToDashboard();
                     dashboard.selectMTSTeam();
                 }
@@ -420,7 +404,7 @@ public class WorkstacksStepDefs extends BasePage {
                 try {
                     dashboard.selectWorkstackByTeamName(workstack);
                 } catch (NoSuchElementException e) {
-                    createCase.createCSCaseOfType("COMP");
+                    createCase.createCSCaseOfTypeWithDocument(CaseType.COMP);
                     dashboard.goToDashboard();
                     dashboard.selectWorkstackByTeamName(workstack);
                 }
@@ -429,7 +413,7 @@ public class WorkstacksStepDefs extends BasePage {
                 try {
                     dashboard.selectWorkstackByTeamName("CCT Stage 1 Triage Team");
                 } catch (NoSuchElementException e) {
-                    createCase.createCSCaseOfType("COMP");
+                    createCase.createCSCaseOfTypeWithDocument(CaseType.COMP);
                     dashboard.goToDashboard();
                     dashboard.selectWorkstackByTeamName("CCT Stage 1 Triage Team");
                 }
@@ -439,7 +423,7 @@ public class WorkstacksStepDefs extends BasePage {
                 try {
                     dashboard.selectWorkstackByTeamName(workstack);
                 } catch (NoSuchElementException e) {
-                    compProgressCase.moveCaseOfTypeFromCurrentStageToTargetStage("COMP", "N/A", workstack + " TRIAGE");
+                    compProgressCase.moveCaseOfTypeFromCurrentStageToTargetStage(CaseType.COMP, "N/A", workstack + " TRIAGE");
                     dashboard.goToDashboard();
                     dashboard.selectWorkstackByTeamName(workstack);
                 }
@@ -449,7 +433,7 @@ public class WorkstacksStepDefs extends BasePage {
                 try {
                     dashboard.selectIEDETTeam();
                 } catch (NoSuchElementException e) {
-                    createCase.createCSCaseOfType("IEDET");
+                    createCase.createCSCaseOfTypeWithDocument(CaseType.IEDET);
                     dashboard.goToDashboard();
                     dashboard.selectIEDETTeam();
                 }
@@ -458,14 +442,14 @@ public class WorkstacksStepDefs extends BasePage {
                 try {
                     dashboard.selectSMCTeam();
                 } catch (NoSuchElementException e) {
-                    createCase.createCSCaseOfType("SMC");
+                    createCase.createCSCaseOfTypeWithDocument(CaseType.SMC);
                     dashboard.goToDashboard();
                     dashboard.selectSMCTeam();
                 }
                 break;
             case "SERIOUS MISCONDUCT MY CASES":
                 if (dashboard.getNumberOfCasesInWorkstackFromDashboardCard("My Cases") == 0) {
-                    createCase.createCSCaseOfType("SMC");
+                    createCase.createCSCaseOfTypeWithDocument(CaseType.SMC);
                     confirmationScreens.goToCaseFromConfirmationScreen();
                     caseView.clickAllocateToMeLink();
                     dashboard.goToDashboard();
@@ -476,7 +460,7 @@ public class WorkstacksStepDefs extends BasePage {
                 try {
                     dashboard.selectBFTeam();
                 } catch (NoSuchElementException e) {
-                    createCase.createCSCaseOfType("BF");
+                    createCase.createCSCaseOfTypeWithDocument(CaseType.BF);
                     dashboard.goToDashboard();
                     dashboard.selectBFTeam();
                 }
@@ -485,7 +469,7 @@ public class WorkstacksStepDefs extends BasePage {
                 try {
                     dashboard.selectBF2Team();
                 } catch (NoSuchElementException e) {
-                    createCase.createCSCaseOfType("BF2");
+                    createCase.createCSCaseOfTypeWithDocument(CaseType.BF2);
                     dashboard.goToDashboard();
                     dashboard.selectBF2Team();
                 }
@@ -494,7 +478,7 @@ public class WorkstacksStepDefs extends BasePage {
                 try {
                     dashboard.selectFOICreationTeam();
                 } catch (NoSuchElementException e) {
-                    createCase.createCSCaseOfType("FOI");
+                    createCase.createCSCaseOfTypeWithDocument(CaseType.FOI);
                     dashboard.goToDashboard();
                     dashboard.selectFOICreationTeam();
                 }
@@ -503,14 +487,14 @@ public class WorkstacksStepDefs extends BasePage {
                 try {
                     dashboard.selectPOGRRegistrationTeam();
                 } catch (NoSuchElementException e) {
-                    createCase.createCSCaseOfType("POGR");
+                    createCase.createCSCaseOfTypeWithDocument(CaseType.POGR);
                     dashboard.goToDashboard();
                     dashboard.selectPOGRRegistrationTeam();
                 }
                 break;
             case "POGR MY CASES":
                 if (dashboard.getNumberOfCasesInWorkstackFromDashboardCard("My Cases") == 0) {
-                    createCase.createCSCaseOfType("POGR");
+                    createCase.createCSCaseOfTypeWithDocument(CaseType.POGR);
                     confirmationScreens.goToCaseFromConfirmationScreen();
                     caseView.clickAllocateToMeLink();
                     dashboard.goToDashboard();
@@ -521,7 +505,7 @@ public class WorkstacksStepDefs extends BasePage {
                 try {
                     dashboard.selectPOGR2RegistrationTeam();
                 } catch (NoSuchElementException e) {
-                    createCase.createCSCaseOfType("POGR2");
+                    createCase.createCSCaseOfTypeWithDocument(CaseType.POGR2);
                     dashboard.goToDashboard();
                     dashboard.selectPOGR2RegistrationTeam();
                 }
@@ -601,7 +585,7 @@ public class WorkstacksStepDefs extends BasePage {
     @And("the {string} workstack should display a HS symbol next to the case reference")
     public void theWorkstackShouldDisplayAHSSymbolNextToTheCaseReference(String workstack) {
         dashboard.selectWorkstackByTeamName(workstack);
-        workstacks.assertHomeSecretarySymbolVisibleForCase(sessionVariableCalled("caseReference"));
+        workstacks.assertHomeSecretarySymbolVisibleForCase(getCurrentCaseReference());
     }
 
     @And("the teams workstack should display the new deadline date for the case")
@@ -659,11 +643,6 @@ public class WorkstacksStepDefs extends BasePage {
     @Then("only cases of/at that Workflow/Stage should be displayed in the workstack")
     public void onlyCasesOfThatWorkflowShouldBeDisplayedInTheWorkstack() {
         workstacks.assertCaseTotalIs(Integer.parseInt(sessionVariableCalled("filterCardCaseTotal")));
-    }
-
-    @And("the transferred case appears in {string} registration workstack")
-    public void transferredCaseAppearsInWorkStack(String newCaseType) {
-        workstacks.assertVisibilityOfSpecificCaseReference(true,getCurrentCaseReferenceFromTransferredCase(newCaseType));
     }
 
     @And("the deadline of the case should be replaced with (the word ){string} in the {string} workstack")

@@ -1,9 +1,12 @@
 @Search @CS
 Feature: Search
 
+  Background:
+    Given I am logged into "CS" as user "DECS_USER"
+
+
   @CSRegression
   Scenario Outline: User tests DECS search criteria
-    Given I am logged into "CS" as user "DECS_USER"
     When I navigate to the "Search" page
     And I enter "<infoValue>" into the "<infoType>" search field
     And I click the search button on the search page
@@ -31,3 +34,18 @@ Feature: Search
     | Reference Type                    | Official                              |
     | Ministerial Sign Off Team         | Home Secretary                        |
     | Campaign                          | Test campaign 1                       |
+
+  @SearchByCaseReferenceNumber
+  Scenario: User should be be taken directly to a case when they for enter a valid case reference in the Load Case bar
+    When I enter a valid case reference into the load case search bar
+    Then I should be taken directly to the case
+
+  @SearchByCaseReferenceNumber @Validation
+  Scenario: An error message should be displayed if a user enters a Reference number that does not exist
+    When I enter a non-existent case reference
+    Then an error message should be displayed stating that there are no active workflows for the case
+
+  @SearchByCaseReferenceNumber @Validation
+  Scenario: User must enter a search query in the Load Case search bar
+    When I press enter in the Load Case search bar
+    Then an error message should be displayed stating that a case reference is required

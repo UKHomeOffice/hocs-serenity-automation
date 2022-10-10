@@ -6,6 +6,8 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
+import config.CaseType;
+import config.CurrentCaseType;
 import config.CurrentUser;
 import config.PreviousUser;
 import config.User;
@@ -238,14 +240,14 @@ public class BasePage extends PageObject {
 
     public String setCaseReferenceFromAssignedCase() {
         headerCaption1.waitUntilVisible().withTimeoutOf(Duration.ofSeconds(10));
-        waitFor(ExpectedConditions.textToBePresentInElement(headerCaption1, sessionVariableCalled("caseType")))
+        waitFor(ExpectedConditions.textToBePresentInElement(headerCaption1, getCurrentCaseType().toString()))
                 .withTimeoutOf(Duration.ofSeconds(20));
         setSessionVariable("caseReference").to(headerCaption1.getText());
         return headerCaption1.getText();
     }
 
     public String setCaseReferenceFromUnassignedCase() {
-        waitFor(ExpectedConditions.textToBePresentInElement(header1, sessionVariableCalled("caseType"))).withTimeoutOf(Duration.ofSeconds(20));
+        waitFor(ExpectedConditions.textToBePresentInElement(header1, getCurrentCaseType().toString())).withTimeoutOf(Duration.ofSeconds(20));
         setSessionVariable("caseReference").to(header1.getText());
         return header1.getText();
     }
@@ -254,67 +256,62 @@ public class BasePage extends PageObject {
         return sessionVariableCalled("caseReference");
     }
 
-    public String getCaseTypeFromCaseReference(String caseReference) {
-        return caseReference.split("/")[0];
+    public CaseType getCaseTypeFromCaseReference(String caseReference) {
+        return CaseType.valueOf(caseReference.split("/")[0]);
     }
 
-    public String getCurrentCaseReferenceFromTransferredCase(String newCaseType) {
-        String newCaseRef = getCurrentCaseReference().replace(sessionVariableCalled("caseType"),newCaseType);
-        setSessionVariable("newCaseReference").to(newCaseRef);
-        return sessionVariableCalled("newCaseReference");
+    public void setCurrentCaseType(CaseType caseType) {
+        CurrentCaseType.getInstance().setUser(caseType);
     }
 
-    public String getCurrentCaseType() {
-        String caseType = getCurrentCaseReference().split("/")[0];
-        return caseType.toUpperCase();
+    public CaseType getCurrentCaseType() {
+        return CurrentCaseType.getInstance().getCurrentCaseType();
     }
 
     public boolean dcuCase() { return minCase() | dtenCase() | troCase(); }
 
     public boolean minCase() {
-        return sessionVariableCalled("caseType").toString().equals("MIN");
+        return getCurrentCaseType().equals(CaseType.MIN);
     }
 
     public boolean dtenCase() {
-        return sessionVariableCalled("caseType").toString().equals("DTEN");
+        return getCurrentCaseType().equals(CaseType.DTEN);
     }
 
     public boolean troCase() {
-        return sessionVariableCalled("caseType").toString().equals("TRO");
+        return getCurrentCaseType().equals(CaseType.TRO);
     }
 
-    public boolean mpamCase() {
-        return sessionVariableCalled("caseType").toString().equals("MPAM");
-    }
+    public boolean mpamCase() { return getCurrentCaseType().equals(CaseType.MPAM); }
 
-    public boolean mtsCase() { return sessionVariableCalled("caseType").toString().equals("MTS"); }
+    public boolean mtsCase() { return getCurrentCaseType().equals(CaseType.MTS); }
 
     public boolean complaintCase() { return compCase() | comp2Case() | iedetCase() | smcCase() | bfCase() | bf2Case() | pogrCase() | pogr2Case();}
 
-    public boolean compCase() { return sessionVariableCalled("caseType").toString().equals("COMP"); }
+    public boolean compCase() { return getCurrentCaseType().equals(CaseType.COMP); }
 
-    public boolean comp2Case() { return sessionVariableCalled("caseType").toString().equals("COMP2"); }
+    public boolean comp2Case() { return getCurrentCaseType().equals(CaseType.COMP2); }
 
-    public boolean iedetCase() { return sessionVariableCalled("caseType").toString().equals("IEDET"); }
+    public boolean iedetCase() { return getCurrentCaseType().equals(CaseType.IEDET); }
 
-    public boolean bfCase() { return sessionVariableCalled("caseType").toString().equals("BF"); }
+    public boolean bfCase() { return getCurrentCaseType().equals(CaseType.BF); }
 
-    public boolean bf2Case() { return sessionVariableCalled("caseType").toString().equals("BF2"); }
+    public boolean bf2Case() { return getCurrentCaseType().equals(CaseType.BF2); }
 
-    public boolean pogrCase() { return sessionVariableCalled("caseType").toString().equals("POGR"); }
+    public boolean pogrCase() { return getCurrentCaseType().equals(CaseType.POGR); }
 
-    public boolean pogr2Case() { return sessionVariableCalled("caseType").toString().equals("POGR2"); }
+    public boolean pogr2Case() { return getCurrentCaseType().equals(CaseType.POGR2); }
 
-    public boolean smcCase() { return sessionVariableCalled("caseType").toString().equals("SMC"); }
+    public boolean smcCase() { return getCurrentCaseType().equals(CaseType.SMC); }
 
     public boolean foiCase() {
-        return sessionVariableCalled("caseType").toString().equals("FOI");
+        return getCurrentCaseType().equals(CaseType.FOI);
     }
 
-    public boolean toCase() { return sessionVariableCalled("caseType").toString().equals("TO"); }
+    public boolean toCase() { return getCurrentCaseType().equals(CaseType.TO); }
 
     public boolean wcsCase() {
-        return sessionVariableCalled("caseType").toString().equals("WCS");
+        return getCurrentCaseType().equals(CaseType.WCS);
     }
 
     // Validation errors
@@ -386,20 +383,24 @@ public class BasePage extends PageObject {
         safeClickOn(button);
     }
 
-    public Boolean checkButtonIsVisible(String buttonLabel) {
+    public Boolean buttonIsVisible(String buttonLabel) {
         WebElementFacade button = getButtonElementFromDisplayedText(buttonLabel);
         return button.isVisible();
     }
 
-    public Boolean checkButtonIsCurrentlyVisible(String buttonLabel) {
+    public Boolean buttonIsCurrentlyVisible(String buttonLabel) {
         WebElementFacade button = getButtonElementFromDisplayedText(buttonLabel);
         return button.isCurrentlyVisible();
     }
 
     public void assertButtonIsVisible(String buttonLabel) {
-        if (checkButtonIsVisible(buttonLabel)) {
+        if (!buttonIsVisible(buttonLabel)) {
             Assert.fail("Button with text '" + buttonLabel +"' is not visible on page.");
         }
+    }
+
+    public void waitForButton(String buttonLabel) {
+        getButtonElementFromDisplayedText(buttonLabel).waitUntilVisible();
     }
 
     public void clickAddButton() {
@@ -437,18 +438,18 @@ public class BasePage extends PageObject {
         safeClickOn(link);
     }
 
-    public Boolean checkLinkIsVisible(String linkText) {
+    public Boolean linkIsVisible(String linkText) {
         WebElementFacade link = getLinkElementFromDisplayedText(linkText);
         return link.withTimeoutOf(Duration.ofSeconds(10)).isVisible();
     }
 
-    public Boolean checkLinkIsCurrentlyVisible(String linkText) {
+    public Boolean linkIsCurrentlyVisible(String linkText) {
         WebElementFacade link = getLinkElementFromDisplayedText(linkText);
         return link.withTimeoutOf(Duration.ofSeconds(10)).isVisible();
     }
 
     public void assertLinkIsVisible(String linkText) {
-        if (checkLinkIsVisible(linkText)) {
+        if (!linkIsVisible(linkText)) {
             Assert.fail("Link with text '" + linkText +"' is not visible on page.");
         }
     }
@@ -491,8 +492,7 @@ public class BasePage extends PageObject {
                 findBy("//span[contains(@class,'govuk-fieldset__heading')][text() =" + sanitiseXpathAttributeString(headingText) + "]/ancestor"
                         + "::fieldset//input[@checked]/following-sibling::label");
         radioButtonLabels.remove(currentlySelectedRadioButton.getText());
-        Random random = new Random();
-        return radioButtonLabels.get(random.nextInt(radioButtonLabels.size()));
+        return returnRandomStringFromList(radioButtonLabels);
     }
 
     private WebElementFacade getRadioButtonLabelElementWithSpecifiedText(String elementText) {
@@ -511,6 +511,22 @@ public class BasePage extends PageObject {
             radioButtonLabels.add(radioButtonElement.getText());
         }
         return radioButtonLabels;
+    }
+
+    public Boolean radioButtonIsVisible(String radioButtonText) {
+        WebElementFacade radioButtonElemenet = getRadioButtonLabelElementWithSpecifiedText(radioButtonText);
+        return radioButtonElemenet.isVisible();
+    }
+
+    public Boolean radioButtonIsCurrentlyVisible(String radioButtonText) {
+        WebElementFacade radioButtonElemenet = getRadioButtonLabelElementWithSpecifiedText(radioButtonText);
+        return radioButtonElemenet.isCurrentlyVisible();
+    }
+
+    public void assertRadioButtonIsVisible(String radioButtonText) {
+        if (!radioButtonIsVisible(radioButtonText)) {
+            Assert.fail("Radio button with text '" + radioButtonText +"' is not visible on page.");
+        }
     }
 
     //Dates

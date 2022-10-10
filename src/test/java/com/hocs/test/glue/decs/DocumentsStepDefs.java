@@ -1,25 +1,19 @@
 package com.hocs.test.glue.decs;
 
-import static jnr.posix.util.MethodName.getMethodName;
-import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import com.hocs.test.pages.complaints.BFProgressCase;
-import com.hocs.test.pages.complaints.COMPProgressCase;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.ConfirmationScreens;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
+import config.CaseType;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class DocumentsStepDefs extends BasePage {
 
@@ -32,15 +26,15 @@ public class DocumentsStepDefs extends BasePage {
     Dashboard dashboard;
 
     @And("I manage the documents of a new {string} case")
-    public void iClickToManageTheDocumentsOfANewCase(String caseType) {
-        createCase.createCSCaseOfType(caseType);
+    public void iClickToManageTheDocumentsOfANewCase(String caseTypeString) {
+        createCase.createCSCaseOfTypeWithDocument(CaseType.valueOf(caseTypeString));
         confirmationScreens.goToCaseFromConfirmationScreen();
         documents.selectToManageDocuments();
     }
 
     @And("I manage the documents of a new case")
     public void iManageTheDocumentsOfANewCase() {
-        createCase.createCSCaseOfRandomType();
+        createCase.createCSCaseOfTypeWithoutDocument(createCase.getRandomCSCaseType());
         confirmationScreens.goToCaseFromConfirmationScreen();
         safeClickOn(documents.manageDocumentsLink);
     }
@@ -177,7 +171,7 @@ public class DocumentsStepDefs extends BasePage {
 
     @And("I confirm/approve the (new )primary draft document")
     public void iConfirmThePrimaryDraftDocument() {
-        if (checkButtonIsVisible("Continue")) {
+        if (buttonIsVisible("Continue")) {
             clickTheButton("Continue");
         } else {
             clickTheButton("Approve primary draft");

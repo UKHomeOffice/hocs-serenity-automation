@@ -4,23 +4,17 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.decs.BasePage;
-import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.ConfirmationScreens;
 import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
-import java.text.ParseException;
-import java.util.List;
-import java.util.Random;
-import net.serenitybdd.core.pages.WebElementFacade;
+import config.CaseType;
 
 public class TOProgressCase extends BasePage {
 
     ConfirmationScreens confirmationScreens;
-
-    CaseView caseView;
 
     CreateCase createCase;
 
@@ -49,7 +43,7 @@ public class TOProgressCase extends BasePage {
     public void moveCaseFromCurrentStageToTargetStage(String currentStage, String targetStage) {
         String precedingStage = getStageThatPrecedesTargetStage(targetStage);
         if (precedingStage.equals("CREATE NEW CASE")) {
-            createCase.createCSCaseOfType("TO");
+            createCase.createCSCaseOfTypeWithDocument(CaseType.TO);
             dashboard.goToDashboard();
         } else {
             if (!precedingStage.equalsIgnoreCase(currentStage)) {
@@ -229,19 +223,19 @@ public class TOProgressCase extends BasePage {
         clickTheButton("Finish");
     }
 
-    public void generateTOSearchCaseData(String infoValue, String infoType) throws ParseException {
+    public void generateTOSearchCaseData(String infoValue, String infoType) {
         switch (infoType.toUpperCase()) {
             case "CASE REFERENCE":
             case "ACTIVE CASES ONLY":
-                createCase.createCSCaseOfType("TO");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.TO);
                 break;
             case "RECEIVED ON OR AFTER":
             case "RECEIVED ON OR BEFORE":
                 dashboard.selectCreateSingleCaseLinkFromMenuBar();
-                if (!nextButton.isVisible()) {
+                if (!buttonIsVisible("Next")) {
                     dashboard.selectCreateSingleCaseLinkFromMenuBar();
                 }
-                createCase.selectCaseType("TO");
+                createCase.selectCaseType(CaseType.TO);
                 clickTheButton("Next");
                 createCase.editReceivedDate(infoValue);
                 createCase.storeCorrespondenceReceivedDate();
@@ -254,7 +248,7 @@ public class TOProgressCase extends BasePage {
             case "CORRESPONDENT POSTCODE":
             case "CORRESPONDENT EMAIL ADDRESS":
             case "CORRESPONDENT REFERENCE NUMBER":
-                createCase.createCSCaseOfType("TO");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.TO);
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 dashboard.claimCurrentCase();
                 dataInput.selectABusinessArea();
@@ -264,7 +258,7 @@ public class TOProgressCase extends BasePage {
                 correspondents.confirmPrimaryCorrespondent();
                 break;
             case "CAMPAIGN":
-                createCase.createCSCaseOfType("TO");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.TO);
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 dashboard.claimCurrentCase();
                 dataInput.selectABusinessArea();
@@ -287,10 +281,10 @@ public class TOProgressCase extends BasePage {
                 break;
             case "ALL":
                 dashboard.selectCreateSingleCaseLinkFromMenuBar();
-                if (!nextButton.isVisible()) {
+                if (!buttonIsVisible("Next")) {
                     dashboard.selectCreateSingleCaseLinkFromMenuBar();
                 }
-                createCase.selectCaseType("TO");
+                createCase.selectCaseType(CaseType.TO);
                 clickTheButton("Next");
                 createCase.editReceivedDate("01/01/2022");
                 createCase.storeCorrespondenceReceivedDate();

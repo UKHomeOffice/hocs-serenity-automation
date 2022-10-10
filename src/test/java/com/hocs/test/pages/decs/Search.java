@@ -8,6 +8,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.mpam.AccordionMPAM;
+import config.CaseType;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -31,8 +32,6 @@ public class Search extends BasePage {
 
     CaseView caseView;
 
-    Dashboard dashboard;
-
     @FindBy(xpath = "//label[@for='caseStatus_active']")
     public WebElementFacade caseStatusActiveCheckbox;
 
@@ -45,14 +44,35 @@ public class Search extends BasePage {
     @FindBy(xpath = "//label[text()='MPAM Case']")
     public WebElementFacade mpamCaseCheckbox;
 
-    @FindBy(xpath = "//label[text()='MTS Case']")
-    public WebElementFacade mtsCaseCheckbox;
-
-    @FindBy(id = "ComplainantHORef")
-    public WebElementFacade complainantHomeOfficeReferenceTextField;
-
     @FindBy(xpath = "//a[contains(text(), 'Escalate case')]")
     public WebElementFacade escalateCaseHypertext;
+
+    // Simple methods
+
+    public void waitForResultsPage() {
+        waitForDECSPageWithTitle("Search Results");
+    }
+
+    public void waitForSearchCriteriaPage() {
+        getButtonElementFromDisplayedText("Search").withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
+    }
+
+    public int getNumberOfSearchResults() {
+        return Integer.parseInt(workstacks.totalNumberOfCases.getText().split("\\s+")[0]);
+    }
+
+    public boolean zeroSearchResultsReturned() {
+        return getNumberOfSearchResults() == 0;
+    }
+
+    public void selectComplaintsStage2CaseRefOfEscalatedComplaintsCase(String stage1CaseRef) {
+        WebElementFacade stage2CaseRef = findBy("//a[text()='" + stage1CaseRef + "']/parent::td/following-sibling::td/a");
+        safeClickOn(stage2CaseRef);
+    }
+
+    public void selectCaseTypeSearchCheckboxForCaseType(CaseType caseType) {
+        checkSpecificCheckbox(caseType.getCorrespondenceTypeLabel());
+    }
 
     //Enter search criteria
 
@@ -62,139 +82,50 @@ public class Search extends BasePage {
             case "CASE TYPE":
                 switch (value.toUpperCase()) {
                     case "MIN":
-                        checkSpecificCheckbox("DCU Ministerial");
-                        setSessionVariable("searchCaseType").to(value);
-                        break;
                     case "DTEN":
-                        checkSpecificCheckbox("DCU Number 10");
-                        setSessionVariable("searchCaseType").to(value);
-                        break;
                     case "TRO":
-                        checkSpecificCheckbox("DCU Treat Official");
+                    case "MPAM":
+                    case "MTS":
+                    case "COMP":
+                    case "COMP2":
+                    case "BF":
+                    case "BF2":
+                    case "IEDET":
+                    case "SMC":
+                    case "POGR":
+                    case "POGR2":
+                    case "FOI":
+                    case "TO":
+                        selectCaseTypeSearchCheckboxForCaseType(CaseType.valueOf(value));
                         setSessionVariable("searchCaseType").to(value);
                         break;
                     case "MIN + TRO":
-                        checkSpecificCheckbox("DCU Ministerial");
-                        checkSpecificCheckbox("DCU Treat Official");
+                        selectCaseTypeSearchCheckboxForCaseType(CaseType.MIN);
+                        selectCaseTypeSearchCheckboxForCaseType(CaseType.TRO);
                         setSessionVariable("searchCaseType").to(value);
                         break;
                     case "MIN + DTEN":
-                        checkSpecificCheckbox("DCU Ministerial");
-                        checkSpecificCheckbox("DCU Number 10");
+                        selectCaseTypeSearchCheckboxForCaseType(CaseType.MIN);
+                        selectCaseTypeSearchCheckboxForCaseType(CaseType.DTEN);
                         setSessionVariable("searchCaseType").to(value);
                         break;
                     case "TRO + DTEN":
-                        checkSpecificCheckbox("DCU Treat Official");
-                        checkSpecificCheckbox("DCU Number 10");
+                        selectCaseTypeSearchCheckboxForCaseType(CaseType.TRO);
+                        selectCaseTypeSearchCheckboxForCaseType(CaseType.DTEN);
                         setSessionVariable("searchCaseType").to(value);
                         break;
                     case "ALL DCU CASE TYPES":
-                        checkSpecificCheckbox("DCU Ministerial");
-                        checkSpecificCheckbox("DCU Treat Official");
-                        checkSpecificCheckbox("DCU Number 10");
-                        setSessionVariable("searchCaseType").to(value);
-                        break;
-                    case "MPAM":
-                        checkSpecificCheckbox("MPAM Case");
-                        setSessionVariable("searchCaseType").to(value);
-                        break;
-                    case "MTS":
-                        checkSpecificCheckbox("MTS Case");
-                        setSessionVariable("searchCaseType").to(value);
-                        break;
-                    case "COMP":
-                        checkSpecificCheckbox("Complaint Case");
-                        setSessionVariable("searchCaseType").to(value);
-                        break;
-                    case "COMP2":
-                        checkSpecificCheckbox("Complaint Case - Stage 2");
-                        setSessionVariable("searchCaseType").to(value);
-                        break;
-                    case "BF":
-                        checkSpecificCheckbox("Border Force Case");
-                        setSessionVariable("searchCaseType").to(value);
-                        break;
-                    case "BF2":
-                        checkSpecificCheckbox("Border Force (Stage 2)");
-                        setSessionVariable("searchCaseType").to(value);
-                        break;
-                    case "IEDET":
-                        checkSpecificCheckbox("IE Detention Case");
-                        setSessionVariable("searchCaseType").to(value);
-                        break;
-                    case "SMC":
-                        checkSpecificCheckbox("Serious Misconduct Case");
-                        setSessionVariable("searchCaseType").to(value);
-                        break;
-                    case "POGR":
-                        checkSpecificCheckbox("HMPO/GRO Complaint Case");
-                        setSessionVariable("searchCaseType").to(value);
-                        break;
-                    case "POGR2":
-                        checkSpecificCheckbox("HMPO/GRO Complaint Case - Stage 2");
-                        setSessionVariable("searchCaseType").to(value);
-                        break;
-                    case "FOI":
-                        checkSpecificCheckbox("FOI Request");
-                        setSessionVariable("searchCaseType").to(value);
-                        break;
-                    case "TO":
-                        checkSpecificCheckbox("Treat Official");
+                        selectCaseTypeSearchCheckboxForCaseType(CaseType.MIN);
+                        selectCaseTypeSearchCheckboxForCaseType(CaseType.TRO);
+                        selectCaseTypeSearchCheckboxForCaseType(CaseType.DTEN);
                         setSessionVariable("searchCaseType").to(value);
                         break;
                     case "RANDOM":
                         List<WebElementFacade> listOfCaseTypeCheckboxes = findAll("//fieldset[@id='caseTypes']//input[not(@checked)"
                                 + "]/following-sibling::label");
-                        String randomCaseTypeFullText = checkRandomCheckboxFromList(listOfCaseTypeCheckboxes);
-                        String randomCaseType = null;
-                        switch (randomCaseTypeFullText.toUpperCase()) {
-                            case "DCU MINISTERIAL":
-                                randomCaseType = "MIN";
-                                break;
-                            case "DCU TREAT OFFICIAL":
-                                randomCaseType = "TRO";
-                                break;
-                            case "DCU NUMBER 10":
-                                randomCaseType = "DTEN";
-                                break;
-                            case "MPAM CASE":
-                                randomCaseType = "MPAM";
-                                break;
-                            case "MTS CASE":
-                                randomCaseType = "MTS";
-                                break;
-                            case "COMPLAINT CASE":
-                                randomCaseType = "COMP";
-                                break;
-                            case "COMPLAINT CASE - STAGE 2":
-                                randomCaseType = "COMP2";
-                                break;
-                            case "BORDER FORCE CASE":
-                                randomCaseType = "BF";
-                                break;
-                            case "BORDER FORCE (STAGE 2)":
-                                randomCaseType = "BF2";
-                                break;
-                            case "IE DETENTION CASE":
-                                randomCaseType = "IEDET";
-                                break;
-                            case "SERIOUS MISCONDUCT CASE":
-                                randomCaseType = "SMC";
-                                break;
-                            case "HMPO/GRO COMPLAINT CASE":
-                                randomCaseType = "POGR";
-                                break;
-                            case "HMPO/GRO COMPLAINT CASE - STAGE 2":
-                                randomCaseType = "POGR2";
-                                break;
-                            case "FOI REQUEST":
-                                randomCaseType = "FOI";
-                                break;
-                            case "TREAT OFFICIAL":
-                                randomCaseType = "TO";
-                                break;
-                        }
-                        setSessionVariable("searchCaseType").to(randomCaseType);
+                        String caseTypeLabel = checkRandomCheckboxFromList(listOfCaseTypeCheckboxes);
+                        CaseType randomCaseType = CaseType.fromLabel(caseTypeLabel);
+                        setSessionVariable("searchCaseType").to(randomCaseType.toString());
                         break;
                     default:
                         pendingStep(value + " is not defined within " + getMethodName());
@@ -318,7 +249,7 @@ public class Search extends BasePage {
     //Assertions
 
     public void assertSearchResults(String criteria) {
-        List<String> searchFieldUsedInCaseTypes;
+        List<String> caseTypesSearchFieldIsUsedIn;
         String searchValue;
         Date searchDate = null;
         Date caseDate = null;
@@ -335,21 +266,21 @@ public class Search extends BasePage {
         if (criteria.equalsIgnoreCase("CASE TYPE") || criteria.equalsIgnoreCase("CASE REFERENCE") || criteria.equalsIgnoreCase("ACTIVE CASES ONLY")) {
             switch (criteria.toUpperCase()) {
                 case "CASE TYPE":
-                    searchFieldUsedInCaseTypes = Arrays.asList("DCU", "MPAM", "COMP", "IEDET", "SMC", "POGR", "BF", "FOI", "TO");
-                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(searchFieldUsedInCaseTypes));
+                    caseTypesSearchFieldIsUsedIn = Arrays.asList("DCU", "MPAM", "COMP", "IEDET", "SMC", "POGR", "BF", "FOI", "TO");
+                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(caseTypesSearchFieldIsUsedIn));
                     searchValue = sessionVariableCalled("searchCaseType");
                     caseTypesSearchFieldIsAvailableFor = findAll("//a[contains(text(), '" + searchValue + "/')]");
                     assertThat(caseTypesSearchFieldIsAvailableFor.size() == numberOfCasesDisplayed, is(true));
                     break;
                 case "CASE REFERENCE":
-                    searchFieldUsedInCaseTypes = Arrays.asList("DCU", "MPAM", "COMP", "IEDET", "SMC", "POGR", "BF", "FOI", "TO");
-                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(searchFieldUsedInCaseTypes));
+                    caseTypesSearchFieldIsUsedIn = Arrays.asList("DCU", "MPAM", "COMP", "IEDET", "SMC", "POGR", "BF", "FOI", "TO");
+                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(caseTypesSearchFieldIsUsedIn));
                     searchValue = sessionVariableCalled("searchCaseReference");
                     assertThat(searchValidationCaseReference.equalsIgnoreCase(searchValue), is(true));
                     break;
                 case "ACTIVE CASES ONLY":
-                    searchFieldUsedInCaseTypes = Arrays.asList("DCU", "MPAM", "FOI", "TO");
-                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(searchFieldUsedInCaseTypes));
+                    caseTypesSearchFieldIsUsedIn = Arrays.asList("DCU", "MPAM", "FOI", "TO");
+                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(caseTypesSearchFieldIsUsedIn));
                     caseTypesSearchFieldIsAvailableFor = findAll("//td[2][not(text() = 'Closed')]");
                     if (sessionVariableCalled("searchActiveCases").toString().toUpperCase().equals("YES")) {
                         assertThat(!caseTypesSearchFieldIsAvailableFor.isEmpty(), is(true));
@@ -361,8 +292,8 @@ public class Search extends BasePage {
             caseView.waitForCaseToLoad();
             switch (criteria.toUpperCase()) {
                 case "CORRESPONDENT FULL NAME":
-                    searchFieldUsedInCaseTypes = Arrays.asList("COMP", "IEDET", "SMC", "POGR", "BF", "TO");
-                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(searchFieldUsedInCaseTypes));
+                    caseTypesSearchFieldIsUsedIn = Arrays.asList("COMP", "IEDET", "SMC", "POGR", "BF", "TO");
+                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(caseTypesSearchFieldIsUsedIn));
                     searchValue = sessionVariableCalled("searchCorrespondentFullName");
                     if (!searchValidationCaseReference.contains("FOI")) {
                         peopleTab.selectPeopleTab();
@@ -373,8 +304,8 @@ public class Search extends BasePage {
                     }
                     break;
                 case "CORRESPONDENT POSTCODE":
-                    searchFieldUsedInCaseTypes = Arrays.asList("DCU", "COMP", "IEDET", "SMC", "POGR", "BF", "TO");
-                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(searchFieldUsedInCaseTypes));
+                    caseTypesSearchFieldIsUsedIn = Arrays.asList("DCU", "COMP", "IEDET", "SMC", "POGR", "BF", "TO");
+                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(caseTypesSearchFieldIsUsedIn));
                     searchValue = sessionVariableCalled("searchCorrespondentPostcode");
                     if (!searchValidationCaseReference.contains("FOI")) {
                         peopleTab.selectPeopleTab();
@@ -385,8 +316,8 @@ public class Search extends BasePage {
                     }
                     break;
                 case "CORRESPONDENT EMAIL ADDRESS":
-                    searchFieldUsedInCaseTypes = Arrays.asList("DCU", "COMP", "IEDET", "SMC", "POGR", "BF", "FOI", "TO");
-                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(searchFieldUsedInCaseTypes));
+                    caseTypesSearchFieldIsUsedIn = Arrays.asList("DCU", "COMP", "IEDET", "SMC", "POGR", "BF", "FOI", "TO");
+                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(caseTypesSearchFieldIsUsedIn));
                     searchValue = sessionVariableCalled("searchCorrespondentEmailAddress");
                     if (!searchValidationCaseReference.contains("FOI")) {
                         peopleTab.selectPeopleTab();
@@ -397,15 +328,15 @@ public class Search extends BasePage {
                     }
                     break;
                 case "COMPLAINANT DATE OF BIRTH":
-                    searchFieldUsedInCaseTypes = Arrays.asList("COMP", "IEDET", "SMC", "POGR", "BF", "TO");
-                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(searchFieldUsedInCaseTypes));
+                    caseTypesSearchFieldIsUsedIn = Arrays.asList("COMP", "IEDET", "SMC", "POGR", "BF", "TO");
+                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(caseTypesSearchFieldIsUsedIn));
                     searchValue = sessionVariableCalled("searchComplainantDateOfBirth");
                     caseView.expandAllCaseDetailsAccordionSections();
                     assertThat(caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenKey("Date of Birth").get(0).equalsIgnoreCase(searchValue), is(true));
                     break;
                 case "RECEIVED ON OR AFTER DATE":
-                    searchFieldUsedInCaseTypes = Arrays.asList("DCU", "MPAM", "FOI", "TO");
-                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(searchFieldUsedInCaseTypes));
+                    caseTypesSearchFieldIsUsedIn = Arrays.asList("DCU", "MPAM", "FOI", "TO");
+                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(caseTypesSearchFieldIsUsedIn));
                     searchValue = sessionVariableCalled("searchReceivedOnOrAfterDate");
                     try {
                         searchDate = new SimpleDateFormat("dd/MM/yyyy").parse(searchValue);
@@ -424,8 +355,8 @@ public class Search extends BasePage {
                     assertThat(caseDate.after(searchDate) || caseDate.equals(searchDate), is(true));
                     break;
                 case "RECEIVED ON OR BEFORE DATE":
-                    searchFieldUsedInCaseTypes = Arrays.asList("DCU", "MPAM", "FOI", "TO");
-                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(searchFieldUsedInCaseTypes));
+                    caseTypesSearchFieldIsUsedIn = Arrays.asList("DCU", "MPAM", "FOI", "TO");
+                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(caseTypesSearchFieldIsUsedIn));
                     searchValue = sessionVariableCalled("searchReceivedOnOrBeforeDate");
                     try {
                         searchDate = new SimpleDateFormat("dd/MM/yyyy").parse(searchValue);
@@ -444,15 +375,15 @@ public class Search extends BasePage {
                     assertThat(caseDate.before(searchDate) || caseDate.equals(searchDate), is(true));
                     break;
                 case "MEMBER OF PARLIAMENT NAME":
-                    searchFieldUsedInCaseTypes = Arrays.asList("DCU", "MPAM");
-                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(searchFieldUsedInCaseTypes));
+                    caseTypesSearchFieldIsUsedIn = Arrays.asList("DCU", "MPAM");
+                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(caseTypesSearchFieldIsUsedIn));
                     searchValue = sessionVariableCalled("searchMemberOfParliamentName");
                     peopleTab.selectPeopleTab();
                     peopleTab.assertMPCorrespondentIsAddedToTheCase(searchValue);
                     break;
                 case "PUBLIC CORRESPONDENT NAME":
-                    searchFieldUsedInCaseTypes = Arrays.asList("DCU", "MPAM", "FOI");
-                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(searchFieldUsedInCaseTypes));
+                    caseTypesSearchFieldIsUsedIn = Arrays.asList("DCU", "MPAM", "FOI");
+                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(caseTypesSearchFieldIsUsedIn));
                     searchValue = sessionVariableCalled("searchCorrespondentName");
                     if (!searchValidationCaseReference.contains("FOI")) {
                         peopleTab.selectPeopleTab();
@@ -463,15 +394,15 @@ public class Search extends BasePage {
                     }
                     break;
                 case "TOPIC":
-                    searchFieldUsedInCaseTypes = Arrays.asList("DCU", "FOI");
-                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(searchFieldUsedInCaseTypes));
+                    caseTypesSearchFieldIsUsedIn = Arrays.asList("DCU", "FOI");
+                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(caseTypesSearchFieldIsUsedIn));
                     searchValue = sessionVariableCalled("searchTopic");
                     summaryTab.selectSummaryTab();
                     summaryTab.primaryTopic.shouldContainText(searchValue);
                     break;
                 case "SIGN OFF TEAM":
-                    searchFieldUsedInCaseTypes = Arrays.asList("DCU");
-                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(searchFieldUsedInCaseTypes));
+                    caseTypesSearchFieldIsUsedIn = Arrays.asList("DCU");
+                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(caseTypesSearchFieldIsUsedIn));
                     String signOffTeam;
                     searchValue = sessionVariableCalled("searchSignOffTeam");
                     summaryTab.selectSummaryTab();
@@ -483,14 +414,14 @@ public class Search extends BasePage {
                     assertThat(signOffTeam.equalsIgnoreCase(searchValue), is(true));
                     break;
                 case "HOME SECRETARY INTEREST":
-                    searchFieldUsedInCaseTypes = Arrays.asList("DCU");
-                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(searchFieldUsedInCaseTypes));
+                    caseTypesSearchFieldIsUsedIn = Arrays.asList("DCU");
+                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(caseTypesSearchFieldIsUsedIn));
                     summaryTab.selectSummaryTab();
                     assertThat(summaryTab.homeSecInterest.getText().equals("Yes"), is(true));
                     break;
                 case "CORRESPONDENT REFERENCE NUMBER":
-                    searchFieldUsedInCaseTypes = Arrays.asList("MPAM", "TO");
-                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(searchFieldUsedInCaseTypes));
+                    caseTypesSearchFieldIsUsedIn = Arrays.asList("MPAM", "TO");
+                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(caseTypesSearchFieldIsUsedIn));
                     searchValue = sessionVariableCalled("searchCorrespondentReferenceNumber");
                     if (!searchValidationCaseReference.contains("FOI")) {
                         peopleTab.selectPeopleTab();
@@ -502,36 +433,36 @@ public class Search extends BasePage {
                     }
                     break;
                 case "COMPLAINANT HOME OFFICE REFERENCE":
-                    searchFieldUsedInCaseTypes = Arrays.asList("COMP", "IEDET", "SMC", "BF");
-                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(searchFieldUsedInCaseTypes));
+                    caseTypesSearchFieldIsUsedIn = Arrays.asList("COMP", "IEDET", "SMC", "BF");
+                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(caseTypesSearchFieldIsUsedIn));
                     searchValue = sessionVariableCalled("searchComplainantHomeOfficeReference");
                     caseView.expandAllCaseDetailsAccordionSections();
                     assertThat(caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenKey("Home Office Reference").get(0).equalsIgnoreCase(searchValue), is(true));
                     break;
                 case "PSU REFERENCE":
-                    searchFieldUsedInCaseTypes = Arrays.asList("SMC");
-                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(searchFieldUsedInCaseTypes));
+                    caseTypesSearchFieldIsUsedIn = Arrays.asList("SMC");
+                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(caseTypesSearchFieldIsUsedIn));
                     searchValue = sessionVariableCalled("searchPSUReference");
                     openOrCloseAccordionSection("Triage");
                     assertThat(caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenKey("PSU Reference").get(0).equalsIgnoreCase(searchValue), is(true));
                     break;
                 case "REFERENCE TYPE":
-                    searchFieldUsedInCaseTypes = Arrays.asList("MPAM");
-                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(searchFieldUsedInCaseTypes));
+                    caseTypesSearchFieldIsUsedIn = Arrays.asList("MPAM");
+                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(caseTypesSearchFieldIsUsedIn));
                     searchValue = sessionVariableCalled("searchReferenceType");
                     summaryTab.selectSummaryTab();
                     summaryTab.isMinisterialResponseRequired.shouldContainText(searchValue);
                     break;
                 case "MINISTERIAL SIGN OFF TEAM":
-                    searchFieldUsedInCaseTypes = Arrays.asList("MPAM");
-                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(searchFieldUsedInCaseTypes));
+                    caseTypesSearchFieldIsUsedIn = Arrays.asList("MPAM");
+                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(caseTypesSearchFieldIsUsedIn));
                     searchValue = sessionVariableCalled("searchMinisterialSignOffTeam");
                     accordionMPAM.openCreationAccordion();
                     assertThat(caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenKey("Ministerial sign off team").get(0).equalsIgnoreCase(searchValue), is(true));
                     break;
                 case "CAMPAIGN":
-                    searchFieldUsedInCaseTypes = Arrays.asList("MPAM", "TO");
-                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(searchFieldUsedInCaseTypes));
+                    caseTypesSearchFieldIsUsedIn = Arrays.asList("MPAM", "TO");
+                    setSessionVariable("randomCaseType").to(returnRandomStringFromList(caseTypesSearchFieldIsUsedIn));
                     searchValue = sessionVariableCalled("searchCampaign");
                     summaryTab.selectSummaryTab();
                     summaryTab.assertCampaignInSummaryTabIsCorrect(searchValue);
@@ -565,26 +496,5 @@ public class Search extends BasePage {
         for (WebElementFacade caseRef : listOfCaseRefs) {
             caseRef.shouldContainText(substringInput);
         }
-    }
-
-    public void waitForResultsPage() {
-        waitForPageWithTitle("Search Results");
-    }
-
-    public void waitForSearchCriteriaPage() {
-        getButtonElementFromDisplayedText("Search").withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
-    }
-
-    public int getNumberOfSearchResults() {
-        return Integer.parseInt(workstacks.totalNumberOfCases.getText().split("\\s+")[0]);
-    }
-
-    public boolean zeroSearchResultsReturned() {
-        return getNumberOfSearchResults() == 0;
-    }
-
-    public void selectComplaintsStage2CaseRefOfEscalatedComplaintsCase(String stage1CaseRef) {
-        WebElementFacade stage2CaseRef = findBy("//a[text()='" + stage1CaseRef + "']/parent::td/following-sibling::td/a");
-        safeClickOn(stage2CaseRef);
     }
 }

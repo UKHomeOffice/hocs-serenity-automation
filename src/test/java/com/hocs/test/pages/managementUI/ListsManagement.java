@@ -5,6 +5,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Documents;
+import config.CaseType;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.junit.Assert;
 import org.openqa.selenium.Keys;
@@ -85,10 +86,10 @@ public class ListsManagement extends BasePage {
         safeClickOn(addBusinessAreaButton);
     }
 
-    public void clickTheAddNewEnquiryReasonButton(String caseType) {
-        if (caseType.equalsIgnoreCase("MPAM")) {
+    public void clickTheAddNewEnquiryReasonButton(CaseType caseType) {
+        if (caseType == CaseType.MPAM) {
             safeClickOn(addEnquiryReasonButton);
-        } else if (caseType.equalsIgnoreCase("COMP")) {
+        } else if (caseType == CaseType.COMP) {
             safeClickOn(addNewEnquiryReasonButton);
         }
     }

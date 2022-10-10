@@ -22,8 +22,8 @@ public class FOIDispatchStepDefs extends BasePage {
     }
 
     @And("I select {string} as the case type")
-    public void iSelectAsCaseType(String caseType) {
-        foiDispatch.selectASpecificCaseType(caseType);
+    public void iSelectAsCaseType(String foiOutcomeCaseType) {
+        foiDispatch.selectASpecificFOIOutcomeCaseType(foiOutcomeCaseType);
     }
 
     @And("I select {string} as the response channel")

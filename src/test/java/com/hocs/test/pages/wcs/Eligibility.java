@@ -7,7 +7,6 @@ import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.RecordCaseData;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
-import net.thucydides.core.webdriver.exceptions.ElementShouldBeEnabledException;
 
 public class Eligibility extends BasePage {
 
@@ -64,7 +63,7 @@ public class Eligibility extends BasePage {
 
     public void confirmClaimShouldBeClosed() {
         selectSpecificRadioButton("Yes - close the claim");
-        if (checkButtonIsCurrentlyVisible("Continue")) {
+        if (buttonIsCurrentlyVisible("Continue")) {
             clickContinueButton();
         } else {
             clickConfirmButton();
@@ -73,7 +72,7 @@ public class Eligibility extends BasePage {
 
     public void selectToNotCloseTheClaim() {
         selectSpecificRadioButtonFromGroupWithHeading("No", "No response from the claimant. Close the claim?");
-        if (checkButtonIsCurrentlyVisible("Continue")) {
+        if (buttonIsCurrentlyVisible("Continue")) {
             clickContinueButton();
         } else {
             clickConfirmButton();

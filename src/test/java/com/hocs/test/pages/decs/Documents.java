@@ -6,6 +6,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import config.CaseType;
 import java.io.File;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -304,51 +305,48 @@ public class Documents extends BasePage {
         safeClickOn(manageDocumentsLink);
     }
 
-    public void assertExpectedDocumentTypesPresent(String caseType) {
+    public void assertExpectedDocumentTypesPresent(CaseType caseType) {
         List<String> availableDocumentTypes = getSelectableOptionsFromDropdownWithHeading("Document type");
         List<String> requiredDocumentTypes = new ArrayList<>();
-        switch (caseType.toUpperCase()) {
-            case "MIN":
-            case "TRO":
-            case "DTEN":
+        switch (caseType) {
+            case MIN:
+            case TRO:
+            case DTEN:
                 requiredDocumentTypes.addAll(Arrays.asList("ORIGINAL", "DRAFT", "FINAL", "CONTRIBUTION", "BACKGROUND NOTE"));
                 break;
-            case "MPAM":
+            case MPAM:
                 requiredDocumentTypes.addAll(Arrays.asList("Original correspondence", "Further correspondence from MPs Office", "Contributions "
                         + "requested", "Contributions received" , "Draft response (includes QA rejected)", "Background note", "Final response", "Additional correspondence (Holding Replies)"));
                 break;
-            case "MTS":
+            case MTS:
                 requiredDocumentTypes.addAll(Arrays.asList("Original correspondence", "Further correspondence from MPs Office", "Contributions "
                         + "requested", "Contributions received" , "Draft response (includes QA rejected)", "Background note", "Final response"));
                 break;
-            case "COMP":
-            case "COMP2":
+            case COMP:
+            case COMP2:
                 requiredDocumentTypes.addAll(Arrays.asList("To document", "Public correspondence", "Complaint leaflet", "Complaint letter", "Email"
                         , "CRF", "DRAFT", "Appeal Leaflet", "IMB Letter", "Final Response"));
                 break;
-            case "IEDET":
+            case IEDET:
                 requiredDocumentTypes.addAll(Arrays.asList("Original complaint", "Letter of Authority", "Interim response", "Final response", "Withdrawal letter"
                         , "Other"));
                 break;
-            case "BF":
-            case "BF2":
+            case BF:
+            case BF2:
                 requiredDocumentTypes.addAll(Arrays.asList("To document", "Public correspondence", "Complaint leaflet", "Complaint letter", "Email"
                         , "CRF", "DRAFT"));
                 break;
-            case "TO":
+            case TO:
                 requiredDocumentTypes.addAll(Arrays.asList("Initial Correspondence", "Initial Draft", "Final Response", "Contribution Request", "Contribution Response"
                         , "Background Note"));
                 break;
-            case "FOI":
+            case FOI:
                 requiredDocumentTypes.addAll(Arrays.asList("Request", "Initial response", "Draft response", "Clearances", "Final responses"
                         , "Correspondence", "Contribution", "Miscellaneous", "Appeal Response"));
                 break;
-            case "POGR":
+            case POGR:
+            case POGR2:
                 requiredDocumentTypes.addAll(Arrays.asList("Original Complaint", "Interim Letter", "Draft", "Final Response"));
-                break;
-            case "FOI TEAM":
-                requiredDocumentTypes.addAll(Arrays.asList("Select", "Requester/Reference", "Current Stage", "Owner", "Team", "Deadline", "Rejected",
-                        "Extended"));
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());

@@ -12,6 +12,7 @@ import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
+import config.CaseType;
 import java.text.ParseException;
 
 public class MPAMProgressCase extends BasePage {
@@ -55,7 +56,7 @@ public class MPAMProgressCase extends BasePage {
     public void moveCaseFromCurrentStageToTargetStage(String currentStage, String targetStage) {
         String precedingStage = getStageThatPrecedesTargetStage(targetStage);
         if (precedingStage.equals("CREATE NEW CASE")) {
-            createCase.createCSCaseOfTypeWithSpecificCorrespondenceReceivedDate("MPAM", receivedDate);
+            createCase.createCSCaseOfTypeWithSpecificCorrespondenceReceivedDate(CaseType.MPAM, receivedDate);
             dashboard.goToDashboard();
         } else {
             if (!precedingStage.equalsIgnoreCase(currentStage)) {
@@ -240,7 +241,7 @@ public class MPAMProgressCase extends BasePage {
         switch (infoType.toUpperCase()) {
             case "CASE REFERENCE":
             case "ACTIVE CASES ONLY":
-                createCase.createCSCaseOfType("MPAM");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.MPAM);
                 dashboard.goToDashboard();
                 break;
             case "REFERENCE TYPE":
@@ -250,13 +251,13 @@ public class MPAMProgressCase extends BasePage {
                 createCaseAndMoveItToTargetStageWithSpecifiedSignOffTeam(infoValue, "Triage");
                 break;
             case "MEMBER OF PARLIAMENT NAME":
-                createCase.createCSCaseOfType("MPAM");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.MPAM);
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 creation.moveCaseWithSpecifiedMPCorrespondentToTriageStage(infoValue);
                 break;
             case "CORRESPONDENT REFERENCE NUMBER":
-                createCase.createCSCaseOfType("MPAM");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.MPAM);
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 creation.addCorrespondentWithSpecificReferenceToCase(infoValue);
@@ -264,10 +265,10 @@ public class MPAMProgressCase extends BasePage {
             case "RECEIVED ON OR BEFORE DATE":
             case "RECEIVED ON OR AFTER DATE":
                 dashboard.selectCreateSingleCaseLinkFromMenuBar();
-                if (!checkButtonIsVisible("Next")) {
+                if (!buttonIsVisible("Next")) {
                     dashboard.selectCreateSingleCaseLinkFromMenuBar();
                 }
-                createCase.selectCaseType("MPAM");
+                createCase.selectCaseType(CaseType.MPAM);
                 clickTheButton("Next");
                 createCase.editReceivedDate(infoValue);
                 createCase.storeCorrespondenceReceivedDate();
@@ -277,7 +278,7 @@ public class MPAMProgressCase extends BasePage {
                 dashboard.goToDashboard();
                 break;
             case "CAMPAIGN":
-                createCase.createCSCaseOfType("MPAM");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.MPAM);
                 dashboard.goToDashboard();
                 dashboard.getAndClaimCurrentCase();
                 moveCaseFromCreationToTriage();
@@ -285,24 +286,24 @@ public class MPAMProgressCase extends BasePage {
                 campaign.moveCaseFromAStageToCampaign(infoValue);
                 break;
             case "CORRESPONDENT FULL NAME (APPLICANT OR CONSTITUENT)":
-                createCase.createCSCaseOfType("MPAM");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.MPAM);
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 creation.triggerMPCorrespondentIsMandatoryScreen();
                 dashboard.goToDashboard();
                 break;
             case "TELEPHONE SURGERY OFFICIAL ENGAGEMENT":
-                createCase.createCSCaseOfType("MTS");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.MTS);
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 mtsDataInput.completeDataInputStageAndCloseMTSCase();
                 break;
             case "ALL":
                 dashboard.selectCreateSingleCaseLinkFromMenuBar();
-                if (!checkButtonIsVisible("Next")) {
+                if (!buttonIsVisible("Next")) {
                     dashboard.selectCreateSingleCaseLinkFromMenuBar();
                 }
-                createCase.selectCaseType("MPAM");
+                createCase.selectCaseType(CaseType.MPAM);
                 clickTheButton("Next");
                 createCase.editReceivedDate("01/01/2022");
                 createCase.storeCorrespondenceReceivedDate();

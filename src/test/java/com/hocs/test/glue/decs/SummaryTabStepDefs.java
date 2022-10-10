@@ -80,7 +80,7 @@ public class SummaryTabStepDefs extends BasePage {
         }
     }
 
-    @Then("the case deadline date displayed in the summary is correct for a {string} case")
+    @Then("the (Stage 2 )case deadline date displayed in the summary is correct for a {string} case")
     public void theCaseDeadlineDateDisplayedInTheSummaryIsCorrectForACaseString(String deadlineDecidingFactor) {
         summaryTab.assertDeadlineDateOfCaseIsCorrect(deadlineDecidingFactor);
     }

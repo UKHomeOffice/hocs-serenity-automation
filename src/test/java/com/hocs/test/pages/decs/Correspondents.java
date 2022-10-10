@@ -347,6 +347,6 @@ public class Correspondents extends BasePage {
     }
 
     public void assertNoPrimaryCorrespondentDisplayed() {
-        assertThat(checkLinkIsCurrentlyVisible("Edit"), is(false));
+        assertThat(linkIsCurrentlyVisible("Edit"), is(false));
     }
 }

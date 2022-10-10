@@ -8,6 +8,7 @@ import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
+import config.CaseType;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
@@ -39,13 +40,13 @@ public class COMPProgressCase extends BasePage {
 
     String complaintType = "Service";
 
-    public void moveCaseOfTypeFromCurrentStageToTargetStage(String caseType, String currentStage, String targetStage) {
+    public void moveCaseOfTypeFromCurrentStageToTargetStage(CaseType caseType, String currentStage, String targetStage) {
         setComplaintTypeFromStageName(targetStage);
         targetStage = getSimplifiedStageName(targetStage);
         currentStage = getSimplifiedStageName(currentStage);
         String precedingStage = getStageThatPrecedesTargetStage(targetStage);
         if (precedingStage.equals("CREATE NEW CASE")) {
-            createCase.createCSCaseOfType(caseType);
+            createCase.createCSCaseOfTypeWithDocument(caseType);
             dashboard.goToDashboard();
         } else {
             if (!precedingStage.equalsIgnoreCase(currentStage)) {
@@ -103,7 +104,7 @@ public class COMPProgressCase extends BasePage {
         return precedingStage;
     }
 
-    public void createCaseOfTypeAndMoveItToTargetStageWithSpecifiedComplaintType(String caseType, String complaintType, String targetStage) {
+    public void createCaseOfTypeAndMoveItToTargetStageWithSpecifiedComplaintType(CaseType caseType, String complaintType, String targetStage) {
         this.complaintType = complaintType;
         moveCaseOfTypeFromCurrentStageToTargetStage(caseType, "N/A", targetStage);
     }
@@ -226,19 +227,19 @@ public class COMPProgressCase extends BasePage {
     public void generateCOMPSearchCaseData(String infoValue, String infoType) {
         switch (infoType.toUpperCase()) {
             case "CASE TYPE":
-                createCase.createCSCaseOfType(infoValue);
+                createCase.createCSCaseOfTypeWithDocument(CaseType.valueOf(infoValue));
                 break;
             case "CORRESPONDENT FULL NAME":
             case "CORRESPONDENT POSTCODE":
             case "CORRESPONDENT EMAIL ADDRESS":
-                createCase.createCSCaseOfType("COMP");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.COMP);
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
                 correspondents.confirmPrimaryCorrespondent();
                 break;
             case "COMPLAINANT DATE OF BIRTH":
-                createCase.createCSCaseOfType("COMP");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.COMP);
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
@@ -259,10 +260,10 @@ public class COMPProgressCase extends BasePage {
                 clickFinishButton();
                 break;
             case "CASE REFERENCE":
-                createCase.createCSCaseOfType("COMP");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.COMP);
                 break;
             case "COMPLAINANT HOME OFFICE REFERENCE":
-                createCase.createCSCaseOfType("COMP");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.COMP);
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
@@ -275,7 +276,7 @@ public class COMPProgressCase extends BasePage {
                 clickContinueButton();
                 break;
             case "ALL":
-                createCase.createCSCaseOfType("COMP");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.COMP);
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
@@ -285,7 +286,7 @@ public class COMPProgressCase extends BasePage {
                 complaintsRegistrationAndDataInput.enterACompanyName();
                 complaintsRegistrationAndDataInput.enterAHomeOfficeReference("Test entry for HO Reference");
                 complaintsRegistrationAndDataInput.enterAPortReference();
-                safeClickOn(continueButton);
+                clickContinueButton();
                 break;
             default:
                 pendingStep(infoType + " is not defined within " + getMethodName());

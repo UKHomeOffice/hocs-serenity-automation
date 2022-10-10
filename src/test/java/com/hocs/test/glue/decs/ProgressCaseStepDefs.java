@@ -20,6 +20,7 @@ import com.hocs.test.pages.foi.FOIProgressCase;
 import com.hocs.test.pages.mpam.MPAMProgressCase;
 import com.hocs.test.pages.to.TOProgressCase;
 import com.hocs.test.pages.wcs.WCSProgressCase;
+import config.CaseType;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 
@@ -28,10 +29,6 @@ public class ProgressCaseStepDefs extends BasePage {
     Dashboard dashboard;
 
     Workdays workdays;
-
-    ConfirmationScreens confirmationScreens;
-
-    CaseView caseView;
 
     DCUProgressCase dcuProgressCase;
 
@@ -55,80 +52,84 @@ public class ProgressCaseStepDefs extends BasePage {
 
     @And("I complete the {string} stage")
     public void iCompleteTheStage(String stage) {
-        String caseType = sessionVariableCalled("caseType");
-        switch (caseType) {
-            case "MIN":
-            case "DTEN":
-            case "TRO":
+        switch (getCurrentCaseType()) {
+            case MIN:
+            case DTEN:
+            case TRO:
                 dcuProgressCase.completeTheDCUStageSoThatCaseMovesToTargetStage(stage, "Happy Path");
                 break;
-            case "MPAM":
+            case MPAM:
                 mpamProgressCase.completeTheMPAMStageSoThatCaseMovesToTargetStage(stage, "N/A");
                 break;
-            case "COMP":
-            case "COMP2":
+            case COMP:
+            case COMP2:
                 compProgressCase.completeTheCOMPStageSoThatCaseMovesToTargetStage(stage, "N/A");
                 break;
-            case "IEDET":
+            case IEDET:
                 iedetProgressCase.completeTheIEDETStage(stage,  "Happy Path");
                 break;
-            case "SMC":
+            case SMC:
                 smcProgressCase.completeTheSMCStage(stage);
                 break;
-            case "FOI":
+            case BF:
+            case BF2:
+                bfProgressCase.completeTheBFStageSoThatCaseMovesToTargetStage(stage, "Happy Path");
+                break;
+            case FOI:
                 foiProgressCase.completeTheFOIStage(stage);
                 break;
-            case "WCS":
+            case WCS:
                 wcsProgressCase.completeTheWCSStageSoThatCaseMovesToTargetStage(stage, "Happy Path");
                 break;
-            case "TO":
+            case TO:
                 toProgressCase.completeTheTOStageSoThatCaseMovesToTargetStage(stage, "Happy Path");
                 break;
-            case "POGR":
+            case POGR:
+            case POGR2:
                 pogrProgressCase.completeThePOGRStageSoThatCaseMovesToTargetStage(stage, "Happy Path");
                 break;
             default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
+                pendingStep(getCurrentCaseType().toString() + " is not defined within " + getMethodName());
         }
     }
 
     @And("I move the case from {string} stage to {string} stage")
     public void iMoveTheCaseFromCurrentStageToTargetStage(String currentStage, String targetStage) {
-        String caseType = sessionVariableCalled("caseType");
-        switch (caseType.toUpperCase()) {
-            case "MIN":
-            case "TRO":
-            case "DTEN":
+        CaseType caseType = getCurrentCaseType();
+        switch (caseType) {
+            case MIN:
+            case TRO:
+            case DTEN:
                 dcuProgressCase.moveCaseOfTypeFromCurrentStageToTargetStage(caseType, currentStage, targetStage);
                 break;
-            case "MPAM":
+            case MPAM:
                 mpamProgressCase.moveCaseFromCurrentStageToTargetStage(currentStage, targetStage);
                 break;
-            case "COMP":
-            case "COMP2":
+            case COMP:
+            case COMP2:
                 compProgressCase.moveCaseOfTypeFromCurrentStageToTargetStage(caseType, currentStage, targetStage);
                 break;
-            case "IEDET":
+            case IEDET:
                 iedetProgressCase.moveCaseFromCurrentStageToTargetStage(currentStage, targetStage);
                 break;
-            case "SMC":
+            case SMC:
                 smcProgressCase.moveCaseFromCurrentStageToTargetStage(currentStage, targetStage);
                 break;
-            case "BF":
-            case "BF2":
+            case BF:
+            case BF2:
                 bfProgressCase.moveCaseOfTypeFromCurrentStageToTargetStage(caseType, currentStage, targetStage);
                 break;
-            case "FOI":
+            case FOI:
                 foiProgressCase.moveCaseFromCurrentStageToTargetStage(currentStage, targetStage);
                 break;
-            case "WCS":
+            case WCS:
                 wcsProgressCase.moveCaseFromCurrentStageToTargetStage(currentStage, targetStage);
                 break;
-            case "TO":
+            case TO:
                 toProgressCase.moveCaseFromCurrentStageToTargetStage(currentStage, targetStage);
                 break;
-            case "POGR":
-            case "POGR2":
+            case POGR:
+            case POGR2:
                 pogrProgressCase.moveCaseFromCurrentStageToTargetStage(caseType, currentStage, targetStage);
                 break;
             default:
@@ -137,22 +138,22 @@ public class ProgressCaseStepDefs extends BasePage {
     }
 
     @And("I create a {string} case/claim and move it to (the ){string}( stage)")
-    public void iCreateACaseAndMoveItToAStage(String caseType, String targetStage) {
-        setSessionVariable("caseType").to(caseType);
+    public void iCreateACaseAndMoveItToAStage(String caseTypeString, String targetStage) {
+        setCurrentCaseType(CaseType.valueOf(caseTypeString));
         iMoveTheCaseFromCurrentStageToTargetStage("N/A", targetStage);
     }
 
     @And("I create a {string} case and move it to the {string} stage, recording all case data")
-    public void iCreateACaseAndMoveItToTheStageRecordingAllCaseData(String caseType, String targetStage) {
+    public void iCreateACaseAndMoveItToTheStageRecordingAllCaseData(String caseTypeString, String targetStage) {
+        setCurrentCaseType(CaseType.valueOf(caseTypeString));
         keepAllCaseDataWhenProgressingCase();
-        setSessionVariable("caseType").to(caseType);
         iMoveTheCaseFromCurrentStageToTargetStage("N/A", targetStage);
     }
 
     @And("I get a/an {string} case/claim at (the ){string}( stage)")
-    public void iGetACaseAtAStage(String caseType, String stage) {
-        iCreateACaseAndMoveItToAStage(caseType, stage);
-        if (stage.equalsIgnoreCase("CASE CLOSED") || previousStageWouldHaveAutoAllocated(caseType, stage)) {
+    public void iGetACaseAtAStage(String caseTypeString, String stage) {
+        iCreateACaseAndMoveItToAStage(caseTypeString, stage);
+        if (stage.equalsIgnoreCase("CASE CLOSED") || previousStageWouldHaveAutoAllocated(CaseType.valueOf(caseTypeString), stage)) {
             dashboard.getCurrentCase();
         } else {
             dashboard.getAndClaimCurrentCase();
@@ -160,8 +161,8 @@ public class ProgressCaseStepDefs extends BasePage {
     }
 
     @And("I get a DCU {string} case at the {string} stage that should be copied to Number 10")
-    public void iGetADCUCaseAtTheStageThatShouldBeCopiedToNumber(String caseType, String stage) {
-        dcuProgressCase.createCaseOfTypeAndMoveItToTargetStageWithCopyToNo10SetToYes(caseType, stage);
+    public void iGetADCUCaseAtTheStageThatShouldBeCopiedToNumber(String caseTypeString, String stage) {
+        dcuProgressCase.createCaseOfTypeAndMoveItToTargetStageWithCopyToNo10SetToYes(CaseType.valueOf(caseTypeString), stage);
         dashboard.getAndClaimCurrentCase();
     }
 
@@ -177,16 +178,16 @@ public class ProgressCaseStepDefs extends BasePage {
 
     @When("I create a high priority MPAM case and move it to the {string} stage")
     public void moveHighPriorityNewMPAMCaseToStage(String stage) {
-        mpamProgressCase.createCaseAndMoveItToTargetStageWithSpecifiedReceivedDateAndUrgency(workdays.getDateXWorkdaysAgoForGivenCaseType(20, "MPAM"),
+        mpamProgressCase.createCaseAndMoveItToTargetStageWithSpecifiedReceivedDateAndUrgency(workdays.getDateXWorkdaysAgoForGivenCaseType(20, CaseType.MPAM),
                 "Immediate", stage);
     }
 
     @When("I create a {string} case for a {string} complaint and move it to {string}( stage)")
-    public void iCreateACaseForAComplaintAndMoveItToStage(String caseType, String complaintType, String stage) {
-        if (caseType.equalsIgnoreCase("BF")) {
-            bfProgressCase.createCaseOfTypeAndMoveItToTargetStageWithSpecifiedComplaintType(caseType, complaintType, stage);
+    public void iCreateACaseForAComplaintAndMoveItToStage(String caseTypeString, String complaintType, String stage) {
+        if (caseTypeString.equalsIgnoreCase("BF")) {
+            bfProgressCase.createCaseOfTypeAndMoveItToTargetStageWithSpecifiedComplaintType(CaseType.valueOf(caseTypeString), complaintType, stage);
         } else {
-            compProgressCase.createCaseOfTypeAndMoveItToTargetStageWithSpecifiedComplaintType(caseType, complaintType, stage);
+            compProgressCase.createCaseOfTypeAndMoveItToTargetStageWithSpecifiedComplaintType(CaseType.valueOf(caseTypeString), complaintType, stage);
         }
     }
 
@@ -197,14 +198,15 @@ public class ProgressCaseStepDefs extends BasePage {
     }
 
     @And("I create a {string} case with {string} as the Business Area and move it to the {string} stage")
-    public void iCreateAPOGRCaseWithAsTheBusinessAreaAndMoveItToTheStage(String caseType, String businessArea, String stage) {
+    public void iCreateAPOGRCaseWithAsTheBusinessAreaAndMoveItToTheStage(CaseType caseType, String businessArea, String stage) {
         pogrProgressCase.createCaseAndMoveItToTargetStageWithSpecificBusinessArea(caseType, businessArea, stage);
     }
 
     @And("I get a {string} case with {string} as the Business Area at the {string} stage")
-    public void iGetAPOGRCaseWithAsTheBusinessAreaAndMoveItToTheStage(String caseType, String businessArea, String stage) {
-        pogrProgressCase.createCaseAndMoveItToTargetStageWithSpecificBusinessArea(caseType, businessArea, stage);
-        if (stage.equalsIgnoreCase("CASE CLOSED") || previousStageWouldHaveAutoAllocated("POGR", stage) || stage.equalsIgnoreCase("DISPATCH") && businessArea.equalsIgnoreCase("GRO")) {
+    public void iGetAPOGRCaseWithAsTheBusinessAreaAndMoveItToTheStage(String caseTypeString, String businessArea, String stage) {
+        pogrProgressCase.createCaseAndMoveItToTargetStageWithSpecificBusinessArea(CaseType.valueOf(caseTypeString), businessArea, stage);
+        if (stage.equalsIgnoreCase("CASE CLOSED") || previousStageWouldHaveAutoAllocated(CaseType.valueOf(caseTypeString), stage) || stage.equalsIgnoreCase(
+                "DISPATCH") && businessArea.equalsIgnoreCase("GRO")) {
             dashboard.getCurrentCase();
         } else {
             dashboard.getAndClaimCurrentCase();
@@ -213,30 +215,30 @@ public class ProgressCaseStepDefs extends BasePage {
 
     @And("I progress to the point of adding correspondents")
     public void iProgressToThePointOfAddingCorrespondents() {
-        String caseType = getCurrentCaseType();
-        switch(caseType) {
-            case "MIN":
-            case "DTEN":
-            case "TRO":
+        switch(getCurrentCaseType()) {
+            case MIN:
+            case DTEN:
+            case TRO:
                 dcuProgressCase.getDCUCaseToPointOfAddingCorrespondents();
                 break;
-            case "MPAM":
+            case MPAM:
                 mpamProgressCase.getMPAMCaseToPointOfAddingCorrespondents();
                 break;
-            case "POGR":
+            case POGR:
                 pogrProgressCase.getPOGRCaseToPointOfAddingCorrespondents();
                 break;
-            case "TO":
+            case TO:
                 toProgressCase.getTOCaseToPointOfAddingCorrespondents();
         }
     }
 
-    private boolean previousStageWouldHaveAutoAllocated(String caseType, String stage) {
+    private boolean previousStageWouldHaveAutoAllocated(CaseType caseType, String stage) {
         switch (caseType) {
-            case "FOI":
+            case FOI:
                 return stage.equalsIgnoreCase("CASE CREATION") || stage.equalsIgnoreCase(
                         "ACCEPTANCE") || stage.equalsIgnoreCase("ALLOCATION");
-            case "POGR":
+            case POGR:
+            case POGR2:
                 return (stage.equalsIgnoreCase("DRAFT"));
             default:
                 return false;

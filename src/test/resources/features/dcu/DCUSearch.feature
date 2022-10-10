@@ -23,24 +23,6 @@ Feature: DCU Search
       | Home Secretary Interest     | Yes                       |
       | Active Cases Only           | Yes                       |
 
-  @SearchByCaseReferenceNumber
-  Scenario: User should be be taken directly to a case when they for enter a valid case reference in the Load Case bar
-    Given I am logged into "CS" as user "DCU_USER"
-    When I enter a valid case reference into the load case search bar
-    Then I should be taken directly to the case
-
-  @SearchByCaseReferenceNumber @Validation
-  Scenario: An error message should be displayed if a user enters a Reference number that does not exist
-    Given I am logged into "CS" as user "DCU_USER"
-    When I enter a non-existent case reference
-    Then an error message should be displayed stating that there are no active workflows for the case
-
-  @SearchByCaseReferenceNumber @Validation
-  Scenario: User must enter a search query in the Load Case search bar
-    Given I am logged into "CS" as user "DCU_USER"
-    When I press enter in the Load Case search bar
-    Then an error message should be displayed stating that a case reference is required
-
   @SearchByCaseType @Workstacks @DCURegression
   Scenario Outline: DCU Search workstack should contain the Case Reference, Current Stage, Owner, Team, Primary Topic and Deadline
     Given I am logged into "CS" as user "DCU_USER"

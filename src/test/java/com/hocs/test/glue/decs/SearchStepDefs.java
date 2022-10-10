@@ -22,6 +22,7 @@ import com.hocs.test.pages.decs.Workstacks;
 import com.hocs.test.pages.foi.FOIProgressCase;
 import com.hocs.test.pages.mpam.MPAMProgressCase;
 import com.hocs.test.pages.to.TOProgressCase;
+import config.CaseType;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -70,34 +71,36 @@ public class SearchStepDefs extends BasePage {
     @And("I check that the search results have the correct {string}")
     public void iCheckThatTheSearchResultsHaveTheCorrect(String criteria) throws ParseException {
         String infoValue = sessionVariableCalled("searchValue");
-        String caseTypeToGenerate = sessionVariableCalled("randomCaseType");
+        CaseType caseTypeToGenerate = CaseType.valueOf(sessionVariableCalled("randomCaseType"));
         if (search.zeroSearchResultsReturned()) {
-            switch (caseTypeToGenerate.toUpperCase()) {
-                case "DCU":
+            switch (caseTypeToGenerate) {
+                case MIN:
+                case DTEN:
+                case TRO:
                     dcuProgressCase.generateDCUSearchCaseData(infoValue, criteria);
                     break;
-                case "MPAM":
+                case MPAM:
                     mpamProgressCase.generateMPAMSearchCaseData(infoValue, criteria);
                     break;
-                case "COMP":
+                case COMP:
                     compProgressCase.generateCOMPSearchCaseData(infoValue, criteria);
                     break;
-                case "IEDET":
+                case IEDET:
                     iedetProgressCase.generateIEDETSearchCaseData(infoValue, criteria);
                     break;
-                case "SMC":
+                case SMC:
                     smcProgressCase.generateSMCSearchCaseData(infoValue, criteria);
                     break;
-                case "POGR":
+                case POGR:
                     pogrProgressCase.generatePOGRSearchCaseData(infoValue, criteria);
                     break;
-                case "FOI":
+                case FOI:
                     foiProgressCase.generateFOISearchCaseData(infoValue, criteria);
                     break;
-                case "BF":
+                case BF:
                     bfProgressCase.generateBFSearchCaseData(infoValue, criteria);
                     break;
-                case "TO":
+                case TO:
                     toProgressCase.generateTOSearchCaseData(infoValue, criteria);
                     break;
                 default:
@@ -126,7 +129,7 @@ public class SearchStepDefs extends BasePage {
 
     @Then("an error message should be displayed stating that the case reference entered is an invalid format")
     public void anErrorMessageShouldBeDisplayedStatingThatTheCaseReferenceEnteredIsAnInvalidFormat() {
-        dashboard.assertCaseReferenceIsInvalidFormatErrorMessage();
+        assertExpectedErrorMessageIsDisplayed("Case reference is invalid format");
     }
 
     @Then("an error message should be displayed as I have not entered any search criteria")
@@ -136,7 +139,7 @@ public class SearchStepDefs extends BasePage {
 
     @When("I enter a valid case reference into the load case search bar")
     public void enterValidCaseReferenceForSearch() {
-        createCase.createCSCaseOfType("MIN");
+        createCase.createCSCaseOfTypeWithDocument(createCase.getRandomCSCaseType());
         dashboard.goToDashboard();
         dashboard.enterCaseReferenceIntoSearchBar(getCurrentCaseReference());
         dashboard.hitEnterCaseReferenceSearchBar();
@@ -144,12 +147,10 @@ public class SearchStepDefs extends BasePage {
 
     @Then("I should be taken directly to the case")
     public void assertThatCaseReferenceSearchTakesUserToCase() {
-        workstacks.waitABit(500);
-        if (workstacks.isElementDisplayed(caseView.allocateToMeLink)) {
-            workstacks.assertCaseReferenceBeforeAllocation();
-        } else {
-            workstacks.assertCaseReferenceAfterAllocation();
-        }
+        waitABit(500);
+        if (!caseView.currentCaseIsLoaded()) {
+            Assert.fail("Expected case " + getCurrentCaseReference() + " to be loaded, but it was not");
+        };
     }
 
     @When("I enter a non-existent (case )reference")
@@ -160,7 +161,7 @@ public class SearchStepDefs extends BasePage {
 
     @Then("an error message should be displayed stating that there are no active workflows for the case")
     public void assertThatNoActiveWorkflowsErrorMessageIsShown() {
-        dashboard.assertNoActiveWorkflowsForCaseErrorMessage();
+        assertExpectedErrorMessageIsDisplayed("No active workflows for case");
     }
 
     @When("I press enter in the Load Case search bar")
@@ -170,7 +171,7 @@ public class SearchStepDefs extends BasePage {
 
     @Then("an error message should be displayed stating that a case reference is required")
     public void assertThatCaseReferenceIsRequiredMessageIsShown() {
-        dashboard.assertCaseReferenceIsRequiredErrorMessage();
+        assertExpectedErrorMessageIsDisplayed("Case reference is required");
     }
 
     @Then("the created DCU case should be visible in the search results")

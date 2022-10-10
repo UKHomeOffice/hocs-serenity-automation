@@ -87,15 +87,12 @@ public class CaseCreationStage extends BasePage {
             setSessionVariable("foiInboundChannel").to(unselectedInboundChannelRadioButton.getText());
             safeClickOn(unselectedInboundChannelRadioButton);
         } else if (valueToBeEdited.equalsIgnoreCase("FOI TOPIC")) {
-            createCase.caseTopicTypeahead.sendKeys("Alcohol industry");
-            createCase.caseTopicTypeahead.sendKeys(Keys.RETURN);
+            selectSpecificOptionFromTypeaheadWithHeading("Alchohol industry", "Case Topic");
             setSessionVariable("foiTopic").to("Alcohol industry");
         } else if (valueToBeEdited.equalsIgnoreCase("REQUEST QUESTION")) {
-            createCase.requestQuestionTextArea.clear();
             recordCaseData.enterSpecificTextIntoTextAreaWithHeading("Edited Test Request Question", fieldHeader);
             setSessionVariable("requestQuestion").to("Edited Test Request Question");
         } else if (valueToBeEdited.equalsIgnoreCase("PRIMARY CORRESPONDENT")) {
-            createCase.fullNameTextField.clear();
             recordCaseData.enterSpecificTextIntoTextFieldWithHeading("Edited Test McTester", fieldHeader);
             setSessionVariable("correspondentFullName").to("Edited Test McTester");
         }

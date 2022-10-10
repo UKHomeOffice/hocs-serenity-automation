@@ -11,7 +11,7 @@ import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
-import java.text.ParseException;
+import config.CaseType;
 
 public class DCUProgressCase extends BasePage {
 
@@ -43,10 +43,10 @@ public class DCUProgressCase extends BasePage {
 
     Boolean copyToNumber10 = false;
 
-    public void moveCaseOfTypeFromCurrentStageToTargetStage(String caseType, String currentStage, String targetStage) {
+    public void moveCaseOfTypeFromCurrentStageToTargetStage(CaseType caseType, String currentStage, String targetStage) {
         String precedingStage = getStageThatPrecedesTargetStage(caseType, targetStage);
         if (precedingStage.equals("CREATE NEW CASE")) {
-            createCase.createCSCaseOfType(caseType);
+            createCase.createCSCaseOfTypeWithDocument(caseType);
             dashboard.goToDashboard();
         } else {
             if (!precedingStage.equalsIgnoreCase(currentStage)) {
@@ -56,7 +56,7 @@ public class DCUProgressCase extends BasePage {
         }
     }
 
-    private String getStageThatPrecedesTargetStage(String caseType, String targetStage) {
+    private String getStageThatPrecedesTargetStage(CaseType caseType, String targetStage) {
         String precedingStage = "";
         switch (targetStage.toUpperCase()) {
             case "DATA INPUT":
@@ -81,13 +81,13 @@ public class DCUProgressCase extends BasePage {
                 break;
             case "DISPATCH":
                 switch (caseType) {
-                    case "MIN":
+                    case MIN:
                         precedingStage = "MINISTERIAL SIGN OFF";
                         break;
-                    case "DTEN":
+                    case DTEN:
                         precedingStage = "PRIVATE OFFICE APPROVAL";
                         break;
-                    case "TRO":
+                    case TRO:
                         precedingStage = "QA RESPONSE";
                         break;
                     default:
@@ -107,7 +107,7 @@ public class DCUProgressCase extends BasePage {
         return precedingStage;
     }
 
-    public void createCaseOfTypeAndMoveItToTargetStageWithCopyToNo10SetToYes(String caseType, String targetStage) {
+    public void createCaseOfTypeAndMoveItToTargetStageWithCopyToNo10SetToYes(CaseType caseType, String targetStage) {
         copyToNumber10 = true;
         moveCaseOfTypeFromCurrentStageToTargetStage(caseType, "CREATE NEW CASE", targetStage);
     }
@@ -267,15 +267,15 @@ public class DCUProgressCase extends BasePage {
     public void generateDCUSearchCaseData(String infoValue, String infoType) {
         switch (infoType.toUpperCase()) {
             case "CASE TYPE":
-                createCase.createCSCaseOfType(infoValue);
+                createCase.createCSCaseOfTypeWithDocument(CaseType.valueOf(infoValue));
                 break;
             case "RECEIVED ON OR AFTER DATE":
             case "RECEIVED ON OR BEFORE DATE":
-                createCase.createCSCase("MIN", false, infoValue);
+                createCase.createCSCase(CaseType.MIN, false, infoValue);
                 dashboard.goToDashboard();
                 break;
             case "MEMBER OF PARLIAMENT NAME":
-                createCase.createCSCaseOfType("MIN");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.MIN);
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 dataInput.fillAllMandatoryCorrespondenceFields();
@@ -286,7 +286,7 @@ public class DCUProgressCase extends BasePage {
             case "PUBLIC CORRESPONDENT NAME":
             case "CORRESPONDENT POSTCODE":
             case "CORRESPONDENT EMAIL ADDRESS":
-                createCase.createCSCaseOfType("MIN");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.MIN);
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 dataInput.fillAllMandatoryCorrespondenceFields();
@@ -304,10 +304,10 @@ public class DCUProgressCase extends BasePage {
                 generateDCUSearchCaseData("Animal alternatives (3Rs)", "Topic");
                 break;
             case "ACTIVE CASES ONLY":
-                createCase.createCSCaseOfType("MIN");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.MIN);
                 break;
             case "HOME SECRETARY INTEREST":
-                createCase.createCSCaseOfType("MIN");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.MIN);
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
@@ -320,7 +320,7 @@ public class DCUProgressCase extends BasePage {
                 correspondents.confirmPrimaryCorrespondent();
                 break;
             case "ALL":
-                createCase.createCSCase("MIN", false, "01/01/2001");
+                createCase.createCSCase(CaseType.MIN, false, "01/01/2001");
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));

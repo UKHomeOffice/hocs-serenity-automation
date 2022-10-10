@@ -45,6 +45,7 @@ Feature: Manage Documents
       | BF2      |
       | TO       |
       | POGR     |
+      | POGR2    |
 
   @Validation
   Scenario: As a Correspondence System user, I want to be informed when I fail to select a document type, so I can rectify the mistake

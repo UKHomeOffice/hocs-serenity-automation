@@ -79,7 +79,7 @@ public class CaseView extends BasePage {
     }
 
     public boolean currentCaseIsLoaded() {
-        return specificCaseIsLoaded(sessionVariableCalled("caseReference"));
+        return specificCaseIsLoaded(getCurrentCaseReference());
     }
 
     public boolean specificCaseIsLoaded(String caseRef) {

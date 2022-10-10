@@ -4,9 +4,6 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-
 import com.hocs.test.pages.complaints.BFProgressCase;
 import com.hocs.test.pages.complaints.COMPProgressCase;
 import com.hocs.test.pages.complaints.IEDETProgressCase;
@@ -28,7 +25,7 @@ import com.hocs.test.pages.foi.FOIProgressCase;
 import com.hocs.test.pages.mpam.MPAMProgressCase;
 
 import com.hocs.test.pages.to.TOProgressCase;
-import config.User;
+import config.CaseType;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -78,42 +75,42 @@ public class CreateCaseStepDefs extends BasePage {
     com.hocs.test.pages.wcs.Registration wcsRegistration;
 
     @When("I create a single {string} case/claim")
-    public void createNewCase(String caseType) {
-        if (caseType.equalsIgnoreCase("WCS")) {
+    public void createNewCase(String caseTypeString) {
+        if (caseTypeString.equalsIgnoreCase("WCS")) {
             createCase.createWCSCase();
             waitFor(wcsRegistration.registrationSchemeCheckTitle);
         } else {
-            createCase.createCSCaseOfType(caseType.toUpperCase());
+            createCase.createCSCaseOfTypeWithDocument(CaseType.valueOf(caseTypeString));
         }
     }
 
     @And("I get a new {string} case")
-    public void iGetANewCase(String caseType) {
-        createNewCase(caseType);
+    public void iGetANewCase(String caseTypeString) {
+        createNewCase(caseTypeString);
         confirmationScreens.goToCaseFromConfirmationScreen();
         caseView.waitForCaseToLoad();
         dashboard.claimCurrentCase();
     }
 
     @Given("I create a single {string} case and return to the dashboard")
-    public void createCaseAndReturnToDashboard(String caseType) {
-        createNewCase(caseType);
+    public void createCaseAndReturnToDashboard(String caseTypeString) {
+        createNewCase(caseTypeString);
         dashboard.goToDashboard();
     }
 
     @When("I bulk create {int} {string} cases")
-    public void bulkCreateCases(int cases, String caseType) {
+    public void bulkCreateCases(int cases, String caseTypeString) {
         setSessionVariable("bulkCaseNumber").to(cases);
         dashboard.selectCreateBulkCasesLinkFromMenuBar();
-        createCase.selectCaseType(caseType);
+        createCase.selectCaseType(CaseType.valueOf(caseTypeString));
         clickNextButton();
         documents.bulkUploadDocuments(cases);
         createCase.clickCreateCasesButton();
     }
 
     @When("I create a {string} case with {string} as the primary topic")
-    public void aCaseWithSpecificTopicIsCreated(String caseType, String topic) {
-        createCase.createCSCaseOfType(caseType);
+    public void aCaseWithSpecificTopicIsCreated(String caseTypeString, String topic) {
+        createCase.createCSCaseOfTypeWithDocument(CaseType.valueOf(caseTypeString));
         confirmationScreens.goToCaseFromConfirmationScreen();
         caseView.clickAllocateToMeLink();
         dcuProgressCase.moveCaseFromDataInputToMarkup();
@@ -173,7 +170,7 @@ public class CreateCaseStepDefs extends BasePage {
 
     @When("they create the bulk cases without adding a document")
     public void userCreatesBulkCasesWithoutAddingADocument() {
-        safeClickOn(createCase.dcuMinRadioButton);
+        createCase.selectCaseType(CaseType.MIN);
         clickNextButton();
         createCase.clickCreateCaseButton();
     }
@@ -191,13 +188,13 @@ public class CreateCaseStepDefs extends BasePage {
 
     @When("I select a case type and continue")
     public void getToWhenWasCorrespondenceReceivedPage() {
-        createCase.selectCaseType("CS");
+        createCase.selectCaseType(createCase.getRandomCSCaseType());
         clickNextButton();
         waitABit(100);
     }
     @When("I select the FOI case type and continue")
     public void iSelectFOICaseTypeAndContinue() {
-        createCase.selectCaseType("FOI");
+        createCase.selectCaseType(CaseType.FOI);
         clickNextButton();
         waitABit(100);
     }
@@ -208,8 +205,8 @@ public class CreateCaseStepDefs extends BasePage {
     }
 
     @And("I create a {string} case with {string} as the correspondent")
-    public void iCreateACaseWithAsTheCorrespondent(String caseType, String correspondent) {
-        createCase.createCSCaseOfType(caseType.toUpperCase());
+    public void iCreateACaseWithAsTheCorrespondent(String caseTypeString, String correspondent) {
+        createCase.createCSCaseOfTypeWithDocument(CaseType.valueOf(caseTypeString));
         confirmationScreens.goToCaseFromConfirmationScreen();
         safeClickOn(caseView.allocateToMeLink);
         dataInput.fillAllMandatoryCorrespondenceFields();
@@ -219,67 +216,32 @@ public class CreateCaseStepDefs extends BasePage {
     }
 
     @And("I create a single {string} case with the correspondence received date as: {string}")
-    public void iCreateACaseWithCorrespondenceDate(String caseType, String date) {
+    public void iCreateACaseWithCorrespondenceDate(CaseType caseType, String date) {
         createCase.createCSCaseOfTypeWithSpecificCorrespondenceReceivedDate(caseType, date);
     }
 
     @And("I create a single {string} case with the correspondence received date set {int} workdays ago")
-    public void iCreateACaseReceivedNWorkdaysAgo(String caseType, int days) {
+    public void iCreateACaseReceivedNWorkdaysAgo(CaseType caseType, int days) {
         createCase.createCaseReceivedNWorkdaysAgo(caseType, days);
     }
 
     @And("I create an SMC case received {int} workdays in the past and move it to the {string} stage")
     public void iCreateAnSMCCaseReceivedNWorkdaysAgo(int days, String stage) {
-        createCase.createCaseReceivedNWorkdaysAgo("SMC", days);
+        createCase.createCaseReceivedNWorkdaysAgo(CaseType.valueOf("SMC"), days);
         if (!stage.equalsIgnoreCase("REGISTRATION")) {
             smcProgressCase.moveCaseFromCurrentStageToTargetStage("Registration", stage);
         }
     }
 
     @And("I create a single {string} case with the correspondence received date set as today")
-    public void iCreateACaseReceivedToday(String caseType) {
-        createCase.createCSCaseOfType(caseType.toUpperCase());
+    public void iCreateACaseReceivedToday(String caseTypeString) {
+        createCase.createCSCaseOfTypeWithDocument(CaseType.valueOf(caseTypeString));
     }
 
     @When("I allocate the case to another user on the case details accordion screen")
     public void iAllocateToAnotherUserOnTheCaseDetailsAccordionScreen() {
-        User user = null;
-        String caseType = sessionVariableCalled("caseType");
-        switch (caseType) {
-            case "MIN":
-            case "DTEN":
-            case "TRO":
-                user = User.DCU_USER;
-                break;
-            case "MPAM":
-            case "MTS":
-                user = User.MPAM_USER;
-                break;
-            case "COMP":
-                user = User.COMP_USER;
-                break;
-            case "IEDET":
-                user = User.IEDET_USER;
-                break;
-            case "SMC":
-                user = User.SMC_USER;
-                break;
-            case "FOI":
-                user = User.FOI_USER;
-                break;
-            case "TO":
-                user = User.TO_USER;
-                break;
-            case "BF":
-                user = User.BF_USER;
-                break;
-            case "POGR":
-                user = User.POGR_USER;
-                break;
-            default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
-        }
-        caseView.allocateToUserByVisibleText(user.getAllocationText());
+        String user = getCurrentCaseType().getAssociatedUser().toString();
+        caseView.allocateToUserByVisibleText(user);
         setSessionVariable("selectedUser").to(user);
     }
 
@@ -310,27 +272,27 @@ public class CreateCaseStepDefs extends BasePage {
 
     @And("I create and claim a Priority POGR case")
     public void iCreateAndClaimAPriorityPOGRCase() {
-        pogrProgressCase.createCaseAndMoveItToTargetStageWithPrioritySetTo("POGR", true, "Investigation");
+        pogrProgressCase.createCaseAndMoveItToTargetStageWithPrioritySetTo(CaseType.POGR, true, "Investigation");
         dashboard.waitForDashboard();
         dashboard.getAndClaimCurrentCase();
     }
 
     @And("I create and claim a non-Priority POGR case")
     public void iCreateAndClaimANonPriorityPOGRCase() {
-        pogrProgressCase.createCaseAndMoveItToTargetStageWithPrioritySetTo("POGR", false, "Investigation");
+        pogrProgressCase.createCaseAndMoveItToTargetStageWithPrioritySetTo(CaseType.POGR, false, "Investigation");
         dashboard.waitForDashboard();
         dashboard.getAndClaimCurrentCase();
     }
 
     @And("I create a {string} Priority POGR case")
     public void iCreateAPriorityPOGRCase(String businessArea) {
-        pogrProgressCase.createCaseAndMoveItToTargetStageWithSetBusinessAreaAndPriority("POGR", businessArea, true, "Investigation");
+        pogrProgressCase.createCaseAndMoveItToTargetStageWithSetBusinessAreaAndPriority(CaseType.POGR, businessArea, true, "Investigation");
         dashboard.waitForDashboard();
     }
 
     @And("I create a {string} non-Priority POGR case")
     public void iCreateANonPriorityPOGRCase(String businessArea) {
-        pogrProgressCase.createCaseAndMoveItToTargetStageWithSetBusinessAreaAndPriority("POGR", businessArea, false, "Investigation");
+        pogrProgressCase.createCaseAndMoveItToTargetStageWithSetBusinessAreaAndPriority(CaseType.POGR, businessArea, false, "Investigation");
         dashboard.waitForDashboard();
     }
 
@@ -342,21 +304,21 @@ public class CreateCaseStepDefs extends BasePage {
 
     @And("I get a new case that allows adding a Member correspondent")
     public void iGetANewCaseThatAllowsAddingAMemberCorrespondent() {
-        createCase.createCSCaseOfType(createCase.getRandomCaseTypeThatAllowsMemberCorrespondents());
+        createCase.createCSCaseOfTypeWithDocument(createCase.getRandomCSCaseTypeThatAllowsMemberCorrespondents());
         confirmationScreens.goToCaseFromConfirmationScreen();
         caseView.clickAllocateToMeLink();
     }
 
     @And("I get a new case that requires correspondents to be added as part of a stage")
     public void iGetANewCaseThatRequiresCorrespondentsToBeAddedAsPartOfAStage() {
-        createCase.createCSCaseOfType(createCase.getRandomCaseTypeThatAllowsMultipleCorrespondents());
+        createCase.createCSCaseOfTypeWithDocument(createCase.getRandomCSCaseType());
         confirmationScreens.goToCaseFromConfirmationScreen();
         caseView.clickAllocateToMeLink();
     }
 
     @And("I generate a {string} case to validate search functionality")
-    public void iGenerateACaseToValidateSearchFunctionality(String caseType) throws ParseException {
-        switch (caseType.toUpperCase()) {
+    public void iGenerateACaseToValidateSearchFunctionality(String caseTypeString) throws ParseException {
+        switch (caseTypeString.toUpperCase()) {
             case "DCU":
                 dcuProgressCase.generateDCUSearchCaseData("N/A", "ALL");
                 break;
@@ -385,7 +347,7 @@ public class CreateCaseStepDefs extends BasePage {
                 toProgressCase.generateTOSearchCaseData("N/A", "ALL");
                 break;
             default:
-                pendingStep(caseType + " is not contained within " + getMethodName());
+                pendingStep(caseTypeString + " is not contained within " + getMethodName());
         }
     }
 }

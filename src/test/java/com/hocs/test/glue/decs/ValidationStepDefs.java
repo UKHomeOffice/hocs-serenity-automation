@@ -24,6 +24,7 @@ import com.hocs.test.pages.mpam.Draft;
 import com.hocs.test.pages.mpam.MTSDataInput;
 import com.hocs.test.pages.mpam.QA;
 import com.hocs.test.pages.mpam.Triage;
+import config.CaseType;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -82,9 +83,9 @@ public class ValidationStepDefs extends BasePage {
 
     @And("I trigger the {string} error message at (the ){string}( stage)")
     public void iTriggerTheErrorMessageAtTheStage(String errorMessage, String stage) {
-        String caseType = sessionVariableCalled("caseType");
-        switch (caseType.toUpperCase()) {
-            case "MIN":
+        CaseType caseType = getCurrentCaseType();
+        switch (caseType) {
+            case MIN:
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
                         switch (errorMessage.toUpperCase()) {
@@ -340,7 +341,7 @@ public class ValidationStepDefs extends BasePage {
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
                 break;
-            case "TRO":
+            case TRO:
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
                         switch (errorMessage.toUpperCase()) {
@@ -512,7 +513,7 @@ public class ValidationStepDefs extends BasePage {
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
                 break;
-            case "DTEN":
+            case DTEN:
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
                         switch (errorMessage.toUpperCase()) {
@@ -690,7 +691,7 @@ public class ValidationStepDefs extends BasePage {
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
                 break;
-            case "MPAM":
+            case MPAM:
                 switch (stage.toUpperCase()) {
                     case "CREATION":
                         switch (errorMessage.toUpperCase()) {
@@ -1027,7 +1028,7 @@ public class ValidationStepDefs extends BasePage {
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
                 break;
-            case "MTS":
+            case MTS:
                 if (stage.equalsIgnoreCase("DATA INPUT")) {
                     switch (errorMessage.toUpperCase()) {
                         case "PRIMARY CORRESPONDENT REQUIRED":
@@ -1113,7 +1114,7 @@ public class ValidationStepDefs extends BasePage {
                     pendingStep(stage + " is not defined within " + getMethodName());
                 }
                 break;
-            case "COMP":
+            case COMP:
                 switch (stage.toUpperCase()) {
                     case "REGISTRATION":
                         switch (errorMessage.toUpperCase()) {
@@ -1384,9 +1385,9 @@ public class ValidationStepDefs extends BasePage {
     @Then("the {string} error message is displayed at (the ){string}( stage)")
     public void theErrorMessageIsDisplayedAtTheStage(String errorMessage, String stage) {
         String errorText = null;
-        String caseType = sessionVariableCalled("caseType");
-        switch (caseType.toUpperCase()) {
-            case "MIN":
+        CaseType caseType = getCurrentCaseType();
+        switch (caseType) {
+            case MIN:
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
                         switch (errorMessage.toUpperCase()) {
@@ -1541,7 +1542,7 @@ public class ValidationStepDefs extends BasePage {
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
                 break;
-            case "TRO":
+            case TRO:
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
                         switch (errorMessage.toUpperCase()) {
@@ -1648,7 +1649,7 @@ public class ValidationStepDefs extends BasePage {
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
                 break;
-            case "DTEN":
+            case DTEN:
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
                         switch (errorMessage.toUpperCase()) {
@@ -1767,7 +1768,7 @@ public class ValidationStepDefs extends BasePage {
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
                 break;
-            case "MPAM":
+            case MPAM:
                 switch (stage.toUpperCase()) {
                     case "CREATION":
                         switch (errorMessage.toUpperCase()) {
@@ -1941,7 +1942,7 @@ public class ValidationStepDefs extends BasePage {
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
                 break;
-            case "MTS":
+            case MTS:
                 if (stage.equalsIgnoreCase("DATA INPUT")) {
                     switch (errorMessage.toUpperCase()) {
                         case "PRIMARY CORRESPONDENT REQUIRED":
@@ -1978,7 +1979,7 @@ public class ValidationStepDefs extends BasePage {
                     pendingStep(stage + " is not defined within " + getMethodName());
                 }
                 break;
-            case "COMP":
+            case COMP:
                 switch (stage.toUpperCase()) {
                     case "REGISTRATION":
                         switch (errorMessage.toUpperCase()) {

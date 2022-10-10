@@ -161,7 +161,7 @@ public class SummaryTab extends BasePage {
 
     public void assertDisplayedDeadlineMatchesCalculatedDeadline(String displayedDeadline, String deadlineStartDate, int expectedNumberOfWorkdaysTillDeadline) {
         String expectedDeadline = workdays.getDateXWorkdaysFromSetDateForGivenCaseType(expectedNumberOfWorkdaysTillDeadline, deadlineStartDate,
-                sessionVariableCalled("caseType"));
+                getCurrentCaseType());
         if (!displayedDeadline.equals(expectedDeadline)) {
             Assert.fail("Displayed deadline did not match deadline calculated for this case.\nExpected deadline was: " + expectedDeadline +
                     "\nDisplayed deadline was: " + displayedDeadline);

@@ -9,6 +9,7 @@ import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
+import config.CaseType;
 
 public class FOIProgressCase extends BasePage {
 
@@ -35,7 +36,7 @@ public class FOIProgressCase extends BasePage {
     public void moveCaseFromCurrentStageToTargetStage(String currentStage, String targetStage) {
         String precedingStage = getStageThatPrecedesTargetStage(targetStage);
         if (precedingStage.equals("CREATE NEW CASE")) {
-            createCase.createCSCaseOfType("FOI");
+            createCase.createCSCaseOfTypeWithDocument(CaseType.FOI);
             dashboard.goToDashboard();
         } else {
             if (!precedingStage.equalsIgnoreCase(currentStage)) {
@@ -164,16 +165,16 @@ public class FOIProgressCase extends BasePage {
             case "CORRESPONDENT (NON-MP)":
             case "TOPIC":
             case "ACTIVE CASES ONLY":
-                createCase.createCSCaseOfType("FOI");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.FOI);
                 dashboard.goToDashboard();
                 break;
             case "RECEIVED ON OR AFTER":
             case "RECEIVED ON OR BEFORE":
                 dashboard.selectCreateSingleCaseLinkFromMenuBar();
-                if (!checkButtonIsVisible("Next")) {
+                if (!buttonIsVisible("Next")) {
                     dashboard.selectCreateSingleCaseLinkFromMenuBar();
                 }
-                createCase.selectCaseType("FOI");
+                createCase.selectCaseType(CaseType.FOI);
                 clickNextButton();
                 createCase.editReceivedDate(infoValue);
                 createCase.storeCorrespondenceReceivedDate();
@@ -189,10 +190,10 @@ public class FOIProgressCase extends BasePage {
                 break;
             case "ALL":
                 dashboard.selectCreateSingleCaseLinkFromMenuBar();
-                if (!checkButtonIsVisible("Next")) {
+                if (!buttonIsVisible("Next")) {
                     dashboard.selectCreateSingleCaseLinkFromMenuBar();
                 }
-                createCase.selectCaseType("FOI");
+                createCase.selectCaseType(CaseType.FOI);
                 clickNextButton();
                 createCase.editReceivedDate("01/01/2022");
                 createCase.storeCorrespondenceReceivedDate();

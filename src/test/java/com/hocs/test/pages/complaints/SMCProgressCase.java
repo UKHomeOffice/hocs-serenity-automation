@@ -12,6 +12,7 @@ import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
+import config.CaseType;
 
 public class SMCProgressCase extends BasePage {
 
@@ -36,7 +37,7 @@ public class SMCProgressCase extends BasePage {
     public void moveCaseFromCurrentStageToTargetStage(String currentStage, String targetStage) {
         String precedingStage = getStageThatPrecedesTargetStage(targetStage);
         if (precedingStage.equals("CREATE NEW CASE")) {
-            createCase.createCSCaseOfType("SMC");
+            createCase.createCSCaseOfTypeWithDocument(CaseType.SMC);
             dashboard.goToDashboard();
         } else {
             if (!precedingStage.equalsIgnoreCase(currentStage)) {
@@ -150,19 +151,19 @@ public class SMCProgressCase extends BasePage {
         switch (infoType.toUpperCase()) {
             case "CASE TYPE":
             case "CASE REFERENCE":
-                createCase.createCSCaseOfType("SMC");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.SMC);
                 break;
             case "CORRESPONDENT FULL NAME":
             case "CORRESPONDENT POSTCODE":
             case "CORRESPONDENT EMAIL ADDRESS":
-                createCase.createCSCaseOfType("SMC");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.SMC);
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
                 correspondents.confirmPrimaryCorrespondent();
                 break;
             case "COMPLAINANT DATE OF BIRTH":
-                createCase.createCSCaseOfType("SMC");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.SMC);
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
@@ -176,7 +177,7 @@ public class SMCProgressCase extends BasePage {
                 clickTheButton("Continue");
                 break;
             case "COMPLAINANT HOME OFFICE REFERENCE":
-                createCase.createCSCaseOfType("SMC");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.SMC);
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
@@ -198,7 +199,7 @@ public class SMCProgressCase extends BasePage {
                 clickTheButton("Continue");
                 break;
             case "ALL":
-                createCase.createCSCaseOfType("SMC");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.SMC);
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
