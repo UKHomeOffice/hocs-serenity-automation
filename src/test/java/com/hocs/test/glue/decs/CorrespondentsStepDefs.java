@@ -147,19 +147,19 @@ public class CorrespondentsStepDefs extends BasePage {
     @And("I progress the case to save the change of primary correspondent")
     public void iProgressTheCaseToSaveTheChangeOfPrimaryCorrespondent() {
         if (dcuCase()) {
-            clickTheButton("Finish");
+            clickFinishButton();
         }
         if (mpamCase()) {
             clickTheButton("Move to Triage");
         }
         if (mtsCase() | complaintCase() | toCase()) {
-            clickTheButton("Continue");
+            clickContinueButton();
         }
     }
 
     @And("I confirm the change of primary correspondent")
     public void iConfirmTheChangeOfPrimaryCorrespondent() {
-        clickTheButton("Finish");
+        clickFinishButton();
     }
 
     @And("I remove a non-primary correspondent from the case")
