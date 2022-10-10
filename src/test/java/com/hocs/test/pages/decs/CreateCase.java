@@ -331,8 +331,8 @@ public class CreateCase extends BasePage {
         } else if (inboundChannel.equalsIgnoreCase("POST")) {
             correspondents.enterCorrespondentFullName("Sam McTester");
             correspondents.enterCorrespondentOrganisation();
-            correspondents.enterCorrespondentBuilding("1 Test House");
-            correspondents.enterCorrespondentStreet("Test Road");
+            correspondents.enterCorrespondentAddressLine1("1 Test House");
+            correspondents.enterCorrespondentAddressLine2("Test Road");
             correspondents.enterCorrespondentTownOrCity("Test Town");
             correspondents.enterCorrespondentPostcode("AB1 2CD");
             correspondents.selectACorrespondentCountry();

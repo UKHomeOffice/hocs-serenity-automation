@@ -151,10 +151,6 @@ public class SummaryTab extends BasePage {
         return displayedValueElement.getText();
     }
 
-    public String getPrimaryCorrespondent() {
-        return primaryCorrespondent.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible().getText();
-    }
-
     public String getActiveStage() {
         return activeStage.getText();
     }

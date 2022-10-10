@@ -309,7 +309,7 @@ public class Search extends BasePage {
                     searchValue = sessionVariableCalled("searchCorrespondentPostcode");
                     if (!searchValidationCaseReference.contains("FOI")) {
                         peopleTab.selectPeopleTab();
-                        peopleTab.assertCorrespondentPostcode(searchValue);
+                        peopleTab.assertValueIsPresentInPeopleTabForGivenHeader(searchValue, "Address");
                     } else {
                         summaryTab.selectSummaryTab();
                         summaryTab.assertPrimaryCorrespondentDetailMatchValue(searchValue);
@@ -321,7 +321,7 @@ public class Search extends BasePage {
                     searchValue = sessionVariableCalled("searchCorrespondentEmailAddress");
                     if (!searchValidationCaseReference.contains("FOI")) {
                         peopleTab.selectPeopleTab();
-                        peopleTab.assertCorrespondentEmailAddress(searchValue);
+                        peopleTab.assertValueIsPresentInPeopleTabForGivenHeader(searchValue, "Email address");
                     } else {
                         summaryTab.selectSummaryTab();
                         summaryTab.assertPrimaryCorrespondentDetailMatchValue(searchValue);

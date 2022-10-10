@@ -488,11 +488,18 @@ public class BasePage extends PageObject {
 
     public String getLabelOfAnUnselectedRadioButtonFromGroupWithHeading(String headingText) {
         List<String> radioButtonLabels = getRadioButtonLabelsInGroupWithHeading(headingText);
-        WebElementFacade currentlySelectedRadioButton =
-                findBy("//span[contains(@class,'govuk-fieldset__heading')][text() =" + sanitiseXpathAttributeString(headingText) + "]/ancestor"
-                        + "::fieldset//input[@checked]/following-sibling::label");
-        radioButtonLabels.remove(currentlySelectedRadioButton.getText());
+        WebElementFacade currentlySelectedRadioButtonElement = getCurrentlySelectedRadioButtonElementFromGroupWithHeading(headingText);
+        radioButtonLabels.remove(currentlySelectedRadioButtonElement.getText());
         return returnRandomStringFromList(radioButtonLabels);
+    }
+
+    private WebElementFacade getCurrentlySelectedRadioButtonElementFromGroupWithHeading(String headingText) {
+        return findBy("//span[contains(@class,'govuk-fieldset__heading')][text() =" + sanitiseXpathAttributeString(headingText) + "]/ancestor"
+                + "::fieldset//input[@checked]/following-sibling::label");
+    }
+
+    public String getCurrentlySelectedRadioButtonFromGroupWithHeading(String headingText) {
+        return getCurrentlySelectedRadioButtonElementFromGroupWithHeading(headingText).getText();
     }
 
     private WebElementFacade getRadioButtonLabelElementWithSpecifiedText(String elementText) {

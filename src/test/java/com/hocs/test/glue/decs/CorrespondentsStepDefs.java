@@ -65,9 +65,43 @@ public class CorrespondentsStepDefs extends BasePage {
         correspondents.addASpecificMemberCorrespondent(name);
     }
 
+    @When("I select a different correspondent as the primary correspondent")
+    public void iSelectThePrimaryCorrespondentRadioButtonForADifferentCorrespondent() {
+        if (getDECSCurrentPageTitle().equals("Manage People")) {
+            peopleTab.selectDifferentPrimaryCorrespondent();
+        } else {
+            correspondents.selectDifferentPrimaryCorrespondent();
+        }
+    }
+
     @And("I confirm the primary correspondent")
     public void IConfirmThePrimaryCorrespondent(){
         correspondents.confirmPrimaryCorrespondent();
+    }
+
+    @And("I remove the primary correspondent")
+    public void removePrimaryCorrespondent() {
+        correspondents.removeACorrespondent();
+    }
+
+    @Then("there shouldn't be a primary correspondent displayed")
+    public void thereShouldntBeAPrimaryCorrespondentDisplayed() {
+        correspondents.assertNoPrimaryCorrespondentDisplayed();
+    }
+
+    @Then("the submitted correspondent should be visible in the list of correspondents")
+    public void theSubmittedCorrespondentShouldBeVisibleInTheListOfCorrespondents() {
+        correspondents.assertPrimaryCorrespondentIs(sessionVariableCalled("correspondentFullName"));
+    }
+
+    @And("I edit the primary correspondents name")
+    public void iEditThePrimaryCorrespondent() {
+        correspondents.editPrimaryCorrespondent();
+    }
+
+    @Then("the primary correspondents name should be updated")
+    public void thePrimaryCorrespondentsNameShouldBeUpdated() {
+        correspondents.assertPrimaryCorrespondentIs(sessionVariableCalled("correspondentFullName"));
     }
 
     @When("I manage the correspondents using the People tab")
@@ -100,7 +134,9 @@ public class CorrespondentsStepDefs extends BasePage {
     public void iChangeThePrimaryCorrespondentOfTheCase() {
         caseView.waitForCaseToLoad();
         peopleTab.refreshPeopleTab();
-        peopleTab.changePrimaryCorrespondent();
+        peopleTab.selectToManagePeople();
+        peopleTab.selectDifferentPrimaryCorrespondent();
+        clickFinishButton();
     }
 
     @Then("the correspondent is added to the case")
@@ -136,5 +172,30 @@ public class CorrespondentsStepDefs extends BasePage {
     @Then("the removed correspondent should no longer be visible")
     public void theRemovedCorrespondentShouldNoLongerBeVisible() {
         peopleTab.assertCorrespondentHasBeenRemoved(sessionVariableCalled("removedCorrespondent"));
+    }
+
+    @Then("an error message should be displayed as I have not entered text in the full name field")
+    public void assertThatCorrespondentNameNotEnteredErrorMessageIsShown() {
+        correspondents.assertCorrespondentFullNameErrorMessage();
+    }
+
+    @Then("an error message should be displayed as I have not selected the correspondent type")
+    public void assertThatCorrespondentTypeNotSelectedErrorMessageIsShown() {
+        correspondents.assertCorrespondentTypeDropDownErrorMessage();
+    }
+
+    @Then("an error message should be displayed as I must select a member of parliament from the drop down")
+    public void assertThatMemberIsRequiredErrorMessageIsShown() {
+        correspondents.assertMemberIsRequiredErrorMessage();
+    }
+
+    @Then("an error message should be displayed as I must select a correspondent type on this screen")
+    public void assertThatCorrespondentTypeErrorMessageIsShown() {
+        correspondents.assertCorrespondentTypeMustBeSelectedErrorMessage();
+    }
+
+    @Then("the Add a correspondent link is displayed")
+    public void linkIsDisplayed() {
+        correspondents.assertAddACorrespondentLinkIsVisible();
     }
 }
