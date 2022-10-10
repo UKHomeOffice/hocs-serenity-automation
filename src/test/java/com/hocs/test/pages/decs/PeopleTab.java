@@ -153,7 +153,7 @@ public class PeopleTab extends BasePage {
         List<WebElementFacade> correspondentNameElements = getAllVisibleCorrespondentNameElements();
         boolean valueIsPresent = false;
         for (WebElementFacade correspondentNameElement : correspondentNameElements) {
-            valueIsPresent = getPeopleTabValueForGivenCorrespondentForGivenHeader(correspondentNameElement.getText(), header).equalsIgnoreCase(value);
+            valueIsPresent = getPeopleTabValueForGivenCorrespondentForGivenHeader(correspondentNameElement.getText(), header).contains(value);
             if (valueIsPresent) {
                 break;
             }
