@@ -84,6 +84,11 @@ public class CreateCaseStepDefs extends BasePage {
         }
     }
 
+    @And("I create a Correspondence System case")
+    public void iCreateACorrespondenceSystemCase() {
+        createCase.createCSCaseOfTypeWithDocument(createCase.getRandomCSCaseType());
+    }
+
     @And("I get a new {string} case")
     public void iGetANewCase(String caseTypeString) {
         createNewCase(caseTypeString);

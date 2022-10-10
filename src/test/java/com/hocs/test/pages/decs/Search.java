@@ -38,12 +38,6 @@ public class Search extends BasePage {
     @FindBy(xpath = "//a[text()='No search criteria specified']")
     public WebElementFacade noSearchCriteriaErrorMessage;
 
-    @FindBy(xpath = "//div[@class='govuk-hint'][1]")
-    public WebElementFacade numberOfSearchResults;
-
-    @FindBy(xpath = "//label[text()='MPAM Case']")
-    public WebElementFacade mpamCaseCheckbox;
-
     @FindBy(xpath = "//a[contains(text(), 'Escalate case')]")
     public WebElementFacade escalateCaseHypertext;
 

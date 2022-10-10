@@ -151,7 +151,7 @@ public class PeopleTab extends BasePage {
 
     public void assertValueIsPresentInPeopleTabForGivenHeader(String value, String header) {
         List<WebElementFacade> correspondentNameElements = getAllVisibleCorrespondentNameElements();
-        Boolean valueIsPresent = false;
+        boolean valueIsPresent = false;
         for (WebElementFacade correspondentNameElement : correspondentNameElements) {
             valueIsPresent = getPeopleTabValueForGivenCorrespondentForGivenHeader(correspondentNameElement.getText(), header).equalsIgnoreCase(value);
             if (valueIsPresent) {

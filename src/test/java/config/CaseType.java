@@ -13,7 +13,7 @@ public enum CaseType {
     COMP2("Complaint Case - Stage 2", 20, "COMP_USER", true),
     BF("Border Force Case", 20, "BF_USER", false),
     BF2("Border Force (Stage 2)", 20, "BF_USER", true),
-    POGR("HMPO/GRO Complaint Case", 10, "POGR_USER", true),
+    POGR("HMPO/GRO Complaint Case", 10, "POGR_USER", false),
     POGR2("HMPO/GRO Complaint Case - Stage 2", 10, "POGR_USER", true),
     IEDET("IE Detention Case", 20, "IEDET_USER", false),
     FOI("FOI Request", 20, "FOI_USER", false),

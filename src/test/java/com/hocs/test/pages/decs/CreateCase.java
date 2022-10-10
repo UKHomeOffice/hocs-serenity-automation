@@ -104,7 +104,12 @@ public class CreateCase extends BasePage {
             selectCaseType(caseType);
             clickNextButton();
         }
-        waitForButton("Create case");
+        if (!foiCase()) {
+            waitForButton("Create case");
+
+        } else {
+            waitForButton("Submit");
+        }
         if (!receivedDate.equalsIgnoreCase("N/A")) {
             editReceivedDate(receivedDate);
         }
