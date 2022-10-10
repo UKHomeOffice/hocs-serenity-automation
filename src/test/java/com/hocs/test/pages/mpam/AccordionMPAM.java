@@ -98,7 +98,7 @@ public class AccordionMPAM extends BasePage {
     public WebElementFacade changeReferenceTypeTextArea;
 
     public void openCaseDetailsAccordion() {
-        safeClickOn(caseDetailsAccordionButton);
+        openOrCloseAccordionSection("Case details");
     }
 
     public void openCreationAccordion() {
