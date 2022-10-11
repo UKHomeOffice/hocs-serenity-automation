@@ -1,27 +1,25 @@
 @Search @DCU
 Feature: DCU Search
 
-#    Expected intermittent failure for Sign off team example. Defect HOCS-4148 raised.
   @DCURegression
-  Scenario Outline: User tests DCU search criteria
+  Scenario: User tests DCU case search criteria
     Given I am logged into "CS" as user "DCU_USER"
-    When I navigate to the "Search" page
-    And I enter "<infoValue>" into the "<infoType>" search field
+    When I generate a "DCU" case to validate search functionality
+    And I navigate to the "Search" page
+    And I enter "MIN" into the "Case Type" search field
+    And I enter "01/01/2021" into the "Received on or Before date" search field
+    And I enter "01/01/2021" into the "Received on or After date" search field
+    And I enter "Boris Johnson" into the "Member of Parliament Name" search field
+    And I enter "Sam McTester" into the "Public Correspondent Name" search field
+    And I enter "AB1 2CD" into the "Correspondent Postcode" search field
+    And I enter "SamMcTester@Test.com" into the "Correspondent Email Address" search field
+    And I enter "Animal alternatives (3Rs)" into the "Topic" search field
+    And I enter "Minister for Lords" into the "Sign off team" search field
+    And I enter "Yes" into the "Home Secretary Interest" search field
+    And I enter "Yes" into the "Active Cases Only" search field
+    And I enter the current case reference into the Case Reference field on the search screen
     And I click the search button on the search page
-    Then I check that the search results have the correct "<infoType>"
-    Examples:
-      | infoType                    | infoValue                 |
-      | Case Type                   | MIN                       |
-      | Received on or Before date  | 01/01/2021                |
-      | Received on or After date   | 01/01/2021                |
-      | Member of Parliament Name   | Boris Johnson             |
-      | Public Correspondent Name   | Sam McTester              |
-      | Correspondent Postcode      | AB1 2CD                   |
-      | Correspondent Email Address | SamMcTester@Test.com      |
-      | Topic                       | Animal alternatives (3Rs) |
-      | Sign off team               | Minister for Lords        |
-      | Home Secretary Interest     | Yes                       |
-      | Active Cases Only           | Yes                       |
+    Then the created case should be the only case visible in the search results
 
   @SearchByCaseType @Workstacks @DCURegression
   Scenario Outline: DCU Search workstack should contain the Case Reference, Current Stage, Owner, Team, Primary Topic and Deadline

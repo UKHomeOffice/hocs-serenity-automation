@@ -334,6 +334,7 @@ public class DCUProgressCase extends BasePage {
                 correspondents.confirmPrimaryCorrespondent();
                 dashboard.getAndClaimCurrentCase();
                 moveCaseFromMarkupToInitialDraftWithSpecificTopic("Animal alternatives (3Rs)");
+                dashboard.goToDashboard();
                 break;
             default:
                 pendingStep(infoType + " is not defined within " + getMethodName());
