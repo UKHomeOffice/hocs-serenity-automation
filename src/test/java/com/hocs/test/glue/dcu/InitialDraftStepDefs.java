@@ -70,7 +70,7 @@ public class InitialDraftStepDefs extends BasePage {
 
     @And("I record who on my Team completed the offline QA Approval")
     public void iRecordWhoOnMyTeamCompletedTheOfflineQAApproval() {
-        initialDraft.selectAOfflineQAIndividual();
+        initialDraft.selectSpecificOfflineQAIndividual("DCU Regression (dcuregression@test.com)");
         clickTheButton("Finish");
     }
 
