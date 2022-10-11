@@ -503,7 +503,7 @@ public class BasePage extends PageObject {
     }
 
     private WebElementFacade getRadioButtonLabelElementWithSpecifiedText(String elementText) {
-        return findBy("//input/following-sibling::label[contains(text()," + sanitiseXpathAttributeString(elementText) + ")]");
+        return findBy("//input/following-sibling::label[text()=" + sanitiseXpathAttributeString(elementText) + "]");
     }
 
     private List<WebElementFacade> getRadioButtonElementsInGroupWithHeading(String headingText) {
@@ -632,7 +632,8 @@ public class BasePage extends PageObject {
     }
 
     public String getDisplayedDateInDateFieldsWithHeading(String headingText) {
-        return getVisibleDayFieldWithMatchingHeading(headingText).getText() + "/" + getVisibleMonthFieldWithMatchingHeading(headingText).getText() + "/" + getVisibleYearFieldWithMatchingHeading(headingText).getText();
+        return getVisibleDayFieldWithMatchingHeading(headingText).getValue() + "/" + getVisibleMonthFieldWithMatchingHeading(headingText).getValue() +
+                "/" + getVisibleYearFieldWithMatchingHeading(headingText).getValue();
     }
 
     public boolean dateFieldsWithHeadingAreCurrentlyVisible(String headingText) {

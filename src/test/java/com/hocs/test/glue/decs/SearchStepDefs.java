@@ -62,7 +62,7 @@ public class SearchStepDefs extends BasePage {
     POGRProgressCase pogrProgressCase;
 
     @And("I enter {string} into the {string} search field")
-    public void iEnterIntoTheSearchFieldForTheCaseType(String value, String criteria) {
+    public void iEnterIntoTheSearchField(String value, String criteria) {
         setSessionVariable("searchValue").to(value);
         setSessionVariable("searchCriteria").to(criteria);
         search.enterSearchCriteria(criteria, value);
@@ -71,8 +71,8 @@ public class SearchStepDefs extends BasePage {
     @And("I check that the search results have the correct {string}")
     public void iCheckThatTheSearchResultsHaveTheCorrect(String criteria) throws ParseException {
         String infoValue = sessionVariableCalled("searchValue");
-        CaseType caseTypeToGenerate = CaseType.valueOf(sessionVariableCalled("randomCaseType"));
         if (search.zeroSearchResultsReturned()) {
+            CaseType caseTypeToGenerate = search.getRandomCaseTypeCriteriaCompatibleWith(criteria);
             switch (caseTypeToGenerate) {
                 case MIN:
                 case DTEN:
@@ -108,7 +108,7 @@ public class SearchStepDefs extends BasePage {
             }
             dashboard.selectSearchLinkFromMenuBar();
             search.waitForSearchCriteriaPage();
-            iEnterIntoTheSearchFieldForTheCaseType(infoValue, criteria);
+            iEnterIntoTheSearchField(infoValue, criteria);
             clickSearchButton();
             search.waitForResultsPage();
         }
@@ -200,7 +200,7 @@ public class SearchStepDefs extends BasePage {
             if (numberOfResults < 1) {
                 retest ++;
                 dashboard.selectSearchLinkFromMenuBar();
-                iEnterIntoTheSearchFieldForTheCaseType(getCurrentCaseReference(), "Case Reference");
+                iEnterIntoTheSearchField(getCurrentCaseReference(), "Case Reference");
                 clickSearchButton();
                 waitABit(1000);
             } else if (numberOfResults > 1) {

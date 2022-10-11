@@ -84,6 +84,11 @@ public class CreateCaseStepDefs extends BasePage {
         }
     }
 
+    @And("I create a Correspondence System case")
+    public void iCreateACorrespondenceSystemCase() {
+        createCase.createCSCaseOfTypeWithDocument(createCase.getRandomCSCaseType());
+    }
+
     @And("I get a new {string} case")
     public void iGetANewCase(String caseTypeString) {
         createNewCase(caseTypeString);
@@ -216,13 +221,13 @@ public class CreateCaseStepDefs extends BasePage {
     }
 
     @And("I create a single {string} case with the correspondence received date as: {string}")
-    public void iCreateACaseWithCorrespondenceDate(CaseType caseType, String date) {
-        createCase.createCSCaseOfTypeWithSpecificCorrespondenceReceivedDate(caseType, date);
+    public void iCreateACaseWithCorrespondenceDate(String caseTypeString, String date) {
+        createCase.createCSCaseOfTypeWithSpecificCorrespondenceReceivedDate(CaseType.valueOf(caseTypeString), date);
     }
 
     @And("I create a single {string} case with the correspondence received date set {int} workdays ago")
-    public void iCreateACaseReceivedNWorkdaysAgo(CaseType caseType, int days) {
-        createCase.createCaseReceivedNWorkdaysAgo(caseType, days);
+    public void iCreateACaseReceivedNWorkdaysAgo(String caseTypeString, int days) {
+        createCase.createCaseReceivedNWorkdaysAgo(CaseType.valueOf(caseTypeString), days);
     }
 
     @And("I create an SMC case received {int} workdays in the past and move it to the {string} stage")
