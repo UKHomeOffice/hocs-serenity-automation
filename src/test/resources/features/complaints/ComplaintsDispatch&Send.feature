@@ -159,7 +159,7 @@ Feature: Complaints Dispatch & Send
 
 #     SMC COMPLAINTS
 
-  @ComplaintsPWorkflow @SMCComplaints
+  @ComplaintsWorkflow @SMCComplaints
   Scenario: User can complete the Send stage for an SMC complaint case
     Given I am logged into "CS" as user "SMC_USER"
     When I get a "SMC" case at the "Send" stage
