@@ -58,10 +58,10 @@ public class AccordionMPAM extends BasePage {
     @FindBy(xpath = "//strong[contains(text(), 'Business unit')]/parent::span")
     public WebElementFacade triageAccordionBusinessUnit;
 
-    @FindBy(xpath = "//button[text()='Triage']/ancestor::div//div[@id='accordion-default-content-1']//strong[contains(text(), 'Actions')]/parent::span")
+    @FindBy(xpath = "//span[text()='Triage']/ancestor::div/following-sibling::div//strong[contains(text(),'Actions')]/parent::span")
     public WebElementFacade triageAccordionActions;
 
-    @FindBy(xpath = "//button[text()='Draft']/ancestor::div//div[@id='accordion-default-content-2']//strong[contains(text(), 'Actions')]/parent::span")
+    @FindBy(xpath = "//span[text()='Draft']/ancestor::div//div[@id='accordion-default-content-2']//strong[contains(text(), 'Actions')]/parent::span")
     public WebElementFacade draftAccordionActions;
 
     @FindBy(xpath = "//a[text()='Change business area']")

@@ -1,20 +1,21 @@
-@QA @TO
+  @QA @TO
 Feature: QA
 
   Background:
     Given I am logged into "CS" as user "TO_USER"
-    And I get a "TO" case at the "QA" stage
 
   @TOWorkflow @TORegression
   Scenario: As a QA user, I want to be able to approve the draft, so that the response can be dispatched
-    When I approve the draft response
+    When I get a "TO" case at the "QA" stage
+    And I approve the draft response
     Then the case should be moved to the "Dispatch" stage
     And the case should still be owned by the correct Treat Official team for the selected business area
     And the read-only Case Details accordion should contain all case information entered during the "QA" stage
 
   @TOWorkflow @TORegression
   Scenario: As a QA user, I want to be able to return a case to Triage, so corrections can be made
-    When I select to reject the case back to Triage stage
+    When I get a "TO" case at the "QA" stage
+    And I select to reject the case back to Triage stage
     And I submit a reason to reject the case
     Then the case should be moved to the "Triage" stage
     And the case should still be owned by the correct Treat Official team for the selected business area
@@ -23,7 +24,8 @@ Feature: QA
 
   @TOWorkflow @TORegression
   Scenario: As a QA user, I want to be able to return a case to Draft, so corrections can be made
-    When I select to reject the case back to Draft stage
+    When I get a "TO" case at the "QA" stage
+    And I select to reject the case back to Draft stage
     And I submit a reason to reject the case
     Then the case should be moved to the "Draft" stage
     And the case should still be owned by the correct Treat Official team for the selected business area
@@ -32,6 +34,7 @@ Feature: QA
 
   @TOWorkflow @TORegression
   Scenario: As a QA user, I want to be able to put a case into a campaign, so it can be answered along with other cases from that campaign
+    When I get a "TO" case at the "QA" stage
     And I put the case into a "campaign"
     Then the case should be moved to the "Campaign" stage
     And the case should still be owned by the correct Treat Official team for the selected business area
@@ -40,6 +43,7 @@ Feature: QA
 
   @TOWorkflow @TORegression
   Scenario: As a QA user, I want to be able to put a case onto a stop list, so we know not to continue case working the case
+    When I get a "TO" case at the "QA" stage
     And I place the case on a stop list
     Then the case should be moved to the "Stop List" stage
     And the case should still be owned by the correct Treat Official team for the selected business area
@@ -48,7 +52,8 @@ Feature: QA
 
   @TORegression
   Scenario: As a QA user, I want to be able to save changes to the case, so corrections can be made
-    When I open the "Case Details" accordion
+    When I get a "TO" case at the "QA" stage
+    And I open the "Case Details" accordion
     And I upload another "Initial Draft" document as a replacement
     When I open the "Case Details" accordion
     And I select the "replacement draft" document as the primary draft
@@ -57,7 +62,8 @@ Feature: QA
 
   @TORegression
   Scenario: As a QA user, I want to be able to close the case early, so transferred or duplicate cases can be removed from the teams workstack
-    When I select to close the Treat Official case
+    When I get a "TO" case at the "QA" stage
+    And I select to close the Treat Official case
     And I select a reason to close the case
     And I submit supporting details for the closure
     Then the case should be closed
