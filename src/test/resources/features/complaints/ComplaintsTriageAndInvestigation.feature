@@ -502,6 +502,8 @@ Feature: Complaints Triage
     Then the case should be closed
     And the read-only Case Details accordion should contain all case information entered during the "Investigation" stage
     And a Case closure note should be visible in the timeline showing the submitted reason for closing the case
+    And the summary should contain submitted case closure details
+
     Examples:
       | businessArea |
       | HMPO         |
@@ -608,6 +610,7 @@ Feature: Complaints Triage
     Then the case should be closed
     And the read-only Case Details accordion should contain all case information entered during the "Investigation" stage
     And a Case closure note should be visible in the timeline showing the submitted reason for closing the case
+    And the summary should contain submitted case closure details
     Examples:
       | businessArea |
       | HMPO         |
