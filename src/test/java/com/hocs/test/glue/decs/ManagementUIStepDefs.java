@@ -598,9 +598,9 @@ public class ManagementUIStepDefs extends BasePage {
         unitManagement.selectNewUnitName();
     }
 
-    @Then("success message is displayed")
-    public void successMessageIsDisplayed() {
-        unitManagement.assertCorrectSuccessMessageDisplayed();
+    @Then("the correct success message for changing the unit is displayed")
+    public void theCorrectSuccessMessageForChangingTheUnitIsDisplayed() {
+        unitManagement.assertCorrectSuccessMessageForChangingTheUnitIsDisplayed();
     }
 
     @And("I enter the (cases )reference, a valid withdrawal date and text into the note field")

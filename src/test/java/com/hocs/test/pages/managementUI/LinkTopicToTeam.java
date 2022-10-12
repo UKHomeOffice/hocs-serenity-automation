@@ -34,30 +34,36 @@ public class LinkTopicToTeam extends BasePage {
     public WebElementFacade topicInSummary;
 
     public void selectATopic(String topic) {
-        waitABit(1000);
-        safeClickOn(topicsSearchBar);
-        topicsSearchBar.sendKeys(topic);
+        selectSpecificOptionFromTypeaheadWithHeading(topic, "Topics");
+//        waitABit(1000);
+//        safeClickOn(topicsSearchBar);
+//        topicsSearchBar.sendKeys(topic);
+//        waitABit(1000);
+//        topicsSearchBar.sendKeys(Keys.ENTER);
         setSessionVariable("chosenTopic").to(topic);
-        waitABit(1000);
-        topicsSearchBar.sendKeys(Keys.ENTER);
+
     }
 
     public void selectADraftAndQATeam(String team) {
-        waitABit(1000);
-        safeClickOn(draftAndQATeamSearchBar);
-        draftAndQATeamSearchBar.sendKeys(team);
+        selectSpecificOptionFromTypeaheadWithHeading(team,"Select team assignment for Initial Draft and QA response stages");
+//        waitABit(1000);
+//        safeClickOn(draftAndQATeamSearchBar);
+//        draftAndQATeamSearchBar.sendKeys(team);
+//        waitABit(1000);
+//        draftAndQATeamSearchBar.sendKeys(Keys.ENTER);
         setSessionVariable("chosenDraftAndQATeam").to(team);
-        waitABit(1000);
-        draftAndQATeamSearchBar.sendKeys(Keys.ENTER);
     }
 
     public void selectAPrivateAndMinisterTeam(String team) {
-        waitABit(1000);
-        safeClickOn(privateAndMinisterTeamSearchBar);
-        privateAndMinisterTeamSearchBar.sendKeys(team);
+        selectSpecificOptionFromTypeaheadWithHeading(team,"Select team assignment for Private Office and Minister sign off stages");
+//        waitABit(1000);
+//        safeClickOn(privateAndMinisterTeamSearchBar);
+//        privateAndMinisterTeamSearchBar.sendKeys(team);
+//        setSessionVariable("chosenPrivateAndMinisterTeam").to(team);
+//        waitABit(1000);
+//        privateAndMinisterTeamSearchBar.sendKeys(Keys.ENTER);
         setSessionVariable("chosenPrivateAndMinisterTeam").to(team);
-        waitABit(1000);
-        privateAndMinisterTeamSearchBar.sendKeys(Keys.ENTER);
+
     }
 
     public void assertSummaryDisplaysSelectedTopicAndTeams() {

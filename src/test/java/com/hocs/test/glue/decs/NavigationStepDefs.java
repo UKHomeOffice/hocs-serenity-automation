@@ -65,6 +65,7 @@ public class NavigationStepDefs extends BasePage {
         } else {
             dashboard.selectWorkstackByTeamName(workstackIdentifier);
         }
+        workstacks.waitForWorkstackToLoad();
     }
 
     @And("I load the current case/claim")

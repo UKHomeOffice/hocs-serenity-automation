@@ -151,7 +151,7 @@ Feature: ManagementUI
     And I select the "Detention Services" team from the dropdown
     And I navigate to edit team
     And I change to a different unit
-    Then success message is displayed
+    Then the correct success message for changing the unit is displayed
 
   @TeamManagement
   Scenario: User is able to deactivate and reactivate a team through Team Management

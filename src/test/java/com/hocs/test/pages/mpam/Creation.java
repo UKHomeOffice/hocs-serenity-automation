@@ -40,7 +40,16 @@ public class Creation extends BasePage {
     }
 
     public void selectASpecificRefType(String refType) {
-        recordCaseData.selectSpecificRadioButton(refType);
+        switch(refType.toUpperCase()) {
+            case "MINISTERIAL": {
+                recordCaseData.selectSpecificRadioButton("Yes (Ministerial)");
+                break;
+            }
+            case "OFFICIAL": {
+                recordCaseData.selectSpecificRadioButton("No (Official)");
+                break;
+            }
+        }
         setSessionVariable("refType").to(refType);
     }
 

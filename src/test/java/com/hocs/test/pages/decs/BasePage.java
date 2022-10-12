@@ -26,7 +26,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -166,7 +168,7 @@ public class BasePage extends PageObject {
             try {
                 assertDECSPageTitle(pageTitle);
                 break;
-            } catch (AssertionError e) {
+            } catch (AssertionError | TimeoutException e) {
                 retries++;
             }
         }
@@ -178,9 +180,23 @@ public class BasePage extends PageObject {
             try {
                 assertManagementUIPageTitle(pageTitle);
                 break;
-            } catch (AssertionError e) {
+            } catch (AssertionError | TimeoutException a) {
                 retries++;
             }
+        }
+    }
+
+    // MUI success message
+
+    public String getMUISuccessMessageText() {
+        WebElementFacade successMessage = findBy("//h2[text()='Success']/following-sibling::p");
+        return successMessage.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible().getText();
+    }
+
+    public void assertCorrectSuccessMessageDisplayed(String expectedText) {
+        String displayedText = getMUISuccessMessageText();
+        if (!displayedText.contains(expectedText)) {
+            Assert.fail("Expected Success message '" + expectedText + "' but Success message was '" + displayedText +"'");
         }
     }
 
@@ -773,7 +789,7 @@ public class BasePage extends PageObject {
     // Typeaheads
 
     public String selectRandomOptionFromTypeaheadWithHeading(String headingText) {
-        WebElementFacade typeahead = findBy("//label[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling::div//input");
+        WebElementFacade typeahead = getTypeaheadElementWithSpecificHeading(headingText);
         safeClickOn(typeahead);
         waitABit(200);
         boolean selectableOptionVisibleInTypeahead = false;
@@ -791,19 +807,48 @@ public class BasePage extends PageObject {
         WebElementFacade optionToSelect = typeaheadOptions.get(random.nextInt(typeaheadOptions.size()));
         safeClickOn(optionToSelect);
         waitABit(500);
-        WebElementFacade selectedOption = findBy("//div[contains(@class,'govuk-typeahead__single-value')]");
-        return selectedOption.getText();
+        return getCurrentlySelectedOptionFromTypeaheadWithHeading(headingText);
     }
 
     public String selectSpecificOptionFromTypeaheadWithHeading(String optionText, String headingText) {
-        WebElementFacade typeahead = findBy("//label[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling::div//input");
-        safeClickOn(typeahead);
-        waitABit(200);
-        typeahead.sendKeys(optionText);
+        waitForHeadingToBeVisible(headingText);
+        WebElementFacade typeahead = getTypeaheadElementWithSpecificHeading(headingText);
+        try {
+            clickOn(typeahead);
+        } catch (StaleElementReferenceException | NoSuchElementException e) {
+            typeahead = getTypeaheadElementWithSpecificHeading(headingText);
+            clickOn(typeahead);
+        }
         waitABit(500);
-        typeahead.sendKeys(Keys.RETURN);
+        try {
+            typeahead.sendKeys(optionText);
+        } catch (StaleElementReferenceException | NoSuchElementException e) {
+            typeahead = getTypeaheadElementWithSpecificHeading(headingText);
+            typeahead.sendKeys(optionText);
+        }
         waitABit(500);
-        WebElementFacade selectedOption = findBy("//div[contains(@class,'govuk-typeahead__single-value')]");
+        try {
+            typeahead.sendKeys(Keys.RETURN);
+        } catch (StaleElementReferenceException | NoSuchElementException e) {
+            typeahead = getTypeaheadElementWithSpecificHeading(headingText);
+            typeahead.sendKeys(Keys.RETURN);
+        }
+        waitABit(500);
+        String selectedOptionText;
+        try {
+            selectedOptionText = getCurrentlySelectedOptionFromTypeaheadWithHeading(headingText);
+        } catch (StaleElementReferenceException | NoSuchElementException e) {
+            selectedOptionText = getCurrentlySelectedOptionFromTypeaheadWithHeading(headingText);
+        }
+        return selectedOptionText;
+    }
+
+    private WebElementFacade getTypeaheadElementWithSpecificHeading(String headingText) {
+        return findBy("//label[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling::div//input");
+    }
+
+    private String getCurrentlySelectedOptionFromTypeaheadWithHeading(String headingText) {
+        WebElementFacade selectedOption = findBy("//label[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling::div//div[contains(@class,'govuk-typeahead__single-value')]");
         return selectedOption.getText();
     }
 

@@ -26,6 +26,7 @@ import com.hocs.test.pages.mpam.MPAMProgressCase;
 
 import com.hocs.test.pages.to.TOProgressCase;
 import config.CaseType;
+import config.User;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -245,8 +246,8 @@ public class CreateCaseStepDefs extends BasePage {
 
     @When("I allocate the case to another user on the case details accordion screen")
     public void iAllocateToAnotherUserOnTheCaseDetailsAccordionScreen() {
-        String user = getCurrentCaseType().getAssociatedUser().toString();
-        caseView.allocateToUserByVisibleText(user);
+        User user = getCurrentCaseType().getAssociatedUser();
+        caseView.allocateToUserByVisibleText(user.getAllocationText());
         setSessionVariable("selectedUser").to(user);
     }
 
