@@ -40,7 +40,7 @@ public class CCH extends BasePage {
                 recordCaseData.selectSpecificRadioButton("Minor Misconduct");
                 break;
             case "COMPLETE THE CASE":
-                recordCaseData.selectSpecificRadioButton("Complete the case");
+                recordCaseData.selectSpecificRadioButton("Complete the case (close permanently)");
                 break;
             default:
                 pendingStep(action + " is not defined within " + getMethodName());

@@ -151,7 +151,7 @@ public class CreateCase extends BasePage {
         dashboard.selectCreateSingleCaseLinkFromMenuBar();
         clickTheButton("Create claim");
         setCaseReferenceFromAssignedCase();
-        System.out.println("WCS Claim " + sessionVariableCalled("caseReference") + " created");
+        System.out.println("WCS Claim " + getCurrentCaseReference() + " created");
     }
 
     public void createAndWithDrawACSCaseOfType(CaseType caseType) {
@@ -184,7 +184,7 @@ public class CreateCase extends BasePage {
             }
         }
         escalateEligibleStage1CaseToStage2();
-        setSessionVariable("caseType").to(stage1CaseType + "2");
+        setCurrentCaseType(getStage2CaseTypeFromStage1CaseType(stage1CaseType));
         waitABit(500);
     }
 
