@@ -344,6 +344,7 @@ public class Documents extends BasePage {
                         , "Correspondence", "Contribution", "Miscellaneous", "Appeal Response"));
                 break;
             case "POGR":
+            case "POGR2":
                 requiredDocumentTypes.addAll(Arrays.asList("Original Complaint", "Interim Letter", "Draft", "Final Response","Contribution Request"
                         ,"Contribution Response"));
                 break;
