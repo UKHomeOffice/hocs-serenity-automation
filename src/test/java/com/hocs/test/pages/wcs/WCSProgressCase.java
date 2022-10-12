@@ -281,7 +281,7 @@ public class WCSProgressCase extends BasePage {
     public void moveEligibilityCaseToEligibilityRejected() {
         eligibility.cannotConfirmEligibility();
         eligibility.selectRejectionReasonByIndex(1);
-        clickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void moveEligibilityRejectedCaseToTier1ER() {

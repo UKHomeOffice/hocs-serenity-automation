@@ -10,8 +10,6 @@ public class Tier2StepDefs extends BasePage {
 
     Tier2Coordination tier2Coordination;
 
-    ClaimSchema claimSchema;
-
     @And("I select that the claimant accepts the revised offer")
     public void iSelectThatTheClaimantAcceptsTheRevisedOffer() {
         tier2Coordination.selectClaimantAcceptsRevisedOffer();
@@ -39,7 +37,7 @@ public class Tier2StepDefs extends BasePage {
 
     @Then("the adjudicators office decision details are correctly displayed in the case details accordion")
     public void adjudicatorsDecisionDetailsAreCorrectlyDisplayedInCaseDetails() {
-        clickOn(claimSchema.caseDetailsAccordion);
+        openOrCloseAccordionSection("Case Details");
         tier2Coordination.assertTier2AdjudicatorsOfficeDecisionInformationIsCorrectInAccordion();
     }
 

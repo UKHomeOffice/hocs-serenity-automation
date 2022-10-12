@@ -24,12 +24,12 @@ public class AwaitingPaymentConfirmation extends BasePage {
 
     public void selectClaimCompletePaymentConfirmed() {
         selectSpecificRadioButton("Payment confirmed - close claim");
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
     public void yesCloseClaim() {
         selectSpecificRadioButton("Yes - close the claim");
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
 }

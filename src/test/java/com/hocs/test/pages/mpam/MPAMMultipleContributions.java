@@ -37,16 +37,16 @@ public class MPAMMultipleContributions extends BasePage {
 
     public void selectToAddContributionsToAnMPAMCase(){
         safeClickOn(requestContributionsRadioButton);
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void sendMPAMCaseToContributionRequest() {
         selectToAddContributionsToAnMPAMCase();
         contributionRequests.addAContribution("CASE", getDatePlusMinusNDaysAgo(-1), getDatePlusMinusNDaysAgo(5));
-        if (continueButton.isVisible()) {
-            safeClickOn(continueButton);
-        } else if (confirmButton.isVisible()) {
-            safeClickOn(confirmButton);
+        if (buttonIsCurrentlyVisible("Continue")) {
+            clickContinueButton();
+        } else if (buttonIsCurrentlyVisible("Confirm")) {
+            clickConfirmButton();
         }
     }
 
@@ -65,14 +65,14 @@ public class MPAMMultipleContributions extends BasePage {
         switch (action.toUpperCase()) {
             case "ESCALATE TO WORKFLOW MANAGER":
                 safeClickOn(escalateToWorkflowManagerRadioButton);
-                safeClickOn(confirmButton);
+                clickConfirmButton();
                 break;
             case "PUT CASE INTO CAMPAIGN":
                 campaign.moveCaseFromAStageToCampaign("Jamaican charter flight");
                 break;
             case "CONTRIBUTIONS RECEIVED":
                 safeClickOn(contributionsReceivedRadioButton);
-                safeClickOn(confirmButton);
+                clickConfirmButton();
                 break;
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
@@ -92,7 +92,7 @@ public class MPAMMultipleContributions extends BasePage {
                 pendingStep(action + " is not defined within " + getMethodName());
         }
         safeClickOn(radioButton);
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void triggerValidationAtContributionRequestScreens(String screen) {
@@ -100,12 +100,12 @@ public class MPAMMultipleContributions extends BasePage {
             case "ADD CONTRIBUTION REQUEST":
                 selectToAddContributionsToAnMPAMCase();
                 safeClickOn(contributionRequests.addAContributionHypertext);
-                safeClickOn(addButton);
+                clickAddButton();
                 break;
             case "CONTRIBUTIONS REQUESTED":
                 sendMPAMCaseToContributionRequest();
                 dashboard.getAndClaimCurrentCase();
-                safeClickOn(confirmButton);
+                clickConfirmButton();
                 break;
             case "CONTRIBUTION REQUEST FULFILLMENT":
                 sendMPAMCaseToContributionRequest();
@@ -128,8 +128,8 @@ public class MPAMMultipleContributions extends BasePage {
                 contributionRequests.contributionReceivedDetailsTextField.sendKeys("Test - contribution received details");
                 safeClickOn(contributionRequests.updateButton);
                 safeClickOn(contributionsReceivedRadioButton);
-                safeClickOn(confirmButton);
-                safeClickOn(confirmButton);
+                clickConfirmButton();
+                clickConfirmButton();
                 break;
             default:
                 pendingStep(screen + " is not defined within " + getMethodName());

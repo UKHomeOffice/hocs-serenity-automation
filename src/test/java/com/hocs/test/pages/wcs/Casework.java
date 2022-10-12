@@ -47,34 +47,34 @@ public class Casework extends BasePage {
 
     public void selectClaimStatusReadyToQA() {
         selectSpecificRadioButton("Send offer to QA");
-        clickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void putTheClaimOnHold() {
         selectSpecificRadioButton("On hold");
-        clickOn(confirmButton);
+        clickConfirmButton();
         System.out.println("Case moved from Casework to Casework On Hold");
     }
 
     public void takeTheClaimOffHold() {
         selectSpecificRadioButton("Off hold");
-        clickOn(confirmButton);
+        clickConfirmButton();
         System.out.println("Case moved from Casework On Hold to Casework");
     }
 
     public void selectToSendClaimToEligibility() {
         selectSpecificRadioButton("Return to Eligibility team");
-        clickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void selectToSendClaimToRegistration() {
         selectSpecificRadioButton("Return to Registration team");
-        clickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void selectToSendClaimToTriage() {
         selectSpecificRadioButton("Return to Triage team");
-        clickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void assertCaseworkClaimStatusErrorMessage() {

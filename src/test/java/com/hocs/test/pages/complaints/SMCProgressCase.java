@@ -12,6 +12,7 @@ import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
+import config.CaseType;
 
 public class SMCProgressCase extends BasePage {
 
@@ -36,7 +37,7 @@ public class SMCProgressCase extends BasePage {
     public void moveCaseFromCurrentStageToTargetStage(String currentStage, String targetStage) {
         String precedingStage = getStageThatPrecedesTargetStage(targetStage);
         if (precedingStage.equals("CREATE NEW CASE")) {
-            createCase.createCSCaseOfType("SMC");
+            createCase.createCSCaseOfTypeWithDocument(CaseType.SMC);
             dashboard.goToDashboard();
         } else {
             if (!precedingStage.equalsIgnoreCase(currentStage)) {
@@ -95,7 +96,7 @@ public class SMCProgressCase extends BasePage {
 
     public void moveSMCCaseFromRegistrationToTriage() {
         correspondents.addANonMemberCorrespondentOfType("Complainant");
-        clickTheButton("Continue");
+        clickContinueButton();
         complaintsRegistrationAndDataInput.enterComplainantDetails();
         complaintsRegistrationAndDataInput.selectAComplaintChannel();
         complaintsRegistrationAndDataInput.selectComplaintOrigin();
@@ -103,28 +104,28 @@ public class SMCProgressCase extends BasePage {
         complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
         complaintsRegistrationAndDataInput.enterAPreviousUKVIComplaintReference();
         complaintsRegistrationAndDataInput.enterAThirdPartyReference();
-        clickTheButton("Continue");
+        clickContinueButton();
         complaintsRegistrationAndDataInput.openTheSeriousComplaintCategoryAccordion();
         waitABit(1000);
         complaintsRegistrationAndDataInput.selectAVisibleClaimCategory();
         complaintsRegistrationAndDataInput.selectAnOwningCSU();
-        clickTheButton("Finish");
+        clickFinishButton();
         System.out.println("Case moved from Registration to Triage");
 
     }
 
     public void moveSMCCaseFromTriageToDraft() {
         complaintsTriageAndInvestigation.selectAcceptCase();
-        clickTheButton("Continue");
+        clickContinueButton();
         complaintsTriageAndInvestigation.enterPSUReference();
-        clickTheButton("Continue");
-        waitForPageWithTitle("Complaint Category");
-        clickTheButton("Continue");
-        waitForPageWithTitle("Triage Case Details");
-        clickTheButton("Continue");
+        clickContinueButton();
+        waitForDECSPageWithTitle("Complaint Category");
+        clickContinueButton();
+        waitForDECSPageWithTitle("Triage Case Details");
+        clickContinueButton();
         complaintsTriageAndInvestigation.enterDetailsOnTriageCaptureReasonPage();
-        clickTheButton("Continue");
-        waitForPageWithTitle("Triage Contributions");
+        clickContinueButton();
+        waitForDECSPageWithTitle("Triage Contributions");
         if(sessionVariableCalled("isLoARequired").equals("Yes")) {
             complaintsTriageAndInvestigation.enterLoAReceivedDetails();
         }
@@ -150,19 +151,19 @@ public class SMCProgressCase extends BasePage {
         switch (infoType.toUpperCase()) {
             case "CASE TYPE":
             case "CASE REFERENCE":
-                createCase.createCSCaseOfType("SMC");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.SMC);
                 break;
             case "CORRESPONDENT FULL NAME":
             case "CORRESPONDENT POSTCODE":
             case "CORRESPONDENT EMAIL ADDRESS":
-                createCase.createCSCaseOfType("SMC");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.SMC);
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
                 correspondents.confirmPrimaryCorrespondent();
                 break;
             case "COMPLAINANT DATE OF BIRTH":
-                createCase.createCSCaseOfType("SMC");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.SMC);
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
@@ -173,10 +174,10 @@ public class SMCProgressCase extends BasePage {
                 complaintsRegistrationAndDataInput.enterACompanyName();
                 complaintsRegistrationAndDataInput.enterAHomeOfficeReference(getCurrentMonth() +"/" + getCurrentYear());
                 complaintsRegistrationAndDataInput.enterAPortReference();
-                clickTheButton("Continue");
+                clickContinueButton();
                 break;
             case "COMPLAINANT HOME OFFICE REFERENCE":
-                createCase.createCSCaseOfType("SMC");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.SMC);
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
@@ -187,18 +188,18 @@ public class SMCProgressCase extends BasePage {
                 complaintsRegistrationAndDataInput.enterACompanyName();
                 complaintsRegistrationAndDataInput.enterAHomeOfficeReference(infoValue);
                 complaintsRegistrationAndDataInput.enterAPortReference();
-                clickTheButton("Continue");
+                clickContinueButton();
                 break;
             case "PSU REFERENCE":
                 moveCaseFromCurrentStageToTargetStage("N/A", "TRIAGE");
                 dashboard.getAndClaimCurrentCase();
                 complaintsTriageAndInvestigation.selectAcceptCase();
-                clickTheButton("Continue");
+                clickContinueButton();
                 complaintsTriageAndInvestigation.enterSpecificPSUReference(infoValue);
-                clickTheButton("Continue");
+                clickContinueButton();
                 break;
             case "ALL":
-                createCase.createCSCaseOfType("SMC");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.SMC);
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
@@ -209,24 +210,24 @@ public class SMCProgressCase extends BasePage {
                 complaintsRegistrationAndDataInput.enterACompanyName();
                 complaintsRegistrationAndDataInput.enterAHomeOfficeReference("Test entry for HO Reference");
                 complaintsRegistrationAndDataInput.enterAPortReference();
-                clickTheButton("Continue");
+                clickContinueButton();
                 complaintsRegistrationAndDataInput.selectAComplaintChannel();
                 complaintsRegistrationAndDataInput.selectComplaintOrigin();
                 complaintsRegistrationAndDataInput.selectAdditionalInformation();
                 complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
                 complaintsRegistrationAndDataInput.enterAPreviousUKVIComplaintReference();
                 complaintsRegistrationAndDataInput.enterAThirdPartyReference();
-                clickTheButton("Continue");
+                clickContinueButton();
                 complaintsRegistrationAndDataInput.openTheSeriousComplaintCategoryAccordion();
                 waitABit(1000);
                 complaintsRegistrationAndDataInput.selectAVisibleClaimCategory();
                 complaintsRegistrationAndDataInput.selectAnOwningCSU();
-                clickTheButton("Finish");
+                clickFinishButton();
                 dashboard.getAndClaimCurrentCase();
                 complaintsTriageAndInvestigation.selectAcceptCase();
-                clickTheButton("Continue");
+                clickContinueButton();
                 complaintsTriageAndInvestigation.enterSpecificPSUReference("123456789");
-                clickTheButton("Continue");
+                clickContinueButton();
                 break;
             default:
                 pendingStep(infoType + " is not defined within " + getMethodName());

@@ -126,7 +126,7 @@ public class ContributionRequests extends BasePage {
             setSessionVariable("expectedContributionRequestStatus").to(expectedStatus);
         }
         whatYouAreRequestingTextField.sendKeys("Test - details of request");
-        safeClickOn(addButton);
+        clickAddButton();
     }
 
     public void editContributionDueDate() {
@@ -161,7 +161,7 @@ public class ContributionRequests extends BasePage {
             count++;
         }
         if (mpamCase()) {
-            safeClickOn(continueButton);
+            clickContinueButton();
         }
         setSessionVariable("numberOfContributions").to(numberOfContributionRequests);
     }

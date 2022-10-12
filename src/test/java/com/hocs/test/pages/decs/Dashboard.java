@@ -33,15 +33,6 @@ public class Dashboard extends BasePage {
     @FindBy(xpath = "//a[text()='Search']")
     public WebElementFacade searchLink;
 
-    @FindBy(xpath = "//span[text()='Case reference is required']")
-    public WebElementFacade caseReferenceIsRequiredErrorMessage;
-
-    @FindBy(xpath = "//span[text()='Case reference is invalid format']")
-    public WebElementFacade caseReferenceIsInvalidFormatErrorMessage;
-
-    @FindBy(xpath = "//span[text()='No active workflows for case']")
-    public WebElementFacade noActiveWorkflowsForCaseErrorMessage;
-
     @FindBy(xpath = "//span[text()='Cases']")
     public WebElementFacade myCases;
 
@@ -115,7 +106,7 @@ public class Dashboard extends BasePage {
 
     public void selectSearchLinkFromMenuBar() {
         safeClickOn(searchLink);
-        waitForPageWithTitle("Search");
+        waitForDECSPageWithTitle("Search");
     }
 
     public void selectCreateSingleCaseLinkFromMenuBar() {
@@ -286,12 +277,23 @@ public class Dashboard extends BasePage {
         claimCurrentCase();
     }
 
-    public void ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser() {
-        if (!caseView.currentCaseIsLoaded()) {
-                goToDashboard();
-                waitForDashboard();
+    public void ensureViewingCurrentCase(){
+        if (caseView.currentCaseIsLoaded()) {
+            // protects against check occurring before DECS has chance to navigate away from case view
+            waitABit(1000);
+            if (!caseView.currentCaseIsLoaded()) {
                 getCurrentCase();
             }
+        } else {
+            if (!onDashboard()) {
+                goToDashboard();
+            }
+            getCurrentCase();
+        }
+    }
+
+    public void ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser() {
+        ensureViewingCurrentCase();
         if (caseView.caseCanBeAllocated()) {
             claimCurrentCase();
             caseView.waitForCaseToLoad();
@@ -385,17 +387,5 @@ public class Dashboard extends BasePage {
     public void assertAtDashboard() {
         waitFor(myCases);
         assertThat(myCases.isVisible(), is(true));
-    }
-
-    public void assertCaseReferenceIsRequiredErrorMessage() {
-        caseReferenceIsRequiredErrorMessage.shouldContainText("Case reference is required");
-    }
-
-    public void assertCaseReferenceIsInvalidFormatErrorMessage() {
-        assertThat(caseReferenceIsInvalidFormatErrorMessage.getText(), Is.is("Case reference is invalid format"));
-    }
-
-    public void assertNoActiveWorkflowsForCaseErrorMessage() {
-        noActiveWorkflowsForCaseErrorMessage.shouldContainText("No active workflows for case");
     }
 }

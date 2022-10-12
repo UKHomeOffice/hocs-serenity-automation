@@ -35,7 +35,7 @@ public class MarkupStepDefs extends BasePage {
     public void enterSpecificMarkupTopic(String topic) {
         dashboard.getAndClaimCurrentCase();
         markup.selectPolicyResponseRadioButton();
-        safeClickOn(continueButton);
+        clickContinueButton();
         if (topic.equalsIgnoreCase("NEW CHILD TOPIC")) {
             topic = sessionVariableCalled("newChildTopic").toString();
         }
@@ -57,7 +57,7 @@ public class MarkupStepDefs extends BasePage {
     @When("I complete the Markup stage overriding the {string} team to {string}")
     public void overrideTheDefaultTeam(String defaultTeam, String overrideTeam) {
         markup.selectPolicyResponseRadioButton();
-        safeClickOn(continueButton);
+        clickContinueButton();
         markup.addTopicToCase("Animal Alternatives (3Rs)");
         markup.confirmPrimaryTopic();
         switch (defaultTeam.toUpperCase()) {
@@ -71,13 +71,13 @@ public class MarkupStepDefs extends BasePage {
             default:
                 pendingStep(defaultTeam + " is not defined within " + getMethodName());
         }
-        clickTheButton("Finish");
+        clickFinishButton();
     }
 
     @And("I override the initial draft team of the case to the team created in Management UI")
     public void iOverrideTheInitialDraftTeamOfTheCaseToTheTeamCreatedInMUI() {
         markup.selectSpecificOverrideInitialDraftTeam(sessionVariableCalled("draftingTeamName"));
-        safeClickOn(finishButton);
+        clickFinishButton();
     }
 
     @Then("the topic should be added to the case")
@@ -136,7 +136,7 @@ public class MarkupStepDefs extends BasePage {
     @When("I select an initial decision of {string}")
     public void iSelectAnInitialDecisionOf(String decision) {
         markup.selectASpecificResponseType(decision);
-        clickTheButton("Continue");
+        clickContinueButton();
     }
 
     @And("I click the Add a topic link")
@@ -148,23 +148,23 @@ public class MarkupStepDefs extends BasePage {
     public void iEnterATransferDestinationAndTransferReason() {
         markup.enterAOGDDestination();
         markup.enterAOGDReason();
-        clickTheButton("Finish");
+        clickFinishButton();
     }
 
     @And("I submit a reason that no response is needed")
     public void iEnterAReasonThatNoResponseIsNeeded() {
         markup.enterANoResponseNeededReason();
-        clickTheButton("Finish");
+        clickFinishButton();
     }
 
     @And("I complete Markup with {string} selected as the Private Office team")
     public void iCompleteMarkupWithAsThePrivateOfficeTeam(String privateOfficeTeam) {
         markup.selectPolicyResponseRadioButton();
-        safeClickOn(continueButton);
+        clickContinueButton();
         markup.addTopicToCase("Animal alternatives (3Rs)");
         markup.confirmPrimaryTopic();
         markup.selectSpecificOverridePrivateOfficeTeam(privateOfficeTeam);
-        safeClickOn(finishButton);
+        clickFinishButton();
         dashboard.waitForDashboard();
     }
 
@@ -192,13 +192,13 @@ public class MarkupStepDefs extends BasePage {
     @And("I reject the case at the Markup stage")
     public void iRejectTheCaseAtTheStage() {
         markup.selectRejectToDataInput();
-        safeClickOn(continueButton);
+        clickContinueButton();
         markup.enterARejectionReason();
-        safeClickOn(finishButton);
+        clickFinishButton();
     }
 
     @But("I do not enter a {string}")
     public void iDoNotEnterA() {
-        safeClickOn(finishButton);
+        clickFinishButton();
     }
 }

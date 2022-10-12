@@ -7,6 +7,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import config.CaseType;
 import config.User;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -61,12 +62,6 @@ public class Workstacks extends BasePage {
 
     @FindBy(xpath = "//span[@class='govuk-hint'][text()='0']")
     public WebElementFacade zeroItemsInWorkstackCount;
-
-    @FindBy(xpath = "//h1[@class='govuk-heading-l']")
-    public WebElementFacade caseReferenceOnAllocationScreen;
-
-    @FindBy(xpath = "//span[@class='govuk-caption-l']")
-    public WebElementFacade caseReferenceOnAlreadyAllocatedCase;
 
     @FindBy(xpath = "//th[text() = 'Primary topic']/following-sibling::td")
     public WebElementFacade primaryTopicName;
@@ -488,17 +483,6 @@ public class Workstacks extends BasePage {
         zeroItemsInWorkstackCount.shouldContainText("0 Items");
     }
 
-    public void assertCaseReferenceBeforeAllocation() {
-        String searchCaseReference = getCurrentCaseReference().toString();
-        caseReferenceOnAllocationScreen.shouldContainText(searchCaseReference);
-
-    }
-
-    public void assertCaseReferenceAfterAllocation() {
-        String searchCaseReference = getCurrentCaseReference().toString();
-        caseReferenceOnAlreadyAllocatedCase.shouldContainText(searchCaseReference);
-    }
-
     public void assertAllAllocatedUsersAre(User user) {
         List<WebElementFacade> userAllocated = findAll("//td[contains(text(), '" + user.getUsername() + "')]");
         int totalNumberOfCases = getTotalOfCases();
@@ -546,18 +530,12 @@ public class Workstacks extends BasePage {
         assert caseOwner.isVisible();
     }
 
-    private boolean areCasesOfCaseTypePresent(String caseType) {
-        filterWorkstackBy(caseType);
+    private boolean areCasesOfCaseTypePresent(CaseType caseType) {
+        filterWorkstackBy(caseType.toString());
         waitABit(1000);
         int totalCases = getTotalOfCases();
         caseFilter.clear();
         return (totalCases != 0);
-    }
-
-    public void assertThatTheOnlyDCUCaseTypePresentIs(String caseType) {
-        assertThat(areCasesOfCaseTypePresent("MIN") == (caseType.equals("MIN")), is(true));
-        assertThat(areCasesOfCaseTypePresent("DTEN") == (caseType.equals("DTEN")), is(true));
-        assertThat(areCasesOfCaseTypePresent("TRO") == (caseType.equals("TRO")), is(true));
     }
 
     public double getPointsOfCurrentCase() {

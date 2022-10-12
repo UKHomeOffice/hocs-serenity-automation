@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.junit.Assert;
 
 public class UnitManagement extends BasePage {
 
@@ -116,8 +117,8 @@ public class UnitManagement extends BasePage {
         updateUnitButton.click();
     }
 
-    public void assertCorrectSuccessMessageDisplayed() {
-        WebElementFacade successMessageBody = findBy("//p[contains(text(),'Team unit changed from " + sessionVariableCalled("originalUnit") + " to " + sessionVariableCalled("newUnit") + ".')]");
-        successMessageBody.shouldBeVisible();
+    public void assertCorrectSuccessMessageForChangingTheUnitIsDisplayed() {
+        String expectedText = "Team unit changed from " + sessionVariableCalled("originalUnit") + " to " + sessionVariableCalled("newUnit") + ".";
+        assertCorrectSuccessMessageDisplayed(expectedText);
     }
 }

@@ -3,6 +3,7 @@ package com.hocs.test.pages.dcu;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
+import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.ConfirmationScreens;
 import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.BasePage;
@@ -10,7 +11,7 @@ import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
-import java.text.ParseException;
+import config.CaseType;
 
 public class DCUProgressCase extends BasePage {
 
@@ -19,8 +20,6 @@ public class DCUProgressCase extends BasePage {
     CreateCase createCase;
 
     Correspondents correspondents;
-
-    ConfirmationScreens confirmationScreens;
 
     Documents documents;
 
@@ -38,12 +37,16 @@ public class DCUProgressCase extends BasePage {
 
     Dispatch dispatch;
 
+    ConfirmationScreens confirmationScreens;
+
+    CaseView caseView;
+
     Boolean copyToNumber10 = false;
 
-    public void moveCaseOfTypeFromCurrentStageToTargetStage(String caseType, String currentStage, String targetStage) {
+    public void moveCaseOfTypeFromCurrentStageToTargetStage(CaseType caseType, String currentStage, String targetStage) {
         String precedingStage = getStageThatPrecedesTargetStage(caseType, targetStage);
         if (precedingStage.equals("CREATE NEW CASE")) {
-            createCase.createCSCaseOfType(caseType);
+            createCase.createCSCaseOfTypeWithDocument(caseType);
             dashboard.goToDashboard();
         } else {
             if (!precedingStage.equalsIgnoreCase(currentStage)) {
@@ -53,7 +56,7 @@ public class DCUProgressCase extends BasePage {
         }
     }
 
-    private String getStageThatPrecedesTargetStage(String caseType, String targetStage) {
+    private String getStageThatPrecedesTargetStage(CaseType caseType, String targetStage) {
         String precedingStage = "";
         switch (targetStage.toUpperCase()) {
             case "DATA INPUT":
@@ -78,13 +81,13 @@ public class DCUProgressCase extends BasePage {
                 break;
             case "DISPATCH":
                 switch (caseType) {
-                    case "MIN":
+                    case MIN:
                         precedingStage = "MINISTERIAL SIGN OFF";
                         break;
-                    case "DTEN":
+                    case DTEN:
                         precedingStage = "PRIVATE OFFICE APPROVAL";
                         break;
-                    case "TRO":
+                    case TRO:
                         precedingStage = "QA RESPONSE";
                         break;
                     default:
@@ -104,7 +107,7 @@ public class DCUProgressCase extends BasePage {
         return precedingStage;
     }
 
-    public void createCaseOfTypeAndMoveItToTargetStageWithCopyToNo10SetToYes(String caseType, String targetStage) {
+    public void createCaseOfTypeAndMoveItToTargetStageWithCopyToNo10SetToYes(CaseType caseType, String targetStage) {
         copyToNumber10 = true;
         moveCaseOfTypeFromCurrentStageToTargetStage(caseType, "CREATE NEW CASE", targetStage);
     }
@@ -158,7 +161,7 @@ public class DCUProgressCase extends BasePage {
         if (dtenCase()) {
             dataInput.enterDTENDraftingDeadline(getDatePlusMinusNDaysAgo(+10));
             dataInput.enterDTENDispatchDeadline(getDatePlusMinusNDaysAgo(+20));
-            safeClickOn(continueButton);
+            clickContinueButton();
         }
         dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
         dataInput.selectACorrespondenceReceivedChannel();
@@ -173,14 +176,14 @@ public class DCUProgressCase extends BasePage {
         if (minCase()) {
             dataInput.selectAHomeSecReplyOption();
         }
-        safeClickOn(continueButton);
+        clickContinueButton();
         correspondents.addANonMemberCorrespondentOfType("Constituent");
         correspondents.confirmPrimaryCorrespondent();
     }
 
     public void moveCaseFromMarkupToInitialDraft() {
         markup.selectPolicyResponseRadioButton();
-        safeClickOn(continueButton);
+        clickContinueButton();
         markup.addTopicToCase("Animal alternatives (3Rs)");
         markup.confirmPrimaryTopic();
         markup.confirmInitialDraftAndOrPrivateOfficeTeam();
@@ -188,7 +191,7 @@ public class DCUProgressCase extends BasePage {
 
     public void moveCaseFromMarkupToInitialDraftWithSpecificTopic(String topic) {
         markup.selectPolicyResponseRadioButton();
-        safeClickOn(continueButton);
+        clickContinueButton();
         markup.addTopicToCase(topic);
         markup.confirmPrimaryTopic();
         markup.confirmInitialDraftAndOrPrivateOfficeTeam();
@@ -196,96 +199,96 @@ public class DCUProgressCase extends BasePage {
 
     public void moveCaseFromMarkupToNRNConfirmation() {
         markup.selectNoResponseNeededRadioButton();
-        safeClickOn(continueButton);
+        clickContinueButton();
         markup.enterANoResponseNeededReason();
-        safeClickOn(finishButton);
+        clickFinishButton();
     }
 
     public void moveCaseFromMarkupToTransferConfirmation() {
         markup.selectReferToOGDRadioButton();
-        safeClickOn(continueButton);
+        clickContinueButton();
         markup.enterAOGDDestination();
         markup.enterAOGDReason();
-        safeClickOn(finishButton);
+        clickFinishButton();
     }
 
     public void moveCaseFromInitialDraftToQaResponse() {
         initialDraft.selectIfCaseCanBeAnsweredByTeam("Yes");
-        safeClickOn(continueButton);
+        clickContinueButton();
         if (!dtenCase()) {
             initialDraft.selectSpecificResponseChannel("Letter");
-            safeClickOn(continueButton);
+            clickContinueButton();
         }
         documents.addADocumentOfDocumentType("DRAFT");
         waitABit(1000);
         documents.recordPrimaryDraftDocument();
-        clickTheButton("Continue");
+        clickContinueButton();
         initialDraft.selectQAOfflineDecision("No");
-        clickTheButton("Continue");
+        clickContinueButton();
     }
 
     public void moveCaseFromInitialDraftToPrivateOfficeApprovalOrDispatch() {
         initialDraft.selectIfCaseCanBeAnsweredByTeam("Yes");
-        safeClickOn(continueButton);
+        clickContinueButton();
         if (!dtenCase()) {
             initialDraft.selectSpecificResponseChannel("Letter");
-            safeClickOn(continueButton);
+            clickContinueButton();
         }
         documents.addADocumentOfDocumentType("DRAFT");
         waitABit(1000);
         documents.recordPrimaryDraftDocument();
-        clickTheButton("Continue");
+        clickContinueButton();
         initialDraft.selectQAOfflineDecision("Yes");
-        safeClickOn(continueButton);
+        clickContinueButton();
         initialDraft.selectAOfflineQAIndividual();
-        safeClickOn(finishButton);
+        clickFinishButton();
     }
 
     public void moveCaseFromQAResponseToPrivateOfficeApprovalOrDispatch() {
         qaResponse.selectApprovePrimaryDraftRadioButton();
-        clickTheButton("Continue");
+        clickContinueButton();
     }
 
     public void moveCaseFromPrivateOfficeApprovalToMinisterialSignOffOrDispatch() {
         privateOfficeApproval.selectIfApproveResponse("Yes");
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     public void moveCaseFromMinisterialSignOffToDispatch() {
         ministerialSignOff.selectToApproveResponse("Yes");
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     public void moveCaseFromDispatchToCaseClosedOrCopyToNumber10() {
         dispatch.selectAbleToDispatch("Yes");
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     public void generateDCUSearchCaseData(String infoValue, String infoType) {
         switch (infoType.toUpperCase()) {
             case "CASE TYPE":
-                createCase.createCSCaseOfType(infoValue);
+                createCase.createCSCaseOfTypeWithDocument(CaseType.valueOf(infoValue));
                 break;
             case "RECEIVED ON OR AFTER DATE":
             case "RECEIVED ON OR BEFORE DATE":
-                createCase.createCSCase("MIN", false, infoValue);
+                createCase.createCSCase(CaseType.MIN, false, infoValue);
                 dashboard.goToDashboard();
                 break;
             case "MEMBER OF PARLIAMENT NAME":
-                createCase.createCSCaseOfType("MIN");
-                dashboard.goToDashboard();
-                dashboard.getAndClaimCurrentCase();
+                createCase.createCSCaseOfTypeWithDocument(CaseType.MIN);
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();
                 dataInput.fillAllMandatoryCorrespondenceFields();
                 clickContinueButton();
                 correspondents.addASpecificMemberCorrespondent(infoValue);
-                safeClickOn(finishButton);
+                clickFinishButton();
                 break;
             case "PUBLIC CORRESPONDENT NAME":
             case "CORRESPONDENT POSTCODE":
             case "CORRESPONDENT EMAIL ADDRESS":
-                createCase.createCSCaseOfType("MIN");
-                dashboard.goToDashboard();
-                dashboard.getAndClaimCurrentCase();
+                createCase.createCSCaseOfTypeWithDocument(CaseType.MIN);
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();
                 dataInput.fillAllMandatoryCorrespondenceFields();
                 clickContinueButton();
                 correspondents.addANonMemberCorrespondentOfType("Constituent");
@@ -301,31 +304,31 @@ public class DCUProgressCase extends BasePage {
                 generateDCUSearchCaseData("Animal alternatives (3Rs)", "Topic");
                 break;
             case "ACTIVE CASES ONLY":
-                createCase.createCSCaseOfType("MIN");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.MIN);
                 break;
             case "HOME SECRETARY INTEREST":
-                createCase.createCSCaseOfType("MIN");
-                dashboard.goToDashboard();
-                dashboard.getAndClaimCurrentCase();
+                createCase.createCSCaseOfTypeWithDocument(CaseType.MIN);
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();
                 dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
                 dataInput.selectACorrespondenceReceivedChannel();
                 dataInput.selectASpecificCopyToNoTenOption("No");
                 dataInput.selectASpecificHomeSecInterestOption(infoValue);
                 dataInput.selectAHomeSecReplyOption();
-                safeClickOn(continueButton);
+                clickContinueButton();
                 correspondents.addANonMemberCorrespondentOfType("Constituent");
                 correspondents.confirmPrimaryCorrespondent();
                 break;
             case "ALL":
-                createCase.createCSCase("MIN", false, "01/01/2001");
-                dashboard.goToDashboard();
-                dashboard.getAndClaimCurrentCase();
+                createCase.createCSCase(CaseType.MIN, false, "01/01/2001");
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();
                 dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
                 dataInput.selectACorrespondenceReceivedChannel();
                 dataInput.selectASpecificCopyToNoTenOption("No");
                 dataInput.selectASpecificHomeSecInterestOption("Yes");
                 dataInput.selectAHomeSecReplyOption();
-                safeClickOn(continueButton);
+                clickContinueButton();
                 correspondents.addASpecificMemberCorrespondent("Boris Johnson");
                 correspondents.addANonMemberCorrespondentOfType("Constituent");
                 correspondents.confirmPrimaryCorrespondent();
@@ -336,5 +339,10 @@ public class DCUProgressCase extends BasePage {
             default:
                 pendingStep(infoType + " is not defined within " + getMethodName());
         }
+    }
+
+    public void getDCUCaseToPointOfAddingCorrespondents() {
+                dataInput.fillAllMandatoryCorrespondenceFields();
+                clickContinueButton();
     }
 }

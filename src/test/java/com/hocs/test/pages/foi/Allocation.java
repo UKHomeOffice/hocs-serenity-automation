@@ -26,7 +26,7 @@ public class Allocation extends BasePage {
     public void selectAnAccountManager() { recordCaseData.selectRandomOptionFromDropdownWithHeading("Account Manager"); }
 
     public void assertAllocationText() {
-        waitForPageWithTitle("FOI Allocation");
+        waitForDECSPageWithTitle("FOI Allocation");
         String displayedAllocationText = allocationText.getText();
         String foiGroup = sessionVariableCalled("foiGroup");
         String expectedAllocationText = "Case " + getCurrentCaseReference() +" will be allocated to "+ foiGroup;

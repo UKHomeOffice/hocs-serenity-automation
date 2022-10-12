@@ -8,6 +8,7 @@ import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
+import config.CaseType;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
@@ -39,13 +40,13 @@ public class COMPProgressCase extends BasePage {
 
     String complaintType = "Service";
 
-    public void moveCaseOfTypeFromCurrentStageToTargetStage(String caseType, String currentStage, String targetStage) {
+    public void moveCaseOfTypeFromCurrentStageToTargetStage(CaseType caseType, String currentStage, String targetStage) {
         setComplaintTypeFromStageName(targetStage);
         targetStage = getSimplifiedStageName(targetStage);
         currentStage = getSimplifiedStageName(currentStage);
         String precedingStage = getStageThatPrecedesTargetStage(targetStage);
         if (precedingStage.equals("CREATE NEW CASE")) {
-            createCase.createCSCaseOfType(caseType);
+            createCase.createCSCaseOfTypeWithDocument(caseType);
             dashboard.goToDashboard();
         } else {
             if (!precedingStage.equalsIgnoreCase(currentStage)) {
@@ -65,11 +66,11 @@ public class COMPProgressCase extends BasePage {
     }
 
     private void setComplaintTypeFromStageName(String targetStage) {
-        if (containsIgnoreCase(targetStage, "Service")) {
+        if (stringContainsCheckIgnoringCase(targetStage, "Service")) {
             complaintType = "Service";
-        } else if (containsIgnoreCase(targetStage, "Ex-Gratia")) {
+        } else if (stringContainsCheckIgnoringCase(targetStage, "Ex-Gratia")) {
             complaintType = "Ex-Gratia";
-        } else if (containsIgnoreCase(targetStage, "Minor Misconduct") || containsIgnoreCase(targetStage, "MM")) {
+        } else if (stringContainsCheckIgnoringCase(targetStage, "Minor Misconduct") || stringContainsCheckIgnoringCase(targetStage, "MM")) {
             complaintType = "Minor Misconduct";
         }
     }
@@ -103,7 +104,7 @@ public class COMPProgressCase extends BasePage {
         return precedingStage;
     }
 
-    public void createCaseOfTypeAndMoveItToTargetStageWithSpecifiedComplaintType(String caseType, String complaintType, String targetStage) {
+    public void createCaseOfTypeAndMoveItToTargetStageWithSpecifiedComplaintType(CaseType caseType, String complaintType, String targetStage) {
         this.complaintType = complaintType;
         moveCaseOfTypeFromCurrentStageToTargetStage(caseType, "N/A", targetStage);
     }
@@ -153,13 +154,13 @@ public class COMPProgressCase extends BasePage {
         complaintsRegistrationAndDataInput.selectASpecificComplaintType(complaintType);
         complaintsRegistrationAndDataInput.enterComplaintDetails();
         if (complaintType.equalsIgnoreCase("SERVICE")) {
-            clickTheButton("Continue");
+            clickContinueButton();
             complaintsRegistrationAndDataInput.openTheServiceComplaintCategoryAccordion();
             waitABit(1000);
             complaintsRegistrationAndDataInput.selectAVisibleClaimCategory();
             complaintsRegistrationAndDataInput.selectAnOwningCSU();
         }
-        clickTheButton("Finish");
+        clickFinishButton();
     }
 
     public void moveCaseFromTriageToDraft() {
@@ -167,16 +168,16 @@ public class COMPProgressCase extends BasePage {
         if (!complaintType.equalsIgnoreCase("SERVICE")) {
             complaintsTriageAndInvestigation.enterDateOfAcceptance();
         }
-        clickTheButton("Continue");
-        waitForPageWithTitle("Complaint Category");
+        clickContinueButton();
+        waitForDECSPageWithTitle("Complaint Category");
         complaintsTriageAndInvestigation.enterDetailsOnComplaintCategoryPage();
-        clickTheButton("Continue");
-        waitForPageWithTitle("Triage Case Details");
-        clickTheButton("Continue");
-        waitForPageWithTitle("Triage Capture Reason");
+        clickContinueButton();
+        waitForDECSPageWithTitle("Triage Case Details");
+        clickContinueButton();
+        waitForDECSPageWithTitle("Triage Capture Reason");
         complaintsTriageAndInvestigation.enterDetailsOnTriageCaptureReasonPage();
-        clickTheButton("Continue");
-        waitForPageWithTitle("Triage Contributions");
+        clickContinueButton();
+        waitForDECSPageWithTitle("Triage Contributions");
         if(sessionVariableCalled("isLoARequired").equals("Yes")) {
             complaintsTriageAndInvestigation.enterLoAReceivedDetails();
         }
@@ -188,15 +189,15 @@ public class COMPProgressCase extends BasePage {
         if (!complaintType.equalsIgnoreCase("SERVICE")) {
             complaintsTriageAndInvestigation.enterDateOfAcceptance();
         }
-        clickTheButton("Continue");
-        waitForPageWithTitle("Complaint Category");
+        clickContinueButton();
+        waitForDECSPageWithTitle("Complaint Category");
         complaintsTriageAndInvestigation.enterDetailsOnComplaintCategoryPage();
-        clickTheButton("Continue");
-        waitForPageWithTitle("Triage Case Details");
-        clickTheButton("Continue");
-        waitForPageWithTitle("Triage Capture Reason");
+        clickContinueButton();
+        waitForDECSPageWithTitle("Triage Case Details");
+        clickContinueButton();
+        waitForDECSPageWithTitle("Triage Capture Reason");
         complaintsTriageAndInvestigation.enterDetailsOnTriageCaptureReasonPage();
-        clickTheButton("Continue");
+        clickContinueButton();
         complaintsTriageAndInvestigation.escalateCaseToWFM();
     }
 
@@ -226,19 +227,19 @@ public class COMPProgressCase extends BasePage {
     public void generateCOMPSearchCaseData(String infoValue, String infoType) {
         switch (infoType.toUpperCase()) {
             case "CASE TYPE":
-                createCase.createCSCaseOfType(infoValue);
+                createCase.createCSCaseOfTypeWithDocument(CaseType.valueOf(infoValue));
                 break;
             case "CORRESPONDENT FULL NAME":
             case "CORRESPONDENT POSTCODE":
             case "CORRESPONDENT EMAIL ADDRESS":
-                createCase.createCSCaseOfType("COMP");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.COMP);
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
                 correspondents.confirmPrimaryCorrespondent();
                 break;
             case "COMPLAINANT DATE OF BIRTH":
-                createCase.createCSCaseOfType("COMP");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.COMP);
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
@@ -248,21 +249,21 @@ public class COMPProgressCase extends BasePage {
                 complaintsRegistrationAndDataInput.enterACompanyName();
                 complaintsRegistrationAndDataInput.enterAHomeOfficeReference("Test entry for Home Office Reference");
                 complaintsRegistrationAndDataInput.enterAPortReference();
-                safeClickOn(continueButton);
+                clickContinueButton();
                 complaintsRegistrationAndDataInput.selectASpecificComplaintType("Service");
                 complaintsRegistrationAndDataInput.selectAComplaintChannel();
                 complaintsRegistrationAndDataInput.selectASeverity();
-                safeClickOn(continueButton);
+                clickContinueButton();
                 complaintsRegistrationAndDataInput.openTheServiceComplaintCategoryAccordion();
                 complaintsRegistrationAndDataInput.selectAVisibleClaimCategory();
                 complaintsRegistrationAndDataInput.selectAnOwningCSU();
-                safeClickOn(finishButton);
+                clickFinishButton();
                 break;
             case "CASE REFERENCE":
-                createCase.createCSCaseOfType("COMP");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.COMP);
                 break;
             case "COMPLAINANT HOME OFFICE REFERENCE":
-                createCase.createCSCaseOfType("COMP");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.COMP);
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
@@ -272,10 +273,10 @@ public class COMPProgressCase extends BasePage {
                 complaintsRegistrationAndDataInput.enterACompanyName();
                 complaintsRegistrationAndDataInput.enterAHomeOfficeReference(infoValue);
                 complaintsRegistrationAndDataInput.enterAPortReference();
-                safeClickOn(continueButton);
+                clickContinueButton();
                 break;
             case "ALL":
-                createCase.createCSCaseOfType("COMP");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.COMP);
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
@@ -285,7 +286,7 @@ public class COMPProgressCase extends BasePage {
                 complaintsRegistrationAndDataInput.enterACompanyName();
                 complaintsRegistrationAndDataInput.enterAHomeOfficeReference("Test entry for HO Reference");
                 complaintsRegistrationAndDataInput.enterAPortReference();
-                safeClickOn(continueButton);
+                clickContinueButton();
                 break;
             default:
                 pendingStep(infoType + " is not defined within " + getMethodName());

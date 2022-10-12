@@ -21,12 +21,12 @@ public class NilOfferAcceptance extends BasePage {
 
     public void selectPaymentNoChallenge() {
         selectSpecificRadioButton("No response after 2 months - close case");
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
     public void selectPaymentNilOfferRejected() {
         selectSpecificRadioButton("nil payment rejected");
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
 }

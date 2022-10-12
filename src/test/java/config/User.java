@@ -32,10 +32,6 @@ public enum User {
 
     private final String allocationText;
 
-    private User currentUser;
-
-    private User previousUser;
-
     User(String username, String password, String allocationText) {
         this.username = username;
         this.password = password;

@@ -21,6 +21,6 @@ public class DispatchStepDefs extends BasePage {
     @And("I confirm the case is completed")
     public void iConfirmTheCaseIsCompleted() {
         selectTheStageAction("Complete case");
-        clickTheButton("Finish");
+        clickFinishButton();
     }
 }

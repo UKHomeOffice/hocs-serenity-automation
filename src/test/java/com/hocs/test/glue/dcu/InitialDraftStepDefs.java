@@ -38,7 +38,7 @@ public class InitialDraftStepDefs extends BasePage {
             default:
                 pendingStep(method + " is not defined within " + getMethodName());
         }
-        jsClickOn(continueButton);
+        clickContinueButton();
     }
 
     @When("I select a case {string} be answered by my team")
@@ -53,25 +53,25 @@ public class InitialDraftStepDefs extends BasePage {
             default:
                 pendingStep(decision + " is not defined within " + getMethodName());
         }
-        safeClickOn(initialDraft.continueButton);
+        clickContinueButton();
     }
 
     @When("I complete the call details")
     public void iTheCallDetails() {
         initialDraft.enterCallSummary();
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     @And("I select {string} to choosing another Response Type")
     public void iSelectToChoosingAnotherResponseType(String yesNo) {
         initialDraft.selectIfAnotherResponseTypeRequired(yesNo);
-        safeClickOn(finishButton);
+        clickFinishButton();
     }
 
     @And("I record who on my Team completed the offline QA Approval")
     public void iRecordWhoOnMyTeamCompletedTheOfflineQAApproval() {
         initialDraft.selectAOfflineQAIndividual();
-        clickTheButton("Finish");
+        clickFinishButton();
     }
 
     @And("the case should be assigned to the DCU draft team created in Management UI")
@@ -90,13 +90,13 @@ public class InitialDraftStepDefs extends BasePage {
     @And("I select that the QA Process should be completed on DECS")
     public void iSelectThatTheQAProcessShouldBeCompletedOnDECS() {
         initialDraft.selectQAOfflineDecision("No");
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     @And("I select that the QA Process has been completed offline")
     public void iSelectThatTheQAProcessHasBeenCompletedOffline() {
         initialDraft.selectQAOfflineDecision("Yes");
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     @And("the case should now be owned be the correct Private Office team")
@@ -109,9 +109,9 @@ public class InitialDraftStepDefs extends BasePage {
     @And("I reject the case at the Initial Draft stage")
     public void iRejectTheCaseAtTheInitialDraftStage() {
         initialDraft.selectIfCaseCanBeAnsweredByTeam("No");
-        safeClickOn(continueButton);
+        clickContinueButton();
         initialDraft.enterReasonTeamCannotAnswer();
-        safeClickOn(finishButton);
+        clickFinishButton();
     }
 
     @Then("the document added through MUI should be displayed in the list of available standard line documents")

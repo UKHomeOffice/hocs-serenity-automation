@@ -40,12 +40,12 @@ public class CCH extends BasePage {
                 recordCaseData.selectSpecificRadioButton("Minor Misconduct");
                 break;
             case "COMPLETE THE CASE":
-                recordCaseData.selectSpecificRadioButton("Complete the case");
+                recordCaseData.selectSpecificRadioButton("Complete the case (close permanently)");
                 break;
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
         }
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     public void submitReasonForCaseCompletion() {
@@ -56,6 +56,6 @@ public class CCH extends BasePage {
 
     public void selectActionAtCompleteConfirmation(String action) {
         selectSpecificRadioButton(action);
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 }

@@ -120,19 +120,19 @@ public class Markup extends BasePage {
         clickAddTopicLink();
         selectSpecificOptionFromTypeaheadWithHeading(topic, "Topic");
         waitABit(1000);
-        safeClickOn(addButton);
+        clickAddButton();
     }
 
     public void selectPrimaryTopic(String topic) {
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(topic, "Which is the primary topic?");
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     public void confirmPrimaryTopic() {
         WebElementFacade selectedPrimaryTopic = findBy("//input[@name='Topics'][@checked]/following-sibling::label");
         selectedPrimaryTopic.waitUntilVisible();
         recordCaseData.addHeadingAndValueRecord("Which is the primary topic?", selectedPrimaryTopic.getText());
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     public void confirmInitialDraftAndOrPrivateOfficeTeam() {
@@ -142,7 +142,7 @@ public class Markup extends BasePage {
         if(defaultPrivateOfficeTeam.isCurrentlyVisible()) {
             recordCaseData.addHeadingAndValueRecord("Private Office Team", defaultPrivateOfficeTeam.getValue());
         }
-        clickTheButton("Finish");
+        clickFinishButton();
     }
 
     public void recordDefaultTeamsForTopic() {

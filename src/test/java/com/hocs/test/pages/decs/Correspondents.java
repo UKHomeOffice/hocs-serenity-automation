@@ -1,91 +1,21 @@
 package com.hocs.test.pages.decs;
 
-import static jnr.posix.util.MethodName.getMethodName;
-import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import java.time.Duration;
-import java.util.List;
-import java.util.Random;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
-import org.openqa.selenium.Keys;
 
 public class Correspondents extends BasePage {
 
     RecordCaseData recordCaseData;
 
-    @FindBy(linkText = "Add a correspondent")
-    public WebElementFacade addACorrespondentLink;
-
-    @FindBy(xpath = "//div[@id='isMember-radios']//label[text()='No']")
-    public WebElementFacade correspondentMemberNoRadioButton;
-
-    @FindBy(xpath = "//div[@id='isMember-radios']//label[text()='Yes']")
-    public WebElementFacade correspondentMemberYesRadioButton;
-
-    @FindBy(xpath = "//label[text()='Member']/following-sibling::div//input")
-    private WebElementFacade selectMPDropdown;
-
-    @FindBy(id = "reference")
-    private WebElementFacade correspondenceCaseReference;
-
-    @FindBy(id = "type")
-    private WebElementFacade correspondentTypeDropdown;
-
-    @FindBy(id = "fullname")
-    public WebElementFacade correspondentFullNameField;
-
-    @FindBy(id = "address1")
-    public WebElementFacade correspondentBuildingField;
-
-    @FindBy(id = "address2")
-    public WebElementFacade correspondentStreetField;
-
-    @FindBy(id = "address3")
-    public WebElementFacade correspondentTownOrCityField;
-
-    @FindBy(id = "postcode")
-    public WebElementFacade correspondentPostcodeField;
-
-    @FindBy(id = "country")
-    public WebElementFacade correspondentCountryDropdown;
-
-    @FindBy(id = "telephone")
-    public WebElementFacade correspondentTelephoneField;
-
-    @FindBy(id = "email")
-    public WebElementFacade correspondentEmailField;
-
-    @FindBy(xpath = "//input[@name='Correspondents'][@checked]/following-sibling::label")
-    private WebElementFacade primaryCorrespondentName;
-
-    @FindBy(xpath = "//input[@name='Correspondents'][not(@checked)]/following-sibling::label")
-    private WebElementFacade secondaryCorrespondentName;
-
-    @FindBy(xpath = "//a[text()='The correspondent type must be provided']")
-    public WebElementFacade correspondentTypeMustBeProvidedErrorMessage;
-
-    @FindBy(xpath = "//a[text()='Member is required']")
-    public WebElementFacade memberIsRequiredErrorMessage;
-
-    @FindBy(xpath = "//a[text()='The correspondent must have a type']")
-    public WebElementFacade correspondentMustHaveATypeErrorMessage;
-
-    @FindBy(xpath = "//a[contains(@href, '#fullname-error')]")
-    public WebElementFacade correspondentNameMustBeEnteredErrorMessage;
-
-    @FindBy(xpath = "//a[text()='Remove']")
-    public WebElementFacade removeCorrespondentHyperText;
-
-    @FindBy(xpath = "//a[text()='Edit']")
-    public WebElementFacade editCorrespondentHyperText;
+    String correspondenceReference = "Ref-ABCD-1234";
 
     private void selectAddACorrespondentLink() {
-        safeClickOn(addACorrespondentLink);
+        clickTheLink("Add a");
     }
 
     public void selectToAddACorrespondent() {
@@ -112,7 +42,7 @@ public class Correspondents extends BasePage {
             waitABit(2000);
             selectCorrespondentIsMPRadioButton();
         }
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     public void selectCorrespondentIsNotMP() {
@@ -122,7 +52,7 @@ public class Correspondents extends BasePage {
             waitABit(2000);
             selectCorrespondentNotMPRadioButton();
         }
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     public void enterCorrespondentFullName(String fullName) {
@@ -130,12 +60,12 @@ public class Correspondents extends BasePage {
         setSessionVariable("correspondentFullName").to(fullName);
     }
 
-    public void enterCorrespondentBuilding(String building) {
+    public void enterCorrespondentAddressLine1(String building) {
         enterSpecificTextIntoTextFieldWithHeading(building, "Address line 1");
         setSessionVariable("correspondentBuilding").to(building);
     }
 
-    public void enterCorrespondentStreet(String street) {
+    public void enterCorrespondentAddressLine2(String street) {
         enterSpecificTextIntoTextFieldWithHeading(street, "Address line 2");
         setSessionVariable("correspondentStreet").to(street);
     }
@@ -190,16 +120,12 @@ public class Correspondents extends BasePage {
     }
 
     public String getPrimaryCorrespondent() {
-        return primaryCorrespondentName.getText();
+        return getCurrentlySelectedRadioButtonFromGroupWithHeading("Which is the primary correspondent?");
     }
 
-    public String getSecondaryCorrespondent() {
-        return secondaryCorrespondentName.getText();
-    }
-
-    public void setSecondCorrespondentAsPrimaryCorrespondent() {
-        setSessionVariable("primaryCorrespondent").to(secondaryCorrespondentName.getText());
-        safeClickOn(secondaryCorrespondentName);
+    public void selectDifferentPrimaryCorrespondent() {
+        String newPrimaryCorrespondent = selectDifferentRadioButtonFromGroupWithHeading("Which is the primary correspondent?");
+        setSessionVariable("primaryCorrespondent").to(newPrimaryCorrespondent);
     }
 
     public void fillCorrespondentFields() {
@@ -207,29 +133,32 @@ public class Correspondents extends BasePage {
         if (toCase() || foiCase()) {
             enterCorrespondentOrganisation();
         }
-        enterCorrespondentBuilding("1 Test House");
-        enterCorrespondentStreet("Test Road");
+        enterCorrespondentAddressLine1("1 Test House");
+        enterCorrespondentAddressLine2("Test Road");
         enterCorrespondentTownOrCity("Test Town");
         enterCorrespondentPostcode("AB1 2CD");
         selectACorrespondentCountry();
         enterCorrespondentTelephoneNumber("01234 567890");
         enterCorrespondentEmailAddress("SamMcTester@Test.com");
-        enterCorrespondenceReference("Ref-ABCD-1234");
+        enterCorrespondenceReference(correspondenceReference);
     }
 
     public void fillMandatoryCorrespondentFieldsForSecondaryContact() {
-        selectCorrespondentTypeFromDropdown("Correspondent");
+        selectASpecificCorrespondentType("Correspondent");
         enterCorrespondentFullName("Sam McTester");
         setSessionVariable("secondCorrespondentFullName").to("Sam McTester");
-        enterCorrespondentBuilding("1 Test House");
-        enterCorrespondentStreet("Test Road");
+        enterCorrespondentAddressLine1("1 Test House");
+        enterCorrespondentAddressLine2("Test Road");
         enterCorrespondentTownOrCity("Test Town");
         enterCorrespondentPostcode("AB1 2CD");
     }
 
-    public void selectCorrespondentTypeFromDropdown(String correspondentType) {
-        correspondentTypeDropdown.waitUntilVisible();
-        correspondentTypeDropdown.selectByVisibleText(correspondentType);
+    public void selectACorrespondentType() {
+        selectRandomOptionFromDropdownWithHeading("Correspondent Type");
+    }
+
+    public void selectASpecificCorrespondentType(String correspondentType) {
+        selectSpecificOptionFromDropdownWithHeading(correspondentType, "Correspondent Type");
     }
 
     public void selectSpecificMemberOfParliament(String member) {
@@ -248,7 +177,7 @@ public class Correspondents extends BasePage {
         selectToAddACorrespondent();
         selectCorrespondentIsMP();
         selectSpecificMemberOfParliament(member);
-        correspondentTypeDropdown.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
+        waitForDECSPageWithTitle("Member Details");
         clickAddButton();
     }
 
@@ -256,7 +185,7 @@ public class Correspondents extends BasePage {
         selectToAddACorrespondent();
         selectCorrespondentIsMP();
         selectRandomMemberOfParliament();
-        correspondentTypeDropdown.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
+        waitForDECSPageWithTitle("Member Details");
         clickAddButton();
     }
 
@@ -265,29 +194,34 @@ public class Correspondents extends BasePage {
         if (!complaintCase() && !toCase()) {
             selectCorrespondentIsNotMP();
         }
-        selectCorrespondentTypeFromDropdown(correspondentType);
+        if (correspondentType.equalsIgnoreCase("NON-MEMBER")) {
+            selectACorrespondentType();
+        } else {
+            selectASpecificCorrespondentType(correspondentType);
+        }
         fillCorrespondentFields();
         clickAddButton();
     }
 
-    public void addAPublicCorrespondentWithAReferenceNumber(String refNumber) {
+    public void addANonMemberCorrespondentWithASpecificReferenceNumber(String refNumber) {
+        this.correspondenceReference = refNumber;
+        addANonMemberCorrespondentOfType("Non-member");
         setSessionVariable("correspondentReferenceNumber").to(refNumber);
-        selectToAddACorrespondent();
-        selectCorrespondentIsNotMP();
-        selectCorrespondentTypeFromDropdown("Constituent");
-        fillCorrespondentFields();
-        enterCorrespondenceReference(refNumber);
-        clickAddButton();
     }
 
-    public void removePrimaryCorrespondent() {
-        safeClickOn(removeCorrespondentHyperText);
+    public void removeACorrespondent() {
+        clickTheLink("Remove");
+        clickTheButton("Remove");
+    }
+
+    public void removeASpecificCorrespondent(String correspondent) {
+        WebElementFacade correspondentSpecificRemoveLink = findBy("//label[contains(text(), '" + correspondent + "')]/ancestor::tr//a[text()='Remove']");
+        safeClickOn(correspondentSpecificRemoveLink);
         clickTheButton("Remove");
     }
 
     public void editPrimaryCorrespondent() {
-        safeClickOn(editCorrespondentHyperText);
-        correspondentFullNameField.clear();
+        clickTheLink("Edit");
         enterCorrespondentFullName("Edited Correspondent-" + generateRandomString());
         clickTheButton("Save");
     }
@@ -295,55 +229,45 @@ public class Correspondents extends BasePage {
     public void confirmPrimaryCorrespondent() {
         WebElementFacade selectedPrimaryCorrespondent = findBy("//input[@name='Correspondents'][@checked]/following-sibling::label");
         selectedPrimaryCorrespondent.waitUntilVisible();
-        recordCaseData.addHeadingAndValueRecord("Which is the primary correspondent?", selectedPrimaryCorrespondent.getText());
-        setSessionVariable("primaryCorrespondent").to(selectedPrimaryCorrespondent.getText());
+        String primaryCorrespondentsName = selectedPrimaryCorrespondent.getText();
+        recordCaseData.addHeadingAndValueRecord("Which is the primary correspondent?", primaryCorrespondentsName);
+        setSessionVariable("primaryCorrespondent").to(primaryCorrespondentsName);
         if (dcuCase()) {
-            clickTheButton("Finish");
+            clickFinishButton();
         }
         if (mpamCase()) {
             clickTheButton("Move to Triage");
         }
         if (mtsCase() | complaintCase() | toCase()) {
-            clickTheButton("Continue");
+            clickContinueButton();
         }
     }
 
-    public void assertAddACorrespondentLinkIsDisplayed() {
-        waitFor(addACorrespondentLink);
-        assert (addACorrespondentLink.isDisplayed());
+    public void assertAddACorrespondentLinkIsVisible() {
+        assertLinkIsVisible("Add a");
     }
 
-    public void assertPageTitle() {
-        assertPageTitle("Record Correspondent Details");
-    }
-
-    public void assertPrimaryCorrespondent() {
-        String expectedPrimaryCorrespondent = sessionVariableCalled("correspondentFullName");
-        assertThat(getPrimaryCorrespondent(), is(expectedPrimaryCorrespondent));
-    }
-
-    public void assertSecondaryCorrespondent() {
-        String expectedSecondaryCorrespondent = sessionVariableCalled("secondCorrespondentFullName");
-        assertThat(getSecondaryCorrespondent(), is(expectedSecondaryCorrespondent));
+    public void assertPrimaryCorrespondentIs(String expectedPrimaryCorrespondentName) {
+        assertThat(getPrimaryCorrespondent(), is(expectedPrimaryCorrespondentName));
     }
 
     public void assertCorrespondentTypeMustBeSelectedErrorMessage() {
-        correspondentTypeMustBeProvidedErrorMessage.shouldContainText("The correspondent type must be provided");
+        assertExpectedErrorMessageIsDisplayed("The correspondent type must be provided");
     }
 
     public void assertMemberIsRequiredErrorMessage() {
-        memberIsRequiredErrorMessage.shouldContainText("Member is required");
+        assertExpectedErrorMessageIsDisplayed("Member is required");
     }
 
     public void assertCorrespondentTypeDropDownErrorMessage() {
-        correspondentMustHaveATypeErrorMessage.shouldContainText("The correspondent must have a type");
+        assertExpectedErrorMessageIsDisplayed("The correspondent must have a type");
     }
 
     public void assertCorrespondentFullNameErrorMessage() {
-        correspondentNameMustBeEnteredErrorMessage.shouldContainText("The correspondent's full name is required");
+        assertExpectedErrorMessageIsDisplayed("The correspondent's full name is required");
     }
 
     public void assertNoPrimaryCorrespondentDisplayed() {
-        assertThat(removeCorrespondentHyperText.isVisible(), is(false));
+        assertThat(linkIsCurrentlyVisible("Edit"), is(false));
     }
 }

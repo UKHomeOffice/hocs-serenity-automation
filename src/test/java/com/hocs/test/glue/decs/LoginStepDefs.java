@@ -15,6 +15,8 @@ import static config.User.WCS_USER;
 
 import com.hocs.test.pages.MuiLoginPage;
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.CaseView;
+import com.hocs.test.pages.decs.ConfirmationScreens;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.LoginPage;
@@ -46,6 +48,10 @@ public class LoginStepDefs extends BasePage {
     Workstacks workstacks;
 
     CreateCase createCase;
+
+    ConfirmationScreens confirmationScreens;
+
+    CaseView caseView;
 
     User targetUser;
 
@@ -129,7 +135,7 @@ public class LoginStepDefs extends BasePage {
         targetUser = User.valueOf(user);
         loginPage.enterUsername(targetUser.getUsername());
         loginPage.enterPassword(targetUser.getPassword());
-        safeClickOn(loginPage.continueButton);
+        clickContinueButton();
         setCurrentUser(targetUser);
     }
 
@@ -141,7 +147,7 @@ public class LoginStepDefs extends BasePage {
     @When("I enter invalid login credentials on the login screen")
     public void enterInvalidLoginCredentials() {
         loginPage.enterLoginDetails(FAKE);
-        safeClickOn(loginPage.continueButton);
+        clickContinueButton();
     }
 
     @Then("an error message should be displayed as the credentials are invalid")
@@ -159,7 +165,7 @@ public class LoginStepDefs extends BasePage {
         if (currentPlatform.contains("Management UI")){
             safeClickOn(muiDashboard.logoutButton);
         } else {
-            safeClickOn(dashboard.logoutButton);
+            clickTheLink("Logout");
         }
         loginPage.usernameField.waitUntilVisible();
 
@@ -169,13 +175,13 @@ public class LoginStepDefs extends BasePage {
     public void loginAsDifferentUserAfterLogout(String user) {
         loginPage.enterUsername(User.valueOf(user).getUsername());
         loginPage.enterPassword(User.valueOf(user).getPassword());
-        safeClickOn(loginPage.continueButton);
+        clickContinueButton();
     }
 
     @And("I am prompted to log in")
     public void iAmPromptedToLogIn() {
         if (!isElementDisplayed($(loginPage.usernameField))) {
-            safeClickOn(dashboard.logoutButton);
+            clickTheLink("Logout");
             navigateToPlatform(currentPlatform);
         }
     }
@@ -210,8 +216,9 @@ public class LoginStepDefs extends BasePage {
             dashboard.selectMyCases();
             if (workstacks.getTotalOfCases() == 0) {
                 if (currentPlatform.equals("CS")){
-                createCase.createCSCaseOfType("CS");
-                dashboard.getAndClaimCurrentCase();
+                createCase.createCSCaseOfTypeWithDocument(createCase.getRandomCSCaseType());
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();
                 }
                 else if (currentPlatform.equals("WCS")) {
                     createCase.createWCSCase();

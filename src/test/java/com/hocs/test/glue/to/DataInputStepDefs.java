@@ -25,20 +25,20 @@ public class DataInputStepDefs extends BasePage {
     @And("I choose to not add a recipient")
     public void iChooseToNotAddARecipient() {
         dataInput.selectWhetherToAddRecipient("No");
-        clickTheButton("Continue");
+        clickContinueButton();
     }
 
     @When("I add a Recipient to the case")
     public void iAddARecipientTypeRecipient() {
         dataInput.selectWhetherToAddRecipient("Yes");
         dataInput.selectARecipient();
-        clickTheButton("Continue");
+        clickContinueButton();
     }
 
     @And("I select whether the Home Secretary has an interest in the case")
     public void iSelectWhetherTheHomeSecretaryHasAnInterestInTheCase() {
         dataInput.selectAHomeSecInterestOption();
-        clickTheButton("Continue");
+        clickContinueButton();
     }
 
     @And("I add the newly created recipient to the case")
@@ -46,6 +46,6 @@ public class DataInputStepDefs extends BasePage {
         String recipient = sessionVariableCalled("recipientName");
         dataInput.selectWhetherToAddRecipient("Yes");
         dataInput.selectSpecificRecipient(recipient);
-        clickTheButton("Continue");
+        clickContinueButton();
     }
 }

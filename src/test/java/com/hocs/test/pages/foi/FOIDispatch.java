@@ -15,8 +15,8 @@ public class FOIDispatch extends BasePage {
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(response, "Are you sure you want to dispatch this case?");
     }
 
-    public void selectASpecificCaseType(String caseType) {
-        recordCaseData.selectSpecificOptionFromDropdownWithHeading( caseType,"What type of case is this?");
+    public void selectASpecificFOIOutcomeCaseType(String foiOutcomeCaseType) {
+        recordCaseData.selectSpecificOptionFromDropdownWithHeading( foiOutcomeCaseType,"What type of case is this?");
     }
 
     public void selectACaseType() {

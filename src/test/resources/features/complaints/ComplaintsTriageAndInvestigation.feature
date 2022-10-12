@@ -305,9 +305,8 @@ Feature: Complaints Triage
   @ComplaintsWorkflow @IEDETRegression @IEDETComplaints
   Scenario Outline: User completes the Triage stage for an IEDET complaint case
     Given I am logged into "CS" as user "IEDET_USER"
-    When I create a "IEDET" case and move it to the "Triage" stage
-    And I load and claim the current case
-    And I select "Service" as the Complaint Type
+    And I get an "IEDET" case at the "Triage" stage
+    When I select "Service" as the Complaint Type
     And I select a "Service" Complaint Category
     And I enter the complaint details on the Complaint Input page
     And I click the "Continue" button
@@ -321,14 +320,18 @@ Feature: Complaints Triage
       | IE Detention compliance team |
       | DEPMU                        |
 
-  # Expected failure. Defect HOCS-5635 raised.
   @ComplaintsWorkflow @IEDETRegression @IEDETComplaints
   Scenario: User can transfer a IEDET complaints case to CCH
     Given I am logged into "CS" as user "IEDET_USER"
-    When I create a "IEDET" case and move it to the "Triage" stage
-    And I load and claim the current case
+    And I get an "IEDET" case at the "Triage" stage
+    When I select "Service" as the Complaint Type
+    And I select a "Service" Complaint Category
+    And I enter the complaint details on the Complaint Input page
+    And I click the "Continue" button
     And I select the "Send to CCH" action for an IEDET case at the Triage stage
     Then the case should be closed
+    And the read-only Case Details accordion should contain all case information entered during the "Triage" stage
+    And a Case Transfer note should be visible in the timeline showing the submitted reason for transferring the case
 
 
 #     BF COMPLAINTS

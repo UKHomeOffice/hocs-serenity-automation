@@ -58,6 +58,6 @@ public class ComplaintsDraftStepDefs extends BasePage {
     public void iSubmitDetailsOfTheCall() {
         complaintsDraft.enterDateOfPhoneCall();
         complaintsDraft.enterDetailsOfPhoneCall();
-        clickTheButton("Continue");
+        clickContinueButton();
     }
 }

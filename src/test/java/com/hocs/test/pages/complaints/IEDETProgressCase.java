@@ -11,6 +11,7 @@ import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
+import config.CaseType;
 
 public class IEDETProgressCase extends BasePage {
 
@@ -35,7 +36,7 @@ public class IEDETProgressCase extends BasePage {
     public void moveCaseFromCurrentStageToTargetStage(String currentStage, String targetStage) {
         String precedingStage = getStageThatPrecedesTargetStage(targetStage);
         if (precedingStage.equals("CREATE NEW CASE")) {
-            createCase.createCSCaseOfType("IEDET");
+            createCase.createCSCaseOfTypeWithDocument(CaseType.IEDET);
             dashboard.goToDashboard();
         } else {
             if (!precedingStage.equalsIgnoreCase(currentStage)) {
@@ -113,21 +114,21 @@ public class IEDETProgressCase extends BasePage {
     public void moveIEDETCaseFromTriageToDraft() {
         complaintsRegistrationAndDataInput.selectASpecificComplaintType("Service");
         complaintsRegistrationAndDataInput.selectAVisibleClaimCategory();
-        clickTheButton("Continue");
+        clickContinueButton();
         complaintsRegistrationAndDataInput.selectComplaintOrigin();
         complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
         complaintsRegistrationAndDataInput.enterAThirdPartyReference();
-        clickTheButton("Continue");
+        clickContinueButton();
         complaintsTriageAndInvestigation.selecIEDetentionComplianceTeam();
         complaintsTriageAndInvestigation.selectIEDETBusinessArea();
-        clickTheButton("Finish");
+        clickFinishButton();
         System.out.println("Case moved from Triage to Draft");
     }
 
     private void moveIEDETCaseFromTriageToPSURegistration() {
         complaintsRegistrationAndDataInput.selectASpecificComplaintType("Serious misconduct");
         complaintsTriageAndInvestigation.selectIEDETClaimCategory("Serious misconduct");
-        clickTheButton("Continue");
+        clickContinueButton();
         complaintsRegistrationAndDataInput.selectComplaintOrigin();
         complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
         complaintsRegistrationAndDataInput.enterAThirdPartyReference();
@@ -151,19 +152,19 @@ public class IEDETProgressCase extends BasePage {
         switch (infoType.toUpperCase()) {
             case "CASE TYPE":
             case "CASE REFERENCE":
-                createCase.createCSCaseOfType("IEDET");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.IEDET);
                 break;
             case "CORRESPONDENT FULL NAME":
             case "CORRESPONDENT POSTCODE":
             case "CORRESPONDENT EMAIL ADDRESS":
-                createCase.createCSCaseOfType("IEDET");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.IEDET);
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
                 correspondents.confirmPrimaryCorrespondent();
                 break;
             case "COMPLAINANT DATE OF BIRTH":
-                createCase.createCSCaseOfType("IEDET");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.IEDET);
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
@@ -174,10 +175,10 @@ public class IEDETProgressCase extends BasePage {
                 complaintsRegistrationAndDataInput.enterACompanyName();
                 complaintsRegistrationAndDataInput.enterAHomeOfficeReference(getCurrentMonth() +"/" + getCurrentYear());
                 complaintsRegistrationAndDataInput.enterAPortReference();
-                clickTheButton("Finish");
+                clickFinishButton();
                 break;
             case "COMPLAINANT HOME OFFICE REFERENCE":
-                createCase.createCSCaseOfType("IEDET");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.IEDET);
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
@@ -188,10 +189,10 @@ public class IEDETProgressCase extends BasePage {
                 complaintsRegistrationAndDataInput.enterACompanyName();
                 complaintsRegistrationAndDataInput.enterAHomeOfficeReference(infoValue);
                 complaintsRegistrationAndDataInput.enterAPortReference();
-                clickTheButton("Finish");
+                clickFinishButton();
                 break;
             case "ALL":
-                createCase.createCSCaseOfType("IEDET");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.IEDET);
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
@@ -202,7 +203,7 @@ public class IEDETProgressCase extends BasePage {
                 complaintsRegistrationAndDataInput.enterACompanyName();
                 complaintsRegistrationAndDataInput.enterAHomeOfficeReference("Test entry for HO Reference");
                 complaintsRegistrationAndDataInput.enterAPortReference();
-                clickTheButton("Finish");
+                clickFinishButton();
                 dashboard.goToDashboard();
                 break;
             default:

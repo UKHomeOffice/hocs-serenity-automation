@@ -24,9 +24,9 @@ public class StopListStepDefs extends BasePage {
     @And("I place the case on a stop list")
     public void iPlaceTheCaseOnAStopList() {
         selectTheStageAction("Place on a stop list");
-        clickTheButton("Finish");
+        clickFinishButton();
         stopList.selectAStopList();
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
     @And("the Case Details accordion should contain the selected stop list")
@@ -38,21 +38,21 @@ public class StopListStepDefs extends BasePage {
     @When("I select to take the case off of the stop list and move it to triage")
     public void iSelectToMoveTheCaseToTriage() {
         selectTheStageAction("Take out of Stop List, move to triage");
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
     @When("I select to take the case off of the stop list and move it to draft")
     public void iSelectToMoveTheCaseToDraft() {
         selectTheStageAction("Take out of Stop List, move to draft");
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
     @And("I put the case onto the new stop list")
     public void iPutTheCaseIntoTheNewCampaign() {
         selectTheStageAction("Place on a stop lis");
-        clickTheButton("Finish");
+        clickFinishButton();
         stopList.selectASpecificStopList(sessionVariableCalled("newStopList"));
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
     @Then("the case should have been put onto the new stop list")

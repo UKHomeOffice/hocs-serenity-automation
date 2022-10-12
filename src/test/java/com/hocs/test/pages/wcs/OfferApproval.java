@@ -24,16 +24,16 @@ public class OfferApproval extends BasePage {
 
     public void selectPaymentOfferApproved(){
         selectSpecificRadioButton("Offer approved");
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
     public void returnToCaseworkTeam() {
         selectSpecificRadioButton("Return to casework");
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
     public void returnToQa() {
         selectSpecificRadioButton("Return to QA for corrections");
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 }

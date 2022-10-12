@@ -74,7 +74,7 @@ public class ActionsTab extends BasePage {
         if (option.equalsIgnoreCase("YES")) {
             enterTextIntoTextAreaWithHeading("Reason");
         }
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     public void addAnAppealToTheCase() {
@@ -166,7 +166,7 @@ public class ActionsTab extends BasePage {
 
     public void suspendTheCase() {
         clickTheLink("Suspend this case");
-        waitForPageWithTitle("Case Suspension");
+        waitForDECSPageWithTitle("Case Suspension");
         clickTheButton("Suspend case");
     }
 
@@ -180,7 +180,7 @@ public class ActionsTab extends BasePage {
 
     public void removeSuspensionFromTheCase() {
         clickTheLink("Remove the current suspension");
-        waitForPageWithTitle("Remove Suspension");
+        waitForDECSPageWithTitle("Remove Suspension");
         clickTheButton("Remove case suspension");
     }
 

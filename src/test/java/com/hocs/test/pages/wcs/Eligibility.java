@@ -7,7 +7,6 @@ import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.RecordCaseData;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
-import net.thucydides.core.webdriver.exceptions.ElementShouldBeEnabledException;
 
 public class Eligibility extends BasePage {
 
@@ -25,29 +24,29 @@ public class Eligibility extends BasePage {
     public void confirmEligibility() {
         selectSpecificRadioButton("Eligible, send to next team");
         recordCaseData.addHeadingAndValueRecord("Can you confirm the claimant's eligibility", "Yes");
-        clickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void cannotConfirmEligibility() {
         selectSpecificRadioButton("Not eligible");
         recordCaseData.addHeadingAndValueRecord("Can you confirm the claimant's eligibility", "No");
-        clickOn(confirmButton);
+        clickConfirmButton();
         waitFor(rejectionReasonDropdown);
     }
 
     public void putTheClaimOnHold() {
         selectSpecificRadioButton("On hold");
-        clickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void takeTheClaimOffHold() {
         selectSpecificRadioButton("Off hold");
-        clickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void noResponseFromClaimantCloseClaim() {
         selectSpecificRadioButton("No response from claimant - close claim");
-        clickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void assertCanYouConfirmClaimantEligibilityErrorMessage() {
@@ -64,19 +63,19 @@ public class Eligibility extends BasePage {
 
     public void confirmClaimShouldBeClosed() {
         selectSpecificRadioButton("Yes - close the claim");
-        try {
-            clickOn(confirmButton);
-        } catch (ElementShouldBeEnabledException e) {
-            clickOn(continueButton);
+        if (buttonIsCurrentlyVisible("Continue")) {
+            clickContinueButton();
+        } else {
+            clickConfirmButton();
         }
     }
 
     public void selectToNotCloseTheClaim() {
         selectSpecificRadioButtonFromGroupWithHeading("No", "No response from the claimant. Close the claim?");
-        try {
-            clickOn(confirmButton);
-        } catch (ElementShouldBeEnabledException e) {
-            clickOn(continueButton);
+        if (buttonIsCurrentlyVisible("Continue")) {
+            clickContinueButton();
+        } else {
+            clickConfirmButton();
         }
     }
 }

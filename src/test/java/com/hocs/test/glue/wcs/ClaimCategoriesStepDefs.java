@@ -5,12 +5,13 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
+import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.wcs.ClaimCategories;
 import com.hocs.test.pages.wcs.ClaimSchema;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 
-public class ClaimCategoriesStepDefs {
+public class ClaimCategoriesStepDefs extends BasePage {
 
     ClaimSchema claimSchema;
 
@@ -18,7 +19,7 @@ public class ClaimCategoriesStepDefs {
 
     @And("I open the case details accordion")
     public void iOpenTheCaseDetails() {
-        claimSchema.caseDetailsAccordion.click();
+        openOrCloseAccordionSection("Case Details");
     }
 
     @And("I open the case info accordion")

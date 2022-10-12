@@ -19,7 +19,7 @@ Feature: Create case
       | MTS      | Data Input                  | Original correspondence | MTS Team                          |
       | COMP     | Registration                | To document             | Complaint Registration            |
       | COMP2    | Stage 2 Registration        | To document             | Stage 2 Complaint Registration    |
-      | IEDET    | IEDET Registration          | To document             | IE Detention                      |
+      | IEDET    | IEDET Registration          | Original complaint      | IE Detention                      |
       | FOI      | Case Creation               | Request                 | FOI Creation                      |
       | TO       | Data Input                  | Initial Correspondence  | Treat Official Creation           |
       | BF       | Case Registration           | To document             | Border Force Complaints           |
@@ -30,13 +30,13 @@ Feature: Create case
 
   @Allocation
   Scenario: A single case is allocated to the current user
-    And I create a single "CS" case
+    And I create a Correspondence System case
     When I allocate the case to myself via the successful case creation screen
     Then the case "should" be allocated to me in the summary
 
   @CSRegression @Allocation
   Scenario: A single case is allocated to another user
-    And I create a single "CS" case
+    And I create a Correspondence System case
     And I go to the case from the successful case creation screen
     When I allocate the case to another user on the case details accordion screen
     And I load the current case

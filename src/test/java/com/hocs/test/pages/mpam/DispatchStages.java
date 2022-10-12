@@ -86,7 +86,7 @@ public class DispatchStages extends BasePage {
         if (action.toUpperCase().equals("DRAFT REJECTED BY PRIVATE OFFICE")) {
             setSessionVariable("rejectionStage").to("PO");
         }
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void inputDispatchedDate(String date) {
@@ -97,36 +97,36 @@ public class DispatchStages extends BasePage {
         switch (message.toUpperCase()) {
             case "DISPATCHED DATE REQUIRED":
                 safeClickOn(dispatchedCloseCaseRadioButton);
-                safeClickOn(confirmButton);
+                clickConfirmButton();
                 break;
             case "ACTIONS REQUIRED":
                 inputDispatchedDate(getDatePlusMinusNDaysAgo(-1));
-                safeClickOn(confirmButton);
+                clickConfirmButton();
                 break;
             case "FOLLOW-UP DATE REQUIRED":
                 inputDispatchedDate(getDatePlusMinusNDaysAgo(-1));
                 safeClickOn(dispatchedFollowUpRadioButton);
-                safeClickOn(confirmButton);
+                clickConfirmButton();
                 enterFollowUpDetails("Test follow-up details");
-                safeClickOn(confirmButton);
+                clickConfirmButton();
                 break;
             case "FOLLOW-UP DETAILS REQUIRED":
                 inputDispatchedDate(getDatePlusMinusNDaysAgo(-1));
                 safeClickOn(dispatchedFollowUpRadioButton);
-                safeClickOn(confirmButton);
+                clickConfirmButton();
                 followUpDateInput(getDatePlusMinusNDaysAgo(1));
-                safeClickOn(confirmButton);
+                clickConfirmButton();
                 break;
             case "FOLLOW-UP NOT COMPLETED REASON REQUIRED":
                 inputDispatchedDate(getDatePlusMinusNDaysAgo(-1));
                 safeClickOn(dispatchedFollowUpRadioButton);
-                safeClickOn(confirmButton);
+                clickConfirmButton();
                 followUpDateInput(getDatePlusMinusNDaysAgo(1));
                 enterFollowUpDetails("Test follow-up details");
-                safeClickOn(confirmButton);
+                clickConfirmButton();
                 dashboard.getCurrentCase();
                 safeClickOn(closeFollowUpNotCompletedRadioButton);
-                safeClickOn(confirmButton);
+                clickConfirmButton();
                 safeClickOn(confirmAndCloseCaseButton);
                 break;
             default:
@@ -139,40 +139,40 @@ public class DispatchStages extends BasePage {
             case "DISPATCHED DATE REQUIRED":
                 selectAResponseChannel();
                 safeClickOn(dispatchedRadioButtonAtPrivateOffice);
-                safeClickOn(confirmButton);
+                clickConfirmButton();
                 safeClickOn(confirmAndCloseCaseButton);
                 break;
             case "ACTIONS REQUIRED":
                 selectAResponseChannel();
-                safeClickOn(confirmButton);
+                clickConfirmButton();
                 break;
             case "FOLLOW-UP DATE REQUIRED":
                 selectAResponseChannel();
                 safeClickOn(dispatchedFollowUpRadioButton);
-                safeClickOn(confirmButton);
+                clickConfirmButton();
                 inputDispatchedDate(getDatePlusMinusNDaysAgo(-1));
                 enterFollowUpDetails("Test follow-up details");
-                safeClickOn(confirmButton);
+                clickConfirmButton();
                 break;
             case "FOLLOW-UP DETAILS REQUIRED":
                 selectAResponseChannel();
                 safeClickOn(dispatchedFollowUpRadioButton);
-                safeClickOn(confirmButton);
+                clickConfirmButton();
                 inputDispatchedDate(getDatePlusMinusNDaysAgo(-1));
                 followUpDateInput(getDatePlusMinusNDaysAgo(1));
-                safeClickOn(confirmButton);
+                clickConfirmButton();
                 break;
             case "FOLLOW-UP NOT COMPLETED REASON REQUIRED":
                 selectAResponseChannel();
                 safeClickOn(dispatchedFollowUpRadioButton);
-                safeClickOn(confirmButton);
+                clickConfirmButton();
                 inputDispatchedDate(getDatePlusMinusNDaysAgo(-1));
                 followUpDateInput(getDatePlusMinusNDaysAgo(1));
                 enterFollowUpDetails("Test follow-up details");
-                safeClickOn(confirmButton);
+                clickConfirmButton();
                 dashboard.getCurrentCase();
                 safeClickOn(closeFollowUpNotCompletedRadioButton);
-                safeClickOn(confirmButton);
+                clickConfirmButton();
                 safeClickOn(confirmAndCloseCaseButton);
                 break;
             default:
@@ -182,13 +182,13 @@ public class DispatchStages extends BasePage {
 
     public void submitReasonToRejectToDraft(String rejectionReason) {
         rejectionReasonTextArea.waitUntilVisible().sendKeys(rejectionReason);
-        safeClickOn(confirmButton);
+        clickConfirmButton();
         setSessionVariable("rejectionReason").to(rejectionReason);
     }
 
     public void submitReasonToReturnToDraft(String returnReason) {
         returnReasonTextArea.sendKeys(returnReason);
-        safeClickOn(confirmButton);
+        clickConfirmButton();
         setSessionVariable("rejectionReason").to(returnReason);
     }
 

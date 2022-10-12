@@ -14,66 +14,6 @@ public class MTSDataInput extends BasePage {
 
     RecordCaseData recordCaseData;
 
-    @FindBy(id = "BusUnit")
-    public WebElementFacade businessUnitDropdown;
-
-    @FindBy(xpath = "//label[text()='Standard']")
-    private WebElementFacade standardUrgencyRadioButton;
-
-    @FindBy(xpath = "//label[text()='Priority']")
-    private WebElementFacade priorityUrgencyRadioButton;
-
-    @FindBy(xpath = "//label[text()='Immediate']")
-    private WebElementFacade immediateUrgencyRadioButton;
-
-    @FindBy(xpath = "//label[text()='Email']")
-    private WebElementFacade emailChannelReceivedRadioButton;
-
-    @FindBy(xpath = "//label[text()='Post']")
-    private WebElementFacade postChannelReceivedRadioButton;
-
-    @FindBy(xpath = "//label[text()='Phone - reply given']")
-    private WebElementFacade phoneReplyGivenChannelReceivedRadioButton;
-
-    @FindBy(xpath = "//label[text()='Phone - response required")
-    private WebElementFacade phoneResponseRequiredChannelReceivedRadioButton;
-
-    @FindBy(xpath = "//label[text()='Private office referral']")
-    private WebElementFacade privateOfficeReferralReceivedChannelRadioButton;
-
-    @FindBy(xpath = "//label[text()='Outreach']")
-    private WebElementFacade outreachChannelReceivedRadioButton;
-
-    @FindBy(xpath = "//label[text()='Person Specific']")
-    private WebElementFacade personSpecificEnquirySubjectRadioButton;
-
-    @FindBy(xpath = "//label[text()='Guidance / Policy']")
-    private WebElementFacade guidanceOrPolicyEnquirySubjectRadioButton;
-
-    @FindBy(xpath = "//label[text()='Documentation']")
-    private WebElementFacade documentationEnquirySubjectRadioButton;
-
-    @FindBy(xpath = "//label[text()='Technical']")
-    private WebElementFacade technicalEnquirySubjectRadioButton;
-
-    @FindBy(xpath = "//label[text()='Detention']")
-    private WebElementFacade detentionEnquirySubjectRadioButton;
-
-    @FindBy(xpath = "//label[contains(text(), 'HMPO Specific')]")
-    private WebElementFacade hmpoSpecificEnquirySubjectRadioButton;
-
-    @FindBy(xpath = "//label[text()='Other']")
-    private WebElementFacade otherEnquirySubjectRadioButton;
-
-    @FindBy(id = "EnquiryReason")
-    public WebElementFacade enquiryReasonDropdown;
-
-    @FindBy(xpath = "//textarea[@name='SupportNote']")
-    public WebElementFacade supportNoteTextArea;
-
-    @FindBy(xpath = "//Input[@value='Complete and Close Case']")
-    private WebElementFacade completeAndCloseCaseButton;
-
     public void selectABusinessArea() {
         recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Business Area");
     }
@@ -122,7 +62,7 @@ public class MTSDataInput extends BasePage {
         recordCaseData.selectSpecificOptionFromDropdownWithHeading(enquiryReason, "Enquiry reason");
     }
 
-    private void enterASupportNote() {
+    public void enterASupportNote() {
         String enteredText = recordCaseData.enterTextIntoTextAreaWithHeading("Note to support case");
         setSessionVariable("supportNote").to(enteredText);
     }
@@ -133,7 +73,7 @@ public class MTSDataInput extends BasePage {
 
     public void completeDataInputStageAndCloseMTSCase() {
         correspondents.addAMemberCorrespondent();
-        safeClickOn(continueButton);
+        clickContinueButton();
         selectABusinessArea();
         selectABusinessUnit();
         selectAnUrgency();
@@ -142,6 +82,6 @@ public class MTSDataInput extends BasePage {
         selectAnEnquiryReason();
         enterASupportNote();
         selectYourBusinessArea();
-        safeClickOn(completeAndCloseCaseButton);
+        clickTheButton("Complete and Close Case");
     }
 }

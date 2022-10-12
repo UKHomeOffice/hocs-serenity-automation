@@ -3,6 +3,7 @@ package com.hocs.test.pages.decs;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import config.CaseType;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -13,9 +14,9 @@ public class Workdays extends BasePage{
 
     private List<LocalDate> bankHolidays = new ArrayList<>();
 
-    private void generateBankHolidaysForCaseType(String caseType) {
+    private void generateBankHolidaysForCaseType(CaseType caseType) {
         addEnglishAndWelshBankHolidays();
-        if (caseType.equalsIgnoreCase("FOI")) {
+        if (caseType.equals(CaseType.FOI)) {
             addAdditionalScottishAndNIBankHolidays();
         }
     }
@@ -71,7 +72,7 @@ public class Workdays extends BasePage{
         return !bankHolidays.contains(inputDate);
     }
 
-    public String getDateXWorkdaysAgoForGivenCaseType(int targetAmount, String caseType) {
+    public String getDateXWorkdaysAgoForGivenCaseType(int targetAmount, CaseType caseType) {
         generateBankHolidaysForCaseType(caseType);
         int totalWorkDays = 0;
         assert totalWorkDays <= targetAmount;
@@ -86,11 +87,11 @@ public class Workdays extends BasePage{
         return targetDay.format(formatters);
     }
 
-    public String getDateXWorkdaysFromTodayForGivenCaseType(int targetAmount, String caseType) {
+    public String getDateXWorkdaysFromTodayForGivenCaseType(int targetAmount, CaseType caseType) {
         return getDateXWorkdaysFromSetDateForGivenCaseType(targetAmount, getTodaysDate(), caseType);
     }
 
-    public String getDateXWorkdaysFromSetDateForGivenCaseType(int targetAmount, String startDate, String caseType) {
+    public String getDateXWorkdaysFromSetDateForGivenCaseType(int targetAmount, String startDate, CaseType caseType) {
         generateBankHolidaysForCaseType(caseType);
         int totalWorkDays = 0;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");

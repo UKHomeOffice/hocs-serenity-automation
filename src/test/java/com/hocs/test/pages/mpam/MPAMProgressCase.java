@@ -5,19 +5,19 @@ import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.ConfirmationScreens;
 import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
+import config.CaseType;
 import java.text.ParseException;
 
 public class MPAMProgressCase extends BasePage {
 
     CreateCase createCase;
-
-    ConfirmationScreens confirmationScreens;
 
     Dashboard dashboard;
 
@@ -39,6 +39,10 @@ public class MPAMProgressCase extends BasePage {
 
     MTSDataInput mtsDataInput;
 
+    ConfirmationScreens confirmationScreens;
+
+    CaseView caseView;
+
     String businessArea = "UKVI";
 
     String refType = "Ministerial";
@@ -52,7 +56,7 @@ public class MPAMProgressCase extends BasePage {
     public void moveCaseFromCurrentStageToTargetStage(String currentStage, String targetStage) {
         String precedingStage = getStageThatPrecedesTargetStage(targetStage);
         if (precedingStage.equals("CREATE NEW CASE")) {
-            createCase.createCSCaseOfTypeWithSpecificCorrespondenceReceivedDate("MPAM", receivedDate);
+            createCase.createCSCaseOfTypeWithSpecificCorrespondenceReceivedDate(CaseType.MPAM, receivedDate);
             dashboard.goToDashboard();
         } else {
             if (!precedingStage.equalsIgnoreCase(currentStage)) {
@@ -172,15 +176,15 @@ public class MPAMProgressCase extends BasePage {
     }
 
     public void moveCaseFromCreationToTriage() {
-        creation.selectBusinessArea(businessArea);
-        creation.selectRefType(refType);
+        creation.selectASpecificBusinessArea(businessArea);
+        creation.selectASpecificRefType(refType);
         if (refType.equalsIgnoreCase("MINISTERIAL")) {
-            creation.selectMinisterialSignOffTeam(signOffTeam);
-            creation.selectAddressee(signOffTeam);
+            creation.selectASpecificMinisterialSignOffTeam(signOffTeam);
+            creation.selectASpecificAddressee(signOffTeam);
         }
-        creation.selectUrgency(urgency);
-        creation.selectInboundChannel("Email");
-        clickTheButton("Continue");
+        creation.selectASpecificUrgency(urgency);
+        creation.selectASpecificInboundChannel("Email");
+        clickContinueButton();
         correspondents.addAMemberCorrespondent();
         clickTheButton("Move to Triage");
     }
@@ -192,24 +196,24 @@ public class MPAMProgressCase extends BasePage {
         triage.setBusinessUnit();
         safeClickOn(triage.readyToDraftRadioButton);
         setSessionVariable("action").to("Ready to draft");
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void moveCaseFromDraftToQA() {
         safeClickOn(draft.moveToQARadioButton);
         setSessionVariable("action").to("Move to QA");
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void moveCaseFromQAToNextStage() {
         safeClickOn(qa.approvedAtQARadioButton);
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void moveCaseFromPrivateOfficeToCaseClosed() {
         dispatchStages.selectAResponseChannel();
         safeClickOn(dispatchStages.dispatchedRadioButtonAtPrivateOffice);
-        safeClickOn(confirmButton);
+        clickConfirmButton();
         dispatchStages.inputDispatchedDate(getDatePlusMinusNDaysAgo(-1));
         safeClickOn(dispatchStages.confirmAndCloseCaseButton);
     }
@@ -217,27 +221,27 @@ public class MPAMProgressCase extends BasePage {
     public void moveCaseFromPrivateOfficeToAwaitingDispatchLocal() {
         dispatchStages.selectAResponseChannel();
         selectSpecificRadioButtonFromGroupWithHeading("Approved (local dispatch)", "Actions");
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void moveCaseFromPrivateOfficeToAwaitingDispatchMinisterial() {
         dispatchStages.selectAResponseChannel();
         selectSpecificRadioButtonFromGroupWithHeading("Approved (ministerial dispatch)", "Actions");
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void moveCaseFromAwaitingDispatchToCaseClosed() {
         dispatchStages.selectAResponseChannel();
         dispatchStages.inputDispatchedDate(getDatePlusMinusNDaysAgo(-1));
         safeClickOn(dispatchStages.dispatchedRadioButtonAtDispatch);
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void generateMPAMSearchCaseData(String infoValue, String infoType) throws ParseException {
         switch (infoType.toUpperCase()) {
             case "CASE REFERENCE":
             case "ACTIVE CASES ONLY":
-                createCase.createCSCaseOfType("MPAM");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.MPAM);
                 dashboard.goToDashboard();
                 break;
             case "REFERENCE TYPE":
@@ -247,25 +251,25 @@ public class MPAMProgressCase extends BasePage {
                 createCaseAndMoveItToTargetStageWithSpecifiedSignOffTeam(infoValue, "Triage");
                 break;
             case "MEMBER OF PARLIAMENT NAME":
-                createCase.createCSCaseOfType("MPAM");
-                dashboard.goToDashboard();
-                dashboard.getAndClaimCurrentCase();
+                createCase.createCSCaseOfTypeWithDocument(CaseType.MPAM);
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();
                 creation.moveCaseWithSpecifiedMPCorrespondentToTriageStage(infoValue);
                 break;
             case "CORRESPONDENT REFERENCE NUMBER":
-                createCase.createCSCaseOfType("MPAM");
-                dashboard.goToDashboard();
-                dashboard.getAndClaimCurrentCase();
+                createCase.createCSCaseOfTypeWithDocument(CaseType.MPAM);
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();
                 creation.addCorrespondentWithSpecificReferenceToCase(infoValue);
                 break;
             case "RECEIVED ON OR BEFORE DATE":
             case "RECEIVED ON OR AFTER DATE":
                 dashboard.selectCreateSingleCaseLinkFromMenuBar();
-                if (!nextButton.isVisible()) {
+                if (!buttonIsVisible("Next")) {
                     dashboard.selectCreateSingleCaseLinkFromMenuBar();
                 }
-                createCase.selectCaseType("MPAM");
-                clickTheButton("Next");
+                createCase.selectCaseType(CaseType.MPAM);
+                clickNextButton();
                 createCase.editReceivedDate(infoValue);
                 createCase.storeCorrespondenceReceivedDate();
                 documents.uploadFileOfType("docx");
@@ -274,7 +278,7 @@ public class MPAMProgressCase extends BasePage {
                 dashboard.goToDashboard();
                 break;
             case "CAMPAIGN":
-                createCase.createCSCaseOfType("MPAM");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.MPAM);
                 dashboard.goToDashboard();
                 dashboard.getAndClaimCurrentCase();
                 moveCaseFromCreationToTriage();
@@ -282,25 +286,25 @@ public class MPAMProgressCase extends BasePage {
                 campaign.moveCaseFromAStageToCampaign(infoValue);
                 break;
             case "CORRESPONDENT FULL NAME (APPLICANT OR CONSTITUENT)":
-                createCase.createCSCaseOfType("MPAM");
-                dashboard.goToDashboard();
-                dashboard.getAndClaimCurrentCase();
+                createCase.createCSCaseOfTypeWithDocument(CaseType.MPAM);
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();
                 creation.triggerMPCorrespondentIsMandatoryScreen();
                 dashboard.goToDashboard();
                 break;
             case "TELEPHONE SURGERY OFFICIAL ENGAGEMENT":
-                createCase.createCSCaseOfType("MTS");
-                dashboard.goToDashboard();
-                dashboard.getAndClaimCurrentCase();
+                createCase.createCSCaseOfTypeWithDocument(CaseType.MTS);
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();
                 mtsDataInput.completeDataInputStageAndCloseMTSCase();
                 break;
             case "ALL":
                 dashboard.selectCreateSingleCaseLinkFromMenuBar();
-                if (!nextButton.isVisible()) {
+                if (!buttonIsVisible("Next")) {
                     dashboard.selectCreateSingleCaseLinkFromMenuBar();
                 }
-                createCase.selectCaseType("MPAM");
-                clickTheButton("Next");
+                createCase.selectCaseType(CaseType.MPAM);
+                clickNextButton();
                 createCase.editReceivedDate("01/01/2022");
                 createCase.storeCorrespondenceReceivedDate();
                 documents.uploadFileOfType("docx");
@@ -308,13 +312,13 @@ public class MPAMProgressCase extends BasePage {
                 confirmationScreens.storeCaseReference();
                 dashboard.goToDashboard();
                 dashboard.getAndClaimCurrentCase();
-                creation.selectBusinessArea(businessArea);
-                creation.selectRefType("Yes (Ministerial)");
-                creation.selectMinisterialSignOffTeam("Home Secretary");
-                creation.selectAddressee("Home Secretary");
-                creation.selectUrgency(urgency);
-                creation.selectInboundChannel("Email");
-                clickTheButton("Continue");
+                creation.selectASpecificBusinessArea(businessArea);
+                creation.selectASpecificRefType("Yes (Ministerial)");
+                creation.selectASpecificMinisterialSignOffTeam("Home Secretary");
+                creation.selectASpecificAddressee("Home Secretary");
+                creation.selectASpecificUrgency(urgency);
+                creation.selectASpecificInboundChannel("Email");
+                clickContinueButton();
                 correspondents.addASpecificMemberCorrespondent("Boris Johnson");
                 correspondents.addANonMemberCorrespondentOfType("Constituent");
                 correspondents.confirmPrimaryCorrespondent();
@@ -325,5 +329,10 @@ public class MPAMProgressCase extends BasePage {
             default:
                 pendingStep(infoType + " is not defined within " + getMethodName());
         }
+    }
+
+    public void getMPAMCaseToPointOfAddingCorrespondents() {
+        creation.completeRequiredQuestions();
+        clickContinueButton();
     }
 }

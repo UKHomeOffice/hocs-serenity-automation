@@ -33,12 +33,12 @@ public class BaseStepDefs extends BasePage {
 
     @Then("the {string} page should be displayed")
     public void thePageShouldBeDisplayed(String pageTitle) {
-        assertPageTitle(pageTitle);
+        assertDECSPageTitle(pageTitle);
     }
 
     @Then("I should be returned to the {string} page")
     public void iShouldBeReturnedToTheScreen(String pageTitle) {
-        assertPageTitle(pageTitle);
+        assertDECSPageTitle(pageTitle);
     }
 
     @Then("an error message is displayed")
@@ -47,15 +47,8 @@ public class BaseStepDefs extends BasePage {
     }
 
     @When("I click the {string} link")
-    public void clickTheLink(String link) {
-        switch (link.toUpperCase()) {
-            case "BACK":
-            case "CANCEL":
-                safeClickOn(backLink);
-                break;
-            default:
-                pendingStep(link + " is not defined within " + getMethodName());
-        }
+    public void iClickTheLink(String linkText) {
+        clickTheLink(linkText);
     }
 
     @When("I click the {string} button")
@@ -80,12 +73,12 @@ public class BaseStepDefs extends BasePage {
 
     @And("I select 'Save changes'")
     public void iSelectSaveChanges() {
-        safeClickOn(saveChangesRadioButton);
+        selectSpecificRadioButton("Save changes");
     }
 
     @Then("the case/claim should be closed")
     public void theCaseShouldBeClosed() {
-        dashboard.getCurrentCase();
+        dashboard.ensureViewingCurrentCase();
         caseView.assertCaseCannotBeAllocated();
         summaryTab.assertNoActiveStageVisible();
         timelineTab.assertCaseLogWithTitleIsVisible("Case Closed");

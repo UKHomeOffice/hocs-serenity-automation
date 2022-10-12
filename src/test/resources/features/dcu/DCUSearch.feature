@@ -21,24 +21,6 @@ Feature: DCU Search
     And I click the search button on the search page
     Then the created case should be the only case visible in the search results
 
-  @SearchByCaseReferenceNumber
-  Scenario: User should be be taken directly to a case when they for enter a valid case reference in the Load Case bar
-    Given I am logged into "CS" as user "DCU_USER"
-    When I enter a valid case reference into the load case search bar
-    Then I should be taken directly to the case
-
-  @SearchByCaseReferenceNumber @Validation
-  Scenario: An error message should be displayed if a user enters a Reference number that does not exist
-    Given I am logged into "CS" as user "DCU_USER"
-    When I enter a non-existent case reference
-    Then an error message should be displayed stating that there are no active workflows for the case
-
-  @SearchByCaseReferenceNumber @Validation
-  Scenario: User must enter a search query in the Load Case search bar
-    Given I am logged into "CS" as user "DCU_USER"
-    When I press enter in the Load Case search bar
-    Then an error message should be displayed stating that a case reference is required
-
   @SearchByCaseType @Workstacks @DCURegression
   Scenario Outline: DCU Search workstack should contain the Case Reference, Current Stage, Owner, Team, Primary Topic and Deadline
     Given I am logged into "CS" as user "DCU_USER"
@@ -75,7 +57,7 @@ Feature: DCU Search
     Given I am logged into "CS" as user "DCU_USER"
     And I create a "MIN" case with "Boris Johnson" as the correspondent
     And I load the current case
-    And I add a "Member" correspondent to the case
+    And I add a "Member" correspondent using the People tab
     And I change the primary correspondent of the case
     And I navigate to the "search" page
     And I enter the current case reference into the case reference search field

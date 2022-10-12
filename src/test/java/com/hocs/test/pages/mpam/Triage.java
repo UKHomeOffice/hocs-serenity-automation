@@ -75,16 +75,16 @@ public class Triage extends BasePage {
     private List<String> recordedBusinessUnitOptions = new ArrayList<>();
 
     public void selectEnquirySubject(String subject) {
-        waitForPageWithTitle("Enquiry subject");
+        waitForDECSPageWithTitle("Enquiry subject");
         selectSpecificRadioButton(subject);
         setSessionVariable("enquirySubject").to(subject);
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     public void selectEnquiryReason(String reason) {
         recordCaseData.selectSpecificOptionFromDropdownWithHeading(reason, "Enquiry reason");
         setSessionVariable("enquiryReason").to(reason);
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     public void selectComplianceMeasure(String complianceMeasure) {
@@ -104,23 +104,23 @@ public class Triage extends BasePage {
     public void putTriageCaseOnHold() {
         safeClickOn(onHoldRadioButton);
         setSessionVariable("action").to("Put on hold");
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void takeTriageCaseOffHold() {
         safeClickOn(takeOffHoldRadioButton);
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void selectEscalateTriageCaseToWorkflowManager() {
         safeClickOn(escalateToWorkflowManagerRadioButton);
         setSessionVariable("action").to("Escalate to workflow manager");
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void submitReasonToEscalateCase(String escalationReason) {
         escalationReasonTextArea.sendKeys(escalationReason);
-        safeClickOn(confirmButton);
+        clickConfirmButton();
         setSessionVariable("escalationReason").to(escalationReason);
     }
 
@@ -154,7 +154,7 @@ public class Triage extends BasePage {
 
     public void deescalateTriageCase() {
         safeClickOn(escalationCompleteRadioButton);
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void selectToCloseEscalatedCase() {
@@ -163,11 +163,11 @@ public class Triage extends BasePage {
         selectEnquiryReason("Allowed appeal enquiry update");
         setBusinessUnit();
         safeClickOn(closeCaseRadioButton);
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void selectSaveChangesAction() {
-        safeClickOn(saveChangesRadioButton);
+        selectSpecificRadioButton("Save changes");
     }
 
     public void assertReferenceChangeWillConvertCaseTo(String ministerialOrOfficial) {

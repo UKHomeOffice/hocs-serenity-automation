@@ -20,12 +20,12 @@ public class Rejected extends BasePage {
 
     public void selectToSendClaimToTier1Review() {
         selectSpecificRadioButton("Yes, send to Tier 1 review");
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
     public void selectToArchiveClaim() {
         selectSpecificRadioButton("archive claim");
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
     public void assertReviewIdentityDecisionIsRequiredErrorMessage() {

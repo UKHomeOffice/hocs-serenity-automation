@@ -29,7 +29,7 @@ public class ConsiderAndDraftStepDefs extends BasePage {
         } else if (input.equalsIgnoreCase("DOESN'T")) {
             considerAndDraft.isContributionRequestNeeded("No");
         }
-        clickTheButton("Continue");
+        clickContinueButton();
     }
 
     @And("I select {string} as the response type")

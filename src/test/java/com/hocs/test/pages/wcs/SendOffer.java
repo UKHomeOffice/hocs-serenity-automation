@@ -24,16 +24,16 @@ public class SendOffer extends BasePage {
 
     public void selectOfferSentToClaimant() {
         selectSpecificRadioButton("Offer sent");
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
     public void selectNilOfferSentToClaimant() {
         selectSpecificRadioButton("Nil payment sent");
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
     public void returnToOfferApproval() {
         selectSpecificRadioButton("PNC failed");
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 }

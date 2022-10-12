@@ -50,7 +50,7 @@ public class Registration extends BasePage {
     public void selectIfClaimHasGoneThroughTaskForce(String yesOrNo){
         selectSpecificRadioButton(yesOrNo);
         recordCaseData.addHeadingAndValueRecord("Has the claimant had their status confirmed by the Windrush Scheme (Task Force)?", yesOrNo);
-        clickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void assertClaimGoneThroughTaskForceIsRequiredErrorMessage() {
@@ -63,7 +63,7 @@ public class Registration extends BasePage {
     public void confirmClaimantsIdentity(){
         selectSpecificRadioButton("Yes, send to next team");
         recordCaseData.addHeadingAndValueRecord("Can you confirm the claimant's identity", "Yes");
-        clickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void assertCanYouConfirmClaimantIdentityErrorMessage() {
@@ -76,12 +76,12 @@ public class Registration extends BasePage {
 
     public void putTheClaimOnHold(){
         selectSpecificRadioButton("Put on hold");
-        clickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void passTheClaimToStage1IdentityCheck() {
         selectSpecificRadioButton("No, send to stage 1 ID checks");
-        clickOn(confirmButton);
+        clickConfirmButton();
         waitABit(1000);
     }
 
@@ -90,14 +90,14 @@ public class Registration extends BasePage {
     public void failIdentityCheck() {
         selectSpecificRadioButton("No, cannot confirm identity");
         recordCaseData.addHeadingAndValueRecord("Can you confirm the claimant's identity", "No");
-        clickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void passClaimToEligibilityTeam() {
         waitABit(500);
         selectSpecificRadioButton("Yes, send to next team");
         recordCaseData.addHeadingAndValueRecord("Can you confirm the claimant's identity", "Yes");
-        clickOn(confirmButton);
+        clickConfirmButton();
     }
 
     // Registration page
@@ -109,20 +109,20 @@ public class Registration extends BasePage {
 
     public void confirmClaimantsID() {
         selectConfirmTheClaimantsIDRadioButton();
-        clickOn(confirmButton);
+        clickConfirmButton();
     }
 
     // Registration - Choose next team page
 
     public void selectIDConfirmedEligibilityNotConfirmed() {
         selectSpecificRadioButton("ID confirmed, eligibility not confirmed - send to eligibility");
-        clickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void selectIDAndEligibilityConfirmed() {
         selectSpecificRadioButton("ID and eligibility confirmed - send to Triage");
         recordCaseData.addHeadingAndValueRecord("Can you confirm the claimant's eligibility", "Yes");
-        clickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void assertCanYouConfirmClaimantStatusErrorMessage() {
