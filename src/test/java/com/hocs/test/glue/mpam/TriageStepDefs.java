@@ -75,7 +75,7 @@ public class TriageStepDefs extends BasePage {
     @And("I enter details of the compliance measures and continue")
     public void iEnterDetailsOfTheComplianceMeasures() {
         triage.enterComplianceMeasureDetails();
-        clickTheButton("Continue");
+        clickContinueButton();
     }
 
     @Then("the summary tab should display {string} as a compliance measure")

@@ -172,7 +172,7 @@ public class DocumentsStepDefs extends BasePage {
     @And("I confirm/approve the (new )primary draft document")
     public void iConfirmThePrimaryDraftDocument() {
         if (buttonIsVisible("Continue")) {
-            clickTheButton("Continue");
+            clickContinueButton();
         } else {
             clickTheButton("Approve primary draft");
         }

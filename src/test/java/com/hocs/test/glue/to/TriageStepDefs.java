@@ -27,7 +27,7 @@ public class TriageStepDefs extends BasePage {
     @And("I confirm the case is ready to be drafted")
     public void iConfirmTheCaseIsReadyToBeDrafted() {
         selectTheStageAction("Ready to draft");
-        clickTheButton("Finish");
+        clickFinishButton();
     }
 
     @And("I change the Business Area of the TO case to {string}")
@@ -36,7 +36,7 @@ public class TriageStepDefs extends BasePage {
         waitForDECSPageWithTitle("Transfer To Business Area");
         dataInput.selectSpecificBusinessArea(businessArea);
         dataInput.enterReallocationReason();
-        clickTheButton("Finish");
+        clickFinishButton();
     }
 
     @And("I change the channel the correspondence was received by")
@@ -47,13 +47,13 @@ public class TriageStepDefs extends BasePage {
     @And("I save the changes")
     public void iSaveTheChanges() {
         selectSpecificRadioButton("Save changes");
-        clickTheButton("Finish");
+        clickFinishButton();
     }
 
     @When("I select to close the Treat Official case")
     public void iSelectToCloseTheTreatOfficialCase() {
         selectTheStageAction("Close case");
-        clickTheButton("Finish");
+        clickFinishButton();
     }
 
     @And("I select a reason to close the case")
@@ -64,7 +64,7 @@ public class TriageStepDefs extends BasePage {
     @And("I submit supporting details for the closure")
     public void iSubmitSupportingDetailsForTheClosure() {
         triage.enterClosureDetails();
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 }
 

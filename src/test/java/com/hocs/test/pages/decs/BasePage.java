@@ -421,19 +421,19 @@ public class BasePage extends PageObject {
     }
 
     public void clickContinueButton() {
-        clickTheButton("Continue");
+        clickContinueButton();
     }
 
     public void clickConfirmButton() {
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
     public void clickFinishButton() {
-        clickTheButton("Finish");
+        clickFinishButton();
     }
 
     public void clickNextButton() {
-        clickTheButton("Next");
+        clickNextButton();
     }
 
     public void clickSearchButton() {

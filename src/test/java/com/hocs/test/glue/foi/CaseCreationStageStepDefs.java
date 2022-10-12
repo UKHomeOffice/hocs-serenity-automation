@@ -14,7 +14,7 @@ public class CaseCreationStageStepDefs extends BasePage {
     @And("I select {string} for the validity of the request and continue")
     public void iSelectForTheValidityOfTheRequest(String validity) {
         caseCreationStage.selectValidityOfRequest(validity);
-        clickTheButton("Continue");
+        clickContinueButton();
     }
 
     @And("I edit the {string} case details value at the Case Creation stage")

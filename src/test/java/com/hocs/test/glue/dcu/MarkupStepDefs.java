@@ -71,7 +71,7 @@ public class MarkupStepDefs extends BasePage {
             default:
                 pendingStep(defaultTeam + " is not defined within " + getMethodName());
         }
-        clickTheButton("Finish");
+        clickFinishButton();
     }
 
     @And("I override the initial draft team of the case to the team created in Management UI")
@@ -136,7 +136,7 @@ public class MarkupStepDefs extends BasePage {
     @When("I select an initial decision of {string}")
     public void iSelectAnInitialDecisionOf(String decision) {
         markup.selectASpecificResponseType(decision);
-        clickTheButton("Continue");
+        clickContinueButton();
     }
 
     @And("I click the Add a topic link")
@@ -148,13 +148,13 @@ public class MarkupStepDefs extends BasePage {
     public void iEnterATransferDestinationAndTransferReason() {
         markup.enterAOGDDestination();
         markup.enterAOGDReason();
-        clickTheButton("Finish");
+        clickFinishButton();
     }
 
     @And("I submit a reason that no response is needed")
     public void iEnterAReasonThatNoResponseIsNeeded() {
         markup.enterANoResponseNeededReason();
-        clickTheButton("Finish");
+        clickFinishButton();
     }
 
     @And("I complete Markup with {string} selected as the Private Office team")

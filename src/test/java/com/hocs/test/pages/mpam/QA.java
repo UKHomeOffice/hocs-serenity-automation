@@ -150,20 +150,20 @@ public class QA extends BasePage {
 
     public void selectApprovedMoveToPrivateOfficeAtQASecretariatClearanceRequested() {
         selectSpecificRadioButtonFromGroupWithHeading("Approve, move to Private Office", "Clearance Status");
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
     public void rejectACaseToDraftAtQASecretariatClearanceRequested() {
         selectSpecificRadioButtonFromGroupWithHeading("Rejected, move to Draft", "Clearance Status");
         String rejectionReason = enterTextIntoTextAreaWithHeading("Reason for Rejection");
         setSessionVariable("rejectionReason").to(rejectionReason);
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
     public void cancelTheClearanceRequestAtQASecretariatClearanceRequested() {
         selectSpecificRadioButtonFromGroupWithHeading("Cancelled", "Clearance Status");
         String cancellationDetails = enterTextIntoTextAreaWithHeading("Details");
         setSessionVariable("cancellationDetails").to(cancellationDetails);
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 }

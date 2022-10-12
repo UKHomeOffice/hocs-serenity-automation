@@ -21,11 +21,11 @@ public class PaymentPreOfferChecklist extends BasePage {
 
     public void selectPaymentSendForApproval() {
         selectSpecificRadioButton("Send for offer approval");
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
     public void returnToQAForCorrections() {
         selectSpecificRadioButton("Return to QA for corrections");
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 }

@@ -71,7 +71,7 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
             complaintsRegistrationAndDataInput.selectAVisibleClaimCategory();
         } else {
             complaintsTriageAndInvestigation.selectIEDETClaimCategory(complaintCategory);
-            clickTheButton("Continue");
+            clickContinueButton();
         }
     }
 
@@ -143,7 +143,7 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
     public void iEscalateTheCaseToPSU() {
         complaintsRegistrationAndDataInput.selectASpecificComplaintType("Serious misconduct");
         complaintsTriageAndInvestigation.selectIEDETClaimCategory("Serious misconduct");
-        clickTheButton("Continue");
+        clickContinueButton();
         iEnterTheComplaintDetailsOnTheComplaintInputPage();
         clickTheButton("Finish and escalate to PSU");
     }
@@ -156,6 +156,6 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
 
     @And("I chose not to upload an interim letter")
     public void iChoseNotToUploadAnInterimLetter() {
-        clickTheButton("Continue");
+        clickContinueButton();
     }
 }

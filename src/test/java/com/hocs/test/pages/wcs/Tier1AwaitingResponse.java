@@ -24,16 +24,16 @@ public class Tier1AwaitingResponse extends BasePage {
 
     public void selectClaimantAcceptsOffer() {
         selectSpecificRadioButton("Claimant accepts offer");
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
     public void selectClaimantRejectsNonFinalOffer() {
         selectSpecificRadioButton("Rejected interim offer");
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
     public void selectClaimantRejectsFinalOffer() {
         selectSpecificRadioButton("Rejected final offer");
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 }

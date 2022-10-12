@@ -121,23 +121,23 @@ public class BFProgressCase extends BasePage {
 
     public void moveBFCaseFromRegistrationToTriage() {
         correspondents.addANonMemberCorrespondentOfType("Complainant");
-        clickTheButton("Continue");
+        clickContinueButton();
         complaintsRegistrationAndDataInput.enterComplainantDetails();
         if (bfCase()) {
             complaintsRegistrationAndDataInput.selectAComplaintType();
-            clickTheButton("Continue");
+            clickContinueButton();
         }
         complaintsRegistrationAndDataInput.selectAComplaintChannel();
         complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
         complaintsRegistrationAndDataInput.enterAPreviousComplaintReference();
         complaintsRegistrationAndDataInput.enterAThirdPartyReference();
-        clickTheButton("Finish");
+        clickFinishButton();
         System.out.println("Case moved from Case Registration to Case Triage");
     }
 
     public void moveBFCaseFromTriageToDraft() {
         complaintsTriageAndInvestigation.selectAcceptCase();
-        clickTheButton("Continue");
+        clickContinueButton();
         complaintsTriageAndInvestigation.enterDetailsOnBFTriageDetailsPage();
         complaintsTriageAndInvestigation.selectReadyForDrafting();
         System.out.println("Case moved from Case Triage to Draft");
@@ -145,7 +145,7 @@ public class BFProgressCase extends BasePage {
 
     public void moveBFCaseFromTriageToEscalated() {
         complaintsTriageAndInvestigation.selectAcceptCase();
-        clickTheButton("Continue");
+        clickContinueButton();
         waitForDECSPageWithTitle("Triage Details");
         complaintsTriageAndInvestigation.enterDetailsOnBFTriageDetailsPage();
         complaintsTriageAndInvestigation.escalateCaseToWFM();

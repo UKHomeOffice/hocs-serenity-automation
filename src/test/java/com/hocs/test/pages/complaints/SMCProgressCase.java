@@ -96,7 +96,7 @@ public class SMCProgressCase extends BasePage {
 
     public void moveSMCCaseFromRegistrationToTriage() {
         correspondents.addANonMemberCorrespondentOfType("Complainant");
-        clickTheButton("Continue");
+        clickContinueButton();
         complaintsRegistrationAndDataInput.enterComplainantDetails();
         complaintsRegistrationAndDataInput.selectAComplaintChannel();
         complaintsRegistrationAndDataInput.selectComplaintOrigin();
@@ -104,27 +104,27 @@ public class SMCProgressCase extends BasePage {
         complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
         complaintsRegistrationAndDataInput.enterAPreviousUKVIComplaintReference();
         complaintsRegistrationAndDataInput.enterAThirdPartyReference();
-        clickTheButton("Continue");
+        clickContinueButton();
         complaintsRegistrationAndDataInput.openTheSeriousComplaintCategoryAccordion();
         waitABit(1000);
         complaintsRegistrationAndDataInput.selectAVisibleClaimCategory();
         complaintsRegistrationAndDataInput.selectAnOwningCSU();
-        clickTheButton("Finish");
+        clickFinishButton();
         System.out.println("Case moved from Registration to Triage");
 
     }
 
     public void moveSMCCaseFromTriageToDraft() {
         complaintsTriageAndInvestigation.selectAcceptCase();
-        clickTheButton("Continue");
+        clickContinueButton();
         complaintsTriageAndInvestigation.enterPSUReference();
-        clickTheButton("Continue");
+        clickContinueButton();
         waitForDECSPageWithTitle("Complaint Category");
-        clickTheButton("Continue");
+        clickContinueButton();
         waitForDECSPageWithTitle("Triage Case Details");
-        clickTheButton("Continue");
+        clickContinueButton();
         complaintsTriageAndInvestigation.enterDetailsOnTriageCaptureReasonPage();
-        clickTheButton("Continue");
+        clickContinueButton();
         waitForDECSPageWithTitle("Triage Contributions");
         if(sessionVariableCalled("isLoARequired").equals("Yes")) {
             complaintsTriageAndInvestigation.enterLoAReceivedDetails();
@@ -174,7 +174,7 @@ public class SMCProgressCase extends BasePage {
                 complaintsRegistrationAndDataInput.enterACompanyName();
                 complaintsRegistrationAndDataInput.enterAHomeOfficeReference(getCurrentMonth() +"/" + getCurrentYear());
                 complaintsRegistrationAndDataInput.enterAPortReference();
-                clickTheButton("Continue");
+                clickContinueButton();
                 break;
             case "COMPLAINANT HOME OFFICE REFERENCE":
                 createCase.createCSCaseOfTypeWithDocument(CaseType.SMC);
@@ -188,15 +188,15 @@ public class SMCProgressCase extends BasePage {
                 complaintsRegistrationAndDataInput.enterACompanyName();
                 complaintsRegistrationAndDataInput.enterAHomeOfficeReference(infoValue);
                 complaintsRegistrationAndDataInput.enterAPortReference();
-                clickTheButton("Continue");
+                clickContinueButton();
                 break;
             case "PSU REFERENCE":
                 moveCaseFromCurrentStageToTargetStage("N/A", "TRIAGE");
                 dashboard.getAndClaimCurrentCase();
                 complaintsTriageAndInvestigation.selectAcceptCase();
-                clickTheButton("Continue");
+                clickContinueButton();
                 complaintsTriageAndInvestigation.enterSpecificPSUReference(infoValue);
-                clickTheButton("Continue");
+                clickContinueButton();
                 break;
             case "ALL":
                 createCase.createCSCaseOfTypeWithDocument(CaseType.SMC);
@@ -210,24 +210,24 @@ public class SMCProgressCase extends BasePage {
                 complaintsRegistrationAndDataInput.enterACompanyName();
                 complaintsRegistrationAndDataInput.enterAHomeOfficeReference("Test entry for HO Reference");
                 complaintsRegistrationAndDataInput.enterAPortReference();
-                clickTheButton("Continue");
+                clickContinueButton();
                 complaintsRegistrationAndDataInput.selectAComplaintChannel();
                 complaintsRegistrationAndDataInput.selectComplaintOrigin();
                 complaintsRegistrationAndDataInput.selectAdditionalInformation();
                 complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
                 complaintsRegistrationAndDataInput.enterAPreviousUKVIComplaintReference();
                 complaintsRegistrationAndDataInput.enterAThirdPartyReference();
-                clickTheButton("Continue");
+                clickContinueButton();
                 complaintsRegistrationAndDataInput.openTheSeriousComplaintCategoryAccordion();
                 waitABit(1000);
                 complaintsRegistrationAndDataInput.selectAVisibleClaimCategory();
                 complaintsRegistrationAndDataInput.selectAnOwningCSU();
-                clickTheButton("Finish");
+                clickFinishButton();
                 dashboard.getAndClaimCurrentCase();
                 complaintsTriageAndInvestigation.selectAcceptCase();
-                clickTheButton("Continue");
+                clickContinueButton();
                 complaintsTriageAndInvestigation.enterSpecificPSUReference("123456789");
-                clickTheButton("Continue");
+                clickContinueButton();
                 break;
             default:
                 pendingStep(infoType + " is not defined within " + getMethodName());

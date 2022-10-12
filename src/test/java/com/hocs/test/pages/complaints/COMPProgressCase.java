@@ -154,13 +154,13 @@ public class COMPProgressCase extends BasePage {
         complaintsRegistrationAndDataInput.selectASpecificComplaintType(complaintType);
         complaintsRegistrationAndDataInput.enterComplaintDetails();
         if (complaintType.equalsIgnoreCase("SERVICE")) {
-            clickTheButton("Continue");
+            clickContinueButton();
             complaintsRegistrationAndDataInput.openTheServiceComplaintCategoryAccordion();
             waitABit(1000);
             complaintsRegistrationAndDataInput.selectAVisibleClaimCategory();
             complaintsRegistrationAndDataInput.selectAnOwningCSU();
         }
-        clickTheButton("Finish");
+        clickFinishButton();
     }
 
     public void moveCaseFromTriageToDraft() {
@@ -168,15 +168,15 @@ public class COMPProgressCase extends BasePage {
         if (!complaintType.equalsIgnoreCase("SERVICE")) {
             complaintsTriageAndInvestigation.enterDateOfAcceptance();
         }
-        clickTheButton("Continue");
+        clickContinueButton();
         waitForDECSPageWithTitle("Complaint Category");
         complaintsTriageAndInvestigation.enterDetailsOnComplaintCategoryPage();
-        clickTheButton("Continue");
+        clickContinueButton();
         waitForDECSPageWithTitle("Triage Case Details");
-        clickTheButton("Continue");
+        clickContinueButton();
         waitForDECSPageWithTitle("Triage Capture Reason");
         complaintsTriageAndInvestigation.enterDetailsOnTriageCaptureReasonPage();
-        clickTheButton("Continue");
+        clickContinueButton();
         waitForDECSPageWithTitle("Triage Contributions");
         if(sessionVariableCalled("isLoARequired").equals("Yes")) {
             complaintsTriageAndInvestigation.enterLoAReceivedDetails();
@@ -189,15 +189,15 @@ public class COMPProgressCase extends BasePage {
         if (!complaintType.equalsIgnoreCase("SERVICE")) {
             complaintsTriageAndInvestigation.enterDateOfAcceptance();
         }
-        clickTheButton("Continue");
+        clickContinueButton();
         waitForDECSPageWithTitle("Complaint Category");
         complaintsTriageAndInvestigation.enterDetailsOnComplaintCategoryPage();
-        clickTheButton("Continue");
+        clickContinueButton();
         waitForDECSPageWithTitle("Triage Case Details");
-        clickTheButton("Continue");
+        clickContinueButton();
         waitForDECSPageWithTitle("Triage Capture Reason");
         complaintsTriageAndInvestigation.enterDetailsOnTriageCaptureReasonPage();
-        clickTheButton("Continue");
+        clickContinueButton();
         complaintsTriageAndInvestigation.escalateCaseToWFM();
     }
 

@@ -61,7 +61,7 @@ public class CreationStepDefs extends BasePage {
         creation.selectASpecificAddressee(signOffTeam);
         creation.selectASpecificUrgency("Standard");
         creation.selectASpecificInboundChannel("Email");
-        clickTheButton("Continue");
+        clickContinueButton();
         correspondents.addAMemberCorrespondent();
         clickTheButton("Move to Triage");
     }
@@ -86,6 +86,6 @@ public class CreationStepDefs extends BasePage {
         }
         creation.selectAnUrgency();
         creation.selectAnInboundChannel();
-        clickTheButton("Continue");
+        clickContinueButton();
     }
 }

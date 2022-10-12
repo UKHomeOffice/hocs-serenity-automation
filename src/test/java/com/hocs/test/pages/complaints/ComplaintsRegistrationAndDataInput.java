@@ -52,9 +52,9 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         enterAHomeOfficeReference(getCurrentMonth() +"/" + getCurrentYear());
         enterAPortReference();
         if(iedetCase()){
-            clickTheButton("Finish");
+            clickFinishButton();
         } else {
-            clickTheButton("Continue");
+            clickContinueButton();
         }
 
     }
@@ -66,7 +66,7 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
             recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(complaintType, "Complaint Type");
         }
         setSessionVariable("complaintType").to(complaintType);
-        clickTheButton("Continue");
+        clickContinueButton();
         System.out.println("Complaint type: " + complaintType);
     }
 
@@ -270,7 +270,7 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         } else {
             selectBusinessArea();
         }
-        clickTheButton("Continue");
+        clickContinueButton();
         waitForDECSPageWithTitle("Complaint Correspondents");
     }
 

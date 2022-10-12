@@ -56,6 +56,6 @@ public class CCH extends BasePage {
 
     public void selectActionAtCompleteConfirmation(String action) {
         selectSpecificRadioButton(action);
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 }

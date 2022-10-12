@@ -99,7 +99,7 @@ public class CaseCreationStage extends BasePage {
         if (valueToBeEdited.equalsIgnoreCase("PRIMARY CORRESPONDENT")) {
             clickTheButton("Save");
         } else {
-            clickTheButton("Confirm");
+            clickConfirmButton();
         }
     }
 

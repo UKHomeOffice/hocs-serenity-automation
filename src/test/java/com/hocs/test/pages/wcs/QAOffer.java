@@ -21,11 +21,11 @@ public class QAOffer extends BasePage {
 
     public void selectClaimStatusApproveOffer() {
         selectSpecificRadioButton("QA complete, send to payments");
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
     public void returnClaimToCaseworkStage() {
         selectSpecificRadioButton("Return to caseworker");
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 }

@@ -233,13 +233,13 @@ public class Correspondents extends BasePage {
         recordCaseData.addHeadingAndValueRecord("Which is the primary correspondent?", primaryCorrespondentsName);
         setSessionVariable("primaryCorrespondent").to(primaryCorrespondentsName);
         if (dcuCase()) {
-            clickTheButton("Finish");
+            clickFinishButton();
         }
         if (mpamCase()) {
             clickTheButton("Move to Triage");
         }
         if (mtsCase() | complaintCase() | toCase()) {
-            clickTheButton("Continue");
+            clickContinueButton();
         }
     }
 

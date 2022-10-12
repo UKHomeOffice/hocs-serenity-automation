@@ -13,7 +13,7 @@ public class Triage extends BasePage {
 
     public void selectACaseworkingTeam() {
         String selectedCaseworkTeam = selectRandomOptionFromDropdownWithHeading("Select a Caseworking team");
-        clickTheButton("Continue");
+        clickContinueButton();
         setSessionVariable("selectedCaseworkTeam").to(selectedCaseworkTeam);
     }
 

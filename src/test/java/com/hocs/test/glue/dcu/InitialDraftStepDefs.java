@@ -71,7 +71,7 @@ public class InitialDraftStepDefs extends BasePage {
     @And("I record who on my Team completed the offline QA Approval")
     public void iRecordWhoOnMyTeamCompletedTheOfflineQAApproval() {
         initialDraft.selectAOfflineQAIndividual();
-        clickTheButton("Finish");
+        clickFinishButton();
     }
 
     @And("the case should be assigned to the DCU draft team created in Management UI")

@@ -39,9 +39,9 @@ Feature: Case Creation Stage
     Then the details entered when editing the case are displayed
     Examples:
     | value                 |
-#    | DATE FOI RECEIVED     |
-#    | DATE RECEIVED IN KIMU |
-#    | INBOUND CHANNEL       |
+    | DATE FOI RECEIVED     |
+    | DATE RECEIVED IN KIMU |
+    | INBOUND CHANNEL       |
     | FOI TOPIC             |
-#    | REQUEST QUESTION      |
-#    | PRIMARY CORRESPONDENT |
+    | REQUEST QUESTION      |
+    | PRIMARY CORRESPONDENT |

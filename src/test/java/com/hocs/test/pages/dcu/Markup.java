@@ -142,7 +142,7 @@ public class Markup extends BasePage {
         if(defaultPrivateOfficeTeam.isCurrentlyVisible()) {
             recordCaseData.addHeadingAndValueRecord("Private Office Team", defaultPrivateOfficeTeam.getValue());
         }
-        clickTheButton("Finish");
+        clickFinishButton();
     }
 
     public void recordDefaultTeamsForTopic() {

@@ -208,7 +208,7 @@ public class POGRProgressCase extends BasePage {
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 complaintsRegistrationAndDataInput.selectBusinessArea();
-                clickTheButton("Continue");
+                clickContinueButton();
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
                 correspondents.confirmPrimaryCorrespondent();
                 break;
@@ -217,24 +217,24 @@ public class POGRProgressCase extends BasePage {
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 complaintsRegistrationAndDataInput.selectBusinessArea();
-                clickTheButton("Continue");
+                clickContinueButton();
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
                 correspondents.confirmPrimaryCorrespondent();
                 complaintsRegistrationAndDataInput.completeDataInputScreen();
                 complaintsRegistrationAndDataInput.enterComplainantDOB(infoValue);
-                clickTheButton("Continue");
+                clickContinueButton();
                 break;
             case "ALL":
                 createCase.createCSCaseOfTypeWithDocument(CaseType.POGR);
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 complaintsRegistrationAndDataInput.selectBusinessArea();
-                clickTheButton("Continue");
+                clickContinueButton();
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
                 correspondents.confirmPrimaryCorrespondent();
                 complaintsRegistrationAndDataInput.completeDataInputScreen();
                 complaintsRegistrationAndDataInput.enterComplainantDOB("01/01/2001");
-                clickTheButton("Continue");
+                clickContinueButton();
                 break;
             default:
                 pendingStep(infoType + " is not defined within " + getMethodName());

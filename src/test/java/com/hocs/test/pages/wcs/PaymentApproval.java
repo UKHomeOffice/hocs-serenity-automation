@@ -21,11 +21,11 @@ public class PaymentApproval extends BasePage {
 
     public void selectPaymentApprovedReadyToSend() {
         selectSpecificRadioButton("Payment approved");
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
     public void returnToCaseworkTeam() {
         selectSpecificRadioButton("PNC failed");
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 }

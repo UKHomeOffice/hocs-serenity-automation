@@ -18,19 +18,19 @@ public class DraftStepDefs extends BasePage {
     @And("I send the Treat Official case to Dispatch")
     public void iSendTheTreatOfficialCaseToDispatch() {
         selectTheStageAction("Send to Dispatch");
-        clickTheButton("Finish");
+        clickFinishButton();
     }
 
     @And("I send the Treat Official case to QA")
     public void iSendTheTreatOfficialCaseToQA() {
         selectTheStageAction("Move to QA");
-        clickTheButton("Finish");
+        clickFinishButton();
     }
 
     @When("I select to return the TO case to Triage")
     public void iReturnTheCaseToTriage() {
         selectTheStageAction("Return to Triage");
-        clickTheButton("Finish");
+        clickFinishButton();
     }
 
     @And("I change the Business Unit Type and Business Unit of the case")
@@ -43,6 +43,6 @@ public class DraftStepDefs extends BasePage {
     @And("I submit a reason to return the case to Triage")
     public void iSubmitAReasonToReturnTheCaseToTriage() {
         draft.enterReasonToReturnCasetoTriage();
-        clickTheButton("Continue");
+        clickContinueButton();
     }
 }

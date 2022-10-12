@@ -1327,7 +1327,7 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(cch.completeTheCaseClosePermanentlyRadioButton);
                                 clickContinueButton();
                                 cch.submitReasonForCaseCompletion();
-                                clickTheButton("Confirm");
+                                clickConfirmButton();
                                 break;
                             default:
                                 pendingStep(errorMessage + " is not defined within " + getMethodName());

@@ -184,7 +184,7 @@ public class MPAMProgressCase extends BasePage {
         }
         creation.selectASpecificUrgency(urgency);
         creation.selectASpecificInboundChannel("Email");
-        clickTheButton("Continue");
+        clickContinueButton();
         correspondents.addAMemberCorrespondent();
         clickTheButton("Move to Triage");
     }
@@ -269,7 +269,7 @@ public class MPAMProgressCase extends BasePage {
                     dashboard.selectCreateSingleCaseLinkFromMenuBar();
                 }
                 createCase.selectCaseType(CaseType.MPAM);
-                clickTheButton("Next");
+                clickNextButton();
                 createCase.editReceivedDate(infoValue);
                 createCase.storeCorrespondenceReceivedDate();
                 documents.uploadFileOfType("docx");
@@ -304,7 +304,7 @@ public class MPAMProgressCase extends BasePage {
                     dashboard.selectCreateSingleCaseLinkFromMenuBar();
                 }
                 createCase.selectCaseType(CaseType.MPAM);
-                clickTheButton("Next");
+                clickNextButton();
                 createCase.editReceivedDate("01/01/2022");
                 createCase.storeCorrespondenceReceivedDate();
                 documents.uploadFileOfType("docx");
@@ -318,7 +318,7 @@ public class MPAMProgressCase extends BasePage {
                 creation.selectASpecificAddressee("Home Secretary");
                 creation.selectASpecificUrgency(urgency);
                 creation.selectASpecificInboundChannel("Email");
-                clickTheButton("Continue");
+                clickContinueButton();
                 correspondents.addASpecificMemberCorrespondent("Boris Johnson");
                 correspondents.addANonMemberCorrespondentOfType("Constituent");
                 correspondents.confirmPrimaryCorrespondent();

@@ -111,12 +111,12 @@ public class DispatchStagesStepDefs extends BasePage {
     @When("I confirm that the case has been dispatched")
     public void iConfirmThatTheCaseHasBeenDispatched() {
         dispatchStages.selectDispatchAndCloseCaseAction();
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
     @When("I select to return the case to Private Office")
     public void iSelectToReturnTheCaseToPrivateOffice() {
         dispatchStages.selectSendBackToPrivateOfficeAction();
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 }

@@ -18,20 +18,20 @@ public class QAStepDefs extends BasePage {
     @And("I approve the draft response")
     public void iApproveTheDraftResponse() {
         selectTheStageAction("Approve");
-        clickTheButton("Finish");
+        clickFinishButton();
         recordCaseData.addHeadingAndValueRecord("Approval Status", "Approved");
     }
 
     @When("I select to reject the case back to Triage stage")
     public void iRejectTheCaseBackToTriageStage() {
         selectTheStageAction("Reject, send to triage");
-        clickTheButton("Finish");
+        clickFinishButton();
     }
 
     @When("I select to reject the case back to Draft stage")
     public void iRejectTheCaseBackToDraftStage() {
         selectTheStageAction("Reject, send to draft");
-        clickTheButton("Finish");
+        clickFinishButton();
     }
 
     @And("I submit a reason to reject the case")
@@ -45,6 +45,6 @@ public class QAStepDefs extends BasePage {
     public void iSaveTheChangeOfThePrimaryDraft() {
         documents.recordPrimaryDraftDocument();
         selectTheStageAction("Save changes");
-        clickTheButton("Finish");
+        clickFinishButton();
     }
 }

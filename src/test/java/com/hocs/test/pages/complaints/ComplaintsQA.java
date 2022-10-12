@@ -47,7 +47,7 @@ public class ComplaintsQA extends BasePage {
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
         }
-        clickTheButton("Continue");
+        clickContinueButton();
     }
 
     public void submitRejectionReason() {

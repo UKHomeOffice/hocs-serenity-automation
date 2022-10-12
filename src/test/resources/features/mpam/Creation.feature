@@ -18,7 +18,7 @@ Feature: Creation
     Examples:
       | refType     |
       | Ministerial |
-      | Ministerial |
+      | Official    |
 
   @MPAMRegression1
   Scenario: User can select a Ministerial Sign off team for the case

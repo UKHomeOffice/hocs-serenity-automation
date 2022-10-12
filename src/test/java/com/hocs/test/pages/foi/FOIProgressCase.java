@@ -108,7 +108,7 @@ public class FOIProgressCase extends BasePage {
     }
 
     public void moveCaseFromCaseCreationToAllocation() {
-        clickTheButton("Confirm");
+        clickConfirmButton();
         caseCreationStage.selectValidityOfRequest("Valid");
         clickContinueButton();
         waitABit(250);
@@ -128,14 +128,14 @@ public class FOIProgressCase extends BasePage {
 
     public void moveCaseFromAcceptanceToConsiderAndDraft() {
         acceptance.selectIfCaseIsInCorrectGroup("Yes");
-        clickTheButton("Continue");
+        clickContinueButton();
         acceptance.selectAResponsibleTeam();
         clickTheButton("Complete Acceptance");
     }
 
     public void moveCaseFromConsiderAndDraftToApproval() {
         considerAndDraft.isContributionRequestNeeded("No");
-        clickTheButton("Continue");
+        clickContinueButton();
         documents.addADocumentOfDocumentType("Draft response");
         clickTheButton("Complete Draft");
     }
@@ -149,11 +149,11 @@ public class FOIProgressCase extends BasePage {
         foiDispatch.selectACaseType();
         foiDispatch.selectAResponseChannel();
         foiDispatch.selectOutcomeOfTheCase("Information released in full");
-        clickTheButton("Continue");
-        clickTheButton("Confirm");
+        clickContinueButton();
+        clickConfirmButton();
         foiDispatch.selectDoYouWantToDispatch("Yes");
         foiDispatch.enterFinalResponseDate();
-        clickTheButton("Continue");
+        clickContinueButton();
         documents.addADocumentOfDocumentType("Final responses");
         clickTheButton("Complete Dispatch");
         waitABit(500);

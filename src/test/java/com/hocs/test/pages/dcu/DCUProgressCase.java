@@ -222,9 +222,9 @@ public class DCUProgressCase extends BasePage {
         documents.addADocumentOfDocumentType("DRAFT");
         waitABit(1000);
         documents.recordPrimaryDraftDocument();
-        clickTheButton("Continue");
+        clickContinueButton();
         initialDraft.selectQAOfflineDecision("No");
-        clickTheButton("Continue");
+        clickContinueButton();
     }
 
     public void moveCaseFromInitialDraftToPrivateOfficeApprovalOrDispatch() {
@@ -237,7 +237,7 @@ public class DCUProgressCase extends BasePage {
         documents.addADocumentOfDocumentType("DRAFT");
         waitABit(1000);
         documents.recordPrimaryDraftDocument();
-        clickTheButton("Continue");
+        clickContinueButton();
         initialDraft.selectQAOfflineDecision("Yes");
         clickContinueButton();
         initialDraft.selectAOfflineQAIndividual();
@@ -246,7 +246,7 @@ public class DCUProgressCase extends BasePage {
 
     public void moveCaseFromQAResponseToPrivateOfficeApprovalOrDispatch() {
         qaResponse.selectApprovePrimaryDraftRadioButton();
-        clickTheButton("Continue");
+        clickContinueButton();
     }
 
     public void moveCaseFromPrivateOfficeApprovalToMinisterialSignOffOrDispatch() {
