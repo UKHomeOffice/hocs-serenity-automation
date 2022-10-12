@@ -80,7 +80,9 @@ public class FOIDispatchStepDefs extends BasePage {
     public void iUploadACopyOfTheFinalResponse() {
         if (foiCase()) {
             documents.addADocumentOfDocumentType("Final responses");
-        } else if (complaintCase()) {
+        } else if (iedetCase()) {
+            documents.addADocumentOfDocumentType("Final response");
+        } else {
             documents.addADocumentOfDocumentType("Final Response");
         }
     }
