@@ -348,7 +348,6 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     }
 
     public void selectAClosureReason() {
-       // selectRandomOptionFromDropdownWithHeading("Closure Reason");
         String dropdownClosureReason = recordCaseData.selectRandomOptionFromDropdownWithHeading("Closure Reason");
         setSessionVariable("dropdownClosureReason").to(dropdownClosureReason);
     }
@@ -387,7 +386,5 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
 
     public void selectCloseCaseAction() {
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Close the case", "Actions");
-      //  safeClickOn(continueButton);
-      //  selectSpecificRadioButtonFromGroupWithHeading("Close the case", "Actions");
     }
 }
