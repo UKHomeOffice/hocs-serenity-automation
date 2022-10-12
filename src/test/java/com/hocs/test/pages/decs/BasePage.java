@@ -167,11 +167,12 @@ public class BasePage extends PageObject {
         while (retries < 3) {
             try {
                 assertDECSPageTitle(pageTitle);
-                break;
+                return;
             } catch (AssertionError | TimeoutException e) {
                 retries++;
             }
         }
+        Assert.fail("Expected page title '" + pageTitle + "' not visible after " + retries*10 + " seconds wait");
     }
 
     public void waitForMUIPageWithTitle(String pageTitle) {
