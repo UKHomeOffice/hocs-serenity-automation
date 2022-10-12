@@ -20,7 +20,7 @@ public class AcceptanceStepDefs extends BasePage {
     public void iSelectThatTheCaseBelongToTheGroup(String input) {
         if (input.equalsIgnoreCase("DOES")) {
             acceptance.selectIfCaseIsInCorrectGroup("Yes");
-            clickTheButton("Continue");
+            clickContinueButton();
         } else if (input.equalsIgnoreCase("DOESN'T")) {
             acceptance.selectIfCaseIsInCorrectGroup("No");
         } else {
@@ -31,7 +31,7 @@ public class AcceptanceStepDefs extends BasePage {
     @And("I submit a rejection reason at the Acceptance stage")
     public void iEnterARejectionReasonAtTheAcceptanceStage() {
         acceptance.enterRejectionReason();
-        clickTheButton("Continue");
+        clickContinueButton();
     }
 
     @And("I select a Responsible Team and complete acceptance")

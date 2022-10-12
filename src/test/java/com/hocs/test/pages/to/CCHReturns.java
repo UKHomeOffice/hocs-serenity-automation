@@ -9,18 +9,18 @@ public class CCHReturns extends BasePage {
     public void selectTransferToBusinessArea() {
         selectSpecificRadioButton("Transfer to a Business Unit");
         //Radio button text to be updated once HOCS-4720 is resolved
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     public void selectNewBusinessArea(String businessArea) {
         selectSpecificRadioButtonFromGroupWithHeading(businessArea, "Business Area");
         setSessionVariable("businessArea").to(businessArea);
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     public void selectCloseTheCase() {
         selectSpecificRadioButton("Close this Case");
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     public void selectWhyCaseShouldBeClosed() {

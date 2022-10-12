@@ -14,6 +14,7 @@ import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
 import com.hocs.test.pages.decs.SummaryTab;
+import config.CaseType;
 
 public class POGRProgressCase extends BasePage {
 
@@ -41,10 +42,10 @@ public class POGRProgressCase extends BasePage {
 
     String businessArea;
 
-    public void moveCaseFromCurrentStageToTargetStage(String caseType, String currentStage, String targetStage) {
+    public void moveCaseFromCurrentStageToTargetStage(CaseType caseType, String currentStage, String targetStage) {
         String precedingStage = getStageThatPrecedesTargetStage(targetStage);
         if (precedingStage.equals("CREATE NEW CASE")) {
-            createCase.createCSCaseOfType(caseType);
+            createCase.createCSCaseOfTypeWithDocument(caseType);
             dashboard.goToDashboard();
         } else {
             if (!precedingStage.equalsIgnoreCase(currentStage)) {
@@ -54,18 +55,18 @@ public class POGRProgressCase extends BasePage {
         }
     }
 
-    public void createCaseAndMoveItToTargetStageWithSpecificBusinessArea(String caseType, String businessArea, String targetStage) {
+    public void createCaseAndMoveItToTargetStageWithSpecificBusinessArea(CaseType caseType, String businessArea, String targetStage) {
         this.businessArea = businessArea;
         setSessionVariable("businessArea").to(businessArea);
         moveCaseFromCurrentStageToTargetStage(caseType, "N/A", targetStage);
     }
 
-    public void createCaseAndMoveItToTargetStageWithPrioritySetTo(String caseType, boolean pogrPriority, String targetStage) {
+    public void createCaseAndMoveItToTargetStageWithPrioritySetTo(CaseType caseType, boolean pogrPriority, String targetStage) {
         complaintsRegistrationAndDataInput.setPOGRPriority(pogrPriority);
         moveCaseFromCurrentStageToTargetStage(caseType,"N/A", targetStage);
     }
 
-    public void createCaseAndMoveItToTargetStageWithSetBusinessAreaAndPriority(String caseType, String businessArea, boolean pogrPriority,
+    public void createCaseAndMoveItToTargetStageWithSetBusinessAreaAndPriority(CaseType caseType, String businessArea, boolean pogrPriority,
             String targetStage) {
         this.businessArea = businessArea;
         complaintsRegistrationAndDataInput.setPOGRPriority(pogrPriority);
@@ -143,22 +144,22 @@ public class POGRProgressCase extends BasePage {
             } else {
                 complaintsRegistrationAndDataInput.selectSpecificBusinessArea(businessArea);
             }
-            safeClickOn(continueButton);
+            clickContinueButton();
         } else {
             summaryTab.selectSummaryTab();
             String businessArea = summaryTab.getSummaryTabValueForGivenHeader("Business Area");
             setSessionVariable("businessArea").to(businessArea);
         }
         correspondents.addANonMemberCorrespondentOfType("Complainant");
-        safeClickOn(continueButton);
+        clickContinueButton();
         complaintsRegistrationAndDataInput.completeDataInputScreen();
-        safeClickOn(continueButton);
+        clickContinueButton();
         documents.addADocumentOfDocumentType("Interim Letter");
         complaintsRegistrationAndDataInput.enterDateInterimLetterSent();
-        safeClickOn(continueButton);
+        clickContinueButton();
         if (sessionVariableCalled("businessArea").toString().equalsIgnoreCase("GRO")) {
             complaintsRegistrationAndDataInput.selectInvestigatingTeam();
-            safeClickOn(finishButton);
+            clickFinishButton();
         }
     }
 
@@ -168,7 +169,7 @@ public class POGRProgressCase extends BasePage {
             complaintsTriageAndInvestigation.enterLoAReceivedDetails();
         }
         complaintsTriageAndInvestigation.selectAllInformationCollectedRespondAction();
-        safeClickOn(finishButton);
+        clickFinishButton();
     }
 
     private void movePOGRCaseFromInvestigationToEscalated() {
@@ -198,45 +199,50 @@ public class POGRProgressCase extends BasePage {
         switch (infoType.toUpperCase()) {
             case "CASE TYPE":
             case "CASE REFERENCE":
-                createCase.createCSCaseOfType("POGR");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.POGR);
                 break;
             case "CORRESPONDENT FULL NAME":
             case "CORRESPONDENT POSTCODE":
             case "CORRESPONDENT EMAIL ADDRESS":
-                createCase.createCSCaseOfType("POGR");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.POGR);
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 complaintsRegistrationAndDataInput.selectBusinessArea();
-                clickTheButton("Continue");
+                clickContinueButton();
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
                 correspondents.confirmPrimaryCorrespondent();
                 break;
             case "COMPLAINANT DATE OF BIRTH":
-                createCase.createCSCaseOfType("POGR");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.POGR);
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 complaintsRegistrationAndDataInput.selectBusinessArea();
-                clickTheButton("Continue");
+                clickContinueButton();
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
                 correspondents.confirmPrimaryCorrespondent();
                 complaintsRegistrationAndDataInput.completeDataInputScreen();
                 complaintsRegistrationAndDataInput.enterComplainantDOB(infoValue);
-                clickTheButton("Continue");
+                clickContinueButton();
                 break;
             case "ALL":
-                createCase.createCSCaseOfType("POGR");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.POGR);
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 complaintsRegistrationAndDataInput.selectBusinessArea();
-                clickTheButton("Continue");
+                clickContinueButton();
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
                 correspondents.confirmPrimaryCorrespondent();
                 complaintsRegistrationAndDataInput.completeDataInputScreen();
                 complaintsRegistrationAndDataInput.enterComplainantDOB("01/01/2001");
-                clickTheButton("Continue");
+                clickContinueButton();
                 break;
             default:
                 pendingStep(infoType + " is not defined within " + getMethodName());
         }
+    }
+
+    public void getPOGRCaseToPointOfAddingCorrespondents() {
+        complaintsRegistrationAndDataInput.selectBusinessArea();
+        clickContinueButton();
     }
 }

@@ -23,12 +23,12 @@ public class ArchivedRejected extends BasePage {
 
     public void selectToRestoreClaim() {
         selectSpecificRadioButton("Restore claim");
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
     public void selectToPermanentlyCloseClaim() {
         selectSpecificRadioButton("Close claim permanently");
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
     public void assertArchiveIdentityRejectedIsRequiredErrorMessage() {

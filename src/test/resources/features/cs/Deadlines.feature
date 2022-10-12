@@ -87,7 +87,7 @@ Feature: Deadlines
     And I record that the GRO case is a "<deadlineDefiningFactor>"
     And I withdraw the case
     And I escalate the closed case to Stage 2
-    Then the case deadline date displayed in the summary is correct for a "<deadlineDefiningFactor>" case
+    Then the Stage 2 case deadline date displayed in the summary is correct for a "<deadlineDefiningFactor>" case
     Examples:
       | deadlineDefiningFactor              |
       | Priority GRO complaint              |

@@ -176,12 +176,12 @@ public class Tier1Review extends BasePage {
 
     public void selectToProgressClaim() {
         selectSpecificRadioButton("progress the case");
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
     public void selectToReturnClaim() {
         selectSpecificRadioButton("Decision revised");
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
     //Assertions

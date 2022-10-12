@@ -4,23 +4,17 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.decs.BasePage;
-import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.ConfirmationScreens;
 import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
-import java.text.ParseException;
-import java.util.List;
-import java.util.Random;
-import net.serenitybdd.core.pages.WebElementFacade;
+import config.CaseType;
 
 public class TOProgressCase extends BasePage {
 
     ConfirmationScreens confirmationScreens;
-
-    CaseView caseView;
 
     CreateCase createCase;
 
@@ -49,7 +43,7 @@ public class TOProgressCase extends BasePage {
     public void moveCaseFromCurrentStageToTargetStage(String currentStage, String targetStage) {
         String precedingStage = getStageThatPrecedesTargetStage(targetStage);
         if (precedingStage.equals("CREATE NEW CASE")) {
-            createCase.createCSCaseOfType("TO");
+            createCase.createCSCaseOfTypeWithDocument(CaseType.TO);
             dashboard.goToDashboard();
         } else {
             if (!precedingStage.equalsIgnoreCase(currentStage)) {
@@ -165,11 +159,11 @@ public class TOProgressCase extends BasePage {
         } else {
             dataInput.selectASpecificHomeSecInterestOption("No");
         }
-        clickTheButton("Continue");
+        clickContinueButton();
         correspondents.addANonMemberCorrespondentOfType("Correspondent");
         correspondents.confirmPrimaryCorrespondent();
         dataInput.selectWhetherToAddRecipient("No");
-        clickTheButton("Continue");
+        clickContinueButton();
     }
 
     private void moveCaseFromTriageToDraft() {
@@ -178,21 +172,21 @@ public class TOProgressCase extends BasePage {
         triage.selectABusinessUnitType();
         triage.selectABusinessUnit();
         selectTheStageAction("Ready to draft");
-        clickTheButton("Finish");
+        clickFinishButton();
     }
 
     private void moveCaseFromTriageToCampaign() {
         selectTheStageAction("Put case into a campaign");
-        clickTheButton("Finish");
+        clickFinishButton();
         campaign.selectACampaign();
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
     private void moveCaseFromTriageToStopList() {
         selectTheStageAction("Place on a stop list");
-        clickTheButton("Finish");
+        clickFinishButton();
         stopList.selectAStopList();
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
     public void moveCaseFromTriageToCCH() {
@@ -200,24 +194,24 @@ public class TOProgressCase extends BasePage {
         clickTheLink("Change business area");
         waitABit(500);
         selectSpecificRadioButtonFromGroupWithHeading("UKVI", "Business Area");
-        safeClickOn(finishButton);
+        clickFinishButton();
     }
 
     private void moveCaseFromDraftToQA() {
         documents.addADocumentOfDocumentType("Initial Draft");
         selectTheStageAction("Move to QA");
-        clickTheButton("Finish");
+        clickFinishButton();
     }
 
     private void moveCaseFromDraftToDispatchOrHomeSecretaryInterest() {
         documents.addADocumentOfDocumentType("Initial Draft");
         selectTheStageAction("Send to Dispatch");
-        clickTheButton("Finish");
+        clickFinishButton();
     }
 
     private void moveCaseFromQAToDispatch() {
         selectTheStageAction("Approve");
-        clickTheButton("Finish");
+        clickFinishButton();
     }
 
     private void moveCaseFromDispatchToCaseClosed() {
@@ -226,23 +220,23 @@ public class TOProgressCase extends BasePage {
         dispatch.selectAFinalDispatchChannel();
         documents.recordFinalResponseDocument();
         selectTheStageAction("Complete case");
-        clickTheButton("Finish");
+        clickFinishButton();
     }
 
-    public void generateTOSearchCaseData(String infoValue, String infoType) throws ParseException {
+    public void generateTOSearchCaseData(String infoValue, String infoType) {
         switch (infoType.toUpperCase()) {
             case "CASE REFERENCE":
             case "ACTIVE CASES ONLY":
-                createCase.createCSCaseOfType("TO");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.TO);
                 break;
             case "RECEIVED ON OR AFTER":
             case "RECEIVED ON OR BEFORE":
                 dashboard.selectCreateSingleCaseLinkFromMenuBar();
-                if (!nextButton.isVisible()) {
+                if (!buttonIsVisible("Next")) {
                     dashboard.selectCreateSingleCaseLinkFromMenuBar();
                 }
-                createCase.selectCaseType("TO");
-                clickTheButton("Next");
+                createCase.selectCaseType(CaseType.TO);
+                clickNextButton();
                 createCase.editReceivedDate(infoValue);
                 createCase.storeCorrespondenceReceivedDate();
                 documents.uploadFileOfType("docx");
@@ -254,44 +248,44 @@ public class TOProgressCase extends BasePage {
             case "CORRESPONDENT POSTCODE":
             case "CORRESPONDENT EMAIL ADDRESS":
             case "CORRESPONDENT REFERENCE NUMBER":
-                createCase.createCSCaseOfType("TO");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.TO);
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 dashboard.claimCurrentCase();
                 dataInput.selectABusinessArea();
                 dataInput.selectAChannelRecieved();
-                clickTheButton("Continue");
+                clickContinueButton();
                 correspondents.addANonMemberCorrespondentOfType("Correspondent");
                 correspondents.confirmPrimaryCorrespondent();
                 break;
             case "CAMPAIGN":
-                createCase.createCSCaseOfType("TO");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.TO);
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 dashboard.claimCurrentCase();
                 dataInput.selectABusinessArea();
                 dataInput.selectAChannelRecieved();
-                clickTheButton("Continue");
+                clickContinueButton();
                 correspondents.addANonMemberCorrespondentOfType("Correspondent");
                 correspondents.confirmPrimaryCorrespondent();
                 dataInput.selectWhetherToAddRecipient("No");
-                clickTheButton("Continue");
+                clickContinueButton();
                 dashboard.getAndClaimCurrentCase();
                 triage.selectAnEnquirySubject();
                 triage.selectAnEnquiryReason();
                 triage.selectABusinessUnitType();
                 triage.selectABusinessUnit();
                 selectTheStageAction("Put case into a campaign");
-                clickTheButton("Finish");
+                clickFinishButton();
                 campaign.selectASpecificCampaign(infoValue);
-                clickTheButton("Confirm");
+                clickConfirmButton();
                 dashboard.goToDashboard();
                 break;
             case "ALL":
                 dashboard.selectCreateSingleCaseLinkFromMenuBar();
-                if (!nextButton.isVisible()) {
+                if (!buttonIsVisible("Next")) {
                     dashboard.selectCreateSingleCaseLinkFromMenuBar();
                 }
-                createCase.selectCaseType("TO");
-                clickTheButton("Next");
+                createCase.selectCaseType(CaseType.TO);
+                clickNextButton();
                 createCase.editReceivedDate("01/01/2022");
                 createCase.storeCorrespondenceReceivedDate();
                 documents.uploadFileOfType("docx");
@@ -301,24 +295,30 @@ public class TOProgressCase extends BasePage {
                 dashboard.getAndClaimCurrentCase();
                 dataInput.selectABusinessArea();
                 dataInput.selectAChannelRecieved();
-                clickTheButton("Continue");
+                clickContinueButton();
                 correspondents.addANonMemberCorrespondentOfType("Correspondent");
                 correspondents.confirmPrimaryCorrespondent();
                 dataInput.selectWhetherToAddRecipient("No");
-                clickTheButton("Continue");
+                clickContinueButton();
                 dashboard.getAndClaimCurrentCase();
                 triage.selectAnEnquirySubject();
                 triage.selectAnEnquiryReason();
                 triage.selectABusinessUnitType();
                 triage.selectABusinessUnit();
                 selectTheStageAction("Put case into a campaign");
-                clickTheButton("Finish");
+                clickFinishButton();
                 campaign.selectASpecificCampaign("Test campaign 1");
-                clickTheButton("Confirm");
+                clickConfirmButton();
                 dashboard.goToDashboard();
                 break;
             default:
                 pendingStep(infoType + " is not defined within " + getMethodName());
         }
+    }
+
+    public void getTOCaseToPointOfAddingCorrespondents() {
+        dataInput.selectABusinessArea();
+        dataInput.selectAChannelRecieved();
+        clickContinueButton();
     }
 }

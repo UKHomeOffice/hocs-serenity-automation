@@ -11,6 +11,7 @@ import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
+import config.CaseType;
 
 public class BFProgressCase extends BasePage {
 
@@ -38,10 +39,10 @@ public class BFProgressCase extends BasePage {
 
     String complaintType = "Service";
 
-    public void moveCaseOfTypeFromCurrentStageToTargetStage(String caseType, String currentStage, String targetStage) {
+    public void moveCaseOfTypeFromCurrentStageToTargetStage(CaseType caseType, String currentStage, String targetStage) {
         String precedingStage = getStageThatPrecedesTargetStage(targetStage);
         if (precedingStage.equals("CREATE NEW CASE")) {
-            createCase.createCSCaseOfType(caseType);
+            createCase.createCSCaseOfTypeWithDocument(caseType);
             dashboard.goToDashboard();
         } else {
             if (!precedingStage.equalsIgnoreCase(currentStage)) {
@@ -51,7 +52,7 @@ public class BFProgressCase extends BasePage {
         }
     }
 
-    public void createCaseOfTypeAndMoveItToTargetStageWithSpecifiedComplaintType(String caseType, String complaintType, String targetStage) {
+    public void createCaseOfTypeAndMoveItToTargetStageWithSpecifiedComplaintType(CaseType caseType, String complaintType, String targetStage) {
         this.complaintType = complaintType;
         moveCaseOfTypeFromCurrentStageToTargetStage(caseType, "N/A", targetStage);
     }
@@ -120,23 +121,23 @@ public class BFProgressCase extends BasePage {
 
     public void moveBFCaseFromRegistrationToTriage() {
         correspondents.addANonMemberCorrespondentOfType("Complainant");
-        clickTheButton("Continue");
+        clickContinueButton();
         complaintsRegistrationAndDataInput.enterComplainantDetails();
         if (bfCase()) {
             complaintsRegistrationAndDataInput.selectAComplaintType();
-            clickTheButton("Continue");
+            clickContinueButton();
         }
         complaintsRegistrationAndDataInput.selectAComplaintChannel();
         complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
         complaintsRegistrationAndDataInput.enterAPreviousComplaintReference();
         complaintsRegistrationAndDataInput.enterAThirdPartyReference();
-        clickTheButton("Finish");
+        clickFinishButton();
         System.out.println("Case moved from Case Registration to Case Triage");
     }
 
     public void moveBFCaseFromTriageToDraft() {
         complaintsTriageAndInvestigation.selectAcceptCase();
-        clickTheButton("Continue");
+        clickContinueButton();
         complaintsTriageAndInvestigation.enterDetailsOnBFTriageDetailsPage();
         complaintsTriageAndInvestigation.selectReadyForDrafting();
         System.out.println("Case moved from Case Triage to Draft");
@@ -144,8 +145,8 @@ public class BFProgressCase extends BasePage {
 
     public void moveBFCaseFromTriageToEscalated() {
         complaintsTriageAndInvestigation.selectAcceptCase();
-        clickTheButton("Continue");
-        waitForPageWithTitle("Triage Details");
+        clickContinueButton();
+        waitForDECSPageWithTitle("Triage Details");
         complaintsTriageAndInvestigation.enterDetailsOnBFTriageDetailsPage();
         complaintsTriageAndInvestigation.escalateCaseToWFM();
         System.out.println("Case moved from Case Triage to Escalated to WFM");
@@ -175,14 +176,14 @@ public class BFProgressCase extends BasePage {
             case "CORRESPONDENT FULL NAME":
             case "CORRESPONDENT POSTCODE":
             case "CORRESPONDENT EMAIL ADDRESS":
-                createCase.createCSCaseOfType("BF");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.BF);
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
                 correspondents.confirmPrimaryCorrespondent();
                 break;
             case "COMPLAINANT DATE OF BIRTH":
-                createCase.createCSCaseOfType("BF");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.BF);
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
@@ -192,13 +193,13 @@ public class BFProgressCase extends BasePage {
                 complaintsRegistrationAndDataInput.enterACompanyName();
                 complaintsRegistrationAndDataInput.enterAHomeOfficeReference("Test entry for Home Office Reference");
                 complaintsRegistrationAndDataInput.enterAPortReference();
-                safeClickOn(continueButton);
+                clickContinueButton();
                 break;
             case "CASE REFERENCE":
-                createCase.createCSCaseOfType("BF");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.BF);
                 break;
             case "COMPLAINANT HOME OFFICE REFERENCE":
-                createCase.createCSCaseOfType("BF");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.BF);
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
@@ -208,10 +209,10 @@ public class BFProgressCase extends BasePage {
                 complaintsRegistrationAndDataInput.enterACompanyName();
                 complaintsRegistrationAndDataInput.enterAHomeOfficeReference(infoValue);
                 complaintsRegistrationAndDataInput.enterAPortReference();
-                safeClickOn(continueButton);
+                clickContinueButton();
                 break;
             case "ALL":
-                createCase.createCSCaseOfType("BF");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.BF);
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
@@ -221,7 +222,7 @@ public class BFProgressCase extends BasePage {
                 complaintsRegistrationAndDataInput.enterACompanyName();
                 complaintsRegistrationAndDataInput.enterAHomeOfficeReference("Test entry for HO Reference");
                 complaintsRegistrationAndDataInput.enterAPortReference();
-                safeClickOn(continueButton);
+                clickContinueButton();
                 break;
             default:
                 pendingStep(infoType + " is not defined within " + getMethodName());

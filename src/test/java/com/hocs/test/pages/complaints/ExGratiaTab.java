@@ -95,7 +95,7 @@ public class ExGratiaTab extends BasePage {
 
     public void assertSummaryContainsExpectedValueForGivenHeader(String expectedValue, String header) {
         String displayedValue = getExGratiaSummaryValueForGivenHeader(header);
-        if (!containsIgnoreCase(displayedValue, expectedValue)) {
+        if (!stringContainsCheckIgnoringCase(displayedValue, expectedValue)) {
             Assert.fail("Ex-Gratia summary value incorrect for: " + header + "\nExpected value was: \"" + expectedValue + "\"\nDisplayed value was: \"" +
                     displayedValue + "\"");
         }

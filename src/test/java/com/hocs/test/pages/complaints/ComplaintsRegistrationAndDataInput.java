@@ -1,7 +1,5 @@
 package com.hocs.test.pages.complaints;
 
-import static jnr.posix.util.MethodName.getMethodName;
-import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
@@ -54,9 +52,9 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         enterAHomeOfficeReference(getCurrentMonth() +"/" + getCurrentYear());
         enterAPortReference();
         if(iedetCase()){
-            clickTheButton("Finish");
+            clickFinishButton();
         } else {
-            clickTheButton("Continue");
+            clickContinueButton();
         }
 
     }
@@ -68,7 +66,7 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
             recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(complaintType, "Complaint Type");
         }
         setSessionVariable("complaintType").to(complaintType);
-        clickTheButton("Continue");
+        clickContinueButton();
         System.out.println("Complaint type: " + complaintType);
     }
 
@@ -272,8 +270,8 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         } else {
             selectBusinessArea();
         }
-        clickTheButton("Continue");
-        waitForPageWithTitle("Complaint Correspondents");
+        clickContinueButton();
+        waitForDECSPageWithTitle("Complaint Correspondents");
     }
 
     public void enterAPSUReference() {

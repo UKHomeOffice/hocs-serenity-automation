@@ -6,6 +6,28 @@ Feature: Creation
     And I create a "MPAM" case and move it to the "Creation" stage
     And I load and claim the current case
 
+  @MPAMWorkflow @MPAMRegression1
+  Scenario Outline: As an MPAM Creation user, I want to be able to enter all relevant case details, so the case can be Triaged
+    When I enter the details of a "<refType>" MPAM case
+    And I add a "Member" correspondent
+    And I confirm the primary correspondent
+    Then the case should be moved to the "Triage" stage
+    And the summary should display the correct MPAM "Triage" stage team as the owning team
+    And the read-only Case Details accordion should contain all case information entered during the "Creation" stage
+    And the summary should contain the Business Area, Channel Received, Reference Type and Urgency
+    Examples:
+      | refType     |
+      | Ministerial |
+      | Official    |
+
+  @MPAMRegression1
+  Scenario: User can select a Ministerial Sign off team for the case
+    And I select "Home Secretary" as the Ministerial sign off team when completing the creation stage
+    And I view the MPAM case in the appropriate "Triage" stage workstack
+    Then the Minister sign off team is correctly displayed
+    And I click the link for the current case in the workstack
+    Then the "Creation" MPAM accordion in case details should display the correct information for "Ministerial Sign Off Team"
+
   @Navigation
   Scenario: User should be on the MPAM Data Input Page
     Then the "MPAM Data Input" page should be displayed
@@ -47,15 +69,6 @@ Feature: Creation
     And the header tags in the HTML of the page are properly structured
     And the accessibility statement link should be visible
 
-  @MPAMWorkflow @MPAMRegression1
-  Scenario: User completes Case Creation stage
-    When I select "UKVI" as the Business Area and "Ministerial" as the Reference Type
-    And I complete the other required fields for Creation stage
-    And I click the "Continue" button
-    And I add a "Member" correspondent
-    And I confirm the primary correspondent
-    Then the case should be moved to the "Triage" stage
-
   @MPAMWorkflow
   Scenario Outline: User completes Case Creation stage with specific Business Area and Reference Type
     When I select "<businessArea>" as the Business Area and "<refType>" as the Reference Type
@@ -80,57 +93,6 @@ Feature: Creation
       | HMPO         | Official    |
       | Windrush     | Official    |
       | Coronavirus  | Official    |
-
-  @MPAMRegression1
-  Scenario: User adds an MP correspondent at Case Creation stage
-    When I complete all required fields for Creation stage
-    And I click the "Continue" button
-    And I add a "Member" correspondent
-    Then the submitted correspondent should be visible in the list of correspondents
-
-  @MPAMRegression1
-  Scenario: User adds a member of public correspondent at Case Creation stage
-    When I complete all required fields for Creation stage
-    And I click the "Continue" button
-    When I select to add a correspondent that "is not" a member of parliament
-    And I fill all mandatory fields on the "CORRESPONDENT DETAILS" page with valid data
-    Then the submitted correspondent should be visible in the list of correspondents
-
-  @MPAMRegression1
-  Scenario: User removes the primary correspondent
-    When I complete all required fields for Creation stage
-    And I click the "Continue" button
-    When I add a "Constituent" correspondent
-    And I remove the primary correspondent
-    Then there shouldn't be a primary correspondent displayed
-
-  @MPAMRegression1
-  Scenario: User edits an existing correspondents name
-    When I complete all required fields for Creation stage
-    And I click the "Continue" button
-    When I add a "Constituent" correspondent
-    And I edit the primary correspondents name
-    Then the correspondents name should be updated
-
-  @MPAMRegression1
-  Scenario: User adds a second correspondent and selects them as the primary correspondent
-    When I complete all required fields for Creation stage
-    And I click the "Continue" button
-    And I add a "Member" correspondent
-    And I add a "Constituent" correspondent
-    When I select the primary correspondent radio button for a different correspondent
-    And I click the "Move to Triage" button
-    Then the case summary should list the correct primary correspondent
-
-  Scenario: User can select a Ministerial Sign off team for the case
-    And I select "Home Secretary" as the Ministerial sign off team when completing the creation stage
-    And I load the current case
-    Then the "Creation" MPAM accordion in case details should display the correct information for "Ministerial Sign Off Team"
-
-  Scenario: User can select a Ministerial Sign Off team for a case and the selection is visible in a team workstack
-    And I select "Home Secretary" as the Ministerial sign off team when completing the creation stage
-    And I view the MPAM case in the appropriate "Triage" stage workstack
-    Then the Minister sign off team is correctly displayed
 
   @Validation
   Scenario: User attempts to progress a case without adding an MP correspondent

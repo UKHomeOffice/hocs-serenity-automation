@@ -80,7 +80,7 @@ public class SummaryTabStepDefs extends BasePage {
         }
     }
 
-    @Then("the case deadline date displayed in the summary is correct for a {string} case")
+    @Then("the (Stage 2 )case deadline date displayed in the summary is correct for a {string} case")
     public void theCaseDeadlineDateDisplayedInTheSummaryIsCorrectForACaseString(String deadlineDecidingFactor) {
         summaryTab.assertDeadlineDateOfCaseIsCorrect(deadlineDecidingFactor);
     }
@@ -117,9 +117,14 @@ public class SummaryTabStepDefs extends BasePage {
         summaryTab.assertAllocatedMPAMTeam(stage);
     }
 
+    @And("the summary should display the correct MPAM {string} stage team as the owning team")
+    public void theSummaryShouldDisplayTheCorrectMPAMStageTeamAsTheOwningTeam(String stage) {
+        summaryTab.assertAllocatedMPAMTeam(stage);
+    }
+
     @Then("the claim should be sent/returned to the correct WCS Casework team")
     public void theClaimShouldBeReturnedToTheCaseworkTeamThatLastWorkedTheClaim() {
-        dashboard.getCurrentCase();
+        dashboard.ensureViewingCurrentCase();
         summaryTab.selectSummaryTab();
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("selectedCaseworkTeam"), "Team");
     }
@@ -154,7 +159,7 @@ public class SummaryTabStepDefs extends BasePage {
 
     @And("the case should still be owned by the correct Treat Official team for the selected business area")
     public void theCaseShouldStillBeOwnedByTheCorrectTreatOfficialTeamForTheSelectedBusinessArea() {
-        waitForPageWithTitle(getCurrentCaseReference());
+        waitForDECSPageWithTitle(getCurrentCaseReference());
         String teamName = "Treat Official " + sessionVariableCalled("businessArea");
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(teamName, "Team");
     }
@@ -232,6 +237,14 @@ public class SummaryTabStepDefs extends BasePage {
     @And("the summary should contain the PSU reference")
     public void theSummaryShouldContainThePSUReference() {
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("psuReference"), "PSU reference");
+    }
+
+    @And("the summary should contain the Business Area, Channel Received, Reference Type and Urgency")
+    public void theSummaryShouldContainTheBusinessAreaChannelReceivedReferenceTypeAndUrgency() {
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("businessArea"), "Business Area");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("inboundChannel"), "Channel received");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("refType"), "Does this correspondence need a Ministerial response?");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("urgency"), "Urgency");
     }
 
     @And("the closure reason and details should be visible in the Summary tab")

@@ -83,22 +83,22 @@ public class Tier2Coordination extends BasePage {
 
     public void selectClaimantAcceptsRevisedOffer() {
         selectSpecificRadioButton("Revised offer accepted");
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
     public void selectClaimantRejectsRevisedOffer() {
         selectSpecificRadioButton("Revised offer rejected");
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
     public void selectClaimantAcceptsUpheldOffer() {
         selectSpecificRadioButton("Upheld offer is accepted");
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
     public void selectClaimantRejectsUpheldOffer() {
         selectSpecificRadioButton("Upheld offer is rejected");
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
     public void assertTier2ReviewResultIsRequiredErrorMessage() {

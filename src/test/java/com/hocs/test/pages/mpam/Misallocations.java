@@ -56,7 +56,7 @@ public class Misallocations extends BasePage {
             safeClickOn(triage.changeBusinessAreaLink);
             waitABit(1000);
         }
-        creation.selectBusinessArea("Transfer to " + transferTo);
+        creation.selectASpecificBusinessArea("Transfer to " + transferTo);
         if (transferTo.equalsIgnoreCase("OGD")) {
             reasonForTransferToOGDTextField.sendKeys("Test - Transfer to OGD reason");
             setSessionVariable("inputReasonForTransfer").to("Test - Transfer to OGD reason");
@@ -66,17 +66,17 @@ public class Misallocations extends BasePage {
         }
         switch (stage.toUpperCase()) {
             case "CREATION":
-                creation.selectRefType("Ministerial");
-                creation.selectMinisterialSignOffTeam("Home Secretary");
-                creation.selectAddressee("Home Secretary");
-                creation.selectInboundChannel("Email");
-                safeClickOn(continueButton);
+                creation.selectASpecificRefType("Ministerial");
+                creation.selectASpecificMinisterialSignOffTeam("Home Secretary");
+                creation.selectASpecificAddressee("Home Secretary");
+                creation.selectASpecificInboundChannel("Email");
+                clickContinueButton();
                 correspondents.addAMemberCorrespondent();
                 clickTheButton("Move to Transfer");
                 break;
             case "TRIAGE":
             case "DRAFT":
-                safeClickOn(continueButton);
+                clickContinueButton();
                 break;
             default:
                 pendingStep(stage + " is not defined within " + getMethodName());
@@ -105,16 +105,16 @@ public class Misallocations extends BasePage {
                 pendingStep(action + " is not defined within " + getMethodName());
         }
         radioButton.waitUntilClickable().withTimeoutOf(Duration.ofSeconds(30)).click();
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void completeRequiredFieldsForTriage() {
         waitABit(1000);
-        creation.selectBusinessArea("UKVI");
-        creation.selectRefType("Ministerial");
-        creation.selectMinisterialSignOffTeam("Home Secretary");
-        creation.selectAddressee("Home Secretary");
-        creation.selectUrgency("Standard");
+        creation.selectASpecificBusinessArea("UKVI");
+        creation.selectASpecificRefType("Ministerial");
+        creation.selectASpecificMinisterialSignOffTeam("Home Secretary");
+        creation.selectASpecificAddressee("Home Secretary");
+        creation.selectASpecificUrgency("Standard");
         clickTheButton("Move to Triage");
     }
 

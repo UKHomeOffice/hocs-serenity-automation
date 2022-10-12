@@ -23,7 +23,7 @@ public class PrivateOfficeApprovalStepDefs extends BasePage {
     @And("I override the Primary Topic of the case at the Private Office stage to {string}")
     public void iOverrideTheOfTheCaseAtThePrivateOfficeStage(String topic) {
         privateOfficeApproval.selectToChangeTopic();
-        safeClickOn(continueButton);
+        clickContinueButton();
         markup.addTopicToCase(topic);
         privateOfficeApproval.enterAReasonForChangingTopic();
         markup.selectPrimaryTopic(topic);
@@ -33,7 +33,7 @@ public class PrivateOfficeApprovalStepDefs extends BasePage {
     @And("I select to change minister")
     public void iSelectToChangeMinister() {
         privateOfficeApproval.selectToChangeMinister();
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     @And("I select {string} as the new Private Office team")
@@ -44,17 +44,17 @@ public class PrivateOfficeApprovalStepDefs extends BasePage {
     @And("I submit a reason for changing Private Office team")
     public void iEnterAsTheReasonForChangingPrivateOfficeTeam() {
         privateOfficeApproval.enterAReasonForChangingPOTeam();
-        safeClickOn(finishButton);
-        finishButton.waitUntilNotVisible();
+        clickFinishButton();
+        getButtonElementFromDisplayedText("Finish").waitUntilNotVisible();
     }
 
     @And("I change the minister to {string}")
     public void iChangeTheMinisterTo(String minister) {
         privateOfficeApproval.selectToChangeMinister();
-        safeClickOn(continueButton);
+        clickContinueButton();
         privateOfficeApproval.selectNewPrivateOfficeTeamFromDropdown(minister);
         privateOfficeApproval.enterAReasonForChangingPOTeam();
-        safeClickOn(finishButton);
+        clickFinishButton();
         waitABit(2000);
     }
 
@@ -68,14 +68,14 @@ public class PrivateOfficeApprovalStepDefs extends BasePage {
     @And("I reject the case at the Private Office Approval stage")
     public void iRejectTheCaseAtThePrivateOfficeApprovalStage() {
         privateOfficeApproval.selectIfApproveResponse("No");
-        safeClickOn(continueButton);
+        clickContinueButton();
         privateOfficeApproval.enterRejectionReason();
-        safeClickOn(finishButton);
+        clickFinishButton();
     }
 
     @And("I approve the case at the Private Office Approval stage")
     public void iApproveTheCaseAtThePrivateOfficeApprovalStage() {
         privateOfficeApproval.selectIfApproveResponse("Yes");
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 }

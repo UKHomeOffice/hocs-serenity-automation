@@ -21,11 +21,11 @@ public class SendPayment extends BasePage {
 
     public void selectFinalPaymentSent() {
         selectSpecificRadioButton("Payment sent (full & final)");
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
     public void selectInterimPaymentSent() {
         selectSpecificRadioButton("Payment sent (preliminary, or interim)");
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 }

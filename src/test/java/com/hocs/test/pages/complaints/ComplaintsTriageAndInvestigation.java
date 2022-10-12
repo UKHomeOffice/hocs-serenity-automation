@@ -64,19 +64,19 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     public void selectTransferOfflineAndCloseTheCase() {
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No - transfer offline and close the case",
                 "Can your team respond to this complaint?");
-        clickTheButton("Continue");
+        clickContinueButton();
     }
 
     public void selectTransferComplaint() {
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No - transfer the complaint", "Can your team respond to this complaint?");
-        clickTheButton("Continue");
+        clickContinueButton();
     }
 
     public void enterTransferReason() {
         String enteredText;
         if (pogrCase() || pogr2Case()) {
             if (sessionVariableCalled("businessArea").equals("GRO")) {
-                waitForPageWithTitle("Investigation - Transfer Case");
+                waitForDECSPageWithTitle("Investigation - Transfer Case");
             } else {
                 waitABit(500);
             }
@@ -94,17 +94,17 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
 
     public void selectTransferToCCH() {
         recordCaseData.selectSpecificRadioButton("CCH");
-        clickTheButton("Continue");
+        clickContinueButton();
     }
 
     public void selectTransferToPSU() {
         recordCaseData.selectSpecificRadioButton("PSU");
-        clickTheButton("Continue");
+        clickContinueButton();
     }
 
     public void selectTransferToIEDET() {
         recordCaseData.selectSpecificRadioButton("IE Detention");
-        clickTheButton("Continue");
+        clickContinueButton();
     }
 
     public void selectComplainantHasRequestedPayment(String yesNo) {
@@ -250,23 +250,23 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     public void selectReadyForDrafting() {
         recordCaseData.selectSpecificRadioButton("All information collected - case ready for drafting");
         if (bfCase() || bf2Case()) {
-            clickTheButton("Finish");
+            clickFinishButton();
         } else {
-            clickTheButton("Continue");
+            clickContinueButton();
         }
     }
 
     public void escalateCaseToWFM() {
         recordCaseData.selectSpecificRadioButton("Escalate case to WFM");
         if (bfCase() || bf2Case() || pogrCase() || pogr2Case()) {
-            clickTheButton("Finish");
+            clickFinishButton();
         } else {
-            clickTheButton("Continue");
+            clickContinueButton();
         }
         String enteredText = recordCaseData.enterTextIntoTextAreaWithHeading("Enter reason for escalation");
         setSessionVariable("escalationReason").to(enteredText);
         if (pogrCase() || pogr2Case()) {
-            clickTheButton("Continue");
+            clickContinueButton();
         } else {
             clickTheButton("Escalate case");
         }
@@ -290,7 +290,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
 
     public void selectPermanentlyCloseCase(String yesNo) {
         selectSpecificRadioButton(yesNo);
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
     public void selectThirdPartySupplier() {
@@ -344,7 +344,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
         if (closeReason.equals("Other")) {
             recordCaseData.enterTextIntoTextAreaWithHeading("Reason for closing");
         }
-        clickTheButton("Continue");
+        clickContinueButton();
     }
 
     public void selectAClosureReason() {
@@ -354,7 +354,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
 
     public void acceptCaseAtInvestigation() {
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Yes - accept the complaint", "Can your team respond to this complaint?");
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     public void rejectCaseAtInvestigation() {
@@ -362,7 +362,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
             recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No - close and transfer to external team", "Can your team respond to this complaint?");
         } else if (sessionVariableCalled("businessArea").toString().equalsIgnoreCase("GRO")) {
             recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No - transfer the case", "Can your team respond to this complaint?");
-            safeClickOn(continueButton);
+            clickContinueButton();
         }
     }
 
@@ -371,7 +371,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
             selectSpecificRadioButtonFromGroupWithHeading("Internal", "Internal or external transfer");
         } else if (transferAction.equalsIgnoreCase("EXTERNAL")) {
             selectSpecificRadioButtonFromGroupWithHeading("External - close the case", "Internal or external transfer");
-            safeClickOn(continueButton);
+            clickContinueButton();
         }
     }
 
@@ -386,5 +386,10 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
 
     public void selectCloseCaseAction() {
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Close the case", "Actions");
+    }
+
+    public void enterReasonForTransfer() {
+        String enteredReason = recordCaseData.enterTextIntoTextAreaWithHeading("Reason for transfer");
+        setSessionVariable("transferReason").to(enteredReason);
     }
 }

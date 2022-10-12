@@ -30,7 +30,7 @@ public class DraftStepDefs extends BasePage {
             case "QA":
                 safeClickOn(draft.moveToQARadioButton);
                 setSessionVariable("action").to("Move to QA");
-                safeClickOn(confirmButton);
+                clickConfirmButton();
                 break;
             case "WORKFLOW MANAGER":
                 draft.selectEscalateDraftCaseToWorkflowManager();
@@ -78,13 +78,13 @@ public class DraftStepDefs extends BasePage {
         switch (action.toUpperCase()) {
             case "ESCALATE TO WORKFLOW MANAGER":
                 safeClickOn(draft.escalateToWorkflowManagerRadioButton);
-                safeClickOn(confirmButton);
+                clickConfirmButton();
                 break;
             case "CONTRIBUTIONS RECEIVED":
                 safeClickOn(draft.contributionsReceivedRadioButton);
-                safeClickOn(confirmButton);
+                clickConfirmButton();
                 safeClickOn(MPAMMultipleContributions.unallocateCaseRadioButton);
-                safeClickOn(confirmButton);
+                clickConfirmButton();
                 break;
             default:
                 pendingStep(errorMessageList + " is not defined within " + getMethodName());

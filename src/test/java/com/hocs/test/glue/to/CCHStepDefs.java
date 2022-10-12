@@ -26,6 +26,6 @@ public class CCHStepDefs extends BasePage {
     public void iCompleteTheRequiredInformationOnTheCloseCaseScreenAtCCH() {
         cchReturns.selectWhyCaseShouldBeClosed();
         cchReturns.enterClosureDetails();
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 }

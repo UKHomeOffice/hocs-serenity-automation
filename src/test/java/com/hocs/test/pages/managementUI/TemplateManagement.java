@@ -6,6 +6,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.decs.BasePage;
+import config.CaseType;
 import java.io.File;
 import java.time.Duration;
 import java.util.List;
@@ -28,9 +29,9 @@ public class TemplateManagement extends BasePage {
     public WebElementFacade templateDocumentLabel;
 
 
-    public void selectACaseType(String caseType) {
+    public void selectACaseType(CaseType caseType) {
         waitFor(caseTypeTypeahead);
-        caseTypeTypeahead.sendKeys(caseType);
+        caseTypeTypeahead.sendKeys(caseType.getCorrespondenceTypeLabel());
         caseTypeTypeahead.sendKeys(Keys.RETURN);
         clickTheButton("Submit");
     }

@@ -17,13 +17,13 @@ public class FOIDispatchStepDefs extends BasePage {
             foiDispatch.selectDoYouWantToDispatch("Yes");
         } else if (response.equalsIgnoreCase("DO NOT")) {
             foiDispatch.selectDoYouWantToDispatch("No");
-            clickTheButton("Continue");
+            clickContinueButton();
         }
     }
 
     @And("I select {string} as the case type")
-    public void iSelectAsCaseType(String caseType) {
-        foiDispatch.selectASpecificCaseType(caseType);
+    public void iSelectAsCaseType(String foiOutcomeCaseType) {
+        foiDispatch.selectASpecificFOIOutcomeCaseType(foiOutcomeCaseType);
     }
 
     @And("I select {string} as the response channel")
@@ -34,46 +34,46 @@ public class FOIDispatchStepDefs extends BasePage {
     @And("I submit {string} as the outcome of the case")
     public void iSelectAsOutcomeOfTheCase(String outcome) {
         foiDispatch.selectOutcomeOfTheCase(outcome);
-        clickTheButton("Continue");
+        clickContinueButton();
     }
 
     @And("I select an Exception")
     public void iSelectRandomException() {
-        waitForPageWithTitle("Which exceptions were applied?");
+        waitForDECSPageWithTitle("Which exceptions were applied?");
         foiDispatch.selectRandomException();
-        clickTheButton("Continue");
+        clickContinueButton();
     }
 
     @And("I select an Exemption")
     public void iSelectRandomExemption() {
-        waitForPageWithTitle("Which exemptions were applied?");
+        waitForDECSPageWithTitle("Which exemptions were applied?");
         foiDispatch.selectRandomExemption();
-        clickTheButton("Continue");
+        clickContinueButton();
     }
 
     @And("I select an Exception and an Exemption")
     public void iSelectRandomExceptionAndExemption() {
-        waitForPageWithTitle("Which exemptions and exceptions were applied?");
+        waitForDECSPageWithTitle("Which exemptions and exceptions were applied?");
         foiDispatch.selectRandomException();
         foiDispatch.selectRandomExemption();
-        clickTheButton("Continue");
+        clickContinueButton();
     }
 
     @And("I submit a non-dispatch option as the outcome of the case")
     public void iSelectNonDispatchOptionAsOutcomeOfTheCase() {
         foiDispatch.selectNonDispatchOutcomeOfTheCase();
-        clickTheButton("Continue");
+        clickContinueButton();
     }
 
     @And("I confirm my answers for the outcome of the case")
     public void iConfirmMyAnswersForTheOutcomeOfTheCase() {
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
     @And("I submit the date the Final Response was sent")
     public void iSubmitTheDateTheFinalResponseWasSent() {
         foiDispatch.enterFinalResponseDate();
-        clickTheButton("Continue");
+        clickContinueButton();
     }
 
     @And("I upload a copy of the Final Response")

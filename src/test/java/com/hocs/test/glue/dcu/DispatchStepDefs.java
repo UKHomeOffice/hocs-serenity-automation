@@ -17,18 +17,18 @@ public class DispatchStepDefs extends BasePage {
     @And("I select that I am unable to dispatch the case")
     public void iSelectThatIAmUnableToDispatchTheCase() {
         dispatch.selectAbleToDispatch("No");
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     @And("I submit a reason why I am unable to dispatch the case")
     public void iSubmitAReasonWhyIAmUnableToDispatchTheCase() {
         dispatch.enterReasonUnableToDispatch();
-        safeClickOn(finishButton);
+        clickFinishButton();
     }
 
     @When("I submit that I am able to dispatch the case")
     public void iEnterThatIAmAbleToDispatchTheCase() {
         dispatch.selectAbleToDispatch("Yes");
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 }

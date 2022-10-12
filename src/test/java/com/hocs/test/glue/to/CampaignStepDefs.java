@@ -24,9 +24,9 @@ public class CampaignStepDefs extends BasePage {
     @And("I put the case into a {string}")
     public void iPutTheCaseIntoACampaign(String campaignCampaign) {
         selectTheStageAction("Put case into a " + campaignCampaign);
-        clickTheButton("Finish");
+        clickFinishButton();
         campaign.selectACampaign();
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
     @And("the Case Details accordion should contain the selected campaign")
@@ -38,21 +38,21 @@ public class CampaignStepDefs extends BasePage {
     @When("I select to take the case out of the campaign and move it to triage")
     public void iSelectToMoveTheCaseToTriage() {
         selectTheStageAction("Take out of Campaign, move to triage");
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
     @When("I select to take the case out of the campaign and move it to draft")
     public void iSelectToMoveTheCaseToDraft() {
         selectTheStageAction("Take out of Campaign, move to draft");
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
     @And("I put the case into the new campaign")
     public void iPutTheCaseIntoTheNewCampaign() {
         selectTheStageAction("Put case into a campaign");
-        clickTheButton("Finish");
+        clickFinishButton();
         campaign.selectASpecificCampaign(sessionVariableCalled("campaignName"));
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
     @Then("the case should have been put into the new campaign")

@@ -6,6 +6,8 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.dcu.DCUProgressCase;
+import com.hocs.test.pages.decs.CaseView;
+import com.hocs.test.pages.decs.ConfirmationScreens;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.managementUI.MUI;
 import com.hocs.test.pages.managementUI.TemplateManagement;
@@ -22,6 +24,7 @@ import com.hocs.test.pages.managementUI.StandardLine;
 import com.hocs.test.pages.managementUI.TeamManagement;
 import com.hocs.test.pages.managementUI.UnitManagement;
 import com.hocs.test.pages.managementUI.UserManagement;
+import config.CaseType;
 import config.User;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -59,6 +62,10 @@ public class ManagementUIStepDefs extends BasePage {
     Dashboard dashboard;
 
     WithdrawACase withdrawACase;
+
+    ConfirmationScreens confirmationScreens;
+
+    CaseView caseView;
 
     TemplateManagement templateManagement;
 
@@ -246,12 +253,13 @@ public class ManagementUIStepDefs extends BasePage {
 
     @And("I discover the current default team links for a topic")
     public void iDiscoverTheCurrentDefaultTeamLinksForATopic() {
-        createCase.createCSCaseOfType("MIN");
-        dashboard.getAndClaimCurrentCase();
+        createCase.createCSCaseOfTypeWithDocument(CaseType.MIN);
+        confirmationScreens.goToCaseFromConfirmationScreen();
+        caseView.clickAllocateToMeLink();
         dcuProgressCase.moveCaseFromDataInputToMarkup();
         dashboard.getAndClaimCurrentCase();
         markup.selectPolicyResponseRadioButton();
-        safeClickOn(continueButton);
+        clickContinueButton();
         waitABit(1000);
         markup.addTopicToCase("101 non-emergency number (cost)");
         markup.confirmPrimaryTopic();
@@ -302,12 +310,13 @@ public class ManagementUIStepDefs extends BasePage {
     @When("I check the default team links in CS again")
     public void iCheckTheDefaultTeamLinksInCSAgain() {
         loginPage.open();
-        createCase.createCSCaseOfType("MIN");
-        dashboard.getAndClaimCurrentCase();
+        createCase.createCSCaseOfTypeWithDocument(CaseType.MIN);
+        confirmationScreens.goToCaseFromConfirmationScreen();
+        caseView.clickAllocateToMeLink();
         dcuProgressCase.moveCaseFromDataInputToMarkup();
         dashboard.getAndClaimCurrentCase();
         markup.selectPolicyResponseRadioButton();
-        safeClickOn(continueButton);
+        clickContinueButton();
         waitABit(1000);
         markup.addTopicToCase("101 non-emergency number (cost)");
         markup.confirmPrimaryTopic();
@@ -363,7 +372,7 @@ public class ManagementUIStepDefs extends BasePage {
     public void iCreateACaseAndProgressToThePointOfAddingATopic() {
         dashboard.getAndClaimCurrentCase();
         markup.selectPolicyResponseRadioButton();
-        safeClickOn(continueButton);
+        clickContinueButton();
         waitABit(1000);
     }
 
@@ -510,8 +519,8 @@ public class ManagementUIStepDefs extends BasePage {
     }
 
     @Then("the new {string} campaign has been added to the list of campaigns")
-    public void newCampaignHasBeenAddedToListOfCampaigns(String caseType) {
-        switch (caseType.toUpperCase()) {
+    public void newCampaignHasBeenAddedToListOfCampaigns(String caseTypeString) {
+        switch (caseTypeString.toUpperCase()) {
             case "MPAM":
                 muiDashboard.selectDashboardLinkWithText("Manage MPAM campaigns");
                 break;
@@ -519,7 +528,7 @@ public class ManagementUIStepDefs extends BasePage {
                 muiDashboard.selectDashboardLinkWithText("Manage Treat Official campaigns");
                 break;
             default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
+                pendingStep(caseTypeString + " is not defined within " + getMethodName());
         }
         listsManagement.assertVisibilityOfCampaignInCampaignTable();
     }
@@ -589,9 +598,9 @@ public class ManagementUIStepDefs extends BasePage {
         unitManagement.selectNewUnitName();
     }
 
-    @Then("success message is displayed")
-    public void successMessageIsDisplayed() {
-        unitManagement.assertCorrectSuccessMessageDisplayed();
+    @Then("the correct success message for changing the unit is displayed")
+    public void theCorrectSuccessMessageForChangingTheUnitIsDisplayed() {
+        unitManagement.assertCorrectSuccessMessageForChangingTheUnitIsDisplayed();
     }
 
     @And("I enter the (cases )reference, a valid withdrawal date and text into the note field")
@@ -652,8 +661,8 @@ public class ManagementUIStepDefs extends BasePage {
     }
 
     @And("I load the templates for the {string} case type")
-    public void iLoadTheTemplatesForTheCaseType(String caseType) {
-        templateManagement.selectACaseType(caseType);
+    public void iLoadTheTemplatesForTheCaseType(String caseTypeString) {
+        templateManagement.selectACaseType(CaseType.valueOf(caseTypeString));
     }
 
     @And("I add a new template to the case type")
@@ -705,8 +714,8 @@ public class ManagementUIStepDefs extends BasePage {
     }
 
     @Then("I should be able to view the new/renamed {string} campaign in the table of campaigns")
-    public void campaignNameShouldHaveChangedInTheList(String caseType) {
-        switch (caseType.toUpperCase()) {
+    public void campaignNameShouldHaveChangedInTheList(String caseTypeString) {
+        switch (caseTypeString.toUpperCase()) {
             case "MPAM":
                 muiDashboard.selectDashboardLinkWithText("Manage MPAM campaigns");
                 break;
@@ -714,14 +723,14 @@ public class ManagementUIStepDefs extends BasePage {
                 muiDashboard.selectDashboardLinkWithText("Manage Treat Official campaigns");
                 break;
             default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
+                pendingStep(caseTypeString + " is not defined within " + getMethodName());
         }
         listsManagement.assertVisibilityOfCampaignInCampaignTable();
     }
 
     @And("I have an existing {string} campaign I want to amend")
-    public void iHaveAnExistingCampaignIWantToAmend(String caseType) {
-        switch (caseType.toUpperCase()) {
+    public void iHaveAnExistingCampaignIWantToAmend(String caseTypeString) {
+        switch (caseTypeString.toUpperCase()) {
             case "MPAM":
                 muiDashboard.selectDashboardLinkWithText("Manage MPAM campaigns");
                 break;
@@ -729,7 +738,7 @@ public class ManagementUIStepDefs extends BasePage {
                 muiDashboard.selectDashboardLinkWithText("Manage Treat Official campaigns");
                 break;
             default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
+                pendingStep(caseTypeString + " is not defined within " + getMethodName());
         }
         listsManagement.clickTheAddNewCampaignButton();
         listsManagement.enterCampaignName();
@@ -754,8 +763,8 @@ public class ManagementUIStepDefs extends BasePage {
     }
 
     @And("I have added a new {string} campaign in MUI")
-    public void iHaveAddedANewCampaignInMUI(String caseType) {
-        switch (caseType.toUpperCase()) {
+    public void iHaveAddedANewCampaignInMUI(String caseTypeString) {
+        switch (caseTypeString.toUpperCase()) {
             case "MPAM":
                 muiDashboard.selectDashboardLinkWithText("Manage MPAM campaigns");
                 break;
@@ -763,7 +772,7 @@ public class ManagementUIStepDefs extends BasePage {
                 muiDashboard.selectDashboardLinkWithText("Manage Treat Official campaigns");
                 break;
             default:
-                pendingStep(caseType + " is not defined within " + getMethodName());
+                pendingStep(caseTypeString + " is not defined within " + getMethodName());
         }
         listsManagement.clickTheAddNewCampaignButton();
         listsManagement.enterCampaignName();
@@ -878,16 +887,16 @@ public class ManagementUIStepDefs extends BasePage {
     }
 
     @And("I select to add a new {string} Enquiry Reason")
-    public void iSelectToAddANewEnquiryReason(String caseType) {
-        listsManagement.clickTheAddNewEnquiryReasonButton(caseType);
+    public void iSelectToAddANewEnquiryReason(String caseTypeString) {
+        listsManagement.clickTheAddNewEnquiryReasonButton(CaseType.valueOf(caseTypeString));
     }
 
     @And("I submit details for the new {string} Enquiry Reason")
-    public void iSubmitDetailsForTheNewEnquiryReason(String caseType) {
+    public void iSubmitDetailsForTheNewEnquiryReason(String caseTypeString) {
         listsManagement.enterEnquiryReasonName();
-        if (caseType.equalsIgnoreCase("MPAM")) {
+        if (caseTypeString.equalsIgnoreCase("MPAM")) {
             clickTheButton("Add");
-        } else if (caseType.equalsIgnoreCase("COMP")) {
+        } else if (caseTypeString.equalsIgnoreCase("COMP")) {
             listsManagement.enterEnquiryReasonCode();
             clickTheButton("Submit");
         }
@@ -899,12 +908,12 @@ public class ManagementUIStepDefs extends BasePage {
     }
 
     @And("I should be able to view the new/renamed {string} Enquiry Reason in the table of Enquiry Reasons")
-    public void iShouldBeAbleToViewTheNewEnquiryReasonInTheTableOfEnquiryReasons(String caseType) {
-        if (caseType.equalsIgnoreCase("MPAM")) {
+    public void iShouldBeAbleToViewTheNewEnquiryReasonInTheTableOfEnquiryReasons(String caseTypeString) {
+        if (caseTypeString.equalsIgnoreCase("MPAM")) {
             iSelectAManagementUIDashboardLink("Manage MPAM Enquiry Reasons");
             listsManagement.selectASpecificEnquirySubject(sessionVariableCalled("enquirySubject"));
             clickTheButton("Submit");
-        } else if (caseType.equalsIgnoreCase("COMP")) {
+        } else if (caseTypeString.equalsIgnoreCase("COMP")) {
             iSelectAManagementUIDashboardLink("Manage UKVI Complaint Enquiry Reasons");
         }
         listsManagement.assertVisibilityOfEnquiryReasonInEnquiryReasonTable();
@@ -915,7 +924,7 @@ public class ManagementUIStepDefs extends BasePage {
         iSelectAManagementUIDashboardLink("Manage MPAM Enquiry Reasons");
         listsManagement.selectAnEnquirySubject();
         clickTheButton("Submit");
-        listsManagement.clickTheAddNewEnquiryReasonButton("MPAM");
+        listsManagement.clickTheAddNewEnquiryReasonButton(CaseType.MPAM);
         listsManagement.enterEnquiryReasonName();
         clickTheButton("Add");
     }
@@ -932,11 +941,11 @@ public class ManagementUIStepDefs extends BasePage {
     }
 
     @And("I submit a new name for the {string} Enquiry Reason")
-    public void iSubmitANewNameForTheEnquiryReason(String caseType) {
+    public void iSubmitANewNameForTheEnquiryReason(String caseTypeString) {
         listsManagement.enterEnquiryReasonName();
-        if (caseType.equalsIgnoreCase("MPAM")) {
+        if (caseTypeString.equalsIgnoreCase("MPAM")) {
             clickTheButton("Amend");
-        } else if (caseType.equalsIgnoreCase("COMP")) {
+        } else if (caseTypeString.equalsIgnoreCase("COMP")) {
             clickTheButton("Submit");
         }
     }
@@ -947,20 +956,20 @@ public class ManagementUIStepDefs extends BasePage {
     }
 
     @And("I have added a new {string} Enquiry Reason in MUI")
-    public void iHaveAddedANewEnquiryReasonInMUI(String caseType) {
-        if (caseType.equalsIgnoreCase("MPAM")) {
+    public void iHaveAddedANewEnquiryReasonInMUI(String caseTypeString) {
+        if (caseTypeString.equalsIgnoreCase("MPAM")) {
             iSelectAManagementUIDashboardLink("Manage MPAM Enquiry Reasons");
             listsManagement.selectAnEnquirySubject();
             clickTheButton("Submit");
-        } else if (caseType.equalsIgnoreCase("COMP")) {
+        } else if (caseTypeString.equalsIgnoreCase("COMP")) {
             iSelectAManagementUIDashboardLink("Manage UKVI Complaint Enquiry Reasons");
         }
-        listsManagement.clickTheAddNewEnquiryReasonButton(caseType);
+        listsManagement.clickTheAddNewEnquiryReasonButton(CaseType.valueOf(caseTypeString));
         listsManagement.enterEnquiryReasonName();
-        if (caseType.equalsIgnoreCase("COMP")) {
+        if (caseTypeString.equalsIgnoreCase("COMP")) {
             listsManagement.enterEnquiryReasonCode();
             clickTheButton("Submit");
-        } else if (caseType.equalsIgnoreCase("MPAM")) {
+        } else if (caseTypeString.equalsIgnoreCase("MPAM")) {
             clickTheButton("Add");
         }
     }

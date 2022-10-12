@@ -24,6 +24,7 @@ import com.hocs.test.pages.mpam.Draft;
 import com.hocs.test.pages.mpam.MTSDataInput;
 import com.hocs.test.pages.mpam.QA;
 import com.hocs.test.pages.mpam.Triage;
+import config.CaseType;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -82,9 +83,9 @@ public class ValidationStepDefs extends BasePage {
 
     @And("I trigger the {string} error message at (the ){string}( stage)")
     public void iTriggerTheErrorMessageAtTheStage(String errorMessage, String stage) {
-        String caseType = sessionVariableCalled("caseType");
-        switch (caseType.toUpperCase()) {
-            case "MIN":
+        CaseType caseType = getCurrentCaseType();
+        switch (caseType) {
+            case MIN:
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
                         switch (errorMessage.toUpperCase()) {
@@ -92,47 +93,47 @@ public class ValidationStepDefs extends BasePage {
                                 dataInput.selectACorrespondenceReceivedChannel();
                                 dataInput.selectASpecificCopyToNoTenOption("Yes");
                                 dataInput.selectASpecificHomeSecInterestOption("Yes");
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "INBOUND CHANNEL REQUIRED":
                                 dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
                                 dataInput.selectASpecificCopyToNoTenOption("Yes");
                                 dataInput.selectASpecificHomeSecInterestOption("Yes");
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "COPY TO NUMBER 10 REQUIRED":
                                 dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
                                 dataInput.selectACorrespondenceReceivedChannel();
                                 dataInput.selectASpecificHomeSecInterestOption("Yes");
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "HOME SECRETARY INTEREST REQUIRED":
                                 dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
                                 dataInput.selectACorrespondenceReceivedChannel();
                                 dataInput.selectASpecificCopyToNoTenOption("Yes");
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "PRIMARY CORRESPONDENT REQUIRED":
                                 dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
                                 dataInput.selectACorrespondenceReceivedChannel();
                                 dataInput.selectASpecificCopyToNoTenOption("Yes");
                                 dataInput.selectASpecificHomeSecInterestOption("Yes");
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                safeClickOn(finishButton);
+                                clickFinishButton();
                                 break;
                             case "CORRESPONDENT TYPE MUST BE PROVIDED":
                                 dataInput.fillAllMandatoryCorrespondenceFields();
                                 dataInput.clickContinueButton();
                                 correspondents.selectToAddACorrespondent();
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "MEMBER IS REQUIRED":
                                 dataInput.fillAllMandatoryCorrespondenceFields();
                                 dataInput.clickContinueButton();
                                 correspondents.selectToAddACorrespondent();
                                 correspondents.selectCorrespondentIsMP();
-                                safeClickOn(addButton);
+                                clickAddButton();
                                 break;
                             case "CORRESPONDENT MUST HAVE TYPE":
                                 dataInput.fillAllMandatoryCorrespondenceFields();
@@ -140,15 +141,15 @@ public class ValidationStepDefs extends BasePage {
                                 correspondents.selectToAddACorrespondent();
                                 correspondents.selectCorrespondentIsNotMP();
                                 correspondents.enterCorrespondentFullName("Han Solo");
-                                safeClickOn(addButton);
+                                clickAddButton();
                                 break;
                             case "CORRESPONDENT NAME REQUIRED":
                                 dataInput.fillAllMandatoryCorrespondenceFields();
                                 dataInput.clickContinueButton();
                                 correspondents.selectToAddACorrespondent();
                                 correspondents.selectCorrespondentIsNotMP();
-                                correspondents.selectCorrespondentTypeFromDropdown("Applicant");
-                                safeClickOn(addButton);
+                                correspondents.selectASpecificCorrespondentType("Applicant");
+                                clickAddButton();
                                 break;
                             default:
                                 pendingStep(errorMessage + " is not defined within " + getMethodName());
@@ -158,31 +159,31 @@ public class ValidationStepDefs extends BasePage {
                         switch (errorMessage.toUpperCase()) {
                             case "TYPE OF RESPONSE REQUIRED":
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "PRIMARY TOPIC REQUIRED":
                                 markup.selectPolicyResponseRadioButton();
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "WHY IS NO RESPONSE NEEDED REQUIRED":
                                 markup.selectNoResponseNeededRadioButton();
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                safeClickOn(finishButton);
+                                clickFinishButton();
                                 break;
                             case "WHERE SHOULD THE CASE BE TRANSFERRED REQUIRED":
                                 markup.selectReferToOGDRadioButton();
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 markup.enterAOGDReason();
-                                safeClickOn(finishButton);
+                                clickFinishButton();
                                 break;
                             case "REASON FOR TRANSFER REQUIRED":
                                 markup.selectReferToOGDRadioButton();
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 markup.enterAOGDDestination();
-                                safeClickOn(finishButton);
+                                clickFinishButton();
                                 break;
                             default:
                                 pendingStep(errorMessage + " is not defined within " + getMethodName());
@@ -190,14 +191,14 @@ public class ValidationStepDefs extends BasePage {
                         break;
                     case "NO RESPONSE NEEDED CONFIRMATION":
                         if (errorMessage.equalsIgnoreCase("NO RESPONSE NEEDED ACTION REQUIRED")) {
-                            safeClickOn(finishButton);
+                            clickFinishButton();
                         } else {
                             pendingStep(errorMessage + " is not defined within " + getMethodName());
                         }
                         break;
                     case "TRANSFER CONFIRMATION":
                         if (errorMessage.equalsIgnoreCase("SHOULD THIS CASE BE TRANSFERRED RESPONSE REQUIRED")) {
-                            safeClickOn(finishButton);
+                            clickFinishButton();
                         } else {
                             pendingStep(errorMessage + " is not defined within " + getMethodName());
                         }
@@ -206,43 +207,43 @@ public class ValidationStepDefs extends BasePage {
                         switch (errorMessage.toUpperCase()) {
                             case "CAN THIS BE ANSWERED BY YOUR TEAM REQUIRED":
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "RESPONSE CHANNEL REQUIRED":
                                 safeClickOn(initialDraft.answeredByMyTeamYesRadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "PRIMARY DRAFT DOCUMENT REQUIRED":
                                 safeClickOn(initialDraft.answeredByMyTeamYesRadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 safeClickOn(initialDraft.letterReplyRadioButton);
-                                jsClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "QA THIS OFFLINE REQUIRED":
                                 safeClickOn(initialDraft.answeredByMyTeamYesRadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 safeClickOn(initialDraft.letterReplyRadioButton);
-                                jsClickOn(continueButton);
+                                clickContinueButton();
                                 documents.addADocumentOfDocumentType("DRAFT");
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "WHO HAS DONE QA OFFLINE REQUIRED":
                                 safeClickOn(initialDraft.answeredByMyTeamYesRadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 safeClickOn(initialDraft.letterReplyRadioButton);
-                                jsClickOn(continueButton);
+                                clickContinueButton();
                                 documents.addADocumentOfDocumentType("DRAFT");
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 safeClickOn(initialDraft.offlineQaYesRadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                safeClickOn(finishButton);
+                                clickFinishButton();
                                 break;
                             default:
                                 pendingStep(errorMessage + " is not defined within " + getMethodName());
@@ -252,13 +253,13 @@ public class ValidationStepDefs extends BasePage {
                         switch (errorMessage.toUpperCase()) {
                             case "ACTIONS REQUIRED":
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "REJECTION NOTE REQUIRED":
                                 qaResponse.selectReturnCaseToDraftingTeamRadioButton();
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                safeClickOn(finishButton);
+                                clickFinishButton();
                                 break;
                             default:
                                 pendingStep(errorMessage + " is not defined within " + getMethodName());
@@ -268,31 +269,31 @@ public class ValidationStepDefs extends BasePage {
                         switch (errorMessage.toUpperCase()) {
                             case "RESPONSE APPROVAL REQUIRED":
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "REJECTION NOTE REQUIRED":
                                 privateOfficeApproval.selectIfApproveResponse("No");
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                safeClickOn(finishButton);
+                                clickFinishButton();
                                 break;
                             case "OVERRIDE PRIVATE OFFICE TEAM REQUIRED":
                                 privateOfficeApproval.selectToChangeMinister();
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 privateOfficeApproval.enterAReasonForChangingPOTeam();
-                                safeClickOn(finishButton);
+                                clickFinishButton();
                                 break;
                             case "REASON FOR CHANGE MINISTER REQUIRED":
                                 privateOfficeApproval.selectToChangeMinister();
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 privateOfficeApproval.selectNewPrivateOfficeTeamFromDropdown("Home Secretary");
-                                safeClickOn(finishButton);
+                                clickFinishButton();
                                 break;
                             case "REASON FOR TOPIC CHANGE REQUIRED":
                                 privateOfficeApproval.selectToChangeTopic();
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             default:
                                 pendingStep(errorMessage + " is not defined within " + getMethodName());
@@ -302,19 +303,19 @@ public class ValidationStepDefs extends BasePage {
                         switch (errorMessage.toUpperCase()) {
                             case "RESPONSE APPROVAL REQUIRED":
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "REJECTION TO DRAFT NOTE REQUIRED":
                                 ministerialSignOff.selectToApproveResponse("No");
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "REJECTION TO PRIVATE OFFICE NOTE REQUIRED":
                                 ministerialSignOff.selectNotApplicableToApproveResponse();
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             default:
                                 pendingStep(errorMessage + " is not defined within " + getMethodName());
@@ -324,13 +325,13 @@ public class ValidationStepDefs extends BasePage {
                         switch (errorMessage.toUpperCase()) {
                             case "DISPATCH RESPONSE REQUIRED":
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "REJECTION NOTE REQUIRED":
                                 dispatch.selectAbleToDispatch("No");
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                safeClickOn(finishButton);
+                                clickFinishButton();
                                 break;
                             default:
                                 pendingStep(errorMessage + " is not defined within " + getMethodName());
@@ -340,7 +341,7 @@ public class ValidationStepDefs extends BasePage {
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
                 break;
-            case "TRO":
+            case TRO:
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
                         switch (errorMessage.toUpperCase()) {
@@ -348,35 +349,35 @@ public class ValidationStepDefs extends BasePage {
                                 dataInput.selectACorrespondenceReceivedChannel();
                                 dataInput.selectASpecificCopyToNoTenOption("Yes");
                                 dataInput.selectASpecificHomeSecInterestOption("Yes");
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "INBOUND CHANNEL REQUIRED":
                                 dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
                                 dataInput.selectASpecificCopyToNoTenOption("Yes");
                                 dataInput.selectASpecificHomeSecInterestOption("Yes");
                                 dataInput.selectASpecificHomeSecInterestOption("Yes");
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "COPY TO NUMBER 10 REQUIRED":
                                 dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
                                 dataInput.selectACorrespondenceReceivedChannel();
                                 dataInput.selectASpecificHomeSecInterestOption("Yes");
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "HOME SECRETARY INTEREST REQUIRED":
                                 dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
                                 dataInput.selectACorrespondenceReceivedChannel();
                                 dataInput.selectASpecificCopyToNoTenOption("Yes");
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "PRIMARY CORRESPONDENT REQUIRED":
                                 dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
                                 dataInput.selectACorrespondenceReceivedChannel();
                                 dataInput.selectASpecificHomeSecInterestOption("Yes");
                                 dataInput.selectASpecificCopyToNoTenOption("Yes");
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                safeClickOn(finishButton);
+                                clickFinishButton();
                                 break;
                             default:
                                 pendingStep(errorMessage + " is not defined within " + getMethodName());
@@ -386,31 +387,31 @@ public class ValidationStepDefs extends BasePage {
                         switch (errorMessage.toUpperCase()) {
                             case "TYPE OF RESPONSE REQUIRED":
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "PRIMARY TOPIC REQUIRED":
                                 markup.selectPolicyResponseRadioButton();
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "WHY IS NO RESPONSE NEEDED REQUIRED":
                                 markup.selectNoResponseNeededRadioButton();
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                safeClickOn(finishButton);
+                                clickFinishButton();
                                 break;
                             case "WHERE SHOULD THE CASE BE TRANSFERRED REQUIRED":
                                 markup.selectReferToOGDRadioButton();
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 markup.enterAOGDReason();
-                                safeClickOn(finishButton);
+                                clickFinishButton();
                                 break;
                             case "REASON FOR TRANSFER REQUIRED":
                                 markup.selectReferToOGDRadioButton();
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 markup.enterAOGDDestination();
-                                safeClickOn(finishButton);
+                                clickFinishButton();
                                 break;
                             default:
                                 pendingStep(errorMessage + " is not defined within " + getMethodName());
@@ -418,14 +419,14 @@ public class ValidationStepDefs extends BasePage {
                         break;
                     case "NO RESPONSE NEEDED CONFIRMATION":
                         if (errorMessage.equalsIgnoreCase("NO RESPONSE NEEDED ACTION REQUIRED")) {
-                            safeClickOn(finishButton);
+                            clickFinishButton();
                         } else {
                             pendingStep(errorMessage + " is not defined within " + getMethodName());
                         }
                         break;
                     case "TRANSFER CONFIRMATION":
                         if (errorMessage.equalsIgnoreCase("SHOULD THIS CASE BE TRANSFERRED RESPONSE REQUIRED")) {
-                            safeClickOn(finishButton);
+                            clickFinishButton();
                         } else {
                             pendingStep(errorMessage + " is not defined within " + getMethodName());
                         }
@@ -434,43 +435,43 @@ public class ValidationStepDefs extends BasePage {
                         switch (errorMessage.toUpperCase()) {
                             case "CAN THIS BE ANSWERED BY YOUR TEAM REQUIRED":
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "RESPONSE CHANNEL REQUIRED":
                                 safeClickOn(initialDraft.answeredByMyTeamYesRadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                jsClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "PRIMARY DRAFT DOCUMENT REQUIRED":
                                 safeClickOn(initialDraft.answeredByMyTeamYesRadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 safeClickOn(initialDraft.letterReplyRadioButton);
-                                jsClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "QA THIS OFFLINE REQUIRED":
                                 safeClickOn(initialDraft.answeredByMyTeamYesRadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 safeClickOn(initialDraft.letterReplyRadioButton);
-                                jsClickOn(continueButton);
+                                clickContinueButton();
                                 documents.addADocumentOfDocumentType("DRAFT");
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "WHO HAS DONE QA OFFLINE REQUIRED":
                                 safeClickOn(initialDraft.answeredByMyTeamYesRadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 safeClickOn(initialDraft.letterReplyRadioButton);
-                                jsClickOn(continueButton);
+                                clickContinueButton();
                                 documents.addADocumentOfDocumentType("DRAFT");
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 safeClickOn(initialDraft.offlineQaYesRadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                safeClickOn(finishButton);
+                                clickFinishButton();
                                 break;
                             default:
                                 pendingStep(errorMessage + " is not defined within " + getMethodName());
@@ -480,13 +481,13 @@ public class ValidationStepDefs extends BasePage {
                         switch (errorMessage.toUpperCase()) {
                             case "ACTIONS REQUIRED":
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "REJECTION NOTE REQUIRED":
                                 qaResponse.selectReturnCaseToDraftingTeamRadioButton();
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                safeClickOn(finishButton);
+                                clickFinishButton();
                                 break;
                             default:
                                 pendingStep(errorMessage + " is not defined within " + getMethodName());
@@ -496,13 +497,13 @@ public class ValidationStepDefs extends BasePage {
                         switch (errorMessage.toUpperCase()) {
                             case "DISPATCH RESPONSE REQUIRED":
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "REJECTION NOTE REQUIRED":
                                 dispatch.selectAbleToDispatch("No");
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                safeClickOn(finishButton);
+                                clickFinishButton();
                                 break;
                             default:
                                 pendingStep(errorMessage + " is not defined within " + getMethodName());
@@ -512,41 +513,41 @@ public class ValidationStepDefs extends BasePage {
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
                 break;
-            case "DTEN":
+            case DTEN:
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
                         switch (errorMessage.toUpperCase()) {
                             case "DRAFTING DEADLINE REQUIRED":
                                 dataInput.enterDTENDispatchDeadline(getDatePlusMinusNDaysAgo(5));
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "DISPATCH DEADLINE REQUIRED":
                                 dataInput.enterDTENDraftingDeadline(getDatePlusMinusNDaysAgo(5));
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "CORRESPONDENCE SENT DATE REQUIRED":
                                 dataInput.enterDTENDraftingDeadline(getDatePlusMinusNDaysAgo(5));
                                 dataInput.enterDTENDispatchDeadline(getDatePlusMinusNDaysAgo(5));
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 dataInput.selectACorrespondenceReceivedChannel();
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "INBOUND CHANNEL REQUIRED":
                                 dataInput.enterDTENDraftingDeadline(getDatePlusMinusNDaysAgo(5));
                                 dataInput.enterDTENDispatchDeadline(getDatePlusMinusNDaysAgo(5));
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "PRIMARY CORRESPONDENT REQUIRED":
                                 dataInput.enterDTENDraftingDeadline(getDatePlusMinusNDaysAgo(5));
                                 dataInput.enterDTENDispatchDeadline(getDatePlusMinusNDaysAgo(5));
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
                                 dataInput.selectACorrespondenceReceivedChannel();
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                safeClickOn(finishButton);
+                                clickFinishButton();
                                 break;
                             default:
                                 pendingStep(stage + " is not defined within " + getMethodName());
@@ -556,31 +557,31 @@ public class ValidationStepDefs extends BasePage {
                         switch (errorMessage.toUpperCase()) {
                             case "TYPE OF RESPONSE REQUIRED":
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "PRIMARY TOPIC REQUIRED":
                                 markup.selectPolicyResponseRadioButton();
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "WHY IS NO RESPONSE NEEDED REQUIRED":
                                 markup.selectNoResponseNeededRadioButton();
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                safeClickOn(finishButton);
+                                clickFinishButton();
                                 break;
                             case "WHERE SHOULD THE CASE BE TRANSFERRED REQUIRED":
                                 markup.selectReferToOGDRadioButton();
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 markup.enterAOGDReason();
-                                safeClickOn(finishButton);
+                                clickFinishButton();
                                 break;
                             case "REASON FOR TRANSFER REQUIRED":
                                 markup.selectReferToOGDRadioButton();
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 markup.enterAOGDDestination();
-                                safeClickOn(finishButton);
+                                clickFinishButton();
                                 break;
                             default:
                                 pendingStep(errorMessage + " is not defined within " + getMethodName());
@@ -588,14 +589,14 @@ public class ValidationStepDefs extends BasePage {
                         break;
                     case "NO RESPONSE NEEDED CONFIRMATION":
                         if (errorMessage.equalsIgnoreCase("NO RESPONSE NEEDED ACTION REQUIRED")) {
-                            safeClickOn(finishButton);
+                            clickFinishButton();
                         } else {
                             pendingStep(errorMessage + " is not defined within " + getMethodName());
                         }
                         break;
                     case "TRANSFER CONFIRMATION":
                         if (errorMessage.equalsIgnoreCase("SHOULD THIS CASE BE TRANSFERRED RESPONSE REQUIRED")) {
-                            safeClickOn(finishButton);
+                            clickFinishButton();
                         } else {
                             pendingStep(errorMessage + " is not defined within " + getMethodName());
                         }
@@ -604,35 +605,35 @@ public class ValidationStepDefs extends BasePage {
                         switch (errorMessage.toUpperCase()) {
                             case "CAN THIS BE ANSWERED BY YOUR TEAM REQUIRED":
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "PRIMARY DRAFT DOCUMENT REQUIRED":
                                 safeClickOn(initialDraft.answeredByMyTeamYesRadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "QA THIS OFFLINE REQUIRED":
                                 safeClickOn(initialDraft.answeredByMyTeamYesRadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 safeClickOn(initialDraft.letterReplyRadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 documents.addADocumentOfDocumentType("DRAFT");
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "WHO HAS DONE QA OFFLINE REQUIRED":
                                 safeClickOn(initialDraft.answeredByMyTeamYesRadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 safeClickOn(initialDraft.letterReplyRadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 documents.addADocumentOfDocumentType("DRAFT");
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 safeClickOn(initialDraft.offlineQaYesRadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                safeClickOn(finishButton);
+                                clickFinishButton();
                                 break;
                             default:
                                 pendingStep(errorMessage + " is not defined within " + getMethodName());
@@ -642,13 +643,13 @@ public class ValidationStepDefs extends BasePage {
                         switch (errorMessage.toUpperCase()) {
                             case "ACTIONS REQUIRED":
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "REJECTION NOTE REQUIRED":
                                 qaResponse.selectReturnCaseToDraftingTeamRadioButton();
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                safeClickOn(finishButton);
+                                clickFinishButton();
                                 break;
                             default:
                                 pendingStep(errorMessage + " is not defined within " + getMethodName());
@@ -658,13 +659,13 @@ public class ValidationStepDefs extends BasePage {
                         switch (errorMessage.toUpperCase()) {
                             case "RESPONSE APPROVAL REQUIRED":
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "REJECTION NOTE REQUIRED":
                                 privateOfficeApproval.selectIfApproveResponse("No");
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                safeClickOn(finishButton);
+                                clickFinishButton();
                                 break;
                             default:
                                 pendingStep(errorMessage + " is not defined within " + getMethodName());
@@ -674,13 +675,13 @@ public class ValidationStepDefs extends BasePage {
                         switch (errorMessage.toUpperCase()) {
                             case "DISPATCH RESPONSE REQUIRED":
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "REJECTION NOTE REQUIRED":
                                 dispatch.selectAbleToDispatch("No");
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                safeClickOn(finishButton);
+                                clickFinishButton();
                                 break;
                             default:
                                 pendingStep(errorMessage + " is not defined within " + getMethodName());
@@ -690,63 +691,63 @@ public class ValidationStepDefs extends BasePage {
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
                 break;
-            case "MPAM":
+            case MPAM:
                 switch (stage.toUpperCase()) {
                     case "CREATION":
                         switch (errorMessage.toUpperCase()) {
                             case "BUSINESS AREA REQUIRED":
-                                creation.selectRefType("Ministerial");
+                                creation.selectASpecificRefType("Ministerial");
                                 creation.ministerialSignOffTeamDropdown.selectByVisibleText("Home Secretary");
                                 creation.addresseeDropdown.selectByVisibleText("Home Secretary");
-                                creation.selectUrgency("Standard");
-                                creation.selectInboundChannel("Email");
-                                safeClickOn(continueButton);
+                                creation.selectASpecificUrgency("Standard");
+                                creation.selectASpecificInboundChannel("Email");
+                                clickContinueButton();
                                 break;
                             case "IS MINISTERIAL RESPONSE REQUIRED REQUIRED":
-                                creation.selectUrgency("Standard");
-                                creation.selectInboundChannel("Email");
-                                safeClickOn(continueButton);
+                                creation.selectASpecificUrgency("Standard");
+                                creation.selectASpecificInboundChannel("Email");
+                                clickContinueButton();
                                 break;
                             case "MINISTERIAL SIGN OFF TEAM REQUIRED":
-                                safeClickOn(creation.businessAreaUKVIRadioButton);
-                                creation.selectRefType("Ministerial");
+                                creation.selectASpecificBusinessArea("UKVI");
+                                creation.selectASpecificRefType("Ministerial");
                                 creation.addresseeDropdown.selectByVisibleText("Home Secretary");
-                                creation.selectUrgency("Standard");
-                                creation.selectInboundChannel("Email");
-                                safeClickOn(continueButton);
+                                creation.selectASpecificUrgency("Standard");
+                                creation.selectASpecificInboundChannel("Email");
+                                clickContinueButton();
                                 break;
                             case "ADDRESSEE REQUIRED":
-                                creation.selectBusinessArea("UKVI");
-                                creation.selectRefType("Ministerial");
+                                creation.selectASpecificBusinessArea("UKVI");
+                                creation.selectASpecificRefType("Ministerial");
                                 creation.ministerialSignOffTeamDropdown.selectByVisibleText("Home Secretary");
-                                creation.selectUrgency("Standard");
-                                creation.selectInboundChannel("Email");
-                                safeClickOn(continueButton);
+                                creation.selectASpecificUrgency("Standard");
+                                creation.selectASpecificInboundChannel("Email");
+                                clickContinueButton();
                                 break;
                             case "URGENCY REQUIRED":
-                                creation.selectBusinessArea("UKVI");
-                                creation.selectRefType("Ministerial");
+                                creation.selectASpecificBusinessArea("UKVI");
+                                creation.selectASpecificRefType("Ministerial");
                                 creation.ministerialSignOffTeamDropdown.selectByVisibleText("Home Secretary");
                                 creation.addresseeDropdown.selectByVisibleText("Home Secretary");
-                                creation.selectInboundChannel("Email");
-                                safeClickOn(continueButton);
+                                creation.selectASpecificInboundChannel("Email");
+                                clickContinueButton();
                                 break;
                             case "CHANNEL RECEIVED REQUIRED":
-                                creation.selectBusinessArea("UKVI");
-                                creation.selectRefType("Ministerial");
+                                creation.selectASpecificBusinessArea("UKVI");
+                                creation.selectASpecificRefType("Ministerial");
                                 creation.ministerialSignOffTeamDropdown.selectByVisibleText("Home Secretary");
                                 creation.addresseeDropdown.selectByVisibleText("Home Secretary");
-                                creation.selectUrgency("Standard");
-                                safeClickOn(continueButton);
+                                creation.selectASpecificUrgency("Standard");
+                                clickContinueButton();
                                 break;
                             case "PRIMARY CORRESPONDENT REQUIRED":
-                                creation.selectBusinessArea("UKVI");
-                                creation.selectRefType("Ministerial");
+                                creation.selectASpecificBusinessArea("UKVI");
+                                creation.selectASpecificRefType("Ministerial");
                                 creation.ministerialSignOffTeamDropdown.selectByVisibleText("Home Secretary");
                                 creation.addresseeDropdown.selectByVisibleText("Home Secretary");
-                                creation.selectUrgency("Standard");
-                                creation.selectInboundChannel("Email");
-                                safeClickOn(continueButton);
+                                creation.selectASpecificUrgency("Standard");
+                                creation.selectASpecificInboundChannel("Email");
+                                clickContinueButton();
                                 waitABit(500);
                                 clickTheButton("Move to Triage");
                                 break;
@@ -760,21 +761,21 @@ public class ValidationStepDefs extends BasePage {
                             case "ENQUIRY REASON REQUIRED":
                                 triage.businessUnitDropdown.selectByIndex(1);
                                 safeClickOn(triage.readyToDraftRadioButton);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 break;
                             case "BUSINESS UNIT REQUIRED":
                                 safeClickOn(triage.setEnquiryHypertext);
                                 triage.selectEnquirySubject("Person Specific");
                                 triage.selectEnquiryReason("Allowed appeal enquiry update");
                                 safeClickOn(triage.readyToDraftRadioButton);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 break;
                             case "ACTIONS REQUIRED":
                                 safeClickOn(triage.setEnquiryHypertext);
                                 triage.selectEnquirySubject("Person Specific");
                                 triage.selectEnquiryReason("Allowed appeal enquiry update");
                                 triage.businessUnitDropdown.selectByIndex(1);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 break;
                             case "ESCALATION REASON REQUIRED":
                                 safeClickOn(triage.setEnquiryHypertext);
@@ -782,9 +783,9 @@ public class ValidationStepDefs extends BasePage {
                                 triage.selectEnquiryReason("Allowed appeal enquiry update");
                                 triage.businessUnitDropdown.selectByIndex(1);
                                 safeClickOn(triage.escalateToWorkflowManagerRadioButton);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 waitABit(500);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 break;
                             case "REASON FOR CLOSING CASE REQUIRED":
                                 safeClickOn(triage.setEnquiryHypertext);
@@ -792,7 +793,7 @@ public class ValidationStepDefs extends BasePage {
                                 triage.selectEnquiryReason("Allowed appeal enquiry update");
                                 triage.businessUnitDropdown.selectByIndex(1);
                                 safeClickOn(closeCaseTelephone.closeCaseTelephoneRadioButton);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 safeClickOn(closeCaseTelephone.mpHelplineContactRouteRadioButton);
                                 clickTheButton("Close Case");
                                 break;
@@ -802,7 +803,7 @@ public class ValidationStepDefs extends BasePage {
                                 triage.selectEnquiryReason("Allowed appeal enquiry update");
                                 triage.businessUnitDropdown.selectByIndex(1);
                                 safeClickOn(closeCaseTelephone.closeCaseTelephoneRadioButton);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 typeInto(closeCaseTelephone.explanationForClosingCaseTelephoneTextBox, "Test");
                                 clickTheButton("Close Case");
                                 break;
@@ -812,9 +813,9 @@ public class ValidationStepDefs extends BasePage {
                                 triage.selectEnquiryReason("Allowed appeal enquiry update");
                                 triage.businessUnitDropdown.selectByIndex(1);
                                 safeClickOn(campaign.putCaseIntoCampaignRadioButton);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 waitABit(500);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 break;
                             default:
                                 pendingStep(errorMessage + " is not defined within " + getMethodName());
@@ -824,37 +825,37 @@ public class ValidationStepDefs extends BasePage {
                         switch (errorMessage.toUpperCase()) {
                             case "ACTIONS REQUIRED":
                                 waitABit(500);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 break;
                             case "REJECTION REASON REQUIRED":
                                 safeClickOn(draft.returnToTriageRadioButton);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 waitABit(500);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 break;
                             case "ESCALATION REASON REQUIRED":
                                 safeClickOn(draft.escalateToWorkflowManagerRadioButton);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 waitABit(500);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 break;
                             case "REASON FOR CLOSING CASE REQUIRED":
                                 safeClickOn(closeCaseTelephone.closeCaseTelephoneRadioButton);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 safeClickOn(closeCaseTelephone.mpHelplineContactRouteRadioButton);
                                 clickTheButton("Close Case");
                                 break;
                             case "TELEPHONE CONTACT ROUTE REQUIRED":
                                 safeClickOn(closeCaseTelephone.closeCaseTelephoneRadioButton);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 typeInto(closeCaseTelephone.explanationForClosingCaseTelephoneTextBox, "Test");
                                 clickTheButton("Close Case");
                                 break;
                             case "CAMPAIGN REQUIRED":
                                 safeClickOn(campaign.putCaseIntoCampaignRadioButton);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 waitABit(500);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 break;
                             default:
                                 pendingStep(errorMessage + " is not defined within " + getMethodName());
@@ -864,43 +865,43 @@ public class ValidationStepDefs extends BasePage {
                         switch (errorMessage.toUpperCase()) {
                             case "ACTIONS REQUIRED":
                                 waitABit(500);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 break;
                             case "REJECTION TO TRIAGE REASON REQUIRED":
                                 safeClickOn(qa.rejectQAToTriageRadioButton);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 waitABit(500);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 break;
                             case "REJECTION TO DRAFT REASON REQUIRED":
                                 safeClickOn(qa.rejectQAToDraftRadioButton);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 waitABit(500);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 break;
                             case "ESCALATION REASON REQUIRED":
                                 safeClickOn(qa.escalateToWorkflowManagerRadioButton);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 waitABit(500);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 break;
                             case "REASON FOR CLOSING CASE REQUIRED":
                                 safeClickOn(closeCaseTelephone.closeCaseTelephoneRadioButton);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 safeClickOn(closeCaseTelephone.mpHelplineContactRouteRadioButton);
                                 clickTheButton("Close Case");
                                 break;
                             case "TELEPHONE CONTACT ROUTE REQUIRED":
                                 safeClickOn(closeCaseTelephone.closeCaseTelephoneRadioButton);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 typeInto(closeCaseTelephone.explanationForClosingCaseTelephoneTextBox, "Test");
                                 clickTheButton("Close Case");
                                 break;
                             case "CAMPAIGN REQUIRED":
                                 safeClickOn(campaign.putCaseIntoCampaignRadioButton);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 waitABit(500);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 break;
                             default:
                                 pendingStep(errorMessage + " is not defined within " + getMethodName());
@@ -910,49 +911,49 @@ public class ValidationStepDefs extends BasePage {
                         switch (errorMessage.toUpperCase()) {
                             case "RESPONSE CHANNEL REQUIRED":
                                 safeClickOn(dispatchStages.dispatchedRadioButtonAtPrivateOffice);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 break;
                             case "ACTIONS REQUIRED":
                                 safeClickOn(dispatchStages.responseChannelEmailRadioButton);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 break;
                             case "CAMPAIGN REQUIRED":
                                 safeClickOn(dispatchStages.responseChannelEmailRadioButton);
                                 safeClickOn(campaign.putCaseIntoCampaignRadioButton);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 waitABit(500);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 break;
                             case "DISPATCHED DATE REQUIRED":
                                 safeClickOn(dispatchStages.responseChannelEmailRadioButton);
                                 safeClickOn(dispatchStages.dispatchedRadioButtonAtPrivateOffice);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 waitABit(500);
                                 clickTheButton("Confirm and close case");
                                 break;
                             case "FOLLOW-UP DUE DATE REQUIRED":
                                 safeClickOn(dispatchStages.responseChannelEmailRadioButton);
                                 safeClickOn(dispatchStages.dispatchedFollowUpRadioButton);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 typeIntoDateFields(dispatchStages.dispatchedDateDayTextField, dispatchStages.dispatchedDateMonthTextField,
                                         dispatchStages.dispatchedDateYearTextField, getDatePlusMinusNDaysAgo(0));
                                 typeInto(dispatchStages.followUpDetailsTextArea, "Test");
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 break;
                             case "DETAILS OF FOLLOW-UP REQUIRED":
                                 safeClickOn(dispatchStages.responseChannelEmailRadioButton);
                                 safeClickOn(dispatchStages.dispatchedFollowUpRadioButton);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 typeIntoDateFields(dispatchStages.dispatchedDateDayTextField, dispatchStages.dispatchedDateMonthTextField,
                                         dispatchStages.dispatchedDateYearTextField, getDatePlusMinusNDaysAgo(0));
                                 dispatchStages.followUpDateInput(getDatePlusMinusNDaysAgo(0));
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 break;
                             case "REJECTION REASON REQUIRED":
                                 safeClickOn(dispatchStages.draftRejectedRadioButton);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 waitABit(500);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 break;
                             default:
                                 pendingStep(errorMessage + " is not defined within " + getMethodName());
@@ -963,61 +964,61 @@ public class ValidationStepDefs extends BasePage {
                             case "DISPATCHED DATE REQUIRED":
                                 safeClickOn(dispatchStages.responseChannelEmailRadioButton);
                                 safeClickOn(dispatchStages.dispatchedCloseCaseRadioButton);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 break;
                             case "RESPONSE CHANNEL REQUIRED":
                                 typeIntoDateFields(dispatchStages.dispatchedDateDayTextField, dispatchStages.dispatchedDateMonthTextField,
                                         dispatchStages.dispatchedDateYearTextField, getDatePlusMinusNDaysAgo(0));
                                 safeClickOn(dispatchStages.dispatchedCloseCaseRadioButton);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 break;
                             case "ACTIONS REQUIRED":
                                 typeIntoDateFields(dispatchStages.dispatchedDateDayTextField, dispatchStages.dispatchedDateMonthTextField,
                                         dispatchStages.dispatchedDateYearTextField, getDatePlusMinusNDaysAgo(0));
                                 safeClickOn(dispatchStages.responseChannelEmailRadioButton);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 break;
                             case "REJECTION REASON REQUIRED":
                                 safeClickOn(dispatchStages.returnToDraftButton);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 waitABit(500);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 break;
                             case "REASON FOR CLOSING CASE REQUIRED":
                                 safeClickOn(closeCaseTelephone.closeCaseTelephoneRadioButton);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 safeClickOn(closeCaseTelephone.mpHelplineContactRouteRadioButton);
                                 clickTheButton("Close Case");
                                 break;
                             case "TELEPHONE CONTACT ROUTE REQUIRED":
                                 safeClickOn(closeCaseTelephone.closeCaseTelephoneRadioButton);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 typeInto(closeCaseTelephone.explanationForClosingCaseTelephoneTextBox, "Test");
                                 clickTheButton("Close Case");
                                 break;
                             case "CAMPAIGN REQUIRED":
                                 safeClickOn(campaign.putCaseIntoCampaignRadioButton);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 waitABit(500);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 break;
                             case "FOLLOW-UP DUE DATE REQUIRED":
                                 typeIntoDateFields(dispatchStages.dispatchedDateDayTextField, dispatchStages.dispatchedDateMonthTextField,
                                         dispatchStages.dispatchedDateYearTextField, getDatePlusMinusNDaysAgo(0));
                                 safeClickOn(dispatchStages.responseChannelEmailRadioButton);
                                 safeClickOn(dispatchStages.dispatchedFollowUpRadioButton);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 typeInto(dispatchStages.followUpDetailsTextArea, "Test");
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 break;
                             case "DETAILS OF FOLLOW-UP REQUIRED":
                                 typeIntoDateFields(dispatchStages.dispatchedDateDayTextField, dispatchStages.dispatchedDateMonthTextField,
                                         dispatchStages.dispatchedDateYearTextField, getDatePlusMinusNDaysAgo(0));
                                 safeClickOn(dispatchStages.responseChannelEmailRadioButton);
                                 safeClickOn(dispatchStages.dispatchedFollowUpRadioButton);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 dispatchStages.followUpDateInput(getDatePlusMinusNDaysAgo(0));
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 break;
                             default:
                                 pendingStep(errorMessage + " is not defined within " + getMethodName());
@@ -1027,83 +1028,83 @@ public class ValidationStepDefs extends BasePage {
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
                 break;
-            case "MTS":
+            case MTS:
                 if (stage.equalsIgnoreCase("DATA INPUT")) {
                     switch (errorMessage.toUpperCase()) {
                         case "PRIMARY CORRESPONDENT REQUIRED":
                             waitABit(500);
-                            safeClickOn(continueButton);
+                            clickContinueButton();
                             break;
                         case "BUSINESS AREA REQUIRED":
                         case "BUSINESS UNIT REQUIRED":
                             correspondents.addAMemberCorrespondent();
-                            safeClickOn(continueButton);
+                            clickContinueButton();
                             mtsDataInput.selectAnUrgency();
                             mtsDataInput.selectAChannelReceived();
                             mtsDataInput.selectAnEnquirySubject();
-                            mtsDataInput.enquiryReasonDropdown.selectByIndex(1);
-                            typeInto(mtsDataInput.supportNoteTextArea, "Test");
+                            mtsDataInput.selectAnEnquiryReason();
+                            mtsDataInput.enterASupportNote();
                             mtsDataInput.selectYourBusinessArea();
                             clickTheButton("Complete and Close Case");
                             break;
                         case "URGENCY REQUIRED":
                             correspondents.addAMemberCorrespondent();
-                            safeClickOn(continueButton);
+                            clickContinueButton();
                             mtsDataInput.selectABusinessArea();
-                            mtsDataInput.businessUnitDropdown.selectByIndex(1);
+                            mtsDataInput.selectABusinessUnit();
                             mtsDataInput.selectAChannelReceived();
                             mtsDataInput.selectAnEnquirySubject();
-                            mtsDataInput.enquiryReasonDropdown.selectByIndex(1);
-                            typeInto(mtsDataInput.supportNoteTextArea, "Test");
+                            mtsDataInput.selectAnEnquiryReason();
+                            mtsDataInput.enterASupportNote();
                             mtsDataInput.selectYourBusinessArea();
                             clickTheButton("Complete and Close Case");
                             break;
                         case "CHANNEL RECEIVED REQUIRED":
                             correspondents.addAMemberCorrespondent();
-                            safeClickOn(continueButton);
+                            clickContinueButton();
                             mtsDataInput.selectABusinessArea();
-                            mtsDataInput.businessUnitDropdown.selectByIndex(1);
+                            mtsDataInput.selectABusinessUnit();
                             mtsDataInput.selectAnUrgency();
                             mtsDataInput.selectAnEnquirySubject();
-                            mtsDataInput.enquiryReasonDropdown.selectByIndex(1);
-                            typeInto(mtsDataInput.supportNoteTextArea, "Test");
+                            mtsDataInput.selectAnEnquiryReason();
+                            mtsDataInput.enterASupportNote();
                             mtsDataInput.selectYourBusinessArea();
                             clickTheButton("Complete and Close Case");
                             break;
                         case "ENQUIRY SUBJECT REQUIRED":
                         case "ENQUIRY REASON REQUIRED":
                             correspondents.addAMemberCorrespondent();
-                            safeClickOn(continueButton);
+                            clickContinueButton();
                             mtsDataInput.selectABusinessArea();
-                            mtsDataInput.businessUnitDropdown.selectByIndex(1);
+                            mtsDataInput.selectABusinessUnit();
                             mtsDataInput.selectAnUrgency();
                             mtsDataInput.selectAChannelReceived();
-                            typeInto(mtsDataInput.supportNoteTextArea, "Test");
+                            mtsDataInput.enterASupportNote();
                             mtsDataInput.selectYourBusinessArea();
                             clickTheButton("Complete and Close Case");
                             break;
                         case "SUPPORT CASE NOTE REQUIRED":
                             correspondents.addAMemberCorrespondent();
-                            safeClickOn(continueButton);
+                            clickContinueButton();
                             mtsDataInput.selectABusinessArea();
-                            mtsDataInput.businessUnitDropdown.selectByIndex(1);
+                            mtsDataInput.selectABusinessUnit();
                             mtsDataInput.selectAnUrgency();
                             mtsDataInput.selectAChannelReceived();
                             mtsDataInput.selectAnEnquirySubject();
-                            mtsDataInput.enquiryReasonDropdown.selectByIndex(1);
+                            mtsDataInput.selectAnEnquiryReason();
                             mtsDataInput.selectYourBusinessArea();
                             clickTheButton("Complete and Close Case");
                             break;
                         case "YOUR BUSINESS AREA REQUIRED":
                             correspondents.addAMemberCorrespondent();
-                            safeClickOn(continueButton);
+                            clickContinueButton();
                             mtsDataInput.selectABusinessArea();
-                            mtsDataInput.businessUnitDropdown.selectByIndex(1);
+                            mtsDataInput.selectABusinessUnit();
                             mtsDataInput.selectAnUrgency();
                             mtsDataInput.selectAChannelReceived();
                             mtsDataInput.selectAnEnquirySubject();
-                            mtsDataInput.enquiryReasonDropdown.selectByIndex(1);
-                            typeInto(mtsDataInput.supportNoteTextArea, "Test");
+                            mtsDataInput.selectAnEnquiryReason();
+                            mtsDataInput.enterASupportNote();
                             clickTheButton("Complete and Close Case");
                             break;
                         default:
@@ -1113,64 +1114,64 @@ public class ValidationStepDefs extends BasePage {
                     pendingStep(stage + " is not defined within " + getMethodName());
                 }
                 break;
-            case "COMP":
+            case COMP:
                 switch (stage.toUpperCase()) {
                     case "REGISTRATION":
                         switch (errorMessage.toUpperCase()) {
                             case "PRIMARY CORRESPONDENT REQUIRED":
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "COMPLAINT TYPE REQUIRED":
                                 correspondents.addANonMemberCorrespondentOfType("Complainant");
                                 correspondents.confirmPrimaryCorrespondent();
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "CHANNEL REQUIRED":
                                 correspondents.addANonMemberCorrespondentOfType("Complainant");
                                 correspondents.confirmPrimaryCorrespondent();
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 complaintsRegistrationAndDataInput.selectASpecificComplaintType("Service");
                                 complaintsRegistrationAndDataInput.selectASeverity();
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "SEVERITY REQUIRED":
                                 correspondents.addANonMemberCorrespondentOfType("Complainant");
                                 correspondents.confirmPrimaryCorrespondent();
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 complaintsRegistrationAndDataInput.selectASpecificComplaintType("Service");
                                 complaintsRegistrationAndDataInput.selectAComplaintChannel();
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "OWNING CSU REQUIRED":
                                 correspondents.addANonMemberCorrespondentOfType("Complainant");
                                 correspondents.confirmPrimaryCorrespondent();
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 complaintsRegistrationAndDataInput.selectASpecificComplaintType("Service");
                                 complaintsRegistrationAndDataInput.selectAComplaintChannel();
                                 complaintsRegistrationAndDataInput.selectASeverity();
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 complaintsRegistrationAndDataInput.openTheServiceComplaintCategoryAccordion();
                                 complaintsRegistrationAndDataInput.selectAVisibleClaimCategory();
-                                safeClickOn(finishButton);
+                                clickFinishButton();
                                 break;
                             case "COMPLAINT TYPE OPTION REQUIRED":
                                 correspondents.addANonMemberCorrespondentOfType("Complainant");
                                 correspondents.confirmPrimaryCorrespondent();
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 complaintsRegistrationAndDataInput.selectASpecificComplaintType("Service");
                                 complaintsRegistrationAndDataInput.selectAComplaintChannel();
                                 complaintsRegistrationAndDataInput.selectASeverity();
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 complaintsRegistrationAndDataInput.selectAnOwningCSU();
-                                safeClickOn(finishButton);
+                                clickFinishButton();
                                 break;
                             default:
                                 pendingStep(errorMessage + " is not defined within " + getMethodName());
@@ -1180,102 +1181,102 @@ public class ValidationStepDefs extends BasePage {
                         switch (errorMessage.toUpperCase()) {
                             case "CAN YOUR TEAM RESPOND TO COMPLAINT REQUIRED":
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "REASON FOR TRANSFER REQUIRED":
                                 safeClickOn(ComplaintsTriageAndInvestigation.transferTheComplaintRadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 safeClickOn(ComplaintsTriageAndInvestigation.transferToCCHRadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "TRANSFER TO REQUIRED":
                                 safeClickOn(ComplaintsTriageAndInvestigation.transferTheComplaintRadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 typeInto(ComplaintsTriageAndInvestigation.transferReasonTextArea, "Test");
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "BUSINESS AREA REQUIRED":
                                 safeClickOn(ComplaintsTriageAndInvestigation.acceptTheComplaintRadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 ComplaintsTriageAndInvestigation.enquiryReasonDropdown.selectByIndex(1);
                                 safeClickOn(ComplaintsTriageAndInvestigation.loaRequiredYesRadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "ENQUIRY REASON REQUIRED":
                                 safeClickOn(ComplaintsTriageAndInvestigation.acceptTheComplaintRadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 ComplaintsTriageAndInvestigation.businessAreaDropdown.selectByIndex(1);
                                 safeClickOn(ComplaintsTriageAndInvestigation.loaRequiredYesRadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "IS LETTER OF AUTHORITY REQUIRED RESPONSE REQUIRED":
                                 safeClickOn(ComplaintsTriageAndInvestigation.acceptTheComplaintRadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 ComplaintsTriageAndInvestigation.businessAreaDropdown.selectByIndex(1);
                                 ComplaintsTriageAndInvestigation.enquiryReasonDropdown.selectByIndex(1);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "ACTION REQUIRED":
                                 safeClickOn(ComplaintsTriageAndInvestigation.acceptTheComplaintRadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 ComplaintsTriageAndInvestigation.businessAreaDropdown.selectByIndex(1);
                                 ComplaintsTriageAndInvestigation.enquiryReasonDropdown.selectByIndex(1);
                                 safeClickOn(ComplaintsTriageAndInvestigation.loaRequiredYesRadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "ESCALATION REASON REQUIRED":
                                 safeClickOn(ComplaintsTriageAndInvestigation.acceptTheComplaintRadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 ComplaintsTriageAndInvestigation.businessAreaDropdown.selectByIndex(1);
                                 ComplaintsTriageAndInvestigation.enquiryReasonDropdown.selectByIndex(1);
                                 safeClickOn(ComplaintsTriageAndInvestigation.loaRequiredYesRadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 safeClickOn(ComplaintsTriageAndInvestigation.escalateToWFMRadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
                                 clickTheButton("Escalate case");
                                 break;
                             case "COMPLETE CASE NOTE REQUIRED":
                                 safeClickOn(ComplaintsTriageAndInvestigation.acceptTheComplaintRadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 ComplaintsTriageAndInvestigation.businessAreaDropdown.selectByIndex(1);
                                 ComplaintsTriageAndInvestigation.enquiryReasonDropdown.selectByIndex(1);
                                 safeClickOn(ComplaintsTriageAndInvestigation.loaRequiredYesRadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 safeClickOn(ComplaintsTriageAndInvestigation.noResponseCloseCaseRadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
                                 clickTheButton("Complete case");
                                 break;
                             case "COMPLETE CASE PERMANENTLY RESPONSE REQUIRED":
                                 safeClickOn(ComplaintsTriageAndInvestigation.acceptTheComplaintRadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 ComplaintsTriageAndInvestigation.businessAreaDropdown.selectByIndex(1);
                                 ComplaintsTriageAndInvestigation.enquiryReasonDropdown.selectByIndex(1);
                                 safeClickOn(ComplaintsTriageAndInvestigation.loaRequiredYesRadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 safeClickOn(ComplaintsTriageAndInvestigation.noResponseCloseCaseRadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 ComplaintsTriageAndInvestigation.enterCompletionReason();
                                 clickTheButton("Complete case");
                                 waitABit(500);
-                                safeClickOn(confirmButton);
+                                clickConfirmButton();
                                 break;
                             default:
                                 pendingStep(errorMessage + " is not defined within " + getMethodName());
@@ -1285,16 +1286,16 @@ public class ValidationStepDefs extends BasePage {
                         switch (errorMessage.toUpperCase()) {
                             case "PRIMARY DRAFT DOCUMENT REQUIRED":
                                 safeClickOn(ComplaintsDraft.sendCaseToQARadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "ACTION REQUIRED":
                                 documents.addADocumentOfDocumentType("DRAFT");
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "ESCALATION REASON":
                                 documents.addADocumentOfDocumentType("DRAFT");
                                 safeClickOn(ComplaintsDraft.escalateCaseToWFMRadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
                                 clickTheButton("Escalate case");
                                 break;
@@ -1305,7 +1306,7 @@ public class ValidationStepDefs extends BasePage {
                     case "SERVICE ESCALATED":
                         if (errorMessage.equalsIgnoreCase("ACTION REQUIRED")) {
                             waitABit(500);
-                            safeClickOn(confirmButton);
+                            clickConfirmButton();
                         } else {
                             pendingStep(errorMessage + " is not defined within " + getMethodName());
                         }
@@ -1314,19 +1315,19 @@ public class ValidationStepDefs extends BasePage {
                         switch (errorMessage.toUpperCase()) {
                             case "TRANSFER TO REQUIRED":
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "COMPLETE CASE NOTE REQUIRED":
                                 safeClickOn(cch.completeTheCaseClosePermanentlyRadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
                                 clickTheButton("Complete case");
                                 break;
                             case "COMPLETE CASE PERMANENTLY RESPONSE REQUIRED":
                                 safeClickOn(cch.completeTheCaseClosePermanentlyRadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 cch.submitReasonForCaseCompletion();
-                                clickTheButton("Confirm");
+                                clickConfirmButton();
                                 break;
                             default:
                                 pendingStep(errorMessage + " is not defined within " + getMethodName());
@@ -1336,11 +1337,11 @@ public class ValidationStepDefs extends BasePage {
                         switch (errorMessage.toUpperCase()) {
                             case "QA RESULT REQUIRED":
                                 waitABit(500);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 break;
                             case "REJECTION REASON REQUIRED":
                                 safeClickOn(ComplaintsQA.returnResponseToDraftRadioButton);
-                                safeClickOn(continueButton);
+                                clickContinueButton();
                                 waitABit(500);
                                 clickTheButton("Reject");
                                 break;
@@ -1384,9 +1385,9 @@ public class ValidationStepDefs extends BasePage {
     @Then("the {string} error message is displayed at (the ){string}( stage)")
     public void theErrorMessageIsDisplayedAtTheStage(String errorMessage, String stage) {
         String errorText = null;
-        String caseType = sessionVariableCalled("caseType");
-        switch (caseType.toUpperCase()) {
-            case "MIN":
+        CaseType caseType = getCurrentCaseType();
+        switch (caseType) {
+            case MIN:
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
                         switch (errorMessage.toUpperCase()) {
@@ -1541,7 +1542,7 @@ public class ValidationStepDefs extends BasePage {
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
                 break;
-            case "TRO":
+            case TRO:
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
                         switch (errorMessage.toUpperCase()) {
@@ -1648,7 +1649,7 @@ public class ValidationStepDefs extends BasePage {
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
                 break;
-            case "DTEN":
+            case DTEN:
                 switch (stage.toUpperCase()) {
                     case "DATA INPUT":
                         switch (errorMessage.toUpperCase()) {
@@ -1767,7 +1768,7 @@ public class ValidationStepDefs extends BasePage {
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
                 break;
-            case "MPAM":
+            case MPAM:
                 switch (stage.toUpperCase()) {
                     case "CREATION":
                         switch (errorMessage.toUpperCase()) {
@@ -1941,7 +1942,7 @@ public class ValidationStepDefs extends BasePage {
                         pendingStep(stage + " is not defined within " + getMethodName());
                 }
                 break;
-            case "MTS":
+            case MTS:
                 if (stage.equalsIgnoreCase("DATA INPUT")) {
                     switch (errorMessage.toUpperCase()) {
                         case "PRIMARY CORRESPONDENT REQUIRED":
@@ -1978,7 +1979,7 @@ public class ValidationStepDefs extends BasePage {
                     pendingStep(stage + " is not defined within " + getMethodName());
                 }
                 break;
-            case "COMP":
+            case COMP:
                 switch (stage.toUpperCase()) {
                     case "REGISTRATION":
                         switch (errorMessage.toUpperCase()) {

@@ -65,6 +65,7 @@ public class NavigationStepDefs extends BasePage {
         } else {
             dashboard.selectWorkstackByTeamName(workstackIdentifier);
         }
+        workstacks.waitForWorkstackToLoad();
     }
 
     @And("I load the current case/claim")
@@ -85,27 +86,6 @@ public class NavigationStepDefs extends BasePage {
     @Then("I am returned to the dashboard")
     public void iAmReturnedToTheDashboard() {
         dashboard.assertAtDashboard();
-    }
-
-    @Then("I am taken to the {string} page")
-    public void iAmTakenToThePage(String pageName) {
-        switch (pageName.toUpperCase()) {
-            case "CREATE SINGLE CASE":
-                createCase.assertPageTitle();
-                break;
-            case "HOME":
-                dashboard.assertAtDashboard();
-                break;
-            case "RECORD CORRESPONDENT DETAILS":
-                correspondents.assertPageTitle();
-                break;
-            case "DATA INPUT":
-                dataInput.assertPageTitle();
-                break;
-            default:
-                pendingStep(pageName + " is not defined within " + getMethodName());
-        }
-        System.out.println("I have been taken to " + pageName);
     }
 
     @Then("the case should be loaded")

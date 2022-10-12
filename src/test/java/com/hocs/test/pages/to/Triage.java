@@ -1,12 +1,9 @@
 package com.hocs.test.pages.to;
 
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.RecordCaseData;
-import java.util.List;
-import java.util.Random;
 
 
 public class Triage extends BasePage {
@@ -15,12 +12,12 @@ public class Triage extends BasePage {
 
     public void selectToChangeTheBusinessArea() {
         clickTheLink("Change business area");
-        waitForPageWithTitle("Transfer To Business Area");
+        waitForDECSPageWithTitle("Transfer To Business Area");
     }
 
     public void selectSetEnquirySubjectAndReasonLink() {
         clickTheLink("Set enquiry subject & reason");
-        waitForPageWithTitle("Set Enquiry Subject");
+        waitForDECSPageWithTitle("Set Enquiry Subject");
     }
 
     public void selectAnEnquirySubject() {
@@ -30,6 +27,9 @@ public class Triage extends BasePage {
 
     public void selectAnEnquiryReason() {
         String enquiryReason = recordCaseData.selectRandomOptionFromDropdownWithHeading("Enquiry reason");
+        if (enquiryReason.equalsIgnoreCase("OTHER")) {
+            recordCaseData.enterTextIntoTextAreaWithHeading("Other enquiry reason");
+        }
         setSessionVariable("enquiryReason").to(enquiryReason);
     }
 

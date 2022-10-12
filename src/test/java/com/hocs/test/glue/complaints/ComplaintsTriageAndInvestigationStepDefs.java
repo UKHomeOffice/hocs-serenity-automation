@@ -4,7 +4,6 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
-import com.hocs.test.pages.complaints.ComplaintsRegistrationAndDataInput;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.complaints.ComplaintsTriageAndInvestigation;
 import io.cucumber.java.en.And;
@@ -22,14 +21,14 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
             complaintsTriageAndInvestigation.enterDateOfAcceptance();
         }
         waitABit(500);
-        clickTheButton("Continue");
+        clickContinueButton();
     }
 
     @And("I accept the case at Triage stage")
     public void iAcceptTheCaseAtTriageStage() {
         complaintsTriageAndInvestigation.selectAcceptCase();
         waitABit(500);
-        clickTheButton("Continue");
+        clickContinueButton();
     }
     @And("I select to Transfer the complaint")
     public void iSelectToTransferTheComplaint() {
@@ -55,7 +54,7 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
     @And("I submit details on the Triage Capture Reason page")
     public void iSubmitDetailsOnTheTriageCaptureReasonPage() {
         complaintsTriageAndInvestigation.enterDetailsOnTriageCaptureReasonPage();
-        clickTheButton("Continue");
+        clickContinueButton();
     }
 
     @And("I enter information on the Triage Details page")
@@ -92,7 +91,7 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
     public void iSelectThatALOAIsRequired() {
         complaintsTriageAndInvestigation.enterDetailsOnTriageCaptureReasonPage();
         complaintsTriageAndInvestigation.selectSpecificOptionForIsLOARequired("Yes");
-        clickTheButton("Continue");
+        clickContinueButton();
     }
 
     @And("I can mark that the LoA was received and enter the LoA date")
@@ -107,14 +106,14 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
 
     @And("I accept the (previous )Claim Category selection")
     public void iAcceptThePreviousClaimCategorySelection() {
-        waitForPageWithTitle("Complaint Category");
-        clickTheButton("Continue");
+        waitForDECSPageWithTitle("Complaint Category");
+        clickContinueButton();
     }
 
     @And("I accept the (previous )Case Details selection")
     public void iAcceptThePreviousSeveritySelection() {
-        waitForPageWithTitle("Triage Case Details");
-        clickTheButton("Continue");
+        waitForDECSPageWithTitle("Triage Case Details");
+        clickContinueButton();
     }
 
     @And("I select the {string} action for an IEDET case at the Triage stage")
@@ -132,25 +131,26 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
                 complaintsTriageAndInvestigation.selectDEPMU();
                 complaintsTriageAndInvestigation.selectIEDETBusinessArea();
                 break;
-            case "Send to CCH":
+            case "SEND TO CCH":
                 complaintsTriageAndInvestigation.selectSendToCCH();
+                complaintsTriageAndInvestigation.enterReasonForTransfer();
                 break;
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
         }
-        clickTheButton("Finish");
+        clickFinishButton();
     }
 
     @And("I enter details on PSU Reference page")
     public void iEnterDetailsOnPSUReferencePage() {
         complaintsTriageAndInvestigation.enterPSUReference();
-        clickTheButton("Continue");
+        clickContinueButton();
     }
 
     @And("I select {string} as additional information on Triage Case Details page")
     public void iSelectAsAdditionalInformationOnTriageCaseDetailsPage(String additionalInformation) {
         complaintsTriageAndInvestigation.selectAdditionalInformation(additionalInformation);
-        clickTheButton("Continue");
+        clickContinueButton();
     }
 
     @And("I select a Close Reason")
@@ -246,14 +246,14 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
         }
-        safeClickOn(finishButton);
+        clickFinishButton();
     }
 
     @And("I enter a transfer reason at the Investigation stage")
     public void iEnterATransferReasonAtTheInvestigationStage() {
         complaintsTriageAndInvestigation.enterTransferReason();
         if (sessionVariableCalled("businessArea").equals("HMPO")) {
-            safeClickOn(continueButton);
+            clickContinueButton();
         }
     }
 
@@ -265,7 +265,7 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
     @And("I select an investigating team")
     public void iSelectAnInvestigatingTeam() {
         complaintsTriageAndInvestigation.selectInvestigatingTeam();
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     @And("I enter any required information at the Investigation stage")

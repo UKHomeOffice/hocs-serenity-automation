@@ -33,11 +33,13 @@ public class TopicManagement extends BasePage {
     public WebElementFacade topicNameTextField;
 
     public void selectAParentTopic(String parentTopic) {
-        waitABit(1000);
-        safeClickOn(parentTopicSearchBar);
-        parentTopicSearchBar.sendKeys(parentTopic);
+        selectSpecificOptionFromTypeaheadWithHeading(parentTopic,"Select The Parent Topic");
+//        waitABit(1000);
+//        safeClickOn(parentTopicSearchBar);
+//        parentTopicSearchBar.sendKeys(parentTopic);
+//        setSessionVariable("parentTopic").to(parentTopic);
+//        parentTopicSearchBar.sendKeys(Keys.ENTER);
         setSessionVariable("parentTopic").to(parentTopic);
-        parentTopicSearchBar.sendKeys(Keys.ENTER);
     }
 
     public void inputAParentTopicDisplayedName() {

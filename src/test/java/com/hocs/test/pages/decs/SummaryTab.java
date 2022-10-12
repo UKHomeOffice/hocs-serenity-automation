@@ -121,12 +121,12 @@ public class SummaryTab extends BasePage {
         String expectedDisplayValue = value.replace("\n", " ");
         String displayedValue = getSummaryTabValueForGivenHeader(header);
         try {
-            assertThat(containsIgnoreCase(displayedValue, expectedDisplayValue), is(true));
+            assertThat(stringContainsCheckIgnoringCase(displayedValue, expectedDisplayValue), is(true));
         } catch (AssertionError e) {
             waitABit(100);
             refreshTheTab("Summary");
             displayedValue = getSummaryTabValueForGivenHeader(header);
-            if (!containsIgnoreCase(displayedValue, expectedDisplayValue)) {
+            if (!stringContainsCheckIgnoringCase(displayedValue, expectedDisplayValue)) {
                 Assert.fail("Summary Tab value incorrect for: " + header + "\nExpected value was: \"" + value + "\"\nDisplayed value was: \"" +
                         displayedValue + "\"");
             }
@@ -151,17 +151,13 @@ public class SummaryTab extends BasePage {
         return displayedValueElement.getText();
     }
 
-    public String getPrimaryCorrespondent() {
-        return primaryCorrespondent.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible().getText();
-    }
-
     public String getActiveStage() {
         return activeStage.getText();
     }
 
     public void assertDisplayedDeadlineMatchesCalculatedDeadline(String displayedDeadline, String deadlineStartDate, int expectedNumberOfWorkdaysTillDeadline) {
         String expectedDeadline = workdays.getDateXWorkdaysFromSetDateForGivenCaseType(expectedNumberOfWorkdaysTillDeadline, deadlineStartDate,
-                sessionVariableCalled("caseType"));
+                getCurrentCaseType());
         if (!displayedDeadline.equals(expectedDeadline)) {
             Assert.fail("Displayed deadline did not match deadline calculated for this case.\nExpected deadline was: " + expectedDeadline +
                     "\nDisplayed deadline was: " + displayedDeadline);

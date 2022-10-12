@@ -14,26 +14,26 @@ public class MinisterialSignOffStepDefs extends BasePage {
     @And("I select that the case is not applicable for Ministerial sign-off")
     public void iSelectThatTheCaseIsNotApplicableForMinisterialSignOff() {
         ministerialSignOff.selectNotApplicableToApproveResponse();
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     @And("I do not approve the response at the Ministerial Sign Off stage")
     public void iDoNotApproveTheResponseAtTheMinisterialSignOffStage() {
         ministerialSignOff.selectToApproveResponse("No");
-        safeClickOn(continueButton);
+        clickContinueButton();
         ministerialSignOff.enterRejectionReason();
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     @When("I approve the response at the Ministerial Sign Off stage")
     public void iApproveTheResponseAtTheMinisterialSignOffStage() {
         ministerialSignOff.selectToApproveResponse("Yes");
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     @And("I submit a reason why it is not applicable")
     public void iSubmitAReasonWhyItIsNotApplicable() {
         ministerialSignOff.enterNotApplicableReason();
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 }

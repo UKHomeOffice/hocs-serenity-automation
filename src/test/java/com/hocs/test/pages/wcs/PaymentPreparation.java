@@ -18,7 +18,7 @@ public class PaymentPreparation extends BasePage {
 
     public void selectToSendClaimToOfferApproval() {
         selectSpecificRadioButton("Send for payment approval");
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
 }

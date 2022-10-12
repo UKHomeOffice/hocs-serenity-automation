@@ -151,7 +151,7 @@ Feature: ManagementUI
     And I select the "Detention Services" team from the dropdown
     And I navigate to edit team
     And I change to a different unit
-    Then success message is displayed
+    Then the correct success message for changing the unit is displayed
 
   @TeamManagement
   Scenario: User is able to deactivate and reactivate a team through Team Management
@@ -261,14 +261,14 @@ Feature: ManagementUI
   @TemplateManagement
   Scenario: User is able to add a new template to a case type
     Given I select to "Manage templates"
-    When I load the templates for the "DCU Ministerial" case type
+    When I load the templates for the "MIN" case type
     And I add a new template to the case type
     Then a success message is displayed
 
   @TemplateManagement
   Scenario: User is able to remove a template from a case type
     Given I select to "Manage templates"
-    When I load the templates for the "DCU Ministerial" case type
+    When I load the templates for the "MIN" case type
     And I add a new template to the case type
     And I remove a template from the case type
     Then the template should be removed from the case type
@@ -276,7 +276,7 @@ Feature: ManagementUI
   @TemplateManagement
   Scenario: User is able to see a template added through MUI when drafting a COMP case
     Given I select to "Manage templates"
-    When I load the templates for the "Complaint Case" case type
+    When I load the templates for the "COMP" case type
     And I add a new template to the case type
     And I navigate to "CS"
     And I create a "COMP" case and move it to the "Service Draft" stage

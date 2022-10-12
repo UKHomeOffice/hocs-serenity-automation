@@ -43,9 +43,9 @@ public class ComplaintsDraft extends BasePage {
     public void selectActionAtDraft(String action) {
         recordCaseData.selectSpecificRadioButton(action);
         if (pogrCase() || pogr2Case()) {
-            safeClickOn(finishButton);
+            clickFinishButton();
         } else {
-            safeClickOn(continueButton);
+            clickContinueButton();
         }
     }
 
@@ -53,7 +53,7 @@ public class ComplaintsDraft extends BasePage {
         String enteredText = recordCaseData.enterTextIntoTextAreaWithHeading("Enter reason for escalation");
         setSessionVariable("escalationReason").to(enteredText);
         if (pogrCase() || pogr2Case()) {
-            safeClickOn(continueButton);
+            clickContinueButton();
         } else {
             clickTheButton("Escalate case");
         }

@@ -71,7 +71,7 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
             complaintsRegistrationAndDataInput.selectAVisibleClaimCategory();
         } else {
             complaintsTriageAndInvestigation.selectIEDETClaimCategory(complaintCategory);
-            clickTheButton("Continue");
+            clickContinueButton();
         }
     }
 
@@ -94,25 +94,25 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
     @And("I select {string} as the business area for the POGR case")
     public void iSelectAsTheBusinessAreaForThePOGRCase(String businessArea) {
         complaintsRegistrationAndDataInput.selectSpecificBusinessArea(businessArea);
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     @And("I enter details on the Data Input screen")
     public void iCompleteTheDataInputScreen() {
         complaintsRegistrationAndDataInput.completeDataInputScreen();
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     @And("I enter the date that the Interim letter was sent")
     public void iEnterTheDateThatTheInterimLetterWasSent() {
         complaintsRegistrationAndDataInput.enterDateInterimLetterSent();
-        safeClickOn(continueButton);
+        clickContinueButton();
     }
 
     @And("I select the investigating team for the case")
     public void iSelectTheInvestigatingTeamForTheCase() {
         complaintsRegistrationAndDataInput.selectInvestigatingTeam();
-        safeClickOn(finishButton);
+        clickFinishButton();
     }
 
     @And("I record that the GRO case is a {string}")
@@ -135,7 +135,7 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
             default:
                 pendingStep(deadlineDefiningFactor + " is not defined within " + getMethodName());
         }
-        safeClickOn(continueButton);
+        clickContinueButton();
         waitABit(1000);
     }
 
@@ -143,7 +143,7 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
     public void iEscalateTheCaseToPSU() {
         complaintsRegistrationAndDataInput.selectASpecificComplaintType("Serious misconduct");
         complaintsTriageAndInvestigation.selectIEDETClaimCategory("Serious misconduct");
-        clickTheButton("Continue");
+        clickContinueButton();
         iEnterTheComplaintDetailsOnTheComplaintInputPage();
         clickTheButton("Finish and escalate to PSU");
     }
@@ -156,6 +156,6 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
 
     @And("I chose not to upload an interim letter")
     public void iChoseNotToUploadAnInterimLetter() {
-        clickTheButton("Continue");
+        clickContinueButton();
     }
 }

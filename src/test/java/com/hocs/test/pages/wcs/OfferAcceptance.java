@@ -21,11 +21,11 @@ public class OfferAcceptance extends BasePage {
 
     public void selectPaymentOfferAccepted() {
         selectSpecificRadioButton("Offer accepted");
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 
     public void selectPaymentOfferRejected() {
         selectSpecificRadioButton("Offer rejected");
-        clickTheButton("Confirm");
+        clickConfirmButton();
     }
 }

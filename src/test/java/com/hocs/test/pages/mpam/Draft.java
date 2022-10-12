@@ -52,48 +52,48 @@ public class Draft extends BasePage {
 
     public void moveBRefCaseFromDraftToDispatch() {
         safeClickOn(readyForDispatchBypassQARadioButton);
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void selectEscalateDraftCaseToWorkflowManager() {
         safeClickOn(escalateToWorkflowManagerRadioButton);
         setSessionVariable("action").to("Escalate to workflow manager");
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void submitReasonToEscalateCase(String escalationReason) {
         escalationReasonTextArea.sendKeys(escalationReason);
-        safeClickOn(confirmButton);
+        clickConfirmButton();
         setSessionVariable("escalationReason").to(escalationReason);
     }
 
     public void putCaseOnHold() {
         safeClickOn(putOnHoldRadioButton);
         setSessionVariable("action").to("Put on hold");
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void takeDraftCaseOffHold() {
         safeClickOn(takeOffHoldRadioButton);
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void deescalateDraftCase() {
         safeClickOn(escalationCompleteRadioButton);
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void selectToCloseEscalatedCase() {
         safeClickOn(closeCaseRadioButton);
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 
     public void sendDraftCaseBackToTriage() {
         safeClickOn(returnToTriageRadioButton);
-        safeClickOn(confirmButton);
+        clickConfirmButton();
         returnToTriageReasonTextArea.sendKeys("Test");
         setSessionVariable("rejectionReason").to("Test");
         setSessionVariable("rejectionStage").to("Draft");
-        safeClickOn(confirmButton);
+        clickConfirmButton();
     }
 }

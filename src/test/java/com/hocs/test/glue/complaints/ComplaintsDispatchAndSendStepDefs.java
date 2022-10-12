@@ -33,7 +33,7 @@ public class ComplaintsDispatchAndSendStepDefs extends BasePage {
 
     @And("I can see the selected Reasons for Complaint")
     public void iCanSeeTheSelectedReasonsForComplaint() {
-        waitForPageWithTitle("Complaint Send Response");
+        waitForDECSPageWithTitle("Complaint Send Response");
         complaintsDispatchAndSend.assertReasonsForComplaintAreVisible();
     }
 

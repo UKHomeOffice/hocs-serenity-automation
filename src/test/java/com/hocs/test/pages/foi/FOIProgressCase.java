@@ -9,6 +9,7 @@ import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
+import config.CaseType;
 
 public class FOIProgressCase extends BasePage {
 
@@ -35,7 +36,7 @@ public class FOIProgressCase extends BasePage {
     public void moveCaseFromCurrentStageToTargetStage(String currentStage, String targetStage) {
         String precedingStage = getStageThatPrecedesTargetStage(targetStage);
         if (precedingStage.equals("CREATE NEW CASE")) {
-            createCase.createCSCaseOfType("FOI");
+            createCase.createCSCaseOfTypeWithDocument(CaseType.FOI);
             dashboard.goToDashboard();
         } else {
             if (!precedingStage.equalsIgnoreCase(currentStage)) {
@@ -107,9 +108,9 @@ public class FOIProgressCase extends BasePage {
     }
 
     public void moveCaseFromCaseCreationToAllocation() {
-        clickTheButton("Confirm");
+        clickConfirmButton();
         caseCreationStage.selectValidityOfRequest("Valid");
-        safeClickOn(continueButton);
+        clickContinueButton();
         waitABit(250);
         documents.addADocumentOfDocumentType("Initial response");
         caseCreationStage.enterAValidRequestAcknowledgementResponseDate();
@@ -121,20 +122,20 @@ public class FOIProgressCase extends BasePage {
         allocation.selectAGroup();
         allocation.selectAnAccountManager();
         clickTheButton("Allocate Case");
-        waitForPageWithTitle("FOI Allocation");
+        waitForDECSPageWithTitle("FOI Allocation");
         clickTheButton("Confirm Allocation");
     }
 
     public void moveCaseFromAcceptanceToConsiderAndDraft() {
         acceptance.selectIfCaseIsInCorrectGroup("Yes");
-        clickTheButton("Continue");
+        clickContinueButton();
         acceptance.selectAResponsibleTeam();
         clickTheButton("Complete Acceptance");
     }
 
     public void moveCaseFromConsiderAndDraftToApproval() {
         considerAndDraft.isContributionRequestNeeded("No");
-        clickTheButton("Continue");
+        clickContinueButton();
         documents.addADocumentOfDocumentType("Draft response");
         clickTheButton("Complete Draft");
     }
@@ -148,11 +149,11 @@ public class FOIProgressCase extends BasePage {
         foiDispatch.selectACaseType();
         foiDispatch.selectAResponseChannel();
         foiDispatch.selectOutcomeOfTheCase("Information released in full");
-        clickTheButton("Continue");
-        clickTheButton("Confirm");
+        clickContinueButton();
+        clickConfirmButton();
         foiDispatch.selectDoYouWantToDispatch("Yes");
         foiDispatch.enterFinalResponseDate();
-        clickTheButton("Continue");
+        clickContinueButton();
         documents.addADocumentOfDocumentType("Final responses");
         clickTheButton("Complete Dispatch");
         waitABit(500);
@@ -164,17 +165,17 @@ public class FOIProgressCase extends BasePage {
             case "CORRESPONDENT (NON-MP)":
             case "TOPIC":
             case "ACTIVE CASES ONLY":
-                createCase.createCSCaseOfType("FOI");
+                createCase.createCSCaseOfTypeWithDocument(CaseType.FOI);
                 dashboard.goToDashboard();
                 break;
             case "RECEIVED ON OR AFTER":
             case "RECEIVED ON OR BEFORE":
                 dashboard.selectCreateSingleCaseLinkFromMenuBar();
-                if (!nextButton.isVisible()) {
+                if (!buttonIsVisible("Next")) {
                     dashboard.selectCreateSingleCaseLinkFromMenuBar();
                 }
-                createCase.selectCaseType("FOI");
-                clickTheButton("Next");
+                createCase.selectCaseType(CaseType.FOI);
+                clickNextButton();
                 createCase.editReceivedDate(infoValue);
                 createCase.storeCorrespondenceReceivedDate();
                 createCase.storeCorrespondenceReceivedInKIMUDate();
@@ -189,11 +190,11 @@ public class FOIProgressCase extends BasePage {
                 break;
             case "ALL":
                 dashboard.selectCreateSingleCaseLinkFromMenuBar();
-                if (!nextButton.isVisible()) {
+                if (!buttonIsVisible("Next")) {
                     dashboard.selectCreateSingleCaseLinkFromMenuBar();
                 }
-                createCase.selectCaseType("FOI");
-                clickTheButton("Next");
+                createCase.selectCaseType(CaseType.FOI);
+                clickNextButton();
                 createCase.editReceivedDate("01/01/2022");
                 createCase.storeCorrespondenceReceivedDate();
                 createCase.storeCorrespondenceReceivedInKIMUDate();
