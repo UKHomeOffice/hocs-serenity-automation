@@ -346,7 +346,8 @@ public class Documents extends BasePage {
                 break;
             case POGR:
             case POGR2:
-                requiredDocumentTypes.addAll(Arrays.asList("Original Complaint", "Interim Letter", "Draft", "Final Response"));
+                requiredDocumentTypes.addAll(Arrays.asList("Original Complaint", "Interim Letter", "Draft", "Final Response","Contribution Request"
+                        ,"Contribution Response"));
                 break;
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
