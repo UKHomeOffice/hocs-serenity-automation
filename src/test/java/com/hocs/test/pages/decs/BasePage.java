@@ -333,10 +333,6 @@ public class BasePage extends PageObject {
 
     // Validation errors
 
-    public void assertErrorMessageText(String text) {
-        assertThat(getAllErrorMessageText(), containsString(text));
-    }
-
     public void assertThatAnErrorMessageIsDisplayed() {
         assertThat(isElementDisplayed(errorMessageList), is(true));
     }

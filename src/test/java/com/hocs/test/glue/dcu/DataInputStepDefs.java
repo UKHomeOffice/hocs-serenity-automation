@@ -98,13 +98,13 @@ public class DataInputStepDefs extends BasePage {
     public void errorMessageIsDisplayed(String errorMessage) {
         switch (errorMessage.toUpperCase()) {
             case "INVALID DATE":
-                assertErrorMessageText("must be a date in the past");
+                assertExpectedErrorMessageIsDisplayed("must be a date in the past");
                 break;
             case "CORRESPONDENCE RECEIVED":
-                assertErrorMessageText("When was the correspondence received? is required");
+                assertExpectedErrorMessageIsDisplayed("When was the correspondence received? is required");
                 break;
             case "CORRESPONDENCE SENT":
-                assertErrorMessageText("When was the correspondence sent? is required");
+                assertExpectedErrorMessageIsDisplayed("When was the correspondence sent? is required");
                 break;
             default:
                 pendingStep(errorMessage + " is not defined within " + getMethodName());
