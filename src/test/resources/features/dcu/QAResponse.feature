@@ -17,7 +17,7 @@ Feature: QA Response
       | DTEN     |
 
   @DCUWorkflow @DCURegression
-  Scenario: A TRO case is moved to Disptach stage when the Primary Draft is approved by the QA Response Team
+  Scenario: A TRO case is moved to Dispatch stage when the Primary Draft is approved by the QA Response Team
     And I get a "TRO" case at the "QA Response" stage
     When I approve the Primary Draft
     Then the case should be moved to the "Dispatch" stage
