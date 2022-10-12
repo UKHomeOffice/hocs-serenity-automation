@@ -303,4 +303,12 @@ public class SummaryTabStepDefs extends BasePage {
             summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("callDate"), "Date of Call");
         }
     }
+
+    @And("the summary should contain submitted case closure details")
+    public void aCaseClosureNoteShouldBeVisibleInTheSummaryShowingTheSubmittedReasonForClosingTheCase() {
+        String closureReason = sessionVariableCalled("closureReason");
+        String dropdownClosureReason = sessionVariableCalled("dropdownClosureReason");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(dropdownClosureReason, "Closure Reason");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(closureReason,"Enter a note for case closure");
+    }
 }

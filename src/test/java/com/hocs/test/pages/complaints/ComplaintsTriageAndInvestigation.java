@@ -279,7 +279,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     public void enterCompletionReason() {
         String enteredText;
         if (pogrCase() || pogr2Case()) {
-            enteredText = enterTextIntoTextAreaWithHeading("Enter a note for case closure");
+            enteredText = recordCaseData.enterTextIntoTextAreaWithHeading("Enter a note for case closure");
 
         } else {
             enteredText = enterTextIntoTextAreaWithHeading("Enter note for case completion");
@@ -348,7 +348,9 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     }
 
     public void selectAClosureReason() {
-        selectRandomOptionFromDropdownWithHeading("Closure Reason");
+       // selectRandomOptionFromDropdownWithHeading("Closure Reason");
+        String dropdownClosureReason = recordCaseData.selectRandomOptionFromDropdownWithHeading("Closure Reason");
+        setSessionVariable("dropdownClosureReason").to(dropdownClosureReason);
     }
 
     public void acceptCaseAtInvestigation() {
@@ -384,6 +386,8 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     }
 
     public void selectCloseCaseAction() {
-        selectSpecificRadioButtonFromGroupWithHeading("Close the case", "Actions");
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Close the case", "Actions");
+      //  safeClickOn(continueButton);
+      //  selectSpecificRadioButtonFromGroupWithHeading("Close the case", "Actions");
     }
 }
