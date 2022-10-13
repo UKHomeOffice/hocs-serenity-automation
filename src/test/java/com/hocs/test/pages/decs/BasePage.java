@@ -420,20 +420,20 @@ public class BasePage extends PageObject {
         clickTheButton("Add");
     }
 
-    public void clickContinueButton() {
-        clickContinueButton();
+    public void clickContinueButton()  {
+        clickTheButton("Continue");
     }
 
     public void clickConfirmButton() {
-        clickConfirmButton();
+        clickTheButton("Confirm");
     }
 
     public void clickFinishButton() {
-        clickFinishButton();
+        clickTheButton("Finish");
     }
 
     public void clickNextButton() {
-        clickNextButton();
+        clickTheButton("Next");
     }
 
     public void clickSearchButton() {
