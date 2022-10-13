@@ -13,4 +13,4 @@ Feature: Copy To Number 10
     Examples:
       | caseType  |
       | MIN       |
-#      | TRO       |
+      | TRO       |
