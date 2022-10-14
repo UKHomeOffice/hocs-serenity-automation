@@ -70,6 +70,7 @@ public class ExGratiaTab extends BasePage {
             enterDateIntoDateFieldsWithHeading(getTodaysDate(), "Date of Claim");
             selectRandomOptionFromDropdownWithHeading("Second Reason for Refund");
             selectRandomOptionFromDropdownWithHeading("Third Reason for Refund");
+            enterTextIntoTextAreaWithHeading("Additional Information");
         } else if (businessArea.equalsIgnoreCase("GRO")) {
             selectRandomRadioButtonFromGroupWithHeading("Refund Required");
             enterSpecificTextIntoTextFieldWithHeading("10.00", "Amount");
