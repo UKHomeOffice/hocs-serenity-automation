@@ -117,7 +117,7 @@ public class RegistrationStepDefs extends BasePage {
     @And("I create a WCS claim and enter the claimant name {string}")
     public void iCreateAWCSClaimAndEnterTheClaimantName(String name) {
         createCase.createWCSCase();
-        waitFor(registration.registrationSchemeCheckTitle);;
+        waitForDECSPageWithTitle("Registration Windrush Scheme check");
         iProgressToTheRegistrationPage();
         claimSchema.completeRequiredFieldsInCaseInfoSection();
         claimSchema.expandCollapsePersonalDetailsSection();
@@ -128,7 +128,7 @@ public class RegistrationStepDefs extends BasePage {
     @And("I create a WCS claim and enter the claimant DOB as today's date")
     public void iCreateAWCSClaimAndEnterTheClaimantDobAsTodaysDate() {
         createCase.createWCSCase();
-        waitFor(registration.registrationSchemeCheckTitle);
+        waitForDECSPageWithTitle("Registration Windrush Scheme check");
         iProgressToTheRegistrationPage();
         claimSchema.completeRequiredFieldsInCaseInfoSection();
         claimSchema.expandCollapsePersonalDetailsSection();
@@ -139,7 +139,7 @@ public class RegistrationStepDefs extends BasePage {
     @And("I create a WCS claim and enter {string} as the National Insurance No")
     public void iCreateAWCSClaimAndEnterAsTheNationalInsuranceNo(String niNo) throws Throwable {
         createCase.createWCSCase();
-        waitFor(registration.registrationSchemeCheckTitle);
+        waitForDECSPageWithTitle("Registration Windrush Scheme check");
         iProgressToTheRegistrationPage();
         claimSchema.completeRequiredFieldsInCaseInfoSection();
         claimSchema.expandCollapsePersonalDetailsSection();
@@ -150,7 +150,7 @@ public class RegistrationStepDefs extends BasePage {
     @And("I create a WCS claim and enter {string} as the previous HOCS reference")
     public void iCreateAWCSClaimAndEnterAsThePreviousHOCSReference(String ref) {
         createCase.createWCSCase();
-        waitFor(registration.registrationSchemeCheckTitle);
+        waitForDECSPageWithTitle("Registration Windrush Scheme check");
         iProgressToTheRegistrationPage();
         claimSchema.completeRequiredFieldsInCaseInfoSection();
         claimSchema.expandCollapseGovernmentRecordsSection();

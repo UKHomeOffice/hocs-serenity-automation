@@ -94,12 +94,12 @@ public class Tier1StepDefs extends BasePage {
 
     @When("I select to return the claim to Eligibility")
     public void iSelectToReturnTheClaimToEligibility() {
-        tier1Review.selectToReturnClaim();
+        tier1Review.selectToReturnClaimToEligibility();
     }
 
     @When("I select to return the claim to Registration")
     public void iSelectToReturnTheClaimToRegistration() {
-        tier1Review.selectToReturnClaim();
+        tier1Review.selectToReturnClaimToRegistration();
     }
 
     @Then("an error message is displayed as I have not selected an action on the Tier 1 ER/IR Review page")

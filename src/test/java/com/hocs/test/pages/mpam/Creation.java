@@ -34,6 +34,7 @@ public class Creation extends BasePage {
         String businessArea = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Business Area");
         setSessionVariable("businessArea").to(businessArea);
     }
+
     public void selectASpecificBusinessArea(String businessArea) {
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(businessArea, "Business Area");
         setSessionVariable("businessArea").to(businessArea);

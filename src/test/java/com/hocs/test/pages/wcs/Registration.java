@@ -12,9 +12,6 @@ public class Registration extends BasePage {
 
     RecordCaseData recordCaseData;
 
-    @FindBy(xpath = "//h1[text()='Registration Windrush Scheme check']")
-    public WebElementFacade registrationSchemeCheckTitle;
-
     @FindBy(xpath = "//a[@href='#IdentityConfirmed-error']")
     public WebElementFacade canYouConfirmClaimantStatusErrorMessage;
 

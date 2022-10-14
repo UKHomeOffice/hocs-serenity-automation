@@ -20,7 +20,7 @@ public class OfferAcceptance extends BasePage {
     }
 
     public void selectPaymentOfferAccepted() {
-        selectSpecificRadioButton("Offer accepted");
+        selectSpecificRadioButton("Offer accepted, or preliminary payment");
         clickConfirmButton();
     }
 

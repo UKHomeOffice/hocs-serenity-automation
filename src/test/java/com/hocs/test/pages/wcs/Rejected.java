@@ -19,12 +19,12 @@ public class Rejected extends BasePage {
     public WebElementFacade reviewEligibilityDecisionIsRequiredErrorMessage;
 
     public void selectToSendClaimToTier1Review() {
-        selectSpecificRadioButton("Yes, send to Tier 1 review");
+        selectSpecificRadioButton("Yes, send to Tier 1 review ");
         clickConfirmButton();
     }
 
     public void selectToArchiveClaim() {
-        selectSpecificRadioButton("archive claim");
+        selectSpecificRadioButton("No, archive claim");
         clickConfirmButton();
     }
 

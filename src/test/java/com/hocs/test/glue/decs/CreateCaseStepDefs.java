@@ -79,7 +79,7 @@ public class CreateCaseStepDefs extends BasePage {
     public void createNewCase(String caseTypeString) {
         if (caseTypeString.equalsIgnoreCase("WCS")) {
             createCase.createWCSCase();
-            waitFor(wcsRegistration.registrationSchemeCheckTitle);
+            waitForDECSPageWithTitle("Registration Windrush Scheme check");
         } else {
             createCase.createCSCaseOfTypeWithDocument(CaseType.valueOf(caseTypeString));
         }
