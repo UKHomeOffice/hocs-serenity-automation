@@ -11,21 +11,21 @@ Feature: Contribution Request
     Then the case should be moved to the "<stage> (Contribution Requested)" stage
     And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
-      | businessArea | refType | stage  |
-      | UKVI         | Ministerial   | Triage |
-      | BF           | Ministerial   | Triage |
-      | IE           | Ministerial   | Triage |
-      | EUSS         | Ministerial   | Triage |
-      | HMPO         | Ministerial   | Triage |
-      | Windrush     | Ministerial   | Triage |
-      | Coronavirus  | Ministerial   | Triage |
-      | UKVI         | Official   | Triage |
-      | BF           | Official   | Triage |
-      | IE           | Official   | Triage |
-      | EUSS         | Official   | Triage |
-      | HMPO         | Official   | Triage |
-      | Windrush     | Official   | Triage |
-      | Coronavirus  | Official   | Triage |
+      | businessArea           | refType     | stage  |
+      | UKVI                   | Ministerial | Triage |
+      | BF                     | Ministerial | Triage |
+      | IE                     | Ministerial | Triage |
+      | EUSS                   | Ministerial | Triage |
+      | HMPO                   | Ministerial | Triage |
+      | Windrush               | Ministerial | Triage |
+      | Coronavirus (COVID-19) | Ministerial | Triage |
+      | UKVI                   | Official    | Triage |
+      | BF                     | Official    | Triage |
+      | IE                     | Official    | Triage |
+      | EUSS                   | Official    | Triage |
+      | HMPO                   | Official    | Triage |
+      | Windrush               | Official    | Triage |
+      | Coronavirus (COVID-19) | Official    | Triage |
 
   Scenario Outline: User records that a contribution has been received and returns a case to the Triage stage
     And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
@@ -37,21 +37,21 @@ Feature: Contribution Request
     Then the case should be moved to the "<stage>" stage
     And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
-      | businessArea | refType | stage  |
-      | UKVI         | Ministerial   | Triage |
-      | BF           | Ministerial   | Triage |
-      | IE           | Ministerial   | Triage |
-      | EUSS         | Ministerial   | Triage |
-      | HMPO         | Ministerial   | Triage |
-      | Windrush     | Ministerial   | Triage |
-      | Coronavirus  | Ministerial   | Triage |
-      | UKVI         | Official   | Triage |
-      | BF           | Official   | Triage |
-      | IE           | Official   | Triage |
-      | EUSS         | Official   | Triage |
-      | HMPO         | Official   | Triage |
-      | Windrush     | Official   | Triage |
-      | Coronavirus  | Official   | Triage |
+      | businessArea           | refType     | stage  |
+      | UKVI                   | Ministerial | Triage |
+      | BF                     | Ministerial | Triage |
+      | IE                     | Ministerial | Triage |
+      | EUSS                   | Ministerial | Triage |
+      | HMPO                   | Ministerial | Triage |
+      | Windrush               | Ministerial | Triage |
+      | Coronavirus (COVID-19) | Ministerial | Triage |
+      | UKVI                   | Official    | Triage |
+      | BF                     | Official    | Triage |
+      | IE                     | Official    | Triage |
+      | EUSS                   | Official    | Triage |
+      | HMPO                   | Official    | Triage |
+      | Windrush               | Official    | Triage |
+      | Coronavirus (COVID-19) | Official    | Triage |
 
   Scenario Outline: User requests a contribution at Draft stage
     And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
@@ -60,21 +60,21 @@ Feature: Contribution Request
     Then the case should be moved to the "<stage> (Contribution Requested)" stage
     And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
-      | businessArea | refType | stage |
-      | UKVI         | Ministerial   | Draft |
-      | BF           | Ministerial   | Draft |
-      | IE           | Ministerial   | Draft |
-      | EUSS         | Ministerial   | Draft |
-      | HMPO         | Ministerial   | Draft |
-      | Windrush     | Ministerial   | Draft |
-      | Coronavirus  | Ministerial   | Draft |
-      | UKVI         | Official   | Draft |
-      | BF           | Official   | Draft |
-      | IE           | Official   | Draft |
-      | EUSS         | Official   | Draft |
-      | HMPO         | Official   | Draft |
-      | Windrush     | Official   | Draft |
-      | Coronavirus  | Official   | Draft |
+      | businessArea           | refType     | stage |
+      | UKVI                   | Ministerial | Draft |
+      | BF                     | Ministerial | Draft |
+      | IE                     | Ministerial | Draft |
+      | EUSS                   | Ministerial | Draft |
+      | HMPO                   | Ministerial | Draft |
+      | Windrush               | Ministerial | Draft |
+      | Coronavirus (COVID-19) | Ministerial | Draft |
+      | UKVI                   | Official    | Draft |
+      | BF                     | Official    | Draft |
+      | IE                     | Official    | Draft |
+      | EUSS                   | Official    | Draft |
+      | HMPO                   | Official    | Draft |
+      | Windrush               | Official    | Draft |
+      | Coronavirus (COVID-19) | Official    | Draft |
 
   Scenario Outline: User records that a contribution has been received and returns a case to the Draft stage
     And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
@@ -86,21 +86,21 @@ Feature: Contribution Request
     Then the case should be moved to the "<stage>" stage
     And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
-      | businessArea | refType | stage |
-      | UKVI         | Ministerial   | Draft |
-      | BF           | Ministerial   | Draft |
-      | IE           | Ministerial   | Draft |
-      | EUSS         | Ministerial   | Draft |
-      | HMPO         | Ministerial   | Draft |
-      | Windrush     | Ministerial   | Draft |
-      | Coronavirus  | Ministerial   | Draft |
-      | UKVI         | Official   | Draft |
-      | BF           | Official   | Draft |
-      | IE           | Official   | Draft |
-      | EUSS         | Official   | Draft |
-      | HMPO         | Official   | Draft |
-      | Windrush     | Official   | Draft |
-      | Coronavirus  | Official   | Draft |
+      | businessArea           | refType     | stage |
+      | UKVI                   | Ministerial | Draft |
+      | BF                     | Ministerial | Draft |
+      | IE                     | Ministerial | Draft |
+      | EUSS                   | Ministerial | Draft |
+      | HMPO                   | Ministerial | Draft |
+      | Windrush               | Ministerial | Draft |
+      | Coronavirus (COVID-19) | Ministerial | Draft |
+      | UKVI                   | Official    | Draft |
+      | BF                     | Official    | Draft |
+      | IE                     | Official    | Draft |
+      | EUSS                   | Official    | Draft |
+      | HMPO                   | Official    | Draft |
+      | Windrush               | Official    | Draft |
+      | Coronavirus (COVID-19) | Official    | Draft |
 
   @MPAMRegression1
   Scenario: User requests contribution at Triage-Escalated stage
@@ -119,20 +119,20 @@ Feature: Contribution Request
     And I select the "Contributions Requested" action at the Triage-Escalated stage
     Then the case should be moved to the "<stage> - Escalated (Contribution Requested)" stage
     Examples:
-      | businessArea | refType | stage  |
-      | BF           | Ministerial   | Triage |
-      | IE           | Ministerial   | Triage |
-      | EUSS         | Ministerial   | Triage |
-      | HMPO         | Ministerial   | Triage |
-      | Windrush     | Ministerial   | Triage |
-      | Coronavirus  | Ministerial   | Triage |
-      | UKVI         | Official   | Triage |
-      | BF           | Official   | Triage |
-      | IE           | Official   | Triage |
-      | EUSS         | Official   | Triage |
-      | HMPO         | Official   | Triage |
-      | Windrush     | Official   | Triage |
-      | Coronavirus  | Official   | Triage |
+      | businessArea           | refType     | stage  |
+      | BF                     | Ministerial | Triage |
+      | IE                     | Ministerial | Triage |
+      | EUSS                   | Ministerial | Triage |
+      | HMPO                   | Ministerial | Triage |
+      | Windrush               | Ministerial | Triage |
+      | Coronavirus (COVID-19) | Ministerial | Triage |
+      | UKVI                   | Official    | Triage |
+      | BF                     | Official    | Triage |
+      | IE                     | Official    | Triage |
+      | EUSS                   | Official    | Triage |
+      | HMPO                   | Official    | Triage |
+      | Windrush               | Official    | Triage |
+      | Coronavirus (COVID-19) | Official    | Triage |
 
   @MPAMRegression1
   Scenario: User requests contribution at Draft-Escalated stage
@@ -151,18 +151,18 @@ Feature: Contribution Request
     And I select the "Contributions Requested" action at the Draft-Escalated stage
     Then the case should be moved to the "<stage> - Escalated (Contribution Requested)" stage
     Examples:
-      | businessArea | refType       | stage |
-      | UKVI         | Ministerial   | Draft |
-      | BF           | Ministerial   | Draft |
-      | IE           | Ministerial   | Draft |
-      | EUSS         | Ministerial   | Draft |
-      | HMPO         | Ministerial   | Draft |
-      | Windrush     | Ministerial   | Draft |
-      | Coronavirus  | Ministerial   | Draft |
-      | UKVI         | Official   | Draft |
-      | BF           | Official   | Draft |
-      | IE           | Official   | Draft |
-      | EUSS         | Official   | Draft |
-      | HMPO         | Official   | Draft |
-      | Windrush     | Official   | Draft |
-      | Coronavirus  | Official   | Draft |
+      | businessArea           | refType     | stage |
+      | UKVI                   | Ministerial | Draft |
+      | BF                     | Ministerial | Draft |
+      | IE                     | Ministerial | Draft |
+      | EUSS                   | Ministerial | Draft |
+      | HMPO                   | Ministerial | Draft |
+      | Windrush               | Ministerial | Draft |
+      | Coronavirus (COVID-19) | Ministerial | Draft |
+      | UKVI                   | Official    | Draft |
+      | BF                     | Official    | Draft |
+      | IE                     | Official    | Draft |
+      | EUSS                   | Official    | Draft |
+      | HMPO                   | Official    | Draft |
+      | Windrush               | Official    | Draft |
+      | Coronavirus (COVID-19) | Official    | Draft |

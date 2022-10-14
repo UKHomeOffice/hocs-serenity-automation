@@ -79,20 +79,20 @@ Feature: Creation
     Then the case should be moved to the "Triage" stage
     Examples:
       | businessArea | refType     |
-      | UKVI         | Ministerial |
-      | BF           | Ministerial |
-      | IE           | Ministerial |
-      | EUSS         | Ministerial |
-      | HMPO         | Ministerial |
-      | Windrush     | Ministerial |
-      | Coronavirus  | Ministerial |
-      | UKVI         | Official    |
-      | BF           | Official    |
-      | IE           | Official    |
-      | EUSS         | Official    |
-      | HMPO         | Official    |
-      | Windrush     | Official    |
-      | Coronavirus  | Official    |
+      | UKVI                   | Ministerial |
+      | BF                     | Ministerial |
+      | IE                     | Ministerial |
+      | EUSS                   | Ministerial |
+      | HMPO                   | Ministerial |
+      | Windrush               | Ministerial |
+      | Coronavirus (COVID-19) | Ministerial |
+      | UKVI                   | Official    |
+      | BF                     | Official    |
+      | IE                     | Official    |
+      | EUSS                   | Official    |
+      | HMPO                   | Official    |
+      | Windrush               | Official    |
+      | Coronavirus (COVID-19) | Official    |
 
   @Validation
   Scenario: User attempts to progress a case without adding an MP correspondent

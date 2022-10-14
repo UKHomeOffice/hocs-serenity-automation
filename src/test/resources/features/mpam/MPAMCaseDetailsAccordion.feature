@@ -50,13 +50,13 @@ Feature: MPAM Case Details Accordion
     And I change the business area of the case to "<businessArea>"
     Then the case should have changed to the "<businessArea>" business area
     Examples:
-      | businessArea |
-      | BF           |
-      | IE           |
-      | EUSS         |
-      | HMPO         |
-      | Windrush     |
-      | Coronavirus  |
+      | businessArea           |
+      | BF                     |
+      | IE                     |
+      | EUSS                   |
+      | HMPO                   |
+      | Windrush               |
+      | Coronavirus (COVID-19) |
 
 
   Scenario Outline: User checks that the change business area hypertext is displayed at the correct stages

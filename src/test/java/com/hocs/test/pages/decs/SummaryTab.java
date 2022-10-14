@@ -405,6 +405,10 @@ public class SummaryTab extends BasePage {
         }
         String businessArea = sessionVariableCalled("businessArea");
         String refType = sessionVariableCalled("refType");
+
+        if (businessArea.equalsIgnoreCase("Coronavirus (COVID-19)")){
+            businessArea = "Coronavirus";
+        }
         assertThat(activeTeam.contains(businessArea) && activeTeam.contains(refType), is(true));
     }
 
