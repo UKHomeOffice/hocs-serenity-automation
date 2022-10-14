@@ -13,19 +13,19 @@ Feature: Campaigns
     And the case should be in the correct MPAM "Campaign" team workstack
     Examples:
       | businessArea           | refType     | stage  |
-#      | UKVI                   | Ministerial | Triage |
-#      | BF                     | Ministerial | Triage |
-#      | IE                     | Ministerial | Triage |
-#      | EUSS                   | Ministerial | Triage |
-#      | HMPO                   | Ministerial | Triage |
-#      | Windrush               | Ministerial | Triage |
+      | UKVI                   | Ministerial | Triage |
+      | BF                     | Ministerial | Triage |
+      | IE                     | Ministerial | Triage |
+      | EUSS                   | Ministerial | Triage |
+      | HMPO                   | Ministerial | Triage |
+      | Windrush               | Ministerial | Triage |
       | Coronavirus (COVID-19) | Ministerial | Triage |
-#      | UKVI                   | Official    | Triage |
-#      | BF                     | Official    | Triage |
-#      | IE                     | Official    | Triage |
-#      | EUSS                   | Official    | Triage |
-#      | HMPO                   | Official    | Triage |
-#      | Windrush               | Official    | Triage |
+      | UKVI                   | Official    | Triage |
+      | BF                     | Official    | Triage |
+      | IE                     | Official    | Triage |
+      | EUSS                   | Official    | Triage |
+      | HMPO                   | Official    | Triage |
+      | Windrush               | Official    | Triage |
       | Coronavirus (COVID-19) | Official    | Triage |
 
   Scenario Outline: User moves a case with specific Business Area and Reference Type to Campaign from Triage (On Hold)
@@ -317,7 +317,7 @@ Feature: Campaigns
     And I load the current case
     Then the case should be moved to the "<finalStage>" stage
     Examples:
-    | initialStage  | finalStage  |
-    | Triage        | Triage      |
-    | Draft         | Triage      |
-    | Draft         | Draft       |
+      | initialStage | finalStage |
+      | Triage       | Triage     |
+      | Draft        | Triage     |
+      | Draft        | Draft      |
