@@ -33,4 +33,9 @@ public class ArchivedRejectedStepDefs {
     public void anErrorMessageIsDisplayedAsIHaveNotSelectedAnOptionAtTheArchivedEligibilityRejectedStage() {
         archivedRejected.assertArchiveEligibilityRejectedIsRequiredErrorMessage();
     }
+
+    @When("I select to uphold the decision and archive the claim")
+    public void iSelectToUpholdTheDecisionAndArchiveTheClaim() {
+        archivedRejected.selectToUpholdDecisionAndArchiveClaim();
+    }
 }

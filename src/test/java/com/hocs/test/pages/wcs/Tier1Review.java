@@ -175,12 +175,17 @@ public class Tier1Review extends BasePage {
     }
 
     public void selectToProgressClaim() {
-        selectSpecificRadioButton("progress the case");
+        selectSpecificRadioButton("Save changes and progress the case");
         clickConfirmButton();
     }
 
-    public void selectToReturnClaim() {
-        selectSpecificRadioButton("Decision revised");
+    public void selectToReturnClaimToEligibility() {
+        selectSpecificRadioButton("Decision revised, send to eligibility");
+        clickConfirmButton();
+    }
+
+    public void selectToReturnClaimToRegistration() {
+        selectSpecificRadioButton("Decision revised, send to registration");
         clickConfirmButton();
     }
 

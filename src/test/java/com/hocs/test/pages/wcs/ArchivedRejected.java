@@ -41,4 +41,9 @@ public class ArchivedRejected extends BasePage {
                 .shouldContainText("Archive: eligibility rejected is required");
     }
 
+    public void selectToUpholdDecisionAndArchiveClaim() {
+        selectSpecificRadioButton("Decision upheld, archive claim");
+        clickConfirmButton();
+    }
+
 }

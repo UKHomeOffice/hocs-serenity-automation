@@ -23,17 +23,17 @@ public class SendOffer extends BasePage {
     }
 
     public void selectOfferSentToClaimant() {
-        selectSpecificRadioButton("Offer sent");
+        selectSpecificRadioButton("Offer sent to claimant and offer documents uploaded");
         clickConfirmButton();
     }
 
     public void selectNilOfferSentToClaimant() {
-        selectSpecificRadioButton("Nil payment sent");
+        selectSpecificRadioButton("Nil payment sent to claimant and offer documents uploaded");
         clickConfirmButton();
     }
 
     public void returnToOfferApproval() {
-        selectSpecificRadioButton("PNC failed");
+        selectSpecificRadioButton("PNC failed, send for reapproval");
         clickConfirmButton();
     }
 }
