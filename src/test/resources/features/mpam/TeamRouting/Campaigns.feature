@@ -12,21 +12,21 @@ Feature: Campaigns
     Then the case should be moved to the "Campaign" stage
     And the case should be in the correct MPAM "Campaign" team workstack
     Examples:
-      | businessArea | refType       | stage  |
-      | UKVI         | Ministerial   | Triage |
-      | BF           | Ministerial   | Triage |
-      | IE           | Ministerial   | Triage |
-      | EUSS         | Ministerial   | Triage |
-      | HMPO         | Ministerial   | Triage |
-      | Windrush     | Ministerial   | Triage |
-      | Coronavirus  | Ministerial   | Triage |
-      | UKVI         | Official      | Triage |
-      | BF           | Official      | Triage |
-      | IE           | Official      | Triage |
-      | EUSS         | Official      | Triage |
-      | HMPO         | Official      | Triage |
-      | Windrush     | Official      | Triage |
-      | Coronavirus  | Official      | Triage |
+      | businessArea           | refType     | stage  |
+#      | UKVI                   | Ministerial | Triage |
+#      | BF                     | Ministerial | Triage |
+#      | IE                     | Ministerial | Triage |
+#      | EUSS                   | Ministerial | Triage |
+#      | HMPO                   | Ministerial | Triage |
+#      | Windrush               | Ministerial | Triage |
+      | Coronavirus (COVID-19) | Ministerial | Triage |
+#      | UKVI                   | Official    | Triage |
+#      | BF                     | Official    | Triage |
+#      | IE                     | Official    | Triage |
+#      | EUSS                   | Official    | Triage |
+#      | HMPO                   | Official    | Triage |
+#      | Windrush               | Official    | Triage |
+      | Coronavirus (COVID-19) | Official    | Triage |
 
   Scenario Outline: User moves a case with specific Business Area and Reference Type to Campaign from Triage (On Hold)
     And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<initial>" stage
@@ -38,21 +38,21 @@ Feature: Campaigns
     Then the case should be moved to the "<stage>" stage
     And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
-      | businessArea | refType       | initial | stage    |
-      | UKVI         | Ministerial   | Triage  | Campaign |
-      | BF           | Ministerial   | Triage  | Campaign |
-      | IE           | Ministerial   | Triage  | Campaign |
-      | EUSS         | Ministerial   | Triage  | Campaign |
-      | HMPO         | Ministerial   | Triage  | Campaign |
-      | Windrush     | Ministerial   | Triage  | Campaign |
-      | Coronavirus  | Ministerial   | Triage  | Campaign |
-      | UKVI         | Official      | Triage  | Campaign |
-      | BF           | Official      | Triage  | Campaign |
-      | IE           | Official      | Triage  | Campaign |
-      | EUSS         | Official      | Triage  | Campaign |
-      | HMPO         | Official      | Triage  | Campaign |
-      | Windrush     | Official      | Triage  | Campaign |
-      | Coronavirus  | Official      | Triage  | Campaign |
+      | businessArea           | refType     | initial | stage    |
+      | UKVI                   | Ministerial | Triage  | Campaign |
+      | BF                     | Ministerial | Triage  | Campaign |
+      | IE                     | Ministerial | Triage  | Campaign |
+      | EUSS                   | Ministerial | Triage  | Campaign |
+      | HMPO                   | Ministerial | Triage  | Campaign |
+      | Windrush               | Ministerial | Triage  | Campaign |
+      | Coronavirus (COVID-19) | Ministerial | Triage  | Campaign |
+      | UKVI                   | Official    | Triage  | Campaign |
+      | BF                     | Official    | Triage  | Campaign |
+      | IE                     | Official    | Triage  | Campaign |
+      | EUSS                   | Official    | Triage  | Campaign |
+      | HMPO                   | Official    | Triage  | Campaign |
+      | Windrush               | Official    | Triage  | Campaign |
+      | Coronavirus (COVID-19) | Official    | Triage  | Campaign |
 
   Scenario Outline: User moves a case with specific Business Area and Reference Type to Campaign from Triage (Escalated)
     And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<initial>" stage
@@ -64,21 +64,21 @@ Feature: Campaigns
     Then the case should be moved to the "<stage>" stage
     And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
-      | businessArea | refType       | initial | stage    |
-      | UKVI         | Ministerial   | Triage  | Campaign |
-      | BF           | Ministerial   | Triage  | Campaign |
-      | IE           | Ministerial   | Triage  | Campaign |
-      | EUSS         | Ministerial   | Triage  | Campaign |
-      | HMPO         | Ministerial   | Triage  | Campaign |
-      | Windrush     | Ministerial   | Triage  | Campaign |
-      | Coronavirus  | Ministerial   | Triage  | Campaign |
-      | UKVI         | Official      | Triage  | Campaign |
-      | BF           | Official      | Triage  | Campaign |
-      | IE           | Official      | Triage  | Campaign |
-      | EUSS         | Official      | Triage  | Campaign |
-      | HMPO         | Official      | Triage  | Campaign |
-      | Windrush     | Official      | Triage  | Campaign |
-      | Coronavirus  | Official      | Triage  | Campaign |
+      | businessArea           | refType     | initial | stage    |
+      | UKVI                   | Ministerial | Triage  | Campaign |
+      | BF                     | Ministerial | Triage  | Campaign |
+      | IE                     | Ministerial | Triage  | Campaign |
+      | EUSS                   | Ministerial | Triage  | Campaign |
+      | HMPO                   | Ministerial | Triage  | Campaign |
+      | Windrush               | Ministerial | Triage  | Campaign |
+      | Coronavirus (COVID-19) | Ministerial | Triage  | Campaign |
+      | UKVI                   | Official    | Triage  | Campaign |
+      | BF                     | Official    | Triage  | Campaign |
+      | IE                     | Official    | Triage  | Campaign |
+      | EUSS                   | Official    | Triage  | Campaign |
+      | HMPO                   | Official    | Triage  | Campaign |
+      | Windrush               | Official    | Triage  | Campaign |
+      | Coronavirus (COVID-19) | Official    | Triage  | Campaign |
 
   Scenario Outline: User moves a case with specific Business Area and Reference Type to Campaign from Triage (Contribution Requested)
     And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<initial>" stage
@@ -90,21 +90,21 @@ Feature: Campaigns
     Then the case should be moved to the "<stage>" stage
     And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
-      | businessArea | refType       | initial | stage    |
-      | UKVI         | Ministerial   | Triage  | Campaign |
-      | BF           | Ministerial   | Triage  | Campaign |
-      | IE           | Ministerial   | Triage  | Campaign |
-      | EUSS         | Ministerial   | Triage  | Campaign |
-      | HMPO         | Ministerial   | Triage  | Campaign |
-      | Windrush     | Ministerial   | Triage  | Campaign |
-      | Coronavirus  | Ministerial   | Triage  | Campaign |
-      | UKVI         | Official      | Triage  | Campaign |
-      | BF           | Official      | Triage  | Campaign |
-      | IE           | Official      | Triage  | Campaign |
-      | EUSS         | Official      | Triage  | Campaign |
-      | HMPO         | Official      | Triage  | Campaign |
-      | Windrush     | Official      | Triage  | Campaign |
-      | Coronavirus  | Official      | Triage  | Campaign |
+      | businessArea           | refType     | initial | stage    |
+      | UKVI                   | Ministerial | Triage  | Campaign |
+      | BF                     | Ministerial | Triage  | Campaign |
+      | IE                     | Ministerial | Triage  | Campaign |
+      | EUSS                   | Ministerial | Triage  | Campaign |
+      | HMPO                   | Ministerial | Triage  | Campaign |
+      | Windrush               | Ministerial | Triage  | Campaign |
+      | Coronavirus (COVID-19) | Ministerial | Triage  | Campaign |
+      | UKVI                   | Official    | Triage  | Campaign |
+      | BF                     | Official    | Triage  | Campaign |
+      | IE                     | Official    | Triage  | Campaign |
+      | EUSS                   | Official    | Triage  | Campaign |
+      | HMPO                   | Official    | Triage  | Campaign |
+      | Windrush               | Official    | Triage  | Campaign |
+      | Coronavirus (COVID-19) | Official    | Triage  | Campaign |
 
   Scenario Outline: User moves a case with a specific Business Area and Reference Type from Draft to Campaign and its appropriate team
     When I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
@@ -114,21 +114,21 @@ Feature: Campaigns
     Then the case should be moved to the "Campaign" stage
     And the case should be in the correct MPAM "Campaign" team workstack
     Examples:
-      | businessArea | refType       | stage |
-      | UKVI         | Ministerial   | Draft |
-      | BF           | Ministerial   | Draft |
-      | IE           | Ministerial   | Draft |
-      | EUSS         | Ministerial   | Draft |
-      | HMPO         | Ministerial   | Draft |
-      | Windrush     | Ministerial   | Draft |
-      | Coronavirus  | Ministerial   | Draft |
-      | UKVI         | Official      | Draft |
-      | BF           | Official      | Draft |
-      | IE           | Official      | Draft |
-      | EUSS         | Official      | Draft |
-      | HMPO         | Official      | Draft |
-      | Windrush     | Official      | Draft |
-      | Coronavirus  | Official      | Draft |
+      | businessArea           | refType     | stage |
+      | UKVI                   | Ministerial | Draft |
+      | BF                     | Ministerial | Draft |
+      | IE                     | Ministerial | Draft |
+      | EUSS                   | Ministerial | Draft |
+      | HMPO                   | Ministerial | Draft |
+      | Windrush               | Ministerial | Draft |
+      | Coronavirus (COVID-19) | Ministerial | Draft |
+      | UKVI                   | Official    | Draft |
+      | BF                     | Official    | Draft |
+      | IE                     | Official    | Draft |
+      | EUSS                   | Official    | Draft |
+      | HMPO                   | Official    | Draft |
+      | Windrush               | Official    | Draft |
+      | Coronavirus (COVID-19) | Official    | Draft |
 
   Scenario Outline: User moves a case with specific Business Area and Reference Type to Campaign from Draft (On Hold)
     And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<initial>" stage
@@ -140,21 +140,21 @@ Feature: Campaigns
     Then the case should be moved to the "<stage>" stage
     And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
-      | businessArea | refType       | initial | stage    |
-      | UKVI         | Ministerial   | Draft   | Campaign |
-      | BF           | Ministerial   | Draft   | Campaign |
-      | IE           | Ministerial   | Draft   | Campaign |
-      | EUSS         | Ministerial   | Draft   | Campaign |
-      | HMPO         | Ministerial   | Draft   | Campaign |
-      | Windrush     | Ministerial   | Draft   | Campaign |
-      | Coronavirus  | Ministerial   | Draft   | Campaign |
-      | UKVI         | Official      | Draft   | Campaign |
-      | BF           | Official      | Draft   | Campaign |
-      | IE           | Official      | Draft   | Campaign |
-      | EUSS         | Official      | Draft   | Campaign |
-      | HMPO         | Official      | Draft   | Campaign |
-      | Windrush     | Official      | Draft   | Campaign |
-      | Coronavirus  | Official      | Draft   | Campaign |
+      | businessArea           | refType     | initial | stage    |
+      | UKVI                   | Ministerial | Draft   | Campaign |
+      | BF                     | Ministerial | Draft   | Campaign |
+      | IE                     | Ministerial | Draft   | Campaign |
+      | EUSS                   | Ministerial | Draft   | Campaign |
+      | HMPO                   | Ministerial | Draft   | Campaign |
+      | Windrush               | Ministerial | Draft   | Campaign |
+      | Coronavirus (COVID-19) | Ministerial | Draft   | Campaign |
+      | UKVI                   | Official    | Draft   | Campaign |
+      | BF                     | Official    | Draft   | Campaign |
+      | IE                     | Official    | Draft   | Campaign |
+      | EUSS                   | Official    | Draft   | Campaign |
+      | HMPO                   | Official    | Draft   | Campaign |
+      | Windrush               | Official    | Draft   | Campaign |
+      | Coronavirus (COVID-19) | Official    | Draft   | Campaign |
 
   Scenario Outline: User moves a case with specific Business Area and Reference Type to Campaign from Draft (Escalated)
     And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<initial>" stage
@@ -166,21 +166,21 @@ Feature: Campaigns
     Then the case should be moved to the "<stage>" stage
     And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
-      | businessArea | refType       | initial | stage    |
-      | UKVI         | Ministerial   | Draft   | Campaign |
-      | BF           | Ministerial   | Draft   | Campaign |
-      | IE           | Ministerial   | Draft   | Campaign |
-      | EUSS         | Ministerial   | Draft   | Campaign |
-      | HMPO         | Ministerial   | Draft   | Campaign |
-      | Windrush     | Ministerial   | Draft   | Campaign |
-      | Coronavirus  | Ministerial   | Draft   | Campaign |
-      | UKVI         | Official      | Draft   | Campaign |
-      | BF           | Official      | Draft   | Campaign |
-      | IE           | Official      | Draft   | Campaign |
-      | EUSS         | Official      | Draft   | Campaign |
-      | HMPO         | Official      | Draft   | Campaign |
-      | Windrush     | Official      | Draft   | Campaign |
-      | Coronavirus  | Official      | Draft   | Campaign |
+      | businessArea           | refType     | initial | stage    |
+      | UKVI                   | Ministerial | Draft   | Campaign |
+      | BF                     | Ministerial | Draft   | Campaign |
+      | IE                     | Ministerial | Draft   | Campaign |
+      | EUSS                   | Ministerial | Draft   | Campaign |
+      | HMPO                   | Ministerial | Draft   | Campaign |
+      | Windrush               | Ministerial | Draft   | Campaign |
+      | Coronavirus (COVID-19) | Ministerial | Draft   | Campaign |
+      | UKVI                   | Official    | Draft   | Campaign |
+      | BF                     | Official    | Draft   | Campaign |
+      | IE                     | Official    | Draft   | Campaign |
+      | EUSS                   | Official    | Draft   | Campaign |
+      | HMPO                   | Official    | Draft   | Campaign |
+      | Windrush               | Official    | Draft   | Campaign |
+      | Coronavirus (COVID-19) | Official    | Draft   | Campaign |
 
   Scenario Outline: User moves a case with specific Business Area and Reference Type to Campaign from Draft (Contributions Requested)
     And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<initial>" stage
@@ -192,21 +192,21 @@ Feature: Campaigns
     Then the case should be moved to the "<stage>" stage
     And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
-      | businessArea | refType       | initial | stage    |
-      | UKVI         | Ministerial   | Draft   | Campaign |
-      | BF           | Ministerial   | Draft   | Campaign |
-      | IE           | Ministerial   | Draft   | Campaign |
-      | EUSS         | Ministerial   | Draft   | Campaign |
-      | HMPO         | Ministerial   | Draft   | Campaign |
-      | Windrush     | Ministerial   | Draft   | Campaign |
-      | Coronavirus  | Ministerial   | Draft   | Campaign |
-      | UKVI         | Official      | Draft   | Campaign |
-      | BF           | Official      | Draft   | Campaign |
-      | IE           | Official      | Draft   | Campaign |
-      | EUSS         | Official      | Draft   | Campaign |
-      | HMPO         | Official      | Draft   | Campaign |
-      | Windrush     | Official      | Draft   | Campaign |
-      | Coronavirus  | Official      | Draft   | Campaign |
+      | businessArea           | refType     | initial | stage    |
+      | UKVI                   | Ministerial | Draft   | Campaign |
+      | BF                     | Ministerial | Draft   | Campaign |
+      | IE                     | Ministerial | Draft   | Campaign |
+      | EUSS                   | Ministerial | Draft   | Campaign |
+      | HMPO                   | Ministerial | Draft   | Campaign |
+      | Windrush               | Ministerial | Draft   | Campaign |
+      | Coronavirus (COVID-19) | Ministerial | Draft   | Campaign |
+      | UKVI                   | Official    | Draft   | Campaign |
+      | BF                     | Official    | Draft   | Campaign |
+      | IE                     | Official    | Draft   | Campaign |
+      | EUSS                   | Official    | Draft   | Campaign |
+      | HMPO                   | Official    | Draft   | Campaign |
+      | Windrush               | Official    | Draft   | Campaign |
+      | Coronavirus (COVID-19) | Official    | Draft   | Campaign |
 
   Scenario Outline: User moves a case with a specific Business Area and Reference Type from QA to Campaign and its appropriate team
     When I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
@@ -216,21 +216,21 @@ Feature: Campaigns
     Then the case should be moved to the "Campaign" stage
     And the case should be in the correct MPAM "Campaign" team workstack
     Examples:
-      | businessArea | refType       | stage |
-      | UKVI         | Ministerial   | QA    |
-      | BF           | Ministerial   | QA    |
-      | IE           | Ministerial   | QA    |
-      | EUSS         | Ministerial   | QA    |
-      | HMPO         | Ministerial   | QA    |
-      | Windrush     | Ministerial   | QA    |
-      | Coronavirus  | Ministerial   | QA    |
-      | UKVI         | Official      | QA    |
-      | BF           | Official      | QA    |
-      | IE           | Official      | QA    |
-      | EUSS         | Official      | QA    |
-      | HMPO         | Official      | QA    |
-      | Windrush     | Official      | QA    |
-      | Coronavirus  | Official      | QA    |
+      | businessArea           | refType     | stage |
+      | UKVI                   | Ministerial | QA    |
+      | BF                     | Ministerial | QA    |
+      | IE                     | Ministerial | QA    |
+      | EUSS                   | Ministerial | QA    |
+      | HMPO                   | Ministerial | QA    |
+      | Windrush               | Ministerial | QA    |
+      | Coronavirus (COVID-19) | Ministerial | QA    |
+      | UKVI                   | Official    | QA    |
+      | BF                     | Official    | QA    |
+      | IE                     | Official    | QA    |
+      | EUSS                   | Official    | QA    |
+      | HMPO                   | Official    | QA    |
+      | Windrush               | Official    | QA    |
+      | Coronavirus (COVID-19) | Official    | QA    |
 
   Scenario Outline: User moves a case with specific Business Area and Reference Type to Campaign from QA (On Hold)
     And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<initial>" stage
@@ -242,21 +242,21 @@ Feature: Campaigns
     Then the case should be moved to the "<stage>" stage
     And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
-      | businessArea | refType       | initial | stage    |
-      | UKVI         | Ministerial   | QA      | Campaign |
-      | BF           | Ministerial   | QA      | Campaign |
-      | IE           | Ministerial   | QA      | Campaign |
-      | EUSS         | Ministerial   | QA      | Campaign |
-      | HMPO         | Ministerial   | QA      | Campaign |
-      | Windrush     | Ministerial   | QA      | Campaign |
-      | Coronavirus  | Ministerial   | QA      | Campaign |
-      | UKVI         | Official      | QA      | Campaign |
-      | BF           | Official      | QA      | Campaign |
-      | IE           | Official      | QA      | Campaign |
-      | EUSS         | Official      | QA      | Campaign |
-      | HMPO         | Official      | QA      | Campaign |
-      | Windrush     | Official      | QA      | Campaign |
-      | Coronavirus  | Official      | QA      | Campaign |
+      | businessArea           | refType     | initial | stage    |
+      | UKVI                   | Ministerial | QA      | Campaign |
+      | BF                     | Ministerial | QA      | Campaign |
+      | IE                     | Ministerial | QA      | Campaign |
+      | EUSS                   | Ministerial | QA      | Campaign |
+      | HMPO                   | Ministerial | QA      | Campaign |
+      | Windrush               | Ministerial | QA      | Campaign |
+      | Coronavirus (COVID-19) | Ministerial | QA      | Campaign |
+      | UKVI                   | Official    | QA      | Campaign |
+      | BF                     | Official    | QA      | Campaign |
+      | IE                     | Official    | QA      | Campaign |
+      | EUSS                   | Official    | QA      | Campaign |
+      | HMPO                   | Official    | QA      | Campaign |
+      | Windrush               | Official    | QA      | Campaign |
+      | Coronavirus (COVID-19) | Official    | QA      | Campaign |
 
   Scenario Outline: User moves a case with specific Business Area and Reference Type to Campaign from QA (Escalated)
     And I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<initial>" stage
@@ -268,21 +268,21 @@ Feature: Campaigns
     Then the case should be moved to the "<stage>" stage
     And the case should be in the correct MPAM "<stage>" team workstack
     Examples:
-      | businessArea | refType       | initial | stage    |
-      | UKVI         | Ministerial   | QA      | Campaign |
-      | BF           | Ministerial   | QA      | Campaign |
-      | IE           | Ministerial   | QA      | Campaign |
-      | EUSS         | Ministerial   | QA      | Campaign |
-      | HMPO         | Ministerial   | QA      | Campaign |
-      | Windrush     | Ministerial   | QA      | Campaign |
-      | Coronavirus  | Ministerial   | QA      | Campaign |
-      | UKVI         | Official      | QA      | Campaign |
-      | BF           | Official      | QA      | Campaign |
-      | IE           | Official      | QA      | Campaign |
-      | EUSS         | Official      | QA      | Campaign |
-      | HMPO         | Official      | QA      | Campaign |
-      | Windrush     | Official      | QA      | Campaign |
-      | Coronavirus  | Official      | QA      | Campaign |
+      | businessArea           | refType     | initial | stage    |
+      | UKVI                   | Ministerial | QA      | Campaign |
+      | BF                     | Ministerial | QA      | Campaign |
+      | IE                     | Ministerial | QA      | Campaign |
+      | EUSS                   | Ministerial | QA      | Campaign |
+      | HMPO                   | Ministerial | QA      | Campaign |
+      | Windrush               | Ministerial | QA      | Campaign |
+      | Coronavirus (COVID-19) | Ministerial | QA      | Campaign |
+      | UKVI                   | Official    | QA      | Campaign |
+      | BF                     | Official    | QA      | Campaign |
+      | IE                     | Official    | QA      | Campaign |
+      | EUSS                   | Official    | QA      | Campaign |
+      | HMPO                   | Official    | QA      | Campaign |
+      | Windrush               | Official    | QA      | Campaign |
+      | Coronavirus (COVID-19) | Official    | QA      | Campaign |
 
   Scenario Outline: User moves a case with a specific Business Area and Reference Type from Dispatch stages to Campaign and its appropriate team
     When I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
@@ -292,21 +292,21 @@ Feature: Campaigns
     Then the case should be moved to the "Campaign" stage
     And the case should be in the correct MPAM "Campaign" team workstack
     Examples:
-      | businessArea | refType       | stage             |
-      | UKVI         | Ministerial   | Private Office    |
-      | BF           | Ministerial   | Private Office    |
-      | IE           | Ministerial   | Private Office    |
-      | EUSS         | Ministerial   | Private Office    |
-      | HMPO         | Ministerial   | Private Office    |
-      | Windrush     | Ministerial   | Private Office    |
-      | Coronavirus  | Ministerial   | Private Office    |
-      | UKVI         | Official      | Awaiting Dispatch |
-      | BF           | Official      | Awaiting Dispatch |
-      | IE           | Official      | Awaiting Dispatch |
-      | EUSS         | Official      | Awaiting Dispatch |
-      | HMPO         | Official      | Awaiting Dispatch |
-      | Windrush     | Official      | Awaiting Dispatch |
-      | Coronavirus  | Official      | Awaiting Dispatch |
+      | businessArea           | refType     | stage             |
+      | UKVI                   | Ministerial | Private Office    |
+      | BF                     | Ministerial | Private Office    |
+      | IE                     | Ministerial | Private Office    |
+      | EUSS                   | Ministerial | Private Office    |
+      | HMPO                   | Ministerial | Private Office    |
+      | Windrush               | Ministerial | Private Office    |
+      | Coronavirus (COVID-19) | Ministerial | Private Office    |
+      | UKVI                   | Official    | Awaiting Dispatch |
+      | BF                     | Official    | Awaiting Dispatch |
+      | IE                     | Official    | Awaiting Dispatch |
+      | EUSS                   | Official    | Awaiting Dispatch |
+      | HMPO                   | Official    | Awaiting Dispatch |
+      | Windrush               | Official    | Awaiting Dispatch |
+      | Coronavirus (COVID-19) | Official    | Awaiting Dispatch |
 
   Scenario Outline: User moves a case out of a Campaign
     When I create a "MPAM" case and move it to the "<initialStage>" stage
