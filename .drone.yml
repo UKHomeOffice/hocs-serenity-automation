@@ -542,8 +542,6 @@ name: WCS-Regression
 depends_on:
   - SMOKE
 trigger:
-  branch:
-    - main
   event:
     - push
 steps:
