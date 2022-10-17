@@ -3,8 +3,6 @@ kind: pipeline
 type: kubernetes
 name: SMOKE
 trigger:
-  branch:
-    - main
   event:
     - push
 
@@ -544,8 +542,6 @@ name: WCS-Regression
 depends_on:
   - SMOKE
 trigger:
-  branch:
-    - main
   event:
     - push
 steps:
