@@ -264,17 +264,7 @@ public class MPAMProgressCase extends BasePage {
                 break;
             case "RECEIVED ON OR BEFORE DATE":
             case "RECEIVED ON OR AFTER DATE":
-                dashboard.selectCreateSingleCaseLinkFromMenuBar();
-                if (!buttonIsVisible("Next")) {
-                    dashboard.selectCreateSingleCaseLinkFromMenuBar();
-                }
-                createCase.selectCaseType(CaseType.MPAM);
-                clickNextButton();
-                createCase.editReceivedDate(infoValue);
-                createCase.storeCorrespondenceReceivedDate();
-                documents.uploadFileOfType("docx");
-                clickTheButton("Create case");
-                confirmationScreens.storeCaseReference();
+                createCase.createCSCaseOfTypeWithSpecificCorrespondenceReceivedDate(CaseType.MPAM,infoValue);
                 dashboard.goToDashboard();
                 break;
             case "CAMPAIGN":
@@ -299,21 +289,11 @@ public class MPAMProgressCase extends BasePage {
                 mtsDataInput.completeDataInputStageAndCloseMTSCase();
                 break;
             case "ALL":
-                dashboard.selectCreateSingleCaseLinkFromMenuBar();
-                if (!buttonIsVisible("Next")) {
-                    dashboard.selectCreateSingleCaseLinkFromMenuBar();
-                }
-                createCase.selectCaseType(CaseType.MPAM);
-                clickNextButton();
-                createCase.editReceivedDate("01/01/2022");
-                createCase.storeCorrespondenceReceivedDate();
-                documents.uploadFileOfType("docx");
-                clickTheButton("Create case");
-                confirmationScreens.storeCaseReference();
-                dashboard.goToDashboard();
-                dashboard.getAndClaimCurrentCase();
+                createCase.createCSCaseOfTypeWithSpecificCorrespondenceReceivedDate(CaseType.MPAM,infoValue);
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();
                 creation.selectASpecificBusinessArea(businessArea);
-                creation.selectASpecificRefType("Yes (Ministerial)");
+                creation.selectASpecificRefType("Ministerial");
                 creation.selectASpecificMinisterialSignOffTeam("Home Secretary");
                 creation.selectASpecificAddressee("Home Secretary");
                 creation.selectASpecificUrgency(urgency);
