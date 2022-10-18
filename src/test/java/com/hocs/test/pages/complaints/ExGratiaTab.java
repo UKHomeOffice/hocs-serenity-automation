@@ -70,9 +70,9 @@ public class ExGratiaTab extends BasePage {
             enterDateIntoDateFieldsWithHeading(getTodaysDate(), "Date of Claim");
             selectRandomOptionFromDropdownWithHeading("Second Reason for Refund");
             selectRandomOptionFromDropdownWithHeading("Third Reason for Refund");
-            enterTextIntoTextAreaWithHeading("Additional Information");
         } else if (businessArea.equalsIgnoreCase("GRO")) {
             selectRandomRadioButtonFromGroupWithHeading("Refund Required");
+            selectRandomOptionFromDropdownWithHeading("Secondary Reason for Refund");
             enterSpecificTextIntoTextFieldWithHeading("10.00", "Amount");
         }
         selectRandomOptionFromDropdownWithHeading("Type of Refund");
@@ -81,6 +81,7 @@ public class ExGratiaTab extends BasePage {
         enterTextIntoTextFieldWithHeading("Payment Reference Number");
         enterTextIntoTextFieldWithHeading("Authorised By");
         enterSpecificTextIntoTextFieldWithHeading("10.00", "Total Amount (GBP)");
+        enterTextIntoTextAreaWithHeading("Additional Information");
         clickTheButton("Submit");
     }
 
