@@ -28,7 +28,7 @@ public class OfferApproval extends BasePage {
     }
 
     public void returnToCaseworkTeam() {
-        selectSpecificRadioButton("Return to casework");
+        selectSpecificRadioButton("Return to casework for amount changes due to PNC result");
         clickConfirmButton();
     }
 

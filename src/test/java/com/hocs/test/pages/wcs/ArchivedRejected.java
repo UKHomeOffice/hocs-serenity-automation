@@ -21,8 +21,8 @@ public class ArchivedRejected extends BasePage {
     @FindBy(xpath = "//a[@href='#ArchEROutcome-error']")
     public WebElementFacade archiveEligibilityRejectedIsRequiredErrorMessage;
 
-    public void selectToRestoreClaim() {
-        selectSpecificRadioButton("Restore claim");
+    public void selectToRestoreClaim(String sendTo) {
+        selectSpecificRadioButton(sendTo);
         clickConfirmButton();
     }
 
