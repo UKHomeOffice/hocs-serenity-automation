@@ -160,8 +160,10 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     }
 
     public void selectIEDETClaimCategory(String category) {
+        setSessionVariable("complaintCategory").to(category);
         List<WebElementFacade> claimCategories = findAll("//span[text()='" + category + "']/parent::legend/following-sibling::div//label");
-        recordCaseData.checkRandomCheckboxFromList(claimCategories);
+        String selectedClaimCategory = checkRandomCheckboxFromList(claimCategories);
+        setSessionVariable("claimCategory").to(selectedClaimCategory);
     }
 
     public void selectAVisibleClaimCategory() {
