@@ -711,9 +711,11 @@ public class Workstacks extends BasePage {
         List<WebElement> tableHeaders = getDriver().findElements(By.cssSelector(("th[class*='govuk-table__header']")));
         List<String> tableHeadersContent = new ArrayList<>();
         for (WebElement tableHeader : tableHeaders) {
+            System.out.print(tableHeadersContent);
             tableHeadersContent.add(tableHeader.getText());
+
         }
-        return tableHeadersContent;
+               return tableHeadersContent;
     }
 
     private void checkColumnsArePresent(List<String> columns) {
@@ -731,67 +733,67 @@ public class Workstacks extends BasePage {
         List<String> requiredColumns = new ArrayList<>();
         switch (workstack.toUpperCase()) {
             case "DCU MY CASES":
-                requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Current Stage", "Team", "Primary Topic", "Deadline"));
+                requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Current stage", "Team", "Primary topic", "Deadline"));
                 break;
             case "DCU TEAM":
-                requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Current Stage", "Owner", "Primary Topic", "Deadline"));
+                requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Current stage", "Owner", "Primary topic", "Deadline"));
                 break;
             case "DCU SEARCH":
-                requiredColumns.addAll(Arrays.asList("Correspondent/Reference", "Current Stage", "Owner", "Team", "Primary Topic", "Deadline"));
+                requiredColumns.addAll(Arrays.asList("Correspondent/Reference", "Current stage", "Owner", "Team", "Primary topic", "Deadline"));
                 break;
             case "MPAM MY CASES":
-                requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Ref Type", "Business Area", "Current Stage", "Deadline",
+                requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Ref type", "Business area", "Current stage", "Deadline",
                         "Urgency", "Days"));
                 break;
             case "MPAM SEARCH":
-                requiredColumns.addAll(Arrays.asList("Reference", "Current Stage", "Owner", "Team", "Deadline", "Members of Parliament",
+                requiredColumns.addAll(Arrays.asList("Reference", "Current stage", "Owner", "Team", "Deadline", "Members of parliament",
                         "Constituents/Applicants"));
                 break;
             case "MPAM CAMPAIGN":
-                requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Ref Type", "Business Area", "MP/Owner", "Campaign",
+                requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Ref type", "Business area", "MP/Owner", "Campaign",
                         "Days"));
                 break;
             case "MPAM TRIAGE":
             case "MPAM DRAFT":
-                requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Current Stage", "MP/Owner", "Minister Sign Off",
+                requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Current stage", "MP/Owner", "Minister sign off",
                         "Deadline", "Urgency", "Days", "Rejected"));
                 break;
             case "MPAM CREATION":
-                requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Current Stage", "Owner", "Minister Sign Off", "Deadline",
+                requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Current stage", "Owner", "Minister sign off", "Deadline",
                         "Urgency", "Days"));
                 break;
             case "MTS TEAM":
-                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Business Area", "Current Stage", "Owner", "Deadline", "Urgency",
-                        "Telephone Surgery Official Engagement"));
+                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Business area", "Current stage", "Owner", "Deadline", "Urgency",
+                        "Telephone surgery official engagement"));
                 break;
             case "COMPLAINT REGISTRATION":
-                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current Stage", "Owner", "Deadline", "Severity"));
+                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current stage", "Owner", "Deadline", "Severity"));
                 break;
             case "COMP SEARCH":
-                requiredColumns.addAll(Arrays.asList("Full Name", "Reference", "Deadline", "Current Stage", "Severity", "Postcode", "HO Ref",
+                requiredColumns.addAll(Arrays.asList("Full Name", "Reference", "Deadline", "Current stage", "Severity", "Postcode", "HO Ref",
                         "Escalate Case"));
                 break;
             case "CCT TRIAGE":
             case "EX-GRATIA":
             case "MINOR MISCONDUCT":
-                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current Stage", "Contributions", "Owner", "Deadline", "Severity"));
+                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current stage", "Contributions", "Owner", "Deadline", "Severity"));
                 break;
             case "IE DETENTION":
-                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current Stage", "Deadline", "Business Area"));
+                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current stage", "Deadline", "Business area"));
                 break;
             case "SERIOUS MISCONDUCT":
-                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current Stage", "Owner", "Deadline","PSU Reference"));
+                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current stage", "Owner", "Deadline","PSU reference"));
                 break;
             case "SERIOUS MISCONDUCT MY CASES":
-                requiredColumns.addAll(Arrays.asList("Select", "Reference", "PSU Reference", "Current Stage", "Team", "Deadline"));
+                requiredColumns.addAll(Arrays.asList("Select", "Reference", "PSU reference", "Current stage", "Team", "Deadline"));
                 break;
             case "BORDER FORCE":
             case "BORDER FORCE (STAGE 2)":
-                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Complaint Type", "Current Stage", "Owner", "Contribution due date",
+                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Complaint type", "Current stage", "Owner", "Contribution due date",
                         "Deadline"));
                 break;
             case "BF SEARCH":
-                requiredColumns.addAll(Arrays.asList("Full Name", "Reference", "Deadline", "Current Stage", "Postcode", "HO Ref", "Escalate Case"));
+                requiredColumns.addAll(Arrays.asList("Full name", "Reference", "Deadline", "Current stage", "Postcode", "HO ref", "Escalate case"));
                 break;
             case "FOI TEAM":
                 requiredColumns.addAll(Arrays.asList("Select", "Requester/Reference", "Current Stage", "Owner", "Team", "Deadline", "Rejected",
