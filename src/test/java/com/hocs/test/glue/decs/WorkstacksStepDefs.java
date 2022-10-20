@@ -322,13 +322,13 @@ public class WorkstacksStepDefs extends BasePage {
     @Then("the follow-up due date should be visible in the {string} workstack")
     public void theFollowUpDueDateShouldBeVisibleInTheWorkstack(String stage) {
         dashboard.selectCorrectMPAMTeamByStage(stage);
-        workstacks.assertSpecifiedColumnContainsValueForCurrentCase("Current Stage",sessionVariableCalled("dueDate"));
+        workstacks.assertSpecifiedColumnContainsValueForCurrentCase("Current stage",sessionVariableCalled("dueDate"));
 
     }
 
     @Then("the Minister sign off team is correctly displayed")
     public void theMinisterSignOffTeamIsCorrectlyDisplayed() {
-        workstacks.assertSpecifiedColumnContainsValueForCurrentCase("Minister Sign Off", sessionVariableCalled("signOffTeam"));
+        workstacks.assertSpecifiedColumnContainsValueForCurrentCase("Minister sign off", sessionVariableCalled("signOffTeam"));
     }
 
     @Then("the earliest due date of the contribution requests is displayed in workstacks")
@@ -336,7 +336,7 @@ public class WorkstacksStepDefs extends BasePage {
         waitABit(1000);
         dashboard.goToDashboard();
         iEnterAWorkstack("MPAM Draft");
-        workstacks.assertSpecifiedColumnContainsValueForCurrentCase("Current Stage", sessionVariableCalled("contributionDueDate"));
+        workstacks.assertSpecifiedColumnContainsValueForCurrentCase("Current stage", sessionVariableCalled("contributionDueDate"));
     }
 
     @Then("the stage that the case was rejected at should be displayed in the rejected workstack column")

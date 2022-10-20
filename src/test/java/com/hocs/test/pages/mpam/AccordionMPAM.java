@@ -219,6 +219,9 @@ public class AccordionMPAM extends BasePage {
     public void assertBusinessAreaHasChanged(String newBusinessArea) {
         summaryTab.selectSummaryTab();
         waitABit(2500);
+        if(newBusinessArea.equals("Coronavirus (COVID-19)")){
+            newBusinessArea = "Coronavirus";
+        }
         assertThat(summaryTab.allocatedTeam.getText().contains(newBusinessArea), is(true));
     }
 
