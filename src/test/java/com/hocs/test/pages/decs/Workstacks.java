@@ -711,9 +711,7 @@ public class Workstacks extends BasePage {
         List<WebElement> tableHeaders = getDriver().findElements(By.cssSelector(("th[class*='govuk-table__header']")));
         List<String> tableHeadersContent = new ArrayList<>();
         for (WebElement tableHeader : tableHeaders) {
-            System.out.print(tableHeadersContent);
             tableHeadersContent.add(tableHeader.getText());
-
         }
                return tableHeadersContent;
     }
@@ -770,8 +768,8 @@ public class Workstacks extends BasePage {
                 requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current stage", "Owner", "Deadline", "Severity"));
                 break;
             case "COMP SEARCH":
-                requiredColumns.addAll(Arrays.asList("Full Name", "Reference", "Deadline", "Current stage", "Severity", "Postcode", "HO Ref",
-                        "Escalate Case"));
+                requiredColumns.addAll(Arrays.asList("Full name", "Reference", "Deadline", "Current stage", "Severity", "Postcode", "HO ref",
+                        "Escalate case"));
                 break;
             case "CCT TRIAGE":
             case "EX-GRATIA":
