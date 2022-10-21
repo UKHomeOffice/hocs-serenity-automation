@@ -28,7 +28,7 @@ public class Tier1AwaitingResponse extends BasePage {
     }
 
     public void selectClaimantRejectsNonFinalOffer() {
-        selectSpecificRadioButton("Rejected interim offer");
+        selectSpecificRadioButton("Rejected interim offer, or preliminary offer, or offer withdrawn");
         clickConfirmButton();
     }
 

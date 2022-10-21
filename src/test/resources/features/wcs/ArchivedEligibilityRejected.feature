@@ -6,7 +6,7 @@ Feature: Archived Eligibility Rejected
     And I get a "WCS" claim at the "Archived Eligibility Rejected" stage
 
   @Workflow @WCSRegression
-  Scenario: User returns the claim to Eligibility stage
+  Scenario: User returns the claim to Eligibility stage - Archived Eligibility Rejected
     When I select to restore the claim to Eligibility
     Then the claim should be moved to the "Eligibility" stage
 

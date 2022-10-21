@@ -12,7 +12,7 @@ Feature: Identity Rejected
     Then the claim should be moved to the "Tier 1 Review (IR)" stage
 
   @Workflow @WCSRegression
-  Scenario: User archives the claim
+  Scenario: User archives the claim - Identity Rejected
     When I select to archive the claim
     Then the claim should be moved to the "Archived Identity Rejected" stage
 

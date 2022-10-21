@@ -796,16 +796,16 @@ public class Workstacks extends BasePage {
                 requiredColumns.addAll(Arrays.asList("Full name", "Reference", "Deadline", "Current stage", "Postcode", "HO ref", "Escalate case"));
                 break;
             case "FOI TEAM":
-                requiredColumns.addAll(Arrays.asList("Select", "Requester/Reference", "Current Stage", "Owner", "Team", "Deadline", "Rejected",
+                requiredColumns.addAll(Arrays.asList("Select", "Requester/Reference", "Current stage", "Owner", "Team", "Deadline", "Rejected",
                         "Extended"));
                 break;
             case "POGR REGISTRATION":
             case "POGR REGISTRATION (STAGE 2)":
-                requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Current Stage", "Owner", "Deadline",
+                requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Current stage", "Owner", "Deadline",
                         "Urgency", "Days", "Rejected"));
                 break;
             case "POGR MY CASES":
-                requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Current Stage", "Team", "Deadline",
+                requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Current stage", "Team", "Deadline",
                         "Urgency", "Days", "Rejected"));
                 break;
             default:

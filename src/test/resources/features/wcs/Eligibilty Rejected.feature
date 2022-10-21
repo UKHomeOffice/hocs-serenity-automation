@@ -11,7 +11,7 @@ Feature: Eligibility Rejected
     Then the claim should be moved to the "Tier 1 Review (ER)" stage
 
   @Workflow @WCSRegression
-  Scenario: User archives the claim
+  Scenario: User archives the claim - Eligibility Rejected
     When I select to archive the claim
     Then the claim should be moved to the "Archived Eligibility Rejected" stage
 
