@@ -99,7 +99,12 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
     }
 
     public void selectComplaintOrigin() {
-        String selectedComplaintOrigin = recordCaseData.selectRandomOptionFromDropdownWithHeading("Complaint Origin");
+        String selectedComplaintOrigin;
+        if (iedetCase()){
+            selectedComplaintOrigin = recordCaseData.selectRandomOptionFromDropdownWithHeading("Complaint origin");
+        } else {
+            selectedComplaintOrigin = recordCaseData.selectRandomOptionFromDropdownWithHeading("Complaint Origin");
+        }
         if (selectedComplaintOrigin.equalsIgnoreCase("Other")) {
             recordCaseData.enterTextIntoTextFieldWithHeading("Other Complaint Origin");
         }
@@ -108,6 +113,8 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
     public void enterADescriptionOfTheComplaint() {
         if (pogrCase() || pogr2Case()) {
             recordCaseData.enterTextIntoTextAreaWithHeading("Description of Complaint");
+        } else if (iedetCase()){
+            recordCaseData.enterTextIntoTextAreaWithHeading("Case summary");
         } else {
             recordCaseData.enterTextIntoTextAreaWithHeading("Case Summary");
         }
@@ -129,7 +136,9 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         recordCaseData.enterTextIntoTextFieldWithHeading("Previous Complaint Reference");
     }
 
-    public void enterAThirdPartyReference() { recordCaseData.enterTextIntoTextFieldWithHeading("Third Party Reference");
+    public void enterAThirdPartyReference() {
+        if (iedetCase()) {recordCaseData.enterTextIntoTextFieldWithHeading("Third party reference");
+        } else {recordCaseData.enterTextIntoTextFieldWithHeading("Third Party Reference");}
     }
 
     public void enterComplaintDetails() {

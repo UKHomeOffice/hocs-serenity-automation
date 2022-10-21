@@ -293,7 +293,7 @@ public class MPAMProgressCase extends BasePage {
                 confirmationScreens.goToCaseFromConfirmationScreen();
                 caseView.clickAllocateToMeLink();
                 creation.selectASpecificBusinessArea(businessArea);
-                creation.selectASpecificRefType("Yes (Ministerial)");
+                creation.selectASpecificRefType("Ministerial");
                 creation.selectASpecificMinisterialSignOffTeam("Home Secretary");
                 creation.selectASpecificAddressee("Home Secretary");
                 creation.selectASpecificUrgency(urgency);
