@@ -6,12 +6,12 @@ Feature: Tier 1 Review (ER)
     And I get a "WCS" claim at the "Tier 1 Review (ER)" stage
 
   @Workflow @WCSRegression
-  Scenario: User returns the claim to Eligibility stage
+  Scenario: User returns the claim to Eligibility stage - Tier 1 Review (ER)
     When I select to return the claim to Eligibility
     Then the claim should be moved to the "Eligibility" stage
 
   @Workflow @WCSRegression
-  Scenario: User archives the claim
+  Scenario: User archives the claim - Tier 1 Review (ER)
     When I select to uphold the decision and archive the claim
     Then the claim should be moved to the "Archived Eligibility Rejected" stage
 

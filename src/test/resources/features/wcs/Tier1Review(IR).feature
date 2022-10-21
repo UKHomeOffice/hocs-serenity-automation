@@ -6,12 +6,12 @@ Feature: Tier 1 Review (IR)
     And I get a "WCS" claim at the "Tier 1 Review (IR)" stage
 
   @Workflow @WCSRegression
-  Scenario: User returns the claim to Eligibility stage
+  Scenario: User returns the claim to Eligibility stage - Tier 1 Review (IR)
     When I select to return the claim to Registration
     Then the claim should be moved to the "Registration" stage
 
   @Workflow @WCSRegression
-  Scenario: User archives the claim
+  Scenario: User archives the claim - Tier 1 Review (IR)
     When I select to uphold the decision and archive the claim
     Then the claim should be moved to the "Archived Identity Rejected" stage
 
