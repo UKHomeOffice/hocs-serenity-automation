@@ -136,6 +136,7 @@ public class IEDETProgressCase extends BasePage {
     }
 
     public void moveIEDETCaseFromDraftToSend() {
+        documents.addADocumentOfDocumentType("DRAFT");
         clickTheButton("Proceed to recording outcome");
         System.out.println("Case moved from Draft to Send");
     }
