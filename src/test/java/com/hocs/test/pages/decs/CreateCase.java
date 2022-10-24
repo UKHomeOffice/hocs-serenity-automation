@@ -251,7 +251,7 @@ public class CreateCase extends BasePage {
             waitForDECSPageWithTitle("Record a new claim");
             correctUser = buttonIsCurrentlyVisible("Create claim");
         } else {
-            waitForDECSPageWithTitle("Create Single Case");
+            waitForDECSPageWithTitle("Create single case");
             switch (targetUser.toString()) {
                 case "DECS_USER":
                     if (caseTypeIsVisibleOptionOnCreateCaseScreen(CaseType.MIN) && caseTypeIsVisibleOptionOnCreateCaseScreen(CaseType.MTS)) {
