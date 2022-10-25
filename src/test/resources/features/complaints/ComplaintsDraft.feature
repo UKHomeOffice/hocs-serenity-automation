@@ -178,8 +178,7 @@ Feature: Complaints Draft
   Scenario: User completes the Draft stage for an IEDET complaint case
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to the "Draft" stage
-    And I load and claim the current case
-    And I click the "Proceed to recording outcome" button
+    And I move the case from "Draft" stage to "Send" stage
     Then the case should be moved to the "Send" stage
     And the summary should display the owning team as "IE Detention"
 

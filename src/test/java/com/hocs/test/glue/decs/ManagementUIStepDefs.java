@@ -212,7 +212,7 @@ public class ManagementUIStepDefs extends BasePage {
             case "INITIAL DRAFT AND QA RESPONSE STAGES":
                 linkTopicToTeam.selectADraftAndQATeam("Animals in Science Regulation Unit");
                 break;
-            case "PRIVATE OFFICE/MINISTERIAL SIGN OFF STAGES":
+            case "PRIVATE OFFICE AND MINISTER SIGN OFF STAGES":
                 linkTopicToTeam.selectAPrivateAndMinisterTeam("Permanent Secretary");
                 break;
             default:
@@ -246,7 +246,7 @@ public class ManagementUIStepDefs extends BasePage {
         iSelectATopicThatHaveLinkedTeams("DOES NOT");
         clickTheButton("Submit");
         iSelectATeam("INITIAL DRAFT AND QA RESPONSE STAGES");
-        iSelectATeam("PRIVATE OFFICE/MINISTERIAL SIGN OFF STAGES");
+        iSelectATeam("PRIVATE OFFICE AND MINISTER SIGN OFF STAGES");
         clickTheButton("Submit");
         clickTheButton("Submit");
     }
