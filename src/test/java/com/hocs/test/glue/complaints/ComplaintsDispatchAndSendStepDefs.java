@@ -1,5 +1,6 @@
 package com.hocs.test.glue.complaints;
 
+import com.hocs.test.pages.complaints.ComplaintsRegistrationAndDataInput;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.complaints.ComplaintsDispatchAndSend;
 import io.cucumber.java.en.And;
@@ -8,11 +9,21 @@ public class ComplaintsDispatchAndSendStepDefs extends BasePage {
 
     ComplaintsDispatchAndSend complaintsDispatchAndSend;
 
+    ComplaintsRegistrationAndDataInput complaintsRegistrationAndDataInput;
+
     @And("I select a Case/Dispatch Outcome")
     public void iSelectACaseOutcome() {
         complaintsDispatchAndSend.selectACaseOutcome();
     }
 
+    @And("I select the complaint category and reason")
+    public void iEnterTheComplaintCategoryAndReason() {
+
+            complaintsRegistrationAndDataInput.selectComplaintCategory();
+            complaintsRegistrationAndDataInput.selectComplaintReason();
+
+
+    }
     @And("I submit the Response details")
     public void iEnterTheResponseDetails() {
         if (!iedetCase() && !smcCase()) {

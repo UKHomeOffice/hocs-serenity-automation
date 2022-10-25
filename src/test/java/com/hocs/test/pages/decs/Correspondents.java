@@ -56,7 +56,7 @@ public class Correspondents extends BasePage {
     }
 
     public void enterCorrespondentFullName(String fullName) {
-        enterSpecificTextIntoTextFieldWithHeading(fullName, "Full Name");
+        enterSpecificTextIntoTextFieldWithHeading(fullName, "Full name");
         setSessionVariable("correspondentFullName").to(fullName);
     }
 
@@ -71,7 +71,7 @@ public class Correspondents extends BasePage {
     }
 
     public void enterCorrespondentTownOrCity(String townOrCity) {
-        enterSpecificTextIntoTextFieldWithHeading(townOrCity, "Town or City");
+        enterSpecificTextIntoTextFieldWithHeading(townOrCity, "Town or city");
         setSessionVariable("correspondentTownOrCity").to(townOrCity);
     }
 
@@ -95,7 +95,7 @@ public class Correspondents extends BasePage {
         if (foiCase() && inboundChannel.equalsIgnoreCase("POST")) {
             enterSpecificTextIntoTextFieldWithHeading(email, "Email Address (Optional)");
         } else {
-            enterSpecificTextIntoTextFieldWithHeading(email, "Email Address");
+           enterSpecificTextIntoTextFieldWithHeading(email, "Email");
         }
         setSessionVariable("correspondentEmail").to(email);
     }
@@ -158,7 +158,7 @@ public class Correspondents extends BasePage {
     }
 
     public void selectASpecificCorrespondentType(String correspondentType) {
-        selectSpecificOptionFromDropdownWithHeading(correspondentType, "Correspondent Type");
+         selectSpecificOptionFromDropdownWithHeading(correspondentType, "Correspondent type");
     }
 
     public void selectSpecificMemberOfParliament(String member) {
