@@ -4,6 +4,7 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.ConfirmationScreens;
 import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.CreateCase;
@@ -17,6 +18,8 @@ public class TOProgressCase extends BasePage {
     ConfirmationScreens confirmationScreens;
 
     CreateCase createCase;
+
+    CaseView caseView;
 
     Dashboard dashboard;
 
@@ -284,15 +287,9 @@ public class TOProgressCase extends BasePage {
                 if (!buttonIsVisible("Next")) {
                     dashboard.selectCreateSingleCaseLinkFromMenuBar();
                 }
-                createCase.selectCaseType(CaseType.TO);
-                clickNextButton();
-                createCase.editReceivedDate("01/01/2022");
-                createCase.storeCorrespondenceReceivedDate();
-                documents.uploadFileOfType("docx");
-                clickTheButton("Create case");
-                confirmationScreens.storeCaseReference();
-                dashboard.goToDashboard();
-                dashboard.getAndClaimCurrentCase();
+                createCase.createCSCaseOfTypeWithSpecificCorrespondenceReceivedDate(CaseType.TO, infoValue);
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();
                 dataInput.selectABusinessArea();
                 dataInput.selectAChannelRecieved();
                 clickContinueButton();
