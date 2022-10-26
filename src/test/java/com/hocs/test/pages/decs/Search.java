@@ -211,6 +211,10 @@ public class Search extends BasePage {
                 selectSpecificOptionFromTypeaheadWithHeading(value, "Campaign");
                 setSessionVariable("searchCampaign").to(value);
                 break;
+            case "APPLICATION REFERENCE":
+                enterSpecificTextIntoTextFieldWithHeading(value, "Application reference");
+                setSessionVariable("searchApplicationReference").to(value);
+                break;
             default:
                 pendingStep(criteria + " is not defined within " + getMethodName());
         }
