@@ -56,7 +56,11 @@ public class Correspondents extends BasePage {
     }
 
     public void enterCorrespondentFullName(String fullName) {
-        enterSpecificTextIntoTextFieldWithHeading(fullName, "Full name");
+        if (foiCase()) {
+            enterSpecificTextIntoTextFieldWithHeading(fullName, "Full Name");
+        } else {
+            enterSpecificTextIntoTextFieldWithHeading(fullName, "Full name");
+        }
         setSessionVariable("correspondentFullName").to(fullName);
     }
 
@@ -71,7 +75,12 @@ public class Correspondents extends BasePage {
     }
 
     public void enterCorrespondentTownOrCity(String townOrCity) {
-        enterSpecificTextIntoTextFieldWithHeading(townOrCity, "Town or city");
+        if (foiCase()) {
+            enterSpecificTextIntoTextFieldWithHeading(townOrCity, "Town or City");
+        }
+        else {
+            enterSpecificTextIntoTextFieldWithHeading(townOrCity, "Town or city");
+        }
         setSessionVariable("correspondentTownOrCity").to(townOrCity);
     }
 
