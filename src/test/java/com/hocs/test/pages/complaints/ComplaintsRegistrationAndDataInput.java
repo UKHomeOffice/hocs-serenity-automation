@@ -21,11 +21,17 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
     Boolean pogrPriority = true;
 
     public void enterComplainantDOB(String complainantDOB) {
-        recordCaseData.enterDateIntoDateFieldsWithHeading(complainantDOB, "Date of Birth");
+        if(iedetCase()){
+            recordCaseData.enterDateIntoDateFieldsWithHeading(complainantDOB, "Date of birth");
+        } else {
+            recordCaseData.enterDateIntoDateFieldsWithHeading(complainantDOB, "Date of Birth");
+        }
     }
 
     public void selectAGender() {
-        recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Gender");
+        if(!iedetCase()) {
+            recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Gender");
+        }
     }
 
     public void selectANationality() {
@@ -33,15 +39,27 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
     }
 
     public void enterACompanyName() {
-        recordCaseData.enterTextIntoTextFieldWithHeading("Company Name");
+        if (iedetCase()){
+            recordCaseData.enterTextIntoTextFieldWithHeading("Company name");
+        }else{
+            recordCaseData.enterTextIntoTextFieldWithHeading("Company Name");
+        }
     }
 
     public void enterAHomeOfficeReference(String HOReference) {
-        recordCaseData.enterSpecificTextIntoTextFieldWithHeading(HOReference, "Home Office Reference");
+        if(iedetCase()){
+            recordCaseData.enterSpecificTextIntoTextFieldWithHeading(HOReference, "Home Office reference");
+        } else {
+            recordCaseData.enterSpecificTextIntoTextFieldWithHeading(HOReference, "Home Office Reference");
+        }
     }
 
     public void enterAPortReference() {
-        recordCaseData.enterTextIntoTextFieldWithHeading("Port Reference");
+        if(iedetCase()){
+            recordCaseData.enterTextIntoTextFieldWithHeading("Port reference");
+        } else {
+            recordCaseData.enterTextIntoTextFieldWithHeading("Port Reference");
+        }
     }
 
     public void enterComplainantDetails() {
