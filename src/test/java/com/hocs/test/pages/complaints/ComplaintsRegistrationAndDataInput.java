@@ -216,7 +216,9 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
     }
 
     public void enterApplicationReference() {
-        recordCaseData.enterTextIntoTextFieldWithHeading("Application Reference");
+        String applicationRef = "APR"+getCurrentCaseReference().replace('/','0');
+        recordCaseData.enterSpecificTextIntoTextFieldWithHeading(applicationRef,"Application Reference");
+        setSessionVariable("searchApplicationReference").to(applicationRef);
     }
 
     public void enterPassportNumber() {
