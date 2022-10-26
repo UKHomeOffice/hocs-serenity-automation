@@ -111,8 +111,11 @@ public class IEDETProgressCase extends BasePage {
         System.out.println("Case moved from Registration to Triage");
     }
 
+    //Failing consistently without wait after line 116, assumed to be env instability.
     public void moveIEDETCaseFromTriageToDraft() {
         complaintsRegistrationAndDataInput.selectASpecificComplaintType("Service");
+        clickContinueButton();
+        openOrCloseAccordionSection("Service");
         complaintsRegistrationAndDataInput.selectAVisibleClaimCategory();
         clickContinueButton();
         complaintsRegistrationAndDataInput.selectComplaintOrigin();
@@ -171,7 +174,6 @@ public class IEDETProgressCase extends BasePage {
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
                 correspondents.confirmPrimaryCorrespondent();
                 complaintsRegistrationAndDataInput.enterComplainantDOB(infoValue);
-                complaintsRegistrationAndDataInput.selectAGender();
                 complaintsRegistrationAndDataInput.selectANationality();
                 complaintsRegistrationAndDataInput.enterACompanyName();
                 complaintsRegistrationAndDataInput.enterAHomeOfficeReference(getCurrentMonth() +"/" + getCurrentYear());
@@ -185,7 +187,6 @@ public class IEDETProgressCase extends BasePage {
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
                 correspondents.confirmPrimaryCorrespondent();
                 complaintsRegistrationAndDataInput.enterComplainantDOB(getDatePlusMinusNDaysAgo(-14600));
-                complaintsRegistrationAndDataInput.selectAGender();
                 complaintsRegistrationAndDataInput.selectANationality();
                 complaintsRegistrationAndDataInput.enterACompanyName();
                 complaintsRegistrationAndDataInput.enterAHomeOfficeReference(infoValue);
@@ -199,7 +200,6 @@ public class IEDETProgressCase extends BasePage {
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
                 correspondents.confirmPrimaryCorrespondent();
                 complaintsRegistrationAndDataInput.enterComplainantDOB("01/01/2001");
-                complaintsRegistrationAndDataInput.selectAGender();
                 complaintsRegistrationAndDataInput.selectANationality();
                 complaintsRegistrationAndDataInput.enterACompanyName();
                 complaintsRegistrationAndDataInput.enterAHomeOfficeReference("Test entry for HO Reference");
