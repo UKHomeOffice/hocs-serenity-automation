@@ -76,6 +76,9 @@ public class Triage extends BasePage {
 
     public void selectEnquirySubject(String subject) {
         waitForDECSPageWithTitle("Enquiry subject");
+        if(mpamCase() && subject.equalsIgnoreCase( "HMPO Specific")){
+            subject = "HMPO Specific (FOR PMO USE ONLY)";
+        }
         selectSpecificRadioButton(subject);
         setSessionVariable("enquirySubject").to(subject);
         clickContinueButton();
