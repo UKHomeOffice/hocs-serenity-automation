@@ -114,6 +114,7 @@ public class IEDETProgressCase extends BasePage {
     //Failing consistently without wait after line 116, assumed to be env instability.
     public void moveIEDETCaseFromTriageToDraft() {
         complaintsRegistrationAndDataInput.selectASpecificComplaintType("Service");
+        waitABit(10000);
         clickContinueButton();
         openOrCloseAccordionSection("Service");
         complaintsRegistrationAndDataInput.selectAVisibleClaimCategory();
