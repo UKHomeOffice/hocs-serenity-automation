@@ -1,7 +1,11 @@
 package com.hocs.test.pages.decs;
 
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import java.util.HashMap;
 import java.util.List;
+import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 public class RecordCaseData extends BasePage{
@@ -128,6 +132,14 @@ public class RecordCaseData extends BasePage{
             String expectedAccordionValue = entry.getValue();
             caseView.assertExpectedValueIsVisibleInOpenCaseDetailsAccordionForGivenKey(expectedAccordionValue, accordionKey);
         }
+    }
+
+    public void assertComplaintCategoryAndComplaintRecordInTheReadOnlyAccordion() {
+        String complaintCategoryText = sessionVariableCalled("complaintCategory");
+        String complaintReasonText = sessionVariableCalled("complaintReason");
+        assertThat(caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenKey("Complaint Category").get(0).equalsIgnoreCase(complaintCategoryText),is(true));
+        assertThat(caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenKey("Complaint Reason").get(0).equalsIgnoreCase(complaintReasonText),
+                is(true));
     }
 
 }

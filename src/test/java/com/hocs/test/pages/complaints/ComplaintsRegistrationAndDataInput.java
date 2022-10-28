@@ -292,6 +292,15 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         setSessionVariable("investigatingTeam").to(investigatingTeam);
     }
 
+    public void selectNewComplaintCategory() {
+        String newComplaintCategory = selectRandomOptionFromDropdownWithHeading("Complaint Category");
+        setSessionVariable("complaintCategory").to(newComplaintCategory);
+    }
+
+    public void selectNewComplaintReason() {
+        String newComplaintsReason = selectRandomOptionFromDropdownWithHeading("Complaint Reason");
+        setSessionVariable("complaintReason").to(newComplaintsReason);
+    }
     public void setPOGRCaseBusinessArea() {
         String businessArea = sessionVariableCalled("businessArea");
         if (businessArea != null) {
