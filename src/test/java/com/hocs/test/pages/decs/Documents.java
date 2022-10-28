@@ -328,7 +328,7 @@ public class Documents extends BasePage {
                         , "CRF", "DRAFT", "Appeal Leaflet", "IMB Letter", "Final Response"));
                 break;
             case IEDET:
-                requiredDocumentTypes.addAll(Arrays.asList("Original complaint", "Letter of Authority", "Interim response", "Final response", "Withdrawal letter"
+                requiredDocumentTypes.addAll(Arrays.asList("Original complaint", "Letter of Authority", "Interim response", "DRAFT","Final response", "Withdrawal letter"
                         , "Other"));
                 break;
             case BF:

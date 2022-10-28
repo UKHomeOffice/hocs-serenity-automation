@@ -279,4 +279,30 @@ public class SearchStepDefs extends BasePage {
         search.enterSearchCriteria("Member of Parliament Name", correspondent);
         clickSearchButton();
     }
+
+    @And("I search for the case by the Application Reference")
+    public void iSearchForTheCaseByTheApplicationReference() {
+        String applicationReference = sessionVariableCalled("searchApplicationReference");
+        search.enterSearchCriteria("Application Reference", applicationReference);
+        clickSearchButton();
+    }
+
+    @Then("The Pogr case should be visible in the search results")
+    public void thePogrCaseShouldBeVisibleInTheSearchResults() {
+        int retest = 0;
+        while (retest < 5) {
+            try {
+                search.assertCurrentCaseIsDisplayed();
+                break;
+            } catch (AssertionError a) {
+                retest ++;
+                dashboard.selectSearchLinkFromMenuBar();
+                String applicationReference = sessionVariableCalled("searchApplicationReference");
+                search.enterSearchCriteria("Application reference", applicationReference);
+                clickSearchButton();
+            }
+        }
+        search.assertCurrentCaseIsDisplayed();
+    }
+
 }

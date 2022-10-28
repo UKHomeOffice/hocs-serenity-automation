@@ -121,6 +121,23 @@ Feature: Complaints Search
     Then the case should be loaded
 
 
+@POGRRegression @POGRComplaints
+Scenario: User is able to search for a POGR HMPO case by its Application reference
+  Given I am logged into "CS" as user "POGR_USER"
+  And I create a "HMPO" non-Priority POGR case
+  And I navigate to the "Search" page
+  And I search for the case by the Application Reference
+  Then The Pogr case should be visible in the search results
+
+
+  @POGRRegression @POGRComplaints
+  Scenario: User is able to search for a POGR stage 2 HMPO case by its Application reference
+    Given I am logged into "CS" as user "POGR_USER"
+    When I get a "POGR2" case with "HMPO" as the Business Area at the "Investigation" stage
+    And I navigate to the "Search" page
+    And I search for the case by the Application Reference
+    Then The Pogr case should be visible in the search results
+
 #  SMC workflow cancelled. Steps and code might be useful for future work implementing PSU specific sub-workflow into other complaints workflows
 
 #     SMC COMPLAINTS

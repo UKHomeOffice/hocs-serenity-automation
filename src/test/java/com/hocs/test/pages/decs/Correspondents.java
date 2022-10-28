@@ -56,7 +56,12 @@ public class Correspondents extends BasePage {
     }
 
     public void enterCorrespondentFullName(String fullName) {
-        enterSpecificTextIntoTextFieldWithHeading(fullName, "Full name");
+
+       if (foiCase()) {
+            enterSpecificTextIntoTextFieldWithHeading(fullName, "Full Name");
+        } else {
+            enterSpecificTextIntoTextFieldWithHeading(fullName, "Full name");
+       
         setSessionVariable("correspondentFullName").to(fullName);
     }
 
@@ -71,7 +76,12 @@ public class Correspondents extends BasePage {
     }
 
     public void enterCorrespondentTownOrCity(String townOrCity) {
-        enterSpecificTextIntoTextFieldWithHeading(townOrCity, "Town or city");
+        if (foiCase()) {
+            enterSpecificTextIntoTextFieldWithHeading(townOrCity, "Town or City");
+        }
+        else {
+            enterSpecificTextIntoTextFieldWithHeading(townOrCity, "Town or city");
+        }
         setSessionVariable("correspondentTownOrCity").to(townOrCity);
     }
 
@@ -95,7 +105,8 @@ public class Correspondents extends BasePage {
         if (foiCase() && inboundChannel.equalsIgnoreCase("POST")) {
             enterSpecificTextIntoTextFieldWithHeading(email, "Email Address (Optional)");
         } else {
-           enterSpecificTextIntoTextFieldWithHeading(email, "Email");
+
+            enterSpecificTextIntoTextFieldWithHeading(email, "Email");
         }
         setSessionVariable("correspondentEmail").to(email);
     }
@@ -154,11 +165,11 @@ public class Correspondents extends BasePage {
     }
 
     public void selectACorrespondentType() {
-        selectRandomOptionFromDropdownWithHeading("Correspondent Type");
+        selectRandomOptionFromDropdownWithHeading("Correspondent type");
     }
 
     public void selectASpecificCorrespondentType(String correspondentType) {
-         selectSpecificOptionFromDropdownWithHeading(correspondentType, "Correspondent type");
+        selectSpecificOptionFromDropdownWithHeading(correspondentType, "Correspondent type");
     }
 
     public void selectSpecificMemberOfParliament(String member) {
