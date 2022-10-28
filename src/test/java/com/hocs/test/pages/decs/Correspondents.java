@@ -57,12 +57,13 @@ public class Correspondents extends BasePage {
 
     public void enterCorrespondentFullName(String fullName) {
 
-       if (foiCase()) {
+        if (foiCase()) {
             enterSpecificTextIntoTextFieldWithHeading(fullName, "Full Name");
         } else {
             enterSpecificTextIntoTextFieldWithHeading(fullName, "Full name");
-       
-        setSessionVariable("correspondentFullName").to(fullName);
+
+            setSessionVariable("correspondentFullName").to(fullName);
+        }
     }
 
     public void enterCorrespondentAddressLine1(String building) {
