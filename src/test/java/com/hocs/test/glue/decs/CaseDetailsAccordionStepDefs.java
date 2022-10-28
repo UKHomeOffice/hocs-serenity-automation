@@ -37,6 +37,13 @@ public class CaseDetailsAccordionStepDefs extends BasePage {
         recordCaseData.assertAllRecordedCaseDataIsCurrentlyVisibleInTheReadOnlyAccordion();
     }
 
+    @And("the new complaint category and reason are displayed in the read only accordion and summary")
+    public void theReadOnlyCaseDetailsAccordionAndSummaryContainNewComplaintCategoryAndReason(){
+       summaryTab.assertComplaintCategoryAndComplaintReason();
+       openOrCloseAccordionSection("Investigation");
+       recordCaseData.assertComplaintCategoryAndComplaintRecordInTheReadOnlyAccordion();
+    }
+
     @And("the closure reason and details should be visible in the Case Details accordion")
     public void theClosureReasonAndDetailsShouldBeVisibleInTheCaseDetailsAccordion() {
         openOrCloseAccordionSection("Early Closure");

@@ -114,10 +114,11 @@ Feature: Complaints Dispatch & Send
     And I select a Dispatch Outcome
     And I select if a refund is required
     And I enter details of any Gratis offered
-    And I select the complaint category and reason
+    And I select the new complaint category and reason
     And I submit the Response details
     Then the case should be closed
     And the read-only Case Details accordion should contain all case information entered during the "Dispatch" stage
+    And the new complaint category and reason are displayed in the read only accordion and summary
 
   @ComplaintsWorkflow @POGRRegression @POGRComplaints
   Scenario: User can complete the Dispatch stage for a GRO POGR complaint case
@@ -140,9 +141,11 @@ Feature: Complaints Dispatch & Send
     And I select a Dispatch Outcome
     And I select if a refund is required
     And I enter details of any Gratis offered
+    And I select the new complaint category and reason
     And I submit the Response details
     Then the case should be closed
     And the read-only Case Details accordion should contain all case information entered during the "Dispatch" stage
+    And the new complaint category and reason are displayed in the read only accordion and summary
 
   @ComplaintsWorkflow @POGRRegression @POGRComplaints
   Scenario: User can complete the Dispatch stage for a GRO POGR stage 2 complaint case

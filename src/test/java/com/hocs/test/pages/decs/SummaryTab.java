@@ -106,6 +106,12 @@ public class SummaryTab extends BasePage {
     @FindBy(xpath = "//th[contains(text(), 'Home Secretary')]/following-sibling::td")
     public WebElementFacade homeSecInterest;
 
+    @FindBy(xpath = "//th[contains(text(), 'Complaint Category')]/following-sibling::td")
+    public WebElementFacade complaintCategory;
+
+    @FindBy(xpath = "//th[contains(text(), 'Complaint Reason')]/following-sibling::td")
+    public WebElementFacade complaintReason;
+
     @FindBy(xpath = "//th[contains(text(), 'FOI Topic')]/following-sibling::td")
     public WebElementFacade foiTopic;
 
@@ -422,6 +428,20 @@ public class SummaryTab extends BasePage {
         assertThat(homeSecInterestInput.equals(homeSecInterest.getText()), is(true));
     }
 
+    public void assertComplaintCategoryAndComplaintReason() {
+        selectSummaryTab();
+        String complaintCategoryText = sessionVariableCalled("complaintCategory");
+        assertThat(complaintCategoryText.equals(complaintCategory.getText()), is(true));
+        String complaintReasonText = sessionVariableCalled("complaintReason");
+        assertThat(complaintReasonText.equals(complaintReason.getText()), is(true));
+    }
+
+   /* public boolean assertCommplaintCategoryAndComplaintReasonVisible(ArrayList<> arraylist, String reasonText){
+        if(arraylist.contains(reasonText)){
+            return true;
+        }
+        return false;
+    } */
     public void assertComplianceMeasures(String inputComplianceMeasures) {
         String displayedComplianceMeasures = getSummaryTabValueForGivenHeader("Compliance Measures");
         assertThat(displayedComplianceMeasures.toUpperCase().contains(inputComplianceMeasures.toUpperCase()), is(true));

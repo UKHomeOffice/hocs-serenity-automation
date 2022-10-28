@@ -18,12 +18,16 @@ public class ComplaintsDispatchAndSendStepDefs extends BasePage {
 
     @And("I select the complaint category and reason")
     public void iEnterTheComplaintCategoryAndReason() {
-
             complaintsRegistrationAndDataInput.selectComplaintCategory();
             complaintsRegistrationAndDataInput.selectComplaintReason();
-
-
     }
+
+    @And("I select the new complaint category and reason")
+    public void iEnterTheNewComplaintCategoryAndReason() {
+        complaintsRegistrationAndDataInput.selectNewComplaintCategory();
+        complaintsRegistrationAndDataInput.selectNewComplaintReason();
+    }
+
     @And("I submit the Response details")
     public void iEnterTheResponseDetails() {
         if (!iedetCase() && !smcCase()) {
