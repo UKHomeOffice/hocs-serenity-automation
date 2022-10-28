@@ -436,13 +436,7 @@ public class SummaryTab extends BasePage {
         assertThat(complaintReasonText.equals(complaintReason.getText()), is(true));
     }
 
-   /* public boolean assertCommplaintCategoryAndComplaintReasonVisible(ArrayList<> arraylist, String reasonText){
-        if(arraylist.contains(reasonText)){
-            return true;
-        }
-        return false;
-    } */
-    public void assertComplianceMeasures(String inputComplianceMeasures) {
+     public void assertComplianceMeasures(String inputComplianceMeasures) {
         String displayedComplianceMeasures = getSummaryTabValueForGivenHeader("Compliance Measures");
         assertThat(displayedComplianceMeasures.toUpperCase().contains(inputComplianceMeasures.toUpperCase()), is(true));
     }
