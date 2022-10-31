@@ -510,6 +510,15 @@ public class WorkstacksStepDefs extends BasePage {
                     dashboard.selectPOGR2RegistrationTeam();
                 }
                 break;
+            case "TREAT OFFICIAL UKVI":
+                try {
+                    dashboard.selectWorkstackByTeamName(workstack);
+                } catch (NoSuchElementException e) {
+                    createCase.createCSCaseOfTypeWithDocument(CaseType.TO);
+                    dashboard.goToDashboard();
+                    dashboard.selectWorkstackByTeamName(workstack);
+                }
+                break;
             default:
                 pendingStep(workstack + " is not defined within " + getMethodName());
         }
