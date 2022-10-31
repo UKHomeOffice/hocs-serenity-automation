@@ -314,12 +314,11 @@ Feature: Complaints Triage
     Then the case should be moved to the "Draft" stage
     And the summary should display the owning team as "IE Detention"
     And the read-only Case Details accordion should contain all case information entered during the "Triage" stage
-    And the selected claim category is displayed in the case details accordion
     Examples:
       | investigationTeam            |
       | Third party supplier         |
-      | IE Detention compliance team |
-      | DEPMU                        |
+#      | IE Detention compliance team |
+#      | DEPMU                        |
 
   @ComplaintsWorkflow @IEDETRegression @IEDETComplaints
   Scenario: User can transfer a IEDET complaints case to CCH

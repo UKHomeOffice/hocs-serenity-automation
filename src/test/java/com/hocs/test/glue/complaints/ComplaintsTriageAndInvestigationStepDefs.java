@@ -6,7 +6,6 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.complaints.ComplaintsTriageAndInvestigation;
-import com.hocs.test.pages.decs.CaseView;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 
@@ -14,8 +13,6 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
 
 
     ComplaintsTriageAndInvestigation complaintsTriageAndInvestigation;
-    CaseView caseView;
-
     @And("I accept the case at {string} Triage stage")
     public void iAcceptTheCaseAtServiceTriageStage(String complaintType) {
         complaintsTriageAndInvestigation.selectAcceptCase();
@@ -285,13 +282,6 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
     @And("I complete Triage and escalate the case to PSU")
     public void iCompleteTriageAndEscalateTheCaseToPSU() {
         clickTheButton("Finish and escalate to PSU");
-    }
-
-    @ Then("the selected claim category is displayed in the case details accordion")
-    public void theSelectedClaimCategoryIsDisplayedInTheCaseDetailsAccordion() {
-        String complaintCategory = sessionVariableCalled("complaintCategory");
-        String claimCategory = sessionVariableCalled("claimCategory");
-        caseView.assertExpectedValueIsVisibleInOpenCaseDetailsAccordionForGivenKey(claimCategory, complaintCategory);
     }
 
 }
