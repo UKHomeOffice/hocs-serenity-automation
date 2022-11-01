@@ -511,6 +511,7 @@ public class WorkstacksStepDefs extends BasePage {
                 }
                 break;
             case "TREAT OFFICIAL UKVI":
+            case "TREAT OFFICIAL BF":
                 try {
                     dashboard.selectWorkstackByTeamName(workstack);
                 } catch (NoSuchElementException e) {
