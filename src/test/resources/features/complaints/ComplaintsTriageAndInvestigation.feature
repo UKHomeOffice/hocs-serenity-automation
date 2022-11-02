@@ -317,8 +317,8 @@ Feature: Complaints Triage
     Examples:
       | investigationTeam            |
       | Third party supplier         |
-#      | IE Detention compliance team |
-#      | DEPMU                        |
+      | IE Detention compliance team |
+      | DEPMU                        |
 
   @ComplaintsWorkflow @IEDETRegression @IEDETComplaints
   Scenario: User can transfer a IEDET complaints case to CCH
