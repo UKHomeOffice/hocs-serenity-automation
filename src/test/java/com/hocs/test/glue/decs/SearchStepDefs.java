@@ -210,6 +210,9 @@ public class SearchStepDefs extends BasePage {
             }
         }
         search.assertCurrentCaseIsDisplayed();
+        if (numberOfResults < 1){
+            Assert.fail("No cases found ");
+        }
     }
 
     @And("I click the (case )reference of the case/claim in search results")
