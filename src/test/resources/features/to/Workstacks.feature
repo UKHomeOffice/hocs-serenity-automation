@@ -9,6 +9,7 @@ Feature: Complaints Workstacks
     And I enter a "<workstack>" workstack
     Then the "<workstack>" workstack should contain only the expected columns
     Examples:
-      | workstack           |
-      | Treat Official UKVI |
-      | Treat Official BF   |
+      | workstack               |
+      | Treat Official UKVI     |
+      | Treat Official BF       |
+      | TREAT OFFICIAL MY CASES |
