@@ -131,7 +131,8 @@ public class IEDETProgressCase extends BasePage {
 
     private void moveIEDETCaseFromTriageToPSURegistration() {
         complaintsRegistrationAndDataInput.selectASpecificComplaintType("Serious misconduct");
-        complaintsTriageAndInvestigation.selectIEDETClaimCategory("Serious misconduct");
+        complaintsRegistrationAndDataInput.openTheSeriousComplaintCategoryAccordion();
+        complaintsTriageAndInvestigation.selectAVisibleClaimCategory();
         clickContinueButton();
         complaintsRegistrationAndDataInput.selectComplaintOrigin();
         complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();

@@ -837,7 +837,7 @@ public class Workstacks extends BasePage {
     public void assertSecretariatClearanceRequestedDueDate() {
         waitForWorkstackToLoad();
         String inputClearanceDueDate = sessionVariableCalled("clearanceDueDate");
-        assertSpecifiedColumnContainsValueForCurrentCase("Current Stage", inputClearanceDueDate);
+        assertSpecifiedColumnContainsValueForCurrentCase("Current stage", inputClearanceDueDate);
     }
 
     public void assertOverdueSecretariatClearanceRequestIsHighlighted() throws ParseException {
