@@ -814,7 +814,10 @@ public class Workstacks extends BasePage {
                 requiredColumns.addAll(Arrays.asList("Select", "Reference", "Full name", "Current stage", "Owner", "Contribution due date",
                         "Deadline"));
                 break;
-
+            case "TREAT OFFICIAL MY CASES":
+                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Full name", "Current stage", "Enquiry reason", "Contribution due date",
+                        "Deadline"));
+                break;
             default:
                 pendingStep(workstack + " is not defined within " + getMethodName());
         }

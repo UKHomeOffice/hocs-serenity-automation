@@ -520,6 +520,15 @@ public class WorkstacksStepDefs extends BasePage {
                     dashboard.selectWorkstackByTeamName(workstack);
                 }
                 break;
+            case "TREAT OFFICIAL MY CASES":
+                if (dashboard.getNumberOfCasesInWorkstackFromDashboardCard("My Cases") == 0) {
+                    createCase.createCSCaseOfTypeWithDocument(CaseType.TO);
+                    confirmationScreens.goToCaseFromConfirmationScreen();
+                    caseView.clickAllocateToMeLink();
+                    dashboard.goToDashboard();
+                }
+                dashboard.selectMyCases();
+                break;
             default:
                 pendingStep(workstack + " is not defined within " + getMethodName());
         }
