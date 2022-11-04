@@ -169,7 +169,7 @@ public class IEDETProgressCase extends BasePage {
     }
 
     private void moveIEDETCaseFromPSUComplaintOutcomeToPSUCaseClosed() {
-        complaintsRegistrationAndDataInput.selectCaseSubstantiated();
+        complaintsRegistrationAndDataInput.selectRandomCaseOutcomeToProgress();
         clickTheButton("Submit");
         documents.addADocumentOfDocumentType("Final response");
         complaintsDispatchAndSend.enterFinalResponseSentDate();

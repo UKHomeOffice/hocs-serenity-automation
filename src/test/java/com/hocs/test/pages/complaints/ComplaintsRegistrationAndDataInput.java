@@ -321,7 +321,9 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Yes", "Is this serious misconduct case for PSU to investigate?");
     }
 
-    public void selectCaseSubstantiated() {
-        recordCaseData.selectSpecificRadioButton("Substantiated");
+    public void selectRandomCaseOutcomeToProgress() {
+        String[] validChoices = new String[]{"Substantiated", "Partially substantiated","Unsubstantiated"};
+        int rnd = new Random().nextInt(validChoices.length);
+        recordCaseData.selectSpecificRadioButton(validChoices[rnd]);
     }
 }
