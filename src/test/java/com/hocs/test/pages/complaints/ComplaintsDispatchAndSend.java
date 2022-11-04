@@ -51,6 +51,10 @@ public class ComplaintsDispatchAndSend extends BasePage {
         recordCaseData.enterDateIntoDateFieldsWithHeading(getDatePlusMinusNDaysAgo(-1), headerText);
     }
 
+    public void enterFinalResponseSentDate(){
+        recordCaseData.enterDateIntoDateFieldsWithHeading(getDatePlusMinusNDaysAgo(-1),"Final response sent");
+    }
+
     public void assertReasonsForComplaintAreVisible() {
         for (int i = 1; i <= 5; i++) {
             String displayedReasonForComplaint = findBy("//strong[text()='Reason for Complaint " + i + "']/ancestor::span").getText();

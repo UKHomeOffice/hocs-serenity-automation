@@ -316,4 +316,14 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         String psuReference = recordCaseData.enterTextIntoTextFieldWithHeading("PSU reference");
         setSessionVariable("psuReference").to(psuReference);
     }
+
+    public void selectYesForSeriousCase() {
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Yes", "Is this serious misconduct case for PSU to investigate?");
+    }
+
+    public void selectRandomCaseOutcomeToProgress() {
+        String[] validChoices = new String[]{"Substantiated", "Partially substantiated","Unsubstantiated"};
+        int rnd = new Random().nextInt(validChoices.length);
+        recordCaseData.selectSpecificRadioButton(validChoices[rnd]);
+    }
 }

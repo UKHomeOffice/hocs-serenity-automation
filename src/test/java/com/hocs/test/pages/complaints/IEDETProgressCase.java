@@ -59,6 +59,15 @@ public class IEDETProgressCase extends BasePage {
             case "PSU REGISTRATION":
                 precedingStage = "TRIAGE";
                 break;
+            case "PSU TRIAGE":
+                precedingStage = "PSU REGISTRATION";
+                break;
+            case "PSU COMPLAINT OUTCOME":
+                precedingStage = "PSU TRIAGE";
+                break;
+            case "PSU CASE CLOSED":
+                precedingStage = "PSU COMPLAINT OUTCOME";
+                break;
             case "SEND":
                 precedingStage = "DRAFT";
                 break;
@@ -93,8 +102,17 @@ public class IEDETProgressCase extends BasePage {
             case "DRAFT":
                 moveIEDETCaseFromDraftToSend();
                 break;
+            case "PSU REGISTRATION":
+                moveIEDETCaseFromPSURegistrationToPSUTriage();
+                break;
             case "SEND":
                 moveIEDETCaseFromSendToCaseClosed();
+                break;
+            case "PSU TRIAGE":
+                moveIEDETCaseFromPSUTriageToPSUComplaintOutcome();
+                break;
+            case "PSU COMPLAINT OUTCOME":
+                moveIEDETCaseFromPSUComplaintOutcomeToPSUCaseClosed();
                 break;
             default:
                 pendingStep(stageToComplete + " is not defined within " + getMethodName());
@@ -138,6 +156,25 @@ public class IEDETProgressCase extends BasePage {
         complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
         complaintsRegistrationAndDataInput.enterAThirdPartyReference();
         clickTheButton("Finish and escalate to PSU");
+    }
+
+    private void moveIEDETCaseFromPSURegistrationToPSUTriage() {
+        complaintsRegistrationAndDataInput.enterAPSUReference();
+        clickTheButton("Submit");
+    }
+
+    private void moveIEDETCaseFromPSUTriageToPSUComplaintOutcome() {
+        complaintsRegistrationAndDataInput.selectYesForSeriousCase();
+        clickTheButton("Submit");
+    }
+
+    private void moveIEDETCaseFromPSUComplaintOutcomeToPSUCaseClosed() {
+        complaintsRegistrationAndDataInput.selectRandomCaseOutcomeToProgress();
+        clickTheButton("Submit");
+        documents.addADocumentOfDocumentType("Final response");
+        complaintsDispatchAndSend.enterFinalResponseSentDate();
+        clickTheButton("Close case");
+
     }
 
     public void moveIEDETCaseFromDraftToSend() {
