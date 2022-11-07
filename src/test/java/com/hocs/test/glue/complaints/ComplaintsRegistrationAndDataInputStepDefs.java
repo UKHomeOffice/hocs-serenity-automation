@@ -8,6 +8,7 @@ import com.hocs.test.pages.complaints.ComplaintsTriageAndInvestigation;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.complaints.ComplaintsRegistrationAndDataInput;
 import com.hocs.test.pages.decs.CaseView;
+import com.hocs.test.pages.decs.Dashboard;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 
@@ -16,6 +17,7 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
     ComplaintsRegistrationAndDataInput complaintsRegistrationAndDataInput;
 
     CaseView caseView;
+    Dashboard dashboard;
 
     ComplaintsTriageAndInvestigation complaintsTriageAndInvestigation;
 
@@ -154,5 +156,12 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
     @And("I chose not to upload an interim letter")
     public void iChoseNotToUploadAnInterimLetter() {
         clickContinueButton();
+    }
+
+    @Then("When I attempt to continue without selecting a PSU Reference an error message is displayed")
+    public void iAttemptToContinueWithoutSelectingAPSUReference() {
+        dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
+        clickTheButton("Submit");
+        assertExpectedErrorMessageIsDisplayed("PSU reference is required");
     }
 }

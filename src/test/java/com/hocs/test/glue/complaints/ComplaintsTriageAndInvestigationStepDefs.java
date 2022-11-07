@@ -6,6 +6,7 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.complaints.ComplaintsTriageAndInvestigation;
+import com.hocs.test.pages.decs.Dashboard;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 
@@ -13,6 +14,8 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
 
 
     ComplaintsTriageAndInvestigation complaintsTriageAndInvestigation;
+    Dashboard dashboard;
+
     @And("I accept the case at {string} Triage stage")
     public void iAcceptTheCaseAtServiceTriageStage(String complaintType) {
         complaintsTriageAndInvestigation.selectAcceptCase();
@@ -29,6 +32,7 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
         waitABit(500);
         clickContinueButton();
     }
+
     @And("I select to Transfer the complaint")
     public void iSelectToTransferTheComplaint() {
         complaintsTriageAndInvestigation.selectTransferComplaint();
@@ -269,7 +273,7 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
 
     @And("I enter any required information at the Investigation stage")
     public void iEnterAnyRequiredInformationAtTheInvestigationStage() {
-        if(sessionVariableCalled("isLoARequired").equals("Yes")) {
+        if (sessionVariableCalled("isLoARequired").equals("Yes")) {
             complaintsTriageAndInvestigation.enterLoAReceivedDetails();
         }
     }
@@ -282,6 +286,28 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
     @And("I complete Triage and escalate the case to PSU")
     public void iCompleteTriageAndEscalateTheCaseToPSU() {
         clickTheButton("Finish and escalate to PSU");
+    }
+
+
+    @And("I choose to send the case to a team not on DECS")
+    public void iChooseToSendTheCaseToATeamNotOnDECS() {
+        dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
+        selectSpecificRadioButton("No - send to team not to DECS");
+        clickTheButton("Submit");
+    }
+
+    @And("I choose to send the case back to IEDET")
+    public void iChooseToSendTheCaseBackToIEDET() {
+        dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
+        selectSpecificRadioButton("No - send back to IE Detention");
+        clickTheButton("Submit");
+    }
+
+    @Then("When I attempt to continue without selecting a PSU Triage Option an error message is displayed")
+    public void iAttemptToContinueWithoutSelectingAPSUTriageOption() {
+        dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
+        clickTheButton("Submit");
+        assertExpectedErrorMessageIsDisplayed("Is this serious misconduct case for PSU to investigate? is required");
     }
 
 }
