@@ -4,17 +4,32 @@ import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
+import com.hocs.test.pages.complaints.ComplaintsDispatchAndSend;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.complaints.ComplaintsTriageAndInvestigation;
+
+import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.Dashboard;
+import com.hocs.test.pages.decs.Documents;
+import com.hocs.test.pages.decs.RecordCaseData;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+
 
 public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
 
 
     ComplaintsTriageAndInvestigation complaintsTriageAndInvestigation;
+
+    Documents documents;
+
+    ComplaintsDispatchAndSend complaintsDispatchAndSend;
+
+    RecordCaseData recordCaseData;
+
     Dashboard dashboard;
+
+    CaseView caseView;
 
     @And("I accept the case at {string} Triage stage")
     public void iAcceptTheCaseAtServiceTriageStage(String complaintType) {
@@ -288,7 +303,6 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
         clickTheButton("Finish and escalate to PSU");
     }
 
-
     @And("I choose to send the case to a team not on DECS")
     public void iChooseToSendTheCaseToATeamNotOnDECS() {
         dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
@@ -308,6 +322,34 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
         dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
         clickTheButton("Submit");
         assertExpectedErrorMessageIsDisplayed("Is this serious misconduct case for PSU to investigate? is required");
+    }
+
+
+    @Then("I select {string} PSU Complaint Outcome")
+    public void iSelectPSUComplaintOutcome(String psuCompliantOutcome) {
+            complaintsTriageAndInvestigation.selectPSUComplaintOutcome(psuCompliantOutcome);
+    }
+
+    @Then("I enter the Final response and Final date")
+    public void iEnterFinalResponseAndFinalDate() {
+        clickTheButton("Close case");
+        assertThatAnErrorMessageIsDisplayed();
+        documents.addADocumentOfDocumentType("Final response");
+        recordCaseData.enterDateIntoDateFieldsWithHeading(getDatePlusMinusNDaysAgo(+5), "Final response sent");
+        clickTheButton("Close case");
+        assertExpectedErrorMessageIsDisplayed("Final response sent must be a date in the past");
+        complaintsDispatchAndSend.enterFinalResponseSentDate();
+        clickTheButton("Close case");
+    }
+
+
+    @Then("I attempt to continue without selecting a Complaint Outcome an error message is displayed")
+    public void iAttemptToContinueWithoutSelectingAComplaintOutcomeAnErrorMessageIsDisplayed() {
+        dashboard.getCurrentCase();
+        caseView.clickAllocateToMeLink();
+        clickTheButton("Submit");
+        waitABit(1000);
+        assertExpectedErrorMessageIsDisplayed("Complaint outcome is required");
     }
 
 }
