@@ -1,6 +1,8 @@
 package com.hocs.test.pages.complaints;
 
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.CaseView;
+import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.RecordCaseData;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +19,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ComplaintsTriageAndInvestigation extends BasePage {
 
     RecordCaseData recordCaseData;
+
+    Dashboard dashboard;
+
+    CaseView caseView;
 
     @FindBy(xpath = "//label[contains(text(),'Yes - accept the complaint')]")
     public WebElementFacade acceptTheComplaintRadioButton;
@@ -386,5 +392,24 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     public void enterReasonForTransfer() {
         String enteredReason = recordCaseData.enterTextIntoTextAreaWithHeading("Reason for transfer");
         setSessionVariable("transferReason").to(enteredReason);
+    }
+
+    public void selectPSUComplaintOutcome(String psuCompliantOutcome) {
+        dashboard.getCurrentCase();
+        caseView.clickAllocateToMeLink();
+        recordCaseData.selectSpecificRadioButton(psuCompliantOutcome);
+        if (psuCompliantOutcome.equalsIgnoreCase("Withdrawn")) {
+            clickTheButton("Submit");
+            assertExpectedErrorMessageIsDisplayed("Why has the complaint been withdrawn? is required");
+            String psuComplaintOutcomeWithdrawnReason = recordCaseData.enterTextIntoTextAreaWithHeading("Why has the complaint been withdrawn?");
+            setSessionVariable("psuComplaintOutcomeWithdrawnReason").to(psuComplaintOutcomeWithdrawnReason);
+            clickTheButton("Submit");
+        } else if (psuCompliantOutcome.equalsIgnoreCase("Not serious - send back to IE Detention")) {
+            clickTheButton("Submit");
+        }else if (psuCompliantOutcome.equalsIgnoreCase("Substantiated") || psuCompliantOutcome.equalsIgnoreCase( "Partially substantiated") || psuCompliantOutcome.equalsIgnoreCase("Unsubstantiated")) {
+            clickTheButton("Submit");
+
+        }
+
     }
 }
