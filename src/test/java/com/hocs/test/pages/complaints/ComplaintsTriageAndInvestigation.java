@@ -394,20 +394,21 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
         setSessionVariable("transferReason").to(enteredReason);
     }
 
-    public void selectPSUComplaintOutcome(String psuCompliantOutcome) {
+    public void selectPSUComplaintOutcome(String psuComplaintOutcome) {
         dashboard.getCurrentCase();
         caseView.clickAllocateToMeLink();
-        recordCaseData.selectSpecificRadioButton(psuCompliantOutcome);
-        if (psuCompliantOutcome.equalsIgnoreCase("Withdrawn")) {
+        recordCaseData.selectSpecificRadioButton(psuComplaintOutcome);
+        if (psuComplaintOutcome.equalsIgnoreCase("Withdrawn")) {
             clickTheButton("Submit");
             assertExpectedErrorMessageIsDisplayed("Why has the complaint been withdrawn? is required");
             String psuComplaintOutcomeWithdrawnReason = recordCaseData.enterTextIntoTextAreaWithHeading("Why has the complaint been withdrawn?");
             setSessionVariable("psuComplaintOutcomeWithdrawnReason").to(psuComplaintOutcomeWithdrawnReason);
             clickTheButton("Submit");
-        } else if (psuCompliantOutcome.equalsIgnoreCase("Not serious - send back to IE Detention")) {
-            clickTheButton("Submit");
-        }else if (psuCompliantOutcome.equalsIgnoreCase("Substantiated") || psuCompliantOutcome.equalsIgnoreCase( "Partially substantiated") || psuCompliantOutcome.equalsIgnoreCase("Unsubstantiated")) {
-            clickTheButton("Submit");
+        } else if (psuComplaintOutcome.equalsIgnoreCase("Not serious - send back to IE Detention") ||
+                     psuComplaintOutcome.equalsIgnoreCase("Substantiated") ||
+                     psuComplaintOutcome.equalsIgnoreCase( "Partially substantiated") ||
+                     psuComplaintOutcome.equalsIgnoreCase("Unsubstantiated")) {
+                 clickTheButton("Submit");
 
         }
 

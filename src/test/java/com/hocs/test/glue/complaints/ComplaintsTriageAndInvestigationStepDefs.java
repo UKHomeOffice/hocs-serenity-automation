@@ -3,6 +3,7 @@ package com.hocs.test.glue.complaints;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.complaints.ComplaintsDispatchAndSend;
 import com.hocs.test.pages.decs.BasePage;
@@ -316,6 +317,7 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
         clickTheButton("Close case");
         assertExpectedErrorMessageIsDisplayed("Final response sent must be a date in the past");
         complaintsDispatchAndSend.enterFinalResponseSentDate();
+        setSessionVariable("psuFinalResponseDate").to(getDatePlusMinusNDaysAgo(-1));
         clickTheButton("Close case");
     }
 

@@ -12,6 +12,8 @@ Scenario: When a user selects Withdraw as Complaint Outcome the case should be c
         When I create a "IEDET" case and move it to the "PSU Complaint Outcome" stage
         Then I select "Withdrawn" PSU Complaint Outcome
         Then the case should be closed
+        And  the summary should contain details of the "Withdrawn" Complaint Outcome
+        And  the read-only Case Details accordion should contain all case information entered during the "PSU Outcome" stage
 
 @ComplaintsWorkflow @IEDETRegression @IEDETComplaint
 Scenario: When a user selects Send back to IE Detention as Complaint Outcome the case should be moved to IEDET triage
@@ -27,6 +29,8 @@ Scenario Outline: When a user selects one of the Complaint Outcome and enters th
     Then I select "<complaintOutcome>" PSU Complaint Outcome
     Then I enter the Final response and Final date
     Then the case should be closed
+    And  the summary should contain details of the "<complaintOutcome>" Complaint Outcome
+    And  the read-only Case Details accordion should contain all case information entered during the "PSU Outcome" stage
     Examples:
         | complaintOutcome          |
         | Substantiated             |
