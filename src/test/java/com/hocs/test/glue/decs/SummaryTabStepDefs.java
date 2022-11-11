@@ -324,4 +324,19 @@ public class SummaryTabStepDefs extends BasePage {
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(dropdownClosureReason, "Closure Reason");
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(closureReason,"Enter a note for case closure");
     }
+
+    @And("the summary should contain details of the {string} Complaint Outcome")
+    public void theSummaryShouldContainDetailsOfTheComplaintOutcome(String psuComplaintOutcome) {
+     if(psuComplaintOutcome.equalsIgnoreCase("Withdrawn")){
+        String psuComplaintOutcomeWithdrawnReason = sessionVariableCalled("psuComplaintOutcomeWithdrawnReason");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(psuComplaintOutcome, "Complaint outcome");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(psuComplaintOutcomeWithdrawnReason, "Why has the complaint been withdrawn?");
+        } else if (psuComplaintOutcome.equalsIgnoreCase("Substantiated") ||
+                    psuComplaintOutcome.equalsIgnoreCase( "Partially substantiated") ||
+                    psuComplaintOutcome.equalsIgnoreCase("Unsubstantiated")){
+        String psuFinalResponseDate = sessionVariableCalled("psuFinalResponseDate");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(psuComplaintOutcome, "Complaint outcome");
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(psuFinalResponseDate, "Final response sent");
+        }
+    }
 }
