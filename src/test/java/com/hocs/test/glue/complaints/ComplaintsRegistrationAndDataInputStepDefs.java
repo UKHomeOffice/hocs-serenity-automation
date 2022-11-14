@@ -70,7 +70,6 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
             }
             waitABit(1000);
             complaintsRegistrationAndDataInput.selectAVisibleClaimCategory();
-            clickContinueButton();
     }
 
     @And("I select a Owning CSU")
