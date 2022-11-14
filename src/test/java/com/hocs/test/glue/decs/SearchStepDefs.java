@@ -197,6 +197,7 @@ public class SearchStepDefs extends BasePage {
         int numberOfResults = search.getNumberOfSearchResults();
         int retest = 0;
         while (retest < 5) {
+             numberOfResults = search.getNumberOfSearchResults();
             if (numberOfResults < 1) {
                 retest ++;
                 dashboard.selectSearchLinkFromMenuBar();
@@ -209,10 +210,10 @@ public class SearchStepDefs extends BasePage {
                 break;
             }
         }
-        search.assertCurrentCaseIsDisplayed();
         if (numberOfResults < 1){
             Assert.fail("No cases found ");
         }
+        search.assertCurrentCaseIsDisplayed();
     }
 
     @And("I click the (case )reference of the case/claim in search results")
