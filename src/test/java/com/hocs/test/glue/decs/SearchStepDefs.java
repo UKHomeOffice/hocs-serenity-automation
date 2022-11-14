@@ -197,6 +197,7 @@ public class SearchStepDefs extends BasePage {
         int numberOfResults = search.getNumberOfSearchResults();
         int retest = 0;
         while (retest < 5) {
+             numberOfResults = search.getNumberOfSearchResults();
             if (numberOfResults < 1) {
                 retest ++;
                 dashboard.selectSearchLinkFromMenuBar();
@@ -209,10 +210,10 @@ public class SearchStepDefs extends BasePage {
                 break;
             }
         }
-        search.assertCurrentCaseIsDisplayed();
         if (numberOfResults < 1){
             Assert.fail("No cases found ");
         }
+        search.assertCurrentCaseIsDisplayed();
     }
 
     @And("I click the (case )reference of the case/claim in search results")
@@ -308,4 +309,21 @@ public class SearchStepDefs extends BasePage {
         search.assertCurrentCaseIsDisplayed();
     }
 
+    @And("I select the {string} case type checkbox")
+    public void iSelectTheCaseTypeCheckbox(String CaseType) {
+
+        switch (CaseType.toUpperCase()) {
+            //Incomplete list
+            case "MPAM CASE":
+            case "COMPLAINT CASE":
+            case "COMPLAINT CASE - STAGE 2":
+            case "MTS CASE":
+            case "TREAT OFFICIAL":
+                createCase.checkSpecificCheckbox(CaseType);
+                break;
+
+            default:
+                pendingStep(CaseType + " is not defined within " + getMethodName());
+        }
+    }
 }

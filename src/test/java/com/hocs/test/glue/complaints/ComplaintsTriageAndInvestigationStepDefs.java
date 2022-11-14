@@ -307,7 +307,7 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
     @And("I choose to send the case to a team not on DECS")
     public void iChooseToSendTheCaseToATeamNotOnDECS() {
         dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
-        selectSpecificRadioButton("No - send to team not to DECS");
+        selectSpecificRadioButton("No - send to team not on DECS");
         clickTheButton("Submit");
     }
 

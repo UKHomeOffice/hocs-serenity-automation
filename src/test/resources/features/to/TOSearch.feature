@@ -19,3 +19,11 @@ Feature: Search
     And I enter the current case reference into the Case Reference field on the search screen
     And I click the search button on the search page
     Then the created case should be the only case visible in the search results
+
+  @TORegression
+  Scenario: TO user sees the required information when viewing search results
+    Given I am logged into "CS" as user "TO_USER"
+    When I navigate to the "search" page
+    And I select the "Treat Official" case type checkbox
+    And I click the search button on the search page
+    Then the "Treat Official Search" workstack should contain only the expected columns
