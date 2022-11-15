@@ -105,7 +105,10 @@ public class Correspondents extends BasePage {
         String inboundChannel = sessionVariableCalled("foiInboundChannel");
         if (foiCase() && inboundChannel.equalsIgnoreCase("POST")) {
             enterSpecificTextIntoTextFieldWithHeading(email, "Email Address (Optional)");
-        } else {
+        } else if (foiCase() && inboundChannel.equalsIgnoreCase("Email")) {
+            enterSpecificTextIntoTextFieldWithHeading(email, "Email Address");
+        }
+        else {
 
             enterSpecificTextIntoTextFieldWithHeading(email, "Email");
         }
