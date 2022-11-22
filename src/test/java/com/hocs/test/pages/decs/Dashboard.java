@@ -60,6 +60,9 @@ public class Dashboard extends BasePage {
     @FindBy(xpath = "//span[contains(text(),'IE Detention')]")
     public WebElementFacade ieDetentionWorkstack;
 
+    @FindBy(xpath = "//span[contains(text(),'PSU Complaints')]")
+    public WebElementFacade psuComplaintsWorkstack;
+
     @FindBy(xpath = "//span[contains(text(),'Serious Misconduct')]")
     public WebElementFacade seriousMisconductWorkstack;
 
@@ -198,6 +201,9 @@ public class Dashboard extends BasePage {
         safeClickOn(ieDetentionWorkstack);
     }
 
+    public void selectPSUTeam() {
+        safeClickOn(psuComplaintsWorkstack);
+    }
     public void selectSMCTeam() {
         safeClickOn(seriousMisconductWorkstack);
     }

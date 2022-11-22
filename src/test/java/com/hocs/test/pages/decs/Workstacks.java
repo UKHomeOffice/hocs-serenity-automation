@@ -787,11 +787,12 @@ public class Workstacks extends BasePage {
                 break;
             case "BORDER FORCE":
             case "BORDER FORCE (STAGE 2)":
-                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Full name", "Complaint type", "Current stage", "Owner", "Contribution due date",
+                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Name", "Complaint type", "Current stage", "Owner", "Contribution due "
+                                + "date",
                         "Deadline"));
                 break;
             case "BF SEARCH":
-                requiredColumns.addAll(Arrays.asList("Full name", "Reference", "Deadline", "Current stage", "Postcode", "HO ref", "Escalate case"));
+                requiredColumns.addAll(Arrays.asList("Name", "Reference", "Deadline", "Current stage", "Postcode", "HO ref", "Escalate case"));
                 break;
             case "FOI TEAM":
                 requiredColumns.addAll(Arrays.asList("Select", "Requester/Reference", "Current stage", "Owner", "Team", "Deadline", "Rejected",
@@ -807,19 +808,19 @@ public class Workstacks extends BasePage {
                         "Urgency", "Days", "Rejected"));
                 break;
             case "TREAT OFFICIAL UKVI":
-                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Full name", "Current stage", "Owner", "Enquiry reason", "Campaign",
+                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Name", "Current stage", "Owner", "Enquiry reason", "Campaign",
                         "Deadline"));
                 break;
             case "TREAT OFFICIAL BF":
-                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Full name", "Current stage", "Owner", "Contribution due date",
+                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Name", "Current stage", "Owner", "Contribution due date",
                         "Deadline"));
                 break;
             case "TREAT OFFICIAL MY CASES":
-                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Full name", "Current stage", "Enquiry reason", "Contribution due date",
+                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Name", "Current stage", "Enquiry reason", "Contribution due date",
                         "Deadline"));
                 break;
             case "TREAT OFFICIAL SEARCH":
-                requiredColumns.addAll(Arrays.asList( "Reference", "Full name", "Current stage", "Owner", "Team",
+                requiredColumns.addAll(Arrays.asList( "Reference", "Name", "Current stage", "Owner", "Team",
                         "Deadline"));
                 break;
             default:

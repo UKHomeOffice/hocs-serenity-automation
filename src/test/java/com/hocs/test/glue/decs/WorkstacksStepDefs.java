@@ -6,6 +6,7 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.complaints.COMPProgressCase;
+import com.hocs.test.pages.complaints.IEDETProgressCase;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.CreateCase;
@@ -43,6 +44,8 @@ public class WorkstacksStepDefs extends BasePage {
     COMPProgressCase compProgressCase;
 
     CaseView caseView;
+
+    IEDETProgressCase iedetProgressCase;
 
     @Given("I allocate the case to myself")
     public void allocateCaseToMyself() {
@@ -438,6 +441,19 @@ public class WorkstacksStepDefs extends BasePage {
                     dashboard.selectIEDETTeam();
                 }
                 break;
+
+            case "PSU COMPLAINTS":
+                try {
+                    waitABit(5000);
+                    dashboard.selectPSUTeam();
+                } catch (NoSuchElementException e) {
+                    createCase.createCSCaseOfTypeWithDocument(CaseType.IEDET);
+                    iedetProgressCase.moveCaseFromCurrentStageToTargetStage("N/A", "PSU Registration");
+                    dashboard.goToDashboard();
+                    dashboard.selectPSUTeam();
+                }
+                break;
+
             case "SERIOUS MISCONDUCT":
                 try {
                     dashboard.selectSMCTeam();
