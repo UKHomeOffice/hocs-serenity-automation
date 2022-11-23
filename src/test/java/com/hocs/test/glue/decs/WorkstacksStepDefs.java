@@ -444,7 +444,6 @@ public class WorkstacksStepDefs extends BasePage {
 
             case "PSU COMPLAINTS":
                 try {
-                    waitABit(5000);
                     dashboard.selectPSUTeam();
                 } catch (NoSuchElementException e) {
                     createCase.createCSCaseOfTypeWithDocument(CaseType.IEDET);

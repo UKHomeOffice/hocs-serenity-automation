@@ -204,6 +204,7 @@ public class Dashboard extends BasePage {
     public void selectPSUTeam() {
         safeClickOn(psuComplaintsWorkstack);
     }
+
     public void selectSMCTeam() {
         safeClickOn(seriousMisconductWorkstack);
     }

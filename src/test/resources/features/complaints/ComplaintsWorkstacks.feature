@@ -57,6 +57,13 @@ Feature: Complaints Workstacks
     And I enter the "IE Detention" workstack
     Then the "IE Detention" workstack should contain only the expected columns
 
+#     PSU COMPLAINTS
+
+  @IEDETRegression @IEDETComplaints
+  Scenario: PSU complaints user sees the required information when viewing a workstack
+    Given I am logged into "CS" as user "IEDET_USER"
+    And I enter the "PSU Complaints" workstack
+    Then the "PSU Complaints" workstack should contain only the expected columns
 
 #     BF COMPLAINTS
 

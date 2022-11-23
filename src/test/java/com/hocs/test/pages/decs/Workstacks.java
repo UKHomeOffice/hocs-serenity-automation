@@ -779,6 +779,10 @@ public class Workstacks extends BasePage {
             case "IE DETENTION":
                 requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current stage", "Complaint type", "Business area", "Deadline"));
                 break;
+            case "PSU COMPLAINTS":
+                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Name", "Current stage", "PSU reference", "Owner", "Received",
+                        "Deadline"));
+                break;
             case "SERIOUS MISCONDUCT":
                 requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current stage", "Owner", "Deadline","PSU reference"));
                 break;
