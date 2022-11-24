@@ -179,7 +179,7 @@ Feature: Complaints Draft
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to the "Draft" stage
     And I move the case from "Draft" stage to "Send" stage
-    Then the case should be moved to the "Send" stage
+    Then the case should be moved to the "IE Detention Outcome" stage
     And the summary should display the owning team as "IE Detention"
 
 
