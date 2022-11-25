@@ -768,7 +768,7 @@ public class Workstacks extends BasePage {
                 requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current stage", "Owner", "Deadline", "Severity"));
                 break;
             case "COMP SEARCH":
-                requiredColumns.addAll(Arrays.asList("Full name", "Reference", "Deadline", "Current stage", "Severity", "Postcode", "HO ref",
+                requiredColumns.addAll(Arrays.asList("Name", "Reference", "Deadline", "Current stage", "Severity", "Postcode", "HO ref",
                         "Escalate case"));
                 break;
             case "CCT TRIAGE":
