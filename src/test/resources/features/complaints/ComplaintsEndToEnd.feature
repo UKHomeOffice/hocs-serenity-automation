@@ -157,26 +157,26 @@ Feature: Complaints End To End
   @IEDETComplaints
   Scenario: User creates a IEDET complaint case and it starts at the Registration stage
     Given I am logged into "CS" as user "IEDET_USER"
-    When I create a "IEDET" case and move it to the "Registration" stage
-    Then the case should be moved to the "Registration" stage
+    When I create a "IEDET" case and move it to the "IE Detention Registration" stage
+    Then the case should be moved to the "IE Detention Registration" stage
 
   @IEDETComplaints
   Scenario: User moves an IEDET complaint case to the Triage stage
     Given I am logged into "CS" as user "IEDET_USER"
-    When I create a "IEDET" case and move it to the "Triage" stage
-    Then the case should be moved to the "Triage" stage
+    When I create a "IEDET" case and move it to the "IE Detention Triage" stage
+    Then the case should be moved to the "IE Detention Triage" stage
 
   @IEDETComplaints
   Scenario: User moves an IEDET complaint case to the Draft stage
     Given I am logged into "CS" as user "IEDET_USER"
-    When I create a "IEDET" case and move it to the "Draft" stage
-    Then the case should be moved to the "Draft" stage
+    When I create a "IEDET" case and move it to the "IE Detention Draft" stage
+    Then the case should be moved to the "IE Detention Draft" stage
 
   @IEDETComplaints
   Scenario: User moves an IEDET complaint case to the Send stage
     Given I am logged into "CS" as user "IEDET_USER"
-    When I create a "IEDET" case and move it to the "Send" stage
-    Then the case should be moved to the "Send" stage
+    When I create a "IEDET" case and move it to the "IE Detention Send" stage
+    Then the case should be moved to the "IE Detention Send" stage
 
   @IEDETRegression @IEDETComplaints
   Scenario: User is able to close an IEDET complaint case
