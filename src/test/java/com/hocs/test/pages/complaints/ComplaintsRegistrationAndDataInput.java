@@ -93,10 +93,6 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         setSessionVariable("complaintType").to(complaintType);
     }
 
-//    public void selectAComplaintCategory(String complaintGroup) {
-//        String complaintCategory = recordCaseData.selectRandomCheckBoxFromGroupWithHeading(complaintGroup);
-//        setSessionVariable("complaintGroup").to(complaintCategory);
-//    }
 
     public void selectAComplaintChannel() {
         if (pogrCase() || pogr2Case()) {
