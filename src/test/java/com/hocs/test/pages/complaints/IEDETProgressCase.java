@@ -49,15 +49,15 @@ public class IEDETProgressCase extends BasePage {
     private String getStageThatPrecedesTargetStage(String targetStage) {
         String precedingStage = "";
         switch (targetStage.toUpperCase()) {
-            case "REGISTRATION":
+            case "IE DETENTION REGISTRATION":
                 precedingStage = "CREATE NEW CASE";
                 break;
-            case "TRIAGE":
-                precedingStage = "REGISTRATION";
+            case "IE DETENTION TRIAGE":
+                precedingStage = "IE Detention REGISTRATION";
                 break;
-            case "DRAFT":
+            case "IE DETENTION DRAFT":
             case "PSU REGISTRATION":
-                precedingStage = "TRIAGE";
+                precedingStage = "IE DETENTION TRIAGE";
                 break;
             case "PSU TRIAGE":
                 precedingStage = "PSU REGISTRATION";
@@ -68,11 +68,11 @@ public class IEDETProgressCase extends BasePage {
             case "PSU CASE CLOSED":
                 precedingStage = "PSU COMPLAINT OUTCOME";
                 break;
-            case "SEND":
-                precedingStage = "DRAFT";
+            case "IE DETENTION SEND":
+                precedingStage = "IE DETENTION DRAFT";
                 break;
             case "CASE CLOSED":
-                precedingStage = "SEND";
+                precedingStage = "IE DETENTION SEND";
                 break;
             default:
                 pendingStep(targetStage + " is not defined within " + getMethodName());
@@ -83,12 +83,12 @@ public class IEDETProgressCase extends BasePage {
     public void completeTheIEDETStage(String stageToComplete, String targetStage) {
         dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
         switch (stageToComplete.toUpperCase()) {
-            case "REGISTRATION":
+            case "IE DETENTION REGISTRATION":
                 moveIEDETCaseFromRegistrationToTriage();
                 break;
-            case "TRIAGE":
+            case "IE DETENTION TRIAGE":
                 switch (targetStage.toUpperCase()) {
-                    case "DRAFT":
+                    case "IE DETENTION DRAFT":
                     case "HAPPY PATH":
                         moveIEDETCaseFromTriageToDraft();
                         break;
@@ -99,13 +99,13 @@ public class IEDETProgressCase extends BasePage {
                         pendingStep(targetStage + " is not defined within " + getMethodName());
                 }
                 break;
-            case "DRAFT":
+            case "IE DETENTION DRAFT":
                 moveIEDETCaseFromDraftToSend();
                 break;
             case "PSU REGISTRATION":
                 moveIEDETCaseFromPSURegistrationToPSUTriage();
                 break;
-            case "SEND":
+            case "IE DETENTION SEND":
                 moveIEDETCaseFromSendToCaseClosed();
                 break;
             case "PSU TRIAGE":
@@ -166,6 +166,8 @@ public class IEDETProgressCase extends BasePage {
     private void moveIEDETCaseFromPSUTriageToPSUComplaintOutcome() {
         complaintsRegistrationAndDataInput.selectYesForSeriousCase();
         clickTheButton("Submit");
+        waitABit(1000);
+        clickTheButton("Finish");
     }
 
     private void moveIEDETCaseFromPSUComplaintOutcomeToPSUCaseClosed() {
