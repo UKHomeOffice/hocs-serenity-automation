@@ -452,6 +452,7 @@ public class WorkstacksStepDefs extends BasePage {
                     dashboard.selectPSUTeam();
                 }
                 break;
+
             case "SERIOUS MISCONDUCT":
                 try {
                     dashboard.selectSMCTeam();

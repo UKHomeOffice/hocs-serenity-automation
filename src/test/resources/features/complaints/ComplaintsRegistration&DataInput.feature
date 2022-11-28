@@ -119,9 +119,9 @@ Feature: Registration
     And I add a "Complainant" correspondent
     And I click the "Continue" button
     And I enter the Complainant Details
-    Then the case should be moved to the "Triage" stage
+    Then the case should be moved to the "IE Detention Triage" stage
     And the summary should display the owning team as "IE Detention"
-    And the read-only Case Details accordion should contain all case information entered during the "IEDET Registration" stage
+    And the read-only Case Details accordion should contain all case information entered during the "IE Detention Registration" stage
 
 
 #     BF COMPLAINTS

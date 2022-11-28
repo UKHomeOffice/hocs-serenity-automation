@@ -311,9 +311,9 @@ Feature: Complaints Triage
     And I enter the complaint details on the Complaint Input page
     And I click the "Continue" button
     And I select the "<investigationTeam>" action for an IEDET case at the Triage stage
-    Then the case should be moved to the "Draft" stage
+    Then the case should be moved to the "IE Detention Draft" stage
     And the summary should display the owning team as "IE Detention"
-    And the read-only Case Details accordion should contain all case information entered during the "Triage" stage
+    And the read-only Case Details accordion should contain all case information entered during the "IE Detention Triage" stage
     Examples:
       | investigationTeam            |
       | Third party supplier         |
@@ -330,7 +330,7 @@ Feature: Complaints Triage
     And I click the "Continue" button
     And I select the "Send to CCH" action for an IEDET case at the Triage stage
     Then the case should be closed
-    And the read-only Case Details accordion should contain all case information entered during the "Triage" stage
+    And the read-only Case Details accordion should contain all case information entered during the "IE Detention Triage" stage
     And a Case Transfer note should be visible in the timeline showing the submitted reason for transferring the case
 
 

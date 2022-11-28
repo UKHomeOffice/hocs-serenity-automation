@@ -20,7 +20,7 @@ Scenario: When a user selects Send back to IE Detention as Complaint Outcome the
         Given I am logged into "CS" as user "IEDET_USER"
         When I create a "IEDET" case and move it to the "PSU Complaint Outcome" stage
         Then I select "Not serious - send back to IE Detention" PSU Complaint Outcome
-        Then the case should be at the "Triage" stage
+        Then the case should be at the "IE Detention Triage" stage
 
 @ComplaintsWorkflow @IEDETRegression @IEDETComplaint
 Scenario Outline: When a user selects one of the Complaint Outcome and enters the details in the final response page then the case should be closed
