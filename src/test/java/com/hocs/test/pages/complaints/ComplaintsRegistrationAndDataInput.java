@@ -64,7 +64,6 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
 
     public void enterComplainantDetails() {
         enterComplainantDOB(getDatePlusMinusNDaysAgo(-14600));
-        selectAGender();
         selectANationality();
         enterACompanyName();
         enterAHomeOfficeReference(getCurrentMonth() +"/" + getCurrentYear());
@@ -91,6 +90,11 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
     public void selectAComplaintType() {
         String complaintType = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Complaint Type");
         setSessionVariable("complaintType").to(complaintType);
+    }
+
+    public void selectAComplaintCategory(String complaintGroup) {
+        String complaintCategory = recordCaseData.selectRandomCheckBoxFromGroupWithHeading(complaintGroup);
+        setSessionVariable("complaintGroup").to(complaintCategory);
     }
 
     public void selectAComplaintChannel() {
