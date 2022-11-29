@@ -177,8 +177,8 @@ Feature: Complaints Draft
   @ComplaintsWorkflow @IEDETRegression @IEDETComplaints
   Scenario: User completes the Draft stage for an IEDET complaint case
     Given I am logged into "CS" as user "IEDET_USER"
-    When I create a "IEDET" case and move it to the "Draft" stage
-    And I move the case from "Draft" stage to "Send" stage
+    When I create a "IEDET" case and move it to the "IE Detention Draft" stage
+    And I move the case from "Draft" stage to "IE Detention Outcome" stage
     Then the case should be moved to the "IE Detention Outcome" stage
     And the summary should display the owning team as "IE Detention"
 

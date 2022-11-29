@@ -165,6 +165,13 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
         openOrCloseAccordionSection("Serious and Minor");
     }
 
+    public void selectIEDETClaimCategory(String category) {
+        setSessionVariable("complaintCategory").to(category);
+        List<WebElementFacade> claimCategories = findAll("//span[text()='" + category + "']/parent::legend/following-sibling::div//label");
+        String selectedClaimCategory = checkRandomCheckboxFromList(claimCategories);
+        setSessionVariable("claimCategory").to(selectedClaimCategory);
+    }
+
     public void selectAVisibleClaimCategory() {
         List<WebElementFacade> claimCategories = findAll("//input[not(@checked)]/following-sibling::label[contains(@for,'Cat')]");
         List<WebElementFacade> visibleClaimCategories = new ArrayList<>();
