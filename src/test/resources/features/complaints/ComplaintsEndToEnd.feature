@@ -175,8 +175,8 @@ Feature: Complaints End To End
   @IEDETComplaints
   Scenario: User moves an IEDET complaint case to the Send stage
     Given I am logged into "CS" as user "IEDET_USER"
-    When I create a "IEDET" case and move it to the "IE Detention Send" stage
-    Then the case should be moved to the "IE Detention Send" stage
+    When I create a "IEDET" case and move it to the "IE Detention Outcome" stage
+    Then the case should be moved to the "IE Detention Outcome" stage
 
   @IEDETRegression @IEDETComplaints
   Scenario: User is able to close an IEDET complaint case

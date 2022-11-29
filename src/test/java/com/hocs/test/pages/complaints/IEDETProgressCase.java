@@ -68,11 +68,11 @@ public class IEDETProgressCase extends BasePage {
             case "PSU CASE CLOSED":
                 precedingStage = "PSU COMPLAINT OUTCOME";
                 break;
-            case "IE DETENTION SEND":
+            case "IE DETENTION OUTCOME":
                 precedingStage = "IE DETENTION DRAFT";
                 break;
             case "CASE CLOSED":
-                precedingStage = "IE DETENTION SEND";
+                precedingStage = "IE DETENTION OUTCOME";
                 break;
             default:
                 pendingStep(targetStage + " is not defined within " + getMethodName());
@@ -105,7 +105,7 @@ public class IEDETProgressCase extends BasePage {
             case "PSU REGISTRATION":
                 moveIEDETCaseFromPSURegistrationToPSUTriage();
                 break;
-            case "IE DETENTION SEND":
+            case "IE DETENTION OUTCOME":
                 moveIEDETCaseFromSendToCaseClosed();
                 break;
             case "PSU TRIAGE":
@@ -129,13 +129,9 @@ public class IEDETProgressCase extends BasePage {
         System.out.println("Case moved from Registration to Triage");
     }
 
-    //Failing consistently without wait after line 116, assumed to be env instability.
     public void moveIEDETCaseFromTriageToDraft() {
         complaintsRegistrationAndDataInput.selectASpecificComplaintType("Service");
-        waitABit(10000);
-        clickContinueButton();
-        openOrCloseAccordionSection("Service");
-        complaintsRegistrationAndDataInput.selectAVisibleClaimCategory();
+        complaintsTriageAndInvestigation.selectIEDETClaimCategory("Service");
         clickContinueButton();
         complaintsRegistrationAndDataInput.selectComplaintOrigin();
         complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
@@ -149,8 +145,7 @@ public class IEDETProgressCase extends BasePage {
 
     private void moveIEDETCaseFromTriageToPSURegistration() {
         complaintsRegistrationAndDataInput.selectASpecificComplaintType("Serious misconduct");
-        complaintsRegistrationAndDataInput.openTheSeriousComplaintCategoryAccordion();
-        complaintsTriageAndInvestigation.selectAVisibleClaimCategory();
+        complaintsTriageAndInvestigation.selectIEDETClaimCategory("Serious misconduct");
         clickContinueButton();
         complaintsRegistrationAndDataInput.selectComplaintOrigin();
         complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();

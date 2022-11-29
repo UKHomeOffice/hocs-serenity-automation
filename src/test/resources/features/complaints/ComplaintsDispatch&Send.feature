@@ -69,7 +69,7 @@ Feature: Complaints Dispatch & Send
   @ComplaintsWorkflow @IEDETRegression @IEDETComplaints
   Scenario: User can complete the Send stage for an IEDET complaint case
     Given I am logged into "CS" as user "IEDET_USER"
-    When I create a "IEDET" case and move it to the "Send" stage
+    When I create a "IEDET" case and move it to the "IE Detention Outcome" stage
     And I load the current case
     And I upload a copy of the Final Response
     And I select a Case Outcome
