@@ -731,13 +731,13 @@ public class Workstacks extends BasePage {
         List<String> requiredColumns = new ArrayList<>();
         switch (workstack.toUpperCase()) {
             case "DCU MY CASES":
-                requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Current stage", "Team", "Primary topic", "Deadline"));
+                requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Stage", "Team", "Primary topic", "Deadline"));
                 break;
             case "DCU TEAM":
-                requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Current stage", "Owner", "Primary topic", "Deadline"));
+                requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Stage", "Owner", "Primary topic", "Deadline"));
                 break;
             case "DCU SEARCH":
-                requiredColumns.addAll(Arrays.asList("Correspondent/Reference", "Current stage", "Owner", "Team", "Primary topic", "Deadline"));
+                requiredColumns.addAll(Arrays.asList("Correspondent/Reference", "Stage", "Owner", "Team", "Primary topic", "Deadline"));
                 break;
             case "MPAM MY CASES":
                 requiredColumns.addAll(Arrays.asList("Select", "Correspondent/Reference", "Ref type", "Business area", "Current stage", "Deadline",
@@ -765,16 +765,16 @@ public class Workstacks extends BasePage {
                         "Telephone surgery official engagement"));
                 break;
             case "COMPLAINT REGISTRATION":
-                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current stage", "Owner", "Deadline", "Severity"));
+                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Stage", "Owner", "Deadline", "Severity"));
                 break;
             case "COMP SEARCH":
-                requiredColumns.addAll(Arrays.asList("Name", "Reference", "Deadline", "Current stage", "Severity", "Postcode", "HO ref",
+                requiredColumns.addAll(Arrays.asList("Name", "Reference", "Deadline", "Stage", "Severity", "Postcode", "HO ref",
                         "Escalate case"));
                 break;
             case "CCT TRIAGE":
             case "EX-GRATIA":
             case "MINOR MISCONDUCT":
-                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current stage", "Contributions", "Owner", "Deadline", "Severity"));
+                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Stage", "Contributions", "Owner", "Deadline", "Severity"));
                 break;
             case "IE DETENTION":
                 requiredColumns.addAll(Arrays.asList("Select", "Reference", "Current stage", "Complaint type", "Business area", "Deadline"));
@@ -791,12 +791,12 @@ public class Workstacks extends BasePage {
                 break;
             case "BORDER FORCE":
             case "BORDER FORCE (STAGE 2)":
-                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Name", "Complaint type", "Current stage", "Owner", "Contribution due "
+                requiredColumns.addAll(Arrays.asList("Select", "Reference", "Name", "Complaint type", "Stage", "Owner", "Contribution due "
                                 + "date",
                         "Deadline"));
                 break;
             case "BF SEARCH":
-                requiredColumns.addAll(Arrays.asList("Name", "Reference", "Deadline", "Current stage", "Postcode", "HO ref", "Escalate case"));
+                requiredColumns.addAll(Arrays.asList("Name", "Reference", "Deadline", "Stage", "Postcode", "HO ref", "Escalate case"));
                 break;
             case "FOI TEAM":
                 requiredColumns.addAll(Arrays.asList("Select", "Requester/Reference", "Current stage", "Owner", "Team", "Deadline", "Rejected",

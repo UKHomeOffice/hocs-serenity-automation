@@ -282,7 +282,6 @@ public class COMPProgressCase extends BasePage {
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
                 correspondents.confirmPrimaryCorrespondent();
                 complaintsRegistrationAndDataInput.enterComplainantDOB("01/01/2001");
-                complaintsRegistrationAndDataInput.selectAGender();
                 complaintsRegistrationAndDataInput.enterACompanyName();
                 complaintsRegistrationAndDataInput.enterAHomeOfficeReference("Test entry for HO Reference");
                 complaintsRegistrationAndDataInput.enterAPortReference();
