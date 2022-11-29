@@ -305,7 +305,7 @@ Feature: Complaints Triage
   @ComplaintsWorkflow @IEDETRegression @IEDETComplaints
   Scenario Outline: User completes the Triage stage for an IEDET complaint case
     Given I am logged into "CS" as user "IEDET_USER"
-    And I get an "IEDET" case at the "Triage" stage
+    And I get an "IEDET" case at the "IE Detention Triage" stage
     When I select "Service" as the Complaint Type
     And I select a "Service" Complaint Category
     And I enter the complaint details on the Complaint Input page
@@ -323,7 +323,7 @@ Feature: Complaints Triage
   @ComplaintsWorkflow @IEDETRegression @IEDETComplaints
   Scenario: User can transfer a IEDET complaints case to CCH
     Given I am logged into "CS" as user "IEDET_USER"
-    And I get an "IEDET" case at the "Triage" stage
+    And I get an "IEDET" case at the "IE Detention Triage" stage
     When I select "Service" as the Complaint Type
     And I select a "Service" Complaint Category
     And I enter the complaint details on the Complaint Input page
