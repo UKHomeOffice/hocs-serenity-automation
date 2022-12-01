@@ -538,6 +538,11 @@ public class BasePage extends PageObject {
         return radioButtonElemenet.isVisible();
     }
 
+    public Boolean radioButtonIsSelected(String radioButtonText) {
+        WebElementFacade radioButtonElemenet = getRadioButtonLabelElementWithSpecifiedText(radioButtonText);
+        return radioButtonElemenet.isSelected();
+    }
+
     public Boolean radioButtonIsCurrentlyVisible(String radioButtonText) {
         WebElementFacade radioButtonElemenet = getRadioButtonLabelElementWithSpecifiedText(radioButtonText);
         return radioButtonElemenet.isCurrentlyVisible();
@@ -546,6 +551,12 @@ public class BasePage extends PageObject {
     public void assertRadioButtonIsVisible(String radioButtonText) {
         if (!radioButtonIsVisible(radioButtonText)) {
             Assert.fail("Radio button with text '" + radioButtonText +"' is not visible on page.");
+        }
+    }
+
+    public void assertRadioButtonIsSelected(String radioButtonText) {
+        if (radioButtonIsSelected(radioButtonText)) {
+            Assert.fail("Radio button with text '" + radioButtonText +"' is selected on page by default.");
         }
     }
 
