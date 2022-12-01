@@ -24,6 +24,8 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
 
     CaseView caseView;
 
+    ComplaintsRegistrationAndDataInput complaintsRegistrationAndDataInput;
+
     @FindBy(xpath = "//label[contains(text(),'Yes - accept the complaint')]")
     public WebElementFacade acceptTheComplaintRadioButton;
 
@@ -419,5 +421,18 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
 
         }
 
+    }
+
+    public void checkPSUComplaintCategories(){
+
+        complaintsRegistrationAndDataInput.selectYesForSeriousCase();
+        clickTheButton("Submit");
+        waitABit(1000);
+        String claimCategory = sessionVariableCalled("claimCategory");
+        checkSpecificCheckbox(claimCategory);
+        clickTheButton("Finish");
+        assertExpectedErrorMessageIsDisplayed("Select at least one complaint category option");
+        checkSpecificCheckbox(claimCategory);
+        clickTheButton("Finish");
     }
 }
