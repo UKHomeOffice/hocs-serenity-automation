@@ -354,4 +354,9 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
         assertExpectedErrorMessageIsDisplayed("Complaint outcome is required");
     }
 
+    @And("I move to the review complaint categories screen and check the options there are working correctly")
+    public void iMoveToTheReviewComplaintCategoriesScreenAndCheckTheOptionsThereAreWorkingCorrectly() {
+        dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
+        complaintsTriageAndInvestigation.checkPSUComplaintCategories();
+    }
 }
