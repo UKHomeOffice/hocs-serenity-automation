@@ -60,10 +60,10 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/hub:latest
+    image: selenium/hub:4.5.3
 
   - name: chrome22
-    image: selenium/node-chrome:latest
+    image: selenium/node-chrome:4.5.2
     environment:
       DISPLAY: :99.0
       HUB_PORT_4444_TCP_ADDR: selenium
@@ -118,10 +118,10 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/hub:latest
+    image: selenium/hub:4.5.3
 
   - name: chrome22
-    image: selenium/node-chrome:latest
+    image: selenium/node-chrome:4.5.2
     environment:
       DISPLAY: :99.0
       HUB_PORT_4444_TCP_ADDR: selenium
@@ -177,10 +177,10 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/hub:latest
+    image: selenium/hub:4.5.3
 
   - name: chrome22
-    image: selenium/node-chrome:latest
+    image: selenium/node-chrome:4.5.2
     environment:
       DISPLAY: :99.0
       HUB_PORT_4444_TCP_ADDR: selenium
@@ -235,10 +235,10 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/hub:latest
+    image: selenium/hub:4.5.3
 
   - name: chrome22
-    image: selenium/node-chrome:latest
+    image: selenium/node-chrome:4.5.2
     environment:
       DISPLAY: :99.0
       HUB_PORT_4444_TCP_ADDR: selenium
@@ -294,10 +294,10 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/hub:latest
+    image: selenium/hub:4.5.3
 
   - name: chrome22
-    image: selenium/node-chrome:latest
+    image: selenium/node-chrome:4.5.2
     environment:
       DISPLAY: :99.0
       HUB_PORT_4444_TCP_ADDR: selenium
@@ -352,10 +352,10 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/hub:latest
+    image: selenium/hub:4.5.3
 
   - name: chrome22
-    image: selenium/node-chrome:latest
+    image: selenium/node-chrome:4.5.2
     environment:
       DISPLAY: :99.0
       HUB_PORT_4444_TCP_ADDR: selenium
@@ -410,10 +410,10 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/hub:latest
+    image: selenium/hub:4.5.3
 
   - name: chrome22
-    image: selenium/node-chrome:latest
+    image: selenium/node-chrome:4.5.2
     environment:
       DISPLAY: :99.0
       HUB_PORT_4444_TCP_ADDR: selenium
@@ -468,10 +468,10 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/hub:latest
+    image: selenium/hub:4.5.3
 
   - name: chrome22
-    image: selenium/node-chrome:latest
+    image: selenium/node-chrome:4.5.2
     environment:
       DISPLAY: :99.0
       HUB_PORT_4444_TCP_ADDR: selenium
@@ -526,10 +526,10 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/hub:latest
+    image: selenium/hub:4.5.3
 
   - name: chrome22
-    image: selenium/node-chrome:latest
+    image: selenium/node-chrome:4.5.2
     environment:
       DISPLAY: :99.0
       HUB_PORT_4444_TCP_ADDR: selenium
@@ -584,10 +584,10 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/hub:latest
+    image: selenium/hub:4.5.3
 
   - name: chrome22
-    image: selenium/node-chrome:latest
+    image: selenium/node-chrome:4.5.2
     environment:
       DISPLAY: :99.0
       HUB_PORT_4444_TCP_ADDR: selenium
@@ -642,10 +642,10 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/hub:latest
+    image: selenium/hub:4.5.3
 
   - name: chrome22
-    image: selenium/node-chrome:latest
+    image: selenium/node-chrome:4.5.2
     environment:
       DISPLAY: :99.0
       HUB_PORT_4444_TCP_ADDR: selenium
