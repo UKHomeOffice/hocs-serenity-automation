@@ -152,7 +152,7 @@ public class BasePage extends PageObject {
 
     public void assertDECSPageTitle(String title) {
         WebElementFacade expectedPageTitle = find(By.xpath("//h1[@class='govuk-heading-l' and contains(text(), '" + title + "')]"));
-        expectedPageTitle.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
+        expectedPageTitle.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
         assert (expectedPageTitle.isVisible());
     }
 
