@@ -162,5 +162,11 @@ public class BaseStepDefs extends BasePage {
     public void accessibilityStatementLinkShouldBeVisible() {
         assertVisibilityOfAccessibilityLink();
     }
+
+    @And("the {string} radio button should be unselected")
+    public void theRadioButtonShouldBeUnselected(String radioButtonText) {
+        caseView.clickAllocateToMeLink();
+        assertRadioButtonIsSelected(radioButtonText);
+    }
 }
 
