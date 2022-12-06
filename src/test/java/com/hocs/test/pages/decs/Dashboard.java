@@ -163,7 +163,7 @@ public class Dashboard extends BasePage {
     }
 
     public void waitForDashboard() {
-        caseReferenceSearchBar.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
+        caseReferenceSearchBar.withTimeoutOf(Duration.ofSeconds(120)).waitUntilVisible();
     }
 
     public void selectMyCases() {

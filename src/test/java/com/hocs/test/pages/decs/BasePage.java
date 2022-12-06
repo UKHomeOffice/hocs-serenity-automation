@@ -225,6 +225,7 @@ public class BasePage extends PageObject {
     }
 
     private WebElementFacade getTabElementUsingTabName(String tabName) {
+        waitABit(600);
         return findBy("//a[text()='" + tabName + "']/parent::li[contains(@class,'govuk-tabs__list-item')]");
     }
 
@@ -478,6 +479,7 @@ public class BasePage extends PageObject {
     }
 
     public String selectSpecificRadioButton(String radioButtonText) {
+        waitABit(300);
         WebElementFacade radioButtonElement = getRadioButtonLabelElementWithSpecifiedText(radioButtonText);
         safeClickOn(radioButtonElement);
         String heading =
@@ -877,6 +879,7 @@ public class BasePage extends PageObject {
     }
 
     private void waitForHeadingToBeVisible(String headingText) {
+        waitABit(300);
         List<WebElementFacade> matchingHeadings;
         int i = 0;
         while (i<20) { matchingHeadings = findAll("//div[contains(@class,'govuk-form-group')]//*[text()=" + sanitiseXpathAttributeString(headingText) +
