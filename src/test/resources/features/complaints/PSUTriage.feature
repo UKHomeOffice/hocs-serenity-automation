@@ -21,6 +21,8 @@ Feature: PSU Triage
     When I create a "IEDET" case and move it to the "PSU Triage" stage
     And I choose to send the case back to IEDET
     Then the case should be moved to the "IE Detention Triage" stage
+    And the "Serious misconduct" radio button should be unselected
+
 
   @ComplaintsWorkflow @IEDETRegression @IEDETComplaints
   Scenario: User confirms the complaint category options in PSU Triage
@@ -28,3 +30,4 @@ Feature: PSU Triage
     When I create a "IEDET" case and move it to the "PSU Triage" stage
     And I move to the review complaint categories screen and check the options there are working correctly
     Then the case should be moved to the "PSU Outcome" stage
+
