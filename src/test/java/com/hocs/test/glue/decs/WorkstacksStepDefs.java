@@ -154,6 +154,12 @@ public class WorkstacksStepDefs extends BasePage {
         workstacks.selectAllocationUserByVisibleText(User.valueOf(user).getAllocationText());
     }
 
+    @When("I allocate the current case to {string} using the bottom allocation dropdown menu")
+    public void iAssignTheCurrentCaseNumberToAnotherUserBottomDropdown(String user) {
+        workstacks.clickCheckboxRelevantToCaseReference();
+        workstacks.selectAllocationUserByVisibleTextUsingBottomDropdown(User.valueOf(user).getAllocationText());
+    }
+
     @Then("the owner field should display {string}")
     public void theOwnerFieldShouldDisplayTheSelectedUser(String user) {
         workstacks.assertAssignedUser(User.valueOf(user));
@@ -188,6 +194,7 @@ public class WorkstacksStepDefs extends BasePage {
 
     @Then("I check that the three cases created have been correctly assigned to {string}")
     public void checkThreeCasesProperlyReassigned(String user) {
+        waitABit(2000);
         workstacks.assertAssignedUserOnThreeCases(User.valueOf(user));
     }
 

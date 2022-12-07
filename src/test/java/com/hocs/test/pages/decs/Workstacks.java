@@ -42,11 +42,17 @@ public class Workstacks extends BasePage {
     @FindBy(id = "workstack-filter")
     public WebElementFacade caseFilter;
 
-    @FindBy(css = "[value = 'Allocate']")
-    public WebElementFacade allocateButton;
+    @FindBy(css = "input[name='allocate_to_team_member_top']")
+    public WebElementFacade allocateButtonTop;
 
-    @FindBy(id = "selected_user")
-    public WebElementFacade allocateDropdown;
+    @FindBy(css = "input[name='allocate_to_team_member_bottom']")
+    public WebElementFacade allocateButtonBottom;
+
+    @FindBy(id = "selected_user_top")
+    public WebElementFacade allocateDropdownTop;
+
+    @FindBy(id = "selected_user_bottom")
+    public WebElementFacade allocateDropdownBottom;
 
     @FindBy(xpath = "//span[text()='DCU Ministerial']")
     public WebElementFacade dcuMINFilterCard;
@@ -198,9 +204,15 @@ public class Workstacks extends BasePage {
     }
 
     public void selectAllocationUserByVisibleText(String allocationUser) {
-        safeClickOn(allocateDropdown);
-        allocateDropdown.selectByVisibleText(allocationUser);
-        safeClickOn(allocateButton);
+        safeClickOn(allocateDropdownTop);
+        allocateDropdownTop.selectByVisibleText(allocationUser);
+        safeClickOn(allocateButtonTop);
+    }
+
+    public void selectAllocationUserByVisibleTextUsingBottomDropdown(String allocationUser) {
+        safeClickOn(allocateDropdownBottom);
+        allocateDropdownBottom.selectByVisibleText(allocationUser);
+        safeClickOn(allocateButtonBottom);
     }
 
     public void goToCurrentCaseFromWorkstack() {
