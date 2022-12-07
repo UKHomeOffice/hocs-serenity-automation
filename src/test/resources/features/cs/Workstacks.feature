@@ -10,7 +10,7 @@ Feature: Workstacks
     When I allocate the current case to "CASEY"
     Then the owner field should display "CASEY"
 
-  @CSRegression @Tom
+  @CSRegression
   Scenario: User creates a case and allocates to another user using the bottom allocation dropdown menu
     And I create a new case and view it in the Performance and Process team workstack
     When I allocate the current case to "CASEY" using the bottom allocation dropdown menu
