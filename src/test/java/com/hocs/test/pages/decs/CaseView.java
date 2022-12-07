@@ -75,7 +75,7 @@ public class CaseView extends BasePage {
     }
 
     public void waitForCaseToLoad() {
-        tabs.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
+        tabs.withTimeoutOf(Duration.ofSeconds(120)).waitUntilVisible();
     }
 
     public boolean currentCaseIsLoaded() {
