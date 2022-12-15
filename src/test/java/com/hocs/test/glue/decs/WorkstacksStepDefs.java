@@ -699,4 +699,12 @@ public class WorkstacksStepDefs extends BasePage {
         dashboard.selectMyCases();
         workstacks.assertSpecifiedColumnContainsValueForCurrentCase("Deadline", replacementValue);
     }
+
+    @Then("the case deadline date displayed in the {string} is {string} workdays for a {string} stage")
+    public void theCaseDeadlineDateDisplayedInTheWorkstackIsCorrectDaysForAStage(String workstack, String expectedNumberOfWorkdaysTillDeadline,
+            String currentStage) {
+        workstacks.assertThatDeadlineDate(workstack, expectedNumberOfWorkdaysTillDeadline, currentStage);
+        WebElementFacade caseReference = findBy("//a[text()='" + getCurrentCaseReference() + "']");
+        caseReference.click();
+    }
 }
