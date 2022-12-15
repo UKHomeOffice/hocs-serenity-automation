@@ -205,6 +205,8 @@ public class SummaryTab extends BasePage {
                 case "COMP":
                 case "COMP2":
                 case "IEDET":
+                case "PSU REGISTRATION":
+                case "PSU TRIAGE":
                 case "FOI":
                 case "BF":
                 case "BF2":
@@ -212,6 +214,7 @@ public class SummaryTab extends BasePage {
                     expectedNumberOfWorkdaysTillDeadline = 20;
                     break;
                 case "EX-GRATIA":
+                case "PSU COMPLAINT OUTCOME":
                     expectedNumberOfWorkdaysTillDeadline = 60;
                     break;
                 default:

@@ -126,6 +126,8 @@ public class Workstacks extends BasePage {
     @FindBy(xpath = "//thead/tr[1]/th[text()='Rejected']")
     public WebElementFacade rejectedHeader;
 
+    Workdays workdays;
+
     List visibleColumns;
 
     List<String> caseReferencesList = new ArrayList<>();
@@ -679,6 +681,43 @@ public class Workstacks extends BasePage {
                         + getCurrentYear() + "')"
                         + "]");
         assertThat(deadlineOfCurrentCase.isVisible(), is(condition));
+    }
+
+    public void assertThatDeadlineDate(String currentWorkstack, String expectedNumberOfWorkdaysTillDeadline, String currentStage) {
+
+        String displayedDeadline;
+        WebElementFacade displayedDeadlineDate;
+        WebElementFacade stage;
+        String caseStage;
+
+        waitForWorkstackToLoad();
+        caseFilter.sendKeys(getCurrentCaseReference());
+
+        if(currentWorkstack.equalsIgnoreCase("PSU Complaints")) {
+            displayedDeadlineDate = findBy("//table/tbody/tr[1]/td[8]");
+            stage = findBy("//table/tbody/tr[1]/td[4]");
+            } else{
+            displayedDeadlineDate = findBy("//table/tbody/tr[1]/td[6]/span");
+            stage = findBy("//table/tbody/tr[1]/td[3]");
+        }
+
+        displayedDeadline = displayedDeadlineDate.getText();
+        caseStage = stage.getText();
+        String correspondenceReceivedDate = sessionVariableCalled("correspondenceReceivedDate");
+        String expectedDeadline = workdays.getDateXWorkdaysFromSetDateForGivenCaseType(Integer.parseInt(expectedNumberOfWorkdaysTillDeadline), correspondenceReceivedDate,
+                getCurrentCaseType());
+        if(caseStage.equalsIgnoreCase(currentStage)) {
+            if (displayedDeadline.equals(expectedDeadline)) {
+                System.out.println("Displayed deadline match deadline calculated for this case.\nExpected deadline was: " + expectedDeadline +
+                        "\nDisplayed deadline was: " + displayedDeadline);
+            } else {
+                Assert.fail("Displayed deadline did not match deadline calculated for this case.\nExpected deadline was: " + expectedDeadline +
+                        "\nDisplayed deadline was: " + displayedDeadline);
+            }
+        }else {
+            Assert.fail("Displayed Stage did not match Current Stage for this case.\nExpected stage was: " + currentStage +
+                    "\nDisplayed stage was: " + caseStage);
+        }
     }
 
     public void assertThatDeadlineHighlightedIsYellow() {
