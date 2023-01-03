@@ -104,7 +104,7 @@ public class Misallocations extends BasePage {
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
         }
-        radioButton.waitUntilClickable().withTimeoutOf(Duration.ofSeconds(30)).click();
+        radioButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilClickable().click();
         clickConfirmButton();
     }
 

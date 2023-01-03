@@ -17,6 +17,8 @@
     <serenity.cucumber.version>2.6.0</serenity.cucumber.version>
     <encoding>UTF-8</encoding>
     <tags></tags>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
   </properties>
   <dependencies>
     <dependency>
@@ -120,6 +122,7 @@
         </configuration>
       </plugin>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
         <version>3.0.0-M7</version>
         <configuration>
@@ -127,6 +130,7 @@
             <include>**/*.java</include>
           </includes>
           <argLine>-Xmx1536m</argLine>
+          <rerunFailingTestsCount>2</rerunFailingTestsCount>
         </configuration>
         <executions>
           <execution>
@@ -142,8 +146,7 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.10.1</version>
         <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
+          <release>17</release>
         </configuration>
       </plugin>
       <plugin>

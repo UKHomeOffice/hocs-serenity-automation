@@ -189,7 +189,7 @@ public class Documents extends BasePage {
         WebElementFacade removeLink =
                 findBy("//td[contains(text(), '" + fileIdentifier
                         + "')]/following-sibling::td/a[contains(text(), 'Remove')]");
-        removeLink.waitUntilClickable().withTimeoutOf(Duration.ofSeconds(10));
+        removeLink.withTimeoutOf(Duration.ofSeconds(10)).waitUntilClickable();
         safeClickOn(removeLink);
     }
 

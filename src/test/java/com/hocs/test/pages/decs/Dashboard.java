@@ -326,7 +326,7 @@ public class Dashboard extends BasePage {
 
     public boolean checkTargetUserIsLoggedInUsingVisibleTeams(User targetUser) {
         boolean correctUser = false;
-        caseReferenceSearchBar.waitUntilVisible().withTimeoutOf(Duration.ofSeconds(10));
+        caseReferenceSearchBar.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
         switch (targetUser.toString()) {
             case "DECS_USER":
                 if (mtsTeamWorkstack.isVisible() && performanceProcessTeam.isVisible()) {
