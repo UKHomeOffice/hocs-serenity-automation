@@ -32,13 +32,13 @@ public class Search extends BasePage {
 
     CaseView caseView;
 
-    @FindBy(xpath = "//label[@for='caseStatus_active']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//label[@for='caseStatus_active']")
     public WebElementFacade caseStatusActiveCheckbox;
 
-    @FindBy(xpath = "//a[text()='No search criteria specified']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//a[text()='No search criteria specified']")
     public WebElementFacade noSearchCriteriaErrorMessage;
 
-    @FindBy(xpath = "//a[contains(text(), 'Escalate case')]")
+    @FindBy(timeoutInSeconds = "10", xpath = "//a[contains(text(), 'Escalate case')]")
     public WebElementFacade escalateCaseHypertext;
 
     // Simple methods

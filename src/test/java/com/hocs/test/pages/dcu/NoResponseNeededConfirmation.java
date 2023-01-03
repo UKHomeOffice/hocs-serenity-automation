@@ -9,10 +9,10 @@ public class NoResponseNeededConfirmation extends BasePage {
 
     RecordCaseData recordCaseData;
 
-    @FindBy(xpath = "//div[@id='NoReplyNeededConfirmation-radios']//label[text()='Yes']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//div[@id='NoReplyNeededConfirmation-radios']//label[text()='Yes']")
     public WebElementFacade noResponseNeededYesRadioButton;
 
-    @FindBy(xpath = "//div[@id='NoReplyNeededConfirmation-radios']//label[text()='No']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//div[@id='NoReplyNeededConfirmation-radios']//label[text()='No']")
     public WebElementFacade noResponseNeededNoRadioButton;
 
     public void selectAgreeNoResponseNeeded() {

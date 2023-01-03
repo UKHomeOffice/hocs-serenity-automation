@@ -12,367 +12,367 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class ClaimCategories extends BasePage {
 
-    @FindBy(id = "LegalFeesType")
+    @FindBy(timeoutInSeconds = "10", id = "LegalFeesType")
     public WebElementFacade immigrationAndLegalFeePaymentType;
 
-    @FindBy(id = "LegalFeesAward")
+    @FindBy(timeoutInSeconds = "10", id = "LegalFeesAward")
     public WebElementFacade immigrationAndLegalFeeAmountAwarded;
 
-    @FindBy(id = "LegalFeesPaid")
+    @FindBy(timeoutInSeconds = "10", id = "LegalFeesPaid")
     public WebElementFacade immigrationAndLegalFeeAmountPaid;
 
-    @FindBy(id = "LegalFeesPaidDate-day")
+    @FindBy(timeoutInSeconds = "10", id = "LegalFeesPaidDate-day")
     public WebElementFacade immigrationAndLegalFeePaidDateDay;
 
-    @FindBy(id = "LegalFeesPaidDate-month")
+    @FindBy(timeoutInSeconds = "10", id = "LegalFeesPaidDate-month")
     public WebElementFacade immigrationAndLegalFeePaidDateMonth;
 
-    @FindBy(id = "LegalFeesPaidDate-year")
+    @FindBy(timeoutInSeconds = "10", id = "LegalFeesPaidDate-year")
     public WebElementFacade immigrationAndLegalFeePaidDateYear;
 
-    @FindBy(id = "LegalFeesAdditionalAmountPaid")
+    @FindBy(timeoutInSeconds = "10", id = "LegalFeesAdditionalAmountPaid")
     public WebElementFacade immigrationAndLegalFeeAdditionalAmountPaid;
 
-    @FindBy(id = "LegalFeesAdditionalAmountPaidDate-day")
+    @FindBy(timeoutInSeconds = "10", id = "LegalFeesAdditionalAmountPaidDate-day")
     public WebElementFacade immigrationAndLegalFeeAdditionalPaidDateDay;
 
-    @FindBy(id = "LegalFeesAdditionalAmountPaidDate-month")
+    @FindBy(timeoutInSeconds = "10", id = "LegalFeesAdditionalAmountPaidDate-month")
     public WebElementFacade immigrationAndLegalFeeAdditionalPaidDateMonth;
 
-    @FindBy(id = "LegalFeesAdditionalAmountPaidDate-year")
+    @FindBy(timeoutInSeconds = "10", id = "LegalFeesAdditionalAmountPaidDate-year")
     public WebElementFacade immigrationAndLegalFeeAdditionalPaidDateYear;
 
-    @FindBy(id = "RemovalType")
+    @FindBy(timeoutInSeconds = "10", id = "RemovalType")
     public WebElementFacade detentionDeportationAndRemovalPaymentType;
 
-    @FindBy(id = "RemovalAward")
+    @FindBy(timeoutInSeconds = "10", id = "RemovalAward")
     public WebElementFacade detentionDeportationAndRemovalAmountAwarded;
 
-    @FindBy(id = "RemovalPaid")
+    @FindBy(timeoutInSeconds = "10", id = "RemovalPaid")
     public WebElementFacade detentionDeportationAndRemovalAmountPaid;
 
-    @FindBy(id = "RemovalPaidDate-day")
+    @FindBy(timeoutInSeconds = "10", id = "RemovalPaidDate-day")
     public WebElementFacade detentionDeportationAndRemovalPaidDateDay;
 
-    @FindBy(id = "RemovalPaidDate-month")
+    @FindBy(timeoutInSeconds = "10", id = "RemovalPaidDate-month")
     public WebElementFacade detentionDeportationAndRemovalPaidDateMonth;
 
-    @FindBy(id = "RemovalPaidDate-year")
+    @FindBy(timeoutInSeconds = "10", id = "RemovalPaidDate-year")
     public WebElementFacade detentionDeportationAndRemovalPaidDateYear;
 
-    @FindBy(id = "EmploymentType")
+    @FindBy(timeoutInSeconds = "10", id = "EmploymentType")
     public WebElementFacade employmentPaymentType;
 
-    @FindBy(id = "EmploymentAward")
+    @FindBy(timeoutInSeconds = "10", id = "EmploymentAward")
     public WebElementFacade employmentAmountAwarded;
 
-    @FindBy(id = "EmploymentPaid")
+    @FindBy(timeoutInSeconds = "10", id = "EmploymentPaid")
     public WebElementFacade employmentAmountPaid;
 
-    @FindBy(id = "EmploymentPaidDate-day")
+    @FindBy(timeoutInSeconds = "10", id = "EmploymentPaidDate-day")
     public WebElementFacade employmentPaidDateDay;
 
-    @FindBy(id = "EmploymentPaidDate-month")
+    @FindBy(timeoutInSeconds = "10", id = "EmploymentPaidDate-month")
     public WebElementFacade employmentPaidDateMonth;
 
-    @FindBy(id = "EmploymentPaidDate-year")
+    @FindBy(timeoutInSeconds = "10", id = "EmploymentPaidDate-year")
     public WebElementFacade employmentPaidDateYear;
 
-    @FindBy(id = "EmploymentAdditionalAmountPaid")
+    @FindBy(timeoutInSeconds = "10", id = "EmploymentAdditionalAmountPaid")
     public WebElementFacade employmentAdditionalAmountPaid;
 
-    @FindBy(id = "EmploymentAdditionalAmountPaidDate-day")
+    @FindBy(timeoutInSeconds = "10", id = "EmploymentAdditionalAmountPaidDate-day")
     public WebElementFacade employmentAdditionalPaidDateDay;
 
-    @FindBy(id = "EmploymentAdditionalAmountPaidDate-month")
+    @FindBy(timeoutInSeconds = "10", id = "EmploymentAdditionalAmountPaidDate-month")
     public WebElementFacade employmentAdditionalPaidDateMonth;
 
-    @FindBy(id = "EmploymentAdditionalAmountPaidDate-year")
+    @FindBy(timeoutInSeconds = "10", id = "EmploymentAdditionalAmountPaidDate-year")
     public WebElementFacade employmentAdditionalPaidDateYear;
 
-    @FindBy(id = "TaxCreditType")
+    @FindBy(timeoutInSeconds = "10", id = "TaxCreditType")
     public WebElementFacade childBenefitAndTaxCreditPaymentType;
 
-    @FindBy(id = "TaxCreditAward")
+    @FindBy(timeoutInSeconds = "10", id = "TaxCreditAward")
     public WebElementFacade childBenefitAndTaxCreditAmountAwarded;
 
-    @FindBy(id = "TaxCreditPaid")
+    @FindBy(timeoutInSeconds = "10", id = "TaxCreditPaid")
     public WebElementFacade childBenefitAndTaxCreditAmountPaid;
 
-    @FindBy(id = "TaxCreditPaidDate-day")
+    @FindBy(timeoutInSeconds = "10", id = "TaxCreditPaidDate-day")
     public WebElementFacade childBenefitAndTaxCreditPaidDateDay;
 
-    @FindBy(id = "TaxCreditPaidDate-month")
+    @FindBy(timeoutInSeconds = "10", id = "TaxCreditPaidDate-month")
     public WebElementFacade childBenefitAndTaxCreditPaidDateMonth;
 
-    @FindBy(id = "TaxCreditPaidDate-year")
+    @FindBy(timeoutInSeconds = "10", id = "TaxCreditPaidDate-year")
     public WebElementFacade childBenefitAndTaxCreditPaidDateYear;
 
-    @FindBy(id = "BenefitsType")
+    @FindBy(timeoutInSeconds = "10", id = "BenefitsType")
     public WebElementFacade benefitsPaymentType;
 
-    @FindBy(id = "BenefitsDwp")
+    @FindBy(timeoutInSeconds = "10", id = "BenefitsDwp")
     public WebElementFacade benefitsPaidDWP;
 
-    @FindBy(id = "BenefitsHmrc")
+    @FindBy(timeoutInSeconds = "10", id = "BenefitsHmrc")
     public WebElementFacade benefitsPaidHMRC;
 
-    @FindBy(id = "BenefitsAward")
+    @FindBy(timeoutInSeconds = "10", id = "BenefitsAward")
     public WebElementFacade benefitsAmountAwarded;
 
-    @FindBy(id = "BenefitsPaid")
+    @FindBy(timeoutInSeconds = "10", id = "BenefitsPaid")
     public WebElementFacade benefitsAmountPaid;
 
-    @FindBy(id = "BenefitsPaidDate-day")
+    @FindBy(timeoutInSeconds = "10", id = "BenefitsPaidDate-day")
     public WebElementFacade benefitsPaidDateDay;
 
-    @FindBy(id = "BenefitsPaidDate-month")
+    @FindBy(timeoutInSeconds = "10", id = "BenefitsPaidDate-month")
     public WebElementFacade benefitsPaidDateMonth;
 
-    @FindBy(id = "BenefitsPaidDate-year")
+    @FindBy(timeoutInSeconds = "10", id = "BenefitsPaidDate-year")
     public WebElementFacade benefitsPaidDateYear;
 
-    @FindBy(id = "HousingType")
+    @FindBy(timeoutInSeconds = "10", id = "HousingType")
     public WebElementFacade housingPaymentType;
 
-    @FindBy(id = "HousingAward")
+    @FindBy(timeoutInSeconds = "10", id = "HousingAward")
     public WebElementFacade housingAmountAwarded;
 
-    @FindBy(id = "HousingPaid")
+    @FindBy(timeoutInSeconds = "10", id = "HousingPaid")
     public WebElementFacade housingAmountPaid;
 
-    @FindBy(id = "HousingPaidDate-day")
+    @FindBy(timeoutInSeconds = "10", id = "HousingPaidDate-day")
     public WebElementFacade housingPaidDateDay;
 
-    @FindBy(id = "HousingPaidDate-month")
+    @FindBy(timeoutInSeconds = "10", id = "HousingPaidDate-month")
     public WebElementFacade housingPaidDateMonth;
 
-    @FindBy(id = "HousingPaidDate-year")
+    @FindBy(timeoutInSeconds = "10", id = "HousingPaidDate-year")
     public WebElementFacade housingPaidDateYear;
 
-    @FindBy(id = "HealthType")
+    @FindBy(timeoutInSeconds = "10", id = "HealthType")
     public WebElementFacade healthPaymentType;
 
-    @FindBy(id = "HealthNhs")
+    @FindBy(timeoutInSeconds = "10",  id = "HealthNhs")
     public WebElementFacade healthNHS;
 
-    @FindBy(id = "HealthPrivate")
+    @FindBy(timeoutInSeconds = "10",  id = "HealthPrivate")
     public WebElementFacade healthPrivateHealthCost;
 
-    @FindBy(id = "HealthAward")
+    @FindBy(timeoutInSeconds = "10",  id = "HealthAward")
     public WebElementFacade healthAmountAwarded;
 
-    @FindBy(id = "HealthPaid")
+    @FindBy(timeoutInSeconds = "10",  id = "HealthPaid")
     public WebElementFacade healthAmountPaid;
 
-    @FindBy(id = "HealthPaidDate-day")
+    @FindBy(timeoutInSeconds = "10",  id = "HealthPaidDate-day")
     public WebElementFacade healthPaidDateDay;
 
-    @FindBy(id = "HealthPaidDate-month")
+    @FindBy(timeoutInSeconds = "10",  id = "HealthPaidDate-month")
     public WebElementFacade healthPaidDateMonth;
 
-    @FindBy(id = "HealthPaidDate-year")
+    @FindBy(timeoutInSeconds = "10",  id = "HealthPaidDate-year")
     public WebElementFacade healthPaidDateYear;
 
-    @FindBy(id = "BankingType")
+    @FindBy(timeoutInSeconds = "10",  id = "BankingType")
     public WebElementFacade bankingPaymentType;
 
-    @FindBy(id = "BankingAward")
+    @FindBy(timeoutInSeconds = "10",  id = "BankingAward")
     public WebElementFacade bankingAmountAwarded;
 
-    @FindBy(id = "BankingPaid")
+    @FindBy(timeoutInSeconds = "10",  id = "BankingPaid")
     private WebElementFacade bankingAmountPaid;
 
-    @FindBy(id = "BankingPaidDate-day")
+    @FindBy(timeoutInSeconds = "10",  id = "BankingPaidDate-day")
     public WebElementFacade bankingPaidDateDay;
 
-    @FindBy(id = "BankingPaidDate-month")
+    @FindBy(timeoutInSeconds = "10",  id = "BankingPaidDate-month")
     public WebElementFacade bankingPaidDateMonth;
 
-    @FindBy(id = "BankingPaidDate-year")
+    @FindBy(timeoutInSeconds = "10",  id = "BankingPaidDate-year")
     public WebElementFacade bankingPaidDateYear;
 
-    @FindBy(id = "EducationType")
+    @FindBy(timeoutInSeconds = "10",  id = "EducationType")
     public WebElementFacade educationPaymentType;
 
-    @FindBy(id = "EducationAward")
+    @FindBy(timeoutInSeconds = "10",  id = "EducationAward")
     public WebElementFacade educationAmountAwarded;
 
-    @FindBy(id = "EducationPaid")
+    @FindBy(timeoutInSeconds = "10",  id = "EducationPaid")
     public WebElementFacade educationAmountPaid;
 
-    @FindBy(id = "EducationPaidDate-day")
+    @FindBy(timeoutInSeconds = "10",  id = "EducationPaidDate-day")
     public WebElementFacade educationPaidDateDay;
 
-    @FindBy(id = "EducationPaidDate-month")
+    @FindBy(timeoutInSeconds = "10",  id = "EducationPaidDate-month")
     public WebElementFacade educationPaidDateMonth;
 
-    @FindBy(id = "EducationPaidDate-year")
+    @FindBy(timeoutInSeconds = "10",  id = "EducationPaidDate-year")
     public WebElementFacade educationPaidDateYear;
 
-    @FindBy(id = "HomelessType")
+    @FindBy(timeoutInSeconds = "10",  id = "HomelessType")
     public WebElementFacade homelessnessPaymentType;
 
-    @FindBy(id = "HomelessAward")
+    @FindBy(timeoutInSeconds = "10",  id = "HomelessAward")
     public WebElementFacade homelessnessAmountAwarded;
 
-    @FindBy(id = "HomelessPaid")
+    @FindBy(timeoutInSeconds = "10",  id = "HomelessPaid")
     public WebElementFacade homelessnessAmountPaid;
 
-    @FindBy(id = "HomelessPaidDate-day")
+    @FindBy(timeoutInSeconds = "10",  id = "HomelessPaidDate-day")
     public WebElementFacade homelessnessPaidDateDay;
 
-    @FindBy(id = "HomelessPaidDate-month")
+    @FindBy(timeoutInSeconds = "10",  id = "HomelessPaidDate-month")
     public WebElementFacade homelessnessPaidDateMonth;
 
-    @FindBy(id = "HomelessPaidDate-year")
+    @FindBy(timeoutInSeconds = "10",  id = "HomelessPaidDate-year")
     public WebElementFacade homelessnessPaidDateYear;
 
-    @FindBy(id = "HomelessAdditionalAmountPaid")
+    @FindBy(timeoutInSeconds = "10",  id = "HomelessAdditionalAmountPaid")
     public WebElementFacade homelessnessAdditionalAmountPaid;
 
-    @FindBy(id = "HomelessAdditionalAmountPaidDate-day")
+    @FindBy(timeoutInSeconds = "10",  id = "HomelessAdditionalAmountPaidDate-day")
     public WebElementFacade homelessnessAdditionalPaidDateDay;
 
-    @FindBy(id = "HomelessAdditionalAmountPaidDate-month")
+    @FindBy(timeoutInSeconds = "10",  id = "HomelessAdditionalAmountPaidDate-month")
     public WebElementFacade homelessnessAdditionalPaidDateMonth;
 
-    @FindBy(id = "HomelessAdditionalAmountPaidDate-year")
+    @FindBy(timeoutInSeconds = "10",  id = "HomelessAdditionalAmountPaidDate-year")
     public WebElementFacade homelessnessAdditionalPaidDateYear;
 
-    @FindBy(id = "ImpactPrelimOffer")
+    @FindBy(timeoutInSeconds = "10",  id = "ImpactPrelimOffer")
     public WebElementFacade impactPreliminaryOfferTextField;
 
-    @FindBy(id = "ImpactPrelimSentDate-day")
+    @FindBy(timeoutInSeconds = "10",  id = "ImpactPrelimSentDate-day")
     public WebElementFacade impactPreliminarySentDateDayField;
 
-    @FindBy(id = "ImpactPrelimSentDate-month")
+    @FindBy(timeoutInSeconds = "10",  id = "ImpactPrelimSentDate-month")
     public WebElementFacade impactPreliminarySentDateMonthField;
 
-    @FindBy(id = "ImpactPrelimSentDate-year")
+    @FindBy(timeoutInSeconds = "10",  id = "ImpactPrelimSentDate-year")
     public WebElementFacade impactPreliminarySentDateYearField;
 
-    @FindBy(id = "ImpactPrelimOfferPaidAmount")
+    @FindBy(timeoutInSeconds = "10",  id = "ImpactPrelimOfferPaidAmount")
     public WebElementFacade impactPreliminaryOfferPaidAmountTextField;
 
-    @FindBy(id = "ImpactPrelimPaidDate-day")
+    @FindBy(timeoutInSeconds = "10",  id = "ImpactPrelimPaidDate-day")
     public WebElementFacade impactPreliminaryPaidDateDayField;
 
-    @FindBy(id = "ImpactPrelimPaidDate-month")
+    @FindBy(timeoutInSeconds = "10",  id = "ImpactPrelimPaidDate-month")
     public WebElementFacade impactPreliminaryPaidDateMonthField;
 
-    @FindBy(id = "ImpactPrelimPaidDate-year")
+    @FindBy(timeoutInSeconds = "10",  id = "ImpactPrelimPaidDate-year")
     public WebElementFacade impactPreliminaryPaidDateYearField;
 
-    @FindBy(id = "ImpactPrelimConsideredDate-day")
+    @FindBy(timeoutInSeconds = "10",  id = "ImpactPrelimConsideredDate-day")
     public WebElementFacade impactPreliminaryConsideredDateDayField;
 
-    @FindBy(id = "ImpactPrelimConsideredDate-month")
+    @FindBy(timeoutInSeconds = "10",  id = "ImpactPrelimConsideredDate-month")
     public WebElementFacade impactPreliminaryConsideredDateMonthField;
 
-    @FindBy(id = "ImpactPrelimConsideredDate-year")
+    @FindBy(timeoutInSeconds = "10",  id = "ImpactPrelimConsideredDate-year")
     public WebElementFacade impactPreliminaryConsideredDateYearField;
 
-    @FindBy(id = "ImpactType")
+    @FindBy(timeoutInSeconds = "10",  id = "ImpactType")
     public WebElementFacade impactOnDailyLifePaymentType;
 
-    @FindBy(id = "ImpactAward")
+    @FindBy(timeoutInSeconds = "10",  id = "ImpactAward")
     public WebElementFacade impactOnDailyLifeAmountAwarded;
 
-    @FindBy(id = "ImpactPaid")
+    @FindBy(timeoutInSeconds = "10",  id = "ImpactPaid")
     public WebElementFacade impactOnDailyLifeAmountPaid;
 
-    @FindBy(id = "ImpactPaidDate-day")
+    @FindBy(timeoutInSeconds = "10",  id = "ImpactPaidDate-day")
     public WebElementFacade impactPaidDateDay;
 
-    @FindBy(id = "ImpactPaidDate-month")
+    @FindBy(timeoutInSeconds = "10",  id = "ImpactPaidDate-month")
     public WebElementFacade impactPaidDateMonth;
 
-    @FindBy(id = "ImpactPaidDate-year")
+    @FindBy(timeoutInSeconds = "10",  id = "ImpactPaidDate-year")
     public WebElementFacade impactPaidDateYear;
 
-    @FindBy(id = "ImpactAdditionalAmountPaid")
+    @FindBy(timeoutInSeconds = "10",  id = "ImpactAdditionalAmountPaid")
     public WebElementFacade impactAdditionalAmountPaid;
 
-    @FindBy(id = "ImpactAdditionalAmountPaidDate-day")
+    @FindBy(timeoutInSeconds = "10",  id = "ImpactAdditionalAmountPaidDate-day")
     public WebElementFacade impactAdditionalPaidDateDay;
 
-    @FindBy(id = "ImpactAdditionalAmountPaidDate-month")
+    @FindBy(timeoutInSeconds = "10",  id = "ImpactAdditionalAmountPaidDate-month")
     public WebElementFacade impactAdditionalPaidDateMonth;
 
-    @FindBy(id = "ImpactAdditionalAmountPaidDate-year")
+    @FindBy(timeoutInSeconds = "10",  id = "ImpactAdditionalAmountPaidDate-year")
     public WebElementFacade impactAdditionalPaidDateYear;
 
-    @FindBy(id = "DiscretionType")
+    @FindBy(timeoutInSeconds = "10",  id = "DiscretionType")
     public WebElementFacade discretionaryPaymentType;
 
-    @FindBy(id = "DiscretionAward")
+    @FindBy(timeoutInSeconds = "10",  id = "DiscretionAward")
     public WebElementFacade discretionaryAmountAwarded;
 
-    @FindBy(id = "DiscretionPaid")
+    @FindBy(timeoutInSeconds = "10",  id = "DiscretionPaid")
     public WebElementFacade discretionaryAmountPaid;
 
-    @FindBy(id = "DiscretionPaidDate-day")
+    @FindBy(timeoutInSeconds = "10",  id = "DiscretionPaidDate-day")
     public WebElementFacade discretionPaidDateDay;
 
-    @FindBy(id = "DiscretionPaidDate-month")
+    @FindBy(timeoutInSeconds = "10",  id = "DiscretionPaidDate-month")
     public WebElementFacade discretionPaidDateMonth;
 
-    @FindBy(id = "DiscretionPaidDate-year")
+    @FindBy(timeoutInSeconds = "10",  id = "DiscretionPaidDate-year")
     public WebElementFacade discretionPaidDateYear;
 
-    @FindBy(id = "DrivingType")
+    @FindBy(timeoutInSeconds = "10",  id = "DrivingType")
     public WebElementFacade drivingLicencePaymentType;
 
-    @FindBy(id = "DrivingAward")
+    @FindBy(timeoutInSeconds = "10",  id = "DrivingAward")
     public WebElementFacade drivingLicenceAmountAwarded;
 
-    @FindBy(id = "DrivingPaid")
+    @FindBy(timeoutInSeconds = "10",  id = "DrivingPaid")
     public WebElementFacade drivingLicenceAmountPaid;
 
-    @FindBy(id = "DrivingPaidDate-day")
+    @FindBy(timeoutInSeconds = "10",  id = "DrivingPaidDate-day")
     public WebElementFacade drivingPaidDateDay;
 
-    @FindBy(id = "DrivingPaidDate-month")
+    @FindBy(timeoutInSeconds = "10",  id = "DrivingPaidDate-month")
     public WebElementFacade drivingPaidDateMonth;
 
-    @FindBy(id = "DrivingPaidDate-year")
+    @FindBy(timeoutInSeconds = "10",  id = "DrivingPaidDate-year")
     public WebElementFacade drivingPaidDateYear;
 
-    @FindBy(id = "UepAward")
+    @FindBy(timeoutInSeconds = "10",  id = "UepAward")
     public WebElementFacade urgentExceptionalPaymentAwardAmount;
 
-    @FindBy(id = "UepDeduct")
+    @FindBy(timeoutInSeconds = "10",  id = "UepDeduct")
     public WebElementFacade urgentExceptionalPaymentDeductedAmount;
 
-    @FindBy(id = "LivingType")
+    @FindBy(timeoutInSeconds = "10",  id = "LivingType")
     public WebElementFacade livingCostsPaymentType;
 
-    @FindBy(id = "LivingAward")
+    @FindBy(timeoutInSeconds = "10",  id = "LivingAward")
     public WebElementFacade livingCostsAmountAwarded;
 
-    @FindBy(id = "LivingPaid")
+    @FindBy(timeoutInSeconds = "10",  id = "LivingPaid")
     public WebElementFacade livingCostsAmountPaid;
 
-    @FindBy(id = "LivingPaidDate-day")
+    @FindBy(timeoutInSeconds = "10",  id = "LivingPaidDate-day")
     public WebElementFacade livingCostsPaidDateDay;
 
-    @FindBy(id = "LivingPaidDate-month")
+    @FindBy(timeoutInSeconds = "10",  id = "LivingPaidDate-month")
     public WebElementFacade livingCostsPaidDateMonth;
 
-    @FindBy(id = "LivingPaidDate-year")
+    @FindBy(timeoutInSeconds = "10",  id = "LivingPaidDate-year")
     public WebElementFacade livingCostsPaidDateYear;
 
-    @FindBy(id = "TotalAward")
+    @FindBy(timeoutInSeconds = "10",  id = "TotalAward")
     public WebElementFacade totalAwardedBox;
 
-    @FindBy(id = "TotalPaid")
+    @FindBy(timeoutInSeconds = "10",  id = "TotalPaid")
     public WebElementFacade totalPaidBox;
 
-    @FindBy(xpath = "//*[@id='main-content']/div/div[1]/form/input")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//*[@id='main-content']/div/div[1]/form/input")
     public WebElementFacade saveChangesButton;
 
-    @FindBy(xpath = ".//label[contains(text(), 'Save changes')]")
+    @FindBy(timeoutInSeconds = "10",  xpath = ".//label[contains(text(), 'Save changes')]")
     public WebElementFacade saveChangesRadioButton;
 
 

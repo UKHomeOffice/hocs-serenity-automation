@@ -14,31 +14,31 @@ import static org.hamcrest.core.Is.is;
 
 public class UserManagement extends BasePage {
 
-    @FindBy(id = "Users-input")
+    @FindBy(timeoutInSeconds = "10", id = "Users-input")
     public WebElementFacade userSearchTypeAhead;
 
-    @FindBy(xpath = "//button[text()='View user']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//button[text()='View user']")
     public WebElementFacade viewUserButton;
 
-    @FindBy(xpath = "//button[text()='Add teams']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//button[text()='Add teams']")
     public WebElementFacade addTeamsButton;
 
-    @FindBy(id = "Select teams-input")
+    @FindBy(timeoutInSeconds = "10", id = "Select teams-input")
     public WebElementFacade selectTeamsTypeAhead;
 
-    @FindBy(xpath = "//button[text()='Add selected teams']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//button[text()='Add selected teams']")
     public WebElementFacade addSelectedTeamsButton;
 
-    @FindBy(xpath = "//h2[text()='Success']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//h2[text()='Success']")
     public WebElementFacade successBanner;
 
-    @FindBy(id = "email")
+    @FindBy(timeoutInSeconds = "10", id = "email")
     public WebElementFacade emailAddressTextBox;
 
-    @FindBy(id = "firstName")
+    @FindBy(timeoutInSeconds = "10", id = "firstName")
     public WebElementFacade firstNameField;
 
-    @FindBy(id = "lastName")
+    @FindBy(timeoutInSeconds = "10", id = "lastName")
     public WebElementFacade lastNameField;
 
     public void searchForAUsersTeams(String inputUser) {

@@ -17,59 +17,59 @@ public class Triage extends BasePage {
 
     RecordCaseData recordCaseData;
 
-    @FindBy(xpath = "//a[contains(@href, 'UpdateBusinessArea')]")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[contains(@href, 'UpdateBusinessArea')]")
     public WebElementFacade changeBusinessAreaLink;
 
-    @FindBy(xpath = "//a[contains(text(), 'Set enquiry subject')]")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[contains(text(), 'Set enquiry subject')]")
     public WebElementFacade setEnquiryHypertext;
 
-    @FindBy(id = "BusUnit")
+    @FindBy(timeoutInSeconds = "10",  id = "BusUnit")
     public WebElementFacade businessUnitDropdown;
 
-    @FindBy(xpath = "//label[text()='Ready to draft']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Ready to draft']")
     public WebElementFacade readyToDraftRadioButton;
 
-    @FindBy(xpath = "//label[text()='Put on hold']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Put on hold']")
     public WebElementFacade onHoldRadioButton;
 
-    @FindBy(xpath = "//label[text()='Escalate to workflow manager']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Escalate to workflow manager']")
     public WebElementFacade escalateToWorkflowManagerRadioButton;
 
-    @FindBy(xpath = "//label[text()='Contributions received']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Contributions received']")
     public WebElementFacade contributionsReceivedRadioButton;
 
-    @FindBy(xpath = "//label[@id='EnquirySubject']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[@id='EnquirySubject']")
     public WebElementFacade setEnquirySubject;
 
-    @FindBy(xpath = "//label[@id='EnquiryReason']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[@id='EnquiryReason']")
     public WebElementFacade setEnquiryReason;
 
     //Triage (On Hold) Elements
-    @FindBy(xpath = "//label[text()='Keep on hold']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Keep on hold']")
     public WebElementFacade keepOnHoldRadioButton;
 
-    @FindBy(xpath = "//label[text()='Take off hold']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Take off hold']")
     public WebElementFacade takeOffHoldRadioButton;
 
-    @FindBy(xpath = "//label[text()='Keep escalated']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Keep escalated']")
     public WebElementFacade keepEscalatedRadioButton;
 
-    @FindBy(xpath = "//label[text()='Escalation complete']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Escalation complete']")
     public WebElementFacade escalationCompleteRadioButton;
 
-    @FindBy(xpath = "//label[text()='Close duplicate case']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Close duplicate case']")
     public WebElementFacade closeCaseRadioButton;
 
-    @FindBy(id = "CaseNote_EscalateToWorkFlowManager")
+    @FindBy(timeoutInSeconds = "10",  id = "CaseNote_EscalateToWorkFlowManager")
     public WebElementFacade escalationReasonTextArea;
 
-    @FindBy(id = "CaseNote_TriageRequestContribution")
+    @FindBy(timeoutInSeconds = "10",  id = "CaseNote_TriageRequestContribution")
     public WebElementFacade requestContributionTextArea;
 
-    @FindBy(xpath = "//input[@name='RefType'][@checked]")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@name='RefType'][@checked]")
     public WebElementFacade selectedRefType;
 
-    @FindBy(xpath = "//label[text()='Confirm']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Confirm']")
     public WebElementFacade confirmRadioButton;
 
     private List<String> recordedBusinessUnitOptions = new ArrayList<>();

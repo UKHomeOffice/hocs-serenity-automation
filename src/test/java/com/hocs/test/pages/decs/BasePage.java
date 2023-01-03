@@ -45,28 +45,28 @@ public class BasePage extends PageObject {
 
     private static final SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
 
-    @FindBy(className = "govuk-error-summary")
+    @FindBy(timeoutInSeconds = "10",  className = "govuk-error-summary")
     protected WebElementFacade errorMessageList;
 
-    @FindBy(linkText = "Correspondence System")
+    @FindBy(timeoutInSeconds = "10",  linkText = "Correspondence System")
     public WebElementFacade csDashboardLink;
 
-    @FindBy(linkText = "Windrush Compensation")
+    @FindBy(timeoutInSeconds = "10",  linkText = "Windrush Compensation")
     public WebElementFacade wcsDashboardLink;
 
-    @FindBy(linkText = "Correspondence System Management")
+    @FindBy(timeoutInSeconds = "10",  linkText = "Correspondence System Management")
     public WebElementFacade muiDashboardLink;
 
-    @FindBy(xpath = "//h1[@class='govuk-heading-l']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//h1[@class='govuk-heading-l']")
     protected WebElementFacade header1;
 
-    @FindBy(xpath = "//span[@class='govuk-caption-l']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//span[@class='govuk-caption-l']")
     public WebElementFacade headerCaption1;
 
-    @FindBy(xpath = "//h1")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//h1")
     protected WebElementFacade managementUIPageTitle;
 
-    @FindBy(xpath = "//input[@id='case-reference']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='case-reference']")
     public WebElementFacade caseReferenceSearchBar;
 
     public void waitABit(int milliseconds) {

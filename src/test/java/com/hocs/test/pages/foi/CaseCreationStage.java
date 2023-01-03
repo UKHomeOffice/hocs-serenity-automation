@@ -20,22 +20,22 @@ public class CaseCreationStage extends BasePage {
 
     RecordCaseData recordCaseData;
 
-    @FindBy(xpath = "//span[text()='Date FOI received']/parent::div/following-sibling::div[1]")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//span[text()='Date FOI received']/parent::div/following-sibling::div[1]")
     public WebElementFacade receivedDateValue;
 
-    @FindBy(xpath = "//span[text()='Date received in KIMU']/parent::div/following-sibling::div[1]")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//span[text()='Date received in KIMU']/parent::div/following-sibling::div[1]")
     public WebElementFacade dateReceivedInKIMUValue;
 
-    @FindBy(xpath = "//span[text()='How was the correspondence received?']/parent::div/following-sibling::div[1]")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//span[text()='How was the correspondence received?']/parent::div/following-sibling::div[1]")
     public WebElementFacade inboundChannelValue;
 
-    @FindBy(xpath = "//span[text()='FOI Topic']/parent::div/following-sibling::div[1]")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//span[text()='FOI Topic']/parent::div/following-sibling::div[1]")
     public WebElementFacade foiTopicValue;
 
-    @FindBy(xpath = "//span[text()='Request Question']/parent::div/following-sibling::div[1]")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//span[text()='Request Question']/parent::div/following-sibling::div[1]")
     public WebElementFacade requestQuestionValue;
 
-    @FindBy(xpath = "//span[text()='Primary correspondent']/parent::div/following-sibling::div[1]")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//span[text()='Primary correspondent']/parent::div/following-sibling::div[1]")
     public WebElementFacade primaryCorrespondentValue;
 
     public void selectValidityOfRequest(String validity) {

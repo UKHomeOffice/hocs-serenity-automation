@@ -9,10 +9,10 @@ public class ComplaintsEscalated extends BasePage {
 
     RecordCaseData recordCaseData;
 
-    @FindBy(xpath = "//label[text()='Return case to Triage']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='Return case to Triage']")
     public WebElementFacade returnCaseToTriageRadioButton;
 
-    @FindBy(xpath = "//label[text()='Case ready for drafting']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='Case ready for drafting']")
     public WebElementFacade caseReadyForDraftingRadioButton;
 
     public void selectActionAtEscalatedStage(String action) {

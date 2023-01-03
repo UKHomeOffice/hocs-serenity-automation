@@ -22,49 +22,49 @@ public class Documents extends BasePage {
 
     RecordCaseData recordCaseData;
 
-    @FindBy(xpath = "//a[text()='Documents']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[text()='Documents']")
     public WebElementFacade documentsTab;
 
-    @FindBy(xpath = "//a[text() = 'Manage Documents']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[text() = 'Manage Documents']")
     public WebElementFacade manageDocumentsLink;
 
-    @FindBy(id = "add_document")
+    @FindBy(timeoutInSeconds = "10",  id = "add_document")
     public WebElementFacade addDocument;
 
-    @FindBy(xpath = "//a[text()='Document type is required']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[text()='Document type is required']")
     public WebElementFacade documentTypeIsRequiredErrorMessage;
 
-    @FindBy(xpath = "//a[text()='Document is required']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[text()='Document is required']")
     public WebElementFacade documentIsRequiredErrorMessage;
 
-    @FindBy(xpath = "//a[@href = '#add_document-error']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href = '#add_document-error']")
     public WebElementFacade addDocumentErrorMessage;
 
-    @FindBy(id = "document_type")
+    @FindBy(timeoutInSeconds = "10",  id = "document_type")
     public WebElementFacade documentTypeDropDown;
 
-    @FindBy(xpath = "//h2[contains(text(), 'Available Standard line')]")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//h2[contains(text(), 'Available Standard line')]")
     public WebElementFacade availableStandardLineHeader;
 
-    @FindBy(css = "[value='Remove']")
+    @FindBy(timeoutInSeconds = "10",  css = "[value='Remove']")
     public WebElementFacade removeButton;
 
-    @FindBy(xpath = "//td/strong[contains(text(), 'PENDING')]")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//td/strong[contains(text(), 'PENDING')]")
     public WebElementFacade pendingTag;
 
-    @FindBy(xpath = "//td/strong[contains(text(), 'Failed Conversion')]")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//td/strong[contains(text(), 'Failed Conversion')]")
     public WebElementFacade failedConversionTag;
 
-    @FindBy(xpath = "//td/strong[contains(text(), 'Failed Virus Scan')]")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//td/strong[contains(text(), 'Failed Virus Scan')]")
     public WebElementFacade failedVirusScanTag;
 
-    @FindBy(xpath = "//td/strong[contains(text(), 'UPLOADED')]")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//td/strong[contains(text(), 'UPLOADED')]")
     public WebElementFacade uploadedTag;
 
-    @FindBy(xpath = "//strong[text()='Primary Draft']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//strong[text()='Primary Draft']")
     public WebElementFacade primaryDraftDocumentTag;
 
-    @FindBy(xpath = "//strong[text()='Primary Draft']/parent::td/preceding-sibling::td")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//strong[text()='Primary Draft']/parent::td/preceding-sibling::td")
     public WebElementFacade primaryDraftDocumentName;
 
     //Simple methods

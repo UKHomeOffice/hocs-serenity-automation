@@ -18,49 +18,49 @@ public class Tier2Coordination extends BasePage {
 
     RecordCaseData recordCaseData;
 
-    @FindBy(css = "label[for='Tier2Coord-Revise-Accept']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='Tier2Coord-Revise-Accept']")
     public WebElementFacade revisedOfferAcceptedByTheClaimantRadioButton;
 
-    @FindBy(css = "label[for='Tier2Coord-Revise-Reject']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='Tier2Coord-Revise-Reject']")
     public WebElementFacade revisedOfferRejectedByTheClaimantRadioButton;
 
-    @FindBy(css = "label[for='Tier2Coord-Upheld-Accept']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='Tier2Coord-Upheld-Accept']")
     public WebElementFacade upheldOfferIsAcceptedByTheClaimantRadioButton;
 
-    @FindBy(css = "label[for='Tier2Coord-Upheld-Reject']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='Tier2Coord-Upheld-Reject']")
     public WebElementFacade upheldOfferIsRejectedByTheClaimantRadioButton;
 
-    @FindBy(xpath = "//a[@href='#Tier2Coord-error']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#Tier2Coord-error']")
     public WebElementFacade tier2ReviewResultIsRequiredErrorMessage;
 
-    @FindBy(xpath = "//label[text()='Upheld']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Upheld']")
     public WebElementFacade tier2AdjudicatorDecisionUpheldRadioButton;
 
-    @FindBy(xpath = "//label[text()='Revised']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Revised']")
     public WebElementFacade tier2AdjudicatorDecisionRevisedRadioButton;
 
-    @FindBy(id = "Tier2AdjudicatorsOfficeDecisionDate-day")
+    @FindBy(timeoutInSeconds = "10",  id = "Tier2AdjudicatorsOfficeDecisionDate-day")
     public WebElementFacade tier2AdjudicatorDecisionDateDayTextField;
 
-    @FindBy(id = "Tier2AdjudicatorsOfficeDecisionDate-month")
+    @FindBy(timeoutInSeconds = "10",  id = "Tier2AdjudicatorsOfficeDecisionDate-month")
     public WebElementFacade tier2AdjudicatorDecisionDateMonthTextField;
 
-    @FindBy(id = "Tier2AdjudicatorsOfficeDecisionDate-year")
+    @FindBy(timeoutInSeconds = "10",  id = "Tier2AdjudicatorsOfficeDecisionDate-year")
     public WebElementFacade tier2AdjudicatorDecisionYearTextField;
 
-    @FindBy(css = "label[for='Tier2Withdrawn-NA']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='Tier2Withdrawn-NA']")
     public WebElementFacade reviewOfferNARadioButton;
 
-    @FindBy(css = "label[for='Tier2Withdrawn-Withdrawn']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='Tier2Withdrawn-Withdrawn']")
     public WebElementFacade reviewOfferWithdrawnRadioButton;
 
-    @FindBy(xpath = "//input[@id='Tier2WithdrawnDate-day']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='Tier2WithdrawnDate-day']")
     public WebElementFacade reviewOfferWithdrawnDateDayTextbox;
 
-    @FindBy(xpath = "//input[@id='Tier2WithdrawnDate-month']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='Tier2WithdrawnDate-month']")
     public WebElementFacade reviewOfferWithdrawnDateMonthTextbox;
 
-    @FindBy(xpath = "//input[@id='Tier2WithdrawnDate-year']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='Tier2WithdrawnDate-year']")
     public WebElementFacade reviewOfferWithdrawnDateYearTextbox;
 
     public void selectAWithdrawDecision() {

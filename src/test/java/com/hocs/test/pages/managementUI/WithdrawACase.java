@@ -8,19 +8,19 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class WithdrawACase extends BasePage {
 
-    @FindBy(xpath = "//input[@id='caseReference']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//input[@id='caseReference']")
     public WebElementFacade caseReferenceTextField;
 
-    @FindBy(xpath = "//input[@id='withdrawalDate-day']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//input[@id='withdrawalDate-day']")
     public WebElementFacade withdrawalDateDayTextbox;
 
-    @FindBy(xpath = "//input[@id='withdrawalDate-month']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//input[@id='withdrawalDate-month']")
     public WebElementFacade withdrawalDateMonthTextbox;
 
-    @FindBy(xpath = "//input[@id='withdrawalDate-year']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//input[@id='withdrawalDate-year']")
     public WebElementFacade withdrawalDateYearTextbox;
 
-    @FindBy(xpath = "//textarea[@id='notes']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//textarea[@id='notes']")
     public WebElementFacade notesTextArea;
 
     public void enterCaseReference(String caseReference) {

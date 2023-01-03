@@ -9,115 +9,115 @@ public class Tier1Review extends BasePage {
 
     RecordCaseData recordCaseData;
 
-    @FindBy(css = "label[for='Tier1Status-Progress']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='Tier1Status-Progress']")
     public WebElementFacade progressCaseRadioButton;
 
-    @FindBy(xpath = "//a[@href='#Tier1Withdrawn-error']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#Tier1Withdrawn-error']")
     public WebElementFacade reviewOfferWithdrawnIsRequiredErrorMessage;
 
-    @FindBy(xpath = "//a[@href='#Tier1OutcomeInterim-error']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#Tier1OutcomeInterim-error']")
     public WebElementFacade interimFirstOutcomeIsRequiredErrorMessage;
 
-    @FindBy(xpath = "//a[@href='#Tier1OutcomeInterim2-error']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#Tier1OutcomeInterim2-error']")
     public WebElementFacade interimSecondOutcomeIsRequiredErrorMessage;
 
-    @FindBy(xpath = "//a[@href='#Tier1OutcomeFinal-error']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#Tier1OutcomeFinal-error']")
     public WebElementFacade finalFirstOutcomeIsRequiredErrorMessage;
 
-    @FindBy(xpath = "//a[@href='#Tier1OutcomeFinal2-error']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#Tier1OutcomeFinal2-error']")
     public WebElementFacade finalSecondOutcomeIsRequiredErrorMessage;
 
-    @FindBy(xpath = "//a[contains(@href,'Outcome-error')]")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[contains(@href,'Outcome-error')]")
     public WebElementFacade actionIsRequired;
 
-    @FindBy(xpath = "//a[@href='#Tier1Status-error']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#Tier1Status-error']")
     public WebElementFacade resultOfReviewIsRequired;
 
-    @FindBy(css = "label[for='Tier1Withdrawn-NA']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='Tier1Withdrawn-NA']")
     public WebElementFacade reviewOfferNARadioButton;
 
-    @FindBy(css = "label[for='Tier1Withdrawn-Withdrawn']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='Tier1Withdrawn-Withdrawn']")
     public WebElementFacade reviewOfferWithdrawnRadioButton;
 
-    @FindBy(xpath = "//input[@id='Tier1WithdrawnDate-day']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='Tier1WithdrawnDate-day']")
     public WebElementFacade reviewOfferWithdrawnDateDayTextbox;
 
-    @FindBy(xpath = "//input[@id='Tier1WithdrawnDate-month']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='Tier1WithdrawnDate-month']")
     public WebElementFacade reviewOfferWithdrawnDateMonthTextbox;
 
-    @FindBy(xpath = "//input[@id='Tier1WithdrawnDate-year']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='Tier1WithdrawnDate-year']")
     public WebElementFacade reviewOfferWithdrawnDateYearTextbox;
 
-    @FindBy(css = "label[for='Tier1OutcomeInterim-NA']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='Tier1OutcomeInterim-NA']")
     public WebElementFacade interimDecision1NARadioButton;
 
-    @FindBy(css = "label[for='Tier1OutcomeInterim-Revised']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='Tier1OutcomeInterim-Revised']")
     public WebElementFacade interimDecision1RevisedRadioButton;
 
-    @FindBy(css = "label[for='Tier1OutcomeInterim-Upheld']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='Tier1OutcomeInterim-Upheld']")
     public WebElementFacade interimDecision1UpheldRadioButton;
 
-    @FindBy(xpath = "//input[@id='Tier1OutcomeDateInterim-day']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='Tier1OutcomeDateInterim-day']")
     public WebElementFacade interimOutcome1DateDayTextbox;
 
-    @FindBy(xpath = "//input[@id='Tier1OutcomeDateInterim-month']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='Tier1OutcomeDateInterim-month']")
     public WebElementFacade interimOutcome1DateMonthTextbox;
 
-    @FindBy(xpath = "//input[@id='Tier1OutcomeDateInterim-year']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='Tier1OutcomeDateInterim-year']")
     public WebElementFacade interimOutcome1DateYearTextbox;
 
-    @FindBy(css = "label[for='Tier1OutcomeInterim2-NA']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='Tier1OutcomeInterim2-NA']")
     public WebElementFacade interimDecision2NARadioButton;
 
-    @FindBy(css = "label[for='Tier1OutcomeInterim2-Revised']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='Tier1OutcomeInterim2-Revised']")
     public WebElementFacade interimDecision2RevisedRadioButton;
 
-    @FindBy(css = "label[for='Tier1OutcomeInterim2-Upheld']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='Tier1OutcomeInterim2-Upheld']")
     public WebElementFacade interimDecision2UpheldRadioButton;
 
-    @FindBy(xpath = "//input[@id='Tier1OutcomeDateInterim2-day']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='Tier1OutcomeDateInterim2-day']")
     public WebElementFacade interimOutcome2DateDayTextbox;
 
-    @FindBy(xpath = "//input[@id='Tier1OutcomeDateInterim2-month']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='Tier1OutcomeDateInterim2-month']")
     public WebElementFacade interimOutcome2DateMonthTextbox;
 
-    @FindBy(xpath = "//input[@id='Tier1OutcomeDateInterim2-year']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='Tier1OutcomeDateInterim2-year']")
     public WebElementFacade interimOutcome2DateYearTextbox;
 
-    @FindBy(css = "label[for='Tier1OutcomeFinal-NA']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='Tier1OutcomeFinal-NA']")
     public WebElementFacade finalDecision1NARadioButton;
 
-    @FindBy(css = "label[for='Tier1OutcomeFinal-Revised']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='Tier1OutcomeFinal-Revised']")
     public WebElementFacade finalDecision1RevisedRadioButton;
 
-    @FindBy(css = "label[for='Tier1OutcomeFinal-Upheld']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='Tier1OutcomeFinal-Upheld']")
     public WebElementFacade finalDecision1UpheldRadioButton;
 
-    @FindBy(xpath = "//input[@id='Tier1OutcomeDateFinal-day']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='Tier1OutcomeDateFinal-day']")
     public WebElementFacade finalOutcome1DateDayTextbox;
 
-    @FindBy(xpath = "//input[@id='Tier1OutcomeDateFinal-month']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='Tier1OutcomeDateFinal-month']")
     public WebElementFacade finalOutcome1DateMonthTextbox;
 
-    @FindBy(xpath = "//input[@id='Tier1OutcomeDateFinal-year']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='Tier1OutcomeDateFinal-year']")
     public WebElementFacade finalOutcome1DateYearTextbox;
 
-    @FindBy(css = "label[for='Tier1OutcomeFinal2-NA']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='Tier1OutcomeFinal2-NA']")
     public WebElementFacade finalDecision2NARadioButton;
 
-    @FindBy(css = "label[for='Tier1OutcomeFinal2-Revised']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='Tier1OutcomeFinal2-Revised']")
     public WebElementFacade finalDecision2RevisedRadioButton;
 
-    @FindBy(css = "label[for='Tier1OutcomeFinal2-Upheld']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='Tier1OutcomeFinal2-Upheld']")
     public WebElementFacade finalDecision2UpheldRadioButton;
 
-    @FindBy(xpath = "//input[@id='Tier1OutcomeDateFinal2-day']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='Tier1OutcomeDateFinal2-day']")
     public WebElementFacade finalOutcome2DateDayTextbox;
 
-    @FindBy(xpath = "//input[@id='Tier1OutcomeDateFinal2-month']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='Tier1OutcomeDateFinal2-month']")
     public WebElementFacade finalOutcome2DateMonthTextbox;
 
-    @FindBy(xpath = "//input[@id='Tier1OutcomeDateFinal2-year']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='Tier1OutcomeDateFinal2-year']")
     public WebElementFacade finalOutcome2DateYearTextbox;
 
     public void completeTier1ReviewPage() {

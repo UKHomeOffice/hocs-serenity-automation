@@ -16,16 +16,16 @@ import org.openqa.selenium.Keys;
 
 public class TemplateManagement extends BasePage {
 
-    @FindBy(xpath = "//input[@id='case-types-input']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//input[@id='case-types-input']")
     public WebElementFacade caseTypeTypeahead;
 
-    @FindBy(xpath = "//button[text()='Add template']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//button[text()='Add template']")
     public WebElementFacade addTemplateButton;
 
-    @FindBy(id = "files")
+    @FindBy(timeoutInSeconds = "10", id = "files")
     public WebElementFacade muiAddDocument;
 
-    @FindBy(xpath = "//h2[text()='Available Template']/following-sibling::table//td[1]")
+    @FindBy(timeoutInSeconds = "10", xpath = "//h2[text()='Available Template']/following-sibling::table//td[1]")
     public WebElementFacade templateDocumentLabel;
 
 

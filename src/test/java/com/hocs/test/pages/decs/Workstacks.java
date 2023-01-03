@@ -30,100 +30,100 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Workstacks extends BasePage {
 
-    @FindBy(css = "div[class='govuk-hint']")
+    @FindBy(timeoutInSeconds = "10",  css = "div[class='govuk-hint']")
     public WebElementFacade totalNumberOfCases;
 
-    @FindBy(xpath = "//button[text()='Allocate selected to me']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//button[text()='Allocate selected to me']")
     public WebElementFacade allocateSelectedToMeButton;
 
-    @FindBy(xpath = "//button[text()='Unallocate selected']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//button[text()='Unallocate selected']")
     public WebElementFacade unallocateButton;
 
-    @FindBy(id = "workstack-filter")
+    @FindBy(timeoutInSeconds = "10",  id = "workstack-filter")
     public WebElementFacade caseFilter;
 
-    @FindBy(css = "input[name='allocate_to_team_member_top']")
+    @FindBy(timeoutInSeconds = "10",  css = "input[name='allocate_to_team_member_top']")
     public WebElementFacade allocateButtonTop;
 
-    @FindBy(css = "input[name='allocate_to_team_member_bottom']")
+    @FindBy(timeoutInSeconds = "10",  css = "input[name='allocate_to_team_member_bottom']")
     public WebElementFacade allocateButtonBottom;
 
-    @FindBy(id = "selected_user_top")
+    @FindBy(timeoutInSeconds = "10",  id = "selected_user_top")
     public WebElementFacade allocateDropdownTop;
 
-    @FindBy(id = "selected_user_bottom")
+    @FindBy(timeoutInSeconds = "10",  id = "selected_user_bottom")
     public WebElementFacade allocateDropdownBottom;
 
-    @FindBy(xpath = "//span[text()='DCU Ministerial']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//span[text()='DCU Ministerial']")
     public WebElementFacade dcuMINFilterCard;
 
-    @FindBy(xpath = "//span[text()='DCU Treat Official']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//span[text()='DCU Treat Official']")
     public WebElementFacade dcuTROFilterCard;
 
-    @FindBy(xpath = "//span[text()='DCU Number 10']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//span[text()='DCU Number 10']")
     public WebElementFacade dcuN10FilterCard;
 
-    @FindBy(xpath = "//span[text()='Data Input']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//span[text()='Data Input']")
     public WebElementFacade dataInputFilterCard;
 
-    @FindBy(xpath = "//span[@class='govuk-hint'][text()='0']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//span[@class='govuk-hint'][text()='0']")
     public WebElementFacade zeroItemsInWorkstackCount;
 
-    @FindBy(xpath = "//th[text() = 'Primary topic']/following-sibling::td")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//th[text() = 'Primary topic']/following-sibling::td")
     public WebElementFacade primaryTopicName;
 
-    @FindBy(xpath = "//tbody/tr/td[4]")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//tbody/tr/td[4]")
     public WebElementFacade ownerOfTopCaseInWorkstack;
 
-    @FindBy(xpath = "//*[@id=\"user-id\"]")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//*[@id=\"user-id\"]")
     public WebElementFacade caseDetailsAllocateDropdown;
 
-    @FindBy(xpath = "//*[@id=\"main-content\"]/div/div[1]/form/input")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//*[@id=\"main-content\"]/div/div[1]/form/input")
     public WebElementFacade caseDetailsAllocateButton;
 
-    @FindBy(xpath = "//tr[1]/td[2]/a")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//tr[1]/td[2]/a")
     public WebElementFacade topCaseReferenceHypertext;
 
-    @FindBy(xpath = "//thead/tr[1]/th[text()='Reference']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//thead/tr[1]/th[text()='Reference']")
     public WebElementFacade referenceColumnHeader;
 
-    @FindBy(xpath = "//thead/tr[1]/th[text()='Current Stage']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//thead/tr[1]/th[text()='Current Stage']")
     public WebElementFacade currentStageColumnHeader;
 
-    @FindBy(xpath = "//thead/tr[1]/th[text()='Owner']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//thead/tr[1]/th[text()='Owner']")
     public WebElementFacade ownerColumnHeader;
 
-    @FindBy(xpath = "//thead/tr[1]/th[contains(text(), 'Deadline')]")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//thead/tr[1]/th[contains(text(), 'Deadline')]")
     public WebElementFacade deadlineColumnHeader;
 
-    @FindBy(xpath = "//thead/tr[1]/th[text()='Urgency']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//thead/tr[1]/th[text()='Urgency']")
     public WebElementFacade urgencyColumnHeader;
 
-    @FindBy(xpath = "//thead/tr[1]/th[text()='Days']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//thead/tr[1]/th[text()='Days']")
     public WebElementFacade daysColumnHeader;
 
-    @FindBy(xpath = "//thead/tr[1]/th[text()='Ref Type']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//thead/tr[1]/th[text()='Ref Type']")
     public WebElementFacade refTypeColumnHeader;
 
-    @FindBy(xpath = "//thead/tr[1]/th[text()='Business Area']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//thead/tr[1]/th[text()='Business Area']")
     public WebElementFacade businessAreaColumnHeader;
 
-    @FindBy(xpath = "//thead/tr[1]/th[text()='Team']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//thead/tr[1]/th[text()='Team']")
     public WebElementFacade teamColumnHeader;
 
-    @FindBy(xpath = "//thead/tr[1]/th[text()='Campaign']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//thead/tr[1]/th[text()='Campaign']")
     public WebElementFacade campaignColumnHeader;
 
-    @FindBy(xpath = "//thead/tr[1]/th[text()='Minister Sign Off']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//thead/tr[1]/th[text()='Minister Sign Off']")
     public WebElementFacade ministerSignOffHeader;
 
-    @FindBy(xpath = "//thead/tr[1]/th[text()='Telephone Surgery Official Engagement']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//thead/tr[1]/th[text()='Telephone Surgery Official Engagement']")
     public WebElementFacade telephoneSurgeryOfficialEngagementHeader;
 
-    @FindBy(xpath = "//button[text()='Take next case']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//button[text()='Take next case']")
     public WebElementFacade takeNextCaseButton;
 
-    @FindBy(xpath = "//thead/tr[1]/th[text()='Rejected']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//thead/tr[1]/th[text()='Rejected']")
     public WebElementFacade rejectedHeader;
 
     Workdays workdays;

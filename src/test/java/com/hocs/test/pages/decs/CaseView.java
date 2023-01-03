@@ -16,25 +16,25 @@ import org.openqa.selenium.StaleElementReferenceException;
 
 public class CaseView extends BasePage {
 
-    @FindBy(linkText = "Allocate to me")
+    @FindBy(timeoutInSeconds = "10",  linkText = "Allocate to me")
     public WebElementFacade allocateToMeLink;
 
-    @FindBy(css = "[value = 'Allocate']")
+    @FindBy(timeoutInSeconds = "10",  css = "[value = 'Allocate']")
     public WebElementFacade allocateButton;
 
-    @FindBy(id = "user-id")
+    @FindBy(timeoutInSeconds = "10",  id = "user-id")
     public WebElementFacade allocateDropdown;
 
-    @FindBy(xpath = "//h2[contains(@class,'govuk-heading')][text()='Case Details']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//h2[contains(@class,'govuk-heading')][text()='Case Details']")
     public WebElementFacade csCaseDetailsAccordion;
 
-    @FindBy(xpath = "//h2[contains(@class,'section-heading')]/button[text()='Case Details']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//h2[contains(@class,'section-heading')]/button[text()='Case Details']")
     public WebElementFacade wcsCaseDetailsAccordion;
 
-    @FindBy(xpath = "//div[@class='govuk-tabs']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//div[@class='govuk-tabs']")
     public WebElementFacade tabs;
 
-    @FindBy(xpath = "//button[@class='govuk-accordion__show-all']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//button[@class='govuk-accordion__show-all']")
     public WebElementFacade showAllAccordionSectionsButton;
 
     // Basic methods

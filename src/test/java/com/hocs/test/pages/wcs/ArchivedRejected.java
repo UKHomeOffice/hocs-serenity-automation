@@ -6,19 +6,19 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class ArchivedRejected extends BasePage {
 
-    @FindBy(css = "label[for*='Outcome-SendToRegistration']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for*='Outcome-SendToRegistration']")
     public WebElementFacade restoreToRegistrationRadioButton;
 
-    @FindBy(css = "label[for*='Outcome-SendToEligibility']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for*='Outcome-SendToEligibility']")
     public WebElementFacade restoreToEligibilityRadioButton;
 
-    @FindBy(css = "label[for*='Outcome-CloseClaim']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for*='Outcome-CloseClaim']")
     public WebElementFacade closeClaimRadioButton;
 
-    @FindBy(xpath = "//a[@href='#ArchIROutcome-error']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#ArchIROutcome-error']")
     public WebElementFacade archiveIdentityRejectedIsRequiredErrorMessage;
 
-    @FindBy(xpath = "//a[@href='#ArchEROutcome-error']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#ArchEROutcome-error']")
     public WebElementFacade archiveEligibilityRejectedIsRequiredErrorMessage;
 
     public void selectToRestoreClaim(String sendTo) {

@@ -15,7 +15,7 @@ public class Allocation extends BasePage {
 
     RecordCaseData recordCaseData;
 
-    @FindBy(xpath = "//h2[@class='govuk-heading-m']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//h2[@class='govuk-heading-m']")
     public WebElementFacade allocationText;
 
     public void selectAGroup() {

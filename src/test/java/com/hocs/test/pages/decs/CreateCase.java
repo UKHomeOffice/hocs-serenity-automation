@@ -44,7 +44,7 @@ public class CreateCase extends BasePage {
 
     // Elements
 
-    @FindBy(xpath = "//label[contains(text(), 'Topic')]//following-sibling::div//input")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[contains(text(), 'Topic')]//following-sibling::div//input")
     public WebElementFacade caseTopicTypeahead;
 
     Boolean specificStage1CaseProvided = false;

@@ -13,34 +13,34 @@ import org.junit.Assert;
 
 public class TimelineTab extends BasePage {
 
-    @FindBy(xpath = "//span[@class='govuk-details__summary-text']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//span[@class='govuk-details__summary-text']")
     public WebElementFacade addCaseNoteButton;
 
-    @FindBy(xpath = "//textarea[@id='case-note']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//textarea[@id='case-note']")
     public WebElementFacade caseNoteTextbox;
 
-    @FindBy(xpath = "//span[@id='case-note-error']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//span[@id='case-note-error']")
     public WebElementFacade caseNoteMustNotBeBlankErrorMessage;
 
-    @FindBy(xpath = "//div[@class='timeline']//li[1]")
+    @FindBy(timeoutInSeconds = "10", xpath = "//div[@class='timeline']//li[1]")
     public WebElementFacade topCaseNoteOrLog;
 
-    @FindBy(xpath = "//div[@class='timeline']//li[1]/p[1]")
+    @FindBy(timeoutInSeconds = "10", xpath = "//div[@class='timeline']//li[1]/p[1]")
     public WebElementFacade topNoteContents;
 
-    @FindBy(xpath = "//div[@class='timeline']//li[1]/p[2]")
+    @FindBy(timeoutInSeconds = "10", xpath = "//div[@class='timeline']//li[1]/p[2]")
     public WebElementFacade topNoteSignature;
 
-    @FindBy(xpath = "//div[@class='timeline']//li[2]/p[1]")
+    @FindBy(timeoutInSeconds = "10", xpath = "//div[@class='timeline']//li[2]/p[1]")
     public WebElementFacade secondNoteContents;
 
-    @FindBy(xpath = "//a[text()='Edit'][1]")
+    @FindBy(timeoutInSeconds = "10", xpath = "//a[text()='Edit'][1]")
     public WebElementFacade editButton;
 
-    @FindBy(css = "input[value='Save']")
+    @FindBy(timeoutInSeconds = "10", css = "input[value='Save']")
     public WebElementFacade saveButton;
 
-    @FindBy(xpath = "//li/p/strong[text()='Case Closed']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//li/p/strong[text()='Case Closed']")
     public WebElementFacade caseClosedNote;
 
     public void selectTimelineTab() {

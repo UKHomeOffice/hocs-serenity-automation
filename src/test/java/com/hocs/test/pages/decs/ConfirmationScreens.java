@@ -12,10 +12,10 @@ import static org.hamcrest.core.Is.is;
 
 public class ConfirmationScreens extends BasePage {
 
-    @FindBy(className = "govuk-panel__title")
+    @FindBy(timeoutInSeconds = "10",  className = "govuk-panel__title")
     private WebElementFacade panelTitle;
 
-    @FindBy(className = "govuk-button-panel--link")
+    @FindBy(timeoutInSeconds = "10",  className = "govuk-button-panel--link")
     public WebElementFacade caseReference;
 
     public void goToCaseFromConfirmationScreen() {

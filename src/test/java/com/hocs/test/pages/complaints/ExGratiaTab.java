@@ -15,10 +15,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ExGratiaTab extends BasePage {
 
-    @FindBy(xpath = "//span[text()='Update Ex-Gratia Details']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//span[text()='Update Ex-Gratia Details']")
     public WebElementFacade updateExGratiaDetailsHypertext;
 
-    @FindBy(xpath = "//a[text()='Ex-Gratia']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//a[text()='Ex-Gratia']")
     public WebElementFacade exGratiaTab;
 
     public void selectExGratiaTab() {

@@ -26,34 +26,34 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
 
     ComplaintsRegistrationAndDataInput complaintsRegistrationAndDataInput;
 
-    @FindBy(xpath = "//label[contains(text(),'Yes - accept the complaint')]")
+    @FindBy(timeoutInSeconds = "10", xpath = "//label[contains(text(),'Yes - accept the complaint')]")
     public WebElementFacade acceptTheComplaintRadioButton;
 
-    @FindBy(xpath = "//label[contains(text(),'No - transfer the complaint')]")
+    @FindBy(timeoutInSeconds = "10", xpath = "//label[contains(text(),'No - transfer the complaint')]")
     public WebElementFacade transferTheComplaintRadioButton;
 
-    @FindBy(xpath = "//textarea[@name='CaseNote_TriageTransfer']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//textarea[@name='CaseNote_TriageTransfer']")
     public WebElementFacade transferReasonTextArea;
 
-    @FindBy(xpath = "//label[contains(text(),'CCH')]")
+    @FindBy(timeoutInSeconds = "10", xpath = "//label[contains(text(),'CCH')]")
     public WebElementFacade transferToCCHRadioButton;
 
-    @FindBy(id = "BusArea")
+    @FindBy(timeoutInSeconds = "10", id = "BusArea")
     public WebElementFacade businessAreaDropdown;
 
-    @FindBy(id = "EnqReason")
+    @FindBy(timeoutInSeconds = "10", id = "EnqReason")
     public WebElementFacade enquiryReasonDropdown;
 
-    @FindBy(xpath = "//label[contains(text(),'Yes')]")
+    @FindBy(timeoutInSeconds = "10", xpath = "//label[contains(text(),'Yes')]")
     public WebElementFacade loaRequiredYesRadioButton;
 
-    @FindBy(xpath = "//label[text()='Escalate case to WFM']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='Escalate case to WFM']")
     public WebElementFacade escalateToWFMRadioButton;
 
-    @FindBy(xpath = "//label[text()='No response - complete the case (close permanently)']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='No response - complete the case (close permanently)']")
     public WebElementFacade noResponseCloseCaseRadioButton;
 
-    @FindBy(id = "TotalOfferSentToComplainant")
+    @FindBy(timeoutInSeconds = "10", id = "TotalOfferSentToComplainant")
     public WebElementFacade totalOfferSentToComplainantField;
 
     public void selectAcceptCase() {

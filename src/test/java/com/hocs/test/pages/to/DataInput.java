@@ -13,10 +13,10 @@ public class DataInput extends BasePage {
 
     RecordCaseData recordCaseData;
 
-    @FindBy(xpath = "//label[text()='Recipient (Member of Parliament)']/following-sibling::div//input")
+    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='Recipient (Member of Parliament)']/following-sibling::div//input")
     private WebElementFacade recipientTypeahead;
 
-    @FindBy(xpath = "//div[contains(@class,'govuk-typeahead__single-value')]")
+    @FindBy(timeoutInSeconds = "10", xpath = "//div[contains(@class,'govuk-typeahead__single-value')]")
     public WebElementFacade selectedMemberRecipient;
 
     public void selectABusinessArea() {

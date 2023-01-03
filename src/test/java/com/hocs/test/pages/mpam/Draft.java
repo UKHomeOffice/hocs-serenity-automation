@@ -8,46 +8,46 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class Draft extends BasePage {
 
-    @FindBy(xpath = "//label[text()='Move to QA']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Move to QA']")
     public WebElementFacade moveToQARadioButton;
 
-    @FindBy(xpath = "//label[text()='Ready for dispatch (bypass QA)']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Ready for dispatch (bypass QA)']")
     public WebElementFacade readyForDispatchBypassQARadioButton;
 
-    @FindBy(xpath = "//label[text()='Put on hold']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Put on hold']")
     public WebElementFacade putOnHoldRadioButton;
 
-    @FindBy(xpath = "//label[text()='Escalate to workflow manager']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Escalate to workflow manager']")
     public WebElementFacade escalateToWorkflowManagerRadioButton;
 
-    @FindBy(xpath = "//label[text()='Take off hold']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Take off hold']")
     public WebElementFacade takeOffHoldRadioButton;
 
-    @FindBy(xpath = "//label[text()='Escalation complete']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Escalation complete']")
     public WebElementFacade escalationCompleteRadioButton;
 
-    @FindBy(xpath = "//label[text()='Close duplicate case']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Close duplicate case']")
     public WebElementFacade closeCaseRadioButton;
 
-    @FindBy(xpath = "//label[text()='Contributions received']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Contributions received']")
     public WebElementFacade contributionsReceivedRadioButton;
 
-    @FindBy(xpath = "//a[text()='Change reference type']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[text()='Change reference type']")
     public WebElementFacade changeReferenceTypeLink;
 
-    @FindBy(xpath = "//input[@value='Correction']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@value='Correction']")
     public WebElementFacade correctionTickBox;
 
-    @FindBy(xpath = "//input[@name='RefType'][@checked]")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@name='RefType'][@checked]")
     public WebElementFacade selectedRefType;
 
-    @FindBy(id = "CaseNote_EscalateToWorkFlowManager")
+    @FindBy(timeoutInSeconds = "10",  id = "CaseNote_EscalateToWorkFlowManager")
     public WebElementFacade escalationReasonTextArea;
 
-    @FindBy(xpath = "//label[text()='Return to Triage']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Return to Triage']")
     public WebElementFacade returnToTriageRadioButton;
 
-    @FindBy(id = "CaseNote_DraftReturnToTriage")
+    @FindBy(timeoutInSeconds = "10",  id = "CaseNote_DraftReturnToTriage")
     public WebElementFacade returnToTriageReasonTextArea;
 
     public void moveBRefCaseFromDraftToDispatch() {

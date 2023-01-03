@@ -9,16 +9,16 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class CloseCaseTelephone extends BasePage {
 
-    @FindBy(xpath = "//label[text()='Close Case (Telephone)']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Close Case (Telephone)']")
     public WebElementFacade closeCaseTelephoneRadioButton;
 
-    @FindBy(id = "CaseNote_CaseClose")
+    @FindBy(timeoutInSeconds = "10",  id = "CaseNote_CaseClose")
     public WebElementFacade explanationForClosingCaseTelephoneTextBox;
 
-    @FindBy(xpath = "//label[text()='Telephone Surgery']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Telephone Surgery']")
     public WebElementFacade telephoneSurgeryContactRouteRadioButton;
 
-    @FindBy(xpath = "//label[text()='MP Helpline']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='MP Helpline']")
     public WebElementFacade mpHelplineContactRouteRadioButton;
 
     public void selectCloseCaseTelephone() {

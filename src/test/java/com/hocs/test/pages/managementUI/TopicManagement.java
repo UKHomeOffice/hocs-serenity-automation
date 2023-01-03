@@ -17,19 +17,19 @@ public class TopicManagement extends BasePage {
         assertThat(managementUIPageTitle.getText(), is("Add Child Topic"));
     }
 
-    @FindBy(xpath = "//input[@id='parent-topics-input']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='parent-topics-input']")
     public WebElementFacade parentTopicSearchBar;
 
-    @FindBy(css = "ul.govuk-error-summary__list a")
+    @FindBy(timeoutInSeconds = "10",  css = "ul.govuk-error-summary__list a")
     public WebElementFacade errorMessageLink;
 
-    @FindBy(css = ".govuk-error-summary__body")
+    @FindBy(timeoutInSeconds = "10",  css = ".govuk-error-summary__body")
     public WebElementFacade errorMessageContents;
 
-    @FindBy(xpath = "//input[@id='displayName']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='displayName']")
     public WebElementFacade childTopicDisplayNameInputBar;
 
-    @FindBy(id = "displayName")
+    @FindBy(timeoutInSeconds = "10",  id = "displayName")
     public WebElementFacade topicNameTextField;
 
     public void selectAParentTopic(String parentTopic) {

@@ -12,34 +12,34 @@ public class PrivateOfficeApproval extends BasePage {
 
     RecordCaseData recordCaseData;
 
-    @FindBy(xpath = "//div[@id='PrivateOfficeDecision-radios']//label[text()='Yes']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//div[@id='PrivateOfficeDecision-radios']//label[text()='Yes']")
     public WebElementFacade privateOfficeAcceptRadioButton;
 
-    @FindBy(xpath = "//div[@id='PrivateOfficeDecision-radios']//label[text()='No']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//div[@id='PrivateOfficeDecision-radios']//label[text()='No']")
     public WebElementFacade privateOfficeRejectRadioButton;
 
-    @FindBy(xpath = "//div[@id='PrivateOfficeDecision-radios']//label[text()='Change Minister']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//div[@id='PrivateOfficeDecision-radios']//label[text()='Change Minister']")
     public WebElementFacade privateOfficeChangeMinisterRadioButton;
 
-    @FindBy(id = "CaseNote_PrivateOfficeReject")
+    @FindBy(timeoutInSeconds = "10", id = "CaseNote_PrivateOfficeReject")
     public WebElementFacade privateOfficeRejectNoteField;
 
-    @FindBy(id = "CaseNote_PrivateOfficeOverride")
+    @FindBy(timeoutInSeconds = "10", id = "CaseNote_PrivateOfficeOverride")
     public WebElementFacade privateOfficeOverrideNoteField;
 
-    @FindBy(id = "PrivateOfficeOverridePOTeamUUID")
+    @FindBy(timeoutInSeconds = "10", id = "PrivateOfficeOverridePOTeamUUID")
     public WebElementFacade privateOfficeTeamDropdown;
 
-    @FindBy(xpath = "//div[@id='PrivateOfficeDecision-radios']//label[text()='Change Topic']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//div[@id='PrivateOfficeDecision-radios']//label[text()='Change Topic']")
     public WebElementFacade changeTopicRadioButton;
 
-    @FindBy(id = "PrivateOfficeOverridePOTeamUUID")
+    @FindBy(timeoutInSeconds = "10", id = "PrivateOfficeOverridePOTeamUUID")
     public WebElementFacade privateOfficeOverrideDropdown;
 
-    @FindBy(id = "CaseNote_PrivateOfficeOverride")
+    @FindBy(timeoutInSeconds = "10", id = "CaseNote_PrivateOfficeOverride")
     public WebElementFacade privateOfficeOverrideReasonTextField;
 
-    @FindBy(id = "CaseNote_PrivateOfficeTopic")
+    @FindBy(timeoutInSeconds = "10", id = "CaseNote_PrivateOfficeTopic")
     public WebElementFacade topicOverrideReasonTextField;
 
 

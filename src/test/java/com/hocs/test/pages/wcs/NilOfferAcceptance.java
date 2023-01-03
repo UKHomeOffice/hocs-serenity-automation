@@ -6,13 +6,13 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class NilOfferAcceptance extends BasePage {
 
-    @FindBy(css = "label[for='OfferReplyStatus-Nil-Offer']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='OfferReplyStatus-Nil-Offer']")
     public WebElementFacade noChallengeRadioButton;
 
-    @FindBy(css = "label[for='OfferReplyStatus-Reject']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='OfferReplyStatus-Reject']")
     public WebElementFacade nilPaymentRejectedRadioButton;
 
-    @FindBy(xpath = "//a[@href='#OfferReplyStatus-error']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#OfferReplyStatus-error']")
     public WebElementFacade paymentIsRequiredNilOfferErrorMessage;
 
     public void assertPaymentIsRequiredNilOfferErrorMessage() {

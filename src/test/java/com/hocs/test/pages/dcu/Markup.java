@@ -13,49 +13,49 @@ public class Markup extends BasePage {
 
     RecordCaseData recordCaseData;
 
-    @FindBy(xpath = "//label[text()='Policy Response']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='Policy Response']")
     public WebElementFacade policyResponseRadioButton;
 
-    @FindBy(xpath = "//label[text()='Refer To OGD']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='Refer To OGD']")
     public WebElementFacade referToOgdRadioButton;
 
-    @FindBy(xpath = "//label[text()='FAQ Response']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='FAQ Response']")
     public WebElementFacade faqRadioButton;
 
-    @FindBy(xpath = "//label[text()='No Response Needed']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='No Response Needed']")
     public WebElementFacade noReplyNeededRadioButton;
 
-    @FindBy(xpath = "//label[text()='Reject To Data Input']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='Reject To Data Input']")
     public WebElementFacade rejectToDataInputRadioButton;
 
-    @FindBy(id = "OGDDept")
+    @FindBy(timeoutInSeconds = "10", id = "OGDDept")
     public WebElementFacade OGDDestinationTextBox;
 
-    @FindBy(id = "CaseNote_OGD")
+    @FindBy(timeoutInSeconds = "10", id = "CaseNote_OGD")
     public WebElementFacade OGDReasonTextBox;
 
-    @FindBy(xpath = "//a[text()='Add a ']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//a[text()='Add a ']")
     public WebElementFacade addATopicLink;
 
-    @FindBy(id = "CaseNote_NRN")
+    @FindBy(timeoutInSeconds = "10", id = "CaseNote_NRN")
     public WebElementFacade noResponseNeededTextField;
 
-    @FindBy(id = "CaseNote_REJ")
+    @FindBy(timeoutInSeconds = "10", id = "CaseNote_REJ")
     public WebElementFacade rejectToDataInputTextField;
 
-    @FindBy(id = "POTeamName")
+    @FindBy(timeoutInSeconds = "10", id = "POTeamName")
     public WebElementFacade privateOfficeTeamTextField;
 
-    @FindBy(xpath = "//a[text()='Add a ']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//a[text()='Add a ']")
     public WebElementFacade addTopicLink;
 
-    @FindBy(xpath = "//div[@class='govuk-typeahead__input']/input")
+    @FindBy(timeoutInSeconds = "10", xpath = "//div[@class='govuk-typeahead__input']/input")
     public WebElementFacade topicsTextField;
 
-    @FindBy(id = "DraftingTeamName")
+    @FindBy(timeoutInSeconds = "10", id = "DraftingTeamName")
     public WebElementFacade defaultDraftTeam;
 
-    @FindBy(id = "POTeamName")
+    @FindBy(timeoutInSeconds = "10", id = "POTeamName")
     public WebElementFacade defaultPrivateOfficeTeam;
 
     //Basic Methods

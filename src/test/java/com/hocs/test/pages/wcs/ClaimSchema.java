@@ -14,412 +14,412 @@ public class ClaimSchema extends BasePage {
 
     RecordCaseData recordCaseData;
 
-    @FindBy(xpath = "//input[@id='ReceivedDate-day']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='ReceivedDate-day']")
     public WebElementFacade receivedDateDayTextbox;
 
-    @FindBy(xpath = "//input[@id='ReceivedDate-month']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='ReceivedDate-month']")
     public WebElementFacade receivedDateMonthTextbox;
 
-    @FindBy(xpath = "//input[@id='ReceivedDate-year']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='ReceivedDate-year']")
     public WebElementFacade receivedDateYearTextbox;
 
-    @FindBy(css = "label[for='ClaimType-Primary']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='ClaimType-Primary']")
     public WebElementFacade typeOfClaimPrimaryRadioButton;
 
-    @FindBy(css = "label[for='ClaimType-Family']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='ClaimType-Family']")
     public WebElementFacade typeOfClaimFamilyRadioButton;
 
-    @FindBy(css = "label[for='ClaimType-Estate']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='ClaimType-Estate']")
     public WebElementFacade typeOfClaimEstateRadioButton;
 
-    @FindBy(css = "label[for='FormSubmitted-Post']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='FormSubmitted-Post']")
     public WebElementFacade howWasFormSubmittedPostRadioButton;
 
-    @FindBy(css = "label[for='FormSubmitted-Email']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='FormSubmitted-Email']")
     public WebElementFacade howWasFormSubmittedEmailRadioButton;
 
-    @FindBy(css = "label[for='IsCitizensAdvice-Yes']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='IsCitizensAdvice-Yes']")
     public WebElementFacade formSentThroughCitizensAdviceYesRadioButton;
 
-    @FindBy(css = "label[for='IsCitizensAdvice-No']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='IsCitizensAdvice-No']")
     public WebElementFacade formSentThroughCitizensAdviceNoRadioButton;
 
-    @FindBy(css = "label[for='ClaimedFrom-In-Country']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='ClaimedFrom-In-Country']")
     public WebElementFacade whereIsClaimFromInCountryRadioButton;
 
-    @FindBy(css = "label[for='ClaimedFrom-Out-Country']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='ClaimedFrom-Out-Country']")
     public WebElementFacade whereIsClaimFromOutCountryRadioButton;
 
-    @FindBy(id = "LinkedClaims")
+    @FindBy(timeoutInSeconds = "10",  id = "LinkedClaims")
     public WebElementFacade linkedClaimsCaseInfoTextbox;
 
-    @FindBy(xpath = "//input[@id='BFDate-day']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='BFDate-day']")
     public WebElementFacade broughtForwardDateDayTextbox;
 
-    @FindBy(xpath = "//input[@id='BFDate-month']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='BFDate-month']")
     public WebElementFacade broughtForwardDateMonthTextbox;
 
-    @FindBy(xpath = "//input[@id='BFDate-year']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='BFDate-year']")
     public WebElementFacade broughtForwardDateYearTextbox;
 
-    @FindBy(css = "input[id='FullName']")
+    @FindBy(timeoutInSeconds = "10",  css = "input[id='FullName']")
     public WebElementFacade fullNameTextbox;
 
-    @FindBy(css = "input[id='PreviousNames']")
+    @FindBy(timeoutInSeconds = "10",  css = "input[id='PreviousNames']")
     public WebElementFacade previousNamesTextbox;
 
-    @FindBy(css = "label[for='ClaimantGender-Male']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='ClaimantGender-Male']")
     public WebElementFacade claimantGenderMaleRadioButton;
 
-    @FindBy(css = "label[for='ClaimantGender-Female']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='ClaimantGender-Female']")
     public WebElementFacade claimantGenderFemaleRadioButton;
 
-    @FindBy(css = "input[id='DateOfBirth-day']")
+    @FindBy(timeoutInSeconds = "10",  css = "input[id='DateOfBirth-day']")
     public WebElementFacade dateOfBirthDayTextbox;
 
-    @FindBy(css = "input[id='DateOfBirth-month']")
+    @FindBy(timeoutInSeconds = "10",  css = "input[id='DateOfBirth-month']")
     public WebElementFacade dateOfBirthMonthTextbox;
 
-    @FindBy(css = "input[id='DateOfBirth-year']")
+    @FindBy(timeoutInSeconds = "10",  css = "input[id='DateOfBirth-year']")
     public WebElementFacade dateOfBirthYearTextbox;
 
-    @FindBy(css = "input[id='Addr1']")
+    @FindBy(timeoutInSeconds = "10",  css = "input[id='Addr1']")
     public WebElementFacade buildingAndStreetTextbox;
 
-    @FindBy(css = "input[id='Addr2']")
+    @FindBy(timeoutInSeconds = "10",  css = "input[id='Addr2']")
     public WebElementFacade townOrCityTextbox;
 
-    @FindBy(css = "input[id='Addr3']")
+    @FindBy(timeoutInSeconds = "10",  css = "input[id='Addr3']")
     public WebElementFacade countyTextbox;
 
-    @FindBy(id = "Country")
+    @FindBy(timeoutInSeconds = "10",  id = "Country")
     public WebElementFacade countryDropdown;
 
-    @FindBy(css = "input[id='Postcode']")
+    @FindBy(timeoutInSeconds = "10",  css = "input[id='Postcode']")
     public WebElementFacade postcodeTextbox;
 
-    @FindBy(id = "BirthCountry")
+    @FindBy(timeoutInSeconds = "10",  id = "BirthCountry")
     public WebElementFacade countryOfBirthDropdown;
 
-    @FindBy(id = "Nationality")
+    @FindBy(timeoutInSeconds = "10",  id = "Nationality")
     public WebElementFacade nationalityDropdown;
 
-    @FindBy(css = "label[for='BirthNationality']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='BirthNationality']")
     public WebElementFacade birthNationalityTextbox;
 
-    @FindBy(id = "Phone")
+    @FindBy(timeoutInSeconds = "10",  id = "Phone")
     public WebElementFacade phoneNumberTextbox;
 
-    @FindBy(id = "Email")
+    @FindBy(timeoutInSeconds = "10",  id = "Email")
     public WebElementFacade emailTextbox;
 
-    @FindBy(id = "Passport")
+    @FindBy(timeoutInSeconds = "10",  id = "Passport")
     public WebElementFacade passportNumberTextbox;
 
-    @FindBy(id = "PassportsPrev")
+    @FindBy(timeoutInSeconds = "10",  id = "PassportsPrev")
     public WebElementFacade expiredPassportNumberTextbox;
 
-    @FindBy(xpath = "(//input[@id='NI'])[1]")
+    @FindBy(timeoutInSeconds = "10",  xpath = "(//input[@id='NI'])[1]")
     public WebElementFacade nINumberTextbox;
 
-    @FindBy(id = "Cohort")
+    @FindBy(timeoutInSeconds = "10",  id = "Cohort")
     public WebElementFacade eligibilityCohortDropdown;
 
-    @FindBy(id = "ImmigrationStatus")
+    @FindBy(timeoutInSeconds = "10",  id = "ImmigrationStatus")
     public WebElementFacade eligibilityStatus;
 
-    @FindBy(id = "ImmigrationStatusOutcome")
+    @FindBy(timeoutInSeconds = "10",  id = "ImmigrationStatusOutcome")
     public WebElementFacade eligibilityStatusOutcome;
 
-    @FindBy(id = "DateOfStatusDecision-day")
+    @FindBy(timeoutInSeconds = "10",  id = "DateOfStatusDecision-day")
     public WebElementFacade dateOfEligibilityStatusDecisionDay;
 
-    @FindBy(id = "DateOfStatusDecision-month")
+    @FindBy(timeoutInSeconds = "10",  id = "DateOfStatusDecision-month")
     public WebElementFacade dateOfEligibilityStatusDecisionMonth;
 
-    @FindBy(id = "DateOfStatusDecision-year")
+    @FindBy(timeoutInSeconds = "10",  id = "DateOfStatusDecision-year")
     public WebElementFacade dateOfEligibilityStatusDecisionYear;
 
-    @FindBy(id = "LinkedFullName")
+    @FindBy(timeoutInSeconds = "10",  id = "LinkedFullName")
     public WebElementFacade linkedPersonFullNameTextbox;
 
-    @FindBy(id = "LinkedPreviousNames")
+    @FindBy(timeoutInSeconds = "10",  id = "LinkedPreviousNames")
     public WebElementFacade linkedPersonPreviousNameTextbox;
 
-    @FindBy(css = "label[for='LinkedPersonGender-Male']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='LinkedPersonGender-Male']")
     public WebElementFacade linkedPersonGenderMale;
 
-    @FindBy(id = "LinkedPersonGender-Female")
+    @FindBy(timeoutInSeconds = "10",  id = "LinkedPersonGender-Female")
     public WebElementFacade linkedPersonGenderFemale;
 
-    @FindBy(xpath = "//input[@id='LinkedDateOfBirth-day']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='LinkedDateOfBirth-day']")
     public WebElementFacade linkedPersonDateOfBirthDayTextbox;
 
-    @FindBy(xpath = "//input[@id='LinkedDateOfBirth-month']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='LinkedDateOfBirth-month']")
     public WebElementFacade linkedPersonDateOfBirthMonthTextbox;
 
-    @FindBy(xpath = "//input[@id='LinkedDateOfBirth-year']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='LinkedDateOfBirth-year']")
     public WebElementFacade linkedPersonDateOfBirthYearTextbox;
 
-    @FindBy(xpath = "//input[@id='LinkedAddr1']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='LinkedAddr1']")
     public WebElementFacade linkedPersonBuildingAndStreetTextbox;
 
-    @FindBy(xpath = "//input[@id='LinkedAddr2']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='LinkedAddr2']")
     public WebElementFacade linkedPersonTownOrCityTextbox;
 
-    @FindBy(xpath = "//input[@id='LinkedAddr3']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='LinkedAddr3']")
     public WebElementFacade linkedPersonCountyTextbox;
 
-    @FindBy(id = "LinkedCountry")
+    @FindBy(timeoutInSeconds = "10",  id = "LinkedCountry")
     public WebElementFacade linkedPersonCountryDropdown;
 
-    @FindBy(xpath = "//input[@id='LinkedPostcode']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='LinkedPostcode']")
     public WebElementFacade linkedPersonPostcodeTextbox;
 
-    @FindBy(id = "LinkedBirthCountry")
+    @FindBy(timeoutInSeconds = "10",  id = "LinkedBirthCountry")
     public WebElementFacade linkedPersonCountryOfBirthDropdown;
 
-    @FindBy(id = "LinkedNationality")
+    @FindBy(timeoutInSeconds = "10",  id = "LinkedNationality")
     public WebElementFacade linkedPersonNationalityDropdown;
 
-    @FindBy(xpath = "//input[@id='LinkedPhone']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='LinkedPhone']")
     public WebElementFacade linkedPersonPhoneNumberTextbox;
 
-    @FindBy(xpath = "//input[@id='LinkedEmail']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='LinkedEmail']")
     public WebElementFacade linkedPersonEmailTextbox;
 
-    @FindBy(xpath = "//input[@id='LinkedPassport']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='LinkedPassport']")
     public WebElementFacade linkedPersonPassportNumberTextbox;
 
-    @FindBy(id = "LinkedPassportsPrev")
+    @FindBy(timeoutInSeconds = "10",  id = "LinkedPassportsPrev")
     public WebElementFacade linkedPersonExpiredPassportNumberTextbox;
 
-    @FindBy(id = "LinkedNI")
+    @FindBy(timeoutInSeconds = "10",  id = "LinkedNI")
     public WebElementFacade linkedPersonNINumberTextbox;
 
-    @FindBy(css = "label[for='IsLinkedDeceased_Yes']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='IsLinkedDeceased_Yes']")
     public WebElementFacade isLinkedPersonDeceasedCheckbox;
 
-    @FindBy(id = "DeceasedCapacity")
+    @FindBy(timeoutInSeconds = "10",  id = "DeceasedCapacity")
     public WebElementFacade capacityPersonIsActingInTextbox;
 
-    @FindBy(id = "DeceasedActDate-day")
+    @FindBy(timeoutInSeconds = "10",  id = "DeceasedActDate-day")
     public WebElementFacade dateBeganActingOnBehalfOfEstateDayTextbox;
 
-    @FindBy(id = "DeceasedActDate-month")
+    @FindBy(timeoutInSeconds = "10",  id = "DeceasedActDate-month")
     public WebElementFacade dateBeganActingOnBehalfOfEstateMonthTextbox;
 
-    @FindBy(id = "DeceasedActDate-year")
+    @FindBy(timeoutInSeconds = "10",  id = "DeceasedActDate-year")
     public WebElementFacade dateBeganActingOnBehalfOfEstateYearTextbox;
 
-    @FindBy(id = "DeceasedDate-day")
+    @FindBy(timeoutInSeconds = "10",  id = "DeceasedDate-day")
     public WebElementFacade dateOfDeathDayTextbox;
 
-    @FindBy(id = "DeceasedDate-month")
+    @FindBy(timeoutInSeconds = "10",  id = "DeceasedDate-month")
     public WebElementFacade dateOfDeathMonthTextbox;
 
-    @FindBy(id = "DeceasedDate-year")
+    @FindBy(timeoutInSeconds = "10",  id = "DeceasedDate-year")
     public WebElementFacade dateOfDeathYearTextbox;
 
-    @FindBy(xpath = "//input[@id='DeceasedCertificate']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='DeceasedCertificate']")
     public WebElementFacade deathCertificateTextbox;
 
-    @FindBy(xpath = "//input[@id='DeceasedInfoReason']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='DeceasedInfoReason']")
     public WebElementFacade reasonForNoDeathCertificateTextbox;
 
-    @FindBy(xpath = "//input[@id='RepName']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='RepName']")
     public WebElementFacade representativeNameTextbox;
 
-    @FindBy(id = "RepFromDate-day")
+    @FindBy(timeoutInSeconds = "10",  id = "RepFromDate-day")
     public WebElementFacade representedFromDateDayTextbox;
 
-    @FindBy(id = "RepFromDate-month")
+    @FindBy(timeoutInSeconds = "10",  id = "RepFromDate-month")
     public WebElementFacade representedFromDateMonthTextbox;
 
-    @FindBy(id = "RepFromDate-year")
+    @FindBy(timeoutInSeconds = "10",  id = "RepFromDate-year")
     public WebElementFacade representedFromDateYearTextbox;
 
-    @FindBy(xpath = "//input[@id='RepOrg']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='RepOrg']")
     public WebElementFacade representativeOrganisationTextbox;
 
-    @FindBy(xpath = "//input[@id='RepEmail']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='RepEmail']")
     public WebElementFacade representativeEmailTextbox;
 
-    @FindBy(xpath = "//input[@id='RepPhone']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='RepPhone']")
     public WebElementFacade representativePhoneTextbox;
 
-    @FindBy(id = "RepStreet")
+    @FindBy(timeoutInSeconds = "10",  id = "RepStreet")
     public WebElementFacade representativeStreetTextbox;
 
-    @FindBy(id = "RepCity")
+    @FindBy(timeoutInSeconds = "10",  id = "RepCity")
     public WebElementFacade representativeCityTextbox;
 
-    @FindBy(id = "RepCounty")
+    @FindBy(timeoutInSeconds = "10",  id = "RepCounty")
     public WebElementFacade representativeCountyTextbox;
 
-    @FindBy(id = "RepCountry")
+    @FindBy(timeoutInSeconds = "10",  id = "RepCountry")
     public WebElementFacade representativeCountryDropdown;
 
-    @FindBy(id = "RepPostcode")
+    @FindBy(timeoutInSeconds = "10",  id = "RepPostcode")
     public WebElementFacade representativePostcodeTextbox;
 
-    @FindBy(id = "RepDetails")
+    @FindBy(timeoutInSeconds = "10",  id = "RepDetails")
     public WebElementFacade representativeOtherDetailsTextbox;
 
-    @FindBy(id = "ConsentPersonWhoPaid")
+    @FindBy(timeoutInSeconds = "10",  id = "ConsentPersonWhoPaid")
     public WebElementFacade consentPersonWhoPaidTextbox;
 
-    @FindBy(id = "ConsentAwardToBePaidTo")
+    @FindBy(timeoutInSeconds = "10",  id = "ConsentAwardToBePaidTo")
     public WebElementFacade consentAwardToBePaidToTextbox;
 
-    @FindBy(id = "ConsentSignedBy")
+    @FindBy(timeoutInSeconds = "10",  id = "ConsentSignedBy")
     public WebElementFacade consentSignedByTextbox;
 
-    @FindBy(id = "ConsentFormSignedDate-day")
+    @FindBy(timeoutInSeconds = "10",  id = "ConsentFormSignedDate-day")
     public WebElementFacade consentSignedByDateDay;
 
-    @FindBy(id = "ConsentFormSignedDate-month")
+    @FindBy(timeoutInSeconds = "10",  id = "ConsentFormSignedDate-month")
     public WebElementFacade consentSignedByDateMonth;
 
-    @FindBy(id = "ConsentFormSignedDate-year")
+    @FindBy(timeoutInSeconds = "10",  id = "ConsentFormSignedDate-year")
     public WebElementFacade consentSignedByDateYear;
 
-    @FindBy(xpath = "//input[@id='PrevHocsRef']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='PrevHocsRef']")
     public WebElementFacade previousHOCSReferenceTextbox;
 
-    @FindBy(xpath = "//input[@id='NHS']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='NHS']")
     public WebElementFacade nhsNumberTextbox;
 
-    @FindBy(xpath = "//input[@id='DrivingLicence']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='DrivingLicence']")
     public WebElementFacade drivingLicenceNumberTextbox;
 
-    @FindBy(xpath = "//input[@id='CID']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='CID']")
     public WebElementFacade cidTextbox;
 
-    @FindBy(xpath = "//input[@id='CRS']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='CRS']")
     public WebElementFacade crsTextbox;
 
-    @FindBy(xpath = "//input[@id='Warehouse']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='Warehouse']")
     public WebElementFacade warehouseTextbox;
 
-    @FindBy(xpath = "//input[@id='OtherRef']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='OtherRef']")
     public WebElementFacade otherTextbox;
 
-    @FindBy(css = "label[for='details-checkbox-IsVulnerable']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='details-checkbox-IsVulnerable']")
     public WebElementFacade claimantIsVulnerableCheckbox;
 
-    @FindBy(id = "VulnerableClaimReceivedDate-day")
+    @FindBy(timeoutInSeconds = "10",  id = "VulnerableClaimReceivedDate-day")
     public WebElementFacade vulnerableReferralDateDay;
 
-    @FindBy(id = "VulnerableClaimReceivedDate-month")
+    @FindBy(timeoutInSeconds = "10",  id = "VulnerableClaimReceivedDate-month")
     public WebElementFacade vulnerableReferralDateMonth;
 
-    @FindBy(id = "VulnerableClaimReceivedDate-year")
+    @FindBy(timeoutInSeconds = "10",  id = "VulnerableClaimReceivedDate-year")
     public WebElementFacade vulnerableReferralDateYear;
 
-    @FindBy(id = "VulnerableDetails")
+    @FindBy(timeoutInSeconds = "10",  id = "VulnerableDetails")
     public WebElementFacade vulnerableClaimantDetailsTextbox;
 
-    @FindBy(css = "label[for='details-checkbox-IsHighProfile'")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='details-checkbox-IsHighProfile'")
     public WebElementFacade claimIsHighProfileCheckbox;
 
-    @FindBy(css = "label[for='IsHighProfileMP_Yes']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='IsHighProfileMP_Yes']")
     public WebElementFacade highProfileMPCheckbox;
 
-    @FindBy(css = "label[for='IsHighProfileMedia_Yes']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='IsHighProfileMedia_Yes']")
     public WebElementFacade highProfileMediaCheckbox;
 
-    @FindBy(id = "HighProfileDetails")
+    @FindBy(timeoutInSeconds = "10",  id = "HighProfileDetails")
     public WebElementFacade highProfileClaimDetailsTextbox;
 
-    @FindBy(css = "label[for='details-checkbox-IsJudicialReview']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='details-checkbox-IsJudicialReview']")
     public WebElementFacade vulnerableJudicialReviewCheckbox;
 
-    @FindBy(id = "JudicialReviewDetails")
+    @FindBy(timeoutInSeconds = "10",  id = "JudicialReviewDetails")
     public WebElementFacade vulnerableJudicialReviewDetailsTextbox;
 
-    @FindBy(xpath = ".//label[contains(text(), 'Immigration and legal fees')]")
+    @FindBy(timeoutInSeconds = "10",  xpath = ".//label[contains(text(), 'Immigration and legal fees')]")
     public WebElementFacade immigrationAndLegalFeesCheckbox;
 
-    @FindBy(xpath = ".//label[contains(text(), 'Detention deportation and removal')]")
+    @FindBy(timeoutInSeconds = "10",  xpath = ".//label[contains(text(), 'Detention deportation and removal')]")
     public WebElementFacade detentionDeportationAndRemovalCheckbox;
 
-    @FindBy(xpath = ".//label[contains(text(), 'Employment')]")
+    @FindBy(timeoutInSeconds = "10",  xpath = ".//label[contains(text(), 'Employment')]")
     public WebElementFacade employmentCheckbox;
 
-    @FindBy(xpath = ".//label[contains(text(), 'Child benefit')]")
+    @FindBy(timeoutInSeconds = "10",  xpath = ".//label[contains(text(), 'Child benefit')]")
     public WebElementFacade childBenefitTaxCreditsCheckbox;
 
-    @FindBy(xpath = ".//label[contains(text(), 'Benefits')]")
+    @FindBy(timeoutInSeconds = "10",  xpath = ".//label[contains(text(), 'Benefits')]")
     public WebElementFacade benefitsCheckbox;
 
-    @FindBy(xpath = ".//label[contains(text(), 'Housing')]")
+    @FindBy(timeoutInSeconds = "10",  xpath = ".//label[contains(text(), 'Housing')]")
     public WebElementFacade housingCheckbox;
 
-    @FindBy(xpath = ".//label[contains(text(), 'Health')]")
+    @FindBy(timeoutInSeconds = "10",  xpath = ".//label[contains(text(), 'Health')]")
     public WebElementFacade healthCheckbox;
 
-    @FindBy(xpath = ".//label[contains(text(), 'Banking')]")
+    @FindBy(timeoutInSeconds = "10",  xpath = ".//label[contains(text(), 'Banking')]")
     public WebElementFacade bankingCheckbox;
 
-    @FindBy(xpath = ".//label[text() = 'Driving licence']")
+    @FindBy(timeoutInSeconds = "10",  xpath = ".//label[text() = 'Driving licence']")
     public WebElementFacade drivingLicenceCheckbox;
 
-    @FindBy(xpath = ".//label[contains(text(), 'Homelessness')]")
+    @FindBy(timeoutInSeconds = "10",  xpath = ".//label[contains(text(), 'Homelessness')]")
     public WebElementFacade homelessCheckbox;
 
-    @FindBy(xpath = ".//label[contains(text(), 'Impact on daily life')]")
+    @FindBy(timeoutInSeconds = "10",  xpath = ".//label[contains(text(), 'Impact on daily life')]")
     public WebElementFacade impactOnDailyLifeCheckbox;
 
-    @FindBy(xpath = ".//label[contains(text(), 'Discretionary')]")
+    @FindBy(timeoutInSeconds = "10",  xpath = ".//label[contains(text(), 'Discretionary')]")
     public WebElementFacade discretionaryCheckbox;
 
-    @FindBy(xpath = ".//label[contains(text(), 'Education')]")
+    @FindBy(timeoutInSeconds = "10",  xpath = ".//label[contains(text(), 'Education')]")
     public WebElementFacade educationCheckbox;
 
-    @FindBy(xpath = ".//label[contains(text(), 'Urgent Exceptional Payment')]")
+    @FindBy(timeoutInSeconds = "10",  xpath = ".//label[contains(text(), 'Urgent Exceptional Payment')]")
     public WebElementFacade urgentExceptonalPaymentCheckbox;
 
-    @FindBy(xpath = ".//div/div[position()=6]//label[contains(text(), 'Yes')]")
+    @FindBy(timeoutInSeconds = "10",  xpath = ".//div/div[position()=6]//label[contains(text(), 'Yes')]")
     public WebElementFacade formSentThroughClaimantAssistanceAdviserYesRadioButton;
 
-    @FindBy(xpath = "//button[contains(text(), 'Case info')]")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//button[contains(text(), 'Case info')]")
     public WebElementFacade caseInfoAccordionButton;
 
-    @FindBy(xpath = "//button[contains(text(), 'Personal details')]")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//button[contains(text(), 'Personal details')]")
     public WebElementFacade personalDetailsAccordionButton;
 
-    @FindBy(xpath = "//button[contains(text(), 'Eligibility and status')]")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//button[contains(text(), 'Eligibility and status')]")
     public WebElementFacade eligibilityAndStatusAccordionButton;
 
-    @FindBy(xpath = "//button[contains(text(), 'Linked person details')]")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//button[contains(text(), 'Linked person details')]")
     public WebElementFacade linkedPersonDetailsAccordionButton;
 
-    @FindBy(xpath = "//button[contains(text(), 'Representative')]")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//button[contains(text(), 'Representative')]")
     public WebElementFacade representativeAccordionButton;
 
-    @FindBy(xpath = "//button[contains(text(), 'Consent details')]")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//button[contains(text(), 'Consent details')]")
     public WebElementFacade consentDetailsAccordionButton;
 
-    @FindBy(xpath = "//button[contains(text(), 'Government records')]")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//button[contains(text(), 'Government records')]")
     public WebElementFacade governmentRecordsAccordionButton;
 
-    @FindBy(xpath = "//button[contains(text(), 'Vulnerable or high profile')]")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//button[contains(text(), 'Vulnerable or high profile')]")
     public WebElementFacade vulnerableOrHighProfileAccordionButton;
 
-    @FindBy(xpath = ".//button[contains(text(), 'Claim categories')]")
+    @FindBy(timeoutInSeconds = "10",  xpath = ".//button[contains(text(), 'Claim categories')]")
     public WebElementFacade claimCategoriesAccordionButton;
 
-    @FindBy(xpath = "//input[@id='Tier2AdjudicatorsOfficeDecision']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='Tier2AdjudicatorsOfficeDecision']")
     public WebElementFacade tier2AdjudicatorsOfficeDecision;
 
-    @FindBy(xpath = "//fieldset[@id='Tier2AdjudicatorsOfficeDecisionDate']//label[text()='Day']/following-sibling::input")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//fieldset[@id='Tier2AdjudicatorsOfficeDecisionDate']//label[text()='Day']/following-sibling::input")
     public WebElementFacade tier2AdjudicatorsOfficeDecisionDateDay;
 
-    @FindBy(xpath = "//fieldset[@id='Tier2AdjudicatorsOfficeDecisionDate']//label[text()='Month']/following-sibling::input")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//fieldset[@id='Tier2AdjudicatorsOfficeDecisionDate']//label[text()='Month']/following-sibling::input")
     public WebElementFacade tier2AdjudicatorOfficeDecisionDateMonth;
 
-    @FindBy(xpath = "//fieldset[@id='Tier2AdjudicatorsOfficeDecisionDate']//label[text()='Year']/following-sibling::input")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//fieldset[@id='Tier2AdjudicatorsOfficeDecisionDate']//label[text()='Year']/following-sibling::input")
     public WebElementFacade tier2AdjudicatorOfficeDecisionDateYear;
 
 

@@ -15,70 +15,70 @@ import org.openqa.selenium.Keys;
 
 public class TeamManagement extends BasePage {
 
-    @FindBy(xpath = "//input[@id='Teams-input']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='Teams-input']")
     public WebElementFacade teamSearchBar;
 
-    @FindBy(xpath = "//button[contains(text(),'View team')]")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//button[contains(text(),'View team')]")
     public WebElementFacade viewTeamButton;
 
-    @FindBy(css = "button[type='submit']:nth-of-type(1)")
+    @FindBy(timeoutInSeconds = "10",  css = "button[type='submit']:nth-of-type(1)")
     public WebElementFacade addTeamMembersButton;
 
-    @FindBy(xpath = "//input[@id='users-input']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='users-input']")
     public WebElementFacade userSearchBar;
 
-    @FindBy(xpath = "//button[@class='govuk-button view-team-button']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//button[@class='govuk-button view-team-button']")
     public WebElementFacade addSelectedUsersButton;
 
-    @FindBy(xpath = "//span[contains(text(), 'Team:')]")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//span[contains(text(), 'Team:')]")
     public WebElementFacade teamNameHeader;
 
-    @FindBy(xpath = "(//td//a)[1]")
+    @FindBy(timeoutInSeconds = "10",  xpath = "(//td//a)[1]")
     public WebElementFacade firstRemoveButtonInList;
 
-    @FindBy(xpath = "(//div//p)[2]")
+    @FindBy(timeoutInSeconds = "10",  xpath = "(//div//p)[2]")
     public WebElementFacade errorMessage;
 
-    @FindBy(id = "teamName")
+    @FindBy(timeoutInSeconds = "10",  id = "teamName")
     public WebElementFacade teamNameTextBox;
 
-    @FindBy(id = "unit-input")
+    @FindBy(timeoutInSeconds = "10",  id = "unit-input")
     public WebElementFacade unitTypeahead;
 
-    @FindBy(xpath = "//button[text()='Edit Team']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//button[text()='Edit Team']")
     public WebElementFacade editTeamButton;
 
-    @FindBy(id = "newTeamName")
+    @FindBy(timeoutInSeconds = "10",  id = "newTeamName")
     public WebElementFacade newTeamNameTextBox;
 
-    @FindBy(xpath = "//button[text()='Update']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//button[text()='Update']")
     public WebElementFacade updateButton;
 
-    @FindBy(xpath = "//h2[text()='Success']/following-sibling::p")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//h2[text()='Success']/following-sibling::p")
     public WebElementFacade successMessage;
 
-    @FindBy(xpath = "//button[text()='Add']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//button[text()='Add']")
     public WebElementFacade addTeamButton;
 
-    @FindBy(xpath = "//button[text()='Deactivate team']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//button[text()='Deactivate team']")
     public WebElementFacade deactivateTeamButton;
 
-    @FindBy(xpath = "//button[text()='Deactivate Team']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//button[text()='Deactivate Team']")
     public WebElementFacade deactivateTeamConfirmationButton;
 
-    @FindBy(xpath = "//button[text()='Reactivate team']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//button[text()='Reactivate team']")
     public WebElementFacade reactivateTeamButton;
 
-    @FindBy(xpath = "//button[text()='Reactivate Team']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//button[text()='Reactivate Team']")
     public WebElementFacade reactivateTeamConfirmationButton;
 
-    @FindBy(xpath = "//a[text()='Reactivate team']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[text()='Reactivate team']")
     public WebElementFacade reactivateTeamHypertext;
 
-    @FindBy(xpath = "//strong[text()='Inactive']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//strong[text()='Inactive']")
     public WebElementFacade inactiveTag;
 
-    @FindBy(id = "showDeactivated")
+    @FindBy(timeoutInSeconds = "10",  id = "showDeactivated")
     public WebElementFacade showDeactivatedTeamsCheckbox;
 
     User addedOrRemovedUser;

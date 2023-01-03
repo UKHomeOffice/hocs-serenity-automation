@@ -23,31 +23,31 @@ public class Misallocations extends BasePage {
 
     Triage triage;
 
-    @FindBy(id = "TransferToOgdText")
+    @FindBy(timeoutInSeconds = "10",  id = "TransferToOgdText")
     public WebElementFacade reasonForTransferToOGDTextField;
 
-    @FindBy(id = "TransferToOtherText")
+    @FindBy(timeoutInSeconds = "10",  id = "TransferToOtherText")
     public WebElementFacade reasonForTransferToOtherTextField;
 
-    @FindBy(id = "TransferDueDate-day")
+    @FindBy(timeoutInSeconds = "10",  id = "TransferDueDate-day")
     public WebElementFacade transferDueDateDayField;
 
-    @FindBy(id = "TransferDueDate-month")
+    @FindBy(timeoutInSeconds = "10",  id = "TransferDueDate-month")
     public WebElementFacade transferDueDateMonthField;
 
-    @FindBy(id = "TransferDueDate-year")
+    @FindBy(timeoutInSeconds = "10",  id = "TransferDueDate-year")
     public WebElementFacade transferDueDateYearField;
 
-    @FindBy(xpath = "//label[text()='Save Deadline for Transfer']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Save Deadline for Transfer']")
     public WebElementFacade saveDeadlineForTransferRadioButton;
 
-    @FindBy(xpath = "//label[text()='Transfer Accepted (Close case)']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Transfer Accepted (Close case)']")
     public WebElementFacade transferAcceptedCloseCaseRadioButton;
 
-    @FindBy(xpath = "//label[text()='Transfer Rejected (Move to Triage)']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Transfer Rejected (Move to Triage)']")
     public WebElementFacade transferRejectedMoveToTriageRadioButton;
 
-    @FindBy(xpath = "//label[text()='Confirm']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Confirm']")
     public WebElementFacade confirmRadioButton;
 
     public void transferCaseFromStageTo(String stage, String transferTo) {

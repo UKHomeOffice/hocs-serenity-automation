@@ -13,40 +13,40 @@ import org.openqa.selenium.support.FindBy;
 
 public class ListsManagement extends BasePage {
 
-    @FindBy(xpath = "//input[@id='title']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='title']")
     private WebElementFacade titleTextField;
 
-    @FindBy(xpath = "//input[@id='simpleName']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='simpleName']")
     private WebElementFacade simpleNameTextField;
 
-    @FindBy(xpath = "//h2[text()='Success']/following-sibling::p")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//h2[text()='Success']/following-sibling::p")
     public WebElementFacade successMessage;
 
-    @FindBy(xpath = "//button[text()='Add new campaign']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//button[text()='Add new campaign']")
     private WebElementFacade addNewCampaignButton;
 
-    @FindBy(xpath = "//button[contains(text(),'Add new account manager')]")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//button[contains(text(),'Add new account manager')]")
     public WebElementFacade addNewAccountManagerButton;
 
-    @FindBy(xpath = "//button[contains(text(),'Add new interested party')]")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//button[contains(text(),'Add new interested party')]")
     public WebElementFacade addNewInterestedPartyButton;
 
-    @FindBy(xpath = "//button[contains(text(),'Add new representative')]")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//button[contains(text(),'Add new representative')]")
     public WebElementFacade addNewRepresentativeButton;
 
-    @FindBy(xpath = "//button[text()='Add Business Unit']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//button[text()='Add Business Unit']")
     public WebElementFacade addBusinessUnitButton;
 
-    @FindBy(xpath = "//button[text()='Add Business Area']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//button[text()='Add Business Area']")
     public WebElementFacade addBusinessAreaButton;
 
-    @FindBy(xpath = "//button[text()='Add Enquiry Reason']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//button[text()='Add Enquiry Reason']")
     public WebElementFacade addEnquiryReasonButton;
 
-    @FindBy(xpath = "//button[text()='Add new enquiry reason']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//button[text()='Add new enquiry reason']")
     public WebElementFacade addNewEnquiryReasonButton;
 
-    @FindBy(xpath = "//button[text()='Add new recipient']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//button[text()='Add new recipient']")
     public WebElementFacade addNewRecipientButton;
 
     private String enterName() {

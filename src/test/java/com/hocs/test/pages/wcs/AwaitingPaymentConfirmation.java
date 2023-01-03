@@ -6,16 +6,16 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class AwaitingPaymentConfirmation extends BasePage {
 
-    @FindBy(css = "label[for='ClaimComplete-Yes']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='ClaimComplete-Yes']")
     public WebElementFacade paymentConfirmedRadioButton;
 
-    @FindBy(xpath = "//a[@href='#ClaimComplete-error']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#ClaimComplete-error']")
     public WebElementFacade claimCompleteIsRequiredErrorMessage;
 
-    @FindBy(xpath = "//button[text()='Awaiting payment confirmation']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//button[text()='Awaiting payment confirmation']")
     public WebElementFacade awaitingPaymentConfirmationAccordion;
 
-    @FindBy(xpath = "//label[text()='Yes - close the claim']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Yes - close the claim']")
     public WebElementFacade closeClaimYesRadioButton;
 
     public void assertClaimCompleteIsRequiredErrorMessage() {

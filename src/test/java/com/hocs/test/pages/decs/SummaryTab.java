@@ -19,103 +19,103 @@ public class SummaryTab extends BasePage {
 
     Workdays workdays;
 
-    @FindBy(xpath = "//th[text()='Deadline']/following-sibling::td")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//th[text()='Deadline']/following-sibling::td")
     private WebElementFacade deadline;
 
-    @FindBy(xpath = "//th[text()='Primary topic']/following-sibling::td")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//th[text()='Primary topic']/following-sibling::td")
     public WebElementFacade primaryTopic;
 
-    @FindBy(xpath = "//th[text()='Primary correspondent']/following-sibling::td")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//th[text()='Primary correspondent']/following-sibling::td")
     private WebElementFacade primaryCorrespondent;
 
-    @FindBy(xpath = "//th[text()='How was the correspondence received?']/following-sibling::td")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//th[text()='How was the correspondence received?']/following-sibling::td")
     private WebElementFacade howCorrespondenceReceived;
 
-    @FindBy(xpath = "//th[text()='Should the response be copied to Number 10?']/following-sibling::td")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//th[text()='Should the response be copied to Number 10?']/following-sibling::td")
     private WebElementFacade shouldResponseCopyToN10;
 
-    @FindBy(xpath = "//th[text()='When was the correspondence received?']/following-sibling::td")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//th[text()='When was the correspondence received?']/following-sibling::td")
     public WebElementFacade correspondenceReceivedDate;
 
-    @FindBy(xpath = "//th[text()='When was the correspondence sent?']/following-sibling::td")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//th[text()='When was the correspondence sent?']/following-sibling::td")
     private WebElementFacade whenCorrespondenceSent;
 
-    @FindBy(xpath = "//h2[text()='Active stage']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//h2[text()='Active stage']")
     public WebElementFacade activeStageHeader;
 
-    @FindBy(xpath = "//h2[text()='Active stage']/following-sibling::table[1]/caption[not(contains(text(),'Summary'))]")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//h2[text()='Active stage']/following-sibling::table[1]/caption[not(contains(text(),'Summary'))]")
     public WebElementFacade activeStage;
 
-    @FindBy(xpath = "//th[text()='Team']/following-sibling::td")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//th[text()='Team']/following-sibling::td")
     public WebElementFacade allocatedTeam;
 
-    @FindBy(xpath = "//th[text()='Private Office Team']/following-sibling::td")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//th[text()='Private Office Team']/following-sibling::td")
     public WebElementFacade privateOfficeTeam;
 
-    @FindBy(xpath = "//th[text()='Override Private Office Team']/following-sibling::td")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//th[text()='Override Private Office Team']/following-sibling::td")
     public WebElementFacade overridePrivateOfficeTeam;
 
-    @FindBy(xpath = "//th[text()='User']/following-sibling::td")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//th[text()='User']/following-sibling::td")
     private WebElementFacade allocatedUser;
 
-    @FindBy(xpath = "//th[text()='Data Input']/following-sibling::td")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//th[text()='Data Input']/following-sibling::td")
     private WebElementFacade dataInputDeadlineDate;
 
-    @FindBy(xpath = "//th[text()='Markup']/following-sibling::td")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//th[text()='Markup']/following-sibling::td")
     private WebElementFacade markupDeadlineDate;
 
-    @FindBy(xpath = "//th[text()='Initial Draft']/following-sibling::td")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//th[text()='Initial Draft']/following-sibling::td")
     private WebElementFacade initialDraftDeadlineDate;
 
-    @FindBy(xpath = "//th[text()='QA Response']/following-sibling::td")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//th[text()='QA Response']/following-sibling::td")
     private WebElementFacade qaResponseDeadlineDate;
 
-    @FindBy(xpath = "//th[text()='Private Office Approval']/following-sibling::td")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//th[text()='Private Office Approval']/following-sibling::td")
     private WebElementFacade privateOfficeApprovalDeadlineDate;
 
-    @FindBy(xpath = "//th[text()='Ministerial Sign off']/following-sibling::td")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//th[text()='Ministerial Sign off']/following-sibling::td")
     private WebElementFacade ministerialSignOffDeadlineDate;
 
-    @FindBy(xpath = "//th[text()='Transfer Confirmation']/following-sibling::td")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//th[text()='Transfer Confirmation']/following-sibling::td")
     private WebElementFacade transferConfirmationDeadlineDate;
 
-    @FindBy(xpath = "//th[text()='No Response Needed Confirmation']/following-sibling::td")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//th[text()='No Response Needed Confirmation']/following-sibling::td")
     private WebElementFacade noResponseNeededConfirmationDeadlineDate;
 
-    @FindBy(xpath = "//th[text()='Dispatch']/following-sibling::td")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//th[text()='Dispatch']/following-sibling::td")
     private WebElementFacade dispatchDeadlineDate;
 
-    @FindBy(xpath = "//th[text()='Copy to Number 10']/following-sibling::td")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//th[text()='Copy to Number 10']/following-sibling::td")
     private WebElementFacade copyToNumber10DeadlineDate;
 
-    @FindBy(xpath = "//th[text()='Deadline']/following-sibling::td")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//th[text()='Deadline']/following-sibling::td")
     private WebElementFacade mpamDeadlineDate;
 
-    @FindBy(xpath = "//th[contains(text(), 'Ministerial response')]/following-sibling::td")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//th[contains(text(), 'Ministerial response')]/following-sibling::td")
     public WebElementFacade isMinisterialResponseRequired;
 
-    @FindBy(xpath = "//th[text()='Deadline for contribution request']/following-sibling::td")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//th[text()='Deadline for contribution request']/following-sibling::td")
     private WebElementFacade contributionRequestDeadline;
 
-    @FindBy(xpath = "//th[text()='Follow-up due by']/following-sibling::td")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//th[text()='Follow-up due by']/following-sibling::td")
     private WebElementFacade followUpDueDate;
 
-    @FindBy(xpath = "//th[contains(text(), 'Campaign')]/following-sibling::td")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//th[contains(text(), 'Campaign')]/following-sibling::td")
     private WebElementFacade campaign;
 
-    @FindBy(xpath = "//th[contains(text(), 'Home Secretary')]/following-sibling::td")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//th[contains(text(), 'Home Secretary')]/following-sibling::td")
     public WebElementFacade homeSecInterest;
 
-    @FindBy(xpath = "//th[contains(text(), 'Complaint Category')]/following-sibling::td")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//th[contains(text(), 'Complaint Category')]/following-sibling::td")
     public WebElementFacade complaintCategory;
 
-    @FindBy(xpath = "//th[contains(text(), 'Complaint Reason')]/following-sibling::td")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//th[contains(text(), 'Complaint Reason')]/following-sibling::td")
     public WebElementFacade complaintReason;
 
-    @FindBy(xpath = "//th[contains(text(), 'FOI Topic')]/following-sibling::td")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//th[contains(text(), 'FOI Topic')]/following-sibling::td")
     public WebElementFacade foiTopic;
 
-    @FindBy(xpath = "//caption[text()='Previous Case']/following-sibling::tbody//a")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//caption[text()='Previous Case']/following-sibling::tbody//a")
     public WebElementFacade previousCOMPCaseReference;
 
 

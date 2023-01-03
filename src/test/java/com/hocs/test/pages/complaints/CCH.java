@@ -13,19 +13,19 @@ public class CCH extends BasePage {
 
     RecordCaseData recordCaseData;
 
-    @FindBy(xpath = "//label[text()='CCT']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='CCT']")
     public WebElementFacade transferToCCTRadioButton;
 
-    @FindBy(xpath = "//label[text()='Complete the case (close permanently)']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='Complete the case (close permanently)']")
     public WebElementFacade completeTheCaseClosePermanentlyRadioButton;
 
-    @FindBy(id = "CaseNote_CompleteReason")
+    @FindBy(timeoutInSeconds = "10", id = "CaseNote_CompleteReason")
     public WebElementFacade completionReasonTextField;
 
-    @FindBy(xpath = "//label[text()='Yes']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='Yes']")
     public WebElementFacade completeCasePermanentlyCloseCaseYesRadioButton;
 
-    @FindBy(xpath = "//label[text()='No']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='No']")
     public WebElementFacade completeCasePermanentlyCloseCaseNoRadioButton;
 
     public void selectActionAtCCH(String action) {

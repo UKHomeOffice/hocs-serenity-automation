@@ -10,16 +10,16 @@ public class Dispatch extends BasePage {
 
     RecordCaseData recordCaseData;
 
-    @FindBy(xpath = "//div[@id='DispatchDecision-radios']//label[text()='Yes']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//div[@id='DispatchDecision-radios']//label[text()='Yes']")
     public WebElementFacade dispatchAcceptRadioButton;
 
-    @FindBy(xpath = "//div[@id='DispatchDecision-radios']//label[text()='No']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//div[@id='DispatchDecision-radios']//label[text()='No']")
     public WebElementFacade dispatchRejectRadioButton;
 
-    @FindBy(xpath = "//textarea[@name='CaseNote_DispatchDecisionReject']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//textarea[@name='CaseNote_DispatchDecisionReject']")
     public WebElementFacade dispatchRejectNoteField;
 
-    @FindBy(css = "input[id='ResponseChannel']")
+    @FindBy(timeoutInSeconds = "10", css = "input[id='ResponseChannel']")
     public WebElementFacade responseTypeField;
 
     public void selectAbleToDispatch(String yesNo) {

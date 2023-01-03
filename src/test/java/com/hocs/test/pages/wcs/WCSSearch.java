@@ -25,34 +25,34 @@ public class WCSSearch extends BasePage {
 
     SummaryTab summaryTab;
 
-    @FindBy(xpath = "//input[@id='reference']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='reference']")
     public WebElementFacade referenceTextbox;
 
-    @FindBy(xpath = "//input[@id='claimantName']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='claimantName']")
     public WebElementFacade claimantNameTextbox;
 
-    @FindBy(xpath = "//input[@id='claimantDOB-day']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='claimantDOB-day']")
     public WebElementFacade claimantDOBDayTextbox;
 
-    @FindBy(xpath = "//input[@id='claimantDOB-month']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='claimantDOB-month']")
     public WebElementFacade claimantDOBMonthTextbox;
 
-    @FindBy(xpath = "//input[@id='claimantDOB-year']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='claimantDOB-year']")
     public WebElementFacade claimantDOBYearTextbox;
 
-    @FindBy(xpath = "//input[@id='niNumber']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='niNumber']")
     public WebElementFacade nationalInsuranceNoTextbox;
 
-    @FindBy(xpath = "//input[@id='PrevHocsRef']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='PrevHocsRef']")
     public WebElementFacade prevHocsRefTextbox;
 
-    @FindBy(css = "tr:first-child a[class*='govuk-link']")
+    @FindBy(timeoutInSeconds = "10",  css = "tr:first-child a[class*='govuk-link']")
     public WebElementFacade topSearchResultCaseReference;
 
-    @FindBy(css = "div span[class='govuk-hint']")
+    @FindBy(timeoutInSeconds = "10",  css = "div span[class='govuk-hint']")
     public WebElementFacade numberOfSearchResults;
 
-    @FindBy(xpath = "//a[text()='No search criteria specified']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[text()='No search criteria specified']")
     public WebElementFacade noSearchCriteriaErrorMessage;
 
     public void searchByWCSReference(String reference) {

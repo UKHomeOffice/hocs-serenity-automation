@@ -14,48 +14,48 @@ public class QA extends BasePage {
     RecordCaseData recordCaseData;
 
     //QA Elements
-    @FindBy(xpath = "//label[text()='Approve']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Approve']")
     public WebElementFacade approvedAtQARadioButton;
 
-    @FindBy(xpath = "//label[text()='Rejected, move back to drafting']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Rejected, move back to drafting']")
     public WebElementFacade rejectQAToDraftRadioButton;
 
-    @FindBy(xpath = "//label[text()='Rejected, move back to triage']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Rejected, move back to triage']")
     public WebElementFacade rejectQAToTriageRadioButton;
 
-    @FindBy(xpath = "//label[text()='Put on hold']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Put on hold']")
     public WebElementFacade onHoldRadioButton;
 
-    @FindBy(xpath = "//label[text()='Escalate to workflow manager']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Escalate to workflow manager']")
     public WebElementFacade escalateToWorkflowManagerRadioButton;
 
-    @FindBy(id = "CaseNote_RejectDraft")
+    @FindBy(timeoutInSeconds = "10",  id = "CaseNote_RejectDraft")
     public WebElementFacade draftRejectionTextField;
 
-    @FindBy(id = "CaseNote_RejectTriage")
+    @FindBy(timeoutInSeconds = "10",  id = "CaseNote_RejectTriage")
     public WebElementFacade triageRejectionTextField;
 
-    @FindBy(id = "CaseNote_EscalateToWorkFlowManager")
+    @FindBy(timeoutInSeconds = "10",  id = "CaseNote_EscalateToWorkFlowManager")
     public WebElementFacade escalationReasonTextArea;
 
     //QA (Escalated) Elements
-    @FindBy(xpath = "//label[text()='Keep escalated']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Keep escalated']")
     public WebElementFacade keepEscalatedRadioButton;
 
-    @FindBy(xpath = "//label[text()='Escalation complete']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Escalation complete']")
     public WebElementFacade escalationCompleteRadioButton;
 
     //QA (On Hold) Elements
-    @FindBy(xpath = "//label[text()='Keep on hold']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Keep on hold']")
     public WebElementFacade keepOnHoldRadioButton;
 
-    @FindBy(xpath = "//label[text()='Take off hold']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Take off hold']")
     public WebElementFacade takeOffHoldRadioButton;
 
-    @FindBy(xpath = "//label[text()='Close duplicate case']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Close duplicate case']")
     public WebElementFacade closeCaseRadioButton;
 
-    @FindBy(id = "CaseNote_QaClose")
+    @FindBy(timeoutInSeconds = "10",  id = "CaseNote_QaClose")
     public WebElementFacade closureReasonTextArea;
 
     //QA Actions

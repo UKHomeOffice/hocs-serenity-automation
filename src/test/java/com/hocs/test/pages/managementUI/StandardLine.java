@@ -16,46 +16,46 @@ import org.openqa.selenium.Keys;
 
 public class StandardLine extends BasePage {
 
-    @FindBy(xpath = "//a[@href='#files-error']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#files-error']")
     public WebElementFacade standardLineIsRequiredErrorMessage;
 
-    @FindBy(xpath = "//a[@href='#expiryDate-error']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#expiryDate-error']")
     public WebElementFacade expiryDateIsRequiredErrorMessage;
 
-    @FindBy(xpath = "//a[@href='#topic-error']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#topic-error']")
     public WebElementFacade topicIsRequiredErrorMessage;
 
-    @FindBy(xpath = "//input[@id='topics-input']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='topics-input']")
     public WebElementFacade topicTypeahead;
 
-    @FindBy(xpath = "//input[@class='govuk-file-upload']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@class='govuk-file-upload']")
     public WebElementFacade standardLineDocumentButton;
 
-    @FindBy(xpath = "//input[@id='expiryDate-day']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='expiryDate-day']")
     public WebElementFacade expirationDateDayTextBox;
 
-    @FindBy(xpath = "//input[@id='expiryDate-month']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='expiryDate-month']")
     public WebElementFacade expirationDateMonthTextBox;
 
-    @FindBy(xpath = "//input[@id='expiryDate-year']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='expiryDate-year']")
     public WebElementFacade expirationDateYearTextBox;
 
-    @FindBy(xpath = "//a[@href='#expiryDate-error']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#expiryDate-error']")
     public WebElementFacade pastExpirationDateErrorMessage;
 
-    @FindBy(xpath = "//p[@class='govuk-body']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//p[@class='govuk-body']")
     public WebElementFacade standardLineCreationSuccessMessage;
 
-    @FindBy(id = "filter")
+    @FindBy(timeoutInSeconds = "10",  id = "filter")
     public WebElementFacade manageStandardLinesFilter;
 
-    @FindBy(xpath = "//div[text()='Exclude expired']/following-sibling::div/input")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//div[text()='Exclude expired']/following-sibling::div/input")
     public WebElementFacade excludeExpiredCheckbox;
 
-    @FindBy(xpath = "//button[text()='Add new standard line']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//button[text()='Add new standard line']")
     public WebElementFacade addNewStandardLineButton;
 
-    @FindBy(xpath = "//input[@value='Submit']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@value='Submit']")
     public WebElementFacade submitButton;
 
     public void enterStandardLineTopic(String topic) {

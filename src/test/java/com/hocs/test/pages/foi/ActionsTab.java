@@ -10,7 +10,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 public class ActionsTab extends BasePage {
 
-    @FindBy(xpath = "//a[text()='Actions']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[text()='Actions']")
     public WebElementFacade actionsTab;
 
     public void selectActionsTab() {

@@ -6,37 +6,37 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class Casework extends BasePage {
 
-    @FindBy(css = "label[for='CaseworkStatus-OnHold']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='CaseworkStatus-OnHold']")
     public WebElementFacade caseworkingOnHoldRadioButton;
 
-    @FindBy(css = "label[for='CaseworkStatus-QA']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='CaseworkStatus-QA']")
     public WebElementFacade offerReadyToQARadioButton;
 
-    @FindBy(css = "label[for='CaseworkStatus-Pending']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='CaseworkStatus-Pending']")
     public WebElementFacade caseworkingOffHoldRadioButton;
 
-    @FindBy(css = "label[for='CaseworkStatus-ReturnToEligibility']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='CaseworkStatus-ReturnToEligibility']")
     public WebElementFacade sendToEligibilityRadioButton;
 
-    @FindBy(css = "label[for='CaseworkStatus-ReturnToRegistration']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='CaseworkStatus-ReturnToRegistration']")
     public WebElementFacade sendToRegistrationRadioButton;
 
-    @FindBy(css = "label[for='CaseworkStatus-ReturnToTriage']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='CaseworkStatus-ReturnToTriage']")
     public WebElementFacade sendToTriageRadioButton;
 
-    @FindBy(xpath = "//a[@href='#CaseworkStatus-error']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#CaseworkStatus-error']")
     public WebElementFacade caseworkClaimStatusIsRequiredErrorMessage;
 
-    @FindBy(xpath = "//a[@href='#CaseNote_CaseworkRTN_Eligibility-error']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#CaseNote_CaseworkRTN_Eligibility-error']")
     public WebElementFacade eligibilityReturnReasonRequiredErrorMessage;
 
-    @FindBy(xpath = "//a[@href='#CaseNote_CaseworkRTN_Registration-error']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#CaseNote_CaseworkRTN_Registration-error']")
     public WebElementFacade registrationReturnReasonRequiredErrorMessage;
 
-    @FindBy(xpath = "//a[@href='#CaseNote_CaseworkRTN_Triage-error']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#CaseNote_CaseworkRTN_Triage-error']")
     public WebElementFacade triageReturnReasonRequiredErrorMessage;
 
-    @FindBy(xpath = "//textarea")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//textarea")
     private WebElementFacade reasonTextBox;
 
     public void enterReasonInTextBox() {

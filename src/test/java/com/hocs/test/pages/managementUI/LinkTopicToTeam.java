@@ -12,25 +12,25 @@ import org.openqa.selenium.Keys;
 
 public class LinkTopicToTeam extends BasePage {
 
-    @FindBy(xpath = "//input[@id='topics-input']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//input[@id='topics-input']")
     public WebElementFacade topicsSearchBar;
 
-    @FindBy(xpath = "//input[@id='draft-qa-input']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//input[@id='draft-qa-input']")
     public WebElementFacade draftAndQATeamSearchBar;
 
-    @FindBy(xpath = "//input[@id='private-minister-input']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//input[@id='private-minister-input']")
     public WebElementFacade privateAndMinisterTeamSearchBar;
 
-    @FindBy(css = ".govuk-table__body tr:nth-child(1) td")
+    @FindBy(timeoutInSeconds = "10", css = ".govuk-table__body tr:nth-child(1) td")
     public WebElementFacade draftQaTeamAssignment;
 
-    @FindBy(css = ".govuk-table__body tr:nth-child(2) td")
+    @FindBy(timeoutInSeconds = "10", css = ".govuk-table__body tr:nth-child(2) td")
     public WebElementFacade privateMinisterTeamAssignment;
 
-    @FindBy(css = ".govuk-error-summary__body")
+    @FindBy(timeoutInSeconds = "10", css = ".govuk-error-summary__body")
     public WebElementFacade errorMessageContents;
 
-    @FindBy(css = ".govuk-heading-l")
+    @FindBy(timeoutInSeconds = "10", css = ".govuk-heading-l")
     public WebElementFacade topicInSummary;
 
     public void selectATopic(String topic) {

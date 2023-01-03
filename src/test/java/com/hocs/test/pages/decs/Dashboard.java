@@ -21,80 +21,80 @@ public class Dashboard extends BasePage {
 
     CaseView caseView;
 
-    @FindBy(xpath = "//a[text()='Create Single Case']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//a[text()='Create Single Case']")
     public WebElementFacade createSingleCaseLink;
 
-    @FindBy(xpath = "//a[text()='Create Bulk Cases']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//a[text()='Create Bulk Cases']")
     public WebElementFacade createBulkCasesLink;
 
-    @FindBy(xpath = "//a[text()='View Standard Lines']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//a[text()='View Standard Lines']")
     public WebElementFacade viewStandardLinesLink;
 
-    @FindBy(xpath = "//a[text()='Search']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//a[text()='Search']")
     public WebElementFacade searchLink;
 
-    @FindBy(xpath = "//span[text()='Cases']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//span[text()='Cases']")
     public WebElementFacade myCases;
 
     // DCU Teams
 
-    @FindBy(xpath = "//span[text()='Performance and Process Team']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//span[text()='Performance and Process Team']")
     public WebElementFacade performanceProcessTeam;
 
-    @FindBy(xpath = "//span[text()='Transfers & No10 Team']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//span[text()='Transfers & No10 Team']")
     public WebElementFacade transferN10Team;
 
     //MPAM Teams
 
-    @FindBy(xpath = "//span[text()='MPAM Creation']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//span[text()='MPAM Creation']")
     public WebElementFacade MPAMCreationTeam;
 
-    @FindBy(xpath = "//span[text()='MTS Team']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//span[text()='MTS Team']")
     public WebElementFacade mtsTeamWorkstack;
 
     // Complaints Teams
 
-    @FindBy(xpath = "//span[contains(text(),'CCH Closed Cases')]")
+    @FindBy(timeoutInSeconds = "10", xpath = "//span[contains(text(),'CCH Closed Cases')]")
     public WebElementFacade cchClosedCasesWorkstack;
 
-    @FindBy(xpath = "//span[contains(text(),'IE Detention')]")
+    @FindBy(timeoutInSeconds = "10", xpath = "//span[contains(text(),'IE Detention')]")
     public WebElementFacade ieDetentionWorkstack;
 
-    @FindBy(xpath = "//span[contains(text(),'PSU Complaints')]")
+    @FindBy(timeoutInSeconds = "10", xpath = "//span[contains(text(),'PSU Complaints')]")
     public WebElementFacade psuComplaintsWorkstack;
 
-    @FindBy(xpath = "//span[contains(text(),'Serious Misconduct')]")
+    @FindBy(timeoutInSeconds = "10", xpath = "//span[contains(text(),'Serious Misconduct')]")
     public WebElementFacade seriousMisconductWorkstack;
 
     // FOI Teams
 
-    @FindBy(xpath = "//span[contains(text(),'FOI Creation')]")
+    @FindBy(timeoutInSeconds = "10", xpath = "//span[contains(text(),'FOI Creation')]")
     public WebElementFacade foiCreationWorkstack;
 
     // WCS Teams
 
-    @FindBy(xpath = "//span[text()='WCS Registration Team']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//span[text()='WCS Registration Team']")
     public WebElementFacade wcsRegistrationTeam;
 
     // BF Teams
 
-    @FindBy(xpath = "//span[text()='Border Force Complaints']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//span[text()='Border Force Complaints']")
     public WebElementFacade borderForceWorkstack;
 
-    @FindBy(xpath = "//span[text()='Border Force Complaints (Stage 2)']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//span[text()='Border Force Complaints (Stage 2)']")
     public WebElementFacade borderForceStage2Workstack;
 
     //TO Teams
 
-    @FindBy(xpath = "//span[text()='Treat Official Creation']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//span[text()='Treat Official Creation']")
     public WebElementFacade treatOfficialCreationWorkstack;
 
     //POGR Teams
 
-    @FindBy(xpath = "//span[text()='HMPO/GRO Registration']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//span[text()='HMPO/GRO Registration']")
     public WebElementFacade hmpoGroRegistrationWorkstack;
 
-    @FindBy(xpath = "//span[text()='HMPO/GRO Registration (Stage 2)']")
+    @FindBy(timeoutInSeconds = "10", xpath = "//span[text()='HMPO/GRO Registration (Stage 2)']")
     public WebElementFacade hmpoGroRegistrationStage2Workstack;
 
     // Basic Methods

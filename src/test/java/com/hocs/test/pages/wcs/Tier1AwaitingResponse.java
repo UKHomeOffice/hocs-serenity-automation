@@ -6,16 +6,16 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class Tier1AwaitingResponse extends BasePage {
 
-    @FindBy(css = "label[for='Tier1Await-Accept']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='Tier1Await-Accept']")
     public WebElementFacade claimantAcceptsOfferRadioButton;
 
-    @FindBy(css = "label[for='Tier1Await-Reject-Interim']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='Tier1Await-Reject-Interim']")
     public WebElementFacade rejectedInterimOfferRadioButton;
 
-    @FindBy(css = "label[for='Tier1Await-Reject-Final']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='Tier1Await-Reject-Final']")
     public WebElementFacade rejectedFinalOfferRadioButton;
 
-    @FindBy(xpath = "//a[@href='#Tier1Await-error']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#Tier1Await-error']")
     public WebElementFacade responseFromClaimantIsRequiredErrorMessage;
 
     public void assertResponseFromClaimantIsRequiredErrorMessage() {

@@ -6,13 +6,13 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class PaymentPreOfferChecklist extends BasePage {
 
-    @FindBy(css = "label[for='PaymentChecklistStatus-Offer")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='PaymentChecklistStatus-Offer")
     public WebElementFacade sendForOfferApprovalRadioButton;
 
-    @FindBy(css = "label[for='PaymentChecklistStatus-QA']")
+    @FindBy(timeoutInSeconds = "10",  css = "label[for='PaymentChecklistStatus-QA']")
     public WebElementFacade returnToQAForCorrectionsRadioButton;
 
-    @FindBy(xpath = "//a[@href='#PaymentChecklistStatus-error']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#PaymentChecklistStatus-error']")
     public WebElementFacade paymentIsRequiredPreOfferErrorMessage;
 
     public void assertPaymentIsRequiredPreOfferErrorMessage(){

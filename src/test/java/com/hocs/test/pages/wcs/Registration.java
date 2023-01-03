@@ -12,34 +12,34 @@ public class Registration extends BasePage {
 
     RecordCaseData recordCaseData;
 
-    @FindBy(xpath = "//a[@href='#IdentityConfirmed-error']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#IdentityConfirmed-error']")
     public WebElementFacade canYouConfirmClaimantStatusErrorMessage;
 
-    @FindBy(xpath = "//a[@href='#FormSubmitted-error']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#FormSubmitted-error']")
     public WebElementFacade howWasTheFormSubmittedIsRequiredErrorMessage;
 
-    @FindBy(xpath = "//a[@href='#IsAssistAdviser-error']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#IsAssistAdviser-error']")
     public WebElementFacade formSentThroughClaimantAdviserIsRequiredErrorMessage;
 
-    @FindBy(xpath = "//a[@href='#ClaimedFrom-error']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#ClaimedFrom-error']")
     public WebElementFacade whereIsTheClaimFromIsRequiredErrorMessage;
 
-    @FindBy(xpath = "//a[@href='#ClaimType-error']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#ClaimType-error']")
     public WebElementFacade typeOfClaimIsRequiredErrorMessage;
 
-    @FindBy(xpath = "//a[@href='#RegistrationNextTeamOutput-error']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#RegistrationNextTeamOutput-error']")
     public WebElementFacade whereShouldTheCaseProgressToIsRequiredErrorMessage;
 
-    @FindBy(xpath = "//a[@href='#ReceivedDate-error']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#ReceivedDate-error']")
     public WebElementFacade dateClaimReceivedIsRequiredErrorMessage;
 
-    @FindBy(xpath = "//a[@href='#IsTaskForce-error']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#IsTaskForce-error']")
     public WebElementFacade claimGoneThroughTaskForceIsRequiredErrorMessage;
 
-    @FindBy(xpath = "//a[@href='#IdentityConfirmed-error']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#IdentityConfirmed-error']")
     public WebElementFacade canYouConfirmClaimantIdentityErrorMessage;
 
-    @FindBy(xpath = "//a[@href='#IdentityFailConfirm-error']")
+    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#IdentityFailConfirm-error']")
     public WebElementFacade cannotIdentifyCloseClaimErrorMessage;
 
     // Registration Windrush Scheme check page
