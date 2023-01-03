@@ -9,7 +9,7 @@ import config.CaseType;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.junit.Assert;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.support.FindBy;
+import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class ListsManagement extends BasePage {
 
