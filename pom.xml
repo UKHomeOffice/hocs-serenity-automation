@@ -126,9 +126,8 @@
             <include>**/*.java</include>
           </includes>
           <argLine>-Xmx1536m</argLine>
-          <parallel>method</parallel>
-          <threadCount>2</threadCount>
-          <perCoreThreadCount>true</perCoreThreadCount>
+          <parallel>methods</parallel>
+          <useUnlimitedThreads>true</useUnlimitedThreads>
         </configuration>
         <executions>
           <execution>
