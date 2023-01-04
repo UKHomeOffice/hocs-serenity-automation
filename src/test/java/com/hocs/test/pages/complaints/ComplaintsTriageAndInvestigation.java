@@ -329,7 +329,8 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     }
 
     public void assertOverdueContributionRequestIsHighlighted() {
-        WebElement label = find(By.xpath("//label[text()='Overdue " + sessionVariableCalled("contributionDueDate") + "']"));
+        WebElement label = withTimeoutOf(Duration.ofSeconds(10)).find(By.xpath("//label[text()='Overdue " + sessionVariableCalled(
+                "contributionDueDate") + "']"));
         String value = label.getCssValue("background-color");
         assertThat(value.equalsIgnoreCase("rgba(212, 53, 28, 1)"), is(true));
     }

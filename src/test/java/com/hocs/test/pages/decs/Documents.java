@@ -276,7 +276,7 @@ public class Documents extends BasePage {
     }
 
     public void selectPrimaryDraft(String fileIdentifier) {
-        WebElementFacade documentToSelect = find(By.xpath("//label[contains(text(),'"+ fileIdentifier +"')]"));
+        WebElementFacade documentToSelect = withTimeoutOf(Duration.ofSeconds(10)).find(By.xpath("//label[contains(text(),'"+ fileIdentifier +"')]"));
         safeClickOn(documentToSelect);
     }
 

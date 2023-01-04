@@ -187,7 +187,7 @@ public class Dashboard extends BasePage {
                 stage = "PO";
             }
             requiredTeam =
-                    find(By.xpath("//span[contains(text(), '" + stage + "') and contains(text(), '" + sessionVariableCalled(
+                    withTimeoutOf(Duration.ofSeconds(10)).find(By.xpath("//span[contains(text(), '" + stage + "') and contains(text(), '" + sessionVariableCalled(
                             "businessArea") + "') and contains(text(), '" + sessionVariableCalled("refType") + "')]"));
         }
         safeClickOn(requiredTeam);

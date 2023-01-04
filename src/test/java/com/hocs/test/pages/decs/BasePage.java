@@ -151,14 +151,15 @@ public class BasePage extends PageObject {
     }
 
     public void assertDECSPageTitle(String title) {
-        WebElementFacade expectedPageTitle = find(By.xpath("//h1[@class='govuk-heading-l' and contains(text(), '" + title + "')]"));
-        expectedPageTitle.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
+        WebElementFacade expectedPageTitle = withTimeoutOf(Duration.ofSeconds(30)).find(By.xpath("//h1[@class='govuk-heading-l' and contains(text()"
+                + ", '" + title + "')]"));
+        expectedPageTitle.waitUntilVisible();
         assert (expectedPageTitle.isVisible());
     }
 
     public void assertManagementUIPageTitle(String title) {
-        WebElementFacade expectedPageTitle = find(By.xpath("//h1[@class='govuk-heading-xl' and contains(text(), '" + title + "')]"));
-        expectedPageTitle.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
+        WebElementFacade expectedPageTitle = withTimeoutOf(Duration.ofSeconds(60)).find(By.xpath("//h1[@class='govuk-heading-xl' and contains(text(), '" + title + "')]"));
+        expectedPageTitle.waitUntilVisible();
         assert (expectedPageTitle.isVisible());
     }
 
@@ -388,7 +389,7 @@ public class BasePage extends PageObject {
     // Buttons
 
     public WebElementFacade getButtonElementFromDisplayedText(String buttonLabel) {
-        return find(By.cssSelector("input[value='" + buttonLabel + "' i]"));
+        return withTimeoutOf(Duration.ofSeconds(10)).find(By.cssSelector("input[value='" + buttonLabel + "' i]"));
     }
 
     public void clickTheButton(String buttonLabel) {

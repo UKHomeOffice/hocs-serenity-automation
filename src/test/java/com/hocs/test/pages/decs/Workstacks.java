@@ -222,7 +222,7 @@ public class Workstacks extends BasePage {
     }
 
     public void selectSpecificCaseReferenceLink(String caseReference) {
-        WebElementFacade caseReferenceLink = find(By.xpath("//a[text()='" + caseReference + "']"));
+        WebElementFacade caseReferenceLink = withTimeoutOf(Duration.ofSeconds(10)).find(By.xpath("//a[text()='" + caseReference + "']"));
         safeClickOn(caseReferenceLink);
     }
 
@@ -553,7 +553,7 @@ public class Workstacks extends BasePage {
     }
 
     public double getPointsOfCurrentCase() {
-        WebElementFacade casePoints = find(By.xpath("//a[text()='" + getCurrentCaseReference() + "']/parent::td"
+        WebElementFacade casePoints = withTimeoutOf(Duration.ofSeconds(10)).find(By.xpath("//a[text()='" + getCurrentCaseReference() + "']/parent::td"
                 + "/following-sibling::td[6]"));
         return Double.parseDouble(casePoints.getText());
     }
@@ -566,9 +566,9 @@ public class Workstacks extends BasePage {
         int currentCase = 2;
         int totalCases = getTotalOfCases();
         WebElement cellOne =
-                find(By.cssSelector("tbody > tr:nth-child(" + (currentCase - 1) + ") > td:nth-child(" + sessionVariableCalled("headerIndex") + ")"));
+                withTimeoutOf(Duration.ofSeconds(10)).find(By.cssSelector("tbody > tr:nth-child(" + (currentCase - 1) + ") > td:nth-child(" + sessionVariableCalled("headerIndex") + ")"));
         WebElement cellTwo =
-                find(By.cssSelector("tbody > tr:nth-child(" + currentCase + ") > td:nth-child(" + sessionVariableCalled("headerIndex") + ")"));
+                withTimeoutOf(Duration.ofSeconds(10)).find(By.cssSelector("tbody > tr:nth-child(" + currentCase + ") > td:nth-child(" + sessionVariableCalled("headerIndex") + ")"));
         while (currentCase <= totalCases) {
             switch (column.toUpperCase()) {
                 case "REFERENCE":
