@@ -1,5 +1,6 @@
 package com.hocs.test.pages.decs;
 
+import java.time.Duration;
 import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -33,7 +34,7 @@ public class PeopleTab extends BasePage {
         selectPeopleTab();
         WebElementFacade displayedValueElement = findBy("//td[text()='" + correspondentName + "']//ancestor::tbody//th[text()='" +header + "']/following"
                 + "-sibling::td");
-        return displayedValueElement.getText();
+        return displayedValueElement.withTimeoutOf(Duration.ofSeconds(10)).getText();
     }
 
     public void addAMemberCorrespondent() {
@@ -48,7 +49,7 @@ public class PeopleTab extends BasePage {
 
     public void editCorrespondent(String detail, String correspondent) {
         selectToManagePeople();
-        WebElementFacade editHypertext = findBy("//label[contains(text(), '" + correspondent + "')]/ancestor::tr//a[text()='Edit']");
+        WebElementFacade editHypertext = findBy("//label[contains(text(), '" + correspondent + "')]/ancestor::tr//a[text()='Edit']").withTimeoutOf(Duration.ofSeconds(10));
         safeClickOn(editHypertext);
         switch (detail.toUpperCase()) {
             case "FULL NAME":

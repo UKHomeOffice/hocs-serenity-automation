@@ -10,6 +10,7 @@ import com.hocs.test.pages.managementUI.MUI;
 
 import config.CaseType;
 import config.User;
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -224,7 +225,7 @@ public class CreateCase extends BasePage {
     public void escalateEligibleStage1CaseToStage2() {
         if (stage1CaseReference.isEmpty()) {
             WebElementFacade stage1CaseRefField = findBy("//a[contains(text(), 'Escalate case')]/parent::td/preceding-sibling::td/a");
-            stage1CaseReference = stage1CaseRefField.getText();
+            stage1CaseReference = stage1CaseRefField.withTimeoutOf(Duration.ofSeconds(10)).getText();
         }
         setSessionVariable("stage1CaseReference").to(stage1CaseReference);
         System.out.print("Case reference of case being escalated: " + stage1CaseReference + "\n");

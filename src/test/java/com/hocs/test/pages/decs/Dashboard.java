@@ -230,7 +230,7 @@ public class Dashboard extends BasePage {
     }
 
     public void selectWorkstackByTeamName(String teamName) {
-        WebElementFacade workstack = findBy("//span[text()='" + teamName + "']");
+        WebElementFacade workstack = findBy("//span[text()='" + teamName + "']").withTimeoutOf(Duration.ofSeconds(10));
         safeClickOn(workstack);
     }
 
@@ -315,12 +315,12 @@ public class Dashboard extends BasePage {
         } else {
             caseCount = findBy("//span[text()=\"" + workstackName + "\"]/preceding-sibling::span");
         }
-        return Integer.parseInt(caseCount.getText());
+        return Integer.parseInt(caseCount.withTimeoutOf(Duration.ofSeconds(10)).getText());
     }
 
     public int getNumberOfUnallocatedCasesInWorkstackFromDashboardCard(String workstackName) {
         WebElementFacade caseCount = findBy("//span[text()=\"" + workstackName + "\"]/ancestor::li/div/span");
-        String totalOfUnallocatedCases = caseCount.getText().split(" ")[0];
+        String totalOfUnallocatedCases = caseCount.withTimeoutOf(Duration.ofSeconds(10)).getText().split(" ")[0];
         return Integer.parseInt(totalOfUnallocatedCases);
     }
 

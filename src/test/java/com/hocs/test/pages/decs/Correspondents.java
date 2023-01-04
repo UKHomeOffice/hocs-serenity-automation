@@ -5,6 +5,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import java.time.Duration;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -230,7 +231,8 @@ public class Correspondents extends BasePage {
     }
 
     public void removeASpecificCorrespondent(String correspondent) {
-        WebElementFacade correspondentSpecificRemoveLink = findBy("//label[contains(text(), '" + correspondent + "')]/ancestor::tr//a[text()='Remove']");
+        WebElementFacade correspondentSpecificRemoveLink = findBy("//label[contains(text(), '" + correspondent + "')]/ancestor::tr//a[text()='Remove']").withTimeoutOf(
+                Duration.ofSeconds(10));
         safeClickOn(correspondentSpecificRemoveLink);
         clickTheButton("Remove");
     }
@@ -242,7 +244,7 @@ public class Correspondents extends BasePage {
     }
 
     public void confirmPrimaryCorrespondent() {
-        WebElementFacade selectedPrimaryCorrespondent = findBy("//input[@name='Correspondents'][@checked]/following-sibling::label");
+        WebElementFacade selectedPrimaryCorrespondent = findBy("//input[@name='Correspondents'][@checked]/following-sibling::label").withTimeoutOf(Duration.ofSeconds(10));
         selectedPrimaryCorrespondent.waitUntilVisible();
         String primaryCorrespondentsName = selectedPrimaryCorrespondent.getText();
         recordCaseData.addHeadingAndValueRecord("Which is the primary correspondent?", primaryCorrespondentsName);

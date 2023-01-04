@@ -154,7 +154,7 @@ public class SummaryTab extends BasePage {
     public String getSummaryTabValueForGivenHeader(String header) {
         selectSummaryTab();
         WebElementFacade displayedValueElement = findBy("//th[text()='" + header + "']/following-sibling::td");
-        return displayedValueElement.getText();
+        return displayedValueElement.withTimeoutOf(Duration.ofSeconds(10)).getText();
     }
 
     public String getActiveStage() {
@@ -458,7 +458,7 @@ public class SummaryTab extends BasePage {
     public void assertAppealInformationIsDisplayed() {
         String appealType = sessionVariableCalled("appealType");
         WebElementFacade appealTypeHeader = findBy("//h2[text()='Appeals']/following-sibling::table/caption");
-        Assert.assertTrue(appealTypeHeader.getText().equalsIgnoreCase(appealType));
+        Assert.assertTrue(appealTypeHeader.withTimeoutOf(Duration.ofSeconds(10)).getText().equalsIgnoreCase(appealType));
         if (appealType.equalsIgnoreCase("Internal Review")) {
             assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("appealOfficerDirectorate"), "Directorate");
             assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("appealOfficerName"), "Officer Name");

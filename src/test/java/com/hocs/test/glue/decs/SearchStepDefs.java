@@ -27,6 +27,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import java.text.ParseException;
+import java.time.Duration;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.junit.Assert;
 
@@ -218,7 +219,7 @@ public class SearchStepDefs extends BasePage {
 
     @And("I click the (case )reference of the case/claim in search results")
     public void iClickTheReferenceOfARandomSearchResult() {
-        WebElementFacade caseReference = findBy("//a[text()='" + getCurrentCaseReference() + "']");
+        WebElementFacade caseReference = findBy("//a[text()='" + getCurrentCaseReference() + "']").withTimeoutOf(Duration.ofSeconds(10));
         safeClickOn(caseReference);
     }
 

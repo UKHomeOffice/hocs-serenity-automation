@@ -3,6 +3,7 @@ package com.hocs.test.pages.foi;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
 import com.hocs.test.pages.decs.RecordCaseData;
+import java.time.Duration;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.Keys;
@@ -73,7 +74,8 @@ public class CaseCreationStage extends BasePage {
             default:
                 pendingStep(valueToBeEdited + " is not defined within " + getMethodName());
         }
-        WebElementFacade changeHyperTextForValue = findBy("//span[text()='" + xpathText + "']/parent::div//following-sibling::div[2]/a");
+        WebElementFacade changeHyperTextForValue = findBy("//span[text()='" + xpathText + "']/parent::div//following-sibling::div[2]/a").withTimeoutOf(
+                Duration.ofSeconds(10));
         safeClickOn(changeHyperTextForValue);
         if (valueToBeEdited.equalsIgnoreCase("DATE FOI RECEIVED") || valueToBeEdited.equalsIgnoreCase("DATE RECEIVED IN KIMU")) {
             recordCaseData.enterDateIntoDateFieldsWithHeading(getDatePlusMinusNDaysAgo(-10), fieldHeader);
@@ -83,7 +85,7 @@ public class CaseCreationStage extends BasePage {
                 setSessionVariable("correspondenceReceivedByKIMUDate").to(getDatePlusMinusNDaysAgo(-10));
             }
         } else if (valueToBeEdited.equalsIgnoreCase("INBOUND CHANNEL")) {
-            WebElementFacade unselectedInboundChannelRadioButton = findBy("//div[@id='OriginalChannel-radios']//input[not(@checked)]/following-sibling::label");
+            WebElementFacade unselectedInboundChannelRadioButton = findBy("//div[@id='OriginalChannel-radios']//input[not(@checked)]/following-sibling::label").withTimeoutOf(Duration.ofSeconds(10));
             setSessionVariable("foiInboundChannel").to(unselectedInboundChannelRadioButton.getText());
             safeClickOn(unselectedInboundChannelRadioButton);
         } else if (valueToBeEdited.equalsIgnoreCase("FOI TOPIC")) {

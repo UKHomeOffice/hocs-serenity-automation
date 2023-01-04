@@ -2,6 +2,7 @@ package com.hocs.test.pages.foi;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.RecordCaseData;
+import java.time.Duration;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import static org.hamcrest.CoreMatchers.is;
@@ -85,7 +86,8 @@ public class Approval extends BasePage {
     }
 
     public void assertStatusOfApprovalRequest(String status) {
-        WebElementFacade requestStatusField = findBy("//legend[@id='ApprovalRequests-legend']/following-sibling::table//td[2]");
+        WebElementFacade requestStatusField = findBy("//legend[@id='ApprovalRequests-legend']/following-sibling::table//td[2]").withTimeoutOf(
+                Duration.ofSeconds(10));
         String displayedStatus = requestStatusField.waitUntilVisible().getText();
         assertThat(displayedStatus.contains(status), is(true));
     }

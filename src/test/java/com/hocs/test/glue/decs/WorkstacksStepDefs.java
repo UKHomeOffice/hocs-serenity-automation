@@ -22,6 +22,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import java.text.ParseException;
+import java.time.Duration;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.NoSuchElementException;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -99,7 +100,8 @@ public class WorkstacksStepDefs extends BasePage {
 
     @When("I click the {string} case type filter card")
     public void clickCaseTypeFilterCard(String caseTypeString) {
-        WebElementFacade filterCard = findBy("//span[text()='" + CaseType.valueOf(caseTypeString).getCorrespondenceTypeLabel() + "']");
+        WebElementFacade filterCard = findBy("//span[text()='" + CaseType.valueOf(caseTypeString).getCorrespondenceTypeLabel() + "']").withTimeoutOf(
+                Duration.ofSeconds(10));
         safeClickOn(filterCard);
     }
 
@@ -704,7 +706,7 @@ public class WorkstacksStepDefs extends BasePage {
     public void theCaseDeadlineDateDisplayedInTheWorkstackIsCorrectDaysForAStage(String workstack, String expectedNumberOfWorkdaysTillDeadline,
             String currentStage) {
         workstacks.assertThatDeadlineDate(workstack, expectedNumberOfWorkdaysTillDeadline, currentStage);
-        WebElementFacade caseReference = findBy("//a[text()='" + getCurrentCaseReference() + "']");
+        WebElementFacade caseReference = findBy("//a[text()='" + getCurrentCaseReference() + "']").withTimeoutOf(Duration.ofSeconds(10));
         caseReference.click();
     }
 }

@@ -27,6 +27,7 @@ import com.hocs.test.pages.mpam.Triage;
 import config.CaseType;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+import java.time.Duration;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 import static jnr.posix.util.MethodName.getMethodName;
@@ -2120,7 +2121,7 @@ public class ValidationStepDefs extends BasePage {
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
-        WebElementFacade displayedError = findBy("//a[contains(text(), '" + errorText + "')]");
+        WebElementFacade displayedError = findBy("//a[contains(text(), '" + errorText + "')]").withTimeoutOf(Duration.ofSeconds(10));
         displayedError.shouldBeVisible();
     }
 }

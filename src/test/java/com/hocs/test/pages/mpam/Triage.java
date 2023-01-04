@@ -7,6 +7,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.RecordCaseData;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -138,7 +139,7 @@ public class Triage extends BasePage {
     public void recordCurrentBusinessUnitOptions() {
         List<WebElementFacade> businessUnitDropdownOptions = findAll("//select[@id='BusUnit']/option");
         for (WebElementFacade option: businessUnitDropdownOptions) {
-            recordedBusinessUnitOptions.add(option.getText());
+            recordedBusinessUnitOptions.add(option.withTimeoutOf(Duration.ofSeconds(10)).getText());
         }
     }
 
@@ -146,7 +147,7 @@ public class Triage extends BasePage {
         List<String> currentBusinessAreaOptions = new ArrayList<>();
         List<WebElementFacade> businessAreaDropdownOptions = findAll("//select[@id='BusUnit']/option");
         for (WebElementFacade option: businessAreaDropdownOptions) {
-            currentBusinessAreaOptions.add(option.getText());
+            currentBusinessAreaOptions.add(option.withTimeoutOf(Duration.ofSeconds(10)).getText());
         }
         assertThat(checkIfBusinessAreaListsDiffer(currentBusinessAreaOptions, recordedBusinessUnitOptions), is(true));
     }

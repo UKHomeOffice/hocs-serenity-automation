@@ -9,6 +9,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.SummaryTab;
+import java.time.Duration;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -174,7 +175,7 @@ public class AccordionMPAM extends BasePage {
     }
 
     public void selectBusinessArea(String businessArea) {
-        WebElementFacade businessAreaLabel = findBy("//label[contains(text(), '" + businessArea + "')]");
+        WebElementFacade businessAreaLabel = findBy("//label[contains(text(), '" + businessArea + "')]").withTimeoutOf(Duration.ofSeconds(10));
         waitABit(500);
         safeClickOn(businessAreaLabel);
     }
@@ -189,7 +190,7 @@ public class AccordionMPAM extends BasePage {
 
     public void changeRefTypeConvertingACase() {
         safeClickOn(changeReferenceTypeLink);
-        WebElementFacade newRefTypeInHeader = findBy("//h1[contains(text(), 'Change reference type')]");
+        WebElementFacade newRefTypeInHeader = findBy("//h1[contains(text(), 'Change reference type')]").withTimeoutOf(Duration.ofSeconds(10));
         String newRefType = newRefTypeInHeader.getText().split("\\W")[4];
         enterTextForConversionTo(newRefType);
         setSessionVariable("refType").to(newRefType);
@@ -198,7 +199,7 @@ public class AccordionMPAM extends BasePage {
 
     public void changeRefTypeCorrectingAnError() {
         safeClickOn(changeReferenceTypeLink);
-        WebElementFacade newRefTypeInHeader = findBy("//h1[contains(text(), 'Change reference type')]");
+        WebElementFacade newRefTypeInHeader = findBy("//h1[contains(text(), 'Change reference type')]").withTimeoutOf(Duration.ofSeconds(10));
         String newRefType = newRefTypeInHeader.getText().split("\\W")[4];
         enterTextForConversionTo(newRefType);
         setSessionVariable("refType").to(newRefType);
@@ -317,7 +318,7 @@ public class AccordionMPAM extends BasePage {
     }
 
     public void assertRefTypeHasChanged(String refType) {
-        WebElementFacade checkedRefType = findBy("//legend[@id='RefType-legend']/following-sibling::div//input[@checked]/following-sibling::label");
+        WebElementFacade checkedRefType = findBy("//legend[@id='RefType-legend']/following-sibling::div//input[@checked]/following-sibling::label").withTimeoutOf(Duration.ofSeconds(10));
         checkedRefType.shouldContainText(refType);
     }
 

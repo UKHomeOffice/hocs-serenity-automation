@@ -5,6 +5,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.RecordCaseData;
+import java.time.Duration;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.Keys;
@@ -130,7 +131,7 @@ public class Markup extends BasePage {
 
     public void confirmPrimaryTopic() {
         WebElementFacade selectedPrimaryTopic = findBy("//input[@name='Topics'][@checked]/following-sibling::label");
-        selectedPrimaryTopic.waitUntilVisible();
+        selectedPrimaryTopic.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
         recordCaseData.addHeadingAndValueRecord("Which is the primary topic?", selectedPrimaryTopic.getText());
         clickContinueButton();
     }

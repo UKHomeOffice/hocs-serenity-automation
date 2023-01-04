@@ -61,7 +61,7 @@ public class MUIDashboard extends BasePage {
     }
 
     public void selectDashboardLinkWithText(String linkText) {
-        WebElementFacade link = findBy("//a[text()='" + linkText + "']");
+        WebElementFacade link = findBy("//a[text()='" + linkText + "']").withTimeoutOf(Duration.ofSeconds(10));
         if(!link.isCurrentlyVisible()) {
             dashboard.goToMUIDashboard();
         }

@@ -2,6 +2,7 @@ package com.hocs.test.pages.managementUI;
 
 import com.hocs.test.pages.decs.BasePage;
 import config.User;
+import java.time.Duration;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.Keys;
@@ -74,12 +75,12 @@ public class UserManagement extends BasePage {
 
     public void removeTeam(String team) {
         setSessionVariable("inputTeam").to(team);
-        WebElementFacade teamRemoveHypertext = findBy("//td[contains(text(), '" + team + "')]/following-sibling::td/a");
+        WebElementFacade teamRemoveHypertext = findBy("//td[contains(text(), '" + team + "')]/following-sibling::td/a").withTimeoutOf(Duration.ofSeconds(10));
         safeClickOn(teamRemoveHypertext);
     }
 
     public void assertCorrectUserTeamsAreDisplayed() {
-        WebElementFacade usernameField = findBy("//input[@id='username']");
+        WebElementFacade usernameField = findBy("//input[@id='username']").withTimeoutOf(Duration.ofSeconds(10));
         String displayedUsername = usernameField.getValue();
         String inputUser = sessionVariableCalled("inputUser");
         waitABit(1000);
@@ -87,7 +88,7 @@ public class UserManagement extends BasePage {
     }
 
     public void assertNewTeamIsAddedToUserTeams() {
-        WebElementFacade teamDisplayedInTable = findBy("//td[text()='" + sessionVariableCalled("inputTeam") + "']");
+        WebElementFacade teamDisplayedInTable = findBy("//td[text()='" + sessionVariableCalled("inputTeam") + "']").withTimeoutOf(Duration.ofSeconds(10));
         waitFor(teamDisplayedInTable);
         teamDisplayedInTable.shouldBeVisible();
     }
@@ -99,7 +100,7 @@ public class UserManagement extends BasePage {
 
     public void assertTeamHasBeenRemoved() {
         waitABit(1000);
-        WebElementFacade teamRemoveHypertext = findBy("//td[contains(text(), '" + sessionVariableCalled("inputTeam") + "')]");
+        WebElementFacade teamRemoveHypertext = findBy("//td[contains(text(), '" + sessionVariableCalled("inputTeam") + "')]").withTimeoutOf(Duration.ofSeconds(10));
         waitABit(1000);
         assertThat(teamRemoveHypertext.isVisible(), is(false));
     }

@@ -180,7 +180,7 @@ public class Documents extends BasePage {
     public String getDocumentIDforFile(String fileIdentifier) {
         WebElementFacade downloadButton = findBy("//td[contains(text(), '" + fileIdentifier + "')]/following-sibling::td/a"
                 + "[contains(text(), 'Download')]");
-        downloadButton.waitUntilVisible();
+        downloadButton.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
         return downloadButton.getAttribute("href").split("/")[9];
     }
 
@@ -226,7 +226,7 @@ public class Documents extends BasePage {
     public void assertDocumentHasTag(String tag) {
         manageDocumentsLink.waitUntilVisible();
         WebElementFacade documentTag =
-                findBy("//td[contains(text(), '.docx')]/preceding-sibling::td/strong[contains(text(), '" + tag + "')]");
+                findBy("//td[contains(text(), '.docx')]/preceding-sibling::td/strong[contains(text(), '" + tag + "')]").withTimeoutOf(Duration.ofSeconds(10));
         assertThat(documentTag.isVisible(), is(true));
     }
 
@@ -281,16 +281,16 @@ public class Documents extends BasePage {
     }
 
     public void recordPrimaryDraftDocument() {
-        WebElementFacade selectedPrimaryDraftDocument = findBy("//input[contains(@name,'Draft')][@checked]/following-sibling::label");
-        WebElementFacade selectedPrimaryDraftHeading = findBy("//input[contains(@name,'Draft')][@checked]/ancestor::fieldset//span");
+        WebElementFacade selectedPrimaryDraftDocument = findBy("//input[contains(@name,'Draft')][@checked]/following-sibling::label").withTimeoutOf(Duration.ofSeconds(10));
+        WebElementFacade selectedPrimaryDraftHeading = findBy("//input[contains(@name,'Draft')][@checked]/ancestor::fieldset//span").withTimeoutOf(Duration.ofSeconds(10));
         selectedPrimaryDraftDocument.waitUntilVisible();
         recordCaseData.addHeadingAndValueRecord(selectedPrimaryDraftHeading.getText(), selectedPrimaryDraftDocument.getText());
         setSessionVariable("primaryDraft").to(selectedPrimaryDraftDocument.getText());
     }
 
     public void recordFinalResponseDocument() {
-        WebElementFacade selectedPrimaryDraftDocument = findBy("//input[@name='FinalResponse'][@checked]/following-sibling::label");
-        WebElementFacade selectedPrimaryDraftHeading = findBy("//input[@name='FinalResponse'][@checked]/ancestor::fieldset//span");
+        WebElementFacade selectedPrimaryDraftDocument = findBy("//input[@name='FinalResponse'][@checked]/following-sibling::label").withTimeoutOf(Duration.ofSeconds(10));
+        WebElementFacade selectedPrimaryDraftHeading = findBy("//input[@name='FinalResponse'][@checked]/ancestor::fieldset//span").withTimeoutOf(Duration.ofSeconds(10));
         selectedPrimaryDraftDocument.waitUntilVisible();
         recordCaseData.addHeadingAndValueRecord(selectedPrimaryDraftHeading.getText(), selectedPrimaryDraftDocument.getText());
         setSessionVariable("finalResponse").to(selectedPrimaryDraftDocument.getText());

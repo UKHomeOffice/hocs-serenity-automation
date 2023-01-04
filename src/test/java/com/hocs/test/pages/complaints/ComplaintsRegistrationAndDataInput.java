@@ -6,6 +6,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.RecordCaseData;
 import com.hocs.test.pages.decs.SummaryTab;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -182,7 +183,7 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         List<WebElementFacade> claimCategories = findAll("//input[not(@checked)]/following-sibling::label[contains(@for,'Cat')]");
         List<WebElementFacade> visibleClaimCategories = new ArrayList<>();
         for (WebElementFacade claimCategory: claimCategories) {
-            if (claimCategory.isCurrentlyVisible()) {
+            if (claimCategory.withTimeoutOf(Duration.ofSeconds(10)).isCurrentlyVisible()) {
                 visibleClaimCategories.add(claimCategory);
             }
         }

@@ -7,6 +7,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.decs.BasePage;
+import java.time.Duration;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -424,7 +425,7 @@ public class ClaimCategories extends BasePage {
             default:
                 pendingStep(caseCategory + " is not defined within iClickShowHideDetails");
         }
-        clickOn(showDetailsHypertext);
+        clickOn(showDetailsHypertext.withTimeoutOf(Duration.ofSeconds(10)));
     }
 
     public void enterPreliminaryOfferValue(int value) {

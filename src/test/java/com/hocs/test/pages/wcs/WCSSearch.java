@@ -9,6 +9,7 @@ import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.SummaryTab;
 import com.hocs.test.pages.decs.Workstacks;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -118,7 +119,7 @@ public class WCSSearch extends BasePage {
     }
 
     public void assertCaseIsVisibleInSearchResults() {
-        WebElementFacade currentCaseSearchResult = findBy("//td/a[text() = '" + getCurrentCaseReference() +"']");
+        WebElementFacade currentCaseSearchResult = findBy("//td/a[text() = '" + getCurrentCaseReference() +"']").withTimeoutOf(Duration.ofSeconds(10));
         assertThat(currentCaseSearchResult.isVisible(), is(true));
 
     }

@@ -4,6 +4,7 @@ import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.RecordCaseData;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -178,7 +179,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
         List<WebElementFacade> claimCategories = findAll("//input[not(@checked)]/following-sibling::label[contains(@for,'Cat')]");
         List<WebElementFacade> visibleClaimCategories = new ArrayList<>();
         for (WebElementFacade claimCategory : claimCategories) {
-            if (claimCategory.isCurrentlyVisible()) {
+            if (claimCategory.withTimeoutOf(Duration.ofSeconds(10)).isCurrentlyVisible()) {
                 visibleClaimCategories.add(claimCategory);
             }
         }

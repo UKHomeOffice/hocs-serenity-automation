@@ -2,6 +2,7 @@ package com.hocs.test.pages.complaints;
 
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.RecordCaseData;
+import java.time.Duration;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.junit.Assert;
@@ -57,7 +58,7 @@ public class ComplaintsDispatchAndSend extends BasePage {
 
     public void assertReasonsForComplaintAreVisible() {
         for (int i = 1; i <= 5; i++) {
-            String displayedReasonForComplaint = findBy("//strong[text()='Reason for Complaint " + i + "']/ancestor::span").getText();
+            String displayedReasonForComplaint = findBy("//strong[text()='Reason for Complaint " + i + "']/ancestor::span").withTimeoutOf(Duration.ofSeconds(10)).getText();
             String expectedReasonForComplaint = sessionVariableCalled("reasonForComplaint" + i);
             if (!displayedReasonForComplaint.contains(expectedReasonForComplaint)) {
                 Assert.fail("Values do not match.\nExpected Reason for Complaint " + i + ": " + expectedReasonForComplaint + "\nDisplayed "

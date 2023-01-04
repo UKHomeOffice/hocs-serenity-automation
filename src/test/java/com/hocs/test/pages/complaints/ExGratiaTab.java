@@ -1,6 +1,7 @@
 package com.hocs.test.pages.complaints;
 
 import com.hocs.test.pages.decs.BasePage;
+import java.time.Duration;
 import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -91,7 +92,7 @@ public class ExGratiaTab extends BasePage {
     }
 
     public String getExGratiaSummaryValueForGivenHeader(String header) {
-        WebElementFacade displayedValueElement = findBy("//th[text()='" + header + "']/following-sibling::td");
+        WebElementFacade displayedValueElement = findBy("//th[text()='" + header + "']/following-sibling::td").withTimeoutOf(Duration.ofSeconds(10));
         return displayedValueElement.getText();
     }
 

@@ -141,9 +141,9 @@ public class Workstacks extends BasePage {
         waitForOnlyOneCaseToBeDisplayed();
         int i = getSpecificColumnsPositionInTable(columnTitle);
         String displayedValue = "";
-        WebElementFacade cell = findBy("//tbody/tr[1]/td[" + i + "]");
-        WebElementFacade strongInCell = findBy("//tbody/tr[1]/td[" + i + "]/strong");
-        WebElementFacade divInCell = findBy("//tbody/tr[1]/td[" + i + "]/div");
+        WebElementFacade cell = findBy("//tbody/tr[1]/td[" + i + "]").withTimeoutOf(Duration.ofSeconds(10));
+        WebElementFacade strongInCell = findBy("//tbody/tr[1]/td[" + i + "]/strong").withTimeoutOf(Duration.ofSeconds(10));
+        WebElementFacade divInCell = findBy("//tbody/tr[1]/td[" + i + "]/div").withTimeoutOf(Duration.ofSeconds(10));
         switch (columnTitle.toUpperCase()) {
             case "OWNER":
                 if (divInCell.isCurrentlyVisible()) {
@@ -172,7 +172,7 @@ public class Workstacks extends BasePage {
         boolean columnFound = false;
         while (!columnFound) {
             i++;
-            WebElementFacade coloumnHeader = findBy("//thead/tr/th[" + i + "]");
+            WebElementFacade coloumnHeader = findBy("//thead/tr/th[" + i + "]").withTimeoutOf(Duration.ofSeconds(10));
             columnFound = coloumnHeader.getText().contains(columnTitle);
         }
         return i;
@@ -191,12 +191,12 @@ public class Workstacks extends BasePage {
         boolean ownerHeaderFound = false;
         while (!ownerHeaderFound) {
             i++;
-            WebElementFacade header = findBy("//thead/tr/th[" + i + "]");
+            WebElementFacade header = findBy("//thead/tr/th[" + i + "]").withTimeoutOf(Duration.ofSeconds(10));
             ownerHeaderFound = header.getText().contains("Owner");
         }
         String ownerName;
-        WebElementFacade ownerNameInCellDiv = findBy("//tbody/tr[1]/td[" + i + "]/div");
-        WebElementFacade ownerNameInCell = findBy("//tbody/tr[1]/td[" + i + "]");
+        WebElementFacade ownerNameInCellDiv = findBy("//tbody/tr[1]/td[" + i + "]/div").withTimeoutOf(Duration.ofSeconds(10));
+        WebElementFacade ownerNameInCell = findBy("//tbody/tr[1]/td[" + i + "]").withTimeoutOf(Duration.ofSeconds(10));
         if (ownerNameInCellDiv.isCurrentlyVisible()) {
             ownerName = ownerNameInCellDiv.getText();
         } else {
@@ -292,29 +292,29 @@ public class Workstacks extends BasePage {
     }
 
     private String getNthMPAMCasesReference(int n) {
-        return findBy("//tbody/tr[" + n + "]/td[2]/a").getText();
+        return findBy("//tbody/tr[" + n + "]/td[2]/a").withTimeoutOf(Duration.ofSeconds(10)).getText();
     }
 
     private String getNthMPAMCasesOwner(int n) {
-        return findBy("//tbody/tr[" + n + "]/td[4]/div").getText();
+        return findBy("//tbody/tr[" + n + "]/td[4]/div").withTimeoutOf(Duration.ofSeconds(10)).getText();
     }
 
     private String getNthMPAMCasesUrgency(int n) {
-        return findBy("//tbody/tr[" + n + "]/td[7]").getText();
+        return findBy("//tbody/tr[" + n + "]/td[7]").withTimeoutOf(Duration.ofSeconds(10)).getText();
     }
 
     private String getNthMPAMCasesDays(int n) {
-        return findBy("//tbody/tr[" + n + "]/td[8]").getText();
+        return findBy("//tbody/tr[" + n + "]/td[8]").withTimeoutOf(Duration.ofSeconds(10)).getText();
     }
 
     public void allocateThreeCasesCreated(User user) {
         waitABit(1000);
         int totalCaseNumber = getTotalOfCases();
-        WebElementFacade caseOne = findBy("//tr[" + (totalCaseNumber - 2) + "]//input");
+        WebElementFacade caseOne = findBy("//tr[" + (totalCaseNumber - 2) + "]//input").withTimeoutOf(Duration.ofSeconds(10));
         clickOn(caseOne);
-        WebElementFacade caseTwo = findBy("//tr[" + (totalCaseNumber - 1) + "]//input");
+        WebElementFacade caseTwo = findBy("//tr[" + (totalCaseNumber - 1) + "]//input").withTimeoutOf(Duration.ofSeconds(10));
         clickOn(caseTwo);
-        WebElementFacade caseThree = findBy("//tr[" + totalCaseNumber + "]//input");
+        WebElementFacade caseThree = findBy("//tr[" + totalCaseNumber + "]//input").withTimeoutOf(Duration.ofSeconds(10));
         clickOn(caseThree);
         selectAllocationUserByVisibleText(user.getAllocationText());
     }
@@ -322,17 +322,17 @@ public class Workstacks extends BasePage {
     public void unallocateThreeCasesFromSelectedUser() {
         waitABit(1500);
         int totalCaseNumber = getTotalOfCases();
-        WebElementFacade caseOne = findBy("//tr[" + (totalCaseNumber - 2) + "]//input");
+        WebElementFacade caseOne = findBy("//tr[" + (totalCaseNumber - 2) + "]//input").withTimeoutOf(Duration.ofSeconds(10));
         clickOn(caseOne);
-        WebElementFacade caseTwo = findBy("//tr[" + (totalCaseNumber - 1) + "]//input");
+        WebElementFacade caseTwo = findBy("//tr[" + (totalCaseNumber - 1) + "]//input").withTimeoutOf(Duration.ofSeconds(10));
         clickOn(caseTwo);
-        WebElementFacade caseThree = findBy("//tr[" + totalCaseNumber + "]//input");
+        WebElementFacade caseThree = findBy("//tr[" + totalCaseNumber + "]//input").withTimeoutOf(Duration.ofSeconds(10));
         clickOn(caseThree);
         safeClickOn(unallocateButton);
     }
 
     public void selectAFilterCard() {
-        WebElementFacade workflowFilterCardCaseTotal = findBy("//li[contains(@class, 'card')]/a/span[1]");
+        WebElementFacade workflowFilterCardCaseTotal = findBy("//li[contains(@class, 'card')]/a/span[1]").withTimeoutOf(Duration.ofSeconds(10));
         setSessionVariable("filterCardCaseTotal").to(workflowFilterCardCaseTotal.getText());
         safeClickOn(workflowFilterCardCaseTotal);
         workflowFilterCardCaseTotal.waitUntilNotVisible();
@@ -416,7 +416,7 @@ public class Workstacks extends BasePage {
         waitForWorkstackToLoad();
         caseFilter.sendKeys(caseRef);
         waitABit(500);
-        WebElementFacade selectedCaseCheckBox = findBy("//a[text()='" + caseRef + "']/parent::td/preceding-sibling::td//label");
+        WebElementFacade selectedCaseCheckBox = findBy("//a[text()='" + caseRef + "']/parent::td/preceding-sibling::td//label").withTimeoutOf(Duration.ofSeconds(10));
         safeClickOn(selectedCaseCheckBox);
         safeClickOn(unallocateButton);
         waitForTopCaseToNotBeAllocated();
@@ -489,7 +489,7 @@ public class Workstacks extends BasePage {
     }
 
     public void assertVisibilityOfSpecificCaseReference(boolean trueFalse, String caseRefNumber) {
-        WebElementFacade thisReference = findBy("//a[text()='" + caseRefNumber + "']");
+        WebElementFacade thisReference = findBy("//a[text()='" + caseRefNumber + "']").withTimeoutOf(Duration.ofSeconds(10));
         assertThat(isElementDisplayed(thisReference), is(trueFalse));
     }
 
@@ -529,11 +529,11 @@ public class Workstacks extends BasePage {
 
     public void assertThatThreeCasesHaveBeenUnassigned() {
         int totalCaseNumber = getTotalOfCases();
-        WebElementFacade caseOne = findBy("//tr[" + (totalCaseNumber - 2) + "]/td[4]");
+        WebElementFacade caseOne = findBy("//tr[" + (totalCaseNumber - 2) + "]/td[4]").withTimeoutOf(Duration.ofSeconds(10));
         caseOne.shouldContainText("");
-        WebElementFacade caseTwo = findBy("//tr[" + (totalCaseNumber - 1) + "]/td[4]");
+        WebElementFacade caseTwo = findBy("//tr[" + (totalCaseNumber - 1) + "]/td[4]").withTimeoutOf(Duration.ofSeconds(10));
         caseTwo.shouldContainText("");
-        WebElementFacade caseThree = findBy("//tr[" + totalCaseNumber + "]/td[4]");
+        WebElementFacade caseThree = findBy("//tr[" + totalCaseNumber + "]/td[4]").withTimeoutOf(Duration.ofSeconds(10));
         caseThree.shouldContainText("");
     }
 
@@ -691,11 +691,11 @@ public class Workstacks extends BasePage {
         caseFilter.sendKeys(getCurrentCaseReference());
 
         if(currentWorkstack.equalsIgnoreCase("PSU Complaints")) {
-            displayedDeadlineDate = findBy("//a[text()='" + getCurrentCaseReference() + "']/parent::td/following-sibling::td[6]");
-            stage = findBy("//a[text()='" + getCurrentCaseReference() + "']/parent::td/following-sibling::td[2]");
+            displayedDeadlineDate = findBy("//a[text()='" + getCurrentCaseReference() + "']/parent::td/following-sibling::td[6]").withTimeoutOf(Duration.ofSeconds(10));
+            stage = findBy("//a[text()='" + getCurrentCaseReference() + "']/parent::td/following-sibling::td[2]").withTimeoutOf(Duration.ofSeconds(10));
             } else{
-            displayedDeadlineDate = findBy("//a[text()='" + getCurrentCaseReference() + "']/parent::td/following-sibling::td[4]");
-            stage = findBy("//a[text()='" + getCurrentCaseReference() + "']/parent::td/following-sibling::td[1]");
+            displayedDeadlineDate = findBy("//a[text()='" + getCurrentCaseReference() + "']/parent::td/following-sibling::td[4]").withTimeoutOf(Duration.ofSeconds(10));
+            stage = findBy("//a[text()='" + getCurrentCaseReference() + "']/parent::td/following-sibling::td[1]").withTimeoutOf(Duration.ofSeconds(10));
         }
 
         String displayedDeadline = displayedDeadlineDate.getText();
@@ -744,10 +744,10 @@ public class Workstacks extends BasePage {
         Boolean highPriorityFirst = false;
         Boolean lowPrioritySecond = false;
         for (WebElementFacade caseReferenceElement : caseReferenceElements) {
-            if (caseReferenceElement.getText().equals(highPriorityReference)) {
+            if (caseReferenceElement.withTimeoutOf(Duration.ofSeconds(10)).getText().equals(highPriorityReference)) {
                 highPriorityFirst = true;
             }
-            if (caseReferenceElement.getText().equals(lowPriorityReference) && highPriorityFirst) {
+            if (caseReferenceElement.withTimeoutOf(Duration.ofSeconds(10)).getText().equals(lowPriorityReference) && highPriorityFirst) {
                 lowPrioritySecond = true;
             }
         }
@@ -883,14 +883,14 @@ public class Workstacks extends BasePage {
     }
 
     public void assertOverdueContributionRequestIsHighlighted() {
-        WebElementFacade label = findBy("//a[text()='" + getCurrentCaseReference() + "']/parent::td/following-sibling::td//span[contains(text(), 'Overdue')]");
+        WebElementFacade label = findBy("//a[text()='" + getCurrentCaseReference() + "']/parent::td/following-sibling::td//span[contains(text(), 'Overdue')]").withTimeoutOf(Duration.ofSeconds(10));
         String value = label.getCssValue("background-color");
         assertThat(value.equalsIgnoreCase("rgba(212, 53, 28, 1)"), is(true));
     }
 
     public void assertHomeSecretarySymbolVisibleForCase(String caseReference) {
         waitForWorkstackToLoad();
-        WebElementFacade homeSecSymbol = findBy("//a[text()='" + caseReference + "']/preceding-sibling::span[text()='HS']");
+        WebElementFacade homeSecSymbol = findBy("//a[text()='" + caseReference + "']/preceding-sibling::span[text()='HS']").withTimeoutOf(Duration.ofSeconds(10));
         assertThat(homeSecSymbol.isCurrentlyVisible(), is(true));
     }
 

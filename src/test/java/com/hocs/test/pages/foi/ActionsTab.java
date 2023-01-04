@@ -1,6 +1,7 @@
 package com.hocs.test.pages.foi;
 
 import com.hocs.test.pages.decs.BasePage;
+import java.time.Duration;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.junit.Assert;
@@ -107,7 +108,8 @@ public class ActionsTab extends BasePage {
     }
 
     public void clickUpdateLinkForAppeal() {
-        WebElementFacade updateHypertextOfSpecificAppeal = findBy("//td[text()='" + sessionVariableCalled("appealType") + "']/following-sibling::td/a");
+        WebElementFacade updateHypertextOfSpecificAppeal = findBy("//td[text()='" + sessionVariableCalled("appealType") + "']/following-sibling::td/a").withTimeoutOf(
+                Duration.ofSeconds(10));
         safeClickOn(updateHypertextOfSpecificAppeal);
     }
 
@@ -158,7 +160,7 @@ public class ActionsTab extends BasePage {
     public void selectToUpdateRecordedInterest() {
         selectActionsTab();
         String interestedParty = sessionVariableCalled("interestedParty");
-        WebElementFacade updateLink = findBy("//td[text()='" + interestedParty + "']/following-sibling::td/a");
+        WebElementFacade updateLink = findBy("//td[text()='" + interestedParty + "']/following-sibling::td/a").withTimeoutOf(Duration.ofSeconds(10));
         safeClickOn(updateLink);
     }
 

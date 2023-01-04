@@ -122,7 +122,7 @@ public class TeamManagement extends BasePage {
     }
 
     public void removeUserFromTeamWithAssignedCases(String nameOfUser) {
-        WebElementFacade removeButtonOfUser = findBy("//td[contains(text(), '" + nameOfUser + "')]/following-sibling::td/a");
+        WebElementFacade removeButtonOfUser = findBy("//td[contains(text(), '" + nameOfUser + "')]/following-sibling::td/a").withTimeoutOf(Duration.ofSeconds(10));
         safeClickOn(removeButtonOfUser);
     }
 
@@ -250,7 +250,7 @@ public class TeamManagement extends BasePage {
         String nameOfTeamInHeader = sessionVariableCalled("teamName").toString();
         waitABit(2500);
         assertThat(teamNameHeader.getText(), containsText(nameOfTeamInHeader));
-        WebElementFacade userInTeamList = findBy("//td[contains(text(), '" + addedOrRemovedUser.getAllocationText() + "')]");
+        WebElementFacade userInTeamList = findBy("//td[contains(text(), '" + addedOrRemovedUser.getAllocationText() + "')]").withTimeoutOf(Duration.ofSeconds(10));
         if (assertion) {
             successMessage.waitUntilVisible();
         } else {

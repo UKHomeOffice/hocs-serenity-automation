@@ -8,6 +8,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.hocs.test.pages.decs.BasePage;
+import java.time.Duration;
 import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -86,7 +87,7 @@ public class StandardLine extends BasePage {
         if (action.equalsIgnoreCase("EXPIRE")) {
             setSessionVariable("standardLineExpiryDate").to(getTodaysDate());
         }
-        WebElementFacade hypertext = findBy("//td[text()='" + topic + "']/following-sibling::td//a[text()='" + action + "']");
+        WebElementFacade hypertext = findBy("//td[text()='" + topic + "']/following-sibling::td//a[text()='" + action + "']").withTimeoutOf(Duration.ofSeconds(10));
         jsClickOn(hypertext);
         waitABit(1000);
     }
@@ -130,7 +131,7 @@ public class StandardLine extends BasePage {
     }
 
     public void assertStandardLineExpiryDateIsUpdated() {
-        WebElementFacade dateField = findBy("//td[text()='" + sessionVariableCalled("standardLineTopic") + "']/parent::tr//span");
+        WebElementFacade dateField = findBy("//td[text()='" + sessionVariableCalled("standardLineTopic") + "']/parent::tr//span").withTimeoutOf(Duration.ofSeconds(10));
         String newDate = dateField.getText();
         assertThat(newDate.equals(sessionVariableCalled("standardLineExpiryDate")), is(true));
     }
@@ -162,7 +163,7 @@ public class StandardLine extends BasePage {
     public void assertCreatedStandardLineDisplayed(String input) {
         WebElementFacade standardLine = findBy("//td[text()='" + sessionVariableCalled("standardLineTopic") + "']/following-sibling::td[text()"
                 + "='" + sessionVariableCalled("standardLineDocument") + "']/following-sibling::td//span[text()='" + sessionVariableCalled(
-                        "standardLineExpiryDate") + "']");
+                        "standardLineExpiryDate") + "']").withTimeoutOf(Duration.ofSeconds(10));
         Boolean check = null;
         if (input.toUpperCase().equals("IS")) {
             check = true;

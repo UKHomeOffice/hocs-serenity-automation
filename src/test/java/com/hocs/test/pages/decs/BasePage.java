@@ -79,7 +79,7 @@ public class BasePage extends PageObject {
 
     public boolean isElementDisplayed(WebElementFacade element) {
         try {
-            return element.isDisplayed();
+            return element.withTimeoutOf(Duration.ofSeconds(10)).isDisplayed();
         } catch (org.openqa.selenium.NoSuchElementException e) {
             return false;
         }
@@ -94,7 +94,7 @@ public class BasePage extends PageObject {
     }
 
     public void assertElementTextIs(WebElementFacade elem, String thisElementsText) {
-        assertThat(elem.getValue(), is(thisElementsText));
+        assertThat(elem.withTimeoutOf(Duration.ofSeconds(10)).getValue(), is(thisElementsText));
     }
 
     public void safeClickOn(WebElementFacade webElementFacade) {
@@ -147,7 +147,7 @@ public class BasePage extends PageObject {
 
     public String getDECSCurrentPageTitle() {
         WebElementFacade pageTitle = findBy("//h1[@class='govuk-heading-l']");
-        return pageTitle.getText();
+        return pageTitle.withTimeoutOf(Duration.ofSeconds(10)).getText();
     }
 
     public void assertDECSPageTitle(String title) {
@@ -226,7 +226,7 @@ public class BasePage extends PageObject {
 
     private WebElementFacade getTabElementUsingTabName(String tabName) {
         waitABit(600);
-        return findBy("//a[text()='" + tabName + "']/parent::li[contains(@class,'govuk-tabs__list-item')]");
+        return findBy("//a[text()='" + tabName + "']/parent::li[contains(@class,'govuk-tabs__list-item')]").withTimeoutOf(Duration.ofSeconds(10));
     }
 
     public void refreshTheTab(String tabName) {
@@ -237,7 +237,7 @@ public class BasePage extends PageObject {
         } catch (ElementNotVisibleException | StaleElementReferenceException ex) {
             waitABit(500);
             nonActiveTab = findBy("//li[@class='govuk-tabs__list-item'][not(@class='govuk-tabs__list-item--selected')]");
-            nonActiveTab.click();
+            nonActiveTab.withTimeoutOf(Duration.ofSeconds(10)).click();
         }
         selectTheTab(tabName);
     }
@@ -246,11 +246,11 @@ public class BasePage extends PageObject {
 
     public boolean accordionSectionIsVisible(String accordionLabel) {
         WebElementFacade accordionSectionButton = findBy("//button/span/span[text()='" + accordionLabel +"']");
-        return accordionSectionButton.isCurrentlyVisible();
+        return accordionSectionButton.withTimeoutOf(Duration.ofSeconds(10)).isCurrentlyVisible();
     }
 
     public void openOrCloseAccordionSection(String accordionLabel) {
-        WebElementFacade accordionSectionButton = findBy("//button/span/span[text()='" + accordionLabel +"']");
+        WebElementFacade accordionSectionButton = findBy("//button/span/span[text()='" + accordionLabel +"']").withTimeoutOf(Duration.ofSeconds(10));
         safeClickOn(accordionSectionButton);
     }
 
@@ -443,7 +443,7 @@ public class BasePage extends PageObject {
     // Links
 
     public WebElementFacade getLinkElementFromDisplayedText(String linkText) {
-        return findBy("//a[contains(text(), '" + linkText + "')]");
+        return findBy("//a[contains(text(), '" + linkText + "')]").withTimeoutOf(Duration.ofSeconds(10));
     }
 
     public void clickTheLink(String linkText) {
@@ -453,12 +453,12 @@ public class BasePage extends PageObject {
 
     public Boolean linkIsVisible(String linkText) {
         WebElementFacade link = getLinkElementFromDisplayedText(linkText);
-        return link.withTimeoutOf(Duration.ofSeconds(10)).isVisible();
+        return link.isVisible();
     }
 
     public Boolean linkIsCurrentlyVisible(String linkText) {
         WebElementFacade link = getLinkElementFromDisplayedText(linkText);
-        return link.withTimeoutOf(Duration.ofSeconds(10)).isVisible();
+        return link.isVisible();
     }
 
     public void assertLinkIsVisible(String linkText) {
@@ -482,7 +482,9 @@ public class BasePage extends PageObject {
         WebElementFacade radioButtonElement = getRadioButtonLabelElementWithSpecifiedText(radioButtonText);
         safeClickOn(radioButtonElement);
         String heading =
-                findBy("//label[contains(text()," + sanitiseXpathAttributeString(radioButtonText) + ")]/ancestor::fieldset/legend/span").getText();
+                findBy("//label[contains(text()," + sanitiseXpathAttributeString(radioButtonText) + ")]/ancestor::fieldset/legend/span")
+                        .withTimeoutOf(Duration.ofSeconds(10))
+                        .getText();
         return heading;
     }
 
@@ -490,7 +492,8 @@ public class BasePage extends PageObject {
         waitForHeadingToBeVisible(headingText);
         WebElementFacade radioButtonElement =
                 findBy("//span[contains(@class,'govuk-fieldset__heading')][text() =" + sanitiseXpathAttributeString(headingText) + "]/ancestor"
-                + "::fieldset//input/following-sibling::label[text()=" + sanitiseXpathAttributeString(radioButtonText) + "]");
+                + "::fieldset//input/following-sibling::label[text()=" + sanitiseXpathAttributeString(radioButtonText) + "]")
+                        .withTimeoutOf(Duration.ofSeconds(10));
         safeClickOn(radioButtonElement);
     }
 
@@ -509,7 +512,7 @@ public class BasePage extends PageObject {
 
     private WebElementFacade getCurrentlySelectedRadioButtonElementFromGroupWithHeading(String headingText) {
         return findBy("//span[contains(@class,'govuk-fieldset__heading')][text() =" + sanitiseXpathAttributeString(headingText) + "]/ancestor"
-                + "::fieldset//input[@checked]/following-sibling::label");
+                + "::fieldset//input[@checked]/following-sibling::label").withTimeoutOf(Duration.ofSeconds(10));
     }
 
     public String getCurrentlySelectedRadioButtonFromGroupWithHeading(String headingText) {
@@ -517,7 +520,7 @@ public class BasePage extends PageObject {
     }
 
     private WebElementFacade getRadioButtonLabelElementWithSpecifiedText(String elementText) {
-        return findBy("//input/following-sibling::label[text()=" + sanitiseXpathAttributeString(elementText) + "]");
+        return findBy("//input/following-sibling::label[text()=" + sanitiseXpathAttributeString(elementText) + "]").withTimeoutOf(Duration.ofSeconds(10));
     }
 
     private List<WebElementFacade> getRadioButtonElementsInGroupWithHeading(String headingText) {
@@ -529,7 +532,7 @@ public class BasePage extends PageObject {
         List<WebElementFacade> radioButtonElements = getRadioButtonElementsInGroupWithHeading(headingText);
         List<String> radioButtonLabels = new ArrayList<>();
         for (WebElementFacade radioButtonElement : radioButtonElements) {
-            radioButtonLabels.add(radioButtonElement.getText());
+            radioButtonLabels.add(radioButtonElement.withTimeoutOf(Duration.ofSeconds(10)).getText());
         }
         return radioButtonLabels;
     }
@@ -663,7 +666,7 @@ public class BasePage extends PageObject {
 
     public boolean dateFieldsWithHeadingAreCurrentlyVisible(String headingText) {
         WebElementFacade dayFieldWithMatchingHeading = find("//legend[text()=" + sanitiseXpathAttributeString(headingText) + "]/following"
-                + "-sibling::div/div[1]//input");
+                + "-sibling::div/div[1]//input").withTimeoutOf(Duration.ofSeconds(10));
         return dayFieldWithMatchingHeading.isCurrentlyVisible();
     }
 
@@ -791,7 +794,7 @@ public class BasePage extends PageObject {
 
     public boolean checkboxWithLabelIsCurrentlyVisible(String checkboxLabelText) {
         WebElementFacade checkbox =
-                findBy("//input[@type='checkbox']/following-sibling::label[text()=" + sanitiseXpathAttributeString(checkboxLabelText) + "]");
+                findBy("//input[@type='checkbox']/following-sibling::label[text()=" + sanitiseXpathAttributeString(checkboxLabelText) + "]").withTimeoutOf(Duration.ofSeconds(10));
         return  checkbox.isCurrentlyVisible();
     }
 
@@ -853,11 +856,11 @@ public class BasePage extends PageObject {
     }
 
     private WebElementFacade getTypeaheadElementWithSpecificHeading(String headingText) {
-        return findBy("//label[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling::div//input");
+        return findBy("//label[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling::div//input").withTimeoutOf(Duration.ofSeconds(10));
     }
 
     private String getCurrentlySelectedOptionFromTypeaheadWithHeading(String headingText) {
-        WebElementFacade selectedOption = findBy("//label[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling::div//div[contains(@class,'govuk-typeahead__single-value')]");
+        WebElementFacade selectedOption = findBy("//label[text()=" + sanitiseXpathAttributeString(headingText) + "]/following-sibling::div//div[contains(@class,'govuk-typeahead__single-value')]").withTimeoutOf(Duration.ofSeconds(10));
         return selectedOption.getText();
     }
 
@@ -908,7 +911,7 @@ public class BasePage extends PageObject {
     public WebElementFacade getOnlyCurrentlyVisibleElementFromList(List<WebElementFacade> list) throws IndexOutOfBoundsException {
         List<WebElementFacade> optionElements = new ArrayList<>();
         for (WebElementFacade element : list) {
-            if (element.isCurrentlyVisible()) {
+            if (element.withTimeoutOf(Duration.ofSeconds(10)).isCurrentlyVisible()) {
                 optionElements.add(element);
             }
         }
