@@ -254,7 +254,7 @@ public class DocumentsStepDefs extends BasePage {
         documents.addADocumentOfFileType("docx");
     }
 
-    @And("I add a document to the case as the (second Registration )/(Casework )user")
+    @And("I add a document to the case as the (second Registration| Casework )user")
     public void iAddADocumentToTheCaseAsTheSecondRegistrationUser() {
         dashboard.ensureViewingCurrentCase();
         documents.selectDocumentsTab();
