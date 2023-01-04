@@ -10,7 +10,7 @@ import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.junit.Assert;
-import org.openqa.selenium.ElementNotVisibleException;
+import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 
@@ -91,14 +91,14 @@ public class CaseView extends BasePage {
                 if (header1.getText().equals(caseRef)) {
                     return true;
                 }
-            } catch (NoSuchElementException | StaleElementReferenceException | ElementNotVisibleException e) {
+            } catch (NoSuchElementException | StaleElementReferenceException | ElementNotInteractableException e) {
                 return false;
             }
         }
         if (headerCaption1.isCurrentlyVisible()) {
             try {
                 return headerCaption1.getText().equals(caseRef);
-            } catch (NoSuchElementException | StaleElementReferenceException | ElementNotVisibleException e) {
+            } catch (NoSuchElementException | StaleElementReferenceException | ElementNotInteractableException e) {
                 return false;
             }
         }

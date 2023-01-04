@@ -2,9 +2,7 @@ package com.hocs.test.pages.decs;
 
 import java.time.Duration;
 import java.util.List;
-import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
-import org.apache.xpath.operations.Bool;
 import org.junit.Assert;
 
 import static jnr.posix.util.MethodName.getMethodName;

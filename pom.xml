@@ -71,6 +71,11 @@
       <version>${restassured.version}</version>
     </dependency>
     <dependency>
+      <groupId>com.github.jnr</groupId>
+      <artifactId>jnr-posix</artifactId>
+      <version>3.1.16</version>
+    </dependency>
+    <dependency>
       <groupId>net.serenity-bdd</groupId>
       <artifactId>serenity-ensure</artifactId>
       <version>${serenity.version}</version>

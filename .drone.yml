@@ -30,7 +30,7 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/standalone-chrome:4.5.2
+    image: selenium/standalone-chrome:4.7.2
     environment:
       DISPLAY: :99.0
 
@@ -68,7 +68,7 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/standalone-chrome:4.5.2
+    image: selenium/standalone-chrome:4.7.2
     environment:
       DISPLAY: :99.0
 
@@ -106,7 +106,7 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/standalone-chrome:4.5.2
+    image: selenium/standalone-chrome:4.7.2
     environment:
       DISPLAY: :99.0
 
@@ -144,7 +144,7 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/standalone-chrome:4.5.2
+    image: selenium/standalone-chrome:4.7.2
     environment:
       DISPLAY: :99.0
 
@@ -182,7 +182,7 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/standalone-chrome:4.5.2
+    image: selenium/standalone-chrome:4.7.2
     environment:
       DISPLAY: :99.0
 
@@ -220,7 +220,7 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/standalone-chrome:4.5.2
+    image: selenium/standalone-chrome:4.7.2
     environment:
       DISPLAY: :99.0
 
@@ -258,7 +258,7 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/standalone-chrome:4.5.2
+    image: selenium/standalone-chrome:4.7.2
     environment:
       DISPLAY: :99.0
 
@@ -296,7 +296,7 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/standalone-chrome:4.5.2
+    image: selenium/standalone-chrome:4.7.2
     environment:
       DISPLAY: :99.0
 
@@ -334,7 +334,7 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/standalone-chrome:4.5.2
+    image: selenium/standalone-chrome:4.7.2
     environment:
       DISPLAY: :99.0
 
@@ -372,7 +372,7 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/standalone-chrome:4.5.2
+    image: selenium/standalone-chrome:4.7.2
     environment:
       DISPLAY: :99.0
 
@@ -410,6 +410,6 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/standalone-chrome:4.5.2
+    image: selenium/standalone-chrome:4.7.2
     environment:
       DISPLAY: :99.0

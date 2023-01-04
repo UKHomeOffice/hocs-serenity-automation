@@ -510,8 +510,8 @@ public class Workstacks extends BasePage {
 
     public void assertAssignedUser(User user) {
         WebElementFacade caseOwner = findBy("//a[text()='" + getCurrentCaseReference()
-                + "']/../following-sibling::td[2]");
-        WebDriverWait wait = new WebDriverWait(getDriver(), 30);
+                + "']/../following-sibling::td[2]").withTimeoutOf(Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(30));
         wait.until((ExpectedCondition<Boolean>) driver -> (caseOwner.getText().equals(user.getUsername())));
     }
 
@@ -520,7 +520,7 @@ public class Workstacks extends BasePage {
         int n = 1;
         while (n <= 3) {
             WebElementFacade selectedCase = findBy("//a[text()='" + sessionVariableCalled("caseReference" + n) + "']/parent::td"
-                    + "/following-sibling::td[2]");
+                    + "/following-sibling::td[2]").withTimeoutOf(Duration.ofSeconds(10));
             waitABit(4000);
             selectedCase.waitUntilVisible().shouldContainText(user.getUsername());
             n++;

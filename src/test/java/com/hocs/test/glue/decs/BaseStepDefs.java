@@ -14,7 +14,7 @@ import com.hocs.test.pages.foi.ActionsTab;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.openqa.selenium.ElementNotVisibleException;
+import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.StaleElementReferenceException;
 
 public class BaseStepDefs extends BasePage {
@@ -93,7 +93,7 @@ public class BaseStepDefs extends BasePage {
             if (caseView.currentCaseIsLoaded()) {
                 try {
                     summaryTab.selectSummaryTab();
-                } catch (ElementNotVisibleException | StaleElementReferenceException e) {
+                } catch (ElementNotInteractableException | StaleElementReferenceException e) {
                     timelineTab.selectTimelineTab();
                     waitABit(500);
                     summaryTab.selectSummaryTab();
@@ -169,4 +169,3 @@ public class BaseStepDefs extends BasePage {
         assertRadioButtonIsSelected(radioButtonText);
     }
 }
-
