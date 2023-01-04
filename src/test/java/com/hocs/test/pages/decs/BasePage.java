@@ -492,8 +492,7 @@ public class BasePage extends PageObject {
         waitForHeadingToBeVisible(headingText);
         WebElementFacade radioButtonElement =
                 findBy("//span[contains(@class,'govuk-fieldset__heading')][text() =" + sanitiseXpathAttributeString(headingText) + "]/ancestor"
-                + "::fieldset//input/following-sibling::label[text()=" + sanitiseXpathAttributeString(radioButtonText) + "]")
-                        .
+                + "::fieldset//input/following-sibling::label[text()=" + sanitiseXpathAttributeString(radioButtonText) + "]");
         safeClickOn(radioButtonElement);
     }
 
