@@ -21,22 +21,22 @@ public class CaseCreationStage extends BasePage {
 
     RecordCaseData recordCaseData;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//span[text()='Date FOI received']/parent::div/following-sibling::div[1]")
+    @FindBy(xpath = "//span[text()='Date FOI received']/parent::div/following-sibling::div[1]")
     public WebElementFacade receivedDateValue;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//span[text()='Date received in KIMU']/parent::div/following-sibling::div[1]")
+    @FindBy(xpath = "//span[text()='Date received in KIMU']/parent::div/following-sibling::div[1]")
     public WebElementFacade dateReceivedInKIMUValue;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//span[text()='How was the correspondence received?']/parent::div/following-sibling::div[1]")
+    @FindBy(xpath = "//span[text()='How was the correspondence received?']/parent::div/following-sibling::div[1]")
     public WebElementFacade inboundChannelValue;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//span[text()='FOI Topic']/parent::div/following-sibling::div[1]")
+    @FindBy(xpath = "//span[text()='FOI Topic']/parent::div/following-sibling::div[1]")
     public WebElementFacade foiTopicValue;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//span[text()='Request Question']/parent::div/following-sibling::div[1]")
+    @FindBy(xpath = "//span[text()='Request Question']/parent::div/following-sibling::div[1]")
     public WebElementFacade requestQuestionValue;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//span[text()='Primary correspondent']/parent::div/following-sibling::div[1]")
+    @FindBy(xpath = "//span[text()='Primary correspondent']/parent::div/following-sibling::div[1]")
     public WebElementFacade primaryCorrespondentValue;
 
     public void selectValidityOfRequest(String validity) {
@@ -85,7 +85,7 @@ public class CaseCreationStage extends BasePage {
                 setSessionVariable("correspondenceReceivedByKIMUDate").to(getDatePlusMinusNDaysAgo(-10));
             }
         } else if (valueToBeEdited.equalsIgnoreCase("INBOUND CHANNEL")) {
-            WebElementFacade unselectedInboundChannelRadioButton = findBy("//div[@id='OriginalChannel-radios']//input[not(@checked)]/following-sibling::label").withTimeoutOf(Duration.ofSeconds(10));
+            WebElementFacade unselectedInboundChannelRadioButton = findBy("//div[@id='OriginalChannel-radios']//input[not(@checked)]/following-sibling::label");
             setSessionVariable("foiInboundChannel").to(unselectedInboundChannelRadioButton.getText());
             safeClickOn(unselectedInboundChannelRadioButton);
         } else if (valueToBeEdited.equalsIgnoreCase("FOI TOPIC")) {

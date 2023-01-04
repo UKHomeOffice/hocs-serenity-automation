@@ -26,34 +26,34 @@ public class WCSSearch extends BasePage {
 
     SummaryTab summaryTab;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='reference']")
+    @FindBy(xpath = "//input[@id='reference']")
     public WebElementFacade referenceTextbox;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='claimantName']")
+    @FindBy(xpath = "//input[@id='claimantName']")
     public WebElementFacade claimantNameTextbox;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='claimantDOB-day']")
+    @FindBy(xpath = "//input[@id='claimantDOB-day']")
     public WebElementFacade claimantDOBDayTextbox;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='claimantDOB-month']")
+    @FindBy(xpath = "//input[@id='claimantDOB-month']")
     public WebElementFacade claimantDOBMonthTextbox;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='claimantDOB-year']")
+    @FindBy(xpath = "//input[@id='claimantDOB-year']")
     public WebElementFacade claimantDOBYearTextbox;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='niNumber']")
+    @FindBy(xpath = "//input[@id='niNumber']")
     public WebElementFacade nationalInsuranceNoTextbox;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='PrevHocsRef']")
+    @FindBy(xpath = "//input[@id='PrevHocsRef']")
     public WebElementFacade prevHocsRefTextbox;
 
-    @FindBy(timeoutInSeconds = "10",  css = "tr:first-child a[class*='govuk-link']")
+    @FindBy(css = "tr:first-child a[class*='govuk-link']")
     public WebElementFacade topSearchResultCaseReference;
 
-    @FindBy(timeoutInSeconds = "10",  css = "div span[class='govuk-hint']")
+    @FindBy(css = "div span[class='govuk-hint']")
     public WebElementFacade numberOfSearchResults;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//a[text()='No search criteria specified']")
+    @FindBy(xpath = "//a[text()='No search criteria specified']")
     public WebElementFacade noSearchCriteriaErrorMessage;
 
     public void searchByWCSReference(String reference) {
@@ -119,7 +119,7 @@ public class WCSSearch extends BasePage {
     }
 
     public void assertCaseIsVisibleInSearchResults() {
-        WebElementFacade currentCaseSearchResult = findBy("//td/a[text() = '" + getCurrentCaseReference() +"']").withTimeoutOf(Duration.ofSeconds(10));
+        WebElementFacade currentCaseSearchResult = findBy("//td/a[text() = '" + getCurrentCaseReference() +"']");
         assertThat(currentCaseSearchResult.isVisible(), is(true));
 
     }

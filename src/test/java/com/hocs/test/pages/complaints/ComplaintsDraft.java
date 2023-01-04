@@ -16,28 +16,28 @@ public class ComplaintsDraft extends BasePage {
 
     RecordCaseData recordCaseData;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//a[contains(text(),'Add a')]")
+    @FindBy(xpath = "//a[contains(text(),'Add a')]")
     public WebElementFacade addADocumentHypertext;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='Response is ready to send']")
+    @FindBy(xpath = "//label[text()='Response is ready to send']")
     public WebElementFacade responseIsReadyToSendRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='Send case to QA']")
+    @FindBy(xpath = "//label[text()='Send case to QA']")
     public WebElementFacade sendCaseToQARadioButton;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='Escalate case to WFM']")
+    @FindBy(xpath = "//label[text()='Escalate case to WFM']")
     public WebElementFacade escalateCaseToWFMRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", id = "CaseNote_DraftEscalate")
+    @FindBy(id = "CaseNote_DraftEscalate")
     public WebElementFacade reasonForEscalationTextField;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//a[text()='Primary draft document is required']")
+    @FindBy(xpath = "//a[text()='Primary draft document is required']")
     public WebElementFacade primaryDraftDocumentIsRequiredErrorMessage;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//a[text()='Action is required']")
+    @FindBy(xpath = "//a[text()='Action is required']")
     public WebElementFacade actionIsRequired;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//input[@id='TelephoneResponse_Yes']/following-sibling::label[text()='Yes']")
+    @FindBy(xpath = "//input[@id='TelephoneResponse_Yes']/following-sibling::label[text()='Yes']")
     public WebElementFacade resolvedByTelephoneCheckbox;
 
     public void selectActionAtDraft(String action) {

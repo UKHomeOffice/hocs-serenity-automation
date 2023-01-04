@@ -16,10 +16,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ExGratiaTab extends BasePage {
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//span[text()='Update Ex-Gratia Details']")
+    @FindBy(xpath = "//span[text()='Update Ex-Gratia Details']")
     public WebElementFacade updateExGratiaDetailsHypertext;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//a[text()='Ex-Gratia']")
+    @FindBy(xpath = "//a[text()='Ex-Gratia']")
     public WebElementFacade exGratiaTab;
 
     public void selectExGratiaTab() {
@@ -92,7 +92,7 @@ public class ExGratiaTab extends BasePage {
     }
 
     public String getExGratiaSummaryValueForGivenHeader(String header) {
-        WebElementFacade displayedValueElement = findBy("//th[text()='" + header + "']/following-sibling::td").withTimeoutOf(Duration.ofSeconds(10));
+        WebElementFacade displayedValueElement = findBy("//th[text()='" + header + "']/following-sibling::td");
         return displayedValueElement.getText();
     }
 

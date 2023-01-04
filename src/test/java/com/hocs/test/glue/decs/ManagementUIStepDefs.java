@@ -81,7 +81,7 @@ public class ManagementUIStepDefs extends BasePage {
 
     @And("I add the user {string} to the team")
     public void addUserToSelectedTeam(String user) {
-        waitABit(1000);
+        
         teamManagement.assertTeamName();
         teamManagement.addTeamMember(User.valueOf(user));
     }
@@ -137,7 +137,7 @@ public class ManagementUIStepDefs extends BasePage {
 
     @And("I add the users {string} and {string} to the team")
     public void addTwoUsersToSelectedTeam(String firstUser, String secondUser) {
-        waitABit(1000);
+        
         teamManagement.assertTeamName();
         teamManagement.clearTeamMember(firstUser);
         teamManagement.clearTeamMember(secondUser);
@@ -260,7 +260,7 @@ public class ManagementUIStepDefs extends BasePage {
         dashboard.getAndClaimCurrentCase();
         markup.selectPolicyResponseRadioButton();
         clickContinueButton();
-        waitABit(1000);
+        
         markup.addTopicToCase("101 non-emergency number (cost)");
         markup.confirmPrimaryTopic();
         markup.recordDefaultTeamsForTopic();
@@ -317,7 +317,7 @@ public class ManagementUIStepDefs extends BasePage {
         dashboard.getAndClaimCurrentCase();
         markup.selectPolicyResponseRadioButton();
         clickContinueButton();
-        waitABit(1000);
+        
         markup.addTopicToCase("101 non-emergency number (cost)");
         markup.confirmPrimaryTopic();
     }
@@ -373,7 +373,7 @@ public class ManagementUIStepDefs extends BasePage {
         dashboard.getAndClaimCurrentCase();
         markup.selectPolicyResponseRadioButton();
         clickContinueButton();
-        waitABit(1000);
+        
     }
 
     @And("a success message is displayed")
@@ -1189,4 +1189,3 @@ public class ManagementUIStepDefs extends BasePage {
         loginPage.navigateToCS();
     }
 }
-

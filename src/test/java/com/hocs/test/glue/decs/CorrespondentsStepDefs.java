@@ -30,7 +30,7 @@ public class CorrespondentsStepDefs extends BasePage {
 
     @When("I select to add a correspondent that {string} a member of parliament")
     public void addACorrespondentThatIsOrIsNotAnMP(String isOrIsNot) {
-        waitABit(2000);
+        
         correspondents.selectToAddACorrespondent();
         if (isOrIsNot.equalsIgnoreCase("IS")) {
             correspondents.selectCorrespondentIsMP();

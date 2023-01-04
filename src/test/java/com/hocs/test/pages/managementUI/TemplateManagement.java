@@ -16,16 +16,16 @@ import org.openqa.selenium.Keys;
 
 public class TemplateManagement extends BasePage {
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//input[@id='case-types-input']")
+    @FindBy(xpath = "//input[@id='case-types-input']")
     public WebElementFacade caseTypeTypeahead;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//button[text()='Add template']")
+    @FindBy(xpath = "//button[text()='Add template']")
     public WebElementFacade addTemplateButton;
 
-    @FindBy(timeoutInSeconds = "10", id = "files")
+    @FindBy(id = "files")
     public WebElementFacade muiAddDocument;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//h2[text()='Available Template']/following-sibling::table//td[1]")
+    @FindBy(xpath = "//h2[text()='Available Template']/following-sibling::table//td[1]")
     public WebElementFacade templateDocumentLabel;
 
 
@@ -38,7 +38,7 @@ public class TemplateManagement extends BasePage {
 
     public void uploadDocumentOfType(String fileType) {
         setSessionVariable("fileType").to(fileType);
-        muiAddDocument.withTimeoutOf(Duration.ofSeconds(10)).waitUntilPresent();
+        muiAddDocument.waitUntilPresent();
         upload(System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" +  File.separator + "resources" +  File.separator +
                 "documents" +  File.separator + "test."  + fileType).to(muiAddDocument);
     }
@@ -54,7 +54,7 @@ public class TemplateManagement extends BasePage {
         List<WebElementFacade> listOfRemoveButtons = findAll("//a[text()='Remove']");
         setSessionVariable("initialNumberOfTemplates").to(listOfRemoveButtons.size());
         clickTheLink("Remove");
-        waitABit(500);
+        
     }
 
     public void assertTemplateRemoval() {

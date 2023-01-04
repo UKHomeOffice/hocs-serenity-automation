@@ -12,10 +12,10 @@ import static org.hamcrest.core.Is.is;
 
 public class ConfirmationScreens extends BasePage {
 
-    @FindBy(timeoutInSeconds = "10",  className = "govuk-panel__title")
+    @FindBy(className = "govuk-panel__title")
     private WebElementFacade panelTitle;
 
-    @FindBy(timeoutInSeconds = "10",  className = "govuk-button-panel--link")
+    @FindBy(className = "govuk-button-panel--link")
     public WebElementFacade caseReference;
 
     public void goToCaseFromConfirmationScreen() {
@@ -23,7 +23,7 @@ public class ConfirmationScreens extends BasePage {
     }
 
     public String storeCaseReference() {
-        caseReference.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
+        caseReference.waitUntilVisible();
         String caseReference = this.caseReference.getAttribute("value");
         System.out.println("Case created: " + caseReference);
         setSessionVariable("caseReference").to(caseReference);
@@ -31,49 +31,49 @@ public class ConfirmationScreens extends BasePage {
     }
 
     public void assertCaseCreatedConfirmationDisplayed() {
-        panelTitle.withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
+        panelTitle.waitUntilVisible();
         panelTitle.shouldContainText("Case Created");
         caseReference.shouldBeCurrentlyVisible();
     }
 
     public void assertBulkCasesCreatedConfirmationDisplayed() {
         int numberOfCases = sessionVariableCalled("bulkCaseNumber");
-        panelTitle.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
+        panelTitle.waitUntilVisible();
         panelTitle.shouldContainText("Created " + numberOfCases + " new case");
     }
 
     public void assertCaseExtensionConfirmationDisplayed() {
-        panelTitle.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
+        panelTitle.waitUntilVisible();
         panelTitle.shouldContainText("Case: " + getCurrentCaseReference() + " extended");
     }
 
     public void assertAppealRegisteredConfirmationDisplayed() {
-        panelTitle.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
+        panelTitle.waitUntilVisible();
         panelTitle.shouldContainText("Appeal for " + getCurrentCaseReference() + " registered");
     }
 
     public void assertAppealUpdatedConfirmationDisplayed() {
-        panelTitle.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
+        panelTitle.waitUntilVisible();
         panelTitle.shouldContainText("Appeal for " + getCurrentCaseReference() + " updated");
     }
 
     public void assertExternalInterestRegisteredConfirmationDisplayed() {
-        panelTitle.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
+        panelTitle.waitUntilVisible();
         panelTitle.shouldContainText("External Interest for " + getCurrentCaseReference() + " registered");
     }
 
     public void assertExternalInterestUpdatedConfirmationDisplayed() {
-        panelTitle.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
+        panelTitle.waitUntilVisible();
         panelTitle.shouldContainText("External Interest for " + getCurrentCaseReference() + " updated");
     }
 
     public void assertCaseSuspendedConfirmationDisplayed() {
-        panelTitle.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
+        panelTitle.waitUntilVisible();
         panelTitle.shouldContainText("Case " + getCurrentCaseReference() + " has been suspended");
     }
 
     public void assertCaseSuspensionRemovedConfirmationDisplayed() {
-        panelTitle.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible();
+        panelTitle.waitUntilVisible();
         panelTitle.shouldContainText("Suspension for case " + getCurrentCaseReference() + " has been removed");
     }
 }

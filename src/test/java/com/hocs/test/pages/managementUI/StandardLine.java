@@ -17,50 +17,50 @@ import org.openqa.selenium.Keys;
 
 public class StandardLine extends BasePage {
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#files-error']")
+    @FindBy(xpath = "//a[@href='#files-error']")
     public WebElementFacade standardLineIsRequiredErrorMessage;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#expiryDate-error']")
+    @FindBy(xpath = "//a[@href='#expiryDate-error']")
     public WebElementFacade expiryDateIsRequiredErrorMessage;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#topic-error']")
+    @FindBy(xpath = "//a[@href='#topic-error']")
     public WebElementFacade topicIsRequiredErrorMessage;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='topics-input']")
+    @FindBy(xpath = "//input[@id='topics-input']")
     public WebElementFacade topicTypeahead;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@class='govuk-file-upload']")
+    @FindBy(xpath = "//input[@class='govuk-file-upload']")
     public WebElementFacade standardLineDocumentButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='expiryDate-day']")
+    @FindBy(xpath = "//input[@id='expiryDate-day']")
     public WebElementFacade expirationDateDayTextBox;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='expiryDate-month']")
+    @FindBy(xpath = "//input[@id='expiryDate-month']")
     public WebElementFacade expirationDateMonthTextBox;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='expiryDate-year']")
+    @FindBy(xpath = "//input[@id='expiryDate-year']")
     public WebElementFacade expirationDateYearTextBox;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#expiryDate-error']")
+    @FindBy(xpath = "//a[@href='#expiryDate-error']")
     public WebElementFacade pastExpirationDateErrorMessage;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//p[@class='govuk-body']")
+    @FindBy(xpath = "//p[@class='govuk-body']")
     public WebElementFacade standardLineCreationSuccessMessage;
 
-    @FindBy(timeoutInSeconds = "10",  id = "filter")
+    @FindBy(id = "filter")
     public WebElementFacade manageStandardLinesFilter;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//div[text()='Exclude expired']/following-sibling::div/input")
+    @FindBy(xpath = "//div[text()='Exclude expired']/following-sibling::div/input")
     public WebElementFacade excludeExpiredCheckbox;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//button[text()='Add new standard line']")
+    @FindBy(xpath = "//button[text()='Add new standard line']")
     public WebElementFacade addNewStandardLineButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@value='Submit']")
+    @FindBy(xpath = "//input[@value='Submit']")
     public WebElementFacade submitButton;
 
     public void enterStandardLineTopic(String topic) {
-        waitABit(1000);
+        
         safeClickOn(topicTypeahead);
         topicTypeahead.sendKeys(topic);
         setSessionVariable("standardLineTopic").to(topic);
@@ -87,9 +87,9 @@ public class StandardLine extends BasePage {
         if (action.equalsIgnoreCase("EXPIRE")) {
             setSessionVariable("standardLineExpiryDate").to(getTodaysDate());
         }
-        WebElementFacade hypertext = findBy("//td[text()='" + topic + "']/following-sibling::td//a[text()='" + action + "']").withTimeoutOf(Duration.ofSeconds(10));
+        WebElementFacade hypertext = findBy("//td[text()='" + topic + "']/following-sibling::td//a[text()='" + action + "']");
         jsClickOn(hypertext);
-        waitABit(1000);
+        
     }
 
     public void amendAStandardLine(String topic, Integer days) {
@@ -131,7 +131,7 @@ public class StandardLine extends BasePage {
     }
 
     public void assertStandardLineExpiryDateIsUpdated() {
-        WebElementFacade dateField = findBy("//td[text()='" + sessionVariableCalled("standardLineTopic") + "']/parent::tr//span").withTimeoutOf(Duration.ofSeconds(10));
+        WebElementFacade dateField = findBy("//td[text()='" + sessionVariableCalled("standardLineTopic") + "']/parent::tr//span");
         String newDate = dateField.getText();
         assertThat(newDate.equals(sessionVariableCalled("standardLineExpiryDate")), is(true));
     }
@@ -163,7 +163,7 @@ public class StandardLine extends BasePage {
     public void assertCreatedStandardLineDisplayed(String input) {
         WebElementFacade standardLine = findBy("//td[text()='" + sessionVariableCalled("standardLineTopic") + "']/following-sibling::td[text()"
                 + "='" + sessionVariableCalled("standardLineDocument") + "']/following-sibling::td//span[text()='" + sessionVariableCalled(
-                        "standardLineExpiryDate") + "']").withTimeoutOf(Duration.ofSeconds(10));
+                        "standardLineExpiryDate") + "']");
         Boolean check = null;
         if (input.toUpperCase().equals("IS")) {
             check = true;

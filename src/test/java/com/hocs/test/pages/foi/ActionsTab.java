@@ -11,7 +11,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 public class ActionsTab extends BasePage {
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//a[text()='Actions']")
+    @FindBy(xpath = "//a[text()='Actions']")
     public WebElementFacade actionsTab;
 
     public void selectActionsTab() {
@@ -115,7 +115,7 @@ public class ActionsTab extends BasePage {
 
     public void assertStatusOfAppealIs(String appealStatus) {
         selectActionsTab();
-        waitABit(1000);
+        
         String registeredAppealType = sessionVariableCalled("appealType");
         String displayedAppealStatus = findBy("//td[text()='" + registeredAppealType + "']/following-sibling::td").getText();
         if (!displayedAppealStatus.equalsIgnoreCase(appealStatus)) {
@@ -160,7 +160,7 @@ public class ActionsTab extends BasePage {
     public void selectToUpdateRecordedInterest() {
         selectActionsTab();
         String interestedParty = sessionVariableCalled("interestedParty");
-        WebElementFacade updateLink = findBy("//td[text()='" + interestedParty + "']/following-sibling::td/a").withTimeoutOf(Duration.ofSeconds(10));
+        WebElementFacade updateLink = findBy("//td[text()='" + interestedParty + "']/following-sibling::td/a");
         safeClickOn(updateLink);
     }
 

@@ -6,16 +6,16 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class Rejected extends BasePage {
 
-    @FindBy(timeoutInSeconds = "10",  css = "label[for*='Outcome-SendToReview']")
+    @FindBy(css = "label[for*='Outcome-SendToReview']")
     public WebElementFacade sendToTier1ReviewRadioButton;
 
-    @FindBy(timeoutInSeconds = "10",  css = "label[for*='Outcome-Archive']")
+    @FindBy(css = "label[for*='Outcome-Archive']")
     public WebElementFacade archiveClaimRadioButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#IdentityRejectedOutcome-error']")
+    @FindBy(xpath = "//a[@href='#IdentityRejectedOutcome-error']")
     public WebElementFacade reviewIdentityDecisionIsRequiredErrorMessage;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#EligibilityRejectedOutcome-error']")
+    @FindBy(xpath = "//a[@href='#EligibilityRejectedOutcome-error']")
     public WebElementFacade reviewEligibilityDecisionIsRequiredErrorMessage;
 
     public void selectToSendClaimToTier1Review() {

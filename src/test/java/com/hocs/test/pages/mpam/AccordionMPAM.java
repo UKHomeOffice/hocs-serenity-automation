@@ -17,85 +17,85 @@ public class AccordionMPAM extends BasePage {
 
     SummaryTab summaryTab;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//button[text()='Case details']/parent::h2/following-sibling::span")
+    @FindBy(xpath = "//button[text()='Case details']/parent::h2/following-sibling::span")
     public WebElementFacade caseDetailsAccordionButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//span[text()='Creation']/parent::span/following-sibling::span")
+    @FindBy(xpath = "//span[text()='Creation']/parent::span/following-sibling::span")
     public WebElementFacade creationAccordionButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//span[text()='Triage']/parent::span/following-sibling::span")
+    @FindBy(xpath = "//span[text()='Triage']/parent::span/following-sibling::span")
     public WebElementFacade triageAccordionButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//span[text()='Draft']/parent::span/following-sibling::span")
+    @FindBy(xpath = "//span[text()='Draft']/parent::span/following-sibling::span")
     public WebElementFacade draftAccordionButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//strong[contains(text(), 'Business Area')]/parent::span")
+    @FindBy(xpath = "//strong[contains(text(), 'Business Area')]/parent::span")
     public WebElementFacade creationAccordionBusinessArea;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//strong[contains(text(), 'Ministerial response')]/parent::span")
+    @FindBy(xpath = "//strong[contains(text(), 'Ministerial response')]/parent::span")
     public WebElementFacade creationAccordionMinisterialResponse;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//strong[contains(text(), 'Ministerial sign off team')]/parent::span")
+    @FindBy(xpath = "//strong[contains(text(), 'Ministerial sign off team')]/parent::span")
     public WebElementFacade creationMinisterialSignOffTeam;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//strong[contains(text(), 'Urgency')]/parent::span")
+    @FindBy(xpath = "//strong[contains(text(), 'Urgency')]/parent::span")
     public WebElementFacade creationAccordionUrgency;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//strong[contains(text(), 'Channel received')]/parent::span")
+    @FindBy(xpath = "//strong[contains(text(), 'Channel received')]/parent::span")
     public WebElementFacade creationAccordionChannelReceived;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//strong[contains(text(), 'primary correspondent')]/parent::span")
+    @FindBy(xpath = "//strong[contains(text(), 'primary correspondent')]/parent::span")
     public WebElementFacade creationAccordionPrimaryCorrespondent;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//strong[contains(text(), 'correspondence received')]/parent::span")
+    @FindBy(xpath = "//strong[contains(text(), 'correspondence received')]/parent::span")
     public WebElementFacade creationAccordionCorrespondenceReceivedDate;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//strong[contains(text(), 'Enquiry subject')]/parent::span")
+    @FindBy(xpath = "//strong[contains(text(), 'Enquiry subject')]/parent::span")
     public WebElementFacade triageAccordionEnquirySubject;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//strong[contains(text(), 'Enquiry reason')]/parent::span")
+    @FindBy(xpath = "//strong[contains(text(), 'Enquiry reason')]/parent::span")
     public WebElementFacade triageAccordionEnquiryReason;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//strong[contains(text(), 'Business unit')]/parent::span")
+    @FindBy(xpath = "//strong[contains(text(), 'Business unit')]/parent::span")
     public WebElementFacade triageAccordionBusinessUnit;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//span[text()='Triage']/ancestor::div/following-sibling::div//strong[contains(text(),'Actions')]/parent::span")
+    @FindBy(xpath = "//span[text()='Triage']/ancestor::div/following-sibling::div//strong[contains(text(),'Actions')]/parent::span")
     public WebElementFacade triageAccordionActions;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//span[text()='Draft']/ancestor::div//div[@id='accordion-default-content-2']//strong[contains(text(), 'Actions')]/parent::span")
+    @FindBy(xpath = "//span[text()='Draft']/ancestor::div//div[@id='accordion-default-content-2']//strong[contains(text(), 'Actions')]/parent::span")
     public WebElementFacade draftAccordionActions;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//a[text()='Change business area']")
+    @FindBy(xpath = "//a[text()='Change business area']")
     public WebElementFacade changeBusinessAreaHypertext;
 
-    @FindBy(timeoutInSeconds = "10",  id = "BusUnit")
+    @FindBy(id = "BusUnit")
     public WebElementFacade businessUnitDropdown;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//a[text()='Business unit is required']")
+    @FindBy(xpath = "//a[text()='Business unit is required']")
     public WebElementFacade businessUnitRequiredErrorMessage;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//a[text()='Actions is required']")
+    @FindBy(xpath = "//a[text()='Actions is required']")
     public WebElementFacade actionsRequiredErrorMessage;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Confirm']")
+    @FindBy(xpath = "//label[text()='Confirm']")
     public WebElementFacade confirmRadioButton;
 
-    @FindBy(timeoutInSeconds = "10",  id = "MinSignOffTeam")
+    @FindBy(id = "MinSignOffTeam")
     public WebElementFacade ministerialSignOffTeamDropdown;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//a[text()='Change reference type']")
+    @FindBy(xpath = "//a[text()='Change reference type']")
     public WebElementFacade changeReferenceTypeLink;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//label[contains(text(), 'Correcting an error')]")
+    @FindBy(xpath = "//label[contains(text(), 'Correcting an error')]")
     public WebElementFacade correctionTickBox;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@value='Save Changes']")
+    @FindBy(xpath = "//input[@value='Save Changes']")
     public WebElementFacade saveChangesButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@name='BusArea'][@checked]/following-sibling::label")
+    @FindBy(xpath = "//input[@name='BusArea'][@checked]/following-sibling::label")
     public WebElementFacade selectedBusinessArea;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//textarea[@id='CaseNote_TriageChangeCaseType']")
+    @FindBy(xpath = "//textarea[@id='CaseNote_TriageChangeCaseType']")
     public WebElementFacade changeReferenceTypeTextArea;
 
     public void openCaseDetailsAccordion() {
@@ -175,14 +175,14 @@ public class AccordionMPAM extends BasePage {
     }
 
     public void selectBusinessArea(String businessArea) {
-        WebElementFacade businessAreaLabel = findBy("//label[contains(text(), '" + businessArea + "')]").withTimeoutOf(Duration.ofSeconds(10));
-        waitABit(500);
+        WebElementFacade businessAreaLabel = findBy("//label[contains(text(), '" + businessArea + "')]");
+        
         safeClickOn(businessAreaLabel);
     }
 
     public void changeBusinessAreaAndUnit(String businessArea) {
         safeClickOn(changeBusinessAreaHypertext);
-        waitABit(1000);
+        
         selectBusinessArea(businessArea);
         businessUnitDropdown.selectByIndex(1);
         clickContinueButton();
@@ -190,7 +190,7 @@ public class AccordionMPAM extends BasePage {
 
     public void changeRefTypeConvertingACase() {
         safeClickOn(changeReferenceTypeLink);
-        WebElementFacade newRefTypeInHeader = findBy("//h1[contains(text(), 'Change reference type')]").withTimeoutOf(Duration.ofSeconds(10));
+        WebElementFacade newRefTypeInHeader = findBy("//h1[contains(text(), 'Change reference type')]");
         String newRefType = newRefTypeInHeader.getText().split("\\W")[4];
         enterTextForConversionTo(newRefType);
         setSessionVariable("refType").to(newRefType);
@@ -199,7 +199,7 @@ public class AccordionMPAM extends BasePage {
 
     public void changeRefTypeCorrectingAnError() {
         safeClickOn(changeReferenceTypeLink);
-        WebElementFacade newRefTypeInHeader = findBy("//h1[contains(text(), 'Change reference type')]").withTimeoutOf(Duration.ofSeconds(10));
+        WebElementFacade newRefTypeInHeader = findBy("//h1[contains(text(), 'Change reference type')]");
         String newRefType = newRefTypeInHeader.getText().split("\\W")[4];
         enterTextForConversionTo(newRefType);
         setSessionVariable("refType").to(newRefType);
@@ -219,7 +219,7 @@ public class AccordionMPAM extends BasePage {
 
     public void assertBusinessAreaHasChanged(String newBusinessArea) {
         summaryTab.selectSummaryTab();
-        waitABit(2500);
+        
         if(newBusinessArea.equals("Coronavirus (COVID-19)")){
             newBusinessArea = "Coronavirus";
         }
@@ -318,7 +318,7 @@ public class AccordionMPAM extends BasePage {
     }
 
     public void assertRefTypeHasChanged(String refType) {
-        WebElementFacade checkedRefType = findBy("//legend[@id='RefType-legend']/following-sibling::div//input[@checked]/following-sibling::label").withTimeoutOf(Duration.ofSeconds(10));
+        WebElementFacade checkedRefType = findBy("//legend[@id='RefType-legend']/following-sibling::div//input[@checked]/following-sibling::label");
         checkedRefType.shouldContainText(refType);
     }
 

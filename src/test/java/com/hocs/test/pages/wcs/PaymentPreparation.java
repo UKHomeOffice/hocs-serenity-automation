@@ -6,10 +6,10 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class PaymentPreparation extends BasePage {
 
-    @FindBy(timeoutInSeconds = "10",  css = "label[for='PaymentPrepStatus-Offer']")
+    @FindBy(css = "label[for='PaymentPrepStatus-Offer']")
     public WebElementFacade sendToOfferApprovalRadioButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#PaymentPrepStatus-error']")
+    @FindBy(xpath = "//a[@href='#PaymentPrepStatus-error']")
     public WebElementFacade qAOfferClaimStatusIsRequiredErrorMessage;
 
     public void assertPaymentPrepStatusErrorMessage() {

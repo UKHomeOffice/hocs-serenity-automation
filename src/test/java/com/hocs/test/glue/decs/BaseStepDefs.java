@@ -56,7 +56,7 @@ public class BaseStepDefs extends BasePage {
         try {
             clickTheButton(buttonLabel);
         } catch (StaleElementReferenceException sE) {
-            waitABit(500);
+            
             clickTheButton(buttonLabel);
         }
     }
@@ -66,7 +66,7 @@ public class BaseStepDefs extends BasePage {
         try {
             openOrCloseAccordionSection(accordionLabel);
         } catch (StaleElementReferenceException sE) {
-            waitABit(500);
+            
             openOrCloseAccordionSection(accordionLabel);
         }
     }
@@ -89,13 +89,13 @@ public class BaseStepDefs extends BasePage {
     public void assertCaseTypeMovedOrReturnedToStage(String stage) {
         if (foiCase() && (stage.equalsIgnoreCase("ALLOCATION") || stage.equalsIgnoreCase("APPROVAL") || stage.equalsIgnoreCase("DISPATCH") || stage
                 .equalsIgnoreCase("SOFT CLOSE"))) {
-            waitABit(1000);
+            
             if (caseView.currentCaseIsLoaded()) {
                 try {
                     summaryTab.selectSummaryTab();
                 } catch (ElementNotInteractableException | StaleElementReferenceException e) {
                     timelineTab.selectTimelineTab();
-                    waitABit(500);
+                    
                     summaryTab.selectSummaryTab();
                 }
             } else {

@@ -35,7 +35,7 @@ public class ActionsTabStepDefs extends BasePage {
     @And("I select a type of extension")
     public void iSelectATypeOfExtension() {
         actionsTab.selectAnExtensionType();
-        waitABit(500);
+        
     }
 
     @And("I select how many days to extend the deadline by")

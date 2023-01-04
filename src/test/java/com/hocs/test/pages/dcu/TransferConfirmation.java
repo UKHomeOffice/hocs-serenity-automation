@@ -9,10 +9,10 @@ public class TransferConfirmation extends BasePage {
 
     RecordCaseData recordCaseData;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//div[@id='TransferConfirmation-radios']//label[text()='Yes']")
+    @FindBy(xpath = "//div[@id='TransferConfirmation-radios']//label[text()='Yes']")
     public WebElementFacade transferCaseYesRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//div[@id='TransferConfirmation-radios']//label[text()='No']")
+    @FindBy(xpath = "//div[@id='TransferConfirmation-radios']//label[text()='No']")
     public WebElementFacade transferCaseNoRadioButton;
 
     public void selectCaseShouldBeTransferred() {

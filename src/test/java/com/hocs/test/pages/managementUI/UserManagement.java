@@ -15,31 +15,31 @@ import static org.hamcrest.core.Is.is;
 
 public class UserManagement extends BasePage {
 
-    @FindBy(timeoutInSeconds = "10", id = "Users-input")
+    @FindBy(id = "Users-input")
     public WebElementFacade userSearchTypeAhead;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//button[text()='View user']")
+    @FindBy(xpath = "//button[text()='View user']")
     public WebElementFacade viewUserButton;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//button[text()='Add teams']")
+    @FindBy(xpath = "//button[text()='Add teams']")
     public WebElementFacade addTeamsButton;
 
-    @FindBy(timeoutInSeconds = "10", id = "Select teams-input")
+    @FindBy(id = "Select teams-input")
     public WebElementFacade selectTeamsTypeAhead;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//button[text()='Add selected teams']")
+    @FindBy(xpath = "//button[text()='Add selected teams']")
     public WebElementFacade addSelectedTeamsButton;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//h2[text()='Success']")
+    @FindBy(xpath = "//h2[text()='Success']")
     public WebElementFacade successBanner;
 
-    @FindBy(timeoutInSeconds = "10", id = "email")
+    @FindBy(id = "email")
     public WebElementFacade emailAddressTextBox;
 
-    @FindBy(timeoutInSeconds = "10", id = "firstName")
+    @FindBy(id = "firstName")
     public WebElementFacade firstNameField;
 
-    @FindBy(timeoutInSeconds = "10", id = "lastName")
+    @FindBy(id = "lastName")
     public WebElementFacade lastNameField;
 
     public void searchForAUsersTeams(String inputUser) {
@@ -47,10 +47,10 @@ public class UserManagement extends BasePage {
         String input = user.getAllocationText();
         setSessionVariable("inputUser").to(input);
         waitFor(userSearchTypeAhead);
-        waitABit(3000);
+        
         safeClickOn(userSearchTypeAhead);
         userSearchTypeAhead.sendKeys(input);
-        waitABit(3000);
+        
         userSearchTypeAhead.sendKeys(Keys.RETURN);
         safeClickOn(viewUserButton);
     }
@@ -59,10 +59,10 @@ public class UserManagement extends BasePage {
         setSessionVariable("inputTeam").to(team);
         safeClickOn(addTeamsButton);
         waitFor(selectTeamsTypeAhead);
-        waitABit(3000);
+        
         safeClickOn(selectTeamsTypeAhead);
         selectTeamsTypeAhead.sendKeys(team);
-        waitABit(3000);
+        
         selectTeamsTypeAhead.sendKeys(Keys.RETURN);
         safeClickOn(addSelectedTeamsButton);
     }
@@ -75,20 +75,20 @@ public class UserManagement extends BasePage {
 
     public void removeTeam(String team) {
         setSessionVariable("inputTeam").to(team);
-        WebElementFacade teamRemoveHypertext = findBy("//td[contains(text(), '" + team + "')]/following-sibling::td/a").withTimeoutOf(Duration.ofSeconds(10));
+        WebElementFacade teamRemoveHypertext = findBy("//td[contains(text(), '" + team + "')]/following-sibling::td/a");
         safeClickOn(teamRemoveHypertext);
     }
 
     public void assertCorrectUserTeamsAreDisplayed() {
-        WebElementFacade usernameField = findBy("//input[@id='username']").withTimeoutOf(Duration.ofSeconds(10));
+        WebElementFacade usernameField = findBy("//input[@id='username']");
         String displayedUsername = usernameField.getValue();
         String inputUser = sessionVariableCalled("inputUser");
-        waitABit(1000);
+        
         assertThat(inputUser.contains(displayedUsername), is(true));
     }
 
     public void assertNewTeamIsAddedToUserTeams() {
-        WebElementFacade teamDisplayedInTable = findBy("//td[text()='" + sessionVariableCalled("inputTeam") + "']").withTimeoutOf(Duration.ofSeconds(10));
+        WebElementFacade teamDisplayedInTable = findBy("//td[text()='" + sessionVariableCalled("inputTeam") + "']");
         waitFor(teamDisplayedInTable);
         teamDisplayedInTable.shouldBeVisible();
     }
@@ -99,9 +99,9 @@ public class UserManagement extends BasePage {
     }
 
     public void assertTeamHasBeenRemoved() {
-        waitABit(1000);
-        WebElementFacade teamRemoveHypertext = findBy("//td[contains(text(), '" + sessionVariableCalled("inputTeam") + "')]").withTimeoutOf(Duration.ofSeconds(10));
-        waitABit(1000);
+        
+        WebElementFacade teamRemoveHypertext = findBy("//td[contains(text(), '" + sessionVariableCalled("inputTeam") + "')]");
+        
         assertThat(teamRemoveHypertext.isVisible(), is(false));
     }
 }

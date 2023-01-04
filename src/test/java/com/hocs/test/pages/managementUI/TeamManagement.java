@@ -15,70 +15,70 @@ import org.openqa.selenium.Keys;
 
 public class TeamManagement extends BasePage {
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='Teams-input']")
+    @FindBy(xpath = "//input[@id='Teams-input']")
     public WebElementFacade teamSearchBar;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//button[contains(text(),'View team')]")
+    @FindBy(xpath = "//button[contains(text(),'View team')]")
     public WebElementFacade viewTeamButton;
 
-    @FindBy(timeoutInSeconds = "10",  css = "button[type='submit']:nth-of-type(1)")
+    @FindBy(css = "button[type='submit']:nth-of-type(1)")
     public WebElementFacade addTeamMembersButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='users-input']")
+    @FindBy(xpath = "//input[@id='users-input']")
     public WebElementFacade userSearchBar;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//button[@class='govuk-button view-team-button']")
+    @FindBy(xpath = "//button[@class='govuk-button view-team-button']")
     public WebElementFacade addSelectedUsersButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//span[contains(text(), 'Team:')]")
+    @FindBy(xpath = "//span[contains(text(), 'Team:')]")
     public WebElementFacade teamNameHeader;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "(//td//a)[1]")
+    @FindBy(xpath = "(//td//a)[1]")
     public WebElementFacade firstRemoveButtonInList;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "(//div//p)[2]")
+    @FindBy(xpath = "(//div//p)[2]")
     public WebElementFacade errorMessage;
 
-    @FindBy(timeoutInSeconds = "10",  id = "teamName")
+    @FindBy(id = "teamName")
     public WebElementFacade teamNameTextBox;
 
-    @FindBy(timeoutInSeconds = "10",  id = "unit-input")
+    @FindBy(id = "unit-input")
     public WebElementFacade unitTypeahead;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//button[text()='Edit Team']")
+    @FindBy(xpath = "//button[text()='Edit Team']")
     public WebElementFacade editTeamButton;
 
-    @FindBy(timeoutInSeconds = "10",  id = "newTeamName")
+    @FindBy(id = "newTeamName")
     public WebElementFacade newTeamNameTextBox;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//button[text()='Update']")
+    @FindBy(xpath = "//button[text()='Update']")
     public WebElementFacade updateButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//h2[text()='Success']/following-sibling::p")
+    @FindBy(xpath = "//h2[text()='Success']/following-sibling::p")
     public WebElementFacade successMessage;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//button[text()='Add']")
+    @FindBy(xpath = "//button[text()='Add']")
     public WebElementFacade addTeamButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//button[text()='Deactivate team']")
+    @FindBy(xpath = "//button[text()='Deactivate team']")
     public WebElementFacade deactivateTeamButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//button[text()='Deactivate Team']")
+    @FindBy(xpath = "//button[text()='Deactivate Team']")
     public WebElementFacade deactivateTeamConfirmationButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//button[text()='Reactivate team']")
+    @FindBy(xpath = "//button[text()='Reactivate team']")
     public WebElementFacade reactivateTeamButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//button[text()='Reactivate Team']")
+    @FindBy(xpath = "//button[text()='Reactivate Team']")
     public WebElementFacade reactivateTeamConfirmationButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//a[text()='Reactivate team']")
+    @FindBy(xpath = "//a[text()='Reactivate team']")
     public WebElementFacade reactivateTeamHypertext;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//strong[text()='Inactive']")
+    @FindBy(xpath = "//strong[text()='Inactive']")
     public WebElementFacade inactiveTag;
 
-    @FindBy(timeoutInSeconds = "10",  id = "showDeactivated")
+    @FindBy(id = "showDeactivated")
     public WebElementFacade showDeactivatedTeamsCheckbox;
 
     User addedOrRemovedUser;
@@ -88,19 +88,19 @@ public class TeamManagement extends BasePage {
     }
 
     public void selectATeam(String teamName) {
-        waitABit(1000);
-        teamSearchBar.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible().sendKeys(teamName);
-        waitABit(1000);
+        
+        teamSearchBar.waitUntilVisible().sendKeys(teamName);
+        
         setSessionVariable("teamName").to(teamName);
         teamSearchBar.sendKeys(Keys.ENTER);
         safeClickOn(viewTeamButton);
     }
 
     public void selectAUser(User user) {
-        userSearchBar.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible().clear();
+        userSearchBar.waitUntilVisible().clear();
         WebElementFacade userOption = findBy("//div[contains(@class, 'govuk-typeahead__option')][text()='" + user.getAllocationText() + "']");
-        userOption.withTimeoutOf(Duration.ofSeconds(30)).waitUntilClickable().click();
-        waitABit(1000);
+        userOption.waitUntilClickable().click();
+        
     }
 
     public void addTeamMember(User user) {
@@ -122,7 +122,7 @@ public class TeamManagement extends BasePage {
     }
 
     public void removeUserFromTeamWithAssignedCases(String nameOfUser) {
-        WebElementFacade removeButtonOfUser = findBy("//td[contains(text(), '" + nameOfUser + "')]/following-sibling::td/a").withTimeoutOf(Duration.ofSeconds(10));
+        WebElementFacade removeButtonOfUser = findBy("//td[contains(text(), '" + nameOfUser + "')]/following-sibling::td/a");
         safeClickOn(removeButtonOfUser);
     }
 
@@ -161,7 +161,7 @@ public class TeamManagement extends BasePage {
     public void deactivateTeam() {
         safeClickOn(deactivateTeamButton);
         safeClickOn(deactivateTeamConfirmationButton);
-        waitABit(500);
+        
         String teamName = teamNameHeader.getText().split(": ")[1];
         setSessionVariable("deactivatedTeamName").to(teamName);
     }
@@ -176,21 +176,21 @@ public class TeamManagement extends BasePage {
     }
 
     public void assertNewTeamIsDisplayed() {
-        waitABit(1000);
+        
         String displayedTeam = teamNameHeader.getText().split(": ")[1];
         String newTeam = sessionVariableCalled("draftingTeamName");
         assertThat(displayedTeam.equalsIgnoreCase(newTeam), is(true));
     }
 
     public void assertRenamedTeamIsDisplayed() {
-        waitABit(750);
+        
         String displayedTeam = teamNameHeader.getText().split(": ")[1];
         String renamedTeam = sessionVariableCalled("newDraftingTeamName");
         assertThat(displayedTeam.equalsIgnoreCase(renamedTeam), is(true));
     }
 
     public void assertThatTeamContainsNoUsers() {
-        waitABit(1000);
+        
         assertThat(isElementDisplayed(firstRemoveButtonInList), is(false));
     }
 
@@ -205,7 +205,7 @@ public class TeamManagement extends BasePage {
     }
 
     public void assertMultipleUsersAddedToTeam() {
-        waitABit(1000);
+        
         $("//table[@class='govuk-table']").shouldContainText(User.CAMERON.getAllocationText());
         $("//table[@class='govuk-table']").shouldContainText(User.CASEY.getAllocationText());
     }
@@ -233,7 +233,7 @@ public class TeamManagement extends BasePage {
     }
 
     public void assertActiveStatusOfTeam(String status) {
-        waitABit(1500);
+        
         if (status.equalsIgnoreCase("INACTIVE")) {
             assertThat(inactiveTag.isCurrentlyVisible(), is(true));
         } else if (status.equalsIgnoreCase("ACTIVE")) {
@@ -242,15 +242,15 @@ public class TeamManagement extends BasePage {
     }
 
     public void assertDeactivatedTeamIsDisplayed() {
-        waitABit(500);
+        
         teamNameHeader.shouldContainText(sessionVariableCalled("deactivatedTeamName"));
     }
 
     public void assertThatUserVisibleInTeamListIs(boolean assertion) {
         String nameOfTeamInHeader = sessionVariableCalled("teamName").toString();
-        waitABit(2500);
+        
         assertThat(teamNameHeader.getText(), containsText(nameOfTeamInHeader));
-        WebElementFacade userInTeamList = findBy("//td[contains(text(), '" + addedOrRemovedUser.getAllocationText() + "')]").withTimeoutOf(Duration.ofSeconds(10));
+        WebElementFacade userInTeamList = findBy("//td[contains(text(), '" + addedOrRemovedUser.getAllocationText() + "')]");
         if (assertion) {
             successMessage.waitUntilVisible();
         } else {

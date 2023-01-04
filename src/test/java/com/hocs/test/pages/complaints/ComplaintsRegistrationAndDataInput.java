@@ -183,7 +183,7 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         List<WebElementFacade> claimCategories = findAll("//input[not(@checked)]/following-sibling::label[contains(@for,'Cat')]");
         List<WebElementFacade> visibleClaimCategories = new ArrayList<>();
         for (WebElementFacade claimCategory: claimCategories) {
-            if (claimCategory.withTimeoutOf(Duration.ofSeconds(10)).isCurrentlyVisible()) {
+            if (claimCategory.isCurrentlyVisible()) {
                 visibleClaimCategories.add(claimCategory);
             }
         }

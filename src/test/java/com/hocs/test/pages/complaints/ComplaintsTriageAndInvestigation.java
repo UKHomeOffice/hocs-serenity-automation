@@ -27,39 +27,39 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
 
     ComplaintsRegistrationAndDataInput complaintsRegistrationAndDataInput;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//label[contains(text(),'Yes - accept the complaint')]")
+    @FindBy(xpath = "//label[contains(text(),'Yes - accept the complaint')]")
     public WebElementFacade acceptTheComplaintRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//label[contains(text(),'No - transfer the complaint')]")
+    @FindBy(xpath = "//label[contains(text(),'No - transfer the complaint')]")
     public WebElementFacade transferTheComplaintRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//textarea[@name='CaseNote_TriageTransfer']")
+    @FindBy(xpath = "//textarea[@name='CaseNote_TriageTransfer']")
     public WebElementFacade transferReasonTextArea;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//label[contains(text(),'CCH')]")
+    @FindBy(xpath = "//label[contains(text(),'CCH')]")
     public WebElementFacade transferToCCHRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", id = "BusArea")
+    @FindBy(id = "BusArea")
     public WebElementFacade businessAreaDropdown;
 
-    @FindBy(timeoutInSeconds = "10", id = "EnqReason")
+    @FindBy(id = "EnqReason")
     public WebElementFacade enquiryReasonDropdown;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//label[contains(text(),'Yes')]")
+    @FindBy(xpath = "//label[contains(text(),'Yes')]")
     public WebElementFacade loaRequiredYesRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='Escalate case to WFM']")
+    @FindBy(xpath = "//label[text()='Escalate case to WFM']")
     public WebElementFacade escalateToWFMRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='No response - complete the case (close permanently)']")
+    @FindBy(xpath = "//label[text()='No response - complete the case (close permanently)']")
     public WebElementFacade noResponseCloseCaseRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", id = "TotalOfferSentToComplainant")
+    @FindBy(id = "TotalOfferSentToComplainant")
     public WebElementFacade totalOfferSentToComplainantField;
 
     public void selectAcceptCase() {
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Yes - accept the complaint", "Can your team respond to this complaint?");
-        waitABit(500);
+        
     }
 
     public void enterDateOfAcceptance() {
@@ -87,7 +87,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
             if (sessionVariableCalled("businessArea").equals("GRO")) {
                 waitForDECSPageWithTitle("Investigation - Transfer Case");
             } else {
-                waitABit(500);
+                
             }
             enteredText = enterTextIntoTextAreaWithHeading("Enter the reason for transfer");
         } else {
@@ -158,7 +158,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
         double consolatoryOffer = Double.parseDouble(sessionVariableCalled("consolatoryOfferAmount").toString());
         double exGratiaOffer = Double.parseDouble(sessionVariableCalled("exGratiaOfferAmount").toString());
         double totalOffer = consolatoryOffer + exGratiaOffer;
-        waitABit(1000);
+        
         String totalOfferFieldOffer = totalOfferSentToComplainantField.getValue();
         double displayedTotalOffer = Double.parseDouble(totalOfferFieldOffer);
         assertThat(totalOffer == displayedTotalOffer, is(true));
@@ -179,7 +179,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
         List<WebElementFacade> claimCategories = findAll("//input[not(@checked)]/following-sibling::label[contains(@for,'Cat')]");
         List<WebElementFacade> visibleClaimCategories = new ArrayList<>();
         for (WebElementFacade claimCategory : claimCategories) {
-            if (claimCategory.withTimeoutOf(Duration.ofSeconds(10)).isCurrentlyVisible()) {
+            if (claimCategory.isCurrentlyVisible()) {
                 visibleClaimCategories.add(claimCategory);
             }
         }
@@ -329,7 +329,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     }
 
     public void assertOverdueContributionRequestIsHighlighted() {
-        WebElement label = withTimeoutOf(Duration.ofSeconds(10)).find(By.xpath("//label[text()='Overdue " + sessionVariableCalled(
+        WebElement label = find(By.xpath("//label[text()='Overdue " + sessionVariableCalled(
                 "contributionDueDate") + "']"));
         String value = label.getCssValue("background-color");
         assertThat(value.equalsIgnoreCase("rgba(212, 53, 28, 1)"), is(true));
@@ -429,7 +429,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
 
         complaintsRegistrationAndDataInput.selectYesForSeriousCase();
         clickTheButton("Submit");
-        waitABit(1000);
+        
         String claimCategory = sessionVariableCalled("claimCategory");
         checkSpecificCheckbox(claimCategory);
         clickTheButton("Finish");

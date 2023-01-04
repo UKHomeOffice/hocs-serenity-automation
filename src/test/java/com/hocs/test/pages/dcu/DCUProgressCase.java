@@ -220,7 +220,7 @@ public class DCUProgressCase extends BasePage {
             clickContinueButton();
         }
         documents.addADocumentOfDocumentType("DRAFT");
-        waitABit(1000);
+        
         documents.recordPrimaryDraftDocument();
         clickContinueButton();
         initialDraft.selectQAOfflineDecision("No");
@@ -235,7 +235,7 @@ public class DCUProgressCase extends BasePage {
             clickContinueButton();
         }
         documents.addADocumentOfDocumentType("DRAFT");
-        waitABit(1000);
+        
         documents.recordPrimaryDraftDocument();
         clickContinueButton();
         initialDraft.selectQAOfflineDecision("Yes");

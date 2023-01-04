@@ -120,7 +120,7 @@ public class ValidationStepDefs extends BasePage {
                                 dataInput.selectASpecificCopyToNoTenOption("Yes");
                                 dataInput.selectASpecificHomeSecInterestOption("Yes");
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickFinishButton();
                                 break;
                             case "CORRESPONDENT TYPE MUST BE PROVIDED":
@@ -159,19 +159,19 @@ public class ValidationStepDefs extends BasePage {
                     case "MARKUP":
                         switch (errorMessage.toUpperCase()) {
                             case "TYPE OF RESPONSE REQUIRED":
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 break;
                             case "PRIMARY TOPIC REQUIRED":
                                 markup.selectPolicyResponseRadioButton();
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 break;
                             case "WHY IS NO RESPONSE NEEDED REQUIRED":
                                 markup.selectNoResponseNeededRadioButton();
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickFinishButton();
                                 break;
                             case "WHERE SHOULD THE CASE BE TRANSFERRED REQUIRED":
@@ -207,13 +207,13 @@ public class ValidationStepDefs extends BasePage {
                     case "INITIAL DRAFT":
                         switch (errorMessage.toUpperCase()) {
                             case "CAN THIS BE ANSWERED BY YOUR TEAM REQUIRED":
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 break;
                             case "RESPONSE CHANNEL REQUIRED":
                                 safeClickOn(initialDraft.answeredByMyTeamYesRadioButton);
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 break;
                             case "PRIMARY DRAFT DOCUMENT REQUIRED":
@@ -221,7 +221,7 @@ public class ValidationStepDefs extends BasePage {
                                 clickContinueButton();
                                 safeClickOn(initialDraft.letterReplyRadioButton);
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 break;
                             case "QA THIS OFFLINE REQUIRED":
@@ -231,7 +231,7 @@ public class ValidationStepDefs extends BasePage {
                                 clickContinueButton();
                                 documents.addADocumentOfDocumentType("DRAFT");
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 break;
                             case "WHO HAS DONE QA OFFLINE REQUIRED":
@@ -243,7 +243,7 @@ public class ValidationStepDefs extends BasePage {
                                 clickContinueButton();
                                 safeClickOn(initialDraft.offlineQaYesRadioButton);
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickFinishButton();
                                 break;
                             default:
@@ -253,13 +253,13 @@ public class ValidationStepDefs extends BasePage {
                     case "QA RESPONSE":
                         switch (errorMessage.toUpperCase()) {
                             case "ACTIONS REQUIRED":
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 break;
                             case "REJECTION NOTE REQUIRED":
                                 qaResponse.selectReturnCaseToDraftingTeamRadioButton();
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickFinishButton();
                                 break;
                             default:
@@ -269,13 +269,13 @@ public class ValidationStepDefs extends BasePage {
                     case "PRIVATE OFFICE APPROVAL":
                         switch (errorMessage.toUpperCase()) {
                             case "RESPONSE APPROVAL REQUIRED":
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 break;
                             case "REJECTION NOTE REQUIRED":
                                 privateOfficeApproval.selectIfApproveResponse("No");
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickFinishButton();
                                 break;
                             case "OVERRIDE PRIVATE OFFICE TEAM REQUIRED":
@@ -293,7 +293,7 @@ public class ValidationStepDefs extends BasePage {
                             case "REASON FOR TOPIC CHANGE REQUIRED":
                                 privateOfficeApproval.selectToChangeTopic();
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 break;
                             default:
@@ -303,19 +303,19 @@ public class ValidationStepDefs extends BasePage {
                     case "MINISTERIAL SIGN OFF":
                         switch (errorMessage.toUpperCase()) {
                             case "RESPONSE APPROVAL REQUIRED":
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 break;
                             case "REJECTION TO DRAFT NOTE REQUIRED":
                                 ministerialSignOff.selectToApproveResponse("No");
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 break;
                             case "REJECTION TO PRIVATE OFFICE NOTE REQUIRED":
                                 ministerialSignOff.selectNotApplicableToApproveResponse();
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 break;
                             default:
@@ -325,13 +325,13 @@ public class ValidationStepDefs extends BasePage {
                     case "DISPATCH":
                         switch (errorMessage.toUpperCase()) {
                             case "DISPATCH RESPONSE REQUIRED":
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 break;
                             case "REJECTION NOTE REQUIRED":
                                 dispatch.selectAbleToDispatch("No");
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickFinishButton();
                                 break;
                             default:
@@ -377,7 +377,7 @@ public class ValidationStepDefs extends BasePage {
                                 dataInput.selectASpecificHomeSecInterestOption("Yes");
                                 dataInput.selectASpecificCopyToNoTenOption("Yes");
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickFinishButton();
                                 break;
                             default:
@@ -387,19 +387,19 @@ public class ValidationStepDefs extends BasePage {
                     case "MARKUP":
                         switch (errorMessage.toUpperCase()) {
                             case "TYPE OF RESPONSE REQUIRED":
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 break;
                             case "PRIMARY TOPIC REQUIRED":
                                 markup.selectPolicyResponseRadioButton();
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 break;
                             case "WHY IS NO RESPONSE NEEDED REQUIRED":
                                 markup.selectNoResponseNeededRadioButton();
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickFinishButton();
                                 break;
                             case "WHERE SHOULD THE CASE BE TRANSFERRED REQUIRED":
@@ -435,13 +435,13 @@ public class ValidationStepDefs extends BasePage {
                     case "INITIAL DRAFT":
                         switch (errorMessage.toUpperCase()) {
                             case "CAN THIS BE ANSWERED BY YOUR TEAM REQUIRED":
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 break;
                             case "RESPONSE CHANNEL REQUIRED":
                                 safeClickOn(initialDraft.answeredByMyTeamYesRadioButton);
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 break;
                             case "PRIMARY DRAFT DOCUMENT REQUIRED":
@@ -449,7 +449,7 @@ public class ValidationStepDefs extends BasePage {
                                 clickContinueButton();
                                 safeClickOn(initialDraft.letterReplyRadioButton);
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 break;
                             case "QA THIS OFFLINE REQUIRED":
@@ -459,7 +459,7 @@ public class ValidationStepDefs extends BasePage {
                                 clickContinueButton();
                                 documents.addADocumentOfDocumentType("DRAFT");
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 break;
                             case "WHO HAS DONE QA OFFLINE REQUIRED":
@@ -471,7 +471,7 @@ public class ValidationStepDefs extends BasePage {
                                 clickContinueButton();
                                 safeClickOn(initialDraft.offlineQaYesRadioButton);
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickFinishButton();
                                 break;
                             default:
@@ -481,13 +481,13 @@ public class ValidationStepDefs extends BasePage {
                     case "QA RESPONSE":
                         switch (errorMessage.toUpperCase()) {
                             case "ACTIONS REQUIRED":
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 break;
                             case "REJECTION NOTE REQUIRED":
                                 qaResponse.selectReturnCaseToDraftingTeamRadioButton();
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickFinishButton();
                                 break;
                             default:
@@ -497,13 +497,13 @@ public class ValidationStepDefs extends BasePage {
                     case "DISPATCH":
                         switch (errorMessage.toUpperCase()) {
                             case "DISPATCH RESPONSE REQUIRED":
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 break;
                             case "REJECTION NOTE REQUIRED":
                                 dispatch.selectAbleToDispatch("No");
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickFinishButton();
                                 break;
                             default:
@@ -547,7 +547,7 @@ public class ValidationStepDefs extends BasePage {
                                 dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
                                 dataInput.selectACorrespondenceReceivedChannel();
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickFinishButton();
                                 break;
                             default:
@@ -557,19 +557,19 @@ public class ValidationStepDefs extends BasePage {
                     case "MARKUP":
                         switch (errorMessage.toUpperCase()) {
                             case "TYPE OF RESPONSE REQUIRED":
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 break;
                             case "PRIMARY TOPIC REQUIRED":
                                 markup.selectPolicyResponseRadioButton();
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 break;
                             case "WHY IS NO RESPONSE NEEDED REQUIRED":
                                 markup.selectNoResponseNeededRadioButton();
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickFinishButton();
                                 break;
                             case "WHERE SHOULD THE CASE BE TRANSFERRED REQUIRED":
@@ -605,13 +605,13 @@ public class ValidationStepDefs extends BasePage {
                     case "INITIAL DRAFT":
                         switch (errorMessage.toUpperCase()) {
                             case "CAN THIS BE ANSWERED BY YOUR TEAM REQUIRED":
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 break;
                             case "PRIMARY DRAFT DOCUMENT REQUIRED":
                                 safeClickOn(initialDraft.answeredByMyTeamYesRadioButton);
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 break;
                             case "QA THIS OFFLINE REQUIRED":
@@ -621,7 +621,7 @@ public class ValidationStepDefs extends BasePage {
                                 clickContinueButton();
                                 documents.addADocumentOfDocumentType("DRAFT");
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 break;
                             case "WHO HAS DONE QA OFFLINE REQUIRED":
@@ -633,7 +633,7 @@ public class ValidationStepDefs extends BasePage {
                                 clickContinueButton();
                                 safeClickOn(initialDraft.offlineQaYesRadioButton);
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickFinishButton();
                                 break;
                             default:
@@ -643,13 +643,13 @@ public class ValidationStepDefs extends BasePage {
                     case "QA RESPONSE":
                         switch (errorMessage.toUpperCase()) {
                             case "ACTIONS REQUIRED":
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 break;
                             case "REJECTION NOTE REQUIRED":
                                 qaResponse.selectReturnCaseToDraftingTeamRadioButton();
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickFinishButton();
                                 break;
                             default:
@@ -659,13 +659,13 @@ public class ValidationStepDefs extends BasePage {
                     case "PRIVATE OFFICE APPROVAL":
                         switch (errorMessage.toUpperCase()) {
                             case "RESPONSE APPROVAL REQUIRED":
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 break;
                             case "REJECTION NOTE REQUIRED":
                                 privateOfficeApproval.selectIfApproveResponse("No");
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickFinishButton();
                                 break;
                             default:
@@ -675,13 +675,13 @@ public class ValidationStepDefs extends BasePage {
                     case "DISPATCH":
                         switch (errorMessage.toUpperCase()) {
                             case "DISPATCH RESPONSE REQUIRED":
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 break;
                             case "REJECTION NOTE REQUIRED":
                                 dispatch.selectAbleToDispatch("No");
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickFinishButton();
                                 break;
                             default:
@@ -749,7 +749,7 @@ public class ValidationStepDefs extends BasePage {
                                 creation.selectASpecificUrgency("Standard");
                                 creation.selectASpecificInboundChannel("Email");
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickTheButton("Move to Triage");
                                 break;
                             default:
@@ -785,7 +785,7 @@ public class ValidationStepDefs extends BasePage {
                                 triage.businessUnitDropdown.selectByIndex(1);
                                 safeClickOn(triage.escalateToWorkflowManagerRadioButton);
                                 clickConfirmButton();
-                                waitABit(500);
+                                
                                 clickConfirmButton();
                                 break;
                             case "REASON FOR CLOSING CASE REQUIRED":
@@ -815,7 +815,7 @@ public class ValidationStepDefs extends BasePage {
                                 triage.businessUnitDropdown.selectByIndex(1);
                                 safeClickOn(campaign.putCaseIntoCampaignRadioButton);
                                 clickConfirmButton();
-                                waitABit(500);
+                                
                                 clickConfirmButton();
                                 break;
                             default:
@@ -825,19 +825,19 @@ public class ValidationStepDefs extends BasePage {
                     case "DRAFT":
                         switch (errorMessage.toUpperCase()) {
                             case "ACTIONS REQUIRED":
-                                waitABit(500);
+                                
                                 clickConfirmButton();
                                 break;
                             case "REJECTION REASON REQUIRED":
                                 safeClickOn(draft.returnToTriageRadioButton);
                                 clickConfirmButton();
-                                waitABit(500);
+                                
                                 clickConfirmButton();
                                 break;
                             case "ESCALATION REASON REQUIRED":
                                 safeClickOn(draft.escalateToWorkflowManagerRadioButton);
                                 clickConfirmButton();
-                                waitABit(500);
+                                
                                 clickConfirmButton();
                                 break;
                             case "REASON FOR CLOSING CASE REQUIRED":
@@ -855,7 +855,7 @@ public class ValidationStepDefs extends BasePage {
                             case "CAMPAIGN REQUIRED":
                                 safeClickOn(campaign.putCaseIntoCampaignRadioButton);
                                 clickConfirmButton();
-                                waitABit(500);
+                                
                                 clickConfirmButton();
                                 break;
                             default:
@@ -865,25 +865,25 @@ public class ValidationStepDefs extends BasePage {
                     case "QA":
                         switch (errorMessage.toUpperCase()) {
                             case "ACTIONS REQUIRED":
-                                waitABit(500);
+                                
                                 clickConfirmButton();
                                 break;
                             case "REJECTION TO TRIAGE REASON REQUIRED":
                                 safeClickOn(qa.rejectQAToTriageRadioButton);
                                 clickConfirmButton();
-                                waitABit(500);
+                                
                                 clickConfirmButton();
                                 break;
                             case "REJECTION TO DRAFT REASON REQUIRED":
                                 safeClickOn(qa.rejectQAToDraftRadioButton);
                                 clickConfirmButton();
-                                waitABit(500);
+                                
                                 clickConfirmButton();
                                 break;
                             case "ESCALATION REASON REQUIRED":
                                 safeClickOn(qa.escalateToWorkflowManagerRadioButton);
                                 clickConfirmButton();
-                                waitABit(500);
+                                
                                 clickConfirmButton();
                                 break;
                             case "REASON FOR CLOSING CASE REQUIRED":
@@ -901,7 +901,7 @@ public class ValidationStepDefs extends BasePage {
                             case "CAMPAIGN REQUIRED":
                                 safeClickOn(campaign.putCaseIntoCampaignRadioButton);
                                 clickConfirmButton();
-                                waitABit(500);
+                                
                                 clickConfirmButton();
                                 break;
                             default:
@@ -922,14 +922,14 @@ public class ValidationStepDefs extends BasePage {
                                 safeClickOn(dispatchStages.responseChannelEmailRadioButton);
                                 safeClickOn(campaign.putCaseIntoCampaignRadioButton);
                                 clickConfirmButton();
-                                waitABit(500);
+                                
                                 clickConfirmButton();
                                 break;
                             case "DISPATCHED DATE REQUIRED":
                                 safeClickOn(dispatchStages.responseChannelEmailRadioButton);
                                 safeClickOn(dispatchStages.dispatchedRadioButtonAtPrivateOffice);
                                 clickConfirmButton();
-                                waitABit(500);
+                                
                                 clickTheButton("Confirm and close case");
                                 break;
                             case "FOLLOW-UP DUE DATE REQUIRED":
@@ -953,7 +953,7 @@ public class ValidationStepDefs extends BasePage {
                             case "REJECTION REASON REQUIRED":
                                 safeClickOn(dispatchStages.draftRejectedRadioButton);
                                 clickConfirmButton();
-                                waitABit(500);
+                                
                                 clickConfirmButton();
                                 break;
                             default:
@@ -982,7 +982,7 @@ public class ValidationStepDefs extends BasePage {
                             case "REJECTION REASON REQUIRED":
                                 safeClickOn(dispatchStages.returnToDraftButton);
                                 clickConfirmButton();
-                                waitABit(500);
+                                
                                 clickConfirmButton();
                                 break;
                             case "REASON FOR CLOSING CASE REQUIRED":
@@ -1000,7 +1000,7 @@ public class ValidationStepDefs extends BasePage {
                             case "CAMPAIGN REQUIRED":
                                 safeClickOn(campaign.putCaseIntoCampaignRadioButton);
                                 clickConfirmButton();
-                                waitABit(500);
+                                
                                 clickConfirmButton();
                                 break;
                             case "FOLLOW-UP DUE DATE REQUIRED":
@@ -1033,7 +1033,7 @@ public class ValidationStepDefs extends BasePage {
                 if (stage.equalsIgnoreCase("DATA INPUT")) {
                     switch (errorMessage.toUpperCase()) {
                         case "PRIMARY CORRESPONDENT REQUIRED":
-                            waitABit(500);
+                            
                             clickContinueButton();
                             break;
                         case "BUSINESS AREA REQUIRED":
@@ -1120,21 +1120,21 @@ public class ValidationStepDefs extends BasePage {
                     case "REGISTRATION":
                         switch (errorMessage.toUpperCase()) {
                             case "PRIMARY CORRESPONDENT REQUIRED":
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 break;
                             case "COMPLAINT TYPE REQUIRED":
                                 correspondents.addANonMemberCorrespondentOfType("Complainant");
                                 correspondents.confirmPrimaryCorrespondent();
-                                waitABit(500);
+                                
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 break;
                             case "CHANNEL REQUIRED":
                                 correspondents.addANonMemberCorrespondentOfType("Complainant");
                                 correspondents.confirmPrimaryCorrespondent();
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 complaintsRegistrationAndDataInput.selectASpecificComplaintType("Service");
                                 complaintsRegistrationAndDataInput.selectASeverity();
@@ -1143,7 +1143,7 @@ public class ValidationStepDefs extends BasePage {
                             case "SEVERITY REQUIRED":
                                 correspondents.addANonMemberCorrespondentOfType("Complainant");
                                 correspondents.confirmPrimaryCorrespondent();
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 complaintsRegistrationAndDataInput.selectASpecificComplaintType("Service");
                                 complaintsRegistrationAndDataInput.selectAComplaintChannel();
@@ -1152,7 +1152,7 @@ public class ValidationStepDefs extends BasePage {
                             case "OWNING CSU REQUIRED":
                                 correspondents.addANonMemberCorrespondentOfType("Complainant");
                                 correspondents.confirmPrimaryCorrespondent();
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 complaintsRegistrationAndDataInput.selectASpecificComplaintType("Service");
                                 complaintsRegistrationAndDataInput.selectAComplaintChannel();
@@ -1165,7 +1165,7 @@ public class ValidationStepDefs extends BasePage {
                             case "COMPLAINT TYPE OPTION REQUIRED":
                                 correspondents.addANonMemberCorrespondentOfType("Complainant");
                                 correspondents.confirmPrimaryCorrespondent();
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 complaintsRegistrationAndDataInput.selectASpecificComplaintType("Service");
                                 complaintsRegistrationAndDataInput.selectAComplaintChannel();
@@ -1181,7 +1181,7 @@ public class ValidationStepDefs extends BasePage {
                     case "SERVICE TRIAGE":
                         switch (errorMessage.toUpperCase()) {
                             case "CAN YOUR TEAM RESPOND TO COMPLAINT REQUIRED":
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 break;
                             case "REASON FOR TRANSFER REQUIRED":
@@ -1199,7 +1199,7 @@ public class ValidationStepDefs extends BasePage {
                             case "BUSINESS AREA REQUIRED":
                                 safeClickOn(ComplaintsTriageAndInvestigation.acceptTheComplaintRadioButton);
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 ComplaintsTriageAndInvestigation.enquiryReasonDropdown.selectByIndex(1);
                                 safeClickOn(ComplaintsTriageAndInvestigation.loaRequiredYesRadioButton);
@@ -1208,7 +1208,7 @@ public class ValidationStepDefs extends BasePage {
                             case "ENQUIRY REASON REQUIRED":
                                 safeClickOn(ComplaintsTriageAndInvestigation.acceptTheComplaintRadioButton);
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 ComplaintsTriageAndInvestigation.businessAreaDropdown.selectByIndex(1);
                                 safeClickOn(ComplaintsTriageAndInvestigation.loaRequiredYesRadioButton);
@@ -1217,7 +1217,7 @@ public class ValidationStepDefs extends BasePage {
                             case "IS LETTER OF AUTHORITY REQUIRED RESPONSE REQUIRED":
                                 safeClickOn(ComplaintsTriageAndInvestigation.acceptTheComplaintRadioButton);
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 ComplaintsTriageAndInvestigation.businessAreaDropdown.selectByIndex(1);
                                 ComplaintsTriageAndInvestigation.enquiryReasonDropdown.selectByIndex(1);
@@ -1226,19 +1226,19 @@ public class ValidationStepDefs extends BasePage {
                             case "ACTION REQUIRED":
                                 safeClickOn(ComplaintsTriageAndInvestigation.acceptTheComplaintRadioButton);
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 ComplaintsTriageAndInvestigation.businessAreaDropdown.selectByIndex(1);
                                 ComplaintsTriageAndInvestigation.enquiryReasonDropdown.selectByIndex(1);
                                 safeClickOn(ComplaintsTriageAndInvestigation.loaRequiredYesRadioButton);
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 break;
                             case "ESCALATION REASON REQUIRED":
                                 safeClickOn(ComplaintsTriageAndInvestigation.acceptTheComplaintRadioButton);
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 ComplaintsTriageAndInvestigation.businessAreaDropdown.selectByIndex(1);
                                 ComplaintsTriageAndInvestigation.enquiryReasonDropdown.selectByIndex(1);
@@ -1246,13 +1246,13 @@ public class ValidationStepDefs extends BasePage {
                                 clickContinueButton();
                                 safeClickOn(ComplaintsTriageAndInvestigation.escalateToWFMRadioButton);
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickTheButton("Escalate case");
                                 break;
                             case "COMPLETE CASE NOTE REQUIRED":
                                 safeClickOn(ComplaintsTriageAndInvestigation.acceptTheComplaintRadioButton);
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 ComplaintsTriageAndInvestigation.businessAreaDropdown.selectByIndex(1);
                                 ComplaintsTriageAndInvestigation.enquiryReasonDropdown.selectByIndex(1);
@@ -1260,13 +1260,13 @@ public class ValidationStepDefs extends BasePage {
                                 clickContinueButton();
                                 safeClickOn(ComplaintsTriageAndInvestigation.noResponseCloseCaseRadioButton);
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickTheButton("Complete case");
                                 break;
                             case "COMPLETE CASE PERMANENTLY RESPONSE REQUIRED":
                                 safeClickOn(ComplaintsTriageAndInvestigation.acceptTheComplaintRadioButton);
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 ComplaintsTriageAndInvestigation.businessAreaDropdown.selectByIndex(1);
                                 ComplaintsTriageAndInvestigation.enquiryReasonDropdown.selectByIndex(1);
@@ -1276,7 +1276,7 @@ public class ValidationStepDefs extends BasePage {
                                 clickContinueButton();
                                 ComplaintsTriageAndInvestigation.enterCompletionReason();
                                 clickTheButton("Complete case");
-                                waitABit(500);
+                                
                                 clickConfirmButton();
                                 break;
                             default:
@@ -1297,7 +1297,7 @@ public class ValidationStepDefs extends BasePage {
                                 documents.addADocumentOfDocumentType("DRAFT");
                                 safeClickOn(ComplaintsDraft.escalateCaseToWFMRadioButton);
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickTheButton("Escalate case");
                                 break;
                             default:
@@ -1306,7 +1306,7 @@ public class ValidationStepDefs extends BasePage {
                         break;
                     case "SERVICE ESCALATED":
                         if (errorMessage.equalsIgnoreCase("ACTION REQUIRED")) {
-                            waitABit(500);
+                            
                             clickConfirmButton();
                         } else {
                             pendingStep(errorMessage + " is not defined within " + getMethodName());
@@ -1315,13 +1315,13 @@ public class ValidationStepDefs extends BasePage {
                     case "CCH":
                         switch (errorMessage.toUpperCase()) {
                             case "TRANSFER TO REQUIRED":
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 break;
                             case "COMPLETE CASE NOTE REQUIRED":
                                 safeClickOn(cch.completeTheCaseClosePermanentlyRadioButton);
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickTheButton("Complete case");
                                 break;
                             case "COMPLETE CASE PERMANENTLY RESPONSE REQUIRED":
@@ -1337,13 +1337,13 @@ public class ValidationStepDefs extends BasePage {
                     case "SERVICE QA":
                         switch (errorMessage.toUpperCase()) {
                             case "QA RESULT REQUIRED":
-                                waitABit(500);
+                                
                                 clickContinueButton();
                                 break;
                             case "REJECTION REASON REQUIRED":
                                 safeClickOn(ComplaintsQA.returnResponseToDraftRadioButton);
                                 clickContinueButton();
-                                waitABit(500);
+                                
                                 clickTheButton("Reject");
                                 break;
                             default:
@@ -1353,19 +1353,19 @@ public class ValidationStepDefs extends BasePage {
                     case "SERVICE SEND":
                         switch (errorMessage.toUpperCase()) {
                             case "CASE OUTCOME REQUIRED":
-                                waitABit(500);
+                                
                                 complaintsDispatchAndSend.selectAResponseChannel();
                                 complaintsDispatchAndSend.enterADateOfResponse();
                                 clickTheButton("Complete");
                                 break;
                             case "RESPONSE CHANNEL REQUIRED":
-                                waitABit(500);
+                                
                                 complaintsDispatchAndSend.selectACaseOutcome();
                                 complaintsDispatchAndSend.enterADateOfResponse();
                                 clickTheButton("Complete");
                                 break;
                             case "DATE OF RESPONSE REQUIRED":
-                                waitABit(500);
+                                
                                 complaintsDispatchAndSend.selectACaseOutcome();
                                 complaintsDispatchAndSend.selectAResponseChannel();
                                 clickTheButton("Complete");
@@ -2121,7 +2121,7 @@ public class ValidationStepDefs extends BasePage {
             default:
                 pendingStep(caseType + " is not defined within " + getMethodName());
         }
-        WebElementFacade displayedError = findBy("//a[contains(text(), '" + errorText + "')]").withTimeoutOf(Duration.ofSeconds(10));
+        WebElementFacade displayedError = findBy("//a[contains(text(), '" + errorText + "')]");
         displayedError.shouldBeVisible();
     }
 }

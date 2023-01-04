@@ -11,16 +11,16 @@ public class QAResponse extends BasePage {
 
     RecordCaseData recordCaseData;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='Approve primary draft']")
+    @FindBy(xpath = "//label[text()='Approve primary draft']")
     public WebElementFacade QAAcceptRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='Return case to drafting team']")
+    @FindBy(xpath = "//label[text()='Return case to drafting team']")
     public WebElementFacade QARejectRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='Modify primary draft']")
+    @FindBy(xpath = "//label[text()='Modify primary draft']")
     public WebElementFacade QAModifyRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", id ="CaseNote_QA")
+    @FindBy(id ="CaseNote_QA")
     public WebElementFacade QARejectionNoteField;
 
     // Basic Methods

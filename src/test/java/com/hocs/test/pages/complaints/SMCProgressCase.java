@@ -106,7 +106,7 @@ public class SMCProgressCase extends BasePage {
         complaintsRegistrationAndDataInput.enterAThirdPartyReference();
         clickContinueButton();
         complaintsRegistrationAndDataInput.openTheSeriousComplaintCategoryAccordion();
-        waitABit(1000);
+        
         complaintsRegistrationAndDataInput.selectAVisibleClaimCategory();
         complaintsRegistrationAndDataInput.selectAnOwningCSU();
         clickFinishButton();
@@ -219,7 +219,7 @@ public class SMCProgressCase extends BasePage {
                 complaintsRegistrationAndDataInput.enterAThirdPartyReference();
                 clickContinueButton();
                 complaintsRegistrationAndDataInput.openTheSeriousComplaintCategoryAccordion();
-                waitABit(1000);
+                
                 complaintsRegistrationAndDataInput.selectAVisibleClaimCategory();
                 complaintsRegistrationAndDataInput.selectAnOwningCSU();
                 clickFinishButton();

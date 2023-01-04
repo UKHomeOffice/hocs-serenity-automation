@@ -22,49 +22,49 @@ public class Documents extends BasePage {
 
     RecordCaseData recordCaseData;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//a[text()='Documents']")
+    @FindBy(xpath = "//a[text()='Documents']")
     public WebElementFacade documentsTab;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//a[text() = 'Manage Documents']")
+    @FindBy(xpath = "//a[text() = 'Manage Documents']")
     public WebElementFacade manageDocumentsLink;
 
-    @FindBy(timeoutInSeconds = "10",  id = "add_document")
+    @FindBy(id = "add_document")
     public WebElementFacade addDocument;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//a[text()='Document type is required']")
+    @FindBy(xpath = "//a[text()='Document type is required']")
     public WebElementFacade documentTypeIsRequiredErrorMessage;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//a[text()='Document is required']")
+    @FindBy(xpath = "//a[text()='Document is required']")
     public WebElementFacade documentIsRequiredErrorMessage;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href = '#add_document-error']")
+    @FindBy(xpath = "//a[@href = '#add_document-error']")
     public WebElementFacade addDocumentErrorMessage;
 
-    @FindBy(timeoutInSeconds = "10",  id = "document_type")
+    @FindBy(id = "document_type")
     public WebElementFacade documentTypeDropDown;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//h2[contains(text(), 'Available Standard line')]")
+    @FindBy(xpath = "//h2[contains(text(), 'Available Standard line')]")
     public WebElementFacade availableStandardLineHeader;
 
-    @FindBy(timeoutInSeconds = "10",  css = "[value='Remove']")
+    @FindBy(css = "[value='Remove']")
     public WebElementFacade removeButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//td/strong[contains(text(), 'PENDING')]")
+    @FindBy(xpath = "//td/strong[contains(text(), 'PENDING')]")
     public WebElementFacade pendingTag;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//td/strong[contains(text(), 'Failed Conversion')]")
+    @FindBy(xpath = "//td/strong[contains(text(), 'Failed Conversion')]")
     public WebElementFacade failedConversionTag;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//td/strong[contains(text(), 'Failed Virus Scan')]")
+    @FindBy(xpath = "//td/strong[contains(text(), 'Failed Virus Scan')]")
     public WebElementFacade failedVirusScanTag;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//td/strong[contains(text(), 'UPLOADED')]")
+    @FindBy(xpath = "//td/strong[contains(text(), 'UPLOADED')]")
     public WebElementFacade uploadedTag;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//strong[text()='Primary Draft']")
+    @FindBy(xpath = "//strong[text()='Primary Draft']")
     public WebElementFacade primaryDraftDocumentTag;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//strong[text()='Primary Draft']/parent::td/preceding-sibling::td")
+    @FindBy(xpath = "//strong[text()='Primary Draft']/parent::td/preceding-sibling::td")
     public WebElementFacade primaryDraftDocumentName;
 
     //Simple methods
@@ -98,19 +98,19 @@ public class Documents extends BasePage {
 
     public void uploadFileOfType(String fileType) {
         setSessionVariable("fileType").to(fileType);
-        addDocument.withTimeoutOf(Duration.ofSeconds(10)).waitUntilPresent();
+        addDocument.waitUntilPresent();
         upload(System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" +  File.separator + "resources" +  File.separator +
                 "documents" +  File.separator + "test."  + fileType).to(addDocument);
     }
 
     public void uploadDocumentThatFailsConversion() {
-        addDocument.withTimeoutOf(Duration.ofSeconds(10)).waitUntilPresent();
+        addDocument.waitUntilPresent();
         upload(System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" +  File.separator + "resources" +  File.separator +
                 "documents" +  File.separator + "broken.jpg").to(addDocument);
     }
 
     public void uploadDocumentThatFailsScan() {
-        addDocument.withTimeoutOf(Duration.ofSeconds(10)).waitUntilPresent();
+        addDocument.waitUntilPresent();
         upload(System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" +  File.separator + "resources" +  File.separator +
                 "documents" +  File.separator + "fails.txt").to(addDocument);
     }
@@ -140,7 +140,7 @@ public class Documents extends BasePage {
         uploadFileOfType("docx");
         clickAddButton();
         setSessionVariable(docType.toLowerCase()).to("docx");
-        waitABit(500);
+        
     }
 
     public void clickVisibleAddDocumentsLink() {
@@ -160,7 +160,7 @@ public class Documents extends BasePage {
         selectADocumentType();
         uploadFileOfType(fileType);
         clickAddButton();
-        waitABit(500);
+        
     }
 
     public void addADocumentOfDocumentTypeAndFileType(String docType, String fileType) {
@@ -168,7 +168,7 @@ public class Documents extends BasePage {
         selectDocumentTypeByText(docType);
         uploadFileOfType(fileType);
         clickAddButton();
-        waitABit(500);
+        
     }
 
     public void clickPreviewButtonForFile(String fileIdentifier) {
@@ -180,7 +180,7 @@ public class Documents extends BasePage {
     public String getDocumentIDforFile(String fileIdentifier) {
         WebElementFacade downloadButton = findBy("//td[contains(text(), '" + fileIdentifier + "')]/following-sibling::td/a"
                 + "[contains(text(), 'Download')]");
-        downloadButton.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
+        downloadButton.waitUntilVisible();
         return downloadButton.getAttribute("href").split("/")[9];
     }
 
@@ -189,7 +189,7 @@ public class Documents extends BasePage {
         WebElementFacade removeLink =
                 findBy("//td[contains(text(), '" + fileIdentifier
                         + "')]/following-sibling::td/a[contains(text(), 'Remove')]");
-        removeLink.withTimeoutOf(Duration.ofSeconds(10)).waitUntilClickable();
+        removeLink.waitUntilClickable();
         safeClickOn(removeLink);
     }
 
@@ -226,7 +226,7 @@ public class Documents extends BasePage {
     public void assertDocumentHasTag(String tag) {
         manageDocumentsLink.waitUntilVisible();
         WebElementFacade documentTag =
-                findBy("//td[contains(text(), '.docx')]/preceding-sibling::td/strong[contains(text(), '" + tag + "')]").withTimeoutOf(Duration.ofSeconds(10));
+                findBy("//td[contains(text(), '.docx')]/preceding-sibling::td/strong[contains(text(), '" + tag + "')]");
         assertThat(documentTag.isVisible(), is(true));
     }
 
@@ -249,7 +249,7 @@ public class Documents extends BasePage {
     public void assertDocumentIsUnderHeader(String header) {
         WebElementFacade documentUnderHeader =
                 findBy("//h2[text()='" + header + "']/following-sibling::table[1]//a[@download]");
-        documentUnderHeader.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
+        documentUnderHeader.waitUntilVisible();
         assertThat(documentUnderHeader.isVisible(), is(true));
     }
 
@@ -276,21 +276,21 @@ public class Documents extends BasePage {
     }
 
     public void selectPrimaryDraft(String fileIdentifier) {
-        WebElementFacade documentToSelect = withTimeoutOf(Duration.ofSeconds(10)).find(By.xpath("//label[contains(text(),'"+ fileIdentifier +"')]"));
+        WebElementFacade documentToSelect = find(By.xpath("//label[contains(text(),'"+ fileIdentifier +"')]"));
         safeClickOn(documentToSelect);
     }
 
     public void recordPrimaryDraftDocument() {
-        WebElementFacade selectedPrimaryDraftDocument = findBy("//input[contains(@name,'Draft')][@checked]/following-sibling::label").withTimeoutOf(Duration.ofSeconds(10));
-        WebElementFacade selectedPrimaryDraftHeading = findBy("//input[contains(@name,'Draft')][@checked]/ancestor::fieldset//span").withTimeoutOf(Duration.ofSeconds(10));
+        WebElementFacade selectedPrimaryDraftDocument = findBy("//input[contains(@name,'Draft')][@checked]/following-sibling::label");
+        WebElementFacade selectedPrimaryDraftHeading = findBy("//input[contains(@name,'Draft')][@checked]/ancestor::fieldset//span");
         selectedPrimaryDraftDocument.waitUntilVisible();
         recordCaseData.addHeadingAndValueRecord(selectedPrimaryDraftHeading.getText(), selectedPrimaryDraftDocument.getText());
         setSessionVariable("primaryDraft").to(selectedPrimaryDraftDocument.getText());
     }
 
     public void recordFinalResponseDocument() {
-        WebElementFacade selectedPrimaryDraftDocument = findBy("//input[@name='FinalResponse'][@checked]/following-sibling::label").withTimeoutOf(Duration.ofSeconds(10));
-        WebElementFacade selectedPrimaryDraftHeading = findBy("//input[@name='FinalResponse'][@checked]/ancestor::fieldset//span").withTimeoutOf(Duration.ofSeconds(10));
+        WebElementFacade selectedPrimaryDraftDocument = findBy("//input[@name='FinalResponse'][@checked]/following-sibling::label");
+        WebElementFacade selectedPrimaryDraftHeading = findBy("//input[@name='FinalResponse'][@checked]/ancestor::fieldset//span");
         selectedPrimaryDraftDocument.waitUntilVisible();
         recordCaseData.addHeadingAndValueRecord(selectedPrimaryDraftHeading.getText(), selectedPrimaryDraftDocument.getText());
         setSessionVariable("finalResponse").to(selectedPrimaryDraftDocument.getText());

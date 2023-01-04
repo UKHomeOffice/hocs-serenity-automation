@@ -16,25 +16,25 @@ import org.openqa.selenium.StaleElementReferenceException;
 
 public class CaseView extends BasePage {
 
-    @FindBy(timeoutInSeconds = "10",  linkText = "Allocate to me")
+    @FindBy(linkText = "Allocate to me")
     public WebElementFacade allocateToMeLink;
 
-    @FindBy(timeoutInSeconds = "10",  css = "[value = 'Allocate']")
+    @FindBy(css = "[value = 'Allocate']")
     public WebElementFacade allocateButton;
 
-    @FindBy(timeoutInSeconds = "10",  id = "user-id")
+    @FindBy(id = "user-id")
     public WebElementFacade allocateDropdown;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//h2[contains(@class,'govuk-heading')][text()='Case Details']")
+    @FindBy(xpath = "//h2[contains(@class,'govuk-heading')][text()='Case Details']")
     public WebElementFacade csCaseDetailsAccordion;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//h2[contains(@class,'section-heading')]/button[text()='Case Details']")
+    @FindBy(xpath = "//h2[contains(@class,'section-heading')]/button[text()='Case Details']")
     public WebElementFacade wcsCaseDetailsAccordion;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//div[@class='govuk-tabs']")
+    @FindBy(xpath = "//div[@class='govuk-tabs']")
     public WebElementFacade tabs;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//button[@class='govuk-accordion__show-all']")
+    @FindBy(xpath = "//button[@class='govuk-accordion__show-all']")
     public WebElementFacade showAllAccordionSectionsButton;
 
     // Basic methods
@@ -53,7 +53,7 @@ public class CaseView extends BasePage {
         List<WebElementFacade> valuesForMatchingHeadings = findAll("//Strong[contains(text(),'" + heading + "')]/parent::span");
         List<String> valuesText = new ArrayList<>();
         for (WebElementFacade value : valuesForMatchingHeadings) {
-            if (value.withTimeoutOf(Duration.ofSeconds(10)).isCurrentlyVisible()) {
+            if (value.isCurrentlyVisible()) {
                 String text = value.getText();
                 text = text.split(":")[1];
                 text = text.trim();
@@ -75,7 +75,7 @@ public class CaseView extends BasePage {
     }
 
     public void waitForCaseToLoad() {
-        tabs.withTimeoutOf(Duration.ofSeconds(120)).waitUntilVisible();
+        tabs.waitUntilVisible();
     }
 
     public boolean currentCaseIsLoaded() {

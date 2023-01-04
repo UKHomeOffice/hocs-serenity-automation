@@ -15,10 +15,10 @@ public class Creation extends BasePage {
     RecordCaseData recordCaseData;
 
 
-    @FindBy(timeoutInSeconds = "10",  id = "MinSignOffTeam")
+    @FindBy(id = "MinSignOffTeam")
     public WebElementFacade ministerialSignOffTeamDropdown;
 
-    @FindBy(timeoutInSeconds = "10",  id = "Addressee")
+    @FindBy(id = "Addressee")
     public WebElementFacade addresseeDropdown;
 
     public void completeRequiredQuestions() {

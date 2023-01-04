@@ -195,7 +195,7 @@ public class TOProgressCase extends BasePage {
     public void moveCaseFromTriageToCCH() {
         openOrCloseAccordionSection("Case Details");
         clickTheLink("Change business area");
-        waitABit(500);
+        
         selectSpecificRadioButtonFromGroupWithHeading("UKVI", "Business Area");
         clickFinishButton();
     }

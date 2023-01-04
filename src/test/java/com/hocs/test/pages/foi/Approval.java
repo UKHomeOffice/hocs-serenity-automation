@@ -12,10 +12,10 @@ public class Approval extends BasePage {
 
     RecordCaseData recordCaseData;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//a[text()='Add an Approval Request']")
+    @FindBy(xpath = "//a[text()='Add an Approval Request']")
     public WebElementFacade addAnApprovalRequestHypertext;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//a[text()='Edit']")
+    @FindBy(xpath = "//a[text()='Edit']")
     public WebElementFacade editHypertext;
 
     public void selectApproverRole() {

@@ -28,13 +28,13 @@ public class WCSSearchStepDefs extends BasePage {
                     WCSSearch.assertCaseIsVisibleInSearchResults();
                 } catch (AssertionError e) {
                     try {
-                        waitABit(5000);
+                        
                         dashboard.selectSearchLinkFromMenuBar();
                         search.waitForSearchCriteriaPage();
                         WCSSearch.searchByClaimantsDOB(getTodaysDate());
                         WCSSearch.assertCaseIsVisibleInSearchResults();
                     } catch (AssertionError e2) {
-                        waitABit(5000);
+                        
                         dashboard.selectSearchLinkFromMenuBar();
                         search.waitForSearchCriteriaPage();
                         WCSSearch.searchByClaimantsDOB(getTodaysDate());
@@ -47,13 +47,13 @@ public class WCSSearchStepDefs extends BasePage {
                     WCSSearch.assertCaseIsVisibleInSearchResults();
                 } catch (AssertionError e) {
                     try {
-                        waitABit(5000);
+                        
                         dashboard.selectSearchLinkFromMenuBar();
                         search.waitForSearchCriteriaPage();
                         WCSSearch.searchByNationalInsuranceNo("QQ123456C");
                         WCSSearch.assertCaseIsVisibleInSearchResults();
                     } catch (AssertionError e2) {
-                        waitABit(5000);
+                        
                         dashboard.selectSearchLinkFromMenuBar();
                         search.waitForSearchCriteriaPage();
                         WCSSearch.searchByNationalInsuranceNo("QQ123456C");
@@ -66,13 +66,13 @@ public class WCSSearchStepDefs extends BasePage {
                     WCSSearch.assertCaseIsVisibleInSearchResults();
                 } catch (AssertionError e) {
                     try {
-                        waitABit(5000);
+                        
                         dashboard.selectSearchLinkFromMenuBar();
                         search.waitForSearchCriteriaPage();
                         WCSSearch.searchByPreviousHOCSRef("WCS/0000000/19");
                         WCSSearch.assertCaseIsVisibleInSearchResults();
                     } catch (AssertionError e2) {
-                        waitABit(5000);
+                        
                         dashboard.selectSearchLinkFromMenuBar();
                         search.waitForSearchCriteriaPage();;
                         WCSSearch.searchByPreviousHOCSRef("WCS/0000000/19");
@@ -96,7 +96,7 @@ public class WCSSearchStepDefs extends BasePage {
         try {
             WCSSearch.assertCaseIsVisibleInSearchResults();
         } catch (AssertionError e) {
-            waitABit(5000);
+            
             dashboard.selectSearchLinkFromMenuBar();
             search.waitForSearchCriteriaPage();
             WCSSearch.searchByWCSReference(getCurrentCaseReference());
@@ -129,4 +129,3 @@ public class WCSSearchStepDefs extends BasePage {
         WCSSearch.searchByPreviousHOCSRef(ref);
     }
 }
-

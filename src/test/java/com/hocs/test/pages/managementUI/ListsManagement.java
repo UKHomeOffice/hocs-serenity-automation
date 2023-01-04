@@ -14,40 +14,40 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 
 public class ListsManagement extends BasePage {
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='title']")
+    @FindBy(xpath = "//input[@id='title']")
     private WebElementFacade titleTextField;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='simpleName']")
+    @FindBy(xpath = "//input[@id='simpleName']")
     private WebElementFacade simpleNameTextField;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//h2[text()='Success']/following-sibling::p")
+    @FindBy(xpath = "//h2[text()='Success']/following-sibling::p")
     public WebElementFacade successMessage;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//button[text()='Add new campaign']")
+    @FindBy(xpath = "//button[text()='Add new campaign']")
     private WebElementFacade addNewCampaignButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//button[contains(text(),'Add new account manager')]")
+    @FindBy(xpath = "//button[contains(text(),'Add new account manager')]")
     public WebElementFacade addNewAccountManagerButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//button[contains(text(),'Add new interested party')]")
+    @FindBy(xpath = "//button[contains(text(),'Add new interested party')]")
     public WebElementFacade addNewInterestedPartyButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//button[contains(text(),'Add new representative')]")
+    @FindBy(xpath = "//button[contains(text(),'Add new representative')]")
     public WebElementFacade addNewRepresentativeButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//button[text()='Add Business Unit']")
+    @FindBy(xpath = "//button[text()='Add Business Unit']")
     public WebElementFacade addBusinessUnitButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//button[text()='Add Business Area']")
+    @FindBy(xpath = "//button[text()='Add Business Area']")
     public WebElementFacade addBusinessAreaButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//button[text()='Add Enquiry Reason']")
+    @FindBy(xpath = "//button[text()='Add Enquiry Reason']")
     public WebElementFacade addEnquiryReasonButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//button[text()='Add new enquiry reason']")
+    @FindBy(xpath = "//button[text()='Add new enquiry reason']")
     public WebElementFacade addNewEnquiryReasonButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//button[text()='Add new recipient']")
+    @FindBy(xpath = "//button[text()='Add new recipient']")
     public WebElementFacade addNewRecipientButton;
 
     private String enterName() {
@@ -64,12 +64,12 @@ public class ListsManagement extends BasePage {
     }
 
     public void clickAmendLinkFor(String nameOrCode) {
-        WebElementFacade amendLink = findBy("//td[text()='" + nameOrCode + "']/following-sibling::td/a[text()='Amend']").withTimeoutOf(Duration.ofSeconds(10));
+        WebElementFacade amendLink = findBy("//td[text()='" + nameOrCode + "']/following-sibling::td/a[text()='Amend']");
         safeClickOn(amendLink);
     }
 
     public void clickDeleteLinkFor(String nameOrCode) {
-        WebElementFacade amendLink = findBy("//td[text()='" + nameOrCode + "']/following-sibling::td/a[text()='Delete']").withTimeoutOf(Duration.ofSeconds(10));
+        WebElementFacade amendLink = findBy("//td[text()='" + nameOrCode + "']/following-sibling::td/a[text()='Delete']");
         safeClickOn(amendLink);
     }
 
@@ -253,7 +253,7 @@ public class ListsManagement extends BasePage {
         waitForMUIPageWithTitle("View and edit campaigns");
         String campaignName = sessionVariableCalled("campaignName");
         String campaignCode = sessionVariableCalled("campaignCode");
-        WebElementFacade campaignInTable = findBy("//td[text()='" + campaignName + "']/following-sibling::td[text()='" + campaignCode + "']").withTimeoutOf(Duration.ofSeconds(10));
+        WebElementFacade campaignInTable = findBy("//td[text()='" + campaignName + "']/following-sibling::td[text()='" + campaignCode + "']");
         if (!campaignInTable.isCurrentlyVisible()) {
             Assert.fail(campaignName + " is not visible in table");
         }
@@ -262,7 +262,7 @@ public class ListsManagement extends BasePage {
     public void assertVisibilityOfRepresentativeInRepresentativeTable() {
         waitForMUIPageWithTitle("View and edit Ex-Gratia Business Representatives");
         String representativeName = sessionVariableCalled("representativeName");
-        WebElementFacade representativeInTable = findBy("//td[text()='" + representativeName + "']").withTimeoutOf(Duration.ofSeconds(10));
+        WebElementFacade representativeInTable = findBy("//td[text()='" + representativeName + "']");
         if (!representativeInTable.isCurrentlyVisible()) {
             Assert.fail(representativeName + " is not visible in table");
         }
@@ -271,7 +271,7 @@ public class ListsManagement extends BasePage {
     public void assertRepresentativeNotVisibleInRepresentativeTable() {
         waitForMUIPageWithTitle("View and edit Ex-Gratia Business Representatives");
         String representativeName = sessionVariableCalled("representativeName");
-        WebElementFacade representativeInTable = findBy("//td[text()='" + representativeName + "']").withTimeoutOf(Duration.ofSeconds(10));
+        WebElementFacade representativeInTable = findBy("//td[text()='" + representativeName + "']");
         if (representativeInTable.isCurrentlyVisible()) {
             Assert.fail(representativeName + " is still visible in table");
         }
@@ -280,7 +280,7 @@ public class ListsManagement extends BasePage {
     public void assertVisibilityOfBusinessUnitInBusinessUnitTable() {
         waitForMUIPageWithTitle("View and Edit Business Units for ");
         String businessUnitName = sessionVariableCalled("businessUnitName");
-        WebElementFacade businessUnitInTable = findBy("//tr/td[1][text()='" + businessUnitName + "']").withTimeoutOf(Duration.ofSeconds(10));
+        WebElementFacade businessUnitInTable = findBy("//tr/td[1][text()='" + businessUnitName + "']");
         if (!businessUnitInTable.isCurrentlyVisible()) {
             Assert.fail(businessUnitName + " is not visible in table");
         }
@@ -289,7 +289,7 @@ public class ListsManagement extends BasePage {
     public void assertVisibilityOfBusinessAreaInBusinessAreaTable() {
         waitForMUIPageWithTitle("View and Edit Business Areas for");
         String businessAreaName = sessionVariableCalled("businessAreaName");
-        WebElementFacade businessAreaInTable = findBy("//tr/td[1][text()='" + businessAreaName + "']").withTimeoutOf(Duration.ofSeconds(10));
+        WebElementFacade businessAreaInTable = findBy("//tr/td[1][text()='" + businessAreaName + "']");
         if (!businessAreaInTable.isCurrentlyVisible()) {
             Assert.fail(businessAreaName + " is not visible in table");
         }
@@ -298,7 +298,7 @@ public class ListsManagement extends BasePage {
     public void assertVisibilityOfEnquiryReasonInEnquiryReasonTable() {
         waitForMUIPageWithTitle("View");
         String enquiryReasonName = sessionVariableCalled("enquiryReasonName");
-        WebElementFacade enquiryReasonInTable = findBy("//tr/td[1][text()='" + enquiryReasonName + "']").withTimeoutOf(Duration.ofSeconds(10));
+        WebElementFacade enquiryReasonInTable = findBy("//tr/td[1][text()='" + enquiryReasonName + "']");
         if (!enquiryReasonInTable.isCurrentlyVisible()) {
             Assert.fail(enquiryReasonName + " is not visible in table");
         }
@@ -329,7 +329,7 @@ public class ListsManagement extends BasePage {
     public void assertVisibilityOfRecipientInRecipientTable() {
         waitForMUIPageWithTitle("View and edit recipients");
         String recipientName = sessionVariableCalled("recipientName");
-        WebElementFacade recipientInTable = findBy("//td[text()='" + recipientName + "']").withTimeoutOf(Duration.ofSeconds(10));
+        WebElementFacade recipientInTable = findBy("//td[text()='" + recipientName + "']");
         if (!recipientInTable.isCurrentlyVisible()) {
             Assert.fail(recipientName + " is not visible in table");
         }

@@ -111,11 +111,11 @@ public class FOIProgressCase extends BasePage {
         clickConfirmButton();
         caseCreationStage.selectValidityOfRequest("Valid");
         clickContinueButton();
-        waitABit(250);
+        
         documents.addADocumentOfDocumentType("Initial response");
         caseCreationStage.enterAValidRequestAcknowledgementResponseDate();
         clickTheButton("Complete Create");
-        waitABit(250);
+        
     }
 
     public void moveCaseFromAllocationToAcceptance() {
@@ -156,7 +156,7 @@ public class FOIProgressCase extends BasePage {
         clickContinueButton();
         documents.addADocumentOfDocumentType("Final responses");
         clickTheButton("Complete Dispatch");
-        waitABit(500);
+        
     }
 
     public void generateFOISearchCaseData(String infoValue, String infoType) {

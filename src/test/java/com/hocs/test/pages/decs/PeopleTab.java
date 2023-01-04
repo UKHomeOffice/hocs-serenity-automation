@@ -32,7 +32,7 @@ public class PeopleTab extends BasePage {
         selectPeopleTab();
         WebElementFacade displayedValueElement = findBy("//td[text()='" + correspondentName + "']//ancestor::tbody//th[text()='" +header + "']/following"
                 + "-sibling::td");
-        return displayedValueElement.withTimeoutOf(Duration.ofSeconds(10)).getText();
+        return displayedValueElement.getText();
     }
 
     public void addAMemberCorrespondent() {
@@ -47,7 +47,7 @@ public class PeopleTab extends BasePage {
 
     public void editCorrespondent(String detail, String correspondent) {
         selectToManagePeople();
-        WebElementFacade editHypertext = findBy("//label[contains(text(), '" + correspondent + "')]/ancestor::tr//a[text()='Edit']").withTimeoutOf(Duration.ofSeconds(10));
+        WebElementFacade editHypertext = findBy("//label[contains(text(), '" + correspondent + "')]/ancestor::tr//a[text()='Edit']");
         safeClickOn(editHypertext);
         switch (detail.toUpperCase()) {
             case "FULL NAME":

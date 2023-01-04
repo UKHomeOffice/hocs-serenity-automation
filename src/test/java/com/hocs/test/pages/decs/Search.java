@@ -33,13 +33,13 @@ public class Search extends BasePage {
 
     CaseView caseView;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//label[@for='caseStatus_active']")
+    @FindBy(xpath = "//label[@for='caseStatus_active']")
     public WebElementFacade caseStatusActiveCheckbox;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//a[text()='No search criteria specified']")
+    @FindBy(xpath = "//a[text()='No search criteria specified']")
     public WebElementFacade noSearchCriteriaErrorMessage;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//a[contains(text(), 'Escalate case')]")
+    @FindBy(xpath = "//a[contains(text(), 'Escalate case')]")
     public WebElementFacade escalateCaseHypertext;
 
     // Simple methods
@@ -49,7 +49,7 @@ public class Search extends BasePage {
     }
 
     public void waitForSearchCriteriaPage() {
-        getButtonElementFromDisplayedText("Search").withTimeoutOf(Duration.ofSeconds(30)).waitUntilVisible();
+        getButtonElementFromDisplayedText("Search").waitUntilVisible();
     }
 
     public int getNumberOfSearchResults() {
@@ -61,7 +61,7 @@ public class Search extends BasePage {
     }
 
     public void selectComplaintsStage2CaseRefOfEscalatedComplaintsCase(String stage1CaseRef) {
-        WebElementFacade stage2CaseRef = findBy("//a[text()='" + stage1CaseRef + "']/parent::td/following-sibling::td/a").withTimeoutOf(Duration.ofSeconds(10));
+        WebElementFacade stage2CaseRef = findBy("//a[text()='" + stage1CaseRef + "']/parent::td/following-sibling::td/a");
         safeClickOn(stage2CaseRef);
     }
 
@@ -309,7 +309,7 @@ public class Search extends BasePage {
         int numberOfUnallocatedCases = findAll("//td[3][not(text()='" + getCurrentUser().getUsername() + "')]/ancestor::tbody/tr/td/a").size();
         int randomNumber = new Random().nextInt(numberOfUnallocatedCases) + 1;
         WebElementFacade randomUnallocatedCaseReferenceElement =
-                findBy("//td[3][not(text()='" + getCurrentUser().getUsername() + "')]/ancestor::tbody/tr[" + randomNumber + "]/td/a").withTimeoutOf(Duration.ofSeconds(10));
+                findBy("//td[3][not(text()='" + getCurrentUser().getUsername() + "')]/ancestor::tbody/tr[" + randomNumber + "]/td/a");
         String randomSelectedCaseReferenceForSearchVerification = randomUnallocatedCaseReferenceElement.getText();
         System.out.println("Random case selected for search verification: " + randomSelectedCaseReferenceForSearchVerification);
         if (criteria.equalsIgnoreCase("CASE TYPE") || criteria.equalsIgnoreCase("CASE REFERENCE") || criteria.equalsIgnoreCase("ACTIVE CASES ONLY")) {
@@ -446,7 +446,7 @@ public class Search extends BasePage {
                     searchValue = sessionVariableCalled("searchCorrespondentReferenceNumber");
                     if (!randomSelectedCaseReferenceForSearchVerification.contains("FOI")) {
                         peopleTab.selectPeopleTab();
-                        WebElementFacade correspondentReferenceNumber = findBy("//th[text()='Reference']/following-sibling::td").withTimeoutOf(Duration.ofSeconds(10));
+                        WebElementFacade correspondentReferenceNumber = findBy("//th[text()='Reference']/following-sibling::td");
                         assertThat(correspondentReferenceNumber.getText().equalsIgnoreCase(searchValue), is(true));
                     } else {
                         summaryTab.selectSummaryTab();
@@ -505,7 +505,7 @@ public class Search extends BasePage {
         List<WebElementFacade> listOfCaseRefs = findAll("//tr/td[1]");
         String substringInput = sessionVariableCalled("caseReferenceSubstring");
         for (WebElementFacade caseRef : listOfCaseRefs) {
-            caseRef.withTimeoutOf(Duration.ofSeconds(10)).shouldContainText(substringInput);
+            caseRef.shouldContainText(substringInput);
         }
     }
 }

@@ -69,7 +69,7 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
                 default:
                     pendingStep(complaintCategory + " is not defined within " + getMethodName());
             }
-            waitABit(1000);
+            
             complaintsRegistrationAndDataInput.selectAVisibleClaimCategory();
         }
         else {
@@ -139,7 +139,7 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
                 pendingStep(deadlineDefiningFactor + " is not defined within " + getMethodName());
         }
         clickContinueButton();
-        waitABit(1000);
+        
     }
 
     @And("I escalate the case to PSU")

@@ -17,67 +17,67 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class ContributionRequests extends BasePage {
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//a[text()='Add a Contribution']")
+    @FindBy(xpath = "//a[text()='Add a Contribution']")
     public WebElementFacade addAContributionHypertext;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//a[text()='Add complainant contribution']")
+    @FindBy(xpath = "//a[text()='Add complainant contribution']")
     public WebElementFacade addComplainantContributionHypertext;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//a[text()='Add business contribution']")
+    @FindBy(xpath = "//a[text()='Add business contribution']")
     public WebElementFacade addBusinessContributionHypertext;
 
-    @FindBy(timeoutInSeconds = "10", id = "contributionBusinessArea")
+    @FindBy(id = "contributionBusinessArea")
     public WebElementFacade contributionRequestBusinessArea;
 
-    @FindBy(timeoutInSeconds = "10", id = "contributionBusinessUnit")
+    @FindBy(id = "contributionBusinessUnit")
     public WebElementFacade contributionRequestBusinessUnit;
 
-    @FindBy(timeoutInSeconds = "10", id = "contributionRequestDate-day")
+    @FindBy(id = "contributionRequestDate-day")
     public WebElementFacade contributionRequestDateDayField;
 
-    @FindBy(timeoutInSeconds = "10", id = "contributionRequestDate-month")
+    @FindBy(id = "contributionRequestDate-month")
     public WebElementFacade contributionRequestDateMonthField;
 
-    @FindBy(timeoutInSeconds = "10", id = "contributionRequestDate-year")
+    @FindBy(id = "contributionRequestDate-year")
     public WebElementFacade contributionRequestDateYearField;
 
-    @FindBy(timeoutInSeconds = "10", id = "contributionDueDate-day")
+    @FindBy(id = "contributionDueDate-day")
     public WebElementFacade contributionDueDateDayField;
 
-    @FindBy(timeoutInSeconds = "10", id = "contributionDueDate-month")
+    @FindBy(id = "contributionDueDate-month")
     public WebElementFacade contributionDueDateMonthField;
 
-    @FindBy(timeoutInSeconds = "10", id = "contributionDueDate-year")
+    @FindBy(id = "contributionDueDate-year")
     public WebElementFacade contributionDueDateYearField;
 
-    @FindBy(timeoutInSeconds = "10", id = "contributionRequestNote")
+    @FindBy(id = "contributionRequestNote")
     public WebElementFacade whatYouAreRequestingTextField;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//a[text()='Edit']")
+    @FindBy(xpath = "//a[text()='Edit']")
     public WebElementFacade editHypertext;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='Complete']")
+    @FindBy(xpath = "//label[text()='Complete']")
     public WebElementFacade completeRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='Cancelled']")
+    @FindBy(xpath = "//label[text()='Cancelled']")
     public WebElementFacade cancelledRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", id = "contributionReceivedDate-day")
+    @FindBy(id = "contributionReceivedDate-day")
     public WebElementFacade contributionReceivedDateDayField;
 
-    @FindBy(timeoutInSeconds = "10", id = "contributionReceivedDate-month")
+    @FindBy(id = "contributionReceivedDate-month")
     public WebElementFacade contributionReceivedDateMonthField;
 
-    @FindBy(timeoutInSeconds = "10", id = "contributionReceivedDate-year")
+    @FindBy(id = "contributionReceivedDate-year")
     public WebElementFacade contributionReceivedDateYearField;
 
-    @FindBy(timeoutInSeconds = "10", id = "contributionReceivedNote")
+    @FindBy(id = "contributionReceivedNote")
     public WebElementFacade contributionReceivedDetailsTextField;
 
-    @FindBy(timeoutInSeconds = "10", id = "contributionCancellationNote")
+    @FindBy(id = "contributionCancellationNote")
     public WebElementFacade reasonForCancellingTextField;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//input[@value='Update']")
+    @FindBy(xpath = "//input[@value='Update']")
     public WebElementFacade updateButton;
 
     public void addAContribution(String contributionType, String requestDate, String dueDate) {

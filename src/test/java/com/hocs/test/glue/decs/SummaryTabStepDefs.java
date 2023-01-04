@@ -166,7 +166,7 @@ public class SummaryTabStepDefs extends BasePage {
 
     @Then("the case should be moved to the correct Treat Official team for the new business area")
     public void theCaseShouldBeMovedToTheCorrectTreatOfficialTeamForTheNewBusinessArea() {
-        waitABit(2000);
+        
         if (!caseView.currentCaseIsLoaded()) {
             dashboard.loadCase(getCurrentCaseReference());
         }
@@ -220,7 +220,7 @@ public class SummaryTabStepDefs extends BasePage {
 
     @Then("the amended value for Business Unit Type and Business Unit should be saved to the case")
     public void theAmendedValueForBusinessUnitShouldBeSavedToTheCase() {
-        waitABit(2000);
+        
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("businessUnit"), "Business Unit");
     }
 
@@ -291,7 +291,7 @@ public class SummaryTabStepDefs extends BasePage {
 
     @Then("the Requested Question should be displayed in the summary tab")
     public void theRequestedQuestionShouldBeDisplayedInTheSummaryTab() {
-        waitABit(500);
+        
         summaryTab.selectSummaryTab();
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("requestQuestion"), "Request Question");
     }

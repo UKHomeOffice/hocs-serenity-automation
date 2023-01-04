@@ -18,67 +18,67 @@ public class DispatchStages extends BasePage {
 
     RecordCaseData recordCaseData;
 
-    @FindBy(timeoutInSeconds = "10", id = "DateDispatched-day")
+    @FindBy(id = "DateDispatched-day")
     public WebElementFacade dispatchedDateDayTextField;
 
-    @FindBy(timeoutInSeconds = "10", id = "DateDispatched-month")
+    @FindBy(id = "DateDispatched-month")
     public WebElementFacade dispatchedDateMonthTextField;
 
-    @FindBy(timeoutInSeconds = "10", id = "DateDispatched-year")
+    @FindBy(id = "DateDispatched-year")
     public WebElementFacade dispatchedDateYearTextField;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//div[@id='ChannelOut-radios']//label[text()='Email']")
+    @FindBy(xpath = "//div[@id='ChannelOut-radios']//label[text()='Email']")
     public WebElementFacade responseChannelEmailRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//div[@id='ChannelOut-radios']//label[text()='Letter']")
+    @FindBy(xpath = "//div[@id='ChannelOut-radios']//label[text()='Letter']")
     public WebElementFacade responseChannelLetterRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='Dispatch, close case']")
+    @FindBy(xpath = "//label[text()='Dispatch, close case']")
     public WebElementFacade dispatchedCloseCaseRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='Draft rejected by private office']")
+    @FindBy(xpath = "//label[text()='Draft rejected by private office']")
     public WebElementFacade draftRejectedRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='Dispatch, close case']")
+    @FindBy(xpath = "//label[text()='Dispatch, close case']")
     public WebElementFacade dispatchedRadioButtonAtDispatch;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='Dispatched']")
+    @FindBy(xpath = "//label[text()='Dispatched']")
     public WebElementFacade dispatchedRadioButtonAtPrivateOffice;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='Dispatched (follow-up)']")
+    @FindBy(xpath = "//label[text()='Dispatched (follow-up)']")
     public WebElementFacade dispatchedFollowUpRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='Return to Draft']")
+    @FindBy(xpath = "//label[text()='Return to Draft']")
     public WebElementFacade returnToDraftButton;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='Follow-up completed']")
+    @FindBy(xpath = "//label[text()='Follow-up completed']")
     public WebElementFacade followUpCompletedRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='Close, follow-up action not completed']")
+    @FindBy(xpath = "//label[text()='Close, follow-up action not completed']")
     public WebElementFacade closeFollowUpNotCompletedRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", css = "input[value='Confirm and close case']")
+    @FindBy(css = "input[value='Confirm and close case']")
     public WebElementFacade confirmAndCloseCaseButton;
 
-    @FindBy(timeoutInSeconds = "10",  id = "CaseNote_RejectPfs")
+    @FindBy(id = "CaseNote_RejectPfs")
     public WebElementFacade rejectionReasonTextArea;
 
-    @FindBy(timeoutInSeconds = "10",  id = "CaseNote_DispatchReturnToDraft")
+    @FindBy(id = "CaseNote_DispatchReturnToDraft")
     public WebElementFacade returnReasonTextArea;
 
-    @FindBy(timeoutInSeconds = "10",  id = "CaseNote_DispatchFollowUpNotCompleted")
+    @FindBy(id = "CaseNote_DispatchFollowUpNotCompleted")
     public WebElementFacade followUpNotCompletedReasonTextArea;
 
-    @FindBy(timeoutInSeconds = "10",  id = "DueDate-day")
+    @FindBy(id = "DueDate-day")
     public WebElementFacade dueDateDayTextField;
 
-    @FindBy(timeoutInSeconds = "10",  id = "DueDate-month")
+    @FindBy(id = "DueDate-month")
     public WebElementFacade dueDateMonthTextField;
 
-    @FindBy(timeoutInSeconds = "10",  id = "DueDate-year")
+    @FindBy(id = "DueDate-year")
     public WebElementFacade dueDateYearTextField;
 
-    @FindBy(timeoutInSeconds = "10",  id = "CaseNote_DispatchFollowUpRequest")
+    @FindBy(id = "CaseNote_DispatchFollowUpRequest")
     public WebElementFacade followUpDetailsTextArea;
 
     public void selectActionAtPrivateOffice(String action) {

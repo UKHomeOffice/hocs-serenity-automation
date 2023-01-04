@@ -38,14 +38,14 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
         if (!complaintType.equalsIgnoreCase("SERVICE")) {
             complaintsTriageAndInvestigation.enterDateOfAcceptance();
         }
-        waitABit(500);
+        
         clickContinueButton();
     }
 
     @And("I accept the case at Triage stage")
     public void iAcceptTheCaseAtTriageStage() {
         complaintsTriageAndInvestigation.selectAcceptCase();
-        waitABit(500);
+        
         clickContinueButton();
     }
 
@@ -350,7 +350,7 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
         dashboard.getCurrentCase();
         caseView.clickAllocateToMeLink();
         clickTheButton("Submit");
-        waitABit(1000);
+        
         assertExpectedErrorMessageIsDisplayed("Complaint outcome is required");
     }
 

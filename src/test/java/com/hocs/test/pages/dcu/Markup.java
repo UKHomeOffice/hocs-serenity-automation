@@ -14,49 +14,49 @@ public class Markup extends BasePage {
 
     RecordCaseData recordCaseData;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='Policy Response']")
+    @FindBy(xpath = "//label[text()='Policy Response']")
     public WebElementFacade policyResponseRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='Refer To OGD']")
+    @FindBy(xpath = "//label[text()='Refer To OGD']")
     public WebElementFacade referToOgdRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='FAQ Response']")
+    @FindBy(xpath = "//label[text()='FAQ Response']")
     public WebElementFacade faqRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='No Response Needed']")
+    @FindBy(xpath = "//label[text()='No Response Needed']")
     public WebElementFacade noReplyNeededRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='Reject To Data Input']")
+    @FindBy(xpath = "//label[text()='Reject To Data Input']")
     public WebElementFacade rejectToDataInputRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", id = "OGDDept")
+    @FindBy(id = "OGDDept")
     public WebElementFacade OGDDestinationTextBox;
 
-    @FindBy(timeoutInSeconds = "10", id = "CaseNote_OGD")
+    @FindBy(id = "CaseNote_OGD")
     public WebElementFacade OGDReasonTextBox;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//a[text()='Add a ']")
+    @FindBy(xpath = "//a[text()='Add a ']")
     public WebElementFacade addATopicLink;
 
-    @FindBy(timeoutInSeconds = "10", id = "CaseNote_NRN")
+    @FindBy(id = "CaseNote_NRN")
     public WebElementFacade noResponseNeededTextField;
 
-    @FindBy(timeoutInSeconds = "10", id = "CaseNote_REJ")
+    @FindBy(id = "CaseNote_REJ")
     public WebElementFacade rejectToDataInputTextField;
 
-    @FindBy(timeoutInSeconds = "10", id = "POTeamName")
+    @FindBy(id = "POTeamName")
     public WebElementFacade privateOfficeTeamTextField;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//a[text()='Add a ']")
+    @FindBy(xpath = "//a[text()='Add a ']")
     public WebElementFacade addTopicLink;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//div[@class='govuk-typeahead__input']/input")
+    @FindBy(xpath = "//div[@class='govuk-typeahead__input']/input")
     public WebElementFacade topicsTextField;
 
-    @FindBy(timeoutInSeconds = "10", id = "DraftingTeamName")
+    @FindBy(id = "DraftingTeamName")
     public WebElementFacade defaultDraftTeam;
 
-    @FindBy(timeoutInSeconds = "10", id = "POTeamName")
+    @FindBy(id = "POTeamName")
     public WebElementFacade defaultPrivateOfficeTeam;
 
     //Basic Methods
@@ -120,7 +120,7 @@ public class Markup extends BasePage {
     public void addTopicToCase(String topic) {
         clickAddTopicLink();
         selectSpecificOptionFromTypeaheadWithHeading(topic, "Topic");
-        waitABit(1000);
+        
         clickAddButton();
     }
 
@@ -131,7 +131,7 @@ public class Markup extends BasePage {
 
     public void confirmPrimaryTopic() {
         WebElementFacade selectedPrimaryTopic = findBy("//input[@name='Topics'][@checked]/following-sibling::label");
-        selectedPrimaryTopic.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
+        selectedPrimaryTopic.waitUntilVisible();
         recordCaseData.addHeadingAndValueRecord("Which is the primary topic?", selectedPrimaryTopic.getText());
         clickContinueButton();
     }
@@ -147,7 +147,7 @@ public class Markup extends BasePage {
     }
 
     public void recordDefaultTeamsForTopic() {
-        waitABit(2000);
+        
         setSessionVariable("defaultDraftTeam").to(defaultDraftTeam.getValue());
         setSessionVariable("defaultPrivateOfficeTeam").to(defaultPrivateOfficeTeam.getValue());
     }

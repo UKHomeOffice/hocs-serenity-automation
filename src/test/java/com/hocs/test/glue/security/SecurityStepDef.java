@@ -70,22 +70,22 @@ public class SecurityStepDef extends BaseSecurity {
     public void iCreateACaseForSecurityTesting(String arg0) {
         // Registration
         findBylinktext("Create Single Case").click();
-        waitABit(500);
+        
         findById("case-type-1").click();  // COMP
         next();
         next();
         setCaseRef();
         findById("submit").click();
-        waitABit(500);
+        
         allocateToMe();
         findBylinktext("Add a correspondent").click();
-        waitABit(500);
+        
         select(findById("type")).selectByValue("COMPLAINANT");
         findById("fullname").sendKeys("security_test_complainant");
         next();
         next();
         next();
-        waitABit(500);
+        
         findById("CompType-0").click();  // Service radio button
         next();
         findById("Channel-2").click();
@@ -106,7 +106,7 @@ public class SecurityStepDef extends BaseSecurity {
         select(findById("EnqReason")).selectByVisibleText("Accommodation");
         findById("LoaRequired-1").click();
         next();
-        waitABit(500);
+        
         findById("CctTriageResult-1").click();
         next();
         // Draft
@@ -117,13 +117,13 @@ public class SecurityStepDef extends BaseSecurity {
         next();
         findById("CctDraftResult-1").click();
         next();
-        waitABit(1000);
+        
         // QA
         findAndAllocate();
         findById("CctQaResult-0").click();
         next();
         // Service Send
-        waitABit(500);
+        
         findById("case-reference").sendKeys(caseref);
         findById("case-reference").sendKeys(Keys.ENTER);
 
@@ -139,52 +139,52 @@ public class SecurityStepDef extends BaseSecurity {
     }
 
     private void findAndAllocate() {
-        waitABit(1000);
+        
         findById("case-reference").sendKeys(caseref);
         findById("case-reference").sendKeys(Keys.ENTER);
-        waitABit(500);
+        
         allocateToMe();
     }
 
 
     private void allocateToMe() {
-        waitABit(1000);
+        
         findBylinktext("Allocate to me").click();
-        waitABit(1000);
+        
     }
 
     private void next() {
         findByClass("govuk-button").click();
-        waitABit(1000);
+        
     }
 
     private WebElement findByClass(String identifier) {
-        waitABit(500);
+        
         return getDriver().findElement(By.className(identifier));
     }
 
     private WebElement findById(String identifier) {
-        waitABit(500);
+        
         return getDriver().findElement(By.id(identifier));
     }
 
     private WebElement findByXpath(String identifier) {
-        waitABit(500);
+        
         return getDriver().findElement(By.xpath(identifier));
     }
 
     private WebElement findByName(String identifier) {
-        waitABit(500);
+        
         return getDriver().findElement(By.name(identifier));
     }
 
     private WebElement findBylinktext(String identifier) {
-        waitABit(500);
+        
         return getDriver().findElement(By.linkText(identifier));
     }
 
     private Select select(WebElement element) {
-        waitABit(500);
+        
         return new Select(element);
     }
 
@@ -197,7 +197,7 @@ public class SecurityStepDef extends BaseSecurity {
     @And("I create a foi case for security testing")
     public void iCreateAFoiCaseForSecurityTesting() {
         findBylinktext("Create Single Case").click();
-        waitABit(500);
+        
         findById("case-type-5").click();  // FOI
         next();
         findById("OriginalChannel-0").click();
@@ -209,16 +209,16 @@ public class SecurityStepDef extends BaseSecurity {
 
         findById("RequestQuestion").sendKeys("test request question");
         next();
-        waitABit(500);
+        
         setCaseRef();
         findById("submit").click();
-        waitABit(500);
+        
 
         next();
  // Allocation
         findById("RequestValidity-0").click();
         next();
-        waitABit(500);
+        
         findBylinktext("Add a document").click();
         select(findById("document_type")).selectByVisibleText("Initial response");
         findById("add_document").sendKeys(file);
@@ -245,7 +245,7 @@ public class SecurityStepDef extends BaseSecurity {
         findAndAllocate();
         findById("ContributionsRequired-0").click();
         next();
-        waitABit(1000);
+        
         findBylinktext("Add a Contribution").click();
         select(findById("contributionBusinessUnit")).selectByVisibleText("Border Force");
         findById("contributionRequestDate-day").sendKeys(dayOfDate(getTodaysDate()));
@@ -257,7 +257,7 @@ public class SecurityStepDef extends BaseSecurity {
         findById("contributionDueDate-year").sendKeys(yearOfDate(getTodaysDate()));
         findById("contributionRequestNote").sendKeys("test");
         next();
-        waitABit(500);
+        
         findBylinktext("Edit").click();
         findById("contributionStatus-0").click();
         findById("contributionReceivedDate-day").sendKeys(dayOfDate(getTodaysDate()));
@@ -270,7 +270,7 @@ public class SecurityStepDef extends BaseSecurity {
         next();
 
         // Approval
-        waitABit(1000);
+        
         findBylinktext("Add an Approval Request").click();
         select(findById("approvalRequestForBusinessUnit")).selectByVisibleText("Minister");
         findById("approvalRequestCreatedDate-day").sendKeys(dayOfDate(getTodaysDate()));
@@ -334,14 +334,14 @@ public class SecurityStepDef extends BaseSecurity {
     @And("I create a DCU-Min case for security testing")
     public void iCreateADCUCaseForSecurityTesting() {
         findBylinktext("Create Single Case").click();
-        waitABit(500);
+        
         findByXpath("//label[contains(text(), 'DCU Ministerial')]").click();
         next();
         next();
-        waitABit(500);
+        
         setCaseRef();
         findById("submit").click();
-        waitABit(500);
+        
 
         // Data Input
         allocateToMe();
@@ -352,7 +352,7 @@ public class SecurityStepDef extends BaseSecurity {
         findById("HomeSecReply-1").click();
         next();
         findBylinktext("Add a correspondent").click();
-        waitABit(500);
+        
         findById("isMember-1").click();
         next();
 
@@ -414,4 +414,3 @@ public class SecurityStepDef extends BaseSecurity {
         findById(field + "-year").sendKeys(yearOfDate(getTodaysDate()));
     }
 }
-

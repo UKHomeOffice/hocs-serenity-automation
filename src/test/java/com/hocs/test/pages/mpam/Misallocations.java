@@ -23,38 +23,38 @@ public class Misallocations extends BasePage {
 
     Triage triage;
 
-    @FindBy(timeoutInSeconds = "10",  id = "TransferToOgdText")
+    @FindBy(id = "TransferToOgdText")
     public WebElementFacade reasonForTransferToOGDTextField;
 
-    @FindBy(timeoutInSeconds = "10",  id = "TransferToOtherText")
+    @FindBy(id = "TransferToOtherText")
     public WebElementFacade reasonForTransferToOtherTextField;
 
-    @FindBy(timeoutInSeconds = "10",  id = "TransferDueDate-day")
+    @FindBy(id = "TransferDueDate-day")
     public WebElementFacade transferDueDateDayField;
 
-    @FindBy(timeoutInSeconds = "10",  id = "TransferDueDate-month")
+    @FindBy(id = "TransferDueDate-month")
     public WebElementFacade transferDueDateMonthField;
 
-    @FindBy(timeoutInSeconds = "10",  id = "TransferDueDate-year")
+    @FindBy(id = "TransferDueDate-year")
     public WebElementFacade transferDueDateYearField;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Save Deadline for Transfer']")
+    @FindBy(xpath = "//label[text()='Save Deadline for Transfer']")
     public WebElementFacade saveDeadlineForTransferRadioButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Transfer Accepted (Close case)']")
+    @FindBy(xpath = "//label[text()='Transfer Accepted (Close case)']")
     public WebElementFacade transferAcceptedCloseCaseRadioButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Transfer Rejected (Move to Triage)']")
+    @FindBy(xpath = "//label[text()='Transfer Rejected (Move to Triage)']")
     public WebElementFacade transferRejectedMoveToTriageRadioButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Confirm']")
+    @FindBy(xpath = "//label[text()='Confirm']")
     public WebElementFacade confirmRadioButton;
 
     public void transferCaseFromStageTo(String stage, String transferTo) {
         if (stage.equalsIgnoreCase("TRIAGE") || stage.equalsIgnoreCase("DRAFT")) {
             accordionMPAM.openCaseDetailsAccordion();
             safeClickOn(triage.changeBusinessAreaLink);
-            waitABit(1000);
+            
         }
         creation.selectASpecificBusinessArea("Transfer to " + transferTo);
         if (transferTo.equalsIgnoreCase("OGD")) {
@@ -104,12 +104,12 @@ public class Misallocations extends BasePage {
             default:
                 pendingStep(action + " is not defined within " + getMethodName());
         }
-        radioButton.withTimeoutOf(Duration.ofSeconds(30)).waitUntilClickable().click();
+        radioButton.waitUntilClickable().click();
         clickConfirmButton();
     }
 
     public void completeRequiredFieldsForTriage() {
-        waitABit(1000);
+        
         creation.selectASpecificBusinessArea("UKVI");
         creation.selectASpecificRefType("Ministerial");
         creation.selectASpecificMinisterialSignOffTeam("Home Secretary");

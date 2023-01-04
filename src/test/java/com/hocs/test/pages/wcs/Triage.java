@@ -8,7 +8,7 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class Triage extends BasePage {
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#CaseworkTeamUUID-error']")
+    @FindBy(xpath = "//a[@href='#CaseworkTeamUUID-error']")
     public WebElementFacade selectACaseworkingTeamIsRequiredErrorMessage;
 
     public void selectACaseworkingTeam() {

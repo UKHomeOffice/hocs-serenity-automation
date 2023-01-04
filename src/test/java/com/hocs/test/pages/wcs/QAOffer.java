@@ -6,13 +6,13 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class QAOffer extends BasePage {
 
-    @FindBy(timeoutInSeconds = "10",  css = "label[for='QaStatus-Return']")
+    @FindBy(css = "label[for='QaStatus-Return']")
     public WebElementFacade returnToCaseworkerRadioButton;
 
-    @FindBy(timeoutInSeconds = "10",  css = "label[for='QaStatus-Approve']")
+    @FindBy(css = "label[for='QaStatus-Approve']")
     public WebElementFacade approveOfferRadioButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#QaStatus-error']")
+    @FindBy(xpath = "//a[@href='#QaStatus-error']")
     public WebElementFacade qAOfferClaimStatusIsRequiredErrorMessage;
 
     public void assertQAOfferClaimStatusErrorMessage() {

@@ -15,13 +15,13 @@ import net.thucydides.core.annotations.DefaultUrl;
 @DefaultUrl("page:login.page")
 public class LoginPage extends BasePage {
 
-    @FindBy(timeoutInSeconds = "10", id = "username")
+    @FindBy(id = "username")
     public WebElementFacade usernameField;
 
-    @FindBy(timeoutInSeconds = "10", id = "password")
+    @FindBy(id = "password")
     public WebElementFacade passwordField;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//li[text()='Invalid username or password.']")
+    @FindBy(xpath = "//li[text()='Invalid username or password.']")
     private WebElementFacade invalidUsernameOrPasswordErrorMessage;
 
     //Basic methods

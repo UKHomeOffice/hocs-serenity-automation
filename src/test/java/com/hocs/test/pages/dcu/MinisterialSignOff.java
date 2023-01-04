@@ -10,19 +10,19 @@ public class MinisterialSignOff extends BasePage {
 
     RecordCaseData recordCaseData;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//div[@id='MinisterSignOffDecision-radios']//label[text()='Yes']")
+    @FindBy(xpath = "//div[@id='MinisterSignOffDecision-radios']//label[text()='Yes']")
     public WebElementFacade ministerSignOffAcceptRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//div[@id='MinisterSignOffDecision-radios']//label[text()='No']")
+    @FindBy(xpath = "//div[@id='MinisterSignOffDecision-radios']//label[text()='No']")
     public WebElementFacade ministerSignOffRejectRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", id = "CaseNote_MinisterReject")
+    @FindBy(id = "CaseNote_MinisterReject")
     public WebElementFacade ministerRejectionNote;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='Not applicable']")
+    @FindBy(xpath = "//label[text()='Not applicable']")
     public WebElementFacade notApplicableRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", id = "CaseNote_MinisterNotApplicable")
+    @FindBy(id = "CaseNote_MinisterNotApplicable")
     public WebElementFacade whyIsCaseNotApplicableFreeTextField;
 
     // Basic Methods

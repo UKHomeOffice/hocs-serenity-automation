@@ -123,7 +123,7 @@ public class CreateCaseStepDefs extends BasePage {
         dashboard.getAndClaimCurrentCase();
         markup.selectPolicyResponseRadioButton();
         clickContinueButton();
-        waitABit(1000);
+        
         markup.addTopicToCase(topic);
         markup.confirmPrimaryTopic();
         setSessionVariable("searchTopic").to(topic);
@@ -196,13 +196,13 @@ public class CreateCaseStepDefs extends BasePage {
     public void getToWhenWasCorrespondenceReceivedPage() {
         createCase.selectCaseType(createCase.getRandomCSCaseType());
         clickNextButton();
-        waitABit(100);
+        
     }
     @When("I select the FOI case type and continue")
     public void iSelectFOICaseTypeAndContinue() {
         createCase.selectCaseType(CaseType.FOI);
         clickNextButton();
-        waitABit(100);
+        
     }
 
     @When("I enter a blank date")

@@ -24,7 +24,7 @@ public class CaseworkStepDefs extends BasePage {
     @When("I put the claim on hold at the Casework stage")
     public void iPutTheClaimOnHoldAtTheCaseworkStage() {
         casework.putTheClaimOnHold();
-        waitABit(250);
+        
     }
 
     @When("I take the claim off of hold at the Casework stage")

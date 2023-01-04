@@ -16,7 +16,7 @@ public class TimelineStepDefs extends BasePage {
 
     @And("I select the Timeline tab")
     public void iSelectTheTimelineTab() {
-        waitABit(5000);
+        
         timelineTab.selectTimelineTab();
     }
 

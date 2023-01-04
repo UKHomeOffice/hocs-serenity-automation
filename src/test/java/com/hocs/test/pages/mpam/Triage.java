@@ -18,59 +18,59 @@ public class Triage extends BasePage {
 
     RecordCaseData recordCaseData;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//a[contains(@href, 'UpdateBusinessArea')]")
+    @FindBy(xpath = "//a[contains(@href, 'UpdateBusinessArea')]")
     public WebElementFacade changeBusinessAreaLink;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//a[contains(text(), 'Set enquiry subject')]")
+    @FindBy(xpath = "//a[contains(text(), 'Set enquiry subject')]")
     public WebElementFacade setEnquiryHypertext;
 
-    @FindBy(timeoutInSeconds = "10",  id = "BusUnit")
+    @FindBy(id = "BusUnit")
     public WebElementFacade businessUnitDropdown;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Ready to draft']")
+    @FindBy(xpath = "//label[text()='Ready to draft']")
     public WebElementFacade readyToDraftRadioButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Put on hold']")
+    @FindBy(xpath = "//label[text()='Put on hold']")
     public WebElementFacade onHoldRadioButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Escalate to workflow manager']")
+    @FindBy(xpath = "//label[text()='Escalate to workflow manager']")
     public WebElementFacade escalateToWorkflowManagerRadioButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Contributions received']")
+    @FindBy(xpath = "//label[text()='Contributions received']")
     public WebElementFacade contributionsReceivedRadioButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//label[@id='EnquirySubject']")
+    @FindBy(xpath = "//label[@id='EnquirySubject']")
     public WebElementFacade setEnquirySubject;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//label[@id='EnquiryReason']")
+    @FindBy(xpath = "//label[@id='EnquiryReason']")
     public WebElementFacade setEnquiryReason;
 
     //Triage (On Hold) Elements
-    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Keep on hold']")
+    @FindBy(xpath = "//label[text()='Keep on hold']")
     public WebElementFacade keepOnHoldRadioButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Take off hold']")
+    @FindBy(xpath = "//label[text()='Take off hold']")
     public WebElementFacade takeOffHoldRadioButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Keep escalated']")
+    @FindBy(xpath = "//label[text()='Keep escalated']")
     public WebElementFacade keepEscalatedRadioButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Escalation complete']")
+    @FindBy(xpath = "//label[text()='Escalation complete']")
     public WebElementFacade escalationCompleteRadioButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Close duplicate case']")
+    @FindBy(xpath = "//label[text()='Close duplicate case']")
     public WebElementFacade closeCaseRadioButton;
 
-    @FindBy(timeoutInSeconds = "10",  id = "CaseNote_EscalateToWorkFlowManager")
+    @FindBy(id = "CaseNote_EscalateToWorkFlowManager")
     public WebElementFacade escalationReasonTextArea;
 
-    @FindBy(timeoutInSeconds = "10",  id = "CaseNote_TriageRequestContribution")
+    @FindBy(id = "CaseNote_TriageRequestContribution")
     public WebElementFacade requestContributionTextArea;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@name='RefType'][@checked]")
+    @FindBy(xpath = "//input[@name='RefType'][@checked]")
     public WebElementFacade selectedRefType;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Confirm']")
+    @FindBy(xpath = "//label[text()='Confirm']")
     public WebElementFacade confirmRadioButton;
 
     private List<String> recordedBusinessUnitOptions = new ArrayList<>();
@@ -139,7 +139,7 @@ public class Triage extends BasePage {
     public void recordCurrentBusinessUnitOptions() {
         List<WebElementFacade> businessUnitDropdownOptions = findAll("//select[@id='BusUnit']/option");
         for (WebElementFacade option: businessUnitDropdownOptions) {
-            recordedBusinessUnitOptions.add(option.withTimeoutOf(Duration.ofSeconds(10)).getText());
+            recordedBusinessUnitOptions.add(option.getText());
         }
     }
 
@@ -147,7 +147,7 @@ public class Triage extends BasePage {
         List<String> currentBusinessAreaOptions = new ArrayList<>();
         List<WebElementFacade> businessAreaDropdownOptions = findAll("//select[@id='BusUnit']/option");
         for (WebElementFacade option: businessAreaDropdownOptions) {
-            currentBusinessAreaOptions.add(option.withTimeoutOf(Duration.ofSeconds(10)).getText());
+            currentBusinessAreaOptions.add(option.getText());
         }
         assertThat(checkIfBusinessAreaListsDiffer(currentBusinessAreaOptions, recordedBusinessUnitOptions), is(true));
     }

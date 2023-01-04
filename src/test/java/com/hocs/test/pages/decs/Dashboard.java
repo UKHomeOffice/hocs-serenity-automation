@@ -21,80 +21,80 @@ public class Dashboard extends BasePage {
 
     CaseView caseView;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//a[text()='Create Single Case']")
+    @FindBy(xpath = "//a[text()='Create Single Case']")
     public WebElementFacade createSingleCaseLink;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//a[text()='Create Bulk Cases']")
+    @FindBy(xpath = "//a[text()='Create Bulk Cases']")
     public WebElementFacade createBulkCasesLink;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//a[text()='View Standard Lines']")
+    @FindBy(xpath = "//a[text()='View Standard Lines']")
     public WebElementFacade viewStandardLinesLink;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//a[text()='Search']")
+    @FindBy(xpath = "//a[text()='Search']")
     public WebElementFacade searchLink;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//span[text()='Cases']")
+    @FindBy(xpath = "//span[text()='Cases']")
     public WebElementFacade myCases;
 
     // DCU Teams
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//span[text()='Performance and Process Team']")
+    @FindBy(xpath = "//span[text()='Performance and Process Team']")
     public WebElementFacade performanceProcessTeam;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//span[text()='Transfers & No10 Team']")
+    @FindBy(xpath = "//span[text()='Transfers & No10 Team']")
     public WebElementFacade transferN10Team;
 
     //MPAM Teams
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//span[text()='MPAM Creation']")
+    @FindBy(xpath = "//span[text()='MPAM Creation']")
     public WebElementFacade MPAMCreationTeam;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//span[text()='MTS Team']")
+    @FindBy(xpath = "//span[text()='MTS Team']")
     public WebElementFacade mtsTeamWorkstack;
 
     // Complaints Teams
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//span[contains(text(),'CCH Closed Cases')]")
+    @FindBy(xpath = "//span[contains(text(),'CCH Closed Cases')]")
     public WebElementFacade cchClosedCasesWorkstack;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//span[contains(text(),'IE Detention')]")
+    @FindBy(xpath = "//span[contains(text(),'IE Detention')]")
     public WebElementFacade ieDetentionWorkstack;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//span[contains(text(),'PSU Complaints')]")
+    @FindBy(xpath = "//span[contains(text(),'PSU Complaints')]")
     public WebElementFacade psuComplaintsWorkstack;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//span[contains(text(),'Serious Misconduct')]")
+    @FindBy(xpath = "//span[contains(text(),'Serious Misconduct')]")
     public WebElementFacade seriousMisconductWorkstack;
 
     // FOI Teams
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//span[contains(text(),'FOI Creation')]")
+    @FindBy(xpath = "//span[contains(text(),'FOI Creation')]")
     public WebElementFacade foiCreationWorkstack;
 
     // WCS Teams
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//span[text()='WCS Registration Team']")
+    @FindBy(xpath = "//span[text()='WCS Registration Team']")
     public WebElementFacade wcsRegistrationTeam;
 
     // BF Teams
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//span[text()='Border Force Complaints']")
+    @FindBy(xpath = "//span[text()='Border Force Complaints']")
     public WebElementFacade borderForceWorkstack;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//span[text()='Border Force Complaints (Stage 2)']")
+    @FindBy(xpath = "//span[text()='Border Force Complaints (Stage 2)']")
     public WebElementFacade borderForceStage2Workstack;
 
     //TO Teams
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//span[text()='Treat Official Creation']")
+    @FindBy(xpath = "//span[text()='Treat Official Creation']")
     public WebElementFacade treatOfficialCreationWorkstack;
 
     //POGR Teams
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//span[text()='HMPO/GRO Registration']")
+    @FindBy(xpath = "//span[text()='HMPO/GRO Registration']")
     public WebElementFacade hmpoGroRegistrationWorkstack;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//span[text()='HMPO/GRO Registration (Stage 2)']")
+    @FindBy(xpath = "//span[text()='HMPO/GRO Registration (Stage 2)']")
     public WebElementFacade hmpoGroRegistrationStage2Workstack;
 
     // Basic Methods
@@ -163,7 +163,7 @@ public class Dashboard extends BasePage {
     }
 
     public void waitForDashboard() {
-        caseReferenceSearchBar.withTimeoutOf(Duration.ofSeconds(120)).waitUntilVisible();
+        caseReferenceSearchBar.waitUntilVisible();
     }
 
     public void selectMyCases() {
@@ -187,7 +187,7 @@ public class Dashboard extends BasePage {
                 stage = "PO";
             }
             requiredTeam =
-                    withTimeoutOf(Duration.ofSeconds(10)).find(By.xpath("//span[contains(text(), '" + stage + "') and contains(text(), '" + sessionVariableCalled(
+                    find(By.xpath("//span[contains(text(), '" + stage + "') and contains(text(), '" + sessionVariableCalled(
                             "businessArea") + "') and contains(text(), '" + sessionVariableCalled("refType") + "')]"));
         }
         safeClickOn(requiredTeam);
@@ -230,7 +230,7 @@ public class Dashboard extends BasePage {
     }
 
     public void selectWorkstackByTeamName(String teamName) {
-        WebElementFacade workstack = findBy("//span[text()='" + teamName + "']").withTimeoutOf(Duration.ofSeconds(10));
+        WebElementFacade workstack = findBy("//span[text()='" + teamName + "']");
         safeClickOn(workstack);
     }
 
@@ -269,7 +269,7 @@ public class Dashboard extends BasePage {
         assertThat(caseView.currentCaseIsLoaded(), is(true));
         int attempts = 0;
         while (attempts < 12 && !caseView.caseCanBeAllocated()) {
-            waitABit(5000);
+            
             goToDashboard();
             getCurrentCase();
             assertThat(caseView.currentCaseIsLoaded(), is(true));
@@ -287,7 +287,7 @@ public class Dashboard extends BasePage {
     public void ensureViewingCurrentCase(){
         if (caseView.currentCaseIsLoaded()) {
             // protects against check occurring before DECS has chance to navigate away from case view
-            waitABit(1000);
+            
             if (!caseView.currentCaseIsLoaded()) {
                 getCurrentCase();
             }
@@ -315,18 +315,18 @@ public class Dashboard extends BasePage {
         } else {
             caseCount = findBy("//span[text()=\"" + workstackName + "\"]/preceding-sibling::span");
         }
-        return Integer.parseInt(caseCount.withTimeoutOf(Duration.ofSeconds(10)).getText());
+        return Integer.parseInt(caseCount.getText());
     }
 
     public int getNumberOfUnallocatedCasesInWorkstackFromDashboardCard(String workstackName) {
         WebElementFacade caseCount = findBy("//span[text()=\"" + workstackName + "\"]/ancestor::li/div/span");
-        String totalOfUnallocatedCases = caseCount.withTimeoutOf(Duration.ofSeconds(10)).getText().split(" ")[0];
+        String totalOfUnallocatedCases = caseCount.getText().split(" ")[0];
         return Integer.parseInt(totalOfUnallocatedCases);
     }
 
     public boolean checkTargetUserIsLoggedInUsingVisibleTeams(User targetUser) {
         boolean correctUser = false;
-        caseReferenceSearchBar.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
+        caseReferenceSearchBar.waitUntilVisible();
         switch (targetUser.toString()) {
             case "DECS_USER":
                 if (mtsTeamWorkstack.isVisible() && performanceProcessTeam.isVisible()) {

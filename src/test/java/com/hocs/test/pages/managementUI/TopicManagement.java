@@ -17,24 +17,24 @@ public class TopicManagement extends BasePage {
         assertThat(managementUIPageTitle.getText(), is("Add Child Topic"));
     }
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='parent-topics-input']")
+    @FindBy(xpath = "//input[@id='parent-topics-input']")
     public WebElementFacade parentTopicSearchBar;
 
-    @FindBy(timeoutInSeconds = "10",  css = "ul.govuk-error-summary__list a")
+    @FindBy(css = "ul.govuk-error-summary__list a")
     public WebElementFacade errorMessageLink;
 
-    @FindBy(timeoutInSeconds = "10",  css = ".govuk-error-summary__body")
+    @FindBy(css = ".govuk-error-summary__body")
     public WebElementFacade errorMessageContents;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='displayName']")
+    @FindBy(xpath = "//input[@id='displayName']")
     public WebElementFacade childTopicDisplayNameInputBar;
 
-    @FindBy(timeoutInSeconds = "10",  id = "displayName")
+    @FindBy(id = "displayName")
     public WebElementFacade topicNameTextField;
 
     public void selectAParentTopic(String parentTopic) {
         selectSpecificOptionFromTypeaheadWithHeading(parentTopic,"Select The Parent Topic");
-//        waitABit(1000);
+//        
 //        safeClickOn(parentTopicSearchBar);
 //        parentTopicSearchBar.sendKeys(parentTopic);
 //        setSessionVariable("parentTopic").to(parentTopic);
@@ -49,7 +49,7 @@ public class TopicManagement extends BasePage {
     }
 
     public void inputAChildTopicDisplayName(String childTopic) {
-        waitABit(1000);
+        
         safeClickOn(childTopicDisplayNameInputBar);
         childTopicDisplayNameInputBar.sendKeys(childTopic);
         setSessionVariable("childTopic").to(childTopic);
@@ -61,7 +61,7 @@ public class TopicManagement extends BasePage {
         String childTopic = "CHILD " + formatter.format(LocalDateTime.now());
         setSessionVariable("newChildTopic").to(childTopic);
         inputAChildTopicDisplayName(childTopic);
-        waitABit(1000);
+        
     }
 
     public void assertParentTopicIsRequiredErrorMessage() {

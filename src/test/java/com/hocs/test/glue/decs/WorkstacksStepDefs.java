@@ -142,7 +142,7 @@ public class WorkstacksStepDefs extends BasePage {
         createCase.createCSCaseOfTypeWithDocument(CaseType.MIN);
         dashboard.goToDashboard();
         safeClickOn(dashboard.performanceProcessTeam);
-        waitABit(1000);
+        
     }
 
     @Then("the case should be allocated to me in the workstack")
@@ -177,15 +177,15 @@ public class WorkstacksStepDefs extends BasePage {
         createCase.createCSCaseOfTypeWithDocument(CaseType.TRO);
         setSessionVariable("caseReference1").to(getCurrentCaseReference());
         dashboard.goToDashboard();
-        waitABit(1000);
+        
         createCase.createCSCaseOfTypeWithDocument(CaseType.TRO);
         setSessionVariable("caseReference2").to(getCurrentCaseReference());
         dashboard.goToDashboard();
-        waitABit(1000);
+        
         createCase.createCSCaseOfTypeWithDocument(CaseType.TRO);
         setSessionVariable("caseReference3").to(getCurrentCaseReference());
         dashboard.goToDashboard();
-        waitABit(1000);
+        
         safeClickOn(dashboard.performanceProcessTeam);
     }
 
@@ -196,7 +196,7 @@ public class WorkstacksStepDefs extends BasePage {
 
     @Then("I check that the three cases created have been correctly assigned to {string}")
     public void checkThreeCasesProperlyReassigned(String user) {
-        waitABit(2000);
+        
         workstacks.assertAssignedUserOnThreeCases(User.valueOf(user));
     }
 
@@ -225,10 +225,10 @@ public class WorkstacksStepDefs extends BasePage {
 
     @When("I assign this case to me, and check if it has been correctly allocated")
     public void iAssignTheCurrentCaseNumberToMe() {
-        waitABit(3500);
+        
         workstacks.clickCheckboxRelevantToCaseReference();
         workstacks.clickAllocateSelectedToMeButton();
-        waitABit(3500);
+        
         workstacks.assertCaseIsAssignedToMe();
     }
 
@@ -345,7 +345,7 @@ public class WorkstacksStepDefs extends BasePage {
 
     @Then("the earliest due date of the contribution requests is displayed in workstacks")
     public void theEarliestDueDateOfTheContributionRequestsIsDisplayed() {
-        waitABit(1000);
+        
         dashboard.goToDashboard();
         iEnterAWorkstack("MPAM Draft");
         workstacks.assertSpecifiedColumnContainsValueForCurrentCase("Stage", sessionVariableCalled("contributionDueDate"));
@@ -706,7 +706,7 @@ public class WorkstacksStepDefs extends BasePage {
     public void theCaseDeadlineDateDisplayedInTheWorkstackIsCorrectDaysForAStage(String workstack, String expectedNumberOfWorkdaysTillDeadline,
             String currentStage) {
         workstacks.assertThatDeadlineDate(workstack, expectedNumberOfWorkdaysTillDeadline, currentStage);
-        WebElementFacade caseReference = findBy("//a[text()='" + getCurrentCaseReference() + "']").withTimeoutOf(Duration.ofSeconds(10));
+        WebElementFacade caseReference = findBy("//a[text()='" + getCurrentCaseReference() + "']");
         caseReference.click();
     }
 }

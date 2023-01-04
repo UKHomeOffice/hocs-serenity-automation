@@ -13,13 +13,13 @@ public class ComplaintsQA extends BasePage {
 
     RecordCaseData recordCaseData;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Accept - send response to complainant']")
+    @FindBy(xpath = "//label[text()='Accept - send response to complainant']")
     public WebElementFacade sendResponseToComplainantRadioButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Reject - return response to draft']")
+    @FindBy(xpath = "//label[text()='Reject - return response to draft']")
     public WebElementFacade returnResponseToDraftRadioButton;
 
-    @FindBy(timeoutInSeconds = "10",  id = "CaseNote_QaReject")
+    @FindBy(id = "CaseNote_QaReject")
     public WebElementFacade rejectionReasonTextField;
 
     public void selectActionAtServiceQA(String action) {

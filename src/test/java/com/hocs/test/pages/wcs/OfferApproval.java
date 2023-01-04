@@ -6,16 +6,16 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class OfferApproval extends BasePage {
 
-    @FindBy(timeoutInSeconds = "10",  css = "label[for='OfferApprovalStatus-Offer']")
+    @FindBy(css = "label[for='OfferApprovalStatus-Offer']")
     public WebElementFacade offerApprovedRadioButton;
 
-    @FindBy(timeoutInSeconds = "10",  css = "label[for='OfferApprovalStatus-QA")
+    @FindBy(css = "label[for='OfferApprovalStatus-QA")
     public WebElementFacade returnToQARadioButton;
 
-    @FindBy(timeoutInSeconds = "10",  css = "label[for='OfferApprovalStatus-PNC-Fail")
+    @FindBy(css = "label[for='OfferApprovalStatus-PNC-Fail")
     public WebElementFacade returnToCaseworkDueToPNCResultRadioButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#OfferApprovalStatus-error']")
+    @FindBy(xpath = "//a[@href='#OfferApprovalStatus-error']")
     public WebElementFacade paymentIsRequiredOfferApprovalErrorMessage;
 
     public void assertPaymentIsRequiredOfferApprovalErrorMessage() {

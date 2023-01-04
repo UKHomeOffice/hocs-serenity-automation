@@ -17,64 +17,64 @@ public class DataInput extends BasePage {
 
     // Elements
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='Email']")
+    @FindBy(xpath = "//label[text()='Email']")
     public WebElementFacade emailOriginalChannelRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='Post']")
+    @FindBy(xpath = "//label[text()='Post']")
     public WebElementFacade postOriginalChannelRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='Phone']")
+    @FindBy(xpath = "//label[text()='Phone']")
     public WebElementFacade phoneOriginalChannelRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='No. 10']")
+    @FindBy(xpath = "//label[text()='No. 10']")
     public WebElementFacade numberTenOriginalChannelRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", id = "DateOfCorrespondence-day")
+    @FindBy(id = "DateOfCorrespondence-day")
     public WebElementFacade dateCorrespondenceSentDayField;
 
-    @FindBy(timeoutInSeconds = "10", id = "DateOfCorrespondence-month")
+    @FindBy(id = "DateOfCorrespondence-month")
     public WebElementFacade dateCorrespondenceSentMonthField;
 
-    @FindBy(timeoutInSeconds = "10", id = "DateOfCorrespondence-year")
+    @FindBy(id = "DateOfCorrespondence-year")
     public WebElementFacade dateCorrespondenceSentYearField;
 
-    @FindBy(timeoutInSeconds = "10", id = "DateReceived-day")
+    @FindBy(id = "DateReceived-day")
     public WebElementFacade dateCorrespondenceReceivedDayField;
 
-    @FindBy(timeoutInSeconds = "10", id = "DateReceived-month")
+    @FindBy(id = "DateReceived-month")
     public WebElementFacade dateCorrespondenceReceivedMonthField;
 
-    @FindBy(timeoutInSeconds = "10", id = "DateReceived-year")
+    @FindBy(id = "DateReceived-year")
     public WebElementFacade dateCorrespondenceReceivedYearField;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//div[@id='CopyNumberTen-radios']//label[text()='Yes']")
+    @FindBy(xpath = "//div[@id='CopyNumberTen-radios']//label[text()='Yes']")
     public WebElementFacade shouldResponseBeCopiedN10YesRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//div[@id='CopyNumberTen-radios']//label[text()='No']")
+    @FindBy(xpath = "//div[@id='CopyNumberTen-radios']//label[text()='No']")
     public WebElementFacade shouldResponseBeCopiedN10NoRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//input[@name='DCU_DTEN_INITIAL_DRAFT_DEADLINE-day']")
+    @FindBy(xpath = "//input[@name='DCU_DTEN_INITIAL_DRAFT_DEADLINE-day']")
     public WebElementFacade dtenDraftingDeadlineDayField;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//input[@name='DCU_DTEN_INITIAL_DRAFT_DEADLINE-month']")
+    @FindBy(xpath = "//input[@name='DCU_DTEN_INITIAL_DRAFT_DEADLINE-month']")
     public WebElementFacade dtenDraftingDeadlineMonthField;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//input[@name='DCU_DTEN_INITIAL_DRAFT_DEADLINE-year']")
+    @FindBy(xpath = "//input[@name='DCU_DTEN_INITIAL_DRAFT_DEADLINE-year']")
     public WebElementFacade dtenDraftingDeadlineYearField;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//input[@name='DCU_DTEN_DISPATCH_DEADLINE-day']")
+    @FindBy(xpath = "//input[@name='DCU_DTEN_DISPATCH_DEADLINE-day']")
     public WebElementFacade dtenDispatchDeadlineDayField;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//input[@name='DCU_DTEN_DISPATCH_DEADLINE-month']")
+    @FindBy(xpath = "//input[@name='DCU_DTEN_DISPATCH_DEADLINE-month']")
     public WebElementFacade dtenDispatchDeadlineMonthField;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//input[@name='DCU_DTEN_DISPATCH_DEADLINE-year']")
+    @FindBy(xpath = "//input[@name='DCU_DTEN_DISPATCH_DEADLINE-year']")
     public WebElementFacade dtenDispatchDeadlineYearField;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//div[@id='HomeSecInterest-radios']//label[text()='Yes']")
+    @FindBy(xpath = "//div[@id='HomeSecInterest-radios']//label[text()='Yes']")
     public WebElementFacade homeSecInterestYesRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//div[@id='HomeSecInterest-radios']//label[text()='No']")
+    @FindBy(xpath = "//div[@id='HomeSecInterest-radios']//label[text()='No']")
     public WebElementFacade homeSecInterestNoRadioButton;
 
     // Basic Methods

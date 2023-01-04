@@ -12,13 +12,13 @@ public class Eligibility extends BasePage {
 
     RecordCaseData recordCaseData;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#EligibilityConfirmed-error']")
+    @FindBy(xpath = "//a[@href='#EligibilityConfirmed-error']")
     public WebElementFacade canYouConfirmClaimantEligibilityErrorMessage;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = ".//a[contains(text(), 'Why is the claim not eligible')]")
+    @FindBy(xpath = ".//a[contains(text(), 'Why is the claim not eligible')]")
     public WebElementFacade eligibilityRejectionReasonErrorMessage;
 
-    @FindBy(timeoutInSeconds = "10",  id = "EligibilityRejReason")
+    @FindBy(id = "EligibilityRejReason")
     public WebElementFacade rejectionReasonDropdown;
 
     public void confirmEligibility() {

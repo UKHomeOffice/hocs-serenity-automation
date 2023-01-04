@@ -161,7 +161,7 @@ public class IEDETProgressCase extends BasePage {
     private void moveIEDETCaseFromPSUTriageToPSUComplaintOutcome() {
         complaintsRegistrationAndDataInput.selectYesForSeriousCase();
         clickTheButton("Submit");
-        waitABit(1000);
+        
         clickTheButton("Finish");
     }
 

@@ -12,40 +12,40 @@ import org.junit.Assert;
 
 public class UnitManagement extends BasePage {
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='displayName']")
+    @FindBy(xpath = "//input[@id='displayName']")
     public WebElementFacade displayNameTextField;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@id='shortCode']")
+    @FindBy(xpath = "//input[@id='shortCode']")
     public WebElementFacade shortCodeNameTextField;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//input[@value='Submit']")
+    @FindBy(xpath = "//input[@value='Submit']")
     public WebElementFacade submitButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#displayName-error']")
+    @FindBy(xpath = "//a[@href='#displayName-error']")
     public WebElementFacade displayNameRequiredErrorMessage;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//a[@href='#shortCode-error']")
+    @FindBy(xpath = "//a[@href='#shortCode-error']")
     public WebElementFacade shortCodeRequiredErrorMessage;
 
-    @FindBy(timeoutInSeconds = "10",  css = ".govuk-error-summary__body")
+    @FindBy(css = ".govuk-error-summary__body")
     public WebElementFacade errorMessageContents;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//caption[contains(text(), 'Units')]/following-sibling::tbody")
+    @FindBy(xpath = "//caption[contains(text(), 'Units')]/following-sibling::tbody")
     public WebElementFacade listOfUnits;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//button[contains(text(),'Edit Team')]")
+    @FindBy(xpath = "//button[contains(text(),'Edit Team')]")
     public WebElementFacade editTeamButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//*[@id='unit']")
+    @FindBy(xpath = "//*[@id='unit']")
     public WebElementFacade unitTypeBox;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//div[contains(text(),'Border Force')]")
+    @FindBy(xpath = "//div[contains(text(),'Border Force')]")
     public WebElementFacade unitBorderForceOption;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//div[contains(text(),'Immigration Enforcement')]")
+    @FindBy(xpath = "//div[contains(text(),'Immigration Enforcement')]")
     public WebElementFacade unitImmigrationEnforcementOption;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//button[contains(text(),'Update')]")
+    @FindBy(xpath = "//button[contains(text(),'Update')]")
     public WebElementFacade updateUnitButton;
 
     public void assertAddUnitPageTitle() {

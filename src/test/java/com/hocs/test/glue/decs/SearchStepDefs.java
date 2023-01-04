@@ -148,7 +148,7 @@ public class SearchStepDefs extends BasePage {
 
     @Then("I should be taken directly to the case")
     public void assertThatCaseReferenceSearchTakesUserToCase() {
-        waitABit(500);
+        
         if (!caseView.currentCaseIsLoaded()) {
             Assert.fail("Expected case " + getCurrentCaseReference() + " to be loaded, but it was not");
         };
@@ -194,7 +194,7 @@ public class SearchStepDefs extends BasePage {
 
     @And("the created case should be the only case visible in the search results")
     public void createdCaseShouldBeVisibleInTheSearchResults(){
-        waitABit(1000);
+        
         int numberOfResults = search.getNumberOfSearchResults();
         int retest = 0;
         while (retest < 5) {
@@ -204,7 +204,7 @@ public class SearchStepDefs extends BasePage {
                 dashboard.selectSearchLinkFromMenuBar();
                 iEnterIntoTheSearchField(getCurrentCaseReference(), "Case Reference");
                 clickSearchButton();
-                waitABit(1000);
+                
             } else if (numberOfResults > 1) {
                 Assert.fail("More than one case has matching case reference");
             } else {
@@ -219,7 +219,7 @@ public class SearchStepDefs extends BasePage {
 
     @And("I click the (case )reference of the case/claim in search results")
     public void iClickTheReferenceOfARandomSearchResult() {
-        WebElementFacade caseReference = findBy("//a[text()='" + getCurrentCaseReference() + "']").withTimeoutOf(Duration.ofSeconds(10));
+        WebElementFacade caseReference = findBy("//a[text()='" + getCurrentCaseReference() + "']");
         safeClickOn(caseReference);
     }
 
@@ -260,7 +260,7 @@ public class SearchStepDefs extends BasePage {
             if(!search.zeroSearchResultsReturned()) {
                 break;
             }
-            waitABit(10000);
+            
             i++;
         }
     }

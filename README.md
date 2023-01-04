@@ -2,7 +2,7 @@
 
 This automated test pack uses the [Serenity BDD](http://www.thucydides.info/docs/serenity/) framework with Cucumber. If you are contributing to this framework, please try to use code from the Serenity library before using other code libraries or custom solutions. Above all, keep your code as simple as possible. If you have to write comments to explain what your code is doing, then it needs to be made more readable.
 
-For more information, please consult the project [Wiki](https://github.com/UKHomeOffice/hocs-serenity-automation/wiki).
+For more information, please consult the project [Wiki](https://github.com/UKHomeOffice/hocs-serenity-automation/wiki);
 
 
 ## Requirements

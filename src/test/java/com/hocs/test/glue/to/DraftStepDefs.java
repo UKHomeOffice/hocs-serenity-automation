@@ -36,7 +36,7 @@ public class DraftStepDefs extends BasePage {
     @And("I change the Business Unit Type and Business Unit of the case")
     public void iChangeTheBusinessUnitOfTheCase() {
         draft.selectADifferentBusinessUnitType();
-        waitABit(500);
+        
         triage.selectABusinessUnit();
     }
 

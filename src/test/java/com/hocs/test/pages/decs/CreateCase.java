@@ -45,7 +45,7 @@ public class CreateCase extends BasePage {
 
     // Elements
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//label[contains(text(), 'Topic')]//following-sibling::div//input")
+    @FindBy(xpath = "//label[contains(text(), 'Topic')]//following-sibling::div//input")
     public WebElementFacade caseTopicTypeahead;
 
     Boolean specificStage1CaseProvided = false;
@@ -186,7 +186,7 @@ public class CreateCase extends BasePage {
         }
         escalateEligibleStage1CaseToStage2();
         setCurrentCaseType(getStage2CaseTypeFromStage1CaseType(stage1CaseType));
-        waitABit(500);
+        
     }
 
     private boolean checkIfRandomStage1CaseEligibleForEscalationCanBeFound() {
@@ -210,7 +210,7 @@ public class CreateCase extends BasePage {
         search.waitForResultsPage();
         int retries = 0;
         while ((search.getNumberOfSearchResults() == 0) && (retries <= 6)) {
-            waitABit(5000);
+            
             dashboard.selectSearchLinkFromMenuBar();
             selectStage1CaseTypeSearchCriteriaIfVisible();
             search.searchByCaseReference(caseReference);
@@ -225,7 +225,7 @@ public class CreateCase extends BasePage {
     public void escalateEligibleStage1CaseToStage2() {
         if (stage1CaseReference.isEmpty()) {
             WebElementFacade stage1CaseRefField = findBy("//a[contains(text(), 'Escalate case')]/parent::td/preceding-sibling::td/a");
-            stage1CaseReference = stage1CaseRefField.withTimeoutOf(Duration.ofSeconds(10)).getText();
+            stage1CaseReference = stage1CaseRefField.getText();
         }
         setSessionVariable("stage1CaseReference").to(stage1CaseReference);
         System.out.print("Case reference of case being escalated: " + stage1CaseReference + "\n");

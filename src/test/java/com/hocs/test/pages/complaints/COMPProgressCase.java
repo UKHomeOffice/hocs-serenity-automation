@@ -156,7 +156,7 @@ public class COMPProgressCase extends BasePage {
         if (complaintType.equalsIgnoreCase("SERVICE")) {
             clickContinueButton();
             complaintsRegistrationAndDataInput.openTheServiceComplaintCategoryAccordion();
-            waitABit(1000);
+            
             complaintsRegistrationAndDataInput.selectAVisibleClaimCategory();
             complaintsRegistrationAndDataInput.selectAnOwningCSU();
         }

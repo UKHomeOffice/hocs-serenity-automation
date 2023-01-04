@@ -14,19 +14,19 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 public class Campaign extends BasePage {
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Put case into a Campaign']")
+    @FindBy(xpath = "//label[text()='Put case into a Campaign']")
     public WebElementFacade putCaseIntoCampaignRadioButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//div[@id='CampaignType']//input")
+    @FindBy(xpath = "//div[@id='CampaignType']//input")
     public WebElementFacade campaignSelectionTypeahead;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Take out of Campaign, move to triage']")
+    @FindBy(xpath = "//label[text()='Take out of Campaign, move to triage']")
     public WebElementFacade takeOutOfCampaignMoveToTriageRadioButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Take out of Campaign, move to draft']")
+    @FindBy(xpath = "//label[text()='Take out of Campaign, move to draft']")
     public WebElementFacade takeOutOfCampaignMoveToDraftRadioButton;
 
-    @FindBy(timeoutInSeconds = "10",  id = "CampaignType")
+    @FindBy(id = "CampaignType")
     public WebElementFacade campaignTypeField;
 
     public void moveCaseFromAStageToCampaign(String campaign) {

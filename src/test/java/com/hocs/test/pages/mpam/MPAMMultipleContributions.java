@@ -20,19 +20,19 @@ public class MPAMMultipleContributions extends BasePage {
 
     ContributionRequests contributionRequests;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Request contributions']")
+    @FindBy(xpath = "//label[text()='Request contributions']")
     public WebElementFacade requestContributionsRadioButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Contributions received']")
+    @FindBy(xpath = "//label[text()='Contributions received']")
     public WebElementFacade contributionsReceivedRadioButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Escalate to workflow manager']")
+    @FindBy(xpath = "//label[text()='Escalate to workflow manager']")
     public WebElementFacade escalateToWorkflowManagerRadioButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Unallocate Case']")
+    @FindBy(xpath = "//label[text()='Unallocate Case']")
     public WebElementFacade unallocateCaseRadioButton;
 
-    @FindBy(timeoutInSeconds = "10",  xpath = "//label[text()='Retain Case']")
+    @FindBy(xpath = "//label[text()='Retain Case']")
     public WebElementFacade retainCaseRadioButton;
 
     public void selectToAddContributionsToAnMPAMCase(){

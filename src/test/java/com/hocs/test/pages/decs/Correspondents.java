@@ -23,7 +23,7 @@ public class Correspondents extends BasePage {
         try {
             selectAddACorrespondentLink();
         } catch (Exception e) {
-            waitABit(2000);
+            
             selectAddACorrespondentLink();
         }
     }
@@ -40,7 +40,7 @@ public class Correspondents extends BasePage {
         try {
             selectCorrespondentIsMPRadioButton();
         } catch (Exception e) {
-            waitABit(2000);
+            
             selectCorrespondentIsMPRadioButton();
         }
         clickContinueButton();
@@ -50,7 +50,7 @@ public class Correspondents extends BasePage {
         try {
             selectCorrespondentNotMPRadioButton();
         } catch (Exception e) {
-            waitABit(2000);
+            
             selectCorrespondentNotMPRadioButton();
         }
         clickContinueButton();
@@ -244,7 +244,7 @@ public class Correspondents extends BasePage {
     }
 
     public void confirmPrimaryCorrespondent() {
-        WebElementFacade selectedPrimaryCorrespondent = findBy("//input[@name='Correspondents'][@checked]/following-sibling::label").withTimeoutOf(Duration.ofSeconds(10));
+        WebElementFacade selectedPrimaryCorrespondent = findBy("//input[@name='Correspondents'][@checked]/following-sibling::label");
         selectedPrimaryCorrespondent.waitUntilVisible();
         String primaryCorrespondentsName = selectedPrimaryCorrespondent.getText();
         recordCaseData.addHeadingAndValueRecord("Which is the primary correspondent?", primaryCorrespondentsName);

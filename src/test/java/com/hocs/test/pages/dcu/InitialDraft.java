@@ -20,40 +20,40 @@ public class InitialDraft extends BasePage {
 
     RecordCaseData recordCaseData;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//div[@id='InitialDraftDecision-radios']//label[text()='No']")
+    @FindBy(xpath = "//div[@id='InitialDraftDecision-radios']//label[text()='No']")
     public WebElementFacade answeredByMyTeamNoRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//div[@id='InitialDraftDecision-radios']//label[text()='Yes']")
+    @FindBy(xpath = "//div[@id='InitialDraftDecision-radios']//label[text()='Yes']")
     public WebElementFacade answeredByMyTeamYesRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//div[@id='ReturnToResponseChannelDecision-radios']//label[text()='No']")
+    @FindBy(xpath = "//div[@id='ReturnToResponseChannelDecision-radios']//label[text()='No']")
     public WebElementFacade chooseAnotherResponseTypeNoButton;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//div[@id='ReturnToResponseChannelDecision-radios']//label[text()='Yes']")
+    @FindBy(xpath = "//div[@id='ReturnToResponseChannelDecision-radios']//label[text()='Yes']")
     public WebElementFacade chooseAnotherResponseTypeYesButton;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='Email']")
+    @FindBy(xpath = "//label[text()='Email']")
     public WebElementFacade emailReplyRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='Letter']")
+    @FindBy(xpath = "//label[text()='Letter']")
     public WebElementFacade letterReplyRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//label[text()='Phone']")
+    @FindBy(xpath = "//label[text()='Phone']")
     public WebElementFacade phoneReplyRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//textarea[@name='CaseNote_PhonecallNote']")
+    @FindBy(xpath = "//textarea[@name='CaseNote_PhonecallNote']")
     public WebElementFacade summariseCallTextBox;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//div[@id='OfflineQA-radios']//label[text()='Yes']")
+    @FindBy(xpath = "//div[@id='OfflineQA-radios']//label[text()='Yes']")
     public WebElementFacade offlineQaYesRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//div[@id='OfflineQA-radios']//label[text()='No']")
+    @FindBy(xpath = "//div[@id='OfflineQA-radios']//label[text()='No']")
     public WebElementFacade offlineQaNoRadioButton;
 
-    @FindBy(timeoutInSeconds = "10", id = "OfflineQaUser")
+    @FindBy(id = "OfflineQaUser")
     public WebElementFacade allocateToOfflineQaDropdown;
 
-    @FindBy(timeoutInSeconds = "10", xpath = "//h2[text()='Available Standard line']/following-sibling::table[1]//td")
+    @FindBy(xpath = "//h2[text()='Available Standard line']/following-sibling::table[1]//td")
     public WebElementFacade standardLineDocuments;
 
     //Basic Methods
