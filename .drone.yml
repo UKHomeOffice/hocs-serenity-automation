@@ -12,7 +12,7 @@ trigger:
 resources:
   requests:
     cpu: 1000
-    memory: 3000MiB
+    memory: 2000MiB
 
 steps:
 
@@ -50,7 +50,7 @@ trigger:
 resources:
   requests:
     cpu: 1000
-    memory: 3000MiB
+    memory: 2000MiB
 
 steps:
 
@@ -88,7 +88,7 @@ trigger:
 resources:
   requests:
     cpu: 1000
-    memory: 3000MiB
+    memory: 2000MiB
 
 steps:
 
@@ -126,7 +126,7 @@ trigger:
 resources:
   requests:
     cpu: 1000
-    memory: 3000MiB
+    memory: 2000MiB
 
 steps:
 
@@ -164,7 +164,7 @@ trigger:
 resources:
   requests:
     cpu: 1000
-    memory: 3000MiB
+    memory: 2000MiB
 
 steps:
 
@@ -202,7 +202,7 @@ trigger:
 resources:
   requests:
     cpu: 1000
-    memory: 3000MiB
+    memory: 2000MiB
 
 steps:
 
@@ -240,7 +240,7 @@ trigger:
 resources:
   requests:
     cpu: 1000
-    memory: 3000MiB
+    memory: 2000MiB
 
 steps:
 
@@ -278,7 +278,7 @@ trigger:
 resources:
   requests:
     cpu: 1000
-    memory: 3000MiB
+    memory: 2000MiB
 
 steps:
 
@@ -316,7 +316,7 @@ trigger:
 resources:
   requests:
     cpu: 1000
-    memory: 3000MiB
+    memory: 2000MiB
 
 steps:
 
@@ -354,7 +354,7 @@ trigger:
 resources:
   requests:
     cpu: 1000
-    memory: 3000MiB
+    memory: 2000MiB
 
 steps:
 
@@ -392,7 +392,7 @@ trigger:
 resources:
   requests:
     cpu: 1000
-    memory: 3000MiB
+    memory: 2000MiB
 
 steps:
 
