@@ -22,7 +22,9 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import java.text.ParseException;
+import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.junit.Assert;
 import org.openqa.selenium.NoSuchElementException;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
@@ -707,4 +709,17 @@ public class WorkstacksStepDefs extends BasePage {
         WebElementFacade caseReference = findBy("//a[text()='" + getCurrentCaseReference() + "']");
         caseReference.click();
     }
+
+    @Then("a {string} tag is appended to the case reference")
+    public void aTagIsAppendedToTheCaseReference(String tag) {
+        workstacks.caseFilter.sendKeys(getCurrentCaseReference());
+        WebElementFacade psuTag = findBy("//a[text()='" + getCurrentCaseReference() + "']/following-sibling::span");
+        String psuRejectionTag = psuTag.getText();
+        if (!psuRejectionTag.contains(tag.toUpperCase())) {
+            Assert.fail("Expected case reference column to contain '" + tag + "', but column value was '" + psuRejectionTag + "'");
+        } else {
+            System.out.println("Expected rejection tag '" + psuRejectionTag + "' has been appended to the case reference ");
+        }
+    }
+
 }

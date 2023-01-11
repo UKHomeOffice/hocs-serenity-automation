@@ -22,6 +22,10 @@ Feature: PSU Triage
     And I choose to send the case back to IEDET
     Then the case should be moved to the "IE Detention Triage" stage
     And the "Serious misconduct" radio button should be unselected
+    And I click to view the case in the "My cases" workstack
+    Then a "Rejected by PSU" tag is appended to the case reference
+    And I click to view the case in the "IE Detention" workstack
+    Then a "Rejected by PSU" tag is appended to the case reference
 
 
   @ComplaintsWorkflow @IEDETRegression @IEDETComplaints
