@@ -18,7 +18,7 @@ Feature: Complaints End To End
       | complaintType    |
       | Service          |
       | Ex-Gratia        |
-      | Minor Misconduct |
+      | Minor misconduct |
 
   @UKVIComplaints
   Scenario Outline: User moves a UKVI stage 1 complaint case to CCH stage
@@ -30,7 +30,7 @@ Feature: Complaints End To End
       | complaintType    |
       | Service          |
       | Ex-Gratia        |
-      | Minor Misconduct |
+      | Minor misconduct |
 
   @UKVIComplaints
   Scenario Outline: User moves a UKVI stage 1 complaint case to the Escalated stage
@@ -41,7 +41,7 @@ Feature: Complaints End To End
       | complaintType    | targetStage |
       | Service          | Escalated   |
       | Ex-Gratia        | Escalate    |
-      | Minor Misconduct | Escalate    |
+      | Minor misconduct | Escalate    |
 
   @UKVIComplaints
   Scenario Outline: User moves a UKVI stage 1 complaint case to the Draft stage
@@ -52,7 +52,7 @@ Feature: Complaints End To End
       | complaintType    | targetStage    |
       | Service          | Draft          |
       | Ex-Gratia        | Response Draft |
-      | Minor Misconduct | Response Draft |
+      | Minor misconduct | Response Draft |
 
   @UKVIComplaints
   Scenario Outline: User moves a UKVI stage 1 complaint case to the QA stage
@@ -63,7 +63,7 @@ Feature: Complaints End To End
       | complaintType    |
       | Service          |
       | Ex-Gratia        |
-      | Minor Misconduct |
+      | Minor misconduct |
 
   @UKVIComplaints
   Scenario Outline: User moves a UKVI stage 1 complaint case to the Send stage
@@ -74,7 +74,7 @@ Feature: Complaints End To End
       | complaintType    |
       | Service          |
       | Ex-Gratia        |
-      | Minor Misconduct |
+      | Minor misconduct |
 
   @COMPRegression @UKVIComplaints
   Scenario Outline: User is able to close a UKVI stage 1 complaint case
@@ -85,7 +85,7 @@ Feature: Complaints End To End
       | complaintType    |
       | Service          |
       | Ex-Gratia        |
-      | Minor Misconduct |
+      | Minor misconduct |
 
 
 #     UKVI STAGE 2 COMPLAINTS
@@ -149,7 +149,7 @@ Feature: Complaints End To End
       | complaintType    |
       | Service          |
       | Ex-Gratia        |
-      | Minor Misconduct |
+      | Minor misconduct |
 
 
 #     IEDET COMPLAINTS

@@ -220,7 +220,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
 
     public void enterDetailsOnTriageCaptureReasonPage() {
         String complaintType = sessionVariableCalled("complaintType");
-        if ((compCase() || comp2Case()) && (complaintType.equals("Service") || complaintType.equals("Minor Misconduct"))) {
+        if ((compCase() || comp2Case()) && (complaintType.equals("Service") || complaintType.equals("Minor misconduct"))) {
             recordCaseData.selectRandomOptionFromDropdownWithHeading("Directorate");
         }
         String businessArea = recordCaseData.selectRandomOptionFromDropdownWithHeading("Business Area");
