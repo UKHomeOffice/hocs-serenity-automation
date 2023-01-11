@@ -706,20 +706,12 @@ public class WorkstacksStepDefs extends BasePage {
     public void theCaseDeadlineDateDisplayedInTheWorkstackIsCorrectDaysForAStage(String workstack, String expectedNumberOfWorkdaysTillDeadline,
             String currentStage) {
         workstacks.assertThatDeadlineDate(workstack, expectedNumberOfWorkdaysTillDeadline, currentStage);
-        WebElementFacade caseReference = findBy("//a[text()='" + getCurrentCaseReference() + "']");
-        caseReference.click();
     }
 
     @Then("a {string} tag is appended to the case reference")
-    public void aTagIsAppendedToTheCaseReference(String tag) {
-        workstacks.caseFilter.sendKeys(getCurrentCaseReference());
-        WebElementFacade psuTag = findBy("//a[text()='" + getCurrentCaseReference() + "']/following-sibling::span");
-        String psuRejectionTag = psuTag.getText();
-        if (!psuRejectionTag.contains(tag.toUpperCase())) {
-            Assert.fail("Expected case reference column to contain '" + tag + "', but column value was '" + psuRejectionTag + "'");
-        } else {
-            System.out.println("Expected rejection tag '" + psuRejectionTag + "' has been appended to the case reference ");
-        }
+    public void aTagIsAppendedToTheCaseReference(String caseReferenceTag) {
+        workstacks.assertCaseReferenceTag(caseReferenceTag);
+
     }
 
 }
