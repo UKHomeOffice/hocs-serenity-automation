@@ -22,7 +22,9 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import java.text.ParseException;
+import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.junit.Assert;
 import org.openqa.selenium.NoSuchElementException;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
@@ -704,7 +706,12 @@ public class WorkstacksStepDefs extends BasePage {
     public void theCaseDeadlineDateDisplayedInTheWorkstackIsCorrectDaysForAStage(String workstack, String expectedNumberOfWorkdaysTillDeadline,
             String currentStage) {
         workstacks.assertThatDeadlineDate(workstack, expectedNumberOfWorkdaysTillDeadline, currentStage);
-        WebElementFacade caseReference = findBy("//a[text()='" + getCurrentCaseReference() + "']");
-        caseReference.click();
     }
+
+    @Then("a {string} tag is appended to the case reference")
+    public void aTagIsAppendedToTheCaseReference(String caseReferenceTag) {
+        workstacks.assertCaseReferenceTag(caseReferenceTag);
+
+    }
+
 }
