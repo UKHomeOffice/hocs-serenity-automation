@@ -77,7 +77,7 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
     }
 
     public void selectASpecificComplaintType(String complaintType) {
-        if(iedetCase()){
+        if(iedetCase()||compCase()||comp2Case()){
             recordCaseData.selectSpecificRadioButton(complaintType);
         } else {
             recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(complaintType, "Complaint Type");
