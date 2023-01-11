@@ -715,6 +715,8 @@ public class Workstacks extends BasePage {
             Assert.fail("Displayed Stage did not match Current Stage for this case.\nExpected stage was: " + currentStage +
                     "\nDisplayed stage was: " + caseStage);
         }
+        WebElementFacade caseReference = findBy("//a[text()='" + getCurrentCaseReference() + "']");
+        caseReference.click();
     }
 
     public void assertThatDeadlineHighlightedIsYellow() {
@@ -932,6 +934,17 @@ public class Workstacks extends BasePage {
         int totalOfCases = getTotalOfCases();
         if(!(totalOfCases == expectedTotalOfCases)) {
            Assert.fail("Expected total of cases was " + expectedTotalOfCases + ", but displayed total of cases was " + totalOfCases);
+        }
+    }
+
+    public void assertCaseReferenceTag(String caseReferenceTag) {
+        caseFilter.sendKeys(getCurrentCaseReference());
+        WebElementFacade psuTag = findBy("//a[text()='" + getCurrentCaseReference() + "']/following-sibling::span");
+        String psuRejectionTag = psuTag.getText();
+        if (!psuRejectionTag.contains(caseReferenceTag.toUpperCase())) {
+            Assert.fail("Expected case reference column to contain '" + caseReferenceTag + "', but column value was '" + psuRejectionTag + "'");
+        } else {
+            System.out.println("Expected rejection tag '" + psuRejectionTag + "' has been appended to the case reference ");
         }
     }
 }

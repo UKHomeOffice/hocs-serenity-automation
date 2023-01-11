@@ -22,6 +22,10 @@ Scenario: When a user selects Send back to IE Detention as Complaint Outcome the
         Then I select "Not serious - send back to IE Detention" PSU Complaint Outcome
         Then the case should be at the "IE Detention Triage" stage
         And the "Serious misconduct" radio button should be unselected
+        And I click to view the case in the "My cases" workstack
+        Then a "Rejected by PSU" tag is appended to the case reference
+        And I click to view the case in the "IE Detention" workstack
+        Then a "Rejected by PSU" tag is appended to the case reference
 
 @ComplaintsWorkflow @IEDETRegression @IEDETComplaint
 Scenario Outline: When a user selects one of the Complaint Outcome and enters the details in the final response page then the case should be closed
