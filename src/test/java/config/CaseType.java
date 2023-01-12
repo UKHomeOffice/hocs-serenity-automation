@@ -11,6 +11,7 @@ public enum CaseType {
     TO("Treat Official", 20, "TO_USER", false),
     COMP("Complaint Case", 20, "COMP_USER", false),
     COMP2("Complaint Case - Stage 2", 20, "COMP_USER", true),
+    COMP2DIRECT("Complaint Case - Stage 2", 20, "COMP_USER", false),
     BF("Border Force Case", 20, "BF_USER", false),
     BF2("Border Force (Stage 2)", 20, "BF_USER", true),
     POGR("HMPO/GRO Complaint Case", 10, "POGR_USER", false),

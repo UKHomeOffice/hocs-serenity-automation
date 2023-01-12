@@ -169,4 +169,12 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
         clickTheButton("Submit");
         assertExpectedErrorMessageIsDisplayed("PSU reference is required");
     }
+
+    @And("I select Sopra Steria case option {string}")
+    public void iSelectSopraSteriaCaseOption(String radioOption) {
+        complaintsRegistrationAndDataInput.selectSpecificRadioButton(radioOption);
+        complaintsRegistrationAndDataInput.setComplaintOrigin(radioOption);
+        clickTheButton("Submit");
+
+    }
 }
