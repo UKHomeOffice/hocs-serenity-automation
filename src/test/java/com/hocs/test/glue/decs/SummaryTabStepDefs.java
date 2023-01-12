@@ -339,4 +339,9 @@ public class SummaryTabStepDefs extends BasePage {
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(psuFinalResponseDate, "Final response sent");
         }
     }
+
+    @And("the summary should contain details of the Complaint Origin")
+    public void theSummaryShouldContainDetailsOfTheComplaintOrigin() {
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("complaintOrigin"), "Complaint origin");
+    }
 }

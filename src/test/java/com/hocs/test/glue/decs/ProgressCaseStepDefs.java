@@ -107,6 +107,7 @@ public class ProgressCaseStepDefs extends BasePage {
                 break;
             case COMP:
             case COMP2:
+            case COMP2DIRECT:
                 compProgressCase.moveCaseOfTypeFromCurrentStageToTargetStage(caseType, currentStage, targetStage);
                 break;
             case IEDET:

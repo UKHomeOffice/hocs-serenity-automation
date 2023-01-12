@@ -304,11 +304,13 @@ public class BasePage extends PageObject {
 
     public boolean mtsCase() { return getCurrentCaseType().equals(CaseType.MTS); }
 
-    public boolean complaintCase() { return compCase() | comp2Case() | iedetCase() | smcCase() | bfCase() | bf2Case() | pogrCase() | pogr2Case();}
+    public boolean complaintCase() { return compCase() | comp2Case() | comp2DirectCase() | iedetCase() | smcCase() | bfCase() | bf2Case() | pogrCase() | pogr2Case();}
 
     public boolean compCase() { return getCurrentCaseType().equals(CaseType.COMP); }
 
     public boolean comp2Case() { return getCurrentCaseType().equals(CaseType.COMP2); }
+
+    public boolean comp2DirectCase() { return getCurrentCaseType().equals(CaseType.COMP2DIRECT); }
 
     public boolean iedetCase() { return getCurrentCaseType().equals(CaseType.IEDET); }
 
