@@ -108,6 +108,44 @@ Feature: Registration
     And the summary should display the owning team as "Stage 2 CCT Triage Team"
     And the read-only Case Details accordion should contain all case information entered during the "Stage 2 Registration" stage
 
+    #   UKVI COMPLAINTS STAGE 2 Direct
+
+  @ComplaintsWorkflow @COMPRegression @UKVIComplaints
+  Scenario: User can create UKVI stage 2 complaint case directly
+    Given I am logged into "CS" as user "COMP_USER"
+    When I create a "COMP2DIRECT" case and move it to the "Stage 2 Registration" stage
+    And I click to view the case in the "Stage 2 Complaint Registration" workstack
+    Then I filter the workstack using the current cases reference
+    Then I click the link for the current case in the workstack
+    And I load and claim the current case
+    And I select Sopra Steria case option "Yes - it's a Sopra Steria case"
+    And I add a "Complainant" correspondent
+    And I click the "Continue" button
+    And I enter the Complainant Details
+    And I select "Service" as the Complaint Type
+    And I enter the complaint details on the Complaint Input page
+    And I click the "Continue" button
+    And I select a "Service" Complaint Category
+    And I select a Owning CSU
+    When I click the "Finish" button
+    Then the case should be moved to the "Stage 2 Service Triage" stage
+    And the summary should display the owning team as "Stage 2 CCT Triage Team"
+    And the summary should contain details of the Complaint Origin
+    And the read-only Case Details accordion should contain all case information entered during the "Stage 2 Registration" stage
+
+  @ComplaintsWorkflow @COMPRegression @UKVIComplaints
+  Scenario: User can create UKVI stage 2 complaint case directly amd close the case if they don't want to continue
+    Given I am logged into "CS" as user "COMP_USER"
+    When I create a "COMP2DIRECT" case and move it to the "Stage 2 Registration" stage
+    And I click to view the case in the "Stage 2 Complaint Registration" workstack
+    Then I filter the workstack using the current cases reference
+    Then I click the link for the current case in the workstack
+  #  Then I claim the current case
+    Then I load and claim the current case
+    And I select Sopra Steria case option "No - close the case"
+    Then the case should be closed
+    And the summary should contain details of the Complaint Origin
+
 
 #     IEDET COMPLAINTS
 

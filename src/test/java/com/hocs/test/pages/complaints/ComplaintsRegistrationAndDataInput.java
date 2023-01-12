@@ -77,7 +77,7 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
     }
 
     public void selectASpecificComplaintType(String complaintType) {
-        if(iedetCase()||compCase()||comp2Case()){
+        if(iedetCase()||compCase()||comp2Case()||comp2DirectCase()){
             recordCaseData.selectSpecificRadioButton(complaintType);
         } else {
             recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(complaintType, "Complaint Type");
@@ -324,5 +324,19 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         String[] validChoices = new String[]{"Substantiated", "Partially substantiated","Unsubstantiated"};
         int rnd = new Random().nextInt(validChoices.length);
         recordCaseData.selectSpecificRadioButton(validChoices[rnd]);
+    }
+
+    public void setComplaintOrigin(String sopraSteria) {
+
+        if(sopraSteria.equalsIgnoreCase("Yes - it's a Sopra Steria case")) {
+            recordCaseData.addHeadingAndValueRecord("Compliant origin", "Sopra Steria");
+            String complaintOrigin = "Sopra Steria";
+            setSessionVariable("complaintOrigin").to(complaintOrigin);
+        } else if (sopraSteria.equalsIgnoreCase("No - close the case")) {
+            recordCaseData.addHeadingAndValueRecord("Compliant origin", "Not Applicable");
+            String complaintOrigin = "Not Applicable";
+            setSessionVariable("complaintOrigin").to(complaintOrigin);
+        }
+
     }
 }
