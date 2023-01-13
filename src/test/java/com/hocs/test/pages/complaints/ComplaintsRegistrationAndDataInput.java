@@ -92,7 +92,6 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         setSessionVariable("complaintType").to(complaintType);
     }
 
-
     public void selectAComplaintChannel() {
         if (pogrCase() || pogr2Case()) {
             recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Complaint Channel");
