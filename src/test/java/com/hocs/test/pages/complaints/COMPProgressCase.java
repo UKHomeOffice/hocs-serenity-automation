@@ -74,6 +74,7 @@ public class COMPProgressCase extends BasePage {
             complaintType = "Minor misconduct";
         } else if (stringContainsCheckIgnoringCase(targetStage, "Serious Misconduct") ) {
             complaintType = "Serious misconduct";
+
         }
     }
 

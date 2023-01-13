@@ -19,3 +19,4 @@ Feature: PSU Registration
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2DIRECT" case and move it to the "PSU_Registration" stage
     Then When I attempt to continue without selecting a PSU Reference an error message is displayed
+
