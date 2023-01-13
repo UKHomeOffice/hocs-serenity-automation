@@ -64,7 +64,6 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
 
     public void enterComplainantDetails() {
         enterComplainantDOB(getDatePlusMinusNDaysAgo(-14600));
-        selectAGender();
         selectANationality();
         enterACompanyName();
         enterAHomeOfficeReference(getCurrentMonth() +"/" + getCurrentYear());
