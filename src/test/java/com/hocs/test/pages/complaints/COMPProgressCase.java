@@ -72,6 +72,8 @@ public class COMPProgressCase extends BasePage {
             complaintType = "Ex-Gratia";
         } else if (stringContainsCheckIgnoringCase(targetStage, "Minor Misconduct") || stringContainsCheckIgnoringCase(targetStage, "MM")) {
             complaintType = "Minor misconduct";
+        } else if (stringContainsCheckIgnoringCase(targetStage, "Serious Misconduct") ) {
+            complaintType = "Serious misconduct";
         }
     }
 
@@ -82,6 +84,7 @@ public class COMPProgressCase extends BasePage {
                 precedingStage = "CREATE NEW CASE";
                 break;
             case "TRIAGE":
+            case "PSU_REGISTRATION":
                 precedingStage = "REGISTRATION";
                 break;
             case "DRAFT":
@@ -113,7 +116,16 @@ public class COMPProgressCase extends BasePage {
         dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
         switch (stageToComplete.toUpperCase()) {
             case "REGISTRATION":
-                moveCaseFromRegistrationToTriage();
+                switch (targetStage.toUpperCase()){
+                    case "TRIAGE":
+                        moveCaseFromRegistrationToTriage();
+                        break;
+                    case "PSU_REGISTRATION":
+                        moveCaseFromRegistrationToPSURegistration();
+                        break;
+                    default:
+                        pendingStep(targetStage + " is not defined within " + getMethodName());
+                }
                 break;
             case "TRIAGE":
                 switch (targetStage.toUpperCase()) {
@@ -162,6 +174,19 @@ public class COMPProgressCase extends BasePage {
         }
         clickFinishButton();
     }
+
+    public void moveCaseFromRegistrationToPSURegistration() {
+        correspondents.addANonMemberCorrespondentOfType("Complainant");
+        correspondents.confirmPrimaryCorrespondent();
+        complaintsRegistrationAndDataInput.enterComplainantDetails();
+        complaintsRegistrationAndDataInput.selectASpecificComplaintType("Serious misconduct");
+        complaintsTriageAndInvestigation.selectAVisibleClaimCategory();
+        clickContinueButton();
+        selectRandomRadioButtonFromGroupWithHeading("Channel");
+        complaintsRegistrationAndDataInput.enterAPreviousUKVIPSUComplaintReference();
+        complaintsRegistrationAndDataInput.enterAThirdPartyReference();
+        clickTheButton("Finish and escalate to PSU");
+        }
 
     public void moveCaseFromTriageToDraft() {
         complaintsTriageAndInvestigation.selectAcceptCase();
