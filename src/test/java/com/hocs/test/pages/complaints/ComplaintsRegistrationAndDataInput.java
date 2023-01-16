@@ -149,12 +149,15 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         recordCaseData.enterTextIntoTextFieldWithHeading("Previous UKVI Complaint Ref");
     }
 
+    public void enterAPreviousUKVIPSUComplaintReference() {
+        recordCaseData.enterTextIntoTextFieldWithHeading("Previous UKVI complaint reference");
+    }
     public void enterAPreviousComplaintReference() {
         recordCaseData.enterTextIntoTextFieldWithHeading("Previous Complaint Reference");
     }
 
     public void enterAThirdPartyReference() {
-        if (iedetCase()) {recordCaseData.enterTextIntoTextFieldWithHeading("Third party reference");
+        if (iedetCase()||compCase()||comp2Case()||comp2DirectCase()) {recordCaseData.enterTextIntoTextFieldWithHeading("Third party reference");
         } else {recordCaseData.enterTextIntoTextFieldWithHeading("Third Party Reference");}
     }
 
