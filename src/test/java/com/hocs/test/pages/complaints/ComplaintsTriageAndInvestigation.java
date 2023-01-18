@@ -174,6 +174,13 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
         setSessionVariable("claimCategory").to(selectedClaimCategory);
     }
 
+    public void selectUKVIClaimCategory(String category) {
+        setSessionVariable("complaintCategory").to(category);
+        List<WebElementFacade> claimCategories = findAll("//span[text()='" + category + "']/parent::legend/following-sibling::div//label");
+        String selectedClaimCategory = checkRandomCheckboxFromList(claimCategories);
+        setSessionVariable("claimCategory").to(selectedClaimCategory);
+    }
+
     public void selectAVisibleClaimCategory() {
         List<WebElementFacade> claimCategories = findAll("//input[not(@checked)]/following-sibling::label[contains(@for,'Cat')]");
         List<WebElementFacade> visibleClaimCategories = new ArrayList<>();
@@ -416,7 +423,8 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
         } else if (psuComplaintOutcome.equalsIgnoreCase("Not serious - send back to IE Detention") ||
                      psuComplaintOutcome.equalsIgnoreCase("Substantiated") ||
                      psuComplaintOutcome.equalsIgnoreCase( "Partially substantiated") ||
-                     psuComplaintOutcome.equalsIgnoreCase("Unsubstantiated")) {
+                     psuComplaintOutcome.equalsIgnoreCase("Unsubstantiated") ||
+                     psuComplaintOutcome.equalsIgnoreCase("No - send back to UKVI")) {
                  clickTheButton("Submit");
 
         }
@@ -432,7 +440,9 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
         checkSpecificCheckbox(claimCategory);
         clickTheButton("Finish");
         assertExpectedErrorMessageIsDisplayed("Select at least one complaint category option");
-        checkSpecificCheckbox(claimCategory);
+        List<WebElementFacade> claimCategories = findAll("//span[text()='Serious misconduct']/parent::legend/following-sibling::div[2]//label");
+        recordCaseData.checkRandomCheckboxFromList(claimCategories);
         clickTheButton("Finish");
+
     }
 }

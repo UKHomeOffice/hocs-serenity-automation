@@ -104,6 +104,12 @@ public class COMPProgressCase extends BasePage {
             case "CLOSED":
                 precedingStage = "SEND";
                 break;
+            case "PSU_TRIAGE":
+                precedingStage = "PSU_REGISTRATION";
+                break;
+            case "PSU_OUTCOME":
+                precedingStage = "PSU_TRIAGE";
+                break;
             default:
                 pendingStep(targetStage + " is not defined within " + getMethodName());
         }
@@ -166,12 +172,43 @@ public class COMPProgressCase extends BasePage {
             case "SEND":
                 moveCaseFromSendToClosed();
                 break;
+            case "PSU_REGISTRATION":
+                moveUKVICaseFromPSURegistrationToPSUTriage();
+                break;
+            case "PSU_TRIAGE":
+                moveUKVICaseFromPSUTriageToPSUComplaintOutcome();
+                break;
+            case "PSU_COMPLAINT_OUTCOME":
+                moveUKVICaseFromPSUComplaintOutcomeToPSUCaseClosed();
+                break;
             default:
                 pendingStep(stageToComplete + " is not defined within " + getMethodName());
         }
         dashboard.waitForDashboard();
         System.out.println("Case moved from " + stageToComplete + " to " + targetStage);
         RecordCaseData.checkIfDataRecordsShouldBeWiped();
+    }
+
+    private void moveUKVICaseFromPSUComplaintOutcomeToPSUCaseClosed() {
+        complaintsRegistrationAndDataInput.selectRandomCaseOutcomeToProgress();
+        clickTheButton("Submit");
+        documents.addADocumentOfDocumentType("Final response");
+        complaintsDispatchAndSend.enterFinalResponseSentDate();
+        clickTheButton("Close case");
+    }
+
+    private void moveUKVICaseFromPSUTriageToPSUComplaintOutcome() {
+        clickTheButton("Submit");
+        assertExpectedErrorMessageIsDisplayed("Is this serious misconduct case for PSU to investigate? is required");
+        complaintsRegistrationAndDataInput.selectYesForSeriousCase();
+        clickTheButton("Submit");
+        waitABit(1000);
+        clickTheButton("Finish");
+    }
+
+    private void moveUKVICaseFromPSURegistrationToPSUTriage() {
+         complaintsRegistrationAndDataInput.enterAPSUReference();
+         clickTheButton("Submit");
     }
 
     public void moveCaseFromRegistrationToTriage() {
@@ -187,6 +224,13 @@ public class COMPProgressCase extends BasePage {
             complaintsRegistrationAndDataInput.selectAVisibleClaimCategory();
             complaintsRegistrationAndDataInput.selectAnOwningCSU();
         }
+        if (complaintType.equalsIgnoreCase("Serious Misconduct")) {
+            clickContinueButton();
+            complaintsRegistrationAndDataInput.openTheServiceComplaintCategoryAccordion();
+            waitABit(1000);
+            complaintsRegistrationAndDataInput.selectAVisibleClaimCategory();
+            complaintsRegistrationAndDataInput.selectAnOwningCSU();
+        }
         clickFinishButton();
     }
 
@@ -195,7 +239,7 @@ public class COMPProgressCase extends BasePage {
         correspondents.confirmPrimaryCorrespondent();
         complaintsRegistrationAndDataInput.enterComplainantDetails();
         complaintsRegistrationAndDataInput.selectASpecificComplaintType("Serious misconduct");
-        complaintsTriageAndInvestigation.selectAVisibleClaimCategory();
+        complaintsTriageAndInvestigation.selectUKVIClaimCategory("Serious misconduct");
         clickContinueButton();
         selectRandomRadioButtonFromGroupWithHeading("Channel");
         complaintsRegistrationAndDataInput.enterAPreviousUKVIPSUComplaintReference();
@@ -209,7 +253,7 @@ public class COMPProgressCase extends BasePage {
         correspondents.confirmPrimaryCorrespondent();
         complaintsRegistrationAndDataInput.enterComplainantDetails();
         complaintsRegistrationAndDataInput.selectASpecificComplaintType("Serious misconduct");
-        complaintsTriageAndInvestigation.selectAVisibleClaimCategory();
+        complaintsTriageAndInvestigation.selectUKVIClaimCategory("Serious misconduct");
         clickContinueButton();
         selectRandomRadioButtonFromGroupWithHeading("Channel");
         complaintsRegistrationAndDataInput.enterAPreviousUKVIPSUComplaintReference();

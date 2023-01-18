@@ -87,7 +87,11 @@ public class RecordCaseData extends BasePage{
 
     public String checkRandomCheckboxFromList(List<WebElementFacade> checkboxes) {
         String checkboxLabelText = super.checkRandomCheckboxFromList(checkboxes);
+        if(compCase() || comp2Case() || comp2DirectCase()){
+            addHeadingAndValueRecord( "Serious misconduct", checkboxLabelText);
+        } else {
         addValueRecord(checkboxLabelText);
+        }
         return checkboxLabelText;
     }
 

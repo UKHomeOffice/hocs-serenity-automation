@@ -714,4 +714,9 @@ public class WorkstacksStepDefs extends BasePage {
 
     }
 
+    @And("the case stage should be {string} and {string} tag is appended to the case reference")
+    public void theCaseStageShouldBeAndTagIsAppendedToTheCaseReference(String caseStage, String caseReferenceTag) {
+        workstacks.assertCaseReferenceTag(caseReferenceTag);
+        workstacks.assertCaseStage(caseStage);
+    }
 }

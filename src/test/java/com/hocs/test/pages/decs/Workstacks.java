@@ -947,4 +947,16 @@ public class Workstacks extends BasePage {
             System.out.println("Expected rejection tag '" + psuRejectionTag + "' has been appended to the case reference ");
         }
     }
+
+    public void assertCaseStage(String caseStage) {
+
+        WebElementFacade caseStageDetails = findBy("//a[text()='" + getCurrentCaseReference() + "']/parent::td/following-sibling::td");
+        String caseStageText = caseStageDetails.getText();
+        if(!caseStageText.equalsIgnoreCase(caseStage)){
+            Assert.fail("Expected case stage is '" + caseStage + "', but column value was '" + caseStageText + "'");
+        } else {
+            System.out.println("Expected case stage is '" + caseStageText + "' has been displayed ");
+
+        }
+    }
 }
