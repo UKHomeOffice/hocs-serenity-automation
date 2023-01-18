@@ -17,9 +17,9 @@ Feature: Create case
       | TRO      | Data Input                  | ORIGINAL                | Performance and Process Team      |
       | MPAM     | Creation                    | Original correspondence | MPAM Creation                     |
       | MTS      | Data Input                  | Original correspondence | MTS Team                          |
-      | COMP     | Registration                | To document             | Complaint Registration            |
-      | COMP2    | Stage 2 Registration        | To document             | Stage 2 Complaint Registration    |
-      | IEDET    | IE DETENTION REGISTRATION    | Original complaint      | IE Detention                      |
+      | COMP     | UKVI Registration           | To document             | Complaint Registration            |
+      | COMP2    | UKVI Stage 2 Registration   | To document             | Stage 2 Complaint Registration    |
+      | IEDET    | IE DETENTION REGISTRATION   | Original complaint      | IE Detention                      |
       | FOI      | Case Creation               | Request                 | FOI Creation                      |
       | TO       | Data Input                  | Initial Correspondence  | Treat Official Creation           |
       | BF       | Case Registration           | To document             | Border Force Complaints           |

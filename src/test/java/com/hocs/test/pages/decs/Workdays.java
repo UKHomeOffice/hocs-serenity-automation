@@ -49,6 +49,14 @@ public class Workdays extends BasePage{
         bankHolidays.add(LocalDate.parse("26/12/2022", formatter));
         bankHolidays.add(LocalDate.parse("27/12/2022", formatter));
         bankHolidays.add(LocalDate.parse("02/01/2023", formatter));
+        bankHolidays.add(LocalDate.parse("07/04/2023", formatter));
+        bankHolidays.add(LocalDate.parse("10/04/2023", formatter));
+        bankHolidays.add(LocalDate.parse("01/05/2023", formatter));
+        bankHolidays.add(LocalDate.parse("08/05/2023", formatter));
+        bankHolidays.add(LocalDate.parse("29/05/2023", formatter));
+        bankHolidays.add(LocalDate.parse("28/08/2023", formatter));
+        bankHolidays.add(LocalDate.parse("25/12/2023", formatter));
+        bankHolidays.add(LocalDate.parse("26/12/2023", formatter));
     }
 
     private void addAdditionalScottishAndNIBankHolidays() {
@@ -58,6 +66,11 @@ public class Workdays extends BasePage{
         bankHolidays.add(LocalDate.parse("12/07/2022", formatter));
         bankHolidays.add(LocalDate.parse("01/08/2022", formatter));
         bankHolidays.add(LocalDate.parse("30/11/2022", formatter));
+        bankHolidays.add(LocalDate.parse("03/01/2023", formatter));
+        bankHolidays.add(LocalDate.parse("17/03/2023", formatter));
+        bankHolidays.add(LocalDate.parse("12/07/2023", formatter));
+        bankHolidays.add(LocalDate.parse("07/08/2023", formatter));
+        bankHolidays.add(LocalDate.parse("30/11/2023", formatter));
     }
 
     private boolean isWorkday(LocalDate inputDate) {
