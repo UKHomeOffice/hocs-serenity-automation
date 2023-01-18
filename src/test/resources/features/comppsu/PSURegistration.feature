@@ -9,20 +9,14 @@ Feature: PSU Registration
     Then When I attempt to continue without selecting a PSU Reference an error message is displayed
 
   @ComplaintsWorkflow @COMPPSURegression @UKVIComplaints
-  Scenario: User attempts to progress a UKVI PSU case without entering a PSU reference
+  Scenario Outline: User attempts to progress a UKVI PSU case without entering a PSU reference
     Given I am logged into "CS" as user "COMP_USER"
-    When I create a "COMP" case and move it to the "PSU_Registration" stage
+    When I create a "<caseType>" case and move it to the "<caseStage>" stage
     Then When I attempt to continue without selecting a PSU Reference an error message is displayed
 
-  @ComplaintsWorkflow @COMPPSURegression @UKVIComplaints
-  Scenario: User attempts to progress a UKVI COMP2 PSU case without entering a PSU reference
-    Given I am logged into "CS" as user "COMP_USER"
-    When I create a "COMP2" case and move it to the "PSU_Registration" stage
-    Then When I attempt to continue without selecting a PSU Reference an error message is displayed
-
-  @ComplaintsWorkflow @COMPPSURegression @UKVIComplaints
-  Scenario: User attempts to progress a UKVI PSU Stage 2 case without entering a PSU reference
-    Given I am logged into "CS" as user "COMP_USER"
-    When I create a "COMP2DIRECT" case and move it to the "PSU_Registration" stage
-    Then When I attempt to continue without selecting a PSU Reference an error message is displayed
+    Examples:
+      | caseStage        | caseType    |
+      | PSU_Registration | COMP        |
+      | PSU_Registration | COMP2       |
+      | PSU_Registration | COMP2DIRECT |
 
