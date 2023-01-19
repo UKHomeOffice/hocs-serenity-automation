@@ -10,9 +10,9 @@ Feature: Complaints Escalated
     When I create a "COMP" case and move it to the "Service Escalated" stage
     And I load and claim the current case
     And I select to return the case to Triage
-    Then the case should be moved to the "Service Triage" stage
+    Then the case should be moved to the "UKVI Service Triage" stage
     And the summary should display the owning team as "CCT Stage 1 Triage Team"
-    And the read-only Case Details accordion should contain all case information entered during the "Service Escalated" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Service Escalated" stage
 
   # HOCS-3076, HOCS-3028
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
@@ -21,9 +21,9 @@ Feature: Complaints Escalated
     When I create a "COMP" case and move it to the "Service Escalated" stage
     And I load and claim the current case
     And I select to send the case to drafting
-    Then the case should be moved to the "Service Draft" stage
+    Then the case should be moved to the "UKVI Service Draft" stage
     And the summary should display the owning team as "CCT Stage 1 Response Team"
-    And the read-only Case Details accordion should contain all case information entered during the "Service Escalated" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Service Escalated" stage
 
   # Expected failure. Defect HOCS-4308 raised.
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
@@ -32,9 +32,9 @@ Feature: Complaints Escalated
     When I create a "COMP" case and move it to the "Ex-Gratia Escalate" stage
     And I load and claim the current case
     And I select to return the case to Triage
-    Then the case should be moved to the "Ex-Gratia Triage" stage
+    Then the case should be moved to the "UKVI Ex-Gratia Triage" stage
     And the summary should display the owning team as "Ex-Gratia"
-    And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia Escalate" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Ex-Gratia Escalate" stage
 
   # Expected failure. Defect HOCS-4308 raised.
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
@@ -43,9 +43,9 @@ Feature: Complaints Escalated
     When I create a "COMP" case and move it to the "Ex-Gratia Escalate" stage
     And I load and claim the current case
     And I select to send the case to drafting
-    Then the case should be moved to the "Ex-Gratia Response Draft" stage
+    Then the case should be moved to the "UKVI Ex-Gratia Response Draft" stage
     And the summary should display the owning team as "Ex-Gratia"
-    And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia Escalate" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Ex-Gratia Escalate" stage
 
   # Expected failure. Defect HOCS-4308 raised.
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
@@ -54,9 +54,9 @@ Feature: Complaints Escalated
     When I create a "COMP" case and move it to the "Minor Misconduct Escalate" stage
     And I load and claim the current case
     And I select to return the case to Triage
-    Then the case should be moved to the "Minor Misconduct Triage" stage
+    Then the case should be moved to the "UKVI Minor Misconduct Triage" stage
     And the summary should display the owning team as "Minor Misconduct"
-    And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct Escalate" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Minor Misconduct Escalate" stage
 
   # Expected failure. Defect HOCS-4308 raised.
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
@@ -65,9 +65,9 @@ Feature: Complaints Escalated
     When I create a "COMP" case and move it to the "Minor Misconduct Escalate" stage
     And I load and claim the current case
     And I select to send the case to drafting
-    Then the case should be moved to the "Minor Misconduct Response Draft" stage
+    Then the case should be moved to the "UKVI Minor Misconduct Response Draft" stage
     And the summary should display the owning team as "Minor Misconduct"
-    And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct Escalate" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Minor Misconduct Escalate" stage
 
   # HOCS-2870, HOCS-3096
   @COMPRegression @UKVIComplaints
@@ -105,9 +105,9 @@ Feature: Complaints Escalated
     When I create a "COMP2" case and move it to the "Service Escalated" stage
     And I load and claim the current case
     And I select to return the case to Triage
-    Then the case should be moved to the "Stage 2 Service Triage" stage
+    Then the case should be moved to the "UKVI Stage 2 Service Triage" stage
     And the summary should display the owning team as "Stage 2 CCT Triage Team"
-    And the read-only Case Details accordion should contain all case information entered during the "Stage 2 Service Escalate" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Stage 2 Service Escalate" stage
 
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can send a UKVI stage 2 complaint case to Service Draft stage
@@ -115,9 +115,9 @@ Feature: Complaints Escalated
     When I create a "COMP2" case and move it to the "Service Escalated" stage
     And I load and claim the current case
     And I select to send the case to drafting
-    Then the case should be moved to the "Stage 2 Service Draft" stage
+    Then the case should be moved to the "UKVI Stage 2 Service Draft" stage
     And the summary should display the owning team as "Stage 2 CCT Response Team"
-    And the read-only Case Details accordion should contain all case information entered during the "Stage 2 Service Escalate" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Stage 2 Service Escalate" stage
 
 
 #     BF COMPLAINTS
@@ -137,7 +137,7 @@ Feature: Complaints Escalated
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF" case at the "Escalated to WFM" stage
     And I select to return the case to Triage
-    Then the case should be moved to the "Case Triage" stage
+    Then the case should be moved to the "UKVI Case Triage" stage
     And the summary should display the owning team as "Border Force"
 
   # HOCS-4055

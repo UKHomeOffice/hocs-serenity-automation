@@ -62,7 +62,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     }
 
     public void enterDateOfAcceptance() {
-        recordCaseData.enterDateIntoDateFieldsWithHeading(getDatePlusMinusNDaysAgo(-5), "Date of Acceptance");
+        recordCaseData.enterDateIntoDateFieldsWithHeading(getDatePlusMinusNDaysAgo(-5), "Date of acceptance");
     }
 
     public void selectEnquiryReason(String enquiryReason) {
@@ -76,7 +76,8 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     }
 
     public void selectTransferComplaint() {
-        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No - transfer the complaint", "Can your team respond to this complaint?");
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No - transfer the complaint to CCH", "Can your team respond to this "
+                + "complaint?");
         clickContinueButton();
     }
 

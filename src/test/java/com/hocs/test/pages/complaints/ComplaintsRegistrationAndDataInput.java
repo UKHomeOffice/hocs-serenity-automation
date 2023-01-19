@@ -157,8 +157,13 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
     }
 
     public void enterAThirdPartyReference() {
-        if (iedetCase()||compCase()||comp2Case()||comp2DirectCase()) {recordCaseData.enterTextIntoTextFieldWithHeading("Third party reference");
+        if (iedetCase()) {recordCaseData.enterTextIntoTextFieldWithHeading("Third party reference");
         } else {recordCaseData.enterTextIntoTextFieldWithHeading("Third Party Reference");}
+    }
+
+    public void enterAThirdPartyReferencePSU() {
+       recordCaseData.enterTextIntoTextFieldWithHeading("Third party reference");
+
     }
 
     public void enterComplaintDetails() {

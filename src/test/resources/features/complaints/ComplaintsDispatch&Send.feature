@@ -13,7 +13,7 @@ Feature: Complaints Dispatch & Send
     And I select a Case Outcome
     And I submit the Response details
     Then the case should be closed
-    And the read-only Case Details accordion should contain all case information entered during the "Service Send" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Service Send" stage
 
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can complete Ex-Gratia send stage for a UKVI complaint case
@@ -24,7 +24,7 @@ Feature: Complaints Dispatch & Send
     And I select a Case Outcome
     And I submit the Response details
     Then the case should be closed
-    And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia Send" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Ex-Gratia Send" stage
 
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can complete Minor Misconduct send stage for a UKVI complaint case
@@ -35,7 +35,7 @@ Feature: Complaints Dispatch & Send
     And I select a Case Outcome
     And I submit the Response details
     Then the case should be closed
-    And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct Send" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Minor Misconduct Send" stage
 
   @Validation @UKVIComplaints
   Scenario Outline: User tests the validation for a UKVI complaint case at the Service Send stage
@@ -61,7 +61,7 @@ Feature: Complaints Dispatch & Send
     And I select a Case Outcome
     And I submit the Response details
     Then the case should be closed
-    And the read-only Case Details accordion should contain all case information entered during the "Stage 2 Service Send" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Stage 2 Service Send" stage
 
 
 #     IEDET COMPLAINTS
