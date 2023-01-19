@@ -87,8 +87,11 @@ public class COMPProgressCase extends BasePage {
                 break;
             case "TRIAGE":
             case "PSU_REGISTRATION":
-                if(comp2DirectCase()){precedingStage = "STAGE_2_REGISTRATION";}
-                else {precedingStage = "REGISTRATION";}
+                if(compCase()){
+                    precedingStage = "REGISTRATION";
+                } else if (comp2Case() || comp2DirectCase()) {
+               precedingStage = "STAGE_2_REGISTRATION";
+                }
                 break;
             case "DRAFT":
             case "ESCALATED":
@@ -118,6 +121,7 @@ public class COMPProgressCase extends BasePage {
 
     public void createCaseOfTypeAndMoveItToTargetStageWithSpecifiedComplaintType(CaseType caseType, String complaintType, String targetStage) {
         this.complaintType = complaintType;
+        setCurrentCaseType(caseType);
         moveCaseOfTypeFromCurrentStageToTargetStage(caseType, "N/A", targetStage);
     }
 
@@ -143,6 +147,9 @@ public class COMPProgressCase extends BasePage {
                         break;
                     case "STAGE_2_CCT_TRIAGE_TEAM":
                         //placeholder
+                        break;
+                    case "TRIAGE":
+                        moveCaseFromRegistrationToTriage();
                         break;
                     default:
                         pendingStep(targetStage + " is not defined within " + getMethodName());
@@ -243,12 +250,13 @@ public class COMPProgressCase extends BasePage {
         clickContinueButton();
         selectRandomRadioButtonFromGroupWithHeading("Channel");
         complaintsRegistrationAndDataInput.enterAPreviousUKVIPSUComplaintReference();
-        complaintsRegistrationAndDataInput.enterAThirdPartyReference();
+        complaintsRegistrationAndDataInput.enterAThirdPartyReferencePSU();
         clickTheButton("Finish and escalate to PSU");
         }
     public void moveCaseFromStage2RegistrationToPSURegistration() {
+        if(comp2DirectCase()){
         selectSpecificRadioButton("Yes - it's a Sopra Steria case");
-        clickTheButton("Submit");
+        clickTheButton("Submit");}
         correspondents.addANonMemberCorrespondentOfType("Complainant");
         correspondents.confirmPrimaryCorrespondent();
         complaintsRegistrationAndDataInput.enterComplainantDetails();
@@ -257,7 +265,7 @@ public class COMPProgressCase extends BasePage {
         clickContinueButton();
         selectRandomRadioButtonFromGroupWithHeading("Channel");
         complaintsRegistrationAndDataInput.enterAPreviousUKVIPSUComplaintReference();
-        complaintsRegistrationAndDataInput.enterAThirdPartyReference();
+        complaintsRegistrationAndDataInput.enterAThirdPartyReferencePSU();
         clickTheButton("Finish and escalate to PSU");
     }
 
@@ -276,7 +284,7 @@ public class COMPProgressCase extends BasePage {
         waitForDECSPageWithTitle("Triage Capture Reason");
         complaintsTriageAndInvestigation.enterDetailsOnTriageCaptureReasonPage();
         clickContinueButton();
-        waitForDECSPageWithTitle("Triage Contributions");
+        waitForDECSPageWithTitle("Triage contributions");
         if(sessionVariableCalled("isLoARequired").equals("Yes")) {
             complaintsTriageAndInvestigation.enterLoAReceivedDetails();
         }

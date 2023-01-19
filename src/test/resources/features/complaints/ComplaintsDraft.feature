@@ -12,9 +12,9 @@ Feature: Complaints Draft
     And I load and claim the current case
     And I upload my Primary "DRAFT" document
     And I select the "Response is ready to send" action at the Service Draft stage
-    Then the case should be moved to the "Service Send" stage
+    Then the case should be moved to the "UKVI Service Send" stage
     And the summary should display the owning team as "CCT Stage 1 Response Team"
-    And the read-only Case Details accordion should contain all case information entered during the "Service Draft" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Service Draft" stage
     And the selected document should be tagged as the primary draft
 
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
@@ -24,9 +24,9 @@ Feature: Complaints Draft
     And I load and claim the current case
     And I upload my Primary "DRAFT" document
     And I select the "Response is ready to send" action at the Service Draft stage
-    Then the case should be moved to the "Ex-Gratia Send" stage
+    Then the case should be moved to the "UKVI Ex-Gratia Send" stage
     And the summary should display the owning team as "Ex-Gratia"
-    And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia Response Draft" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Ex-Gratia Response Draft" stage
     And the selected document should be tagged as the primary draft
 
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
@@ -36,9 +36,9 @@ Feature: Complaints Draft
     And I load and claim the current case
     And I upload my Primary "DRAFT" document
     And I select the "Response is ready to send" action at the Service Draft stage
-    Then the case should be moved to the "Minor Misconduct Send" stage
+    Then the case should be moved to the "UKVI Minor Misconduct Send" stage
     And the summary should display the owning team as "Minor Misconduct"
-    And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct Response Draft" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Minor Misconduct Response Draft" stage
     And the selected document should be tagged as the primary draft
 
   # HOCS-3695
@@ -49,9 +49,9 @@ Feature: Complaints Draft
     And I load and claim the current case
     And I upload my Primary "DRAFT" document
     And I select the "Send case to QA" action at the Service Draft stage
-    Then the case should be moved to the "Service QA" stage
+    Then the case should be moved to the "UKVI Service QA" stage
     And the summary should display the owning team as "CCT Stage 1 Response QA"
-    And the read-only Case Details accordion should contain all case information entered during the "Service Draft" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Service Draft" stage
     And the selected document should be tagged as the primary draft
 
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
@@ -61,9 +61,9 @@ Feature: Complaints Draft
     And I load and claim the current case
     And I upload my Primary "DRAFT" document
     And I select the "Send case to QA" action at the Service Draft stage
-    Then the case should be moved to the "Ex-Gratia QA" stage
+    Then the case should be moved to the "UKVI Ex-Gratia QA" stage
     And the summary should display the owning team as "Ex-Gratia"
-    And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia Response Draft" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Ex-Gratia Response Draft" stage
     And the selected document should be tagged as the primary draft
 
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
@@ -73,9 +73,9 @@ Feature: Complaints Draft
     And I load and claim the current case
     And I upload my Primary "DRAFT" document
     And I select the "Send case to QA" action at the Service Draft stage
-    Then the case should be moved to the "Minor Misconduct QA" stage
+    Then the case should be moved to the "UKVI Minor Misconduct QA" stage
     And the summary should display the owning team as "Minor Misconduct"
-    And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct Response Draft" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Minor Misconduct Response Draft" stage
     And the selected document should be tagged as the primary draft
 
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
@@ -84,10 +84,10 @@ Feature: Complaints Draft
     When I create a "COMP" case and move it to the "Service Draft" stage
     And I load and claim the current case
     And I escalate the case to WFM at Service Draft stage
-    Then the case should be moved to the "Service Escalated" stage
+    Then the case should be moved to the "UKVI Service Escalated" stage
     And the summary should display the owning team as "CCT Stage 1 Escalated"
     And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
-    And the read-only Case Details accordion should contain all case information entered during the "Service Draft" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Service Draft" stage
 
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User is able to escalate a UKVI complaint case to WFM at Ex-Gratia Response Draft stage
@@ -95,10 +95,10 @@ Feature: Complaints Draft
     When I create a "COMP" case and move it to the "Ex-Gratia Response Draft" stage
     And I load and claim the current case
     And I escalate the case to WFM at Service Draft stage
-    Then the case should be moved to the "Ex-Gratia Escalate" stage
+    Then the case should be moved to the "UKVI Ex-Gratia Escalate" stage
     And the summary should display the owning team as "Ex-Gratia"
     And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
-    And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia Response Draft" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Ex-Gratia Response Draft" stage
 
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User is able to escalate a UKVI complaint case to WFM at Minor Misconduct Response Draft stage
@@ -106,10 +106,10 @@ Feature: Complaints Draft
     When I create a "COMP" case and move it to the "Minor Misconduct Response Draft" stage
     And I load and claim the current case
     And I escalate the case to WFM at Service Draft stage
-    Then the case should be moved to the "Minor Misconduct Escalate" stage
+    Then the case should be moved to the "UKVI Minor Misconduct Escalate" stage
     And the summary should display the owning team as "Minor Misconduct"
     And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
-    And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct Response Draft" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Minor Misconduct Response Draft" stage
 
   # HOCS-3076
   @Validation @UKVIComplaints
@@ -143,9 +143,9 @@ Feature: Complaints Draft
     And I load and claim the current case
     And I upload my Primary "DRAFT" document
     And I select the "Response is ready to send" action at the Service Draft stage
-    Then the case should be moved to the "Stage 2 Service Send" stage
+    Then the case should be moved to the "UKVI Stage 2 Service Send" stage
     And the summary should display the owning team as "Stage 2 CCT Response Team"
-    And the read-only Case Details accordion should contain all case information entered during the "Stage 2 Service Draft" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Stage 2 Service Draft" stage
     And the selected document should be tagged as the primary draft
 
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
@@ -155,9 +155,9 @@ Feature: Complaints Draft
     And I load and claim the current case
     And I upload my Primary "DRAFT" document
     And I select the "Send case to QA" action at the Service Draft stage
-    Then the case should be moved to the "Stage 2 Service QA" stage
+    Then the case should be moved to the "UKVI Stage 2 Service QA" stage
     And the summary should display the owning team as "Stage 2 CCT Response QA"
-    And the read-only Case Details accordion should contain all case information entered during the "Stage 2 Service Draft" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Stage 2 Service Draft" stage
     And the selected document should be tagged as the primary draft
 
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
@@ -166,10 +166,10 @@ Feature: Complaints Draft
     When I create a "COMP2" case and move it to the "Service Draft" stage
     And I load and claim the current case
     And I escalate the case to WFM at Service Draft stage
-    Then the case should be moved to the "Stage 2 Service Escalate" stage
+    Then the case should be moved to the "UKVI Stage 2 Service Escalate" stage
     And the summary should display the owning team as "Stage 2 CCT Escalated"
     And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
-    And the read-only Case Details accordion should contain all case information entered during the "Stage 2 Service Draft" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Stage 2 Service Draft" stage
 
 
 #     IEDET COMPLAINTS

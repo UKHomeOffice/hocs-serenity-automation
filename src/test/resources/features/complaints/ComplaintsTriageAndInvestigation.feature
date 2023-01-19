@@ -11,10 +11,10 @@ Feature: Complaints Triage
     And I load and claim the current case
     And I select to Transfer the complaint
     And I enter a reason for "CCH" transfer and continue
-    Then the case should be moved to the "CCH" stage
+    Then the case should be moved to the "UKVI CCH" stage
     And the summary should display the owning team as "CCH Returned Cases"
     And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
-    And the read-only Case Details accordion should contain all case information entered during the "<complaintType> Triage" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI <complaintType> Triage" stage
     Examples:
       | complaintType    |
       | Service          |
@@ -32,9 +32,9 @@ Feature: Complaints Triage
     And I accept the previous Case Details selection
     And I submit details on the Triage Capture Reason page
     When I send the case to drafting
-    Then the case should be moved to the "Service Draft" stage
+    Then the case should be moved to the "UKVI Service Draft" stage
     And the summary should display the owning team as "CCT Stage 1 Response Team"
-    And the read-only Case Details accordion should contain all case information entered during the "Service Triage" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Service Triage" stage
 
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User completes the Ex-Gratia Triage stage for a UKVI complaint case
@@ -47,9 +47,9 @@ Feature: Complaints Triage
     And I accept the previous Case Details selection
     And I submit details on the Triage Capture Reason page
     And I send the case to drafting
-    Then the case should be moved to the "Ex-Gratia Response Draft" stage
+    Then the case should be moved to the "UKVI Ex-Gratia Response Draft" stage
     And the summary should display the owning team as "Ex-Gratia"
-    And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia Triage" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Ex-Gratia Triage" stage
 
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User completes the Minor Misconduct Triage stage for a UKVI complaint case
@@ -63,9 +63,9 @@ Feature: Complaints Triage
     And I accept the previous Case Details selection
     And I submit details on the Triage Capture Reason page
     When I send the case to drafting
-    Then the case should be moved to the "Minor Misconduct Response Draft" stage
+    Then the case should be moved to the "UKVI Minor Misconduct Response Draft" stage
     And the summary should display the owning team as "Minor Misconduct"
-    And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct Triage" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Minor Misconduct Triage" stage
 
   # HOCS-3028
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
@@ -78,10 +78,10 @@ Feature: Complaints Triage
     And I accept the previous Case Details selection
     And I submit details on the Triage Capture Reason page
     And I escalate the case to WFM at Triage stage
-    Then the case should be moved to the "Service Escalated" stage
+    Then the case should be moved to the "UKVI Service Escalated" stage
     And the summary should display the owning team as "CCT Stage 1 Escalated"
     And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
-    And the read-only Case Details accordion should contain all case information entered during the "Service Triage" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Service Triage" stage
 
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can escalate a UKVI complaint case at Ex-Gratia Triage stage
@@ -94,7 +94,7 @@ Feature: Complaints Triage
     And I accept the previous Case Details selection
     And I submit details on the Triage Capture Reason page
     And I escalate the case to WFM at Triage stage
-    Then the case should be moved to the "Ex-Gratia Escalate" stage
+    Then the case should be moved to the "UKVI Ex-Gratia Escalate" stage
     And the summary should display the owning team as "Ex-Gratia"
     And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
 
@@ -110,7 +110,7 @@ Feature: Complaints Triage
     And I accept the previous Case Details selection
     And I submit details on the Triage Capture Reason page
     And I escalate the case to WFM at Triage stage
-    Then the case should be moved to the "Minor Misconduct Escalate" stage
+    Then the case should be moved to the "UKVI Minor Misconduct Escalate" stage
     And the summary should display the owning team as "Minor Misconduct"
     And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
 
@@ -130,7 +130,7 @@ Feature: Complaints Triage
     And I click the "Complete case" button
     Then the case should be closed
     And a Case closure note should be visible in the timeline showing the submitted reason for closing the case
-    And the read-only Case Details accordion should contain all case information entered during the "Service Triage" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Service Triage" stage
 
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can hard close a UKVI complaint case at Ex-Gratia Triage stage
@@ -148,7 +148,7 @@ Feature: Complaints Triage
     And I click the "Complete case" button
     Then the case should be closed
     And a Case closure note should be visible in the timeline showing the submitted reason for closing the case
-    And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia Triage" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Ex-Gratia Triage" stage
 
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can hard close a UKVI complaint case at Minor Misconduct Triage stage
@@ -167,7 +167,7 @@ Feature: Complaints Triage
     And I click the "Complete case" button
     Then the case should be closed
     And a Case closure note should be visible in the timeline showing the submitted reason for closing the case
-    And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct Triage" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Minor Misconduct Triage" stage
 
   # HOCS-2870, HOCS-3096, HOCS-3022
   @COMPRegression @UKVIComplaints
@@ -216,7 +216,7 @@ Feature: Complaints Triage
     And I can mark that the LoA was received and enter the LoA date
     And I send the case to drafting
     And I load the current case
-    And the read-only Case Details accordion should contain all case information entered during the "Service Triage" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Service Triage" stage
 
   @Validation @UKVIComplaints
   Scenario Outline: User tests the validation for a UKVI complaint case at the Service Triage stage
@@ -251,9 +251,9 @@ Feature: Complaints Triage
     And I accept the previous Case Details selection
     And I submit details on the Triage Capture Reason page
     When I send the case to drafting
-    Then the case should be moved to the "Stage 2 Service Draft" stage
+    Then the case should be moved to the "UKVI Stage 2 Service Draft" stage
     And the summary should display the owning team as "Stage 2 CCT Response Team"
-    And the read-only Case Details accordion should contain all case information entered during the "Stage 2 Service Triage" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Stage 2 Service Triage" stage
 
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can escalate a UKVI stage 2 complaint case at Service Triage stage
@@ -265,10 +265,10 @@ Feature: Complaints Triage
     And I accept the previous Case Details selection
     And I submit details on the Triage Capture Reason page
     And I escalate the case to WFM at Triage stage
-    Then the case should be moved to the "Stage 2 Service Escalate" stage
+    Then the case should be moved to the "UKVI Stage 2 Service Escalate" stage
     And the summary should display the owning team as "Stage 2 CCT Escalated"
     And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
-    And the read-only Case Details accordion should contain all case information entered during the "Stage 2 Service Triage" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Stage 2 Service Triage" stage
 
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can hard close a UKVI stage 2 complaint case at Service Triage stage
@@ -285,7 +285,7 @@ Feature: Complaints Triage
     And I click the "Complete case" button
     Then the case should be closed
     And a Case closure note should be visible in the timeline showing the submitted reason for closing the case
-    And the read-only Case Details accordion should contain all case information entered during the "Stage 2 Service Triage" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Stage 2 Service Triage" stage
 
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can transfer a Stage 2 UKVI complaint case back to CCH
@@ -294,10 +294,10 @@ Feature: Complaints Triage
     And I load and claim the current case
     And I select to Transfer the complaint
     And I enter a reason for "CCH" transfer and continue
-    Then the case should be moved to the "Stage 2 CCH" stage
+    Then the case should be moved to the "UKVI Stage 2 CCH" stage
     And the summary should display the owning team as "Stage 2 CCH Returned Cases"
     And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
-    And the read-only Case Details accordion should contain all case information entered during the "Stage 2 Service Triage" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Stage 2 Service Triage" stage
 
 
 #     IEDET COMPLAINTS

@@ -18,9 +18,9 @@ Feature: Registration
     And I select a "Service" Complaint Category
     And I select a Owning CSU
     When I click the "Finish" button
-    Then the case should be moved to the "Service Triage" stage
+    Then the case should be moved to the "UKVI Service Triage" stage
     And the summary should display the owning team as "CCT Stage 1 Triage Team"
-    And the read-only Case Details accordion should contain all case information entered during the "Registration" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Registration" stage
 
   # HOCS-3441, HOCS-3442
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
@@ -34,9 +34,9 @@ Feature: Registration
     And I select "Ex-Gratia" as the Complaint Type
     And I enter the complaint details on the Complaint Input page
     And I click the "Finish" button
-    Then the case should be moved to the "Ex-Gratia Triage" stage
+    Then the case should be moved to the "UKVI Ex-Gratia Triage" stage
     And the summary should display the owning team as "Ex-Gratia"
-    And the read-only Case Details accordion should contain all case information entered during the "Registration" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Registration" stage
 
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can complete the Registration stage for a UKVI Minor Misconduct complaint case
@@ -46,12 +46,12 @@ Feature: Registration
     And I add a "Complainant" correspondent
     And I click the "Continue" button
     And I enter the Complainant Details
-    And I select "Minor Misconduct" as the Complaint Type
+    And I select "Minor misconduct" as the Complaint Type
     And I enter the complaint details on the Complaint Input page
     And I click the "Finish" button
-    Then the case should be moved to the "Minor Misconduct Triage" stage
+    Then the case should be moved to the "UKVI Minor Misconduct Triage" stage
     And the summary should display the owning team as "Minor Misconduct"
-    And the read-only Case Details accordion should contain all case information entered during the "Registration" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Registration" stage
 
   # HOCS-2709, HOCS-2858
   @COMPRegression @UKVIComplaints
@@ -104,9 +104,9 @@ Feature: Registration
     And I select a "Service" Complaint Category
     And I select a Owning CSU
     When I click the "Finish" button
-    Then the case should be moved to the "Stage 2 Service Triage" stage
+    Then the case should be moved to the "UKVI Stage 2 Service Triage" stage
     And the summary should display the owning team as "Stage 2 CCT Triage Team"
-    And the read-only Case Details accordion should contain all case information entered during the "Stage 2 Registration" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Stage 2 Registration" stage
 
     #   UKVI COMPLAINTS STAGE 2 Direct
 
@@ -128,10 +128,10 @@ Feature: Registration
     And I select a "Service" Complaint Category
     And I select a Owning CSU
     When I click the "Finish" button
-    Then the case should be moved to the "Stage 2 Service Triage" stage
+    Then the case should be moved to the "UKVI Stage 2 Service Triage" stage
     And the summary should display the owning team as "Stage 2 CCT Triage Team"
     And the summary should contain details of the Complaint Origin
-    And the read-only Case Details accordion should contain all case information entered during the "Stage 2 Registration" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Stage 2 Registration" stage
 
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can create UKVI stage 2 complaint case directly amd close the case if they don't want to continue

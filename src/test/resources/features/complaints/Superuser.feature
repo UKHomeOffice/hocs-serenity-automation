@@ -18,7 +18,7 @@ Feature: Superuser
     And I switch to user "COMP_SUPERUSER"
     And I load the current case
     And I move the case from "Registration" stage to "Service Triage" stage
-    Then the case should be moved to the "Service Triage" stage
+    Then the case should be moved to the "UKVI Service Triage" stage
     And I logout of the application
 
 

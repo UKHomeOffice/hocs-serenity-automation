@@ -12,7 +12,7 @@ Feature: Complaints QA
     When I "accept" the response to the complaint at the QA stage
     Then the case should be moved to the "Service Send" stage
     And the summary should display the owning team as "CCT Stage 1 Response Team"
-    And the read-only Case Details accordion should contain all case information entered during the "Service QA" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Service QA" stage
 
   # HOCS-3039
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
@@ -24,7 +24,7 @@ Feature: Complaints QA
     Then the case should be moved to the "Service Draft" stage
     And the summary should display the owning team as "CCT Stage 1 Response Team"
     And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
-    And the read-only Case Details accordion should contain all case information entered during the "Service QA" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Service QA" stage
 
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can accept the response and send a UKVI complaint case to Ex-Gratia Send stage
