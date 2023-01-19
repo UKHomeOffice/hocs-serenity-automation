@@ -1987,7 +1987,7 @@ public class ValidationStepDefs extends BasePage {
                                 errorText = "Which is the primary correspondent?";
                                 break;
                             case "COMPLAINT TYPE REQUIRED":
-                                errorText = "Complaint Type";
+                                errorText = "Complaint type is required";
                                 break;
                             case "CHANNEL REQUIRED":
                                 errorText = "Channel";

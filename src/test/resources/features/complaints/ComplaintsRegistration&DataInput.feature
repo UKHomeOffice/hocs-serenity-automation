@@ -140,7 +140,6 @@ Feature: Registration
     And I click to view the case in the "Stage 2 Complaint Registration" workstack
     Then I filter the workstack using the current cases reference
     Then I click the link for the current case in the workstack
-  #  Then I claim the current case
     Then I load and claim the current case
     And I select Sopra Steria case option "No - close the case"
     Then the case should be closed
