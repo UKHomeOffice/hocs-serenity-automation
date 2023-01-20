@@ -95,7 +95,7 @@ Feature: Complaints Draft
     When I create a "COMP" case and move it to the "Ex-Gratia Response Draft" stage
     And I load and claim the current case
     And I escalate the case to WFM at Service Draft stage
-    Then the case should be moved to the "UKVI Ex-Gratia Escalate" stage
+    Then the case should be moved to the "UKVI Ex-Gratia Escalated" stage
     And the summary should display the owning team as "Ex-Gratia"
     And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
     And the read-only Case Details accordion should contain all case information entered during the "UKVI Ex-Gratia Response Draft" stage
@@ -106,7 +106,7 @@ Feature: Complaints Draft
     When I create a "COMP" case and move it to the "Minor Misconduct Response Draft" stage
     And I load and claim the current case
     And I escalate the case to WFM at Service Draft stage
-    Then the case should be moved to the "UKVI Minor Misconduct Escalate" stage
+    Then the case should be moved to the "UKVI Minor Misconduct Escalated" stage
     And the summary should display the owning team as "Minor Misconduct"
     And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
     And the read-only Case Details accordion should contain all case information entered during the "UKVI Minor Misconduct Response Draft" stage
@@ -166,7 +166,7 @@ Feature: Complaints Draft
     When I create a "COMP2" case and move it to the "Service Draft" stage
     And I load and claim the current case
     And I escalate the case to WFM at Service Draft stage
-    Then the case should be moved to the "UKVI Stage 2 Service Escalate" stage
+    Then the case should be moved to the "UKVI Stage 2 Service Escalated" stage
     And the summary should display the owning team as "Stage 2 CCT Escalated"
     And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
     And the read-only Case Details accordion should contain all case information entered during the "UKVI Stage 2 Service Draft" stage

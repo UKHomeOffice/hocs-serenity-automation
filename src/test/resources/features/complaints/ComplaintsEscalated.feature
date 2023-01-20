@@ -34,7 +34,7 @@ Feature: Complaints Escalated
     And I select to return the case to Triage
     Then the case should be moved to the "UKVI Ex-Gratia Triage" stage
     And the summary should display the owning team as "Ex-Gratia"
-    And the read-only Case Details accordion should contain all case information entered during the "UKVI Ex-Gratia Escalate" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Ex-Gratia Escalated" stage
 
   # Expected failure. Defect HOCS-4308 raised.
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
@@ -45,7 +45,7 @@ Feature: Complaints Escalated
     And I select to send the case to drafting
     Then the case should be moved to the "UKVI Ex-Gratia Response Draft" stage
     And the summary should display the owning team as "Ex-Gratia"
-    And the read-only Case Details accordion should contain all case information entered during the "UKVI Ex-Gratia Escalate" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Ex-Gratia Escalated" stage
 
   # Expected failure. Defect HOCS-4308 raised.
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
@@ -56,7 +56,7 @@ Feature: Complaints Escalated
     And I select to return the case to Triage
     Then the case should be moved to the "UKVI Minor Misconduct Triage" stage
     And the summary should display the owning team as "Minor Misconduct"
-    And the read-only Case Details accordion should contain all case information entered during the "UKVI Minor Misconduct Escalate" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Minor Misconduct Escalated" stage
 
   # Expected failure. Defect HOCS-4308 raised.
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
@@ -67,7 +67,7 @@ Feature: Complaints Escalated
     And I select to send the case to drafting
     Then the case should be moved to the "UKVI Minor Misconduct Response Draft" stage
     And the summary should display the owning team as "Minor Misconduct"
-    And the read-only Case Details accordion should contain all case information entered during the "UKVI Minor Misconduct Escalate" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Minor Misconduct Escalated" stage
 
   # HOCS-2870, HOCS-3096
   @COMPRegression @UKVIComplaints
@@ -107,7 +107,7 @@ Feature: Complaints Escalated
     And I select to return the case to Triage
     Then the case should be moved to the "UKVI Stage 2 Service Triage" stage
     And the summary should display the owning team as "Stage 2 CCT Triage Team"
-    And the read-only Case Details accordion should contain all case information entered during the "UKVI Stage 2 Service Escalate" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Stage 2 Service Escalated" stage
 
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can send a UKVI stage 2 complaint case to Service Draft stage
@@ -117,7 +117,7 @@ Feature: Complaints Escalated
     And I select to send the case to drafting
     Then the case should be moved to the "UKVI Stage 2 Service Draft" stage
     And the summary should display the owning team as "Stage 2 CCT Response Team"
-    And the read-only Case Details accordion should contain all case information entered during the "UKVI Stage 2 Service Escalate" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Stage 2 Service Escalated" stage
 
 
 #     BF COMPLAINTS

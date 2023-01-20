@@ -17,7 +17,11 @@ public class ComplaintsEscalated extends BasePage {
 
     public void selectActionAtEscalatedStage(String action) {
         recordCaseData.selectSpecificRadioButton(action);
-        waitForDECSPageWithTitle("Complaint Escalated");
+        if(compCase() || comp2Case() || comp2DirectCase()){
+            waitForDECSPageWithTitle("Complaint escalated");
+        } else {
+            waitForDECSPageWithTitle("Complaint Escalated");
+        }
         if (buttonIsCurrentlyVisible("Continue")) {
             clickContinueButton();
         } else {

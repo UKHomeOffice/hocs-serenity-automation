@@ -10,7 +10,7 @@ Feature: Complaints QA
     When I create a "COMP" case and move it to the "Service QA" stage
     And I load and claim the current case
     When I "accept" the response to the complaint at the QA stage
-    Then the case should be moved to the "Service Send" stage
+    Then the case should be moved to the "UKVI Service Send" stage
     And the summary should display the owning team as "CCT Stage 1 Response Team"
     And the read-only Case Details accordion should contain all case information entered during the "UKVI Service QA" stage
 
@@ -21,7 +21,7 @@ Feature: Complaints QA
     When I create a "COMP" case and move it to the "Service QA" stage
     And I load and claim the current case
     When I "reject" the response to the complaint at the QA stage
-    Then the case should be moved to the "Service Draft" stage
+    Then the case should be moved to the "UKVI Service Draft" stage
     And the summary should display the owning team as "CCT Stage 1 Response Team"
     And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
     And the read-only Case Details accordion should contain all case information entered during the "UKVI Service QA" stage
@@ -32,9 +32,9 @@ Feature: Complaints QA
     When I create a "COMP" case and move it to the "Ex-Gratia QA" stage
     And I load and claim the current case
     And I "accept" the response to the complaint at the QA stage
-    Then the case should be moved to the "Ex-Gratia Send" stage
+    Then the case should be moved to the "UKVI Ex-Gratia Send" stage
     And the summary should display the owning team as "Ex-Gratia"
-    And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia QA" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Ex-Gratia QA" stage
 
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can reject the response and send a UKVI complaint case back to Ex-Gratia Response Draft stage
@@ -42,10 +42,10 @@ Feature: Complaints QA
     When I create a "COMP" case and move it to the "Ex-Gratia QA" stage
     And I load and claim the current case
     And I "reject" the response to the complaint at the QA stage
-    Then the case should be moved to the "Ex-Gratia Response Draft" stage
+    Then the case should be moved to the "UKVI Ex-Gratia Response Draft" stage
     And the summary should display the owning team as "Ex-Gratia"
     And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
-    And the read-only Case Details accordion should contain all case information entered during the "Ex-Gratia QA" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Ex-Gratia QA" stage
 
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can accept the response and send a UKVI complaint case to Minor Misconduct Send stage
@@ -53,9 +53,9 @@ Feature: Complaints QA
     When I create a "COMP" case and move it to the "Minor Misconduct QA" stage
     And I load and claim the current case
     And I "accept" the response to the complaint at the QA stage
-    Then the case should be moved to the "Minor Misconduct Send" stage
+    Then the case should be moved to the "UKVI Minor Misconduct Send" stage
     And the summary should display the owning team as "Minor Misconduct"
-    And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct QA" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Minor Misconduct QA" stage
 
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can reject the response and send a UKVI complaint case back to Minor Misconduct Response Draft stage
@@ -63,10 +63,10 @@ Feature: Complaints QA
     When I create a "COMP" case and move it to the "Minor Misconduct QA" stage
     And I load and claim the current case
     And I "reject" the response to the complaint at the QA stage
-    Then the case should be moved to the "Minor Misconduct Response Draft" stage
+    Then the case should be moved to the "UKVI Minor Misconduct Response Draft" stage
     And the summary should display the owning team as "Minor Misconduct"
     And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
-    And the read-only Case Details accordion should contain all case information entered during the "Minor Misconduct QA" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Minor Misconduct QA" stage
 
   @Validation @UKVIComplaints
   Scenario Outline: User tests the validation for a UKVI complaints case at the Service QA stage
@@ -89,9 +89,9 @@ Feature: Complaints QA
     When I create a "COMP2" case and move it to the "Service QA" stage
     And I load and claim the current case
     When I "accept" the response to the complaint at the QA stage
-    Then the case should be moved to the "Stage 2 Service Send" stage
+    Then the case should be moved to the "UKVI Stage 2 Service Send" stage
     And the summary should display the owning team as "Stage 2 CCT Response Team"
-    And the read-only Case Details accordion should contain all case information entered during the "Stage 2 Service QA" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Stage 2 Service QA" stage
 
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can reject the response and send a UKVI stage 2 complaint case back to Service Draft stage
@@ -99,10 +99,10 @@ Feature: Complaints QA
     When I create a "COMP2" case and move it to the "Service QA" stage
     And I load and claim the current case
     When I "reject" the response to the complaint at the QA stage
-    Then the case should be moved to the "Stage 2 Service Draft" stage
+    Then the case should be moved to the "UKVI Stage 2 Service Draft" stage
     And the summary should display the owning team as "Stage 2 CCT Response Team"
     And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
-    And the read-only Case Details accordion should contain all case information entered during the "Stage 2 Service QA" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Stage 2 Service QA" stage
 
 
 #     BF COMPLAINTS

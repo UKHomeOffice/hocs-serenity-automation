@@ -14,8 +14,8 @@ Feature: CCH
     And I select the "Transfer to CCT" action at CCH
     Then the case should be moved to the "UKVI Service Triage" stage
     And the summary should display the owning team as "CCT Stage 1 Triage Team"
-    And the summary should display "Service" for "Complaint Type"
-    And the read-only Case Details accordion should contain all case information entered during the "UKVI CCH" stage
+    And the summary should display "Service" for "Complaint type"
+    And the read-only Case Details accordion should contain all case information entered during the "CCH" stage
 
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can transfer a UKVI complaints case to Ex-Gratia
@@ -24,8 +24,8 @@ Feature: CCH
     And I select the "Transfer to Ex-Gratia" action at CCH
     Then the case should be moved to the "UKVI Ex-Gratia Triage" stage
     And the summary should display the owning team as "Ex-Gratia"
-    And the summary should display "Ex-Gratia" for "Complaint Type"
-    And the read-only Case Details accordion should contain all case information entered during the "UKVI CCH" stage
+    And the summary should display "Ex-Gratia" for "Complaint type"
+    And the read-only Case Details accordion should contain all case information entered during the "CCH" stage
 
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can transfer a UKVI complaints case to Minor Misconduct
@@ -34,8 +34,8 @@ Feature: CCH
     And I select the "Transfer to Minor Misconduct" action at CCH
     Then the case should be moved to the "UKVI Minor Misconduct Triage" stage
     And the summary should display the owning team as "Minor Misconduct"
-    And the summary should display "Minor Misconduct" for "Complaint Type"
-    And the read-only Case Details accordion should contain all case information entered during the "UKVI CCH" stage
+    And the summary should display "Minor Misconduct" for "Complaint type"
+    And the read-only Case Details accordion should contain all case information entered during the "CCH" stage
 
 #    HOCS-3025
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
@@ -47,7 +47,7 @@ Feature: CCH
     And I confirm I want to close the case at CCH
     Then the case should be closed
     And a Case closure note should be visible in the timeline showing the submitted reason for closing the case
-    And the read-only Case Details accordion should contain all case information entered during the "UKVI CCH" stage
+    And the read-only Case Details accordion should contain all case information entered during the "CCH" stage
 
   @Validation @UKVIComplaints
   Scenario Outline: User tests the validation for a UKVI complaints case at CCH stage
@@ -71,8 +71,8 @@ Feature: CCH
     And I select the "Transfer to CCT" action at CCH
     Then the case should be moved to the "UKVI Stage 2 Service Triage" stage
     And the summary should display the owning team as "Stage 2 CCT Triage Team"
-    And the summary should display "Service" for "Complaint Type"
-    And the read-only Case Details accordion should contain all case information entered during the "UKVI Stage 2 CCH" stage
+    And the summary should display "Service" for "Complaint type"
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Stage 2 CCH Returns" stage
 
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can hard close a UKVI stage 2 complaints case at CCH stage
@@ -83,4 +83,4 @@ Feature: CCH
     And I confirm I want to close the case at CCH
     Then the case should be closed
     And a Case closure note should be visible in the timeline showing the submitted reason for closing the case
-    And the read-only Case Details accordion should contain all case information entered during the "UKVI Stage 2 CCH" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Stage 2 CCH Returns" stage
