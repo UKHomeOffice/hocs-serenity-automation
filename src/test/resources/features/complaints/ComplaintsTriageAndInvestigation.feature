@@ -11,7 +11,7 @@ Feature: Complaints Triage
     And I load and claim the current case
     And I select to Transfer the complaint
     And I enter a reason for "CCH" transfer and continue
-    Then the case should be moved to the "UKVI CCH" stage
+    Then the case should be moved to the "CCH" stage
     And the summary should display the owning team as "CCH Returned Cases"
     And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
     And the read-only Case Details accordion should contain all case information entered during the "UKVI <complaintType> Triage" stage
@@ -94,7 +94,7 @@ Feature: Complaints Triage
     And I accept the previous Case Details selection
     And I submit details on the Triage Capture Reason page
     And I escalate the case to WFM at Triage stage
-    Then the case should be moved to the "UKVI Ex-Gratia Escalate" stage
+    Then the case should be moved to the "UKVI Ex-Gratia Escalated" stage
     And the summary should display the owning team as "Ex-Gratia"
     And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
 
@@ -110,7 +110,7 @@ Feature: Complaints Triage
     And I accept the previous Case Details selection
     And I submit details on the Triage Capture Reason page
     And I escalate the case to WFM at Triage stage
-    Then the case should be moved to the "UKVI Minor Misconduct Escalate" stage
+    Then the case should be moved to the "UKVI Minor Misconduct Escalated" stage
     And the summary should display the owning team as "Minor Misconduct"
     And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
 
@@ -265,7 +265,7 @@ Feature: Complaints Triage
     And I accept the previous Case Details selection
     And I submit details on the Triage Capture Reason page
     And I escalate the case to WFM at Triage stage
-    Then the case should be moved to the "UKVI Stage 2 Service Escalate" stage
+    Then the case should be moved to the "UKVI Stage 2 Service Escalated" stage
     And the summary should display the owning team as "Stage 2 CCT Escalated"
     And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
     And the read-only Case Details accordion should contain all case information entered during the "UKVI Stage 2 Service Triage" stage
@@ -294,7 +294,7 @@ Feature: Complaints Triage
     And I load and claim the current case
     And I select to Transfer the complaint
     And I enter a reason for "CCH" transfer and continue
-    Then the case should be moved to the "UKVI Stage 2 CCH" stage
+    Then the case should be moved to the "UKVI Stage 2 CCH Returns" stage
     And the summary should display the owning team as "Stage 2 CCH Returned Cases"
     And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
     And the read-only Case Details accordion should contain all case information entered during the "UKVI Stage 2 Service Triage" stage
