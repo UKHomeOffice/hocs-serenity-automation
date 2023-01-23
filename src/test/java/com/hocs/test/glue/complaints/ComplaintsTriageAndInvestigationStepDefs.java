@@ -6,6 +6,7 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.complaints.ComplaintsDispatchAndSend;
+import com.hocs.test.pages.complaints.ComplaintsRegistrationAndDataInput;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.complaints.ComplaintsTriageAndInvestigation;
 
@@ -21,6 +22,8 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
 
 
     ComplaintsTriageAndInvestigation complaintsTriageAndInvestigation;
+
+    ComplaintsRegistrationAndDataInput complaintsRegistrationAndDataInput;
 
     Documents documents;
 
@@ -361,5 +364,13 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
     @Then("I select {string} at {string} page")
     public void iSelectPSUComplaintOutcome(String psuCompliantOutcome, String complaintPage) {
         complaintsTriageAndInvestigation.selectPSUComplaintOutcome(psuCompliantOutcome);
+    }
+
+    @Then("I select Complaint Type at PSU Complaint Outcome Page page")
+    public void iSelectComplaintTypeAtPSUComplaintOutcomePagePage() {
+        dashboard.getCurrentCase();
+        caseView.clickAllocateToMeLink();
+        complaintsRegistrationAndDataInput.selectRandomCaseOutcomeToProgress();
+        clickTheButton("Submit");
     }
 }
