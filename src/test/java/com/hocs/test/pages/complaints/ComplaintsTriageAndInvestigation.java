@@ -421,11 +421,12 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
             String psuComplaintOutcomeWithdrawnReason = recordCaseData.enterTextIntoTextAreaWithHeading("Why has the complaint been withdrawn?");
             setSessionVariable("psuComplaintOutcomeWithdrawnReason").to(psuComplaintOutcomeWithdrawnReason);
             clickTheButton("Submit");
-        } else if (psuComplaintOutcome.equalsIgnoreCase("Not serious - send back to IE Detention") ||
+        } else if (psuComplaintOutcome.equalsIgnoreCase(" IE Detention") ||
                      psuComplaintOutcome.equalsIgnoreCase("Substantiated") ||
                      psuComplaintOutcome.equalsIgnoreCase( "Partially substantiated") ||
                      psuComplaintOutcome.equalsIgnoreCase("Unsubstantiated") ||
-                     psuComplaintOutcome.equalsIgnoreCase("No - send back to UKVI")) {
+                     psuComplaintOutcome.equalsIgnoreCase("No - send back to UKVI")||
+                     psuComplaintOutcome.equalsIgnoreCase("Not serious - send back to UKVI")) {
                  clickTheButton("Submit");
 
         }

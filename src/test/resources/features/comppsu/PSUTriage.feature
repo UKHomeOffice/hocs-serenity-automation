@@ -65,7 +65,7 @@ Feature: PSU Triage
   Scenario Outline: PSU User sends the case back to UKVI case from PSU Triage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "<caseType>" case and move it to the "<caseStage>" stage
-    Then I select "No - send back to UKVI" PSU Complaint Outcome
+    Then I select "No - send back to UKVI" at "PSU Complaint Outcome" page
     And I click to view the case in the "<workstack>" workstack
     And the case stage should be "<newCaseStage>" and "Rejected by PSU" tag is appended to the case reference
     Then the case should be at the "<newCaseStage>" stage

@@ -325,17 +325,15 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
         assertExpectedErrorMessageIsDisplayed("Is this serious misconduct case for PSU to investigate? is required");
     }
 
-
-    @Then("I select {string} PSU Complaint Outcome")
-    public void iSelectPSUComplaintOutcome(String psuCompliantOutcome) {
-            complaintsTriageAndInvestigation.selectPSUComplaintOutcome(psuCompliantOutcome);
-    }
-
     @Then("I enter the Final response and Final date")
     public void iEnterFinalResponseAndFinalDate() {
         clickTheButton("Close case");
         assertThatAnErrorMessageIsDisplayed();
-        documents.addADocumentOfDocumentType("Final response");
+        if(compCase() || comp2Case() || comp2DirectCase()){
+            documents.addADocumentOfDocumentType("Final Response");
+        } else {
+            documents.addADocumentOfDocumentType("Final response");
+        }
         recordCaseData.enterDateIntoDateFieldsWithHeading(getDatePlusMinusNDaysAgo(+5), "Final response sent");
         clickTheButton("Close case");
         assertExpectedErrorMessageIsDisplayed("Final response sent must be a date in the past");
@@ -358,5 +356,10 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
     public void iMoveToTheReviewComplaintCategoriesScreenAndCheckTheOptionsThereAreWorkingCorrectly() {
         dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
         complaintsTriageAndInvestigation.checkPSUComplaintCategories();
+    }
+
+    @Then("I select {string} at {string} page")
+    public void iSelectPSUComplaintOutcome(String psuCompliantOutcome, String complaintPage) {
+        complaintsTriageAndInvestigation.selectPSUComplaintOutcome(psuCompliantOutcome);
     }
 }

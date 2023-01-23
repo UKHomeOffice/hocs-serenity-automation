@@ -110,8 +110,11 @@ public class COMPProgressCase extends BasePage {
             case "PSU_TRIAGE":
                 precedingStage = "PSU_REGISTRATION";
                 break;
-            case "PSU_OUTCOME":
+            case "PSU_COMPLAINT_OUTCOME":
                 precedingStage = "PSU_TRIAGE";
+                break;
+            case "PSU_CLOSED":
+                precedingStage = "PSU_COMPLAINT_OUTCOME";
                 break;
             default:
                 pendingStep(targetStage + " is not defined within " + getMethodName());
