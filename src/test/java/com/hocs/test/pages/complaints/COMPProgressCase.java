@@ -71,7 +71,11 @@ public class COMPProgressCase extends BasePage {
         } else if (stringContainsCheckIgnoringCase(targetStage, "Ex-Gratia")) {
             complaintType = "Ex-Gratia";
         } else if (stringContainsCheckIgnoringCase(targetStage, "Minor Misconduct") || stringContainsCheckIgnoringCase(targetStage, "MM")) {
-            complaintType = "Minor misconduct";
+            if(ukviPsuOffTag){
+                complaintType = "Minor Misconduct";
+            } else {
+                complaintType = "Minor misconduct";
+            }
         } else if (stringContainsCheckIgnoringCase(targetStage, "Serious Misconduct") ) {
             complaintType = "Serious misconduct";
 
