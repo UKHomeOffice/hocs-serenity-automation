@@ -422,12 +422,13 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
             setSessionVariable("psuComplaintOutcomeWithdrawnReason").to(psuComplaintOutcomeWithdrawnReason);
             clickTheButton("Submit");
         } else if (psuComplaintOutcome.equalsIgnoreCase(" IE Detention") ||
-                     psuComplaintOutcome.equalsIgnoreCase("Substantiated") ||
-                     psuComplaintOutcome.equalsIgnoreCase( "Partially substantiated") ||
-                     psuComplaintOutcome.equalsIgnoreCase("Unsubstantiated") ||
-                     psuComplaintOutcome.equalsIgnoreCase("No - send back to UKVI")||
-                     psuComplaintOutcome.equalsIgnoreCase("Not serious - send back to UKVI")) {
-                 clickTheButton("Submit");
+                psuComplaintOutcome.equalsIgnoreCase("Substantiated") ||
+                psuComplaintOutcome.equalsIgnoreCase("Partially substantiated") ||
+                psuComplaintOutcome.equalsIgnoreCase("Unsubstantiated") ||
+                psuComplaintOutcome.equalsIgnoreCase("No - send back to UKVI") ||
+                psuComplaintOutcome.equalsIgnoreCase("Not serious - send back to UKVI") ||
+                psuComplaintOutcome.equalsIgnoreCase("Not serious - send back to IE Detention")) {
+            clickTheButton("Submit");
 
         }
 

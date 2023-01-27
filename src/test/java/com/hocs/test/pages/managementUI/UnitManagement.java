@@ -104,6 +104,7 @@ public class UnitManagement extends BasePage {
 
     public void selectNewUnitName() throws InterruptedException {
         unitTypeBox.waitUntilVisible();
+        waitABit(1000);
         setSessionVariable("originalUnit").to(unitTypeBox.getText());
         if (unitTypeBox.containsText("Immigration Enforcement")) {
             unitTypeBox.click();
