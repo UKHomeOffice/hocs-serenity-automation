@@ -57,7 +57,7 @@ Feature: Complaints Triage
     When I create a "COMP" case and move it to the "Minor Misconduct Triage" stage
     And I load and claim the current case
     And I accept the case at "Minor Misconduct" Triage stage
-    And I select a "SERIOUS AND MINOR" Complaint Category
+    And I select a "Serious and Minor" Complaint Category
     And I select a Owning CSU
     And I click the "Continue" button
     And I accept the previous Case Details selection
@@ -104,7 +104,7 @@ Feature: Complaints Triage
     When I create a "COMP" case and move it to the "Minor Misconduct Triage" stage
     And I load and claim the current case
     And I accept the case at "Minor Misconduct" Triage stage
-    And I select a "SERIOUS AND MINOR" Complaint Category
+    And I select a "Serious and Minor" Complaint Category
     And I select a Owning CSU
     And I click the "Continue" button
     And I accept the previous Case Details selection
@@ -156,7 +156,7 @@ Feature: Complaints Triage
     When I create a "COMP" case and move it to the "Minor Misconduct Triage" stage
     And I load and claim the current case
     And I accept the case at "Minor Misconduct" Triage stage
-    And I select a "SERIOUS AND MINOR" Complaint Category
+    And I select a "Serious And Minor" Complaint Category
     And I select a Owning CSU
     And I click the "Continue" button
     And I accept the previous Case Details selection

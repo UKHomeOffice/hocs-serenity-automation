@@ -135,6 +135,7 @@ public class Documents extends BasePage {
     }
 
     public void addADocumentOfDocumentType(String docType) {
+        waitABit(1000);
         clickVisibleAddDocumentsLink();
         selectDocumentTypeByText(docType);
         uploadFileOfType("docx");

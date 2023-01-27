@@ -94,13 +94,13 @@ Feature: Complaints End To End
   Scenario: User creates a UKVI stage 2 complaint case and it starts at the Registration stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2" case and move it to the "Stage 2 Registration" stage
-    Then the case should be moved to the "Stage 2 Registration" stage
+    Then the case should be moved to the "UKVI Stage 2 Registration" stage
 
   @UKVIComplaints
   Scenario Outline: User moves a COMP case to the Stage 2 Triage stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2" case and move it to the "Stage 2 <complaintType> Triage" stage
-    Then the case should be moved to the "Stage 2 <complaintType> Triage" stage
+    Then the case should be moved to the "UKVI Stage 2 <complaintType> Triage" stage
     Examples:
       | complaintType |
       | Service       |
@@ -111,7 +111,7 @@ Feature: Complaints End To End
   Scenario Outline: User moves a UKVI stage 2 complaint case to the Stage 2 Draft stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2" case and move it to the "Stage 2 <complaintType> Draft" stage
-    Then the case should be moved to the "Stage 2 <complaintType> Draft" stage
+    Then the case should be moved to the "UKVI Stage 2 <complaintType> Draft" stage
     Examples:
       | complaintType      |
       | Service            |
@@ -122,7 +122,7 @@ Feature: Complaints End To End
   Scenario Outline: User moves a UKVI stage 2 complaint case to the Stage 2 QA stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2" case and move it to the "Stage 2 <complaintType> QA" stage
-    Then the case should be moved to the "Stage 2 <complaintType> QA" stage
+    Then the case should be moved to the "UKVI Stage 2 <complaintType> QA" stage
     Examples:
       | complaintType |
       | Service       |
@@ -133,7 +133,7 @@ Feature: Complaints End To End
   Scenario Outline: User moves a UKVI stage 2 complaint case to the Stage 2 Send stage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2" case and move it to the "Stage 2 <complaintType> Send" stage
-    Then the case should be moved to the "Stage 2 <complaintType> Send" stage
+    Then the case should be moved to the "UKVI Stage 2 <complaintType> Send" stage
     Examples:
       | complaintType |
       | Service       |

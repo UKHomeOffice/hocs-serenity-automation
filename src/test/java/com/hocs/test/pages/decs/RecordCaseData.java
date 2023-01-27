@@ -88,7 +88,8 @@ public class RecordCaseData extends BasePage{
     public String checkRandomCheckboxFromList(List<WebElementFacade> checkboxes) {
         String checkboxLabelText = super.checkRandomCheckboxFromList(checkboxes);
         if(compCase() || comp2Case() || comp2DirectCase()){
-            addHeadingAndValueRecord( "Serious misconduct", checkboxLabelText);
+            String complaintCategory = sessionVariableCalled("complaintCategory");
+            addHeadingAndValueRecord( complaintCategory, checkboxLabelText);
         } else {
         addValueRecord(checkboxLabelText);
         }
