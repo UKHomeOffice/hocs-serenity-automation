@@ -137,7 +137,7 @@ Feature: Complaints Escalated
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF" case at the "Escalated to WFM" stage
     And I select to return the case to Triage
-    Then the case should be moved to the "UKVI Case Triage" stage
+    Then the case should be moved to the "Case Triage" stage
     And the summary should display the owning team as "Border Force"
 
   # HOCS-4055

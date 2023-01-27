@@ -36,6 +36,9 @@ public class RecordCaseData extends BasePage{
 
     public void selectSpecificRadioButtonFromGroupWithHeading(String radioButtonText, String headingText) {
         super.selectSpecificRadioButtonFromGroupWithHeading(radioButtonText, headingText);
+        if((ukviPsuOffTag) && (compCase()||comp2Case()||comp2DirectCase()) && (headingText.equalsIgnoreCase("Complaint Type"))){
+                       headingText = "Complaint type";
+        }
         addHeadingAndValueRecord(headingText, radioButtonText);
     }
 
