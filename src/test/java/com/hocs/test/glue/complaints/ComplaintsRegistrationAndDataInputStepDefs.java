@@ -3,6 +3,7 @@ package com.hocs.test.glue.complaints;
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.complaints.ComplaintsTriageAndInvestigation;
 import com.hocs.test.pages.decs.BasePage;
@@ -70,6 +71,7 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
                     pendingStep(complaintCategory + " is not defined within " + getMethodName());
             }
             waitABit(1000);
+            setSessionVariable("complaintCategory").to(complaintCategory);
             complaintsRegistrationAndDataInput.selectAVisibleClaimCategory();
         }
         else {

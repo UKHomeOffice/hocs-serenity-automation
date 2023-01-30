@@ -62,7 +62,11 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     }
 
     public void enterDateOfAcceptance() {
-        recordCaseData.enterDateIntoDateFieldsWithHeading(getDatePlusMinusNDaysAgo(-5), "Date of acceptance");
+        if(ukviPsuOffTag){
+            recordCaseData.enterDateIntoDateFieldsWithHeading(getDatePlusMinusNDaysAgo(-5), "Date of Acceptance");
+        }else{
+            recordCaseData.enterDateIntoDateFieldsWithHeading(getDatePlusMinusNDaysAgo(-5), "Date of acceptance");
+        }
     }
 
     public void selectEnquiryReason(String enquiryReason) {
@@ -76,8 +80,12 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     }
 
     public void selectTransferComplaint() {
-        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No - transfer the complaint to CCH", "Can your team respond to this "
-                + "complaint?");
+        if(ukviPsuOffTag) {
+            recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No - transfer the complaint", "Can your team respond to this complaint?");
+        }else {
+            recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No - transfer the complaint to CCH", "Can your team respond to this "
+                    + "complaint?");
+        }
         clickContinueButton();
     }
 
@@ -228,7 +236,11 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
 
     public void enterDetailsOnTriageCaptureReasonPage() {
         String complaintType = sessionVariableCalled("complaintType");
-        if ((compCase() || comp2Case()) && (complaintType.equals("Service") || complaintType.equals("Minor misconduct"))) {
+        if(ukviPsuOffTag){
+            if ((compCase() || comp2Case()) && (complaintType.equals("Service") || complaintType.equals("Minor Misconduct"))) {
+                recordCaseData.selectRandomOptionFromDropdownWithHeading("Directorate");
+            }
+        } else if ((compCase() || comp2Case()) && (complaintType.equals("Service") || complaintType.equals("Minor misconduct"))) {
             recordCaseData.selectRandomOptionFromDropdownWithHeading("Directorate");
         }
         String businessArea = recordCaseData.selectRandomOptionFromDropdownWithHeading("Business Area");
