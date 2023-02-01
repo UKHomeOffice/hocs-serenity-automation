@@ -15,7 +15,7 @@ Feature: CCH
     Then the case should be moved to the "UKVI Service Triage" stage
     And the summary should display the owning team as "CCT Stage 1 Triage Team"
     And the summary should display "Service" for "Complaint type"
-    And the read-only Case Details accordion should contain all case information entered during the "CCH" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI CCH Returns" stage
 
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can transfer a UKVI complaints case to Ex-Gratia
@@ -25,7 +25,7 @@ Feature: CCH
     Then the case should be moved to the "UKVI Ex-Gratia Triage" stage
     And the summary should display the owning team as "Ex-Gratia"
     And the summary should display "Ex-Gratia" for "Complaint type"
-    And the read-only Case Details accordion should contain all case information entered during the "CCH" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI CCH Returns" stage
 
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can transfer a UKVI complaints case to Minor Misconduct
@@ -35,7 +35,7 @@ Feature: CCH
     Then the case should be moved to the "UKVI Minor Misconduct Triage" stage
     And the summary should display the owning team as "Minor Misconduct"
     And the summary should display "Minor Misconduct" for "Complaint type"
-    And the read-only Case Details accordion should contain all case information entered during the "CCH" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI CCH Returns" stage
 
 #    HOCS-3025
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
@@ -47,7 +47,7 @@ Feature: CCH
     And I confirm I want to close the case at CCH
     Then the case should be closed
     And a Case closure note should be visible in the timeline showing the submitted reason for closing the case
-    And the read-only Case Details accordion should contain all case information entered during the "CCH" stage
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI CCH Returns" stage
 
   @Validation @UKVIComplaints
   Scenario Outline: User tests the validation for a UKVI complaints case at CCH stage
