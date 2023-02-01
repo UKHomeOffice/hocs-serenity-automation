@@ -41,6 +41,8 @@ public class BasePage extends PageObject {
 
     public static boolean ukviPsuOffTag = false;
 
+    public static boolean bfPsuOffTag = false;
+
     private static final SimpleDateFormat dayFormat = new SimpleDateFormat("dd");
 
     private static final SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
