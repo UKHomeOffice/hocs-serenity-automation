@@ -11,7 +11,7 @@ Feature: Complaints Triage
     And I load and claim the current case
     And I select to Transfer the complaint
     And I enter a reason for "CCH" transfer and continue
-    Then the case should be moved to the "CCH" stage
+    Then the case should be moved to the "UKVI CCH Returns" stage
     And the summary should display the owning team as "CCH Returned Cases"
     And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
     And the read-only Case Details accordion should contain all case information entered during the "UKVI <complaintType> Triage" stage
