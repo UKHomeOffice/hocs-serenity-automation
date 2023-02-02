@@ -191,9 +191,9 @@ Feature: Complaints Draft
     When I get a "BF" case at the "Draft" stage
     And I upload my Primary "DRAFT" document
     And I select the "Response is ready to send" action at the Draft stage
-    Then the case should be moved to the "Send draft response" stage
+    Then the case should be moved to the "Border Force Send" stage
     And the summary should display the owning team as "Border Force"
-    And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
+    And the read-only Case Details accordion should contain all case information entered during the "Border Force Draft" stage
     And the selected document should be tagged as the primary draft
 
   @ComplaintsWorkflow @BFRegression @BFComplaints
@@ -202,9 +202,9 @@ Feature: Complaints Draft
     When I get a "BF" case at the "Draft" stage
     And I upload my Primary "DRAFT" document
     And I select the "Send case to QA" action at the Draft stage
-    Then the case should be moved to the "QA" stage
+    Then the case should be moved to the "Border Force QA" stage
     And the summary should display the owning team as "Border Force"
-    And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
+    And the read-only Case Details accordion should contain all case information entered during the "Border Force Draft" stage
     And the selected document should be tagged as the primary draft
 
   @ComplaintsWorkflow @BFRegression @BFComplaints
@@ -214,10 +214,10 @@ Feature: Complaints Draft
     And I load and claim the current case
     And I upload my Primary "DRAFT" document
     And I escalate the case to WFM at Draft stage
-    Then the case should be moved to the "Escalated to WFM" stage
+    Then the case should be moved to the "Border Force Escalated" stage
     And the summary should display the owning team as "Border Force"
     And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
-    And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
+    And the read-only Case Details accordion should contain all case information entered during the "Border Force Draft" stage
 
   @ComplaintsWorkflow @BFRegression @BFComplaints
   Scenario: User can reject a BF complaint case at the Draft stage and send it back to the Triage stage
@@ -225,10 +225,10 @@ Feature: Complaints Draft
     When I get a "BF" case at the "Draft" stage
     And I select to return the case back to Triage stage
     And I submit a rejection reason
-    Then the case should be moved to the "Case Triage" stage
+    Then the case should be moved to the "Border Force Triage" stage
     And the summary should display the owning team as "Border Force"
     And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
-    And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
+    And the read-only Case Details accordion should contain all case information entered during the "Border Force Draft" stage
 
 
 #     BF STAGE 2 COMPLAINTS
@@ -239,9 +239,9 @@ Feature: Complaints Draft
     When I get a "BF2" case at the "Draft" stage
     And I upload my Primary "DRAFT" document
     And I select the "Send case to QA" action at the Draft stage
-    Then the case should be moved to the "QA (Stage 2)" stage
+    Then the case should be moved to the "Border Force QA (Stage 2)" stage
     And the summary should display the owning team as "Border Force Complaints (Stage 2)"
-    And the read-only Case Details accordion should contain all case information entered during the "Draft (Stage 2)" stage
+    And the read-only Case Details accordion should contain all case information entered during the "Border Force Draft (Stage 2)" stage
     And the selected document should be tagged as the primary draft
 
   @ComplaintsWorkflow @BFRegression @BFComplaints
@@ -251,10 +251,10 @@ Feature: Complaints Draft
     And I load and claim the current case
     And I upload my Primary "DRAFT" document
     And I escalate the case to WFM at Draft stage
-    Then the case should be moved to the "Escalated to WFM (Stage 2)" stage
+    Then the case should be moved to the "Border Force Escalated (Stage 2)" stage
     And the summary should display the owning team as "Border Force Complaints (Stage 2)"
     And an Escalation note should be visible in the timeline showing the submitted reason for the cases escalation
-    And the read-only Case Details accordion should contain all case information entered during the "Draft (Stage 2)" stage
+    And the read-only Case Details accordion should contain all case information entered during the "Border Force Draft (Stage 2)" stage
 
   @ComplaintsWorkflow @BFRegression @BFComplaints
   Scenario: User can reject a BF Stage 2 complaint case at the Draft stage and send it back to the Triage stage
@@ -262,10 +262,10 @@ Feature: Complaints Draft
     When I get a "BF2" case at the "Draft" stage
     And I select to return the case back to Triage stage
     And I submit a rejection reason
-    Then the case should be moved to the "Case Triage (Stage 2)" stage
+    Then the case should be moved to the "Border Force Triage (Stage 2)" stage
     And the summary should display the owning team as "Border Force Complaints (Stage 2)"
     And a Rejection note should be visible in the timeline showing the submitted reason for the return of the case
-    And the read-only Case Details accordion should contain all case information entered during the "Draft (Stage 2)" stage
+    And the read-only Case Details accordion should contain all case information entered during the "Border Force Draft (Stage 2)" stage
 
 
 #     POGR COMPLAINTS
