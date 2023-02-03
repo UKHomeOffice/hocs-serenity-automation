@@ -128,7 +128,7 @@ Feature: Complaints Escalated
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF" case at the "Escalated to WFM" stage
     And I select to send the case to drafting
-    Then the case should be moved to the "Draft" stage
+    Then the case should be moved to the "Border Force Draft" stage
     And the summary should display the owning team as "Border Force"
 
   # HOCS-4055
@@ -137,7 +137,7 @@ Feature: Complaints Escalated
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF" case at the "Escalated to WFM" stage
     And I select to return the case to Triage
-    Then the case should be moved to the "Case Triage" stage
+    Then the case should be moved to the "Border Force Triage" stage
     And the summary should display the owning team as "Border Force"
 
   # HOCS-4055
@@ -163,7 +163,7 @@ Feature: Complaints Escalated
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF2" case at the "Escalated to WFM" stage
     And I select to send the case to drafting
-    Then the case should be moved to the "Draft (Stage 2)" stage
+    Then the case should be moved to the "Border Force Draft (Stage 2)" stage
     And the summary should display the owning team as "Border Force Complaints (Stage 2)"
 
   @ComplaintsWorkflow @BFRegression @BFComplaints
@@ -171,7 +171,7 @@ Feature: Complaints Escalated
     Given I am logged into "CS" as user "BF_USER"
     When I get a "BF2" case at the "Escalated to WFM" stage
     And I select to return the case to Triage
-    Then the case should be moved to the "Case Triage (Stage 2)" stage
+    Then the case should be moved to the "Border Force Triage (Stage 2)" stage
     And the summary should display the owning team as "Border Force Complaints (Stage 2)"
 
   @BFRegression @BFComplaints

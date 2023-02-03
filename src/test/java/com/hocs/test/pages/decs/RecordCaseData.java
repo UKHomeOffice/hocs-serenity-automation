@@ -44,6 +44,9 @@ public class RecordCaseData extends BasePage{
 
     public void enterDateIntoDateFieldsWithHeading(String date, String headingText) {
         super.enterDateIntoDateFieldsWithHeading(date, headingText);
+        if((compCase() || comp2Case() || comp2DirectCase()) && !(ukviPsuOffTag) && (headingText.equalsIgnoreCase("Date of acceptance"))){
+                headingText = "Date of Acceptance";
+        }
         addHeadingAndValueRecord(headingText, date);
     }
 
@@ -92,6 +95,9 @@ public class RecordCaseData extends BasePage{
         String checkboxLabelText = super.checkRandomCheckboxFromList(checkboxes);
         if(compCase() || comp2Case() || comp2DirectCase()){
             String complaintCategory = sessionVariableCalled("complaintCategory");
+            if(complaintCategory.equalsIgnoreCase("Ex-gratia")){
+                complaintCategory = "Ex-gratia";
+            }
             addHeadingAndValueRecord( complaintCategory, checkboxLabelText);
         } else {
         addValueRecord(checkboxLabelText);

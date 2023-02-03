@@ -38,7 +38,7 @@ Feature: Superuser
     And I switch to user "BF_SUPERUSER"
     And I load the current case
     And I move the case from "Registration" stage to "Triage" stage
-    Then the case should be moved to the "Case Triage" stage
+    Then the case should be moved to the "Border Force Triage" stage
     And I logout of the application
 
 
@@ -58,5 +58,5 @@ Feature: Superuser
     And I switch to user "BF_SUPERUSER"
     And I load the current case
     And I move the case from "Registration" stage to "Triage" stage
-    Then the case should be moved to the "Case Triage (Stage 2)" stage
+    Then the case should be moved to the "Border Force Triage (Stage 2)" stage
     And I logout of the application

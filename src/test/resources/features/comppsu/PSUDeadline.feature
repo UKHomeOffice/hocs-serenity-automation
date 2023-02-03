@@ -23,7 +23,7 @@ Feature: PSU Deadline
     And I click to view the case in the "PSU Complaints" workstack
     Then the case deadline date displayed in the "PSU Complaints" is "60" workdays for a "PSU Outcome" stage
     Then the case deadline date displayed in the summary is correct for a "PSU Complaint Outcome" case
-    Then I select "Not serious - send back to IE Detention" PSU Complaint Outcome
+    Then I select "Not serious - send back to IE Detention" at "PSU Complaint Outcome" page
     And I click to view the case in the "IE Detention" workstack
     Then the case deadline date displayed in the "IE Detention" is "20" workdays for a "IE Detention Triage" stage
     Then the case deadline date displayed in the summary is correct for a "IEDET" case

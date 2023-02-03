@@ -174,6 +174,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
 
     public void openTheSeriousAndMinorComplaintCategoryAccordion() {
         openOrCloseAccordionSection("Serious and Minor");
+        setSessionVariable("complaintCategory").to("Serious and Minor");
     }
 
     public void selectIEDETClaimCategory(String category) {
@@ -345,6 +346,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
 
     public void openExGratiaAccordion() {
         openOrCloseAccordionSection("Ex-Gratia");
+        setSessionVariable("complaintCategory").to("Ex-Gratia");
     }
 
     public void assertOverdueContributionRequestIsHighlighted() {

@@ -87,7 +87,7 @@ Feature: Complaints Dispatch & Send
     And I select a Case Outcome for each Reason for Complaint
     And I submit the Response details
     Then the case should be closed
-    And the read-only Case Details accordion should contain all case information entered during the "Send draft response" stage
+    And the read-only Case Details accordion should contain all case information entered during the "Border Force Send" stage
 
 
 #     BF STAGE 2 COMPLAINTS
@@ -100,7 +100,7 @@ Feature: Complaints Dispatch & Send
     And I select a Case Outcome for each Reason for Complaint
     And I submit the Response details
     Then the case should be closed
-    And the read-only Case Details accordion should contain all case information entered during the "Send (Stage 2)" stage
+    And the read-only Case Details accordion should contain all case information entered during the "Border Force Send (Stage 2)" stage
     And the summary should display "Service" for "Complaint Type"
 
 

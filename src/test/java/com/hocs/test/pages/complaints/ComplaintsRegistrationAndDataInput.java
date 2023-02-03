@@ -181,6 +181,7 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
 
     public void openTheServiceComplaintCategoryAccordion() {
         openOrCloseAccordionSection("Service");
+        setSessionVariable("complaintCategory").to("Service");
     }
 
     public void openTheSeriousAndMinorComplaintCategoryAccordion() {
@@ -189,6 +190,7 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
 
     public void openTheSeriousComplaintCategoryAccordion() {
         openOrCloseAccordionSection("Serious");
+        setSessionVariable("complaintCategory").to("Serious");
     }
 
     public void selectAVisibleClaimCategory() {
