@@ -174,9 +174,9 @@ Feature: Registration
     And I select "Service" as the Complaint Type
     And I enter the complaint details on the Complaint Input page
     And I click the "Finish" button
-    Then the case should be moved to the "Case Triage" stage
+    Then the case should be moved to the "Border Force Triage" stage
     And the summary should display the owning team as "Border Force"
-    And the read-only Case Details accordion should contain all case information entered during the "Case Registration" stage
+    And the read-only Case Details accordion should contain all case information entered during the "Border Force Registration" stage
 
   # HOCS-4404, HOCS-4423, HOCS-4707
   @BFRegression @BFComplaints
@@ -201,9 +201,9 @@ Feature: Registration
     And I enter the Complainant Details
     And I enter the complaint details on the Complaint Input page
     And I click the "Finish" button
-    Then the case should be moved to the "Case Triage (Stage 2)" stage
+    Then the case should be moved to the "Border Force Triage (Stage 2)" stage
     And the summary should display the owning team as "Border Force Complaints (Stage 2)"
-    And the read-only Case Details accordion should contain all case information entered during the "Case Registration (Stage 2)" stage
+    And the read-only Case Details accordion should contain all case information entered during the "Border Force Registration (Stage 2)" stage
     And the summary should display "Service" for "Complaint Type"
 
 #     POGR Complaints
