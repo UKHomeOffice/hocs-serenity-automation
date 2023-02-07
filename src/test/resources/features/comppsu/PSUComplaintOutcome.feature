@@ -60,6 +60,7 @@ Scenario Outline: When a user selects one of the Complaint Outcome and enters th
     When I create a "<caseType>" case and move it to the "PSU_COMPLAINT_OUTCOME" stage
     Then I select "Withdrawn" at "PSU Complaint Outcome" page
     Then the case should be closed
+    And  the summary should contain details of the "Withdrawn" Complaint Outcome
     And  the read-only Case Details accordion should contain all case information entered during the "PSU Outcome" stage
 
     Examples:
@@ -91,6 +92,7 @@ Scenario Outline: When a user selects one of the Complaint Outcome and enters th
     Then I select Complaint Type at PSU Complaint Outcome Page page
     Then I enter the Final response and Final date
     Then the case should be closed
+    And  the summary should contain details of the Complaint Outcome selection
     And  the read-only Case Details accordion should contain all case information entered during the "PSU Outcome" stage
 
     Examples:
@@ -98,3 +100,20 @@ Scenario Outline: When a user selects one of the Complaint Outcome and enters th
       | COMP        |
       | COMP2       |
       | COMP2DIRECT |
+
+  @ComplaintsWorkflow @COMPPSURegression @UKVIComplaints
+  Scenario Outline: When a user selects a complaint type for a Recategorise case, it should be transferred to the correct team
+    Given I am logged into "CS" as user "COMP_USER"
+    When I create a "<caseType>" case and move it to the "<caseStage>" stage
+    And I load and claim the current case
+    Then I enter the PSU registration details and move to PSU Triage
+    And I move it to the PSU Outcome stage
+    Then I select "Not serious - send back to UKVI" at "PSU_COMPLAINT_OUTCOME" page
+    Then the case should be at the "<newCaseStage>" stage
+    And I select a Complaint Type
+    And the case should be assigned to the corresponding team and move to the corresponding stage
+
+    Examples:
+      | caseType | caseStage        | newCaseStage |
+      | COMP     | ESCALATED_PSU    | UKVI Recategorise |
+      | COMP2    | QA_ESCALATED_PSU | UKVI Stage 2 Recategorise |

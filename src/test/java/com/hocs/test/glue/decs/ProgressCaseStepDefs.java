@@ -22,6 +22,7 @@ import com.hocs.test.pages.to.TOProgressCase;
 import com.hocs.test.pages.wcs.WCSProgressCase;
 import config.CaseType;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class ProgressCaseStepDefs extends BasePage {
@@ -49,6 +50,8 @@ public class ProgressCaseStepDefs extends BasePage {
     TOProgressCase toProgressCase;
 
     POGRProgressCase pogrProgressCase;
+
+    CaseView caseView;
 
     @And("I complete the {string} stage")
     public void iCompleteTheStage(String stage) {
@@ -244,5 +247,16 @@ public class ProgressCaseStepDefs extends BasePage {
             default:
                 return false;
         }
+    }
+
+    @Then("I enter the PSU registration details and move to PSU Triage")
+    public void iEnterThePSURegistrationDetailsAndMoveToPSUTriage() {
+        compProgressCase.moveUKVICaseFromPSURegistrationToPSUTriage();
+    }
+
+    @And("I move it to the PSU Outcome stage")
+    public void iMoveItToThePSUOutcomeStage() {
+        dashboard.getAndClaimCurrentCase();
+        compProgressCase.moveUKVICaseFromPSUTriageToPSUComplaintOutcome();
     }
 }

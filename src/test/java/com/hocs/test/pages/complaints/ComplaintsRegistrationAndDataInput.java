@@ -338,6 +338,7 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
     public void selectRandomCaseOutcomeToProgress() {
         String[] validChoices = new String[]{"Substantiated", "Partially substantiated","Unsubstantiated"};
         int rnd = new Random().nextInt(validChoices.length);
+        setSessionVariable("complaintOutcome").to(validChoices[rnd]);
         recordCaseData.selectSpecificRadioButton(validChoices[rnd]);
     }
 

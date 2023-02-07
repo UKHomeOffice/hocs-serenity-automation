@@ -20,3 +20,60 @@ Feature: PSU Registration
       | PSU_Registration | COMP2       |
       | PSU_Registration | COMP2DIRECT |
 
+
+  @ComplaintsWorkflow @COMPPSURegression @UKVIComplaints
+  Scenario Outline: User can transfer a UKVI complaints case to PSU at the Triage stage
+    Given I am logged into "CS" as user "COMP_USER"
+    When I create a "<caseType>" case and move it to the "Transfer_PSU" stage
+    And I click to view the case in the "PSU Complaints" workstack
+    Then the created case should be visible in the workstack
+    Then the case should be at the "PSU Registration" stage
+
+    Examples:
+      | caseType    |
+      | COMP        |
+      | COMP2       |
+
+
+  @ComplaintsWorkflow @COMPPSURegression @UKVIComplaints
+  Scenario Outline: User can escalate a UKVI complaint case to PSU at Triage stage
+    Given I am logged into "CS" as user "COMP_USER"
+    When I create a "<caseType>" case and move it to the "TRIAGE_PSU_ESCALATED" stage
+    And I load and claim the current case
+    And I click to view the case in the "PSU Complaints" workstack
+    Then the created case should be visible in the workstack
+    Then the case should be at the "PSU Registration" stage
+
+    Examples:
+      | caseType    |
+      | COMP        |
+      | COMP2       |
+
+
+  @ComplaintsWorkflow @COMPPSURegression @UKVIComplaints
+  Scenario Outline: User can escalate a UKVI complaint case to PSU at Escalated stage
+    Given I am logged into "CS" as user "COMP_USER"
+    When I create a "<caseType>" case and move it to the "ESCALATED_PSU" stage
+    And I click to view the case in the "PSU Complaints" workstack
+    Then the created case should be visible in the workstack
+    Then the case should be at the "PSU Registration" stage
+
+    Examples:
+      | caseType    |
+      | COMP        |
+      | COMP2       |
+
+
+  @ComplaintsWorkflow @COMPPSURegression @UKVIComplaints
+  Scenario Outline: User can escalate a UKVI complaint case to PSU at QA stage
+    Given I am logged into "CS" as user "COMP_USER"
+    When I create a "<caseType>" case and move it to the "QA_ESCALATED_PSU" stage
+    And I click to view the case in the "PSU Complaints" workstack
+    Then the created case should be visible in the workstack
+    Then the case should be at the "PSU Registration" stage
+
+    Examples:
+      | caseType    |
+      | COMP        |
+      | COMP2       |
+

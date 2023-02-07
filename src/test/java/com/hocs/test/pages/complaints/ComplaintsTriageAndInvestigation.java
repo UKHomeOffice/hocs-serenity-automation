@@ -6,6 +6,7 @@ import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.RecordCaseData;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
@@ -460,6 +461,64 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
         List<WebElementFacade> claimCategories = findAll("//span[text()='Serious misconduct']/parent::legend/following-sibling::div[2]//label");
         recordCaseData.checkRandomCheckboxFromList(claimCategories);
         clickTheButton("Finish");
+    }
+
+    public void selectTransferComplaintToPSU(String transferToPSU, String header) {
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(transferToPSU, header);
+    }
+
+    public void escalateToPSUFromTriage() {
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Escalate case to PSU", "Action");
+        clickContinueButton();
+        selectAVisibleClaimCategory();
+        clickTheButton("Finish and escalate to PSU");
+
+    }
+    public void escalateToPSUFromQA() {
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Escalate case to PSU", "QA result");
+        clickContinueButton();
+        selectAVisibleClaimCategory();
+        clickTheButton("Finish and escalate to PSU");
+
+    }
+
+    public void transferCaseToPSU() {
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No - escalate to PSU", "Can your team respond to this complaint?");
+        clickContinueButton();
+        selectAVisibleClaimCategory();
+        clickTheButton("Finish and escalate to PSU");
+
+    }
+    public void escalateToPSUFromEscalated() {
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Escalate to PSU", "Action");
+        if(comp2Case()){
+            clickContinueButton();
+        }else{
+        clickConfirmButton();
+        }
+        selectAVisibleClaimCategory();
+        clickTheButton("Finish and escalate to PSU");
+
+    }
+
+    public void checkComplaintCategory(String complaintType) {
+        selectUKVIClaimCategory(complaintType);
+        clickContinueButton();
+        selectRandomRadioButtonFromGroupWithHeading("Channel");
+        complaintsRegistrationAndDataInput.enterAPreviousUKVIPSUComplaintReference();
+        complaintsRegistrationAndDataInput.enterAThirdPartyReferencePSU();
+        clickTheButton("Finish and escalate to PSU");
+    }
+
+    public void selectAComplaintTypeForRecategorisedUKVI() {
+
+        String[] validChoices = new String[]{"Service", "Minor misconduct", "Ex-Gratia", "Serious misconduct"};
+        int rnd = new Random().nextInt(validChoices.length);
+        String complaintType = validChoices[rnd];
+        complaintsRegistrationAndDataInput.selectASpecificComplaintType(complaintType);
+        if(complaintType.equalsIgnoreCase("Serious misconduct")) {
+            checkComplaintCategory(complaintType);
+        }
 
     }
 }
