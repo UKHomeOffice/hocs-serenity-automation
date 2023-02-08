@@ -518,13 +518,10 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     }
 
     public void selectAComplaintTypeForRecategorisedUKVI() {
-        int rnd;
-        String[] validChoices = new String[]{"Service", "Minor misconduct", "Ex-Gratia", "Serious misconduct"};
-        do{
-            rnd =  new Random().nextInt(validChoices.length);
-        }while (rnd<0);
-        String complaintType = validChoices[rnd];
         waitABit(3000);
+        List<WebElementFacade> claimCategories = findAll("//input/following-sibling::label[contains(@for,'CompType-')]");
+        int index =  new Random().nextInt(claimCategories.size());
+        String complaintType = String.valueOf(claimCategories.get(index).getText());
         complaintsRegistrationAndDataInput.selectASpecificComplaintType(complaintType);
         if(complaintType.equalsIgnoreCase("Serious misconduct")) {
             checkComplaintCategory(complaintType);
