@@ -981,7 +981,7 @@ public class Workstacks extends BasePage {
             }
         } else if (comp2Case()) {
             if(complaintType.equalsIgnoreCase("Service")){
-                teamName = " Stage 2 CCT Triage Team";
+                teamName = "Stage 2 CCT Triage Team";
                 stage = "UKVI Stage 2 Service Triage";
             } else if(complaintType.equalsIgnoreCase("Minor misconduct")){
                 teamName = "Stage 2 Minor Misconduct";

@@ -213,6 +213,7 @@ public class COMPProgressCase extends BasePage {
             case "QA":
                switch (targetStage.toUpperCase()) {
                    case "QA":
+                   case "SEND":
                        moveCaseFromQAToSend();
                        break;
                    case "QA_ESCALATED_PSU":
@@ -222,8 +223,6 @@ public class COMPProgressCase extends BasePage {
                     pendingStep(targetStage + " is not defined within " + getMethodName());
             }
             break;
-
-
             case "SEND":
                 moveCaseFromSendToClosed();
                 break;
