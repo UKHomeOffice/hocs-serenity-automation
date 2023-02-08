@@ -188,6 +188,9 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     public void selectUKVIClaimCategory(String category) {
         setSessionVariable("complaintCategory").to(category);
         List<WebElementFacade> claimCategories = findAll("//span[text()='" + category + "']/parent::legend/following-sibling::div//label");
+        if(claimCategories.isEmpty()){
+            waitABit(4000);
+        }
         String selectedClaimCategory = checkRandomCheckboxFromList(claimCategories);
         setSessionVariable("claimCategory").to(selectedClaimCategory);
     }
@@ -488,6 +491,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     public void transferCaseToPSU() {
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No - escalate to PSU", "Can your team respond to this complaint?");
         clickContinueButton();
+        waitABit(500);
         selectAVisibleClaimCategory();
         clickTheButton("Finish and escalate to PSU");
 
