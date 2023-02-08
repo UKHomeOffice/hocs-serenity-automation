@@ -78,6 +78,7 @@ public class Documents extends BasePage {
     }
 
     public void selectDocumentTypeByText(String docType) {
+        waitABit(4000);
         if(dcuCase()) {
             docType = docType.toUpperCase();
         }
@@ -135,13 +136,13 @@ public class Documents extends BasePage {
     }
 
     public void addADocumentOfDocumentType(String docType) {
-        waitABit(1000);
+        waitABit(4000);
         clickVisibleAddDocumentsLink();
         selectDocumentTypeByText(docType);
         uploadFileOfType("docx");
         clickAddButton();
         setSessionVariable(docType.toLowerCase()).to("docx");
-        waitABit(500);
+        waitABit(1000);
     }
 
     public void clickVisibleAddDocumentsLink() {
