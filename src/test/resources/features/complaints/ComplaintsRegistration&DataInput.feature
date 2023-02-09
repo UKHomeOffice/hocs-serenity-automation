@@ -110,7 +110,7 @@ Feature: Registration
 
     #   UKVI COMPLAINTS STAGE 2 Direct
 
-  @ComplaintsWorkflow @COMPRegression @UKVIComplaints
+  @ComplaintsWorkflow @UKVIComplaints
   Scenario: User can create UKVI stage 2 complaint case directly
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2DIRECT" case and move it to the "Stage 2 Registration" stage
