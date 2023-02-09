@@ -132,6 +132,10 @@ public class Workstacks extends BasePage {
 
     List<String> caseReferencesList = new ArrayList<>();
 
+    Dashboard dashboard;
+
+    SummaryTab summaryTab;
+
     public void filterByCurrentCaseReference() {
         caseFilter.sendKeys(getCurrentCaseReference());
     }
@@ -958,5 +962,42 @@ public class Workstacks extends BasePage {
             System.out.println("Expected case stage is '" + caseStageText + "' has been displayed ");
 
         }
+    }
+
+    public void assertTheCaseInTheWorkstackAndSummary() {
+        String complaintType = sessionVariableCalled("complaintType");
+        String teamName = null;
+        String stage = "";
+        if(compCase()) {
+            if(complaintType.equalsIgnoreCase("Service")){
+                teamName = "CCT Stage 1 Triage Team";
+                stage = "UKVI Service Triage";
+            } else if(complaintType.equalsIgnoreCase("Minor misconduct")){
+                teamName = "Minor Misconduct";
+                stage = "UKVI Minor Misconduct Triage";
+            } else if (complaintType.equalsIgnoreCase("Ex-Gratia")) {
+                teamName ="Ex-Gratia";
+                stage ="UKVI Ex-Gratia Triage";
+            }
+        } else if (comp2Case()) {
+            if(complaintType.equalsIgnoreCase("Service")){
+                teamName = "Stage 2 CCT Triage Team";
+                stage = "UKVI Stage 2 Service Triage";
+            } else if(complaintType.equalsIgnoreCase("Minor misconduct")){
+                teamName = "Stage 2 Minor Misconduct";
+                stage = "UKVI Stage 2 Minor Misconduct Triage";
+            } else if (complaintType.equalsIgnoreCase("Ex-Gratia")) {
+                teamName ="Stage 2 Ex-Gratia";
+                stage = "UKVI Stage 2 Ex-Gratia Triage";
+            }
+        }else if (complaintType.equalsIgnoreCase("Serious misconduct")) {
+            teamName ="PSU Complaints";
+            stage = "PSU Registration";
+        }
+        dashboard.selectWorkstackByTeamName(teamName);
+        selectSpecificCaseReferenceLink(getCurrentCaseReference());
+        summaryTab.selectSummaryTab();
+        summaryTab.assertAllocatedTeam(teamName);
+        summaryTab.assertCaseStage(stage);
     }
 }

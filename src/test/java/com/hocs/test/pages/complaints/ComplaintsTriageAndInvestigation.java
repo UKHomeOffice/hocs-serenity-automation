@@ -6,6 +6,7 @@ import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.RecordCaseData;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
@@ -187,12 +188,18 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     public void selectUKVIClaimCategory(String category) {
         setSessionVariable("complaintCategory").to(category);
         List<WebElementFacade> claimCategories = findAll("//span[text()='" + category + "']/parent::legend/following-sibling::div//label");
+        if(claimCategories.isEmpty()){
+            waitABit(4000);
+        }
         String selectedClaimCategory = checkRandomCheckboxFromList(claimCategories);
         setSessionVariable("claimCategory").to(selectedClaimCategory);
     }
 
     public void selectAVisibleClaimCategory() {
         List<WebElementFacade> claimCategories = findAll("//input[not(@checked)]/following-sibling::label[contains(@for,'Cat')]");
+        if(claimCategories.isEmpty()) {
+            waitABit(5000);
+        }
         List<WebElementFacade> visibleClaimCategories = new ArrayList<>();
         for (WebElementFacade claimCategory : claimCategories) {
             if (claimCategory.isCurrentlyVisible()) {
@@ -460,6 +467,65 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
         List<WebElementFacade> claimCategories = findAll("//span[text()='Serious misconduct']/parent::legend/following-sibling::div[2]//label");
         recordCaseData.checkRandomCheckboxFromList(claimCategories);
         clickTheButton("Finish");
+    }
+
+    public void selectTransferComplaintToPSU(String transferToPSU, String header) {
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(transferToPSU, header);
+    }
+
+    public void escalateToPSUFromTriage() {
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Escalate case to PSU", "Action");
+        clickContinueButton();
+        selectAVisibleClaimCategory();
+        clickTheButton("Finish and escalate to PSU");
+
+    }
+    public void escalateToPSUFromQA() {
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Escalate case to PSU", "QA result");
+        clickContinueButton();
+        selectAVisibleClaimCategory();
+        clickTheButton("Finish and escalate to PSU");
+
+    }
+
+    public void transferCaseToPSU() {
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No - escalate to PSU", "Can your team respond to this complaint?");
+        clickContinueButton();
+        waitABit(500);
+        selectAVisibleClaimCategory();
+        clickTheButton("Finish and escalate to PSU");
+
+    }
+    public void escalateToPSUFromEscalated() {
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Escalate to PSU", "Action");
+        if(comp2Case()){
+            clickContinueButton();
+        }else{
+        clickConfirmButton();
+        }
+        selectAVisibleClaimCategory();
+        clickTheButton("Finish and escalate to PSU");
+
+    }
+
+    public void checkComplaintCategory(String complaintType) {
+        selectUKVIClaimCategory(complaintType);
+        clickContinueButton();
+        selectRandomRadioButtonFromGroupWithHeading("Channel");
+        complaintsRegistrationAndDataInput.enterAPreviousUKVIPSUComplaintReference();
+        complaintsRegistrationAndDataInput.enterAThirdPartyReferencePSU();
+        clickTheButton("Finish and escalate to PSU");
+    }
+
+    public void selectAComplaintTypeForRecategorisedUKVI() {
+        waitABit(3000);
+        List<WebElementFacade> claimCategories = findAll("//input/following-sibling::label[contains(@for,'CompType-')]");
+        int index =  new Random().nextInt(claimCategories.size());
+        String complaintType = String.valueOf(claimCategories.get(index).getText());
+        complaintsRegistrationAndDataInput.selectASpecificComplaintType(complaintType);
+        if(complaintType.equalsIgnoreCase("Serious misconduct")) {
+            checkComplaintCategory(complaintType);
+        }
 
     }
 }

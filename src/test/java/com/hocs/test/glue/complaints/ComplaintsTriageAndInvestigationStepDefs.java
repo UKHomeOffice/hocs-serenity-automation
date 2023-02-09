@@ -373,4 +373,19 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
         complaintsRegistrationAndDataInput.selectRandomCaseOutcomeToProgress();
         clickTheButton("Submit");
     }
+
+    @And("I select {string} to transfer the complaint to PSU as {string}")
+    public void iSelectToTransferTheComplaintToPSU(String transferToPSU, String header) {
+        complaintsTriageAndInvestigation.selectTransferComplaintToPSU(transferToPSU, header);
+        clickContinueButton();
+        complaintsTriageAndInvestigation.selectAVisibleClaimCategory();
+        clickTheButton("Finish and escalate to PSU");
+    }
+
+    @And("I select a Complaint Type")
+    public void iSelectAComplaintType() {
+        caseView.clickAllocateToMeLink();
+        complaintsTriageAndInvestigation.selectAComplaintTypeForRecategorisedUKVI();
+
+    }
 }

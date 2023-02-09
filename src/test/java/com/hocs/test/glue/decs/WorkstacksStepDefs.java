@@ -719,4 +719,9 @@ public class WorkstacksStepDefs extends BasePage {
         workstacks.assertCaseReferenceTag(caseReferenceTag);
         workstacks.assertCaseStage(caseStage);
     }
+
+    @And("the case should be assigned to the corresponding team and move to the corresponding stage")
+    public void theCaseShouldBeAssignedToTheCorrespondingTeamAndMoveToTheCorrespondingStage() {
+        workstacks.assertTheCaseInTheWorkstackAndSummary();
+    }
 }

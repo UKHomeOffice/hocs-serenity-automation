@@ -9,6 +9,7 @@ import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
 import config.CaseType;
+import java.util.Random;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
@@ -38,7 +39,9 @@ public class COMPProgressCase extends BasePage {
 
     ComplaintsDispatchAndSend complaintsDispatchAndSend;
 
-    String complaintType = "Service";
+     String[] validChoices = new String[]{"Service", "Minor misconduct", "Ex-Gratia"};
+    int rnd = new Random().nextInt(validChoices.length);
+    String complaintType = validChoices[rnd];
 
     public void moveCaseOfTypeFromCurrentStageToTargetStage(CaseType caseType, String currentStage, String targetStage) {
         setComplaintTypeFromStageName(targetStage);
@@ -91,7 +94,7 @@ public class COMPProgressCase extends BasePage {
                 break;
             case "TRIAGE":
             case "PSU_REGISTRATION":
-                if(compCase()){
+               if(compCase()){
                     precedingStage = "REGISTRATION";
                 } else if (comp2Case() || comp2DirectCase()) {
                precedingStage = "STAGE_2_REGISTRATION";
@@ -100,12 +103,18 @@ public class COMPProgressCase extends BasePage {
             case "DRAFT":
             case "ESCALATED":
             case "CCH":
+            case "TRANSFER_PSU":
+            case "TRIAGE_PSU_ESCALATED":
                 precedingStage = "TRIAGE";
+                break;
+            case "ESCALATED_PSU":
+                precedingStage = "ESCALATED";
                 break;
             case "QA":
                 precedingStage = "DRAFT";
                 break;
             case "SEND":
+            case "QA_ESCALATED_PSU":
                 precedingStage = "QA";
                 break;
             case "CLOSED":
@@ -161,6 +170,9 @@ public class COMPProgressCase extends BasePage {
                     case "TRIAGE":
                         moveCaseFromRegistrationToTriage();
                         break;
+                    case "TRIAGE_PSU_ESCALATED":
+                        moveCaseFromTriageToPSUEscalated();
+                        break;
                     default:
                         pendingStep(targetStage + " is not defined within " + getMethodName());
                 }
@@ -176,6 +188,21 @@ public class COMPProgressCase extends BasePage {
                     case "CCH":
                         moveCaseFromTriageToCCH();
                         break;
+                    case "TRANSFER_PSU":
+                        transferCaseFromRegistrationToPSURegistration();
+                        break;
+                    case "TRIAGE_PSU_ESCALATED":
+                        moveCaseFromTriageToPSUEscalated();
+                        break;
+                    default:
+                        pendingStep(targetStage + " is not defined within " + getMethodName());
+                }
+                break;
+            case "ESCALATED":
+                switch (targetStage.toUpperCase()) {
+                    case "ESCALATED_PSU":
+                        moveCaseFromEscalatedToPSU();
+                        break;
                     default:
                         pendingStep(targetStage + " is not defined within " + getMethodName());
                 }
@@ -184,8 +211,18 @@ public class COMPProgressCase extends BasePage {
                 moveCaseFromDraftToQA();
                 break;
             case "QA":
-                moveCaseFromQAToSend();
-                break;
+               switch (targetStage.toUpperCase()) {
+                   case "QA":
+                   case "SEND":
+                       moveCaseFromQAToSend();
+                       break;
+                   case "QA_ESCALATED_PSU":
+                       moveCaseFromQAToEscalateTOPSU();
+                       break;
+                default:
+                    pendingStep(targetStage + " is not defined within " + getMethodName());
+            }
+            break;
             case "SEND":
                 moveCaseFromSendToClosed();
                 break;
@@ -206,6 +243,35 @@ public class COMPProgressCase extends BasePage {
         RecordCaseData.checkIfDataRecordsShouldBeWiped();
     }
 
+    public void transferCaseFromRegistrationToPSURegistration() {
+        complaintsTriageAndInvestigation.transferCaseToPSU();
+    }
+
+    public void moveCaseFromQAToEscalateTOPSU() {
+        complaintsTriageAndInvestigation.escalateToPSUFromQA();
+    }
+
+    public void moveCaseFromEscalatedToPSU() {
+        complaintsTriageAndInvestigation.escalateToPSUFromEscalated();
+    }
+
+    public void moveCaseFromTriageToPSUEscalated() {
+        complaintsTriageAndInvestigation.selectAcceptCase();
+        if (!complaintType.equalsIgnoreCase("SERVICE")) {
+            complaintsTriageAndInvestigation.enterDateOfAcceptance();
+        }
+        clickContinueButton();
+        waitForDECSPageWithTitle("Complaint Category");
+        complaintsTriageAndInvestigation.enterDetailsOnComplaintCategoryPage();
+        clickContinueButton();
+        waitForDECSPageWithTitle("Triage Case Details");
+        clickContinueButton();
+        waitForDECSPageWithTitle("Triage Capture Reason");
+        complaintsTriageAndInvestigation.enterDetailsOnTriageCaptureReasonPage();
+        clickContinueButton();
+        complaintsTriageAndInvestigation.escalateToPSUFromTriage();
+    }
+
     private void moveUKVICaseFromPSUComplaintOutcomeToPSUCaseClosed() {
         complaintsRegistrationAndDataInput.selectRandomCaseOutcomeToProgress();
         clickTheButton("Submit");
@@ -214,7 +280,7 @@ public class COMPProgressCase extends BasePage {
         clickTheButton("Close case");
     }
 
-    private void moveUKVICaseFromPSUTriageToPSUComplaintOutcome() {
+    public void moveUKVICaseFromPSUTriageToPSUComplaintOutcome() {
         clickTheButton("Submit");
         assertExpectedErrorMessageIsDisplayed("Is this serious misconduct case for PSU to investigate? is required");
         complaintsRegistrationAndDataInput.selectYesForSeriousCase();
@@ -223,12 +289,15 @@ public class COMPProgressCase extends BasePage {
         clickTheButton("Finish");
     }
 
-    private void moveUKVICaseFromPSURegistrationToPSUTriage() {
+    public void moveUKVICaseFromPSURegistrationToPSUTriage() {
          complaintsRegistrationAndDataInput.enterAPSUReference();
          clickTheButton("Submit");
     }
 
     public void moveCaseFromRegistrationToTriage() {
+        if((ukviPsuOffTag) && (complaintType.equalsIgnoreCase("Minor misconduct"))){
+            complaintType = "Minor Misconduct";
+        }
         correspondents.addANonMemberCorrespondentOfType("Complainant");
         correspondents.confirmPrimaryCorrespondent();
         complaintsRegistrationAndDataInput.enterComplainantDetails();

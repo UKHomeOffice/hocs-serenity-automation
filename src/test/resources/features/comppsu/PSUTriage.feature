@@ -89,3 +89,18 @@ Feature: PSU Triage
       | COMP        |
       | COMP2       |
       | COMP2DIRECT |
+
+  @ComplaintsWorkflow @COMPPSURegression @UKVIComplaints
+  Scenario Outline: When a user selects a complaint type for a Recategorise case, it should be transferred to the correct team
+    Given I am logged into "CS" as user "COMP_USER"
+    When I create a "<caseType>" case and move it to the "<caseStage>" stage
+    And I load and claim the current case
+    Then I enter the PSU registration details and move to PSU Triage
+    Then I select "No - send back to UKVI" at "PSU Complaint Outcome" page
+    Then the case should be at the "<newCaseStage>" stage
+    And I select a Complaint Type
+    And the case should be assigned to the corresponding team and move to the corresponding stage
+    Examples:
+      | caseType | caseStage            | newCaseStage              |
+      | COMP     | TRANSFER_PSU         | UKVI Recategorise         |
+      | COMP2    | TRIAGE_PSU_ESCALATED | UKVI Stage 2 Recategorise |

@@ -1,6 +1,7 @@
 package com.hocs.test.pages.decs;
 
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import java.util.HashMap;
@@ -94,8 +95,9 @@ public class RecordCaseData extends BasePage{
     public String checkRandomCheckboxFromList(List<WebElementFacade> checkboxes) {
         String checkboxLabelText = super.checkRandomCheckboxFromList(checkboxes);
         if(compCase() || comp2Case() || comp2DirectCase()){
+            String complaintType = sessionVariableCalled("complaintType");
             String complaintCategory = sessionVariableCalled("complaintCategory");
-            if(complaintCategory.equalsIgnoreCase("Ex-gratia")){
+            if((complaintType.equalsIgnoreCase("Ex-Gratia")) || (complaintCategory.equalsIgnoreCase("Ex-Gratia"))){
                 complaintCategory = "Ex-gratia";
             }
             addHeadingAndValueRecord( complaintCategory, checkboxLabelText);
