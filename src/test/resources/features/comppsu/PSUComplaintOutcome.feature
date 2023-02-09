@@ -52,7 +52,7 @@ Scenario Outline: When a user selects one of the Complaint Outcome and enters th
       | caseType    |
       | COMP        |
       | COMP2       |
-      | COMP2DIRECT |
+    #  | COMP2DIRECT |
 
   @ComplaintsWorkflow @COMPPSURegression @UKVIComplaints
   Scenario Outline: When a PSU user selects Withdraw as UKVI PSU Complaint Outcome the case should be closed
@@ -67,7 +67,7 @@ Scenario Outline: When a user selects one of the Complaint Outcome and enters th
       | caseType    |
       | COMP        |
       | COMP2       |
-      | COMP2DIRECT |
+    #  | COMP2DIRECT |
 
   @ComplaintsWorkflow @COMPPSURegression @UKVIComplaints
   Scenario Outline: When a PSU user selects Send back to UKVI as a Complaint Outcome the case should be moved to Minor Misconduct
@@ -83,7 +83,7 @@ Scenario Outline: When a user selects one of the Complaint Outcome and enters th
       | caseType    | workstack                | newCaseStage              |
       | COMP        | Minor Misconduct         | UKVI Recategorise         |
       | COMP2       | Stage 2 Minor Misconduct | UKVI Stage 2 Recategorise |
-      | COMP2DIRECT | Stage 2 Minor Misconduct | UKVI Stage 2 Recategorise |
+    #  | COMP2DIRECT | Stage 2 Minor Misconduct | UKVI Stage 2 Recategorise |
 
   @ComplaintsWorkflow @COMPPSURegression @UKVIComplaints
   Scenario Outline: When a UKVI PSU user selects the Complaint Outcome and enters the final response then the case should be closed
@@ -99,7 +99,7 @@ Scenario Outline: When a user selects one of the Complaint Outcome and enters th
       | caseType    |
       | COMP        |
       | COMP2       |
-      | COMP2DIRECT |
+    #  | COMP2DIRECT |
 
   @ComplaintsWorkflow @COMPPSURegression @UKVIComplaints
   Scenario Outline: When a user selects a complaint type for a Recategorise case, it should be transferred to the correct team

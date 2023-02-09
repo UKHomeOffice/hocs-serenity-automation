@@ -133,10 +133,14 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
     }
 
     public void enterADescriptionOfTheComplaint() {
+        String complaintType = sessionVariableCalled("complaintType");
         if (pogrCase() || pogr2Case()) {
             recordCaseData.enterTextIntoTextAreaWithHeading("Description of Complaint");
         } else if (iedetCase()){
             recordCaseData.enterTextIntoTextAreaWithHeading("Case summary");
+        } else if ((compCase() || comp2Case()) && complaintType.equalsIgnoreCase("Service") && !ukviPsuOffTag) {
+            recordCaseData.enterTextIntoTextAreaWithHeading("Case summary");
+
         } else {
             recordCaseData.enterTextIntoTextAreaWithHeading("Case Summary");
         }
@@ -151,7 +155,12 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
     }
 
     public void enterAPreviousUKVIComplaintReference() {
-        recordCaseData.enterTextIntoTextFieldWithHeading("Previous UKVI Complaint Ref");
+        String complaintType = sessionVariableCalled("complaintType");
+        if(complaintType.equalsIgnoreCase("Service") && !(ukviPsuOffTag)){
+            recordCaseData.enterTextIntoTextFieldWithHeading("Previous UKVI complaint reference");
+        }else {
+            recordCaseData.enterTextIntoTextFieldWithHeading("Previous UKVI Complaint Ref");
+        }
     }
 
     public void enterAPreviousUKVIPSUComplaintReference() {
@@ -162,7 +171,11 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
     }
 
     public void enterAThirdPartyReference() {
+        String complaintType = sessionVariableCalled("complaintType");
+
         if (iedetCase()) {recordCaseData.enterTextIntoTextFieldWithHeading("Third party reference");
+        } else if((compCase() || comp2Case()) && complaintType.equalsIgnoreCase("Service") && !(ukviPsuOffTag)) {
+            recordCaseData.enterTextIntoTextFieldWithHeading("Third party reference");
         } else {recordCaseData.enterTextIntoTextFieldWithHeading("Third Party Reference");}
     }
 

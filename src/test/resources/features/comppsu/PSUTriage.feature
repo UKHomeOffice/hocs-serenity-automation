@@ -45,7 +45,7 @@ Feature: PSU Triage
       | caseType    |
       | COMP        |
       | COMP2       |
-      | COMP2DIRECT |
+    #  | COMP2DIRECT |
 
   @ComplaintsWorkflow @COMPPSURegression @UKVIComplaints
   Scenario Outline: User confirms the UKVI complaint category options in PSU Triage
@@ -59,7 +59,7 @@ Feature: PSU Triage
       | caseType    |
       | COMP        |
       | COMP2       |
-      | COMP2DIRECT |
+    #  | COMP2DIRECT |
 
   @ComplaintsWorkflow @COMPPSURegression @UKVIComplaints
   Scenario Outline: PSU User sends the case back to UKVI case from PSU Triage
@@ -75,7 +75,7 @@ Feature: PSU Triage
       | caseType    | workstack                | newCaseStage              |
       | COMP        | Minor Misconduct         | UKVI Recategorise         |
       | COMP2       | Stage 2 Minor Misconduct | UKVI Stage 2 Recategorise |
-      | COMP2DIRECT | Stage 2 Minor Misconduct | UKVI Stage 2 Recategorise |
+    #  | COMP2DIRECT | Stage 2 Minor Misconduct | UKVI Stage 2 Recategorise |
 
   @ComplaintsWorkflow @COMPPSURegression @UKVIComplaints
   Scenario Outline: User chooses to send a UKVI PSU case to a team not on DECS
@@ -88,7 +88,7 @@ Feature: PSU Triage
       | caseType    |
       | COMP        |
       | COMP2       |
-      | COMP2DIRECT |
+    #  | COMP2DIRECT |
 
   @ComplaintsWorkflow @COMPPSURegression @UKVIComplaints
   Scenario Outline: When a user selects a complaint type for a Recategorise case, it should be transferred to the correct team

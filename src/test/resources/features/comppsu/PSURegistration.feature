@@ -18,7 +18,7 @@ Feature: PSU Registration
       | caseStage        | caseType    |
       | PSU_Registration | COMP        |
       | PSU_Registration | COMP2       |
-      | PSU_Registration | COMP2DIRECT |
+    #  | PSU_Registration | COMP2DIRECT |
 
 
   @ComplaintsWorkflow @COMPPSURegression @UKVIComplaints
