@@ -75,6 +75,8 @@ Scenario Outline: When a user selects one of the Complaint Outcome and enters th
     When I create a "<caseType>" case and move it to the "PSU_COMPLAINT_OUTCOME" stage
     Then I select "Not serious - send back to UKVI" at "PSU_COMPLAINT_OUTCOME" page
     Then the case should be at the "<newCaseStage>" stage
+    And  the summary should contain details of the "Not serious - send back to UKVI" Complaint Outcome
+    And  the read-only Case Details accordion should contain all case information entered during the "PSU Outcome" stage
     And the "Serious misconduct" radio button should be unselected
     And I click to view the case in the "<workstack>" workstack
     Then a "Rejected by PSU" tag is appended to the case reference
