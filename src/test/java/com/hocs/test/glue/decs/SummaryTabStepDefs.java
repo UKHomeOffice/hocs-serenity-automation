@@ -337,6 +337,9 @@ public class SummaryTabStepDefs extends BasePage {
         String psuFinalResponseDate = sessionVariableCalled("psuFinalResponseDate");
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(psuComplaintOutcome, "Complaint outcome");
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(psuFinalResponseDate, "Final response sent");
+        } else if (psuComplaintOutcome.equalsIgnoreCase("Not serious - send back to UKVI")) {
+            String psuComplaintOutcomeReason = sessionVariableCalled("psuComplaintOutcomeReason");
+            summaryTab.assertSummaryContainsExpectedValueForGivenHeader(psuComplaintOutcomeReason, "Complaint outcome");
         }
     }
 

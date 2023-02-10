@@ -447,10 +447,12 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
                 psuComplaintOutcome.equalsIgnoreCase("Partially substantiated") ||
                 psuComplaintOutcome.equalsIgnoreCase("Unsubstantiated") ||
                 psuComplaintOutcome.equalsIgnoreCase("No - send back to UKVI") ||
-                psuComplaintOutcome.equalsIgnoreCase("Not serious - send back to UKVI") ||
                 psuComplaintOutcome.equalsIgnoreCase("Not serious - send back to IE Detention")) {
+                        clickTheButton("Submit");
+        } else if (psuComplaintOutcome.equalsIgnoreCase("Not serious - send back to UKVI")) {
+            recordCaseData.selectSpecificRadioButton(psuComplaintOutcome);
+            setSessionVariable("psuComplaintOutcomeReason").to(psuComplaintOutcome);
             clickTheButton("Submit");
-
         }
 
     }

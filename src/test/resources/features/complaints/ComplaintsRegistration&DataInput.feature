@@ -133,7 +133,7 @@ Feature: Registration
     And the summary should contain details of the Complaint Origin
     And the read-only Case Details accordion should contain all case information entered during the "UKVI Stage 2 Registration" stage
 
-  @ComplaintsWorkflow @COMPRegression @UKVIComplaints
+  @ComplaintsWorkflow @UKVIComplaints
   Scenario: User can create UKVI stage 2 complaint case directly amd close the case if they don't want to continue
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2DIRECT" case and move it to the "Stage 2 Registration" stage
