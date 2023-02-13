@@ -336,7 +336,7 @@ public class Documents extends BasePage {
             case BF:
             case BF2:
                 requiredDocumentTypes.addAll(Arrays.asList("To document", "Public correspondence", "Complaint leaflet", "Complaint letter", "Email"
-                        , "CRF", "DRAFT"));
+                        , "CRF", "DRAFT","Final response"));
                 break;
             case TO:
                 requiredDocumentTypes.addAll(Arrays.asList("Initial Correspondence", "Initial Draft", "Final Response", "Contribution Request", "Contribution Response"
