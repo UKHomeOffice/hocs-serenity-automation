@@ -46,6 +46,6 @@ public class DataInputStepDefs extends BasePage {
         String recipient = sessionVariableCalled("recipientName");
         dataInput.selectWhetherToAddRecipient("Yes");
         dataInput.selectSpecificRecipient(recipient);
-        clickContinueButton();
+        clickFinishButton();
     }
 }
