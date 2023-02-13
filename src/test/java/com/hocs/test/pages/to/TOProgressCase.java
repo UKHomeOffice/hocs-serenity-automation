@@ -166,7 +166,7 @@ public class TOProgressCase extends BasePage {
         correspondents.addANonMemberCorrespondentOfType("Correspondent");
         correspondents.confirmPrimaryCorrespondent();
         dataInput.selectWhetherToAddRecipient("No");
-        clickContinueButton();
+        clickFinishButton();
     }
 
     private void moveCaseFromTriageToDraft() {
@@ -296,7 +296,7 @@ public class TOProgressCase extends BasePage {
                 correspondents.addANonMemberCorrespondentOfType("Correspondent");
                 correspondents.confirmPrimaryCorrespondent();
                 dataInput.selectWhetherToAddRecipient("No");
-                clickContinueButton();
+                clickFinishButton();
                 dashboard.getAndClaimCurrentCase();
                 triage.selectAnEnquirySubject();
                 triage.selectAnEnquiryReason();
