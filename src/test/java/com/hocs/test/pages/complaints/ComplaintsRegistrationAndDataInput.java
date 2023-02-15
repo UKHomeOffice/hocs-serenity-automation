@@ -138,7 +138,7 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
             recordCaseData.enterTextIntoTextAreaWithHeading("Description of Complaint");
         } else if (iedetCase()){
             recordCaseData.enterTextIntoTextAreaWithHeading("Case summary");
-        } else if ((compCase() || comp2Case()) && complaintType.equalsIgnoreCase("Service") && !ukviPsuOffTag) {
+        } else if ((compCase() || comp2Case()) && !ukviPsuOffTag) {
             recordCaseData.enterTextIntoTextAreaWithHeading("Case summary");
 
         } else {
@@ -149,14 +149,14 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
     public void selectASeverity() {
         String selectedSeverity = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Severity");
         if (selectedSeverity.equalsIgnoreCase("Very high")| selectedSeverity.equalsIgnoreCase("High")) {
-            recordCaseData.checkSpecificCheckbox("Safe Guarding");
+            recordCaseData.checkSpecificCheckbox("Safe guarding");
             recordCaseData.checkSpecificCheckbox("Vulnerable");
         }
     }
 
     public void enterAPreviousUKVIComplaintReference() {
         String complaintType = sessionVariableCalled("complaintType");
-        if(complaintType.equalsIgnoreCase("Service") && !(ukviPsuOffTag)){
+        if(!(ukviPsuOffTag)){
             recordCaseData.enterTextIntoTextFieldWithHeading("Previous UKVI complaint reference");
         }else {
             recordCaseData.enterTextIntoTextFieldWithHeading("Previous UKVI Complaint Ref");
@@ -174,7 +174,7 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         String complaintType = sessionVariableCalled("complaintType");
 
         if (iedetCase()) {recordCaseData.enterTextIntoTextFieldWithHeading("Third party reference");
-        } else if((compCase() || comp2Case()) && complaintType.equalsIgnoreCase("Service") && !(ukviPsuOffTag)) {
+        } else if((compCase() || comp2Case())&& !(ukviPsuOffTag)) {
             recordCaseData.enterTextIntoTextFieldWithHeading("Third party reference");
         } else {recordCaseData.enterTextIntoTextFieldWithHeading("Third Party Reference");}
     }
