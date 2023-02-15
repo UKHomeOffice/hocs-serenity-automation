@@ -40,6 +40,9 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
         if (iedetCase() | smcCase()) {
             complaintsRegistrationAndDataInput.selectComplaintOrigin();
         }
+        if(iedetCase()){
+            complaintsTriageAndInvestigation.selectIEDETBusinessArea();
+        }
         complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
         if (!iedetCase() && !bfCase() && !smcCase() && !bf2Case()) {
             complaintsRegistrationAndDataInput.selectASeverity();

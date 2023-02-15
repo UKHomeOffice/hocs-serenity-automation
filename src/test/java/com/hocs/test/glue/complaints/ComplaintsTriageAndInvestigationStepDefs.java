@@ -143,15 +143,12 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
         switch (action.toUpperCase()) {
             case "THIRD PARTY SUPPLIER":
                 complaintsTriageAndInvestigation.selectThirdPartySupplier();
-                complaintsTriageAndInvestigation.selectIEDETBusinessArea();
                 break;
             case "IE DETENTION COMPLIANCE TEAM":
                 complaintsTriageAndInvestigation.selecIEDetentionComplianceTeam();
-                complaintsTriageAndInvestigation.selectIEDETBusinessArea();
                 break;
             case "DEPMU":
                 complaintsTriageAndInvestigation.selectDEPMU();
-                complaintsTriageAndInvestigation.selectIEDETBusinessArea();
                 break;
             case "SEND TO CCH":
                 complaintsTriageAndInvestigation.selectSendToCCH();
