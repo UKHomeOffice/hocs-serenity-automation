@@ -136,9 +136,9 @@ public class IEDETProgressCase extends BasePage {
         complaintsRegistrationAndDataInput.selectComplaintOrigin();
         complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
         complaintsRegistrationAndDataInput.enterAThirdPartyReference();
+        complaintsTriageAndInvestigation.selectIEDETBusinessArea();
         clickContinueButton();
         complaintsTriageAndInvestigation.selecIEDetentionComplianceTeam();
-        complaintsTriageAndInvestigation.selectIEDETBusinessArea();
         clickFinishButton();
         System.out.println("Case moved from Triage to Draft");
     }
@@ -148,6 +148,7 @@ public class IEDETProgressCase extends BasePage {
         complaintsTriageAndInvestigation.selectIEDETClaimCategory("Serious misconduct");
         clickContinueButton();
         complaintsRegistrationAndDataInput.selectComplaintOrigin();
+        complaintsTriageAndInvestigation.selectIEDETBusinessArea();
         complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
         complaintsRegistrationAndDataInput.enterAThirdPartyReference();
         clickTheButton("Finish and escalate to PSU");
@@ -176,7 +177,7 @@ public class IEDETProgressCase extends BasePage {
 
     public void moveIEDETCaseFromDraftToSend() {
         documents.addADocumentOfDocumentType("DRAFT");
-        clickTheButton("Proceed to recording outcome");
+        clickTheButton("Send to record response");
         System.out.println("Case moved from Draft to Send");
     }
 
