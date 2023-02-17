@@ -283,6 +283,9 @@ Feature: Complaints Triage
     And I select a Close Reason
     And I enter a completion note at Service Triage
     And I click the "Complete case" button
+    And I load and claim the current case
+    And I add a "DRAFT" type document to the case
+    And I complete the input screen
     Then the case should be closed
     And a Case closure note should be visible in the timeline showing the submitted reason for closing the case
     And the read-only Case Details accordion should contain all case information entered during the "UKVI Stage 2 Service Triage" stage
