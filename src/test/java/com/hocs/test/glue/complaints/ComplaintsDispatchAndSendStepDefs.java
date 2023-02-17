@@ -61,4 +61,10 @@ public class ComplaintsDispatchAndSendStepDefs extends BasePage {
     public void iEnterDetailsOfAnyGratisOffered() {
         complaintsDispatchAndSend.enterGratisOfferedDetails();
     }
+    @And("I complete the input screen")
+    public void iCompleteTheInputScreen() {
+        clickTheButton("Close");
+        enterTextIntoTextAreaWithHeading("Enter note for case completion");
+        clickTheButton("Complete case");
+    }
 }

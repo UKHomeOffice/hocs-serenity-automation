@@ -60,6 +60,8 @@ Feature: Complaints Dispatch & Send
     And I upload a copy of the Final Response
     And I select a Case Outcome
     And I submit the Response details
+    And I load and claim the current case
+    And I complete the input screen
     Then the case should be closed
     And the read-only Case Details accordion should contain all case information entered during the "UKVI Stage 2 Service Send" stage
 
