@@ -242,6 +242,17 @@ public class IEDETProgressCase extends BasePage {
                 complaintsRegistrationAndDataInput.enterAHomeOfficeReference("Test entry for HO Reference");
                 complaintsRegistrationAndDataInput.enterAPortReference();
                 clickFinishButton();
+                dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
+                complaintsRegistrationAndDataInput.selectASpecificComplaintType("Service");
+                complaintsTriageAndInvestigation.selectIEDETClaimCategory("Service");
+                clickContinueButton();
+                complaintsRegistrationAndDataInput.selectASpecificComplaintOrigin("Heathrow Airport");
+                complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
+                complaintsRegistrationAndDataInput.enterAThirdPartyReference();
+                complaintsTriageAndInvestigation.selectASpecificIEDETBusinessArea("Gatwick Airport");
+                clickContinueButton();
+                complaintsTriageAndInvestigation.selecIEDetentionComplianceTeam();
+                clickFinishButton();
                 dashboard.goToDashboard();
                 break;
             default:

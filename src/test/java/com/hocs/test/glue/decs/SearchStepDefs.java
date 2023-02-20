@@ -68,6 +68,13 @@ public class SearchStepDefs extends BasePage {
         search.enterSearchCriteria(criteria, value);
     }
 
+    @And("I select {string} from the {string} dropdown menu")
+    public void iSelectTheDropdownSearchField(String value, String criteria) {
+        setSessionVariable("searchValue").to(value);
+        setSessionVariable("searchCriteria").to(criteria);
+        search.enterSearchCriteria(criteria, value);
+    }
+
     @And("I check that the search results have the correct {string}")
     public void iCheckThatTheSearchResultsHaveTheCorrect(String criteria) throws ParseException {
         String infoValue = sessionVariableCalled("searchValue");
@@ -150,7 +157,7 @@ public class SearchStepDefs extends BasePage {
         waitABit(500);
         if (!caseView.currentCaseIsLoaded()) {
             Assert.fail("Expected case " + getCurrentCaseReference() + " to be loaded, but it was not");
-        };
+        }
     }
 
     @When("I enter a non-existent (case )reference")

@@ -132,6 +132,17 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         }
     }
 
+    public void selectASpecificComplaintOrigin(String optionText) {
+        if (iedetCase()){
+            recordCaseData.selectSpecificOptionFromDropdownWithHeading(optionText,"Complaint origin");
+        } else {
+            recordCaseData.selectSpecificOptionFromDropdownWithHeading(optionText,"Complaint Origin");
+        }
+        if (optionText.equalsIgnoreCase("Other")) {
+            recordCaseData.enterTextIntoTextFieldWithHeading("Other Complaint Origin");
+        }
+    }
+
     public void enterADescriptionOfTheComplaint() {
         String complaintType = sessionVariableCalled("complaintType");
         if (pogrCase() || pogr2Case()) {
