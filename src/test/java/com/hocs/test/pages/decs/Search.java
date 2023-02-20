@@ -204,6 +204,14 @@ public class Search extends BasePage {
                 selectSpecificOptionFromDropdownWithHeading(value, "Reference type");
                 setSessionVariable("searchReferenceType").to(value);
                 break;
+            case "COMPLAINT ORIGIN":
+                selectSpecificOptionFromDropdownWithHeading(value, "Complaint origin");
+                setSessionVariable("searchComplaintOrigin").to(value);
+                break;
+            case "BUSINESS AREA":
+                selectSpecificOptionFromDropdownWithHeading(value, "Business area");
+                setSessionVariable("searchBusinessArea").to(value);
+                break;
             case "MINISTERIAL SIGN OFF TEAM":
                 selectSpecificOptionFromDropdownWithHeading(value, "Ministerial sign off team");
                 setSessionVariable("searchMinisterialSignOffTeam").to(value);

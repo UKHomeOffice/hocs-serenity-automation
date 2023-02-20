@@ -343,6 +343,10 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Business area");
     }
 
+    public void selectASpecificIEDETBusinessArea(String optionText) {
+        recordCaseData.selectSpecificOptionFromDropdownWithHeading(optionText,"Business area");
+    }
+
     public void selectDEPMU() {
         recordCaseData.selectSpecificRadioButton("DEPMU");
     }
