@@ -978,6 +978,9 @@ public class Workstacks extends BasePage {
             } else if (complaintType.equalsIgnoreCase("Ex-Gratia")) {
                 teamName ="Ex-Gratia";
                 stage ="UKVI Ex-Gratia Triage";
+            } else if (complaintType.equalsIgnoreCase("Serious misconduct")) {
+                teamName ="PSU Complaints";
+                stage = "PSU Registration";
             }
         } else if (comp2Case()) {
             if(complaintType.equalsIgnoreCase("Service")){
@@ -989,10 +992,10 @@ public class Workstacks extends BasePage {
             } else if (complaintType.equalsIgnoreCase("Ex-Gratia")) {
                 teamName ="Stage 2 Ex-Gratia";
                 stage = "UKVI Stage 2 Ex-Gratia Triage";
+            } else if (complaintType.equalsIgnoreCase("Serious misconduct")) {
+                teamName ="PSU Complaints";
+                stage = "PSU Registration";
             }
-        }else if (complaintType.equalsIgnoreCase("Serious misconduct")) {
-            teamName ="PSU Complaints";
-            stage = "PSU Registration";
         }
         dashboard.selectWorkstackByTeamName(teamName);
         selectSpecificCaseReferenceLink(getCurrentCaseReference());

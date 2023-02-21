@@ -104,3 +104,4 @@ Feature: PSU Triage
       | caseType | caseStage            | newCaseStage              |
       | COMP     | TRANSFER_PSU         | UKVI Recategorise         |
       | COMP2    | TRIAGE_PSU_ESCALATED | UKVI Stage 2 Recategorise |
+
