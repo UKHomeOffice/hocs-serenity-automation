@@ -36,7 +36,7 @@ Feature: PSU Triage
     Then the case should be moved to the "PSU Outcome" stage
 
   @ComplaintsWorkflow @COMPPSURegression @UKVIComplaints
-  Scenario Outline: User attempts to progress a UKVI PSU case without entering a an option in PSU Triage
+  Scenario Outline: User attempts to progress a UKVI PSU case without entering an option in PSU Triage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "<caseType>" case and move it to the "PSU_Triage" stage
     Then When I attempt to continue without selecting a PSU Triage Option an error message is displayed
