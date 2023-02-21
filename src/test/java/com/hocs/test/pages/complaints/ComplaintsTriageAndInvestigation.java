@@ -504,7 +504,8 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     }
     public void escalateToPSUFromEscalated() {
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Escalate to PSU", "Action");
-        if(comp2Case()){
+        String complaintType = sessionVariableCalled("complaintType");
+        if(comp2Case() && (complaintType.equalsIgnoreCase("Minor misconduct") || complaintType.equalsIgnoreCase("Service"))){
             clickContinueButton();
         }else{
         clickConfirmButton();
@@ -515,12 +516,8 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     }
 
     public void checkComplaintCategory(String complaintType) {
-        selectUKVIClaimCategory(complaintType);
-        clickContinueButton();
-        selectRandomRadioButtonFromGroupWithHeading("Channel");
-        complaintsRegistrationAndDataInput.enterAPreviousUKVIPSUComplaintReference();
-        complaintsRegistrationAndDataInput.enterAThirdPartyReferencePSU();
-        clickTheButton("Finish and escalate to PSU");
+           selectAVisibleClaimCategory();
+           clickTheButton("Finish and escalate to PSU");
     }
 
     public void selectAComplaintTypeForRecategorisedUKVI() {
