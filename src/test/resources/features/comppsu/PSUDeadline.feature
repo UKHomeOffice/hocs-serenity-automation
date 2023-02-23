@@ -55,3 +55,29 @@ Feature: PSU Deadline
     And I click to view the case in the "Minor Misconduct" workstack
     Then the case deadline date displayed in the "Minor Misconduct" is "20" workdays for a "UKVI Recategorise" stage
 
+  @ComplaintsWorkflow @BFPSURegression @BFComplaints
+  Scenario Outline: When a BF user escalates the case to PSU the SLA is amended to 60 working days at the PSU Outcome stage
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "BF" case and move it to the "<caseStage>" stage
+    And I click to view the case in the "<workstack>" workstack
+    Then the case deadline date displayed in the "<workstack>" is "<amountOfDays>" workdays for a "<currentStage>" stage
+    Then the case deadline date displayed in the summary is correct for a "<currentStage>" case
+
+    Examples:
+      | caseStage            | amountOfDays  | workstack                | currentStage        |
+      | PSU_Registration     |  20           | PSU Complaints           | PSU Registration    |
+      | PSU_Triage           |  20           | PSU Complaints           | PSU Triage          |
+      | PSU_Complaint_Outcome|  60           | PSU Complaints           | PSU Outcome         |
+
+  @ComplaintsWorkflow @COMPPSURegression @UKVIComplaints
+  Scenario: When a BF PSU user sends the case back to BF the SLA should be updated to 20 working days
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "BF" case and move it to the "PSU_Complaint_Outcome" stage
+    And I click to view the case in the "PSU Complaints" workstack
+    Then the case deadline date displayed in the "PSU Complaints" is "60" workdays for a "PSU Outcome" stage
+    Then the case deadline date displayed in the summary is correct for a "PSU Complaint Outcome" case
+    Then I select "Not serious - send back to Border Force" at "Complaint Outcome" page
+    And I click the "Submit" button
+    And I click to view the case in the "Border Force Complaints" workstack
+    Then the case deadline date displayed in the "Border Force Complaints" is "20" workdays for a "BF Recategorise" stage
+

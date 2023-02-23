@@ -119,3 +119,50 @@ Scenario Outline: When a user selects one of the Complaint Outcome and enters th
       | caseType | caseStage        | newCaseStage |
       | COMP     | ESCALATED_PSU    | UKVI Recategorise |
       | COMP2    | QA_ESCALATED_PSU | UKVI Stage 2 Recategorise |
+
+  @ComplaintsWorkflow @BFPSURegression @BFComplaints
+  Scenario Outline: When a PSU user selects Withdraw as BF PSU Complaint Outcome the case should be closed
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "<caseType>" case and move it to the "PSU_COMPLAINT_OUTCOME" stage
+    Then I select "Withdrawn" at "PSU Complaint Outcome" page
+    Then the case should be closed
+#    And  the summary should contain details of the "Withdrawn" Complaint Outcome
+    And  the read-only Case Details accordion should contain all case information entered during the "PSU Outcome" stage
+
+    Examples:
+      | caseType |
+      | BF       |
+#      | BF2      |
+
+  @ComplaintsWorkflow @BFPSURegression @BFComplaints
+  Scenario Outline: When a PSU user selects Send back to BF as a Complaint Outcome the case should be moved to
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "<caseType>" case and move it to the "PSU_COMPLAINT_OUTCOME" stage
+    Then I select "Not serious - send back to Border Force" at "PSU_COMPLAINT_OUTCOME" page
+    Then I click the "Submit" button
+    Then the case should be at the "<newCaseStage>" stage
+    And  the summary should contain details of the "Not serious - send back to Border Force" Complaint Outcome
+    And  the read-only Case Details accordion should contain all case information entered during the "PSU Outcome" stage
+    And the "Serious misconduct" radio button should be unselected
+    And I click to view the case in the "<workstack>" workstack
+    Then a "Rejected by PSU" tag is appended to the case reference
+
+    Examples:
+      | caseType | workstack                         | newCaseStage            |
+      | BF       | Border Force Complaints           | BF Recategorise         |
+#      | BF2      | Border Force Complaints (Stage 2) | BF Stage 2 Recategorise |
+
+  @ComplaintsWorkflow @BFPSURegression @BFComplaints
+  Scenario Outline: When a BF PSU user selects the Complaint Outcome and enters the final response then the case should be closed
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "<caseType>" case and move it to the "PSU_COMPLAINT_OUTCOME" stage
+    Then I select Complaint Type at PSU Complaint Outcome Page page
+    Then I enter the Final response and Final date
+    Then the case should be closed
+#    And  the summary should contain details of the Complaint Outcome selection
+    And  the read-only Case Details accordion should contain all case information entered during the "PSU Outcome" stage
+
+    Examples:
+      | caseType    |
+      |BF      |
+#      | BF2       |

@@ -195,6 +195,16 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
         setSessionVariable("claimCategory").to(selectedClaimCategory);
     }
 
+    public void selectBFClaimCategory(String category) {
+        setSessionVariable("complaintCategory").to(category);
+        List<WebElementFacade> claimCategories = findAll("//span[text()='" + category + "']/parent::legend/following-sibling::div//label");
+        if(claimCategories.isEmpty()){
+            waitABit(4000);
+        }
+        String selectedClaimCategory = checkRandomCheckboxFromList(claimCategories);
+        setSessionVariable("claimCategory").to(selectedClaimCategory);
+    }
+
     public void selectAVisibleClaimCategory() {
         List<WebElementFacade> claimCategories = findAll("//input[not(@checked)]/following-sibling::label[contains(@for,'Cat')]");
         if(claimCategories.isEmpty()) {

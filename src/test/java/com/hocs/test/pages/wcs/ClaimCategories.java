@@ -377,6 +377,7 @@ public class ClaimCategories extends BasePage {
 
 
     public void iClickShowHideDetails(String caseCategory) {
+        waitABit(2000);
         WebElementFacade showDetailsHypertext = null;
         switch (caseCategory.toUpperCase()) {
             case "IMMIGRATION AND LEGAL FEES":
@@ -392,7 +393,7 @@ public class ClaimCategories extends BasePage {
                 showDetailsHypertext = findBy("//label[contains(text(), 'Child benefit')]//ancestor::div[@class='selectable-details-header']//a");
                 break;
             case "BENEFITS":
-                showDetailsHypertext = findBy("//label[contains(text(), 'Benefits')]//ancestor::div[@class='selectable-details-header']//a");
+                showDetailsHypertext = findBy("//*[@id=\"accordion-default-content-8\"]/div[5]/div/div/div[2]/a");
                 break;
             case "HOUSING":
                 showDetailsHypertext = findBy("//label[contains(text(), 'Housing')]//ancestor::div[@class='selectable-details-header']//a");
@@ -424,7 +425,8 @@ public class ClaimCategories extends BasePage {
             default:
                 pendingStep(caseCategory + " is not defined within iClickShowHideDetails");
         }
-        clickOn(showDetailsHypertext);
+        waitABit(2000);
+        safeClickOn(showDetailsHypertext);
     }
 
     public void enterPreliminaryOfferValue(int value) {
@@ -665,6 +667,7 @@ public class ClaimCategories extends BasePage {
     }
 
     public void assertThatCorrectTotalsAreDisplayed() {
+        waitABit(2000);
         String displayedAwardValue = totalAwardedBox.getValue();
         String calculatedAwardValue = sessionVariableCalled("totalAwarded").toString();
         String displayedTotalValue = totalPaidBox.getValue();

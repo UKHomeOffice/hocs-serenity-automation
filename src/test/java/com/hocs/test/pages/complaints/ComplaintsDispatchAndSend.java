@@ -15,11 +15,13 @@ public class ComplaintsDispatchAndSend extends BasePage {
 
     public void selectACaseOutcome() {
         String caseOutcome;
-        if (!pogrCase() && !pogr2Case()) {
+        if(iedetCase()) {
+            caseOutcome = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Case outcome");
+        }else if (!pogrCase() && !pogr2Case()) {
             caseOutcome = recordCaseData.selectRandomOptionFromDropdownWithHeading("Case Outcome");
         } else {
             caseOutcome = recordCaseData.selectRandomOptionFromDropdownWithHeading("Dispatch Outcome");
-        }
+            }
         if (iedetCase() && caseOutcome.equalsIgnoreCase("Other")) {
             recordCaseData.enterTextIntoTextAreaWithHeading("Please provide further details");
         }
@@ -43,8 +45,8 @@ public class ComplaintsDispatchAndSend extends BasePage {
         String headerText = null;
         if (compCase() || comp2Case() || bfCase() || bf2Case()) {
             headerText = "Date of Response";
-        } else if (iedetCase() || smcCase()) {
-            headerText = "Response date";
+        } else if (iedetCase()) {
+            headerText = "Response sent";
         } else if (pogrCase() || pogr2Case()) {
             headerText = "Dispatch Date";
         }

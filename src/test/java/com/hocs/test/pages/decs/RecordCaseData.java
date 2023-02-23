@@ -94,7 +94,7 @@ public class RecordCaseData extends BasePage{
 
     public String checkRandomCheckboxFromList(List<WebElementFacade> checkboxes) {
         String checkboxLabelText = super.checkRandomCheckboxFromList(checkboxes);
-        if(compCase() || comp2Case() || comp2DirectCase()){
+        if(compCase() || comp2Case() || comp2DirectCase()||bfCase()||bf2Case()){
             String complaintType = sessionVariableCalled("complaintType");
             String complaintCategory = sessionVariableCalled("complaintCategory");
             if(complaintType.equalsIgnoreCase("Ex-Gratia")){

@@ -64,6 +64,7 @@ public class BFProgressCase extends BasePage {
                 precedingStage = "CREATE NEW CASE";
                 break;
             case "TRIAGE":
+            case "PSU_REGISTRATION":
                 precedingStage = "REGISTRATION";
                 break;
             case "DRAFT":
@@ -79,6 +80,15 @@ public class BFProgressCase extends BasePage {
             case "CASE CLOSED":
                 precedingStage = "SEND";
                 break;
+            case "PSU_TRIAGE":
+                precedingStage = "PSU_REGISTRATION";
+                break;
+            case "PSU_COMPLAINT_OUTCOME":
+                precedingStage = "PSU_TRIAGE";
+                break;
+            case "PSU_CLOSED":
+                precedingStage = "PSU_COMPLAINT_OUTCOME";
+                break;
             default:
                 pendingStep(targetStage + " is not defined within " + getMethodName());
         }
@@ -89,8 +99,17 @@ public class BFProgressCase extends BasePage {
         dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
         switch (stageToComplete.toUpperCase()) {
             case "REGISTRATION":
-                moveBFCaseFromRegistrationToTriage();
-                break;
+            switch (targetStage.toUpperCase()){
+                case "TRIAGE":
+                    moveBFCaseFromRegistrationToTriage();
+                    break;
+                case "PSU_REGISTRATION":
+                    moveCaseFromRegistrationToPSURegistration();
+                    break;
+                default:
+                    pendingStep(targetStage + " is not defined within " + getMethodName());
+            }
+            break;
             case "TRIAGE":
                 switch (targetStage.toUpperCase()) {
                     case "DRAFT":
@@ -112,11 +131,52 @@ public class BFProgressCase extends BasePage {
             case "SEND":
                 moveBFCaseFromSendToCaseClosed();
                 break;
+            case "PSU_REGISTRATION":
+                moveBFCaseFromPSURegistrationToPSUTriage();
+                break;
+            case "PSU_TRIAGE":
+                moveBFCaseFromPSUTriageToPSUComplaintOutcome();
+                break;
+            case "PSU_COMPLAINT_OUTCOME":
+                moveBFCaseFromPSUComplaintOutcomeToPSUCaseClosed();
+                break;
             default:
                 pendingStep(stageToComplete + " is not defined within " + getMethodName());
         }
         dashboard.waitForDashboard();
         RecordCaseData.checkIfDataRecordsShouldBeWiped();
+    }
+
+    private void moveCaseFromRegistrationToPSURegistration() {
+        correspondents.addANonMemberCorrespondentOfType("Complainant");
+        correspondents.confirmPrimaryCorrespondent();
+        complaintsRegistrationAndDataInput.enterComplainantDetails();
+        complaintsRegistrationAndDataInput.selectASpecificComplaintType("Serious misconduct");
+        complaintsTriageAndInvestigation.selectBFClaimCategory("Serious misconduct");
+        clickTheButton("Finish and escalate to PSU");
+        System.out.println("Case moved from Case Registration to PSU Registration");
+    }
+
+    private void moveBFCaseFromPSURegistrationToPSUTriage() {
+        complaintsRegistrationAndDataInput.enterAPSUReference();
+        clickTheButton("Submit");
+    }
+
+    private void moveBFCaseFromPSUTriageToPSUComplaintOutcome() {
+        clickTheButton("Submit");
+        assertExpectedErrorMessageIsDisplayed("Is this serious misconduct case for PSU to investigate? is required");
+        complaintsRegistrationAndDataInput.selectYesForSeriousCase();
+        clickTheButton("Submit");
+        waitABit(1000);
+        clickTheButton("Finish");
+    }
+
+    private void moveBFCaseFromPSUComplaintOutcomeToPSUCaseClosed() {
+        complaintsRegistrationAndDataInput.selectRandomCaseOutcomeToProgress();
+        clickTheButton("Submit");
+        documents.addADocumentOfDocumentType("Final response");
+        complaintsDispatchAndSend.enterFinalResponseSentDate();
+        clickTheButton("Close case");
     }
 
     public void moveBFCaseFromRegistrationToTriage() {
