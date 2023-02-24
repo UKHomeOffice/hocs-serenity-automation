@@ -9,7 +9,7 @@ Feature: PSU Triage
     And I choose to send the case to a team not on DECS
     Then the case should be closed
 
-  @ComplaintsWorkflow @IEDETRegression @IEDETComplaints
+  @ComplaintsWorkflow @Validation @IEDETComplaints
   Scenario: User attempts to progress a IEDET PSU case without entering a an option in PSU Triage
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to the "PSU Triage" stage
@@ -35,7 +35,7 @@ Feature: PSU Triage
     And I move to the review complaint categories screen and check the options there are working correctly
     Then the case should be moved to the "PSU Outcome" stage
 
-  @ComplaintsWorkflow @COMPPSURegression @UKVIComplaints
+  @ComplaintsWorkflow @Validation @UKVIComplaints
   Scenario Outline: User attempts to progress a UKVI PSU case without entering an option in PSU Triage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "<caseType>" case and move it to the "PSU_Triage" stage
@@ -105,3 +105,43 @@ Feature: PSU Triage
       | COMP     | TRANSFER_PSU         | UKVI Recategorise         |
       | COMP2    | TRIAGE_PSU_ESCALATED | UKVI Stage 2 Recategorise |
 
+  @ComplaintsWorkflow @BFPSURegression @BFComplaints
+  Scenario Outline: User confirms the BF complaint category options in PSU Triage
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "<caseType>" case and move it to the "PSU_Triage" stage
+    And I move to the review complaint categories screen and check the options there are working correctly
+    Then the case should be moved to the "PSU Outcome" stage
+    And the read-only Case Details accordion should contain all case information entered during the "PSU Triage" stage
+
+    Examples:
+      | caseType |
+      | BF       |
+#      | BF2      |
+
+  @ComplaintsWorkflow @BFPSURegression @BFComplaints
+  Scenario Outline: PSU User sends the case back to BF case from PSU Triage
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "<caseType>" case and move it to the "PSU_Triage" stage
+    Then I select "No - send back to Border Force" at "PSU Complaint Outcome" page
+    And I click the "Submit" button
+    And I click to view the case in the "<workstack>" workstack
+    And the case stage should be "<newCaseStage>" and "Rejected by PSU" tag is appended to the case reference
+    Then the case should be at the "<newCaseStage>" stage
+    And the "Serious misconduct" radio button should be unselected
+
+    Examples:
+      | caseType | workstack                         | newCaseStage            |
+      | BF       | Border Force Complaints           | BF Recategorise         |
+#      | BF2      | Border Force Complaints (Stage 2) | BF Stage 2 Recategorise |
+
+  @ComplaintsWorkflow @BFPSURegression @BFComplaints
+  Scenario Outline: User chooses to send a BF PSU case to a team not on DECS
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "<caseType>" case and move it to the "PSU_Triage" stage
+    And I choose to send the case to a team not on DECS
+    Then the case should be closed
+
+    Examples:
+      | caseType |
+      | BF       |
+#      | BF2      |

@@ -694,10 +694,13 @@ public class Workstacks extends BasePage {
         waitForWorkstackToLoad();
         caseFilter.sendKeys(getCurrentCaseReference());
 
-        if(currentWorkstack.equalsIgnoreCase("PSU Complaints")) {
+        if (currentWorkstack.equalsIgnoreCase("PSU Complaints")) {
             displayedDeadlineDate = findBy("//a[text()='" + getCurrentCaseReference() + "']/parent::td/following-sibling::td[6]");
             stage = findBy("//a[text()='" + getCurrentCaseReference() + "']/parent::td/following-sibling::td[2]");
-            } else{
+        } else if (currentWorkstack.equalsIgnoreCase("Border Force Complaints")) {
+            displayedDeadlineDate = findBy("//a[text()='" + getCurrentCaseReference() + "']/parent::td/following-sibling::td[6]");
+            stage = findBy("//a[text()='" + getCurrentCaseReference() + "']/parent::td/following-sibling::td[3]");
+        } else {
             displayedDeadlineDate = findBy("//a[text()='" + getCurrentCaseReference() + "']/parent::td/following-sibling::td[4]");
             stage = findBy("//a[text()='" + getCurrentCaseReference() + "']/parent::td/following-sibling::td[1]");
         }
@@ -954,7 +957,12 @@ public class Workstacks extends BasePage {
 
     public void assertCaseStage(String caseStage) {
 
-        WebElementFacade caseStageDetails = findBy("//a[text()='" + getCurrentCaseReference() + "']/parent::td/following-sibling::td");
+        WebElementFacade caseStageDetails;
+        if(bfCase()||bf2Case()){
+            caseStageDetails = findBy("//a[text()='" + getCurrentCaseReference() + "']/parent::td/following-sibling::td[3]");
+        } else {
+            caseStageDetails = findBy("//a[text()='" + getCurrentCaseReference() + "']/parent::td/following-sibling::td");
+        }
         String caseStageText = caseStageDetails.getText();
         if(!caseStageText.equalsIgnoreCase(caseStage)){
             Assert.fail("Expected case stage is '" + caseStage + "', but column value was '" + caseStageText + "'");

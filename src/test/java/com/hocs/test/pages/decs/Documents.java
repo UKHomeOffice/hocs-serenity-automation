@@ -312,9 +312,11 @@ public class Documents extends BasePage {
         List<String> requiredDocumentTypes = new ArrayList<>();
         switch (caseType) {
             case MIN:
-            case TRO:
             case DTEN:
                 requiredDocumentTypes.addAll(Arrays.asList("ORIGINAL", "DRAFT", "FINAL", "CONTRIBUTION", "BACKGROUND NOTE"));
+                break;
+            case TRO:
+                requiredDocumentTypes.addAll(Arrays.asList("ORIGINAL", "DRAFT", "FINAL", "CONTRIBUTION", "BACKGROUND NOTE", "Migration document"));
                 break;
             case MPAM:
                 requiredDocumentTypes.addAll(Arrays.asList("Original correspondence", "Further correspondence from MPs Office", "Contributions "
@@ -325,28 +327,37 @@ public class Documents extends BasePage {
                         + "requested", "Contributions received" , "Draft response (includes QA rejected)", "Background note", "Final response"));
                 break;
             case COMP:
+                requiredDocumentTypes.addAll(Arrays.asList("To document", "Public correspondence", "Complaint leaflet", "Complaint letter", "Email"
+                        , "CRF", "DRAFT", "Appeal Leaflet", "IMB Letter", "Final Response", "Migration document"));
+                break;
             case COMP2:
                 requiredDocumentTypes.addAll(Arrays.asList("To document", "Public correspondence", "Complaint leaflet", "Complaint letter", "Email"
                         , "CRF", "DRAFT", "Appeal Leaflet", "IMB Letter", "Final Response"));
                 break;
             case IEDET:
                 requiredDocumentTypes.addAll(Arrays.asList("Original complaint", "Letter of Authority", "Interim response", "DRAFT","Final response", "Withdrawal letter"
-                        , "Other"));
+                        , "Other", "Migration document"));
                 break;
             case BF:
+                requiredDocumentTypes.addAll(Arrays.asList("To document", "Public correspondence", "Complaint leaflet", "Complaint letter", "Email"
+                        , "CRF", "DRAFT","Final response", "Migration document"));
+                break;
             case BF2:
                 requiredDocumentTypes.addAll(Arrays.asList("To document", "Public correspondence", "Complaint leaflet", "Complaint letter", "Email"
                         , "CRF", "DRAFT","Final response"));
                 break;
             case TO:
                 requiredDocumentTypes.addAll(Arrays.asList("Initial Correspondence", "Initial Draft", "Final Response", "Contribution Request", "Contribution Response"
-                        , "Background Note"));
+                        , "Background Note", "Migration document"));
                 break;
             case FOI:
                 requiredDocumentTypes.addAll(Arrays.asList("Request", "Initial response", "Draft response", "Clearances", "Final responses"
                         , "Correspondence", "Contribution", "Miscellaneous", "Appeal Response"));
                 break;
             case POGR:
+                requiredDocumentTypes.addAll(Arrays.asList("Original Complaint", "Interim Letter", "Draft", "Final Response","Contribution Request"
+                        ,"Contribution Response", "Migration document"));
+                break;
             case POGR2:
                 requiredDocumentTypes.addAll(Arrays.asList("Original Complaint", "Interim Letter", "Draft", "Final Response","Contribution Request"
                         ,"Contribution Response"));
