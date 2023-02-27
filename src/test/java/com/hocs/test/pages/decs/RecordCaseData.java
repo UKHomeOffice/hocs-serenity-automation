@@ -40,6 +40,16 @@ public class RecordCaseData extends BasePage{
         if((ukviPsuOffTag) && (compCase()||comp2Case()||comp2DirectCase()) && (headingText.equalsIgnoreCase("Complaint Type"))){
                        headingText = "Complaint type";
         }
+        if(comp2DirectCase()) {
+            if(radioButtonText.equalsIgnoreCase("Yes - it’s a complaint about an external contractor")){
+                       radioButtonText = "external contractor";
+             } else if(radioButtonText.equalsIgnoreCase("No - close the case")){
+                radioButtonText = "closed";
+            } else if(radioButtonText.equalsIgnoreCase("Yes - it’s a further stage 2 case")){
+                radioButtonText = "further stage 2 case";
+            }
+
+        }
         addHeadingAndValueRecord(headingText, radioButtonText);
     }
 

@@ -110,15 +110,14 @@ Feature: Registration
 
     #   UKVI COMPLAINTS STAGE 2 Direct
 
+
+
   @ComplaintsWorkflow @UKVIComplaints
-  Scenario: User can create UKVI stage 2 complaint case directly
+  Scenario Outline: User can create UKVI stage 2 complaint case directly for Service
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2DIRECT" case and move it to the "Stage 2 Registration" stage
-    And I click to view the case in the "Stage 2 Complaint Registration" workstack
-    Then I filter the workstack using the current cases reference
-    Then I click the link for the current case in the workstack
     And I load and claim the current case
-    And I select Sopra Steria case option "Yes - it's a Sopra Steria case"
+    And I select Sopra Steria case option "<caseType>"
     And I add a "Complainant" correspondent
     And I click the "Continue" button
     And I enter the Complainant Details
@@ -133,13 +132,88 @@ Feature: Registration
     And the summary should contain details of the Complaint Origin
     And the read-only Case Details accordion should contain all case information entered during the "UKVI Stage 2 Registration" stage
 
+    Examples:
+      | caseType                                            |
+      | Yes - it’s a further stage 2 case                   |
+      | Yes - it’s a complaint about an external contractor |
+
+  @ComplaintsWorkflow @UKVIComplaints
+  Scenario Outline: User can create UKVI stage 2 complaint case directly for Ex-Gratia
+    Given I am logged into "CS" as user "COMP_USER"
+    When I create a "COMP2DIRECT" case and move it to the "Stage 2 Registration" stage
+    And I load and claim the current case
+    And I select Sopra Steria case option "<caseType>"
+    And I add a "Complainant" correspondent
+    And I click the "Continue" button
+    And I enter the Complainant Details
+    And I select "Ex-Gratia" as the Complaint Type
+    And I enter the complaint details on the Complaint Input page
+    When I click the "Finish" button
+    Then the case should be moved to the "UKVI Stage 2 Ex-Gratia Triage" stage
+    And the summary should display the owning team as "Stage 2 Ex-Gratia"
+    And the summary should contain details of the Complaint Origin
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Stage 2 Registration" stage
+
+    Examples:
+      | caseType                                            |
+      | Yes - it’s a further stage 2 case                   |
+      | Yes - it’s a complaint about an external contractor |
+
+  @ComplaintsWorkflow @UKVIComplaints
+  Scenario Outline: User can create UKVI stage 2 complaint case directly for Minor misconduct
+    Given I am logged into "CS" as user "COMP_USER"
+    When I create a "COMP2DIRECT" case and move it to the "Stage 2 Registration" stage
+ #   And I click to view the case in the "Stage 2 Complaint Registration" workstack
+ #   Then I filter the workstack using the current cases reference
+ #   Then I click the link for the current case in the workstack
+    And I load and claim the current case
+    And I select Sopra Steria case option "<caseType>"
+    And I add a "Complainant" correspondent
+    And I click the "Continue" button
+    And I enter the Complainant Details
+    And I select "Minor misconduct" as the Complaint Type
+    And I enter the complaint details on the Complaint Input page
+    When I click the "Finish" button
+    Then the case should be moved to the "UKVI Stage 2 Minor Misconduct Triage" stage
+    And the summary should display the owning team as "Stage 2 Minor Misconduct"
+    And the summary should contain details of the Complaint Origin
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Stage 2 Registration" stage
+
+    Examples:
+      | caseType                                            |
+      | Yes - it’s a further stage 2 case                   |
+      | Yes - it’s a complaint about an external contractor |
+
+  @ComplaintsWorkflow @UKVIComplaints
+  Scenario Outline: User can create UKVI stage 2 complaint case directly for Serious misconduct
+    Given I am logged into "CS" as user "COMP_USER"
+    When I create a "COMP2DIRECT" case and move it to the "Stage 2 Registration" stage
+ #   And I click to view the case in the "Stage 2 Complaint Registration" workstack
+ #   Then I filter the workstack using the current cases reference
+ #   Then I click the link for the current case in the workstack
+    And I load and claim the current case
+    And I select Sopra Steria case option "<caseType>"
+    And I add a "Complainant" correspondent
+    And I click the "Continue" button
+    And I enter the Complainant Details
+    And I select "Serious misconduct" as the Complaint Type
+    And I select "Serious misconduct" Complaint Category
+    And I enter the complaint details on the Complaint Input page for Serious Misconduct
+    When I click the "Finish and Escalate to PSU" button
+    Then the case should be moved to the "PSU Registration" stage
+    And the summary should display the owning team as "PSU Complaints"
+    And the summary should contain details of the Complaint Origin
+    And the read-only Case Details accordion should contain all case information entered during the "UKVI Stage 2 Registration" stage
+
+    Examples:
+      | caseType                                            |
+      | Yes - it’s a further stage 2 case                   |
+      | Yes - it’s a complaint about an external contractor |
+
   @ComplaintsWorkflow @UKVIComplaints
   Scenario: User can create UKVI stage 2 complaint case directly amd close the case if they don't want to continue
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2DIRECT" case and move it to the "Stage 2 Registration" stage
-    And I click to view the case in the "Stage 2 Complaint Registration" workstack
-    Then I filter the workstack using the current cases reference
-    Then I click the link for the current case in the workstack
     Then I load and claim the current case
     And I select Sopra Steria case option "No - close the case"
     Then the case should be closed

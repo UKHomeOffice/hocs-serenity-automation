@@ -51,6 +51,12 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
             complaintsRegistrationAndDataInput.selectAdditionalInformation();
             complaintsRegistrationAndDataInput.enterAPreviousUKVIComplaintReference();
         }
+        if(comp2DirectCase()){
+
+                complaintsRegistrationAndDataInput.selectExternalContractor();
+
+
+        }
         complaintsRegistrationAndDataInput.enterAThirdPartyReference();
     }
 
@@ -177,9 +183,22 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
 
     @And("I select Sopra Steria case option {string}")
     public void iSelectSopraSteriaCaseOption(String radioOption) {
-        complaintsRegistrationAndDataInput.selectSpecificRadioButton(radioOption);
-        complaintsRegistrationAndDataInput.setComplaintOrigin(radioOption);
-        clickTheButton("Submit");
+        complaintsRegistrationAndDataInput.selectStage2CaseType(radioOption);
+         clickTheButton("Submit");
 
+    }
+
+    @And("I select {string} Complaint Category")
+    public void iSelectComplaintCategory(String category) {
+        complaintsTriageAndInvestigation.selectUKVIClaimCategory(category);
+        clickContinueButton();
+    }
+
+    @And("I enter the complaint details on the Complaint Input page for Serious Misconduct")
+    public void iEnterTheComplaintDetailsOnTheComplaintInputPageForSeriousMisconduct() {
+        complaintsRegistrationAndDataInput.selectAComplaintChannel();
+        complaintsRegistrationAndDataInput.enterAPreviousUKVIComplaintReference();
+        complaintsRegistrationAndDataInput.enterAThirdPartyReference();
+        complaintsRegistrationAndDataInput.selectExternalContractor();
     }
 }

@@ -255,10 +255,10 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     public void enterDetailsOnTriageCaptureReasonPage() {
         String complaintType = sessionVariableCalled("complaintType");
         if(ukviPsuOffTag){
-            if ((compCase() || comp2Case()) && (complaintType.equals("Service") || complaintType.equals("Minor Misconduct"))) {
+            if ((compCase() || comp2Case() || comp2DirectCase()) && (complaintType.equals("Service") || complaintType.equals("Minor Misconduct"))) {
                 recordCaseData.selectRandomOptionFromDropdownWithHeading("Directorate");
             }
-        } else if ((compCase() || comp2Case()) && (complaintType.equals("Service") || complaintType.equals("Minor misconduct"))) {
+        } else if ((compCase() || comp2Case() || comp2DirectCase()) && (complaintType.equals("Service") || complaintType.equals("Minor misconduct"))) {
             recordCaseData.selectRandomOptionFromDropdownWithHeading("Directorate");
         }
         String businessArea = recordCaseData.selectRandomOptionFromDropdownWithHeading("Business Area");

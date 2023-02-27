@@ -153,7 +153,7 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
             recordCaseData.enterTextIntoTextAreaWithHeading("Description of Complaint");
         } else if (iedetCase()){
             recordCaseData.enterTextIntoTextAreaWithHeading("Case summary");
-        } else if ((compCase() || comp2Case()) && !ukviPsuOffTag) {
+        } else if (compCase() || comp2Case() || comp2DirectCase()) {
             recordCaseData.enterTextIntoTextAreaWithHeading("Case summary");
 
         } else {
@@ -171,7 +171,7 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
 
     public void enterAPreviousUKVIComplaintReference() {
         String complaintType = sessionVariableCalled("complaintType");
-        if(!(ukviPsuOffTag)){
+        if(compCase() || comp2Case() || comp2DirectCase()){
             recordCaseData.enterTextIntoTextFieldWithHeading("Previous UKVI complaint reference");
         }else {
             recordCaseData.enterTextIntoTextFieldWithHeading("Previous UKVI Complaint Ref");
@@ -189,7 +189,7 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         String complaintType = sessionVariableCalled("complaintType");
 
         if (iedetCase()) {recordCaseData.enterTextIntoTextFieldWithHeading("Third party reference");
-        } else if((compCase() || comp2Case())&& !(ukviPsuOffTag)) {
+        } else if(compCase() || comp2Case() || comp2DirectCase()) {
             recordCaseData.enterTextIntoTextFieldWithHeading("Third party reference");
         } else {recordCaseData.enterTextIntoTextFieldWithHeading("Third Party Reference");}
     }
@@ -205,6 +205,9 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         selectASeverity();
         enterAPreviousUKVIComplaintReference();
         enterAThirdPartyReference();
+        if(comp2DirectCase()){
+            selectExternalContractor();
+        }
     }
 
     public void openTheServiceComplaintCategoryAccordion() {
@@ -372,15 +375,53 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
 
     public void setComplaintOrigin(String sopraSteria) {
 
-        if(sopraSteria.equalsIgnoreCase("Yes - it's a Sopra Steria case")) {
-            recordCaseData.addHeadingAndValueRecord("Compliant origin", "Sopra Steria");
-            String complaintOrigin = "Sopra Steria";
+        if(sopraSteria.equalsIgnoreCase("Yes - it’s a complaint about an external contractor")) {
+            recordCaseData.addHeadingAndValueRecord("Compliant origin", "external contractor");
+            String complaintOrigin = "external contractor";
             setSessionVariable("complaintOrigin").to(complaintOrigin);
-        } else if (sopraSteria.equalsIgnoreCase("No - close the case")) {
-            recordCaseData.addHeadingAndValueRecord("Compliant origin", "Not Applicable");
-            String complaintOrigin = "Not Applicable";
+        }else if(sopraSteria.equalsIgnoreCase("No - close the case")) {
+            recordCaseData.addHeadingAndValueRecord("Compliant origin", "closed");
+            String complaintOrigin = "closed";
+            setSessionVariable("complaintOrigin").to(complaintOrigin);
+        }else if(sopraSteria.equalsIgnoreCase("Yes - it’s a further stage 2 case")) {
+            recordCaseData.addHeadingAndValueRecord("Compliant origin", "further stage 2 case");
+            String complaintOrigin = "further stage 2 case";
             setSessionVariable("complaintOrigin").to(complaintOrigin);
         }
 
+    }
+
+    public void selectExternalContractor() {
+        String complaintOrigin = sessionVariableCalled("complaintOrigin");
+        if(complaintOrigin.equalsIgnoreCase("external contractor")){
+            recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Sopra Steria","External contractor the complaint is about");
+            setSessionVariable("selectExternalContractor").to("Sopra Steria");
+        }
+
+    }
+
+    public void selectStage2CaseType(String radioOption) {
+
+        recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(radioOption, "Continue with this case?");
+        if(radioOption.equalsIgnoreCase("Yes - it’s a complaint about an external contractor")) {
+            recordCaseData.addHeadingAndValueRecord("Compliant origin", "external contractor");
+            String complaintOrigin = "external contractor";
+            setSessionVariable("complaintOrigin").to(complaintOrigin);
+        }else if(radioOption.equalsIgnoreCase("No - close the case")) {
+            recordCaseData.addHeadingAndValueRecord("Compliant origin", "closed");
+            String complaintOrigin = "closed";
+            setSessionVariable("complaintOrigin").to(complaintOrigin);
+        }else if(radioOption.equalsIgnoreCase("Yes - it’s a further stage 2 case")) {
+            recordCaseData.addHeadingAndValueRecord("Compliant origin", "further stage 2 case");
+            String complaintOrigin = "further stage 2 case";
+            setSessionVariable("complaintOrigin").to(complaintOrigin);
+        }
+    }
+
+    public void selectRandomStage2CaseType() {
+        String[] validChoices = new String[]{"Yes - it’s a complaint about an external contractor", "Yes - it’s a further stage 2 case"};
+        int rnd = new Random().nextInt(validChoices.length);
+        String radioOption = validChoices[rnd];
+        selectStage2CaseType(radioOption);
     }
 }

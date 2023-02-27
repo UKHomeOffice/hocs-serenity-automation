@@ -333,9 +333,11 @@ public class COMPProgressCase extends BasePage {
         clickTheButton("Finish and escalate to PSU");
         }
     public void moveCaseFromStage2RegistrationToPSURegistration() {
+
         if(comp2DirectCase()){
-        selectSpecificRadioButton("Yes - it's a Sopra Steria case");
-        clickTheButton("Submit");}
+            complaintsRegistrationAndDataInput.selectRandomStage2CaseType();
+            clickTheButton("Submit");
+        }
         correspondents.addANonMemberCorrespondentOfType("Complainant");
         correspondents.confirmPrimaryCorrespondent();
         complaintsRegistrationAndDataInput.enterComplainantDetails();
@@ -345,6 +347,9 @@ public class COMPProgressCase extends BasePage {
         selectRandomRadioButtonFromGroupWithHeading("Channel");
         complaintsRegistrationAndDataInput.enterAPreviousUKVIPSUComplaintReference();
         complaintsRegistrationAndDataInput.enterAThirdPartyReferencePSU();
+        if(comp2DirectCase()){
+            complaintsRegistrationAndDataInput.selectExternalContractor();
+        }
         clickTheButton("Finish and escalate to PSU");
     }
 
@@ -412,7 +417,7 @@ public class COMPProgressCase extends BasePage {
         complaintsDispatchAndSend.selectAResponseChannel();
         complaintsDispatchAndSend.enterADateOfResponse();
         clickTheButton("Complete");
-        if(comp2Case()){
+      /*  if(comp2Case()){
             dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
             if(complaintType.equals("Ex-Gratia")){
                 complaintsRegistrationAndDataInput.selectAnOwningCSU();
@@ -420,7 +425,7 @@ public class COMPProgressCase extends BasePage {
             clickTheButton("Close");
             enterTextIntoTextAreaWithHeading("Enter note for case completion");
             clickTheButton("Complete case");
-        }
+        } */
     }
 
     public void generateCOMPSearchCaseData(String infoValue, String infoType) {
