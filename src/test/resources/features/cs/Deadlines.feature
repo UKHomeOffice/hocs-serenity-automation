@@ -27,6 +27,7 @@ Feature: Deadlines
     And I go to the case from the successful case creation screen
     Then the case deadline date displayed in the summary is correct for a "<caseType>" case
     Examples:
+
       | caseType |
       | MPAM     |
       | MTS      |
@@ -37,7 +38,7 @@ Feature: Deadlines
       | BF       |
       | BF2      |
       | POGR     |
-
+#      | FOI      |
   @DCURegression
   Scenario: As a DCU User, when I select that the Home Secretary is the Private Office team, I expect the cases deadlines to reflect a 10 day SLA
     When I create a "MIN" case and move it to the "Markup" stage
