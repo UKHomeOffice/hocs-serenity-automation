@@ -33,7 +33,6 @@ Feature: Deadlines
       | COMP     |
       | COMP2    |
       | IEDET    |
-      | FOI      |
       | TO       |
       | BF       |
       | BF2      |

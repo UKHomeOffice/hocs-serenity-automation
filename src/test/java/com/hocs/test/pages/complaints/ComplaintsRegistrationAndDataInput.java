@@ -88,7 +88,7 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
             recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(complaintType, "Complaint Type");
         }
         setSessionVariable("complaintType").to(complaintType);
-        if(bfCase()||bf2Case()){
+        if((bfCase()||bf2Case()) && !bfPsuOffTag){
             clickTheButton("Submit");
         } else {
             clickContinueButton();
