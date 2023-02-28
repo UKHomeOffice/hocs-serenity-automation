@@ -43,7 +43,7 @@ public class ComplaintsDispatchAndSend extends BasePage {
 
     public void enterADateOfResponse() {
         String headerText = null;
-        if (compCase() || comp2Case() || bfCase() || bf2Case()) {
+        if (compCase() || comp2Case() || comp2DirectCase() || bfCase() || bf2Case()) {
             headerText = "Date of Response";
         } else if (iedetCase()) {
             headerText = "Response sent";
