@@ -417,15 +417,6 @@ public class COMPProgressCase extends BasePage {
         complaintsDispatchAndSend.selectAResponseChannel();
         complaintsDispatchAndSend.enterADateOfResponse();
         clickTheButton("Complete");
-      /*  if(comp2Case()){
-            dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
-            if(complaintType.equals("Ex-Gratia")){
-                complaintsRegistrationAndDataInput.selectAnOwningCSU();
-            }
-            clickTheButton("Close");
-            enterTextIntoTextAreaWithHeading("Enter note for case completion");
-            clickTheButton("Complete case");
-        } */
     }
 
     public void generateCOMPSearchCaseData(String infoValue, String infoType) {

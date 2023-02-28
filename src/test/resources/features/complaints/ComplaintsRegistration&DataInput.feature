@@ -110,8 +110,6 @@ Feature: Registration
 
     #   UKVI COMPLAINTS STAGE 2 Direct
 
-
-
   @ComplaintsWorkflow @UKVIComplaints
   Scenario Outline: User can create UKVI stage 2 complaint case directly for Service
     Given I am logged into "CS" as user "COMP_USER"
