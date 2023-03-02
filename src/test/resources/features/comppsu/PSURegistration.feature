@@ -32,7 +32,7 @@ Feature: PSU Registration
     Examples:
       | caseType    |
       | COMP        |
-#      | COMP2       |
+      | COMP2       |
 
 
   @ComplaintsWorkflow @COMPPSURegression @UKVIComplaints

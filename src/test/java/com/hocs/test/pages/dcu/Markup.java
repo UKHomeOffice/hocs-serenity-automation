@@ -142,6 +142,9 @@ public class Markup extends BasePage {
         if(defaultPrivateOfficeTeam.isCurrentlyVisible()) {
             recordCaseData.addHeadingAndValueRecord("Private Office Team", defaultPrivateOfficeTeam.getValue());
         }
+        if(dtenCase()){
+            selectRandomRadioButtonFromGroupWithHeading("Is this a potential Home Secretary Reply case?");
+        }
         clickFinishButton();
     }
 
@@ -167,5 +170,10 @@ public class Markup extends BasePage {
 
     public void assertTopicsTextFieldDisplayed() {
         isElementDisplayed(topicsTextField);
+    }
+
+    public void selectHomeSecretaryReply() {
+        recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Is this a potential Home Secretary Reply case?");
+        clickFinishButton();
     }
 }

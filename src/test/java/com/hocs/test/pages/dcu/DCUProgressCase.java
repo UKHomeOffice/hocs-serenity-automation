@@ -187,6 +187,10 @@ public class DCUProgressCase extends BasePage {
         markup.addTopicToCase("Animal alternatives (3Rs)");
         markup.confirmPrimaryTopic();
         markup.confirmInitialDraftAndOrPrivateOfficeTeam();
+        if(dtenCase()){
+            markup.selectHomeSecretaryReply();
+        }
+
     }
 
     public void moveCaseFromMarkupToInitialDraftWithSpecificTopic(String topic) {
