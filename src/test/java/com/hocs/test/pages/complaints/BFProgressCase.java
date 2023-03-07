@@ -153,7 +153,7 @@ public class BFProgressCase extends BasePage {
                 switch (targetStage.toUpperCase()) {
                     case "QA":
                     case "SEND":
-                        moveBCaseFromQAToSend();
+                        moveBFCaseFromQAToSend();
                         break;
                     case "QA_ESCALATED_PSU":
                         moveCaseFromQAToEscalateTOPSU();
@@ -273,7 +273,7 @@ public class BFProgressCase extends BasePage {
         System.out.println("Case moved from Draft to QA");
     }
 
-    public void moveBCaseFromQAToSend() {
+    public void moveBFCaseFromQAToSend() {
         compQA.selectActionAtServiceQA("ACCEPT");
         System.out.println("Case moved from QA to Send draft response");
     }
