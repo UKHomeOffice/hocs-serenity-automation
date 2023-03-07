@@ -138,7 +138,7 @@ public class COMPProgressCase extends BasePage {
     public void createCaseOfTypeAndMoveItToTargetStageWithSpecifiedComplaintType(CaseType caseType, String complaintType, String targetStage) {
         this.complaintType = complaintType;
         setCurrentCaseType(caseType);
-        if((ukviPsuOffTag) && (compCase() || comp2Case() || comp2DirectCase())){
+        if((ukviPsuOffTag) && (compCase() || comp2Case() || comp2DirectCase()) && (complaintType.equalsIgnoreCase("Minor misconduct"))){
            this.complaintType = "Minor Misconduct";
         }
         moveCaseOfTypeFromCurrentStageToTargetStage(caseType, "N/A", targetStage);
@@ -275,7 +275,7 @@ public class COMPProgressCase extends BasePage {
     private void moveUKVICaseFromPSUComplaintOutcomeToPSUCaseClosed() {
         complaintsRegistrationAndDataInput.selectRandomCaseOutcomeToProgress();
         clickTheButton("Submit");
-        documents.addADocumentOfDocumentType("Final response");
+        documents.addADocumentOfDocumentType("Final Response");
         complaintsDispatchAndSend.enterFinalResponseSentDate();
         clickTheButton("Close case");
     }
