@@ -24,7 +24,7 @@ Feature: PSU Registration
   @ComplaintsWorkflow @COMPPSURegression @UKVIComplaints
   Scenario Outline: User can transfer a UKVI complaints case to PSU at the Triage stage
     Given I am logged into "CS" as user "COMP_USER"
-    When I create a "<caseType>" case and move it to the "Transfer_PSU" stage
+    When I create a "<caseType>" case and move it to the "TRANSFER_PSU" stage
     And I click to view the case in the "PSU Complaints" workstack
     Then the created case should be visible in the workstack
     Then the case should be at the "PSU Registration" stage
@@ -32,7 +32,7 @@ Feature: PSU Registration
     Examples:
       | caseType    |
       | COMP        |
-#      | COMP2       |
+      | COMP2       |
 
 
   @ComplaintsWorkflow @COMPPSURegression @UKVIComplaints
@@ -85,5 +85,60 @@ Feature: PSU Registration
     Examples:
       | caseType |
       | BF       |
-#      | BF2      |
+
+  @ComplaintsWorkflow @BFPSURegression @BFComplaints
+  Scenario Outline: User can transfer a BF complaints case to PSU at the Triage stage
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "<caseType>" case and move it to the "TRANSFER_PSU" stage
+    And I click to view the case in the "PSU Complaints" workstack
+    Then the created case should be visible in the workstack
+    Then the case should be at the "PSU Registration" stage
+
+    Examples:
+      | caseType |
+      | BF       |
+      | BF2      |
+
+  @ComplaintsWorkflow @BFPSURegression @BFComplaints
+  Scenario Outline: User can escalate a BF complaint case to PSU at Triage stage
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "<caseType>" case and move it to the "TRIAGE_PSU_ESCALATED" stage
+    And I load and claim the current case
+    And I click to view the case in the "PSU Complaints" workstack
+    Then the created case should be visible in the workstack
+    Then the case should be at the "PSU Registration" stage
+
+    Examples:
+      | caseType |
+      | BF       |
+      | BF2      |
+
+
+  @ComplaintsWorkflow @BFPSURegression @BFComplaints
+  Scenario Outline: User can escalate a BF complaint case to PSU at Escalated stage
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "<caseType>" case and move it to the "ESCALATED_PSU" stage
+    And I click to view the case in the "PSU Complaints" workstack
+    Then the created case should be visible in the workstack
+    Then the case should be at the "PSU Registration" stage
+
+    Examples:
+      | caseType |
+      | BF       |
+      | BF2      |
+
+
+  @ComplaintsWorkflow @BFComplaints
+  Scenario Outline: User can escalate a BF complaint case to PSU at QA stage
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "<caseType>" case and move it to the "QA_ESCALATED_PSU" stage
+    And I click to view the case in the "PSU Complaints" workstack
+    Then the created case should be visible in the workstack
+    Then the case should be at the "PSU Registration" stage
+
+    Examples:
+      | caseType |
+      | BF       |
+      | BF2      |
+
 

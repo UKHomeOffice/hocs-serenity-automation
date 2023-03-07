@@ -12,6 +12,7 @@ import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
 import config.CaseType;
+import java.util.Random;
 
 public class BFProgressCase extends BasePage {
 
@@ -37,7 +38,9 @@ public class BFProgressCase extends BasePage {
 
     ComplaintsDraft complaintsDraft;
 
-    String complaintType = "Service";
+    String[] validChoices = new String[]{"Service", "Minor misconduct"};
+    int rnd = new Random().nextInt(validChoices.length);
+    String complaintType = validChoices[rnd];
 
     public void moveCaseOfTypeFromCurrentStageToTargetStage(CaseType caseType, String currentStage, String targetStage) {
         String precedingStage = getStageThatPrecedesTargetStage(targetStage);
@@ -69,12 +72,18 @@ public class BFProgressCase extends BasePage {
                 break;
             case "DRAFT":
             case "ESCALATED TO WFM":
+            case"TRANSFER_PSU":
+            case "TRIAGE_PSU_ESCALATED":
                 precedingStage = "TRIAGE";
+                break;
+            case "ESCALATED_PSU":
+                precedingStage = "ESCALATED TO WFM";
                 break;
             case "QA":
                 precedingStage = "DRAFT";
                 break;
             case "SEND":
+            case "QA_ESCALATED_PSU":
                 precedingStage = "QA";
                 break;
             case "CASE CLOSED":
@@ -118,6 +127,21 @@ public class BFProgressCase extends BasePage {
                     case "ESCALATED TO WFM":
                         moveBFCaseFromTriageToEscalated();
                         break;
+                    case "TRANSFER_PSU":
+                        transferCaseFromRegistrationToPSURegistration();
+                        break;
+                    case "TRIAGE_PSU_ESCALATED":
+                        moveCaseFromTriageToPSUEscalated();
+                        break;
+                    default:
+                        pendingStep(targetStage + " is not defined within " + getMethodName());
+                }
+                break;
+            case "ESCALATED TO WFM":
+                switch (targetStage.toUpperCase()) {
+                    case "ESCALATED_PSU":
+                        moveCaseFromEscalatedToPSU();
+                        break;
                     default:
                         pendingStep(targetStage + " is not defined within " + getMethodName());
                 }
@@ -126,7 +150,17 @@ public class BFProgressCase extends BasePage {
                 moveBFCaseFromDraftToQA();
                 break;
             case "QA":
-                moveBCaseFromQAToSend();
+                switch (targetStage.toUpperCase()) {
+                    case "QA":
+                    case "SEND":
+                        moveBCaseFromQAToSend();
+                        break;
+                    case "QA_ESCALATED_PSU":
+                        moveCaseFromQAToEscalateTOPSU();
+                        break;
+                    default:
+                        pendingStep(targetStage + " is not defined within " + getMethodName());
+                }
                 break;
             case "SEND":
                 moveBFCaseFromSendToCaseClosed();
@@ -147,6 +181,25 @@ public class BFProgressCase extends BasePage {
         RecordCaseData.checkIfDataRecordsShouldBeWiped();
     }
 
+    public void moveCaseFromEscalatedToPSU() {
+        complaintsTriageAndInvestigation.escalateToPSUFromEscalated();
+        System.out.println("Case moved from Case Escalated to PSU Registration");
+    }
+
+    public void moveCaseFromQAToEscalateTOPSU() {
+        complaintsTriageAndInvestigation.escalateToPSUFromQA();
+    }
+    public void transferCaseFromRegistrationToPSURegistration() {
+        complaintsTriageAndInvestigation.transferCaseToPSU();
+    }
+    public void moveCaseFromTriageToPSUEscalated() {
+        complaintsTriageAndInvestigation.selectAcceptCase();
+        clickContinueButton();
+        complaintsTriageAndInvestigation.enterDetailsOnBFTriageDetailsPage();
+        complaintsTriageAndInvestigation.escalateToPSUFromTriage();
+        System.out.println("Case moved from Case Triage to PSU Registration");
+
+    }
     private void moveCaseFromRegistrationToPSURegistration() {
         correspondents.addANonMemberCorrespondentOfType("Complainant");
         correspondents.confirmPrimaryCorrespondent();
@@ -183,7 +236,9 @@ public class BFProgressCase extends BasePage {
         correspondents.addANonMemberCorrespondentOfType("Complainant");
         clickContinueButton();
         complaintsRegistrationAndDataInput.enterComplainantDetails();
-        if (bfCase()) {
+        if (!bfPsuOffTag && bfCase()) {
+            complaintsRegistrationAndDataInput.selectASpecificComplaintType(complaintType);
+        } else if (bfPsuOffTag) {
             complaintsRegistrationAndDataInput.selectAComplaintType();
             clickContinueButton();
         }
