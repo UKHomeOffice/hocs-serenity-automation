@@ -19,6 +19,8 @@ public class ComplaintsEscalated extends BasePage {
         recordCaseData.selectSpecificRadioButton(action);
         if((compCase() || comp2Case() || comp2DirectCase()) && !ukviPsuOffTag){
             waitForDECSPageWithTitle("Complaint escalated");
+        } else if ((bf2Case() || bfCase()) && !bfPsuOffTag) {
+            waitForDECSPageWithTitle("Complaint escalated");
         } else {
             waitForDECSPageWithTitle("Complaint Escalated");
         }
