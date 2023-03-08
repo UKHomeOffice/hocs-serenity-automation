@@ -86,8 +86,8 @@ Feature: Complaints Search
     And I enter "Sam McTester" into the "Correspondent Full Name" search field
     And I enter "AB1 2CD" into the "Correspondent Postcode" search field
     And I enter "SamMcTester@Test.com" into the "Correspondent Email Address" search field
-    And I enter "01/01/2001" into the "Complainant Date of Birth" search field
-    And I enter "Test entry for HO reference" into the "Complainant Home Office reference" search field
+    And I enter "01/01/2001" into the "Complainant date of birth" search field
+    And I enter "Test entry for HO reference" into the "Complainant Home Office Reference" search field
     And I select "Heathrow Airport" from the "Complaint origin" dropdown menu
     And I select "Gatwick Airport" from the "Business area" dropdown menu
     And I enter the current case reference into the Case Reference field on the search screen
