@@ -382,7 +382,14 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
     @And("I select a Complaint Type")
     public void iSelectAComplaintType() {
         caseView.clickAllocateToMeLink();
-        complaintsTriageAndInvestigation.selectAComplaintTypeForRecategorisedUKVI();
+        if(compCase() || comp2Case() || comp2DirectCase()){
+            complaintsTriageAndInvestigation.selectAComplaintTypeForRecategorisedUKVI();
+        } else if (bfCase()) {
+            complaintsTriageAndInvestigation.selectAComplaintTypeForRecategorisedBF();
+        } else if (bf2Case()) {
+
+        }
+
 
     }
 }

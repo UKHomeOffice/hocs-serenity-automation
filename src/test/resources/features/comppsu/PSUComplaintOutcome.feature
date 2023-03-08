@@ -166,3 +166,19 @@ Scenario Outline: When a user selects one of the Complaint Outcome and enters th
       | caseType    |
       |BF      |
 #      | BF2       |
+
+  @ComplaintsWorkflow @BFPSURegression @BFComplaints
+  Scenario Outline: When a user selects a complaint type for a Recategorise case, BF case should be transferred to the correct team
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "<caseType>" case and move it to the "<caseStage>" stage
+    And I load and claim the current case
+    Then I enter the PSU registration details and move to PSU Triage
+    And I move it to the PSU Outcome stage
+    Then I select "Not serious - send back to Border Force" at "PSU_COMPLAINT_OUTCOME" page
+    Then the case should be at the "<newCaseStage>" stage
+    And I select a Complaint Type
+    And the case should be assigned to the corresponding team and move to the corresponding stage
+
+    Examples:
+      | caseType | caseStage        | newCaseStage |
+      | BF     | ESCALATED_PSU    | BF Recategorise |

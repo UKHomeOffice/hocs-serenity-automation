@@ -234,7 +234,12 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
 
     public void enterDetailsOnBFTriageDetailsPage() {
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Region");
-        recordCaseData.selectRandomOptionFromDropdownWithHeading("Business Area");
+        if(bfPsuOffTag){
+            recordCaseData.selectRandomOptionFromDropdownWithHeading("Business Area");
+        } else if (!bfPsuOffTag) {
+            recordCaseData.selectRandomOptionFromDropdownWithHeading("Business area");
+        }
+
         selectBFReasonsForComplaint();
         selectIsLoARequired();
         selectComplainantHasRequestedPayment("No");
@@ -244,11 +249,17 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
 
     private void selectBFReasonsForComplaint() {
         for (int i = 1; i <= 5; i++) {
-            String selectedReasonForComplaint = recordCaseData.selectRandomOptionFromDropdownWithHeading("Reason for Complaint " + i);
-            if (selectedReasonForComplaint.equals("Other")) {
-                recordCaseData.enterTextIntoTextAreaWithHeading("Other - Details (Complaint Reason " + i + ")");
+            if (bfPsuOffTag) {
+                String selectedReasonForComplaint = recordCaseData.selectRandomOptionFromDropdownWithHeading("Reason for Complaint " + i);
+                if (selectedReasonForComplaint.equals("Other")) {
+                    recordCaseData.enterTextIntoTextAreaWithHeading("Other - details (complaint reason " + i + ")");
+                }
+                setSessionVariable("reasonForComplaint" + i).to(selectedReasonForComplaint);
+            } else if(!bfPsuOffTag) {
+                String selectedReasonForComplaint = recordCaseData.selectRandomOptionFromDropdownWithHeading("Complaint reason " + i);
+
+                setSessionVariable("reasonForComplaint" + i).to(selectedReasonForComplaint);
             }
-            setSessionVariable("reasonForComplaint" + i).to(selectedReasonForComplaint);
         }
     }
 
@@ -461,6 +472,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
                 psuComplaintOutcome.equalsIgnoreCase("Partially substantiated") ||
                 psuComplaintOutcome.equalsIgnoreCase("Unsubstantiated") ||
                 psuComplaintOutcome.equalsIgnoreCase("No - send back to UKVI") ||
+                psuComplaintOutcome.equalsIgnoreCase("No - send back to Border Force") ||
                 psuComplaintOutcome.equalsIgnoreCase("Not serious - send back to IE Detention")) {
                         clickTheButton("Submit");
         } else if (psuComplaintOutcome.equalsIgnoreCase("Not serious - send back to UKVI")) {
@@ -491,7 +503,11 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
 
     public void escalateToPSUFromTriage() {
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Escalate case to PSU", "Action");
-        clickContinueButton();
+       if(compCase() || comp2Case() || comp2DirectCase()){
+           clickContinueButton();
+       } else if (bfCase() || bf2Case()) {
+           clickFinishButton();
+       }
         selectAVisibleClaimCategory();
         clickTheButton("Finish and escalate to PSU");
 
@@ -541,4 +557,17 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
         }
 
     }
+
+    public void selectAComplaintTypeForRecategorisedBF() {
+        waitABit(3000);
+        List<WebElementFacade> claimCategories = findAll("//input/following-sibling::label[contains(@for,'CompType-')]");
+        int index =  new Random().nextInt(claimCategories.size());
+        String complaintType = String.valueOf(claimCategories.get(index).getText());
+        complaintsRegistrationAndDataInput.selectASpecificComplaintType(complaintType);
+        if(complaintType.equalsIgnoreCase("Serious misconduct")) {
+            checkComplaintCategory(complaintType);
+        }
+
+    }
+
 }

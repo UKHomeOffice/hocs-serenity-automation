@@ -116,7 +116,7 @@ Feature: PSU Triage
     Examples:
       | caseType |
       | BF       |
-#      | BF2      |
+
 
   @ComplaintsWorkflow @BFPSURegression @BFComplaints
   Scenario Outline: PSU User sends the case back to BF case from PSU Triage
@@ -132,7 +132,7 @@ Feature: PSU Triage
     Examples:
       | caseType | workstack                         | newCaseStage            |
       | BF       | Border Force Complaints           | BF Recategorise         |
-#      | BF2      | Border Force Complaints (Stage 2) | BF Stage 2 Recategorise |
+
 
   @ComplaintsWorkflow @BFPSURegression @BFComplaints
   Scenario Outline: User chooses to send a BF PSU case to a team not on DECS
@@ -144,4 +144,19 @@ Feature: PSU Triage
     Examples:
       | caseType |
       | BF       |
-#      | BF2      |
+
+  @ComplaintsWorkflow @BFPSURegression @BFComplaints
+  Scenario Outline: When a user selects a complaint type for a Recategorise case, BF case should be transferred to the correct team
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a "<caseType>" case and move it to the "<caseStage>" stage
+    And I load and claim the current case
+    Then I enter the PSU registration details and move to PSU Triage
+    Then I select "No - send back to Border Force" at "PSU Triage" page
+ #   Then the case should be at the "<newCaseStage>" stage
+ #   And I select a Complaint Type
+    And the case should be assigned to the corresponding team and move to the corresponding stage
+    Examples:
+      | caseType | caseStage            | newCaseStage            |
+      | BF       | TRANSFER_PSU         | BF Recategorise         |
+      | BF2      | TRIAGE_PSU_ESCALATED | Border Force Triage (Stage 2) |
+
