@@ -262,7 +262,7 @@ Feature: Complaints End To End
     Examples:
       | complaintType    |
       | Service          |
-      | Minor Misconduct |
+      | Minor misconduct |
 
 
 #     BF STAGE 2 COMPLAINTS
