@@ -19,7 +19,8 @@ public class Rejected extends BasePage {
     public WebElementFacade reviewEligibilityDecisionIsRequiredErrorMessage;
 
     public void selectToSendClaimToTier1Review() {
-        selectSpecificRadioButton("Yes, send to Tier 1 review");
+        selectSpecificRadioButton("Yes, send to Tier 1 review ");
+        //Remove the space at the end when HOCS-5831 is done, this is a temp fix to avoid time spent investigating
         clickConfirmButton();
     }
 

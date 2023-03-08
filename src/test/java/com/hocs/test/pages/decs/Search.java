@@ -188,13 +188,8 @@ public class Search extends BasePage {
                 setSessionVariable("searchCorrespondentReferenceNumber").to(value);
                 break;
             case "COMPLAINANT HOME OFFICE REFERENCE":
-                if(getCurrentCaseType()==null||!iedetCase()){
                     enterSpecificTextIntoTextFieldWithHeading(value, "Complainant Home Office Reference");
                     setSessionVariable("searchComplainantHomeOfficeReference").to(value);
-                }else{
-                    enterSpecificTextIntoTextFieldWithHeading(value, "Complainant Home Office reference");
-                    setSessionVariable("searchComplainantHomeOfficeReference").to(value);
-                }
                 break;
             case "PSU REFERENCE":
                 enterSpecificTextIntoTextFieldWithHeading(value, "PSU Reference");
