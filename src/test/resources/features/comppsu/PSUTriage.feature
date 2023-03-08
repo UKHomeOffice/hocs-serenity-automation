@@ -123,7 +123,6 @@ Feature: PSU Triage
     Given I am logged into "CS" as user "BF_USER"
     When I create a "<caseType>" case and move it to the "PSU_Triage" stage
     Then I select "No - send back to Border Force" at "PSU Complaint Outcome" page
-    And I click the "Submit" button
     And I click to view the case in the "<workstack>" workstack
     And the case stage should be "<newCaseStage>" and "Rejected by PSU" tag is appended to the case reference
     Then the case should be at the "<newCaseStage>" stage
@@ -152,8 +151,8 @@ Feature: PSU Triage
     And I load and claim the current case
     Then I enter the PSU registration details and move to PSU Triage
     Then I select "No - send back to Border Force" at "PSU Triage" page
- #   Then the case should be at the "<newCaseStage>" stage
- #   And I select a Complaint Type
+    Then the case should be at the "<newCaseStage>" stage
+    And I select a Complaint Type
     And the case should be assigned to the corresponding team and move to the corresponding stage
     Examples:
       | caseType | caseStage            | newCaseStage            |

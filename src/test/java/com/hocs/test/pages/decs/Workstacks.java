@@ -1005,6 +1005,19 @@ public class Workstacks extends BasePage {
                 stage = "PSU Registration";
             }
         }
+        if(bfCase()){
+            if((complaintType.equalsIgnoreCase("Service")) || (complaintType.equalsIgnoreCase("Minor misconduct"))){
+                teamName = "Border Force Complaints";
+                stage = "Border Force Triage";
+            } else if (complaintType.equalsIgnoreCase("Serious misconduct")) {
+                teamName ="PSU Complaints";
+                stage = "PSU Registration";
+            }
+        } else if (bf2Case()) {
+            teamName = "Border Force Complaints (Stage 2)";
+            stage = "Border Force Triage (Stage 2)";
+            dashboard.goToDashboard();
+        }
         dashboard.selectWorkstackByTeamName(teamName);
         selectSpecificCaseReferenceLink(getCurrentCaseReference());
         summaryTab.selectSummaryTab();

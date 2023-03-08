@@ -180,5 +180,5 @@ Scenario Outline: When a user selects one of the Complaint Outcome and enters th
     And the case should be assigned to the corresponding team and move to the corresponding stage
 
     Examples:
-      | caseType | caseStage        | newCaseStage |
-      | BF     | ESCALATED_PSU    | BF Recategorise |
+      | caseType | caseStage     | newCaseStage    |
+      | BF       | ESCALATED_PSU | BF Recategorise |

@@ -387,7 +387,7 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
         } else if (bfCase()) {
             complaintsTriageAndInvestigation.selectAComplaintTypeForRecategorisedBF();
         } else if (bf2Case()) {
-
+            waitForDECSPageWithTitle("Triage accept case");
         }
 
 
