@@ -252,7 +252,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
             if (bfPsuOffTag) {
                 String selectedReasonForComplaint = recordCaseData.selectRandomOptionFromDropdownWithHeading("Reason for Complaint " + i);
                 if (selectedReasonForComplaint.equals("Other")) {
-                    recordCaseData.enterTextIntoTextAreaWithHeading("Other - details (complaint reason " + i + ")");
+                    recordCaseData.enterTextIntoTextAreaWithHeading("Other - details (complaint reason "+ i +")");
                 }
                 setSessionVariable("reasonForComplaint" + i).to(selectedReasonForComplaint);
             } else if(!bfPsuOffTag) {
