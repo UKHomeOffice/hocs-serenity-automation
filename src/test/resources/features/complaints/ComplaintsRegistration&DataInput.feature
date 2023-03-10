@@ -108,9 +108,9 @@ Feature: Registration
     And the summary should display the owning team as "Stage 2 CCT Triage Team"
     And the read-only Case Details accordion should contain all case information entered during the "UKVI Stage 2 Registration" stage
 
-    #   UKVI COMPLAINTS STAGE 2 Direct
+  #   UKVI COMPLAINTS STAGE 2 Direct Case
 
-  @ComplaintsWorkflow @UKVIComplaints
+  @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario Outline: User can create UKVI stage 2 complaint case directly for Service
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2DIRECT" case and move it to the "Stage 2 Registration" stage
@@ -135,7 +135,7 @@ Feature: Registration
       | Yes - it’s a further stage 2 case                   |
       | Yes - it’s a complaint about an external contractor |
 
-  @ComplaintsWorkflow @UKVIComplaints
+  @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario Outline: User can create UKVI stage 2 complaint case directly for Ex-Gratia
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2DIRECT" case and move it to the "Stage 2 Registration" stage
@@ -157,13 +157,10 @@ Feature: Registration
       | Yes - it’s a further stage 2 case                   |
       | Yes - it’s a complaint about an external contractor |
 
-  @ComplaintsWorkflow @UKVIComplaints
+  @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario Outline: User can create UKVI stage 2 complaint case directly for Minor misconduct
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2DIRECT" case and move it to the "Stage 2 Registration" stage
- #   And I click to view the case in the "Stage 2 Complaint Registration" workstack
- #   Then I filter the workstack using the current cases reference
- #   Then I click the link for the current case in the workstack
     And I load and claim the current case
     And I select Sopra Steria case option "<caseType>"
     And I add a "Complainant" correspondent
@@ -182,13 +179,10 @@ Feature: Registration
       | Yes - it’s a further stage 2 case                   |
       | Yes - it’s a complaint about an external contractor |
 
-  @ComplaintsWorkflow @UKVIComplaints
+  @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario Outline: User can create UKVI stage 2 complaint case directly for Serious misconduct
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2DIRECT" case and move it to the "Stage 2 Registration" stage
- #   And I click to view the case in the "Stage 2 Complaint Registration" workstack
- #   Then I filter the workstack using the current cases reference
- #   Then I click the link for the current case in the workstack
     And I load and claim the current case
     And I select Sopra Steria case option "<caseType>"
     And I add a "Complainant" correspondent
@@ -208,7 +202,7 @@ Feature: Registration
       | Yes - it’s a further stage 2 case                   |
       | Yes - it’s a complaint about an external contractor |
 
-  @ComplaintsWorkflow @UKVIComplaints
+  @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can create UKVI stage 2 complaint case directly amd close the case if they don't want to continue
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2DIRECT" case and move it to the "Stage 2 Registration" stage

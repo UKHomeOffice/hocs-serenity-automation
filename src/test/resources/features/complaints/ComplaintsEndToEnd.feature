@@ -151,7 +151,7 @@ Feature: Complaints End To End
       | Ex-Gratia        |
       | Minor misconduct |
 
-  @UKVIComplaints
+  @COMPRegression @UKVIComplaints
   Scenario Outline: User is able to close a Direct UKVI stage 2 complaint case
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2DIRECT" case for a "<complaintType>" complaint and move it to "Complaint Closed"

@@ -77,12 +77,12 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
     }
 
     public void selectASpecificComplaintType(String complaintType) {
-        if(ukviPsuOffTag && (complaintType.equalsIgnoreCase("Minor misconduct"))){
+        if((ukviPsuOffTag || bfPsuOffTag) && (complaintType.equalsIgnoreCase("Minor misconduct"))){
             complaintType = "Minor Misconduct";
         }
         if(iedetCase()||compCase()||comp2Case()||comp2DirectCase()||bfCase()||bf2Case()){
               recordCaseData.selectSpecificRadioButton(complaintType);
-        } else if ((ukviPsuOffTag) && (compCase()||comp2Case()||comp2DirectCase())) {
+        } else if ((ukviPsuOffTag || bfPsuOffTag) && (compCase()||comp2Case()||comp2DirectCase() || bfCase())) {
             recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(complaintType, "Complaint Type");
         } else {
             recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(complaintType, "Complaint Type");
@@ -373,29 +373,11 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         recordCaseData.selectSpecificRadioButton(validChoices[rnd]);
     }
 
-    public void setComplaintOrigin(String sopraSteria) {
-
-        if(sopraSteria.equalsIgnoreCase("Yes - it’s a complaint about an external contractor")) {
-            recordCaseData.addHeadingAndValueRecord("Compliant origin", "external contractor");
-            String complaintOrigin = "external contractor";
-            setSessionVariable("complaintOrigin").to(complaintOrigin);
-        }else if(sopraSteria.equalsIgnoreCase("No - close the case")) {
-            recordCaseData.addHeadingAndValueRecord("Compliant origin", "closed");
-            String complaintOrigin = "closed";
-            setSessionVariable("complaintOrigin").to(complaintOrigin);
-        }else if(sopraSteria.equalsIgnoreCase("Yes - it’s a further stage 2 case")) {
-            recordCaseData.addHeadingAndValueRecord("Compliant origin", "further stage 2 case");
-            String complaintOrigin = "further stage 2 case";
-            setSessionVariable("complaintOrigin").to(complaintOrigin);
-        }
-
-    }
-
     public void selectExternalContractor() {
         String complaintOrigin = sessionVariableCalled("complaintOrigin");
-        if(complaintOrigin.equalsIgnoreCase("external contractor")){
-            recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Sopra Steria","External contractor the complaint is about");
-            setSessionVariable("selectExternalContractor").to("Sopra Steria");
+        if(complaintOrigin.equalsIgnoreCase("External contractor")){
+           String externalContractor = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("External contractor the complaint is about");
+           setSessionVariable("selectExternalContractor").to(externalContractor);
         }
 
     }
@@ -404,21 +386,21 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
 
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(radioOption, "Continue with this case?");
         if(radioOption.equalsIgnoreCase("Yes - it’s a complaint about an external contractor")) {
-            recordCaseData.addHeadingAndValueRecord("Compliant origin", "external contractor");
-            String complaintOrigin = "external contractor";
+            recordCaseData.addHeadingAndValueRecord("Complaint origin", "External contractor");
+            String complaintOrigin = "External contractor";
             setSessionVariable("complaintOrigin").to(complaintOrigin);
         }else if(radioOption.equalsIgnoreCase("No - close the case")) {
-            recordCaseData.addHeadingAndValueRecord("Compliant origin", "closed");
+            recordCaseData.addHeadingAndValueRecord("Complaint origin", "closed");
             String complaintOrigin = "closed";
             setSessionVariable("complaintOrigin").to(complaintOrigin);
         }else if(radioOption.equalsIgnoreCase("Yes - it’s a further stage 2 case")) {
-            recordCaseData.addHeadingAndValueRecord("Compliant origin", "further stage 2 case");
-            String complaintOrigin = "further stage 2 case";
+            recordCaseData.addHeadingAndValueRecord("Complaint origin", "further stage 2 case");
+            String complaintOrigin = "Further stage 2 case";
             setSessionVariable("complaintOrigin").to(complaintOrigin);
         }
     }
 
-    public void selectRandomStage2CaseType() {
+    public void selectCOMP2CaseOption() {
         String[] validChoices = new String[]{"Yes - it’s a complaint about an external contractor", "Yes - it’s a further stage 2 case"};
         int rnd = new Random().nextInt(validChoices.length);
         String radioOption = validChoices[rnd];
