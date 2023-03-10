@@ -140,6 +140,8 @@ public class COMPProgressCase extends BasePage {
         setCurrentCaseType(caseType);
         if((ukviPsuOffTag) && (compCase() || comp2Case() || comp2DirectCase()) && (complaintType.equalsIgnoreCase("Minor misconduct"))){
            this.complaintType = "Minor Misconduct";
+        } else if ((bfPsuOffTag) && (complaintType.equalsIgnoreCase("Minor misconduct"))) {
+            this.complaintType = "Minor Misconduct";
         }
         moveCaseOfTypeFromCurrentStageToTargetStage(caseType, "N/A", targetStage);
     }
@@ -295,8 +297,12 @@ public class COMPProgressCase extends BasePage {
     }
 
     public void moveCaseFromRegistrationToTriage() {
-        if((ukviPsuOffTag) && (complaintType.equalsIgnoreCase("Minor misconduct"))){
+        if((ukviPsuOffTag || bfPsuOffTag) && (complaintType.equalsIgnoreCase("Minor misconduct"))){
             complaintType = "Minor Misconduct";
+        }
+        if(comp2DirectCase()){
+           complaintsRegistrationAndDataInput.selectCOMP2CaseOption();
+           clickTheButton("Submit");
         }
         correspondents.addANonMemberCorrespondentOfType("Complainant");
         correspondents.confirmPrimaryCorrespondent();
@@ -335,7 +341,7 @@ public class COMPProgressCase extends BasePage {
     public void moveCaseFromStage2RegistrationToPSURegistration() {
 
         if(comp2DirectCase()){
-            complaintsRegistrationAndDataInput.selectRandomStage2CaseType();
+            complaintsRegistrationAndDataInput.selectCOMP2CaseOption();
             clickTheButton("Submit");
         }
         correspondents.addANonMemberCorrespondentOfType("Complainant");

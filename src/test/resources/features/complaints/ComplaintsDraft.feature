@@ -331,6 +331,19 @@ Feature: Complaints Draft
       | GRO          |
 
   @ComplaintsWorkflow @POGRRegression @POGRComplaints
+  Scenario Outline: As a POGR Draft user, I want to be able to send a case to QA stage without uploading Draft document, so my Draft response can be
+  reviewed
+    Given I am logged into "CS" as user "POGR_USER"
+    When I get a "POGR" case with "<businessArea>" as the Business Area at the "Draft" stage
+    And I select the "Send to QA" action at the Draft stage
+    Then the case should be moved to the "QA" stage
+    And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
+    Examples:
+      | businessArea |
+      | HMPO         |
+      | GRO          |
+
+  @ComplaintsWorkflow @POGRRegression @POGRComplaints
   Scenario Outline: As a POGR Draft user, I want to be able to send a case to Dispatch stage, so my Draft response can be sent out
     Given I am logged into "CS" as user "POGR_USER"
     When I get a "POGR" case with "<businessArea>" as the Business Area at the "Draft" stage
@@ -435,6 +448,19 @@ Feature: Complaints Draft
     Then the case should be moved to the "QA" stage
     And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
     And the selected document should be tagged as the primary draft
+    Examples:
+      | businessArea |
+      | HMPO         |
+      | GRO          |
+
+  @ComplaintsWorkflow @POGRRegression @POGRComplaints
+  Scenario Outline: As a POGR Draft user, I want to be able to send a stage 2 case to Dispatch stage without uploading a draft document, so my Draft
+  response can be sent out
+    Given I am logged into "CS" as user "POGR_USER"
+    When I get a "POGR2" case with "<businessArea>" as the Business Area at the "Draft" stage
+    And I select the "Send to Dispatch" action at the Draft stage
+    Then the case should be moved to the "Dispatch" stage
+    And the read-only Case Details accordion should contain all case information entered during the "Draft" stage
     Examples:
       | businessArea |
       | HMPO         |

@@ -348,7 +348,7 @@ public class SummaryTabStepDefs extends BasePage {
         String complaintOrigin = sessionVariableCalled("complaintOrigin");
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(complaintOrigin, "Complaint origin");
         if(complaintOrigin.equalsIgnoreCase("external contractor")){
-            summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("selectExternalContractor"), "External contractor the complaint is about");
+            summaryTab.assertSummaryContainsExpectedValueForGivenHeader(sessionVariableCalled("selectExternalContractor"), "External contract");
         }
     }
 
