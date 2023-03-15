@@ -390,11 +390,11 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
             String complaintOrigin = "External contractor";
             setSessionVariable("complaintOrigin").to(complaintOrigin);
         }else if(radioOption.equalsIgnoreCase("No - close the case")) {
-            recordCaseData.addHeadingAndValueRecord("Complaint origin", "closed");
-            String complaintOrigin = "closed";
+            recordCaseData.addHeadingAndValueRecord("Complaint origin", "Closed");
+            String complaintOrigin = "Closed";
             setSessionVariable("complaintOrigin").to(complaintOrigin);
         }else if(radioOption.equalsIgnoreCase("Yes - it’s a further stage 2 case")) {
-            recordCaseData.addHeadingAndValueRecord("Complaint origin", "further stage 2 case");
+            recordCaseData.addHeadingAndValueRecord("Complaint origin", "Further stage 2 case");
             String complaintOrigin = "Further stage 2 case";
             setSessionVariable("complaintOrigin").to(complaintOrigin);
         }

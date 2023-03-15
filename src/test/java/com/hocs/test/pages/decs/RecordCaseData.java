@@ -26,7 +26,7 @@ public class RecordCaseData extends BasePage{
     public String selectRandomRadioButtonFromGroupWithHeading(String headingText) {
         String radioButtonText = super.selectRandomRadioButtonFromGroupWithHeading(headingText);
         if(comp2DirectCase() && headingText.equalsIgnoreCase("External contractor the complaint is about")){
-            headingText = "External contract";
+            headingText = "External contractor";
         }
         addHeadingAndValueRecord(headingText, radioButtonText);
         return radioButtonText;
@@ -45,13 +45,13 @@ public class RecordCaseData extends BasePage{
         }
         if(comp2DirectCase()) {
             if(radioButtonText.equalsIgnoreCase("Yes - it’s a complaint about an external contractor")){
-                       radioButtonText = "external contractor";
+                       radioButtonText = "External contractor";
                         headingText = "Complaint origin";
              } else if(radioButtonText.equalsIgnoreCase("No - close the case")){
-                    radioButtonText = "closed";
+                    radioButtonText = "Closed";
                 headingText = "Complaint origin";
             } else if(radioButtonText.equalsIgnoreCase("Yes - it’s a further stage 2 case")){
-                radioButtonText = "further stage 2 case";
+                radioButtonText = "Further stage 2 case";
                 headingText = "Complaint origin";
             }
 
