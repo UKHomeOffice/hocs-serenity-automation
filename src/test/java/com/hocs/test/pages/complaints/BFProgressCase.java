@@ -209,7 +209,7 @@ public class BFProgressCase extends BasePage {
     private void moveCaseFromRegistrationToPSURegistration() {
         correspondents.addANonMemberCorrespondentOfType("Complainant");
         correspondents.confirmPrimaryCorrespondent();
-        complaintsRegistrationAndDataInput.enterComplainantDetails();
+        complaintsRegistrationAndDataInput.enterAdditionalDetails();
         complaintsRegistrationAndDataInput.selectASpecificComplaintType("Serious misconduct");
         complaintsTriageAndInvestigation.selectBFClaimCategory("Serious misconduct");
         clickTheButton("Finish and escalate to PSU");
@@ -241,18 +241,13 @@ public class BFProgressCase extends BasePage {
     public void moveBFCaseFromRegistrationToTriage() {
         correspondents.addANonMemberCorrespondentOfType("Complainant");
         clickContinueButton();
-        complaintsRegistrationAndDataInput.enterComplainantDetails();
+        complaintsRegistrationAndDataInput.enterAdditionalDetails();
         if (!bfPsuOffTag && bfCase()) {
             complaintsRegistrationAndDataInput.selectASpecificComplaintType(complaintType);
         } else if (bfPsuOffTag) {
             complaintsRegistrationAndDataInput.selectAComplaintType();
             clickContinueButton();
         }
-        complaintsRegistrationAndDataInput.selectAComplaintChannel();
-        complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
-        complaintsRegistrationAndDataInput.enterAPreviousComplaintReference();
-        complaintsRegistrationAndDataInput.enterAThirdPartyReference();
-        clickFinishButton();
         System.out.println("Case moved from Case Registration to Case Triage");
     }
 

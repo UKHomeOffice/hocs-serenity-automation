@@ -7,7 +7,6 @@ trigger:
     - main
   event:
     - push
-
 steps:
   - name: build & push
     image: plugins/docker
@@ -57,11 +56,9 @@ steps:
     when:
       status:
         - failure
-
 services:
   - name: selenium
     image: selenium/hub:4.5.3
-
   - name: chrome22
     image: selenium/node-chrome:4.5.2
     environment:
@@ -92,7 +89,6 @@ steps:
         from_secret: artifactory_password
       ARTIFACTORY_USERNAME:
         from_secret: artifactory_username
-
   - name: upload serenity report
     image: amazon/aws-cli
     commands:
@@ -115,11 +111,9 @@ steps:
       status:
         - success
         - failure
-
 services:
   - name: selenium
     image: selenium/hub:4.5.3
-
   - name: chrome22
     image: selenium/node-chrome:4.5.2
     environment:
@@ -129,7 +123,6 @@ services:
       SE_EVENT_BUS_HOST: selenium
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
-
 ---
 kind: pipeline
 type: kubernetes
@@ -141,7 +134,6 @@ trigger:
     - main
   event:
     - push
-
 steps:
   - name: execute tests
     image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
@@ -174,11 +166,9 @@ steps:
       status:
         - success
         - failure
-
 services:
   - name: selenium
     image: selenium/hub:4.5.3
-
   - name: chrome22
     image: selenium/node-chrome:4.5.2
     environment:
@@ -199,7 +189,6 @@ trigger:
     - main
   event:
     - push
-
 steps:
   - name: execute tests
     image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
@@ -232,11 +221,9 @@ steps:
       status:
         - success
         - failure
-
 services:
   - name: selenium
     image: selenium/hub:4.5.3
-
   - name: chrome22
     image: selenium/node-chrome:4.5.2
     environment:
@@ -257,7 +244,6 @@ trigger:
     - main
   event:
     - push
-
 steps:
   - name: execute tests
     image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
@@ -268,7 +254,6 @@ steps:
         from_secret: artifactory_password
       ARTIFACTORY_USERNAME:
         from_secret: artifactory_username
-
   - name: upload serenity report
     image: amazon/aws-cli
     commands:
@@ -291,11 +276,9 @@ steps:
       status:
         - success
         - failure
-
 services:
   - name: selenium
     image: selenium/hub:4.5.3
-
   - name: chrome22
     image: selenium/node-chrome:4.5.2
     environment:
@@ -316,7 +299,6 @@ trigger:
     - main
   event:
     - push
-
 steps:
   - name: execute tests
     image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
@@ -349,11 +331,9 @@ steps:
       status:
         - success
         - failure
-
 services:
   - name: selenium
     image: selenium/hub:4.5.3
-
   - name: chrome22
     image: selenium/node-chrome:4.5.2
     environment:
@@ -374,7 +354,6 @@ trigger:
     - main
   event:
     - push
-
 steps:
   - name: execute tests
     image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
@@ -407,11 +386,9 @@ steps:
       status:
         - success
         - failure
-
 services:
   - name: selenium
     image: selenium/hub:4.5.3
-
   - name: chrome22
     image: selenium/node-chrome:4.5.2
     environment:
@@ -432,7 +409,6 @@ trigger:
     - main
   event:
     - push
-
 steps:
   - name: execute tests
     image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
@@ -550,7 +526,6 @@ trigger:
     - main
   event:
     - push
-
 steps:
   - name: execute tests
     image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
@@ -583,11 +558,9 @@ steps:
       status:
         - success
         - failure
-
 services:
   - name: selenium
     image: selenium/hub:4.5.3
-
   - name: chrome22
     image: selenium/node-chrome:4.5.2
     environment:
@@ -608,7 +581,6 @@ trigger:
     - main
   event:
     - push
-
 steps:
   - name: execute tests
     image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
@@ -641,11 +613,9 @@ steps:
       status:
         - success
         - failure
-
 services:
   - name: selenium
     image: selenium/hub:4.5.3
-
   - name: chrome22
     image: selenium/node-chrome:4.5.2
     environment:
@@ -676,7 +646,6 @@ steps:
         from_secret: artifactory_password
       ARTIFACTORY_USERNAME:
         from_secret: artifactory_username
-
   - name: upload serenity report
     image: amazon/aws-cli
     commands:
@@ -699,11 +668,9 @@ steps:
       status:
         - success
         - failure
-
 services:
   - name: selenium
     image: selenium/hub:4.5.3
-
   - name: chrome22
     image: selenium/node-chrome:4.5.2
     environment:
@@ -734,7 +701,6 @@ steps:
         from_secret: artifactory_password
       ARTIFACTORY_USERNAME:
         from_secret: artifactory_username
-
   - name: upload serenity report
     image: amazon/aws-cli
     commands:
@@ -757,11 +723,9 @@ steps:
       status:
         - success
         - failure
-
 services:
   - name: selenium
     image: selenium/hub:4.5.3
-
   - name: chrome22
     image: selenium/node-chrome:4.5.2
     environment:

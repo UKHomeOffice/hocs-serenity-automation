@@ -236,10 +236,8 @@ Feature: Registration
     And I allocate the case to myself via the successful case creation screen
     And I add a "Complainant" correspondent
     And I click the "Continue" button
-    And I enter the Complainant Details
+    And I enter the Additional Details
     And I select "Service" as the Complaint Type
-    And I enter the complaint details on the Complaint Input page
-    And I click the "Finish" button
     Then the case should be moved to the "Border Force Triage" stage
     And the summary should display the owning team as "Border Force"
     And the read-only Case Details accordion should contain all case information entered during the "Border Force Registration" stage
@@ -264,13 +262,11 @@ Feature: Registration
     And I load and claim the current case
     And I add a "Complainant" correspondent
     And I click the "Continue" button
-    And I enter the Complainant Details
-    And I enter the complaint details on the Complaint Input page
-    And I click the "Finish" button
+    And I enter the Additional Details
     Then the case should be moved to the "Border Force Triage (Stage 2)" stage
     And the summary should display the owning team as "Border Force Complaints (Stage 2)"
     And the read-only Case Details accordion should contain all case information entered during the "Border Force Registration (Stage 2)" stage
-    And the summary should display "Service" for "Complaint Type"
+    And the summary should display "Service" for "Complaint type"
 
 #     POGR Complaints
 

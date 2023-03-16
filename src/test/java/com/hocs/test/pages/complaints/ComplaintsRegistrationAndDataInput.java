@@ -37,9 +37,12 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
     public void selectANationality() {
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Nationality");
     }
+    public void selectAComplainantsNationality() {
+              selectRandomOptionFromDropdownWithHeading("Complainant's nationality");
+    }
 
     public void enterACompanyName() {
-        if (iedetCase()){
+        if (iedetCase() || bfCase() || bf2Case()){
             recordCaseData.enterTextIntoTextFieldWithHeading("Company name");
         }else{
             recordCaseData.enterTextIntoTextFieldWithHeading("Company Name");
@@ -47,7 +50,7 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
     }
 
     public void enterAHomeOfficeReference(String HOReference) {
-        if(iedetCase()){
+        if(iedetCase() || bfCase() || bf2Case()){
             recordCaseData.enterSpecificTextIntoTextFieldWithHeading(HOReference, "Home Office reference");
         } else {
             recordCaseData.enterSpecificTextIntoTextFieldWithHeading(HOReference, "Home Office Reference");
@@ -55,7 +58,7 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
     }
 
     public void enterAPortReference() {
-        if(iedetCase()){
+        if(iedetCase() || bfCase() || bf2Case()){
             recordCaseData.enterTextIntoTextFieldWithHeading("Port reference");
         } else {
             recordCaseData.enterTextIntoTextFieldWithHeading("Port Reference");
@@ -182,13 +185,19 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         recordCaseData.enterTextIntoTextFieldWithHeading("Previous UKVI complaint reference");
     }
     public void enterAPreviousComplaintReference() {
-        recordCaseData.enterTextIntoTextFieldWithHeading("Previous Complaint Reference");
+        if(bfCase() || bf2Case()){
+            recordCaseData.enterTextIntoTextFieldWithHeading("Previous complaint reference");
+        } else{
+            recordCaseData.enterTextIntoTextFieldWithHeading("Previous Complaint Reference");
+        }
+
     }
 
     public void enterAThirdPartyReference() {
         String complaintType = sessionVariableCalled("complaintType");
 
-        if (iedetCase()) {recordCaseData.enterTextIntoTextFieldWithHeading("Third party reference");
+        if (iedetCase() || bfCase() || bf2Case()) {
+            recordCaseData.enterTextIntoTextFieldWithHeading("Third party reference");
         } else if(compCase() || comp2Case() || comp2DirectCase()) {
             recordCaseData.enterTextIntoTextFieldWithHeading("Third party reference");
         } else {recordCaseData.enterTextIntoTextFieldWithHeading("Third Party Reference");}
@@ -405,5 +414,16 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         int rnd = new Random().nextInt(validChoices.length);
         String radioOption = validChoices[rnd];
         selectStage2CaseType(radioOption);
+    }
+
+    public void enterAdditionalDetails() {
+        selectAComplainantsNationality();
+        enterAPreviousComplaintReference();
+        enterAHomeOfficeReference(getCurrentMonth() +"/" + getCurrentYear());
+        enterAPortReference();
+        enterAThirdPartyReference();
+        enterACompanyName();
+        clickContinueButton();
+
     }
 }
