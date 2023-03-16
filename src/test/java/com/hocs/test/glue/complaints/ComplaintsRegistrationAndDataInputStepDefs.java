@@ -201,4 +201,9 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
         complaintsRegistrationAndDataInput.enterAThirdPartyReference();
         complaintsRegistrationAndDataInput.selectExternalContractor();
     }
+
+    @And("I enter the Additional Details")
+    public void iEnterTheAdditionalDetails() {
+        complaintsRegistrationAndDataInput.enterAdditionalDetails();
+    }
 }
