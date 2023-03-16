@@ -209,7 +209,7 @@ public class BFProgressCase extends BasePage {
     private void moveCaseFromRegistrationToPSURegistration() {
         correspondents.addANonMemberCorrespondentOfType("Complainant");
         correspondents.confirmPrimaryCorrespondent();
-        complaintsRegistrationAndDataInput.enterComplainantDetails();
+        complaintsRegistrationAndDataInput.enterAdditionalDetails();
         complaintsRegistrationAndDataInput.selectASpecificComplaintType("Serious misconduct");
         complaintsTriageAndInvestigation.selectBFClaimCategory("Serious misconduct");
         clickTheButton("Finish and escalate to PSU");
