@@ -69,7 +69,7 @@ Feature: PSU Deadline
       | PSU_Triage           |  20           | PSU Complaints           | PSU Triage          |
       | PSU_Complaint_Outcome|  60           | PSU Complaints           | PSU Outcome         |
 
-  @ComplaintsWorkflow @COMPPSURegression @UKVIComplaints
+  @ComplaintsWorkflow @BFPSURegression @BFComplaints
   Scenario: When a BF PSU user sends the case back to BF the SLA should be updated to 20 working days
     Given I am logged into "CS" as user "BF_USER"
     When I create a "BF" case and move it to the "PSU_Complaint_Outcome" stage
