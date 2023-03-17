@@ -23,6 +23,8 @@ Feature: Complaints Search
   Scenario: UKVI complaints user sees the required information when viewing search results
     Given I am logged into "CS" as user "COMP_USER"
     When I navigate to the "search" page
+    And I select the "Complaint Case" case type checkbox
+    And I select the "Complaint Case - Stage 2" case type checkbox
     And I click the search button on the search page
     Then the "COMP Search" workstack should contain only the expected columns
 
@@ -49,7 +51,6 @@ Feature: Complaints Search
     And I enter "Sam McTester" into the "Correspondent Full Name" search field
     And I enter "AB1 2CD" into the "Correspondent Postcode" search field
     And I enter "SamMcTester@Test.com" into the "Correspondent Email Address" search field
-    And I enter "01/01/2001" into the "Complainant Date of Birth" search field
     And I enter "Test entry for HO Reference" into the "Complainant Home Office Reference" search field
     And I enter the current case reference into the Case Reference field on the search screen
     And I click the search button on the search page
@@ -60,6 +61,8 @@ Feature: Complaints Search
   Scenario: BF user sees the required information when viewing search results
     Given I am logged into "CS" as user "BF_USER"
     When I navigate to the "search" page
+    And I select the "Border Force Case" case type checkbox
+    And I select the "Border Force (Stage 2)" case type checkbox
     And I click the search button on the search page
     Then the "BF Search" workstack should contain only the expected columns
 
@@ -71,6 +74,7 @@ Feature: Complaints Search
     Given I am logged into "CS" as user "BF_USER"
     When I create a "BF2" case and move it to the "Registration" stage
     And I navigate to the "Search" page
+    And I select the "Border Force Case" case type checkbox
     And I search for the complaints case escalated to stage 2 by it's case reference
     And I load the stage 2 complaints case by selecting its case reference from the Escalate Case column
     Then the case should be loaded
