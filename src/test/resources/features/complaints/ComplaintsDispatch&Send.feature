@@ -101,7 +101,7 @@ Feature: Complaints Dispatch & Send
     And I submit the Response details
     Then the case should be closed
     And the read-only Case Details accordion should contain all case information entered during the "Border Force Send (Stage 2)" stage
-    And the summary should display "Service" for "Complaint Type"
+    And the summary should display "Service" for "Complaint type"
 
 
 #     POGR COMPLAINTS

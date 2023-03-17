@@ -475,7 +475,8 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
                 psuComplaintOutcome.equalsIgnoreCase("No - send back to Border Force") ||
                 psuComplaintOutcome.equalsIgnoreCase("Not serious - send back to IE Detention")) {
                         clickTheButton("Submit");
-        } else if (psuComplaintOutcome.equalsIgnoreCase("Not serious - send back to UKVI")) {
+        } else if (psuComplaintOutcome.equalsIgnoreCase("Not serious - send back to UKVI") ||
+                    psuComplaintOutcome.equalsIgnoreCase("Not serious - send back to Border Force")) {
             recordCaseData.selectSpecificRadioButton(psuComplaintOutcome);
             setSessionVariable("psuComplaintOutcomeReason").to(psuComplaintOutcome);
             clickTheButton("Submit");

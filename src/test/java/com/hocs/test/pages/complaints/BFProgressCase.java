@@ -333,7 +333,6 @@ public class BFProgressCase extends BasePage {
                 caseView.clickAllocateToMeLink();
                 correspondents.addANonMemberCorrespondentOfType("Complainant");
                 correspondents.confirmPrimaryCorrespondent();
-                complaintsRegistrationAndDataInput.enterComplainantDOB("01/01/2001");
                 complaintsRegistrationAndDataInput.enterACompanyName();
                 complaintsRegistrationAndDataInput.enterAHomeOfficeReference("Test entry for HO Reference");
                 complaintsRegistrationAndDataInput.enterAPortReference();
