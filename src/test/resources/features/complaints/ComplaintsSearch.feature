@@ -98,6 +98,13 @@ Feature: Complaints Search
     And I click the search button on the search page
     Then the created case should be the only case visible in the search results
 
+  @IEDETRegression @IEDETComplaints
+  Scenario: IEDET user sees the required information when viewing search results
+    Given I am logged into "CS" as user "IEDET_USER"
+    When I navigate to the "search" page
+    And I select the "IE Detention Case" case type checkbox
+    And I click the search button on the search page
+    Then the "IEDET Search" workstack should contain only the expected columns
 
 #     POGR COMPLAINTS
 

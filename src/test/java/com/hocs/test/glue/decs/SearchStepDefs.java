@@ -328,6 +328,7 @@ public class SearchStepDefs extends BasePage {
             case "TREAT OFFICIAL":
             case "BORDER FORCE CASE":
             case "BORDER FORCE (STAGE 2)":
+            case "IE DETENTION CASE":
                 createCase.checkSpecificCheckbox(CaseType);
                 break;
 
