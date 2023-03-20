@@ -16,6 +16,7 @@ public enum User {
     BF_USER("bf automated regression user", "Password1!", "BF Regression (bfregression@test.com)"),
     TO_USER("to automated regression user", "Password1!", "TO Regression (toregression@test.com)"),
     POGR_USER("pogr automated regression user", "Password1!", "POGR Regression (pogrregression@test.com)"),
+    PSU_USER("psusregression@test.com", "Password1!", "psu regression user(psusregression@test.com)"),
     MPAM_SUPERUSER("mpam super user", "Password1!", "MPAM Super User (mpamsuperuser@test.com)"),
     COMP_SUPERUSER("comp super user", "Password1!", "COMP Super User (compsuperuser@test.com)"),
     FOI_SUPERUSER("foi super user", "Password1!", "FOI Super User (foisuperuser@test.com)"),

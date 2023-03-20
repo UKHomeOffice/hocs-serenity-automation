@@ -20,6 +20,8 @@ Scenario: When a user selects Send back to IE Detention as Complaint Outcome the
         Given I am logged into "CS" as user "IEDET_USER"
         When I create a "IEDET" case and move it to the "PSU Complaint Outcome" stage
         Then I select "Not serious - send back to IE Detention" at "PSU Complaint Outcome" page
+        When I logout of the application
+        When I enter the login credentials of another user "IEDET_USER" and click the login button
         Then the case should be at the "IE Detention Triage" stage
         And the "Serious misconduct" radio button should be unselected
         And I click to view the case in the "My cases" workstack
@@ -47,6 +49,7 @@ Scenario Outline: When a user selects one of the Complaint Outcome and enters th
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "<caseType>" case and move it to the "PSU_COMPLAINT_OUTCOME" stage
     Then I attempt to continue without selecting a Complaint Outcome an error message is displayed
+    When I logout of the application
 
     Examples:
       | caseType    |
@@ -62,7 +65,7 @@ Scenario Outline: When a user selects one of the Complaint Outcome and enters th
     Then the case should be closed
     And  the summary should contain details of the "Withdrawn" Complaint Outcome
     And  the read-only Case Details accordion should contain all case information entered during the "PSU Outcome" stage
-
+    When I logout of the application
     Examples:
       | caseType    |
       | COMP        |
@@ -74,6 +77,8 @@ Scenario Outline: When a user selects one of the Complaint Outcome and enters th
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "<caseType>" case and move it to the "PSU_COMPLAINT_OUTCOME" stage
     Then I select "Not serious - send back to UKVI" at "PSU_COMPLAINT_OUTCOME" page
+    When I logout of the application
+    When I enter the login credentials of another user "COMP_USER" and click the login button
     Then the case should be at the "<newCaseStage>" stage
     And  the summary should contain details of the "Not serious - send back to UKVI" Complaint Outcome
     And  the read-only Case Details accordion should contain all case information entered during the "PSU Outcome" stage
@@ -111,9 +116,12 @@ Scenario Outline: When a user selects one of the Complaint Outcome and enters th
     Then I enter the PSU registration details and move to PSU Triage
     And I move it to the PSU Outcome stage
     Then I select "Not serious - send back to UKVI" at "PSU_COMPLAINT_OUTCOME" page
+    When I logout of the application
+    When I enter the login credentials of another user "COMP_USER" and click the login button
     Then the case should be at the "<newCaseStage>" stage
     And I select a Complaint Type
     And the case should be assigned to the corresponding team and move to the corresponding stage
+    When I logout of the application
 
     Examples:
       | caseType | caseStage        | newCaseStage |
@@ -126,7 +134,7 @@ Scenario Outline: When a user selects one of the Complaint Outcome and enters th
     When I create a "<caseType>" case and move it to the "PSU_COMPLAINT_OUTCOME" stage
     Then I select "Withdrawn" at "PSU Complaint Outcome" page
     Then the case should be closed
-#    And  the summary should contain details of the "Withdrawn" Complaint Outcome
+    And  the summary should contain details of the "Withdrawn" Complaint Outcome
     And  the read-only Case Details accordion should contain all case information entered during the "PSU Outcome" stage
 
     Examples:
@@ -142,6 +150,8 @@ Scenario Outline: When a user selects one of the Complaint Outcome and enters th
     Then I click the "Submit" button
     Then the case should be at the "<newCaseStage>" stage
     And  the summary should contain details of the "Not serious - send back to Border Force" Complaint Outcome
+    When I logout of the application
+    When I enter the login credentials of another user "BF_USER" and click the login button
     And  the read-only Case Details accordion should contain all case information entered during the "PSU Outcome" stage
     And the "Serious misconduct" radio button should be unselected
     And I click to view the case in the "<workstack>" workstack
@@ -159,7 +169,7 @@ Scenario Outline: When a user selects one of the Complaint Outcome and enters th
     Then I select Complaint Type at PSU Complaint Outcome Page page
     Then I enter the Final response and Final date
     Then the case should be closed
-#    And  the summary should contain details of the Complaint Outcome selection
+    And  the summary should contain details of the Complaint Outcome selection
     And  the read-only Case Details accordion should contain all case information entered during the "PSU Outcome" stage
 
     Examples:
@@ -171,13 +181,17 @@ Scenario Outline: When a user selects one of the Complaint Outcome and enters th
   Scenario Outline: When a user selects a complaint type for a Recategorise case, BF case should be transferred to the correct team
     Given I am logged into "CS" as user "BF_USER"
     When I create a "<caseType>" case and move it to the "<caseStage>" stage
-    And I load and claim the current case
+    When I logout of the application
+    When I enter the login credentials of another user "PSU_USER" and click the login button
     Then I enter the PSU registration details and move to PSU Triage
     And I move it to the PSU Outcome stage
     Then I select "Not serious - send back to Border Force" at "PSU_COMPLAINT_OUTCOME" page
+    When I logout of the application
+    When I enter the login credentials of another user "BF_USER" and click the login button
     Then the case should be at the "<newCaseStage>" stage
     And I select a Complaint Type
     And the case should be assigned to the corresponding team and move to the corresponding stage
+    When I logout of the application
 
     Examples:
       | caseType | caseStage     | newCaseStage    |

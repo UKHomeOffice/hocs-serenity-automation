@@ -4,8 +4,11 @@ import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.decs.BasePage;
+import com.hocs.test.pages.decs.Dashboard;
+import com.hocs.test.pages.decs.LoginPage;
 import com.hocs.test.pages.decs.RecordCaseData;
 import com.hocs.test.pages.decs.SummaryTab;
+import config.User;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,6 +20,10 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
     RecordCaseData recordCaseData;
 
     SummaryTab summaryTab;
+
+    LoginPage loginPage;
+
+    Dashboard dashboard;
 
     Boolean pogrPriority = true;
 
@@ -425,5 +432,13 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         enterACompanyName();
         clickContinueButton();
 
+    }
+
+    public void switchToPSUUser() {
+        clickTheLink("Logout");
+        loginPage.enterUsername(User.valueOf("PSU_USER").getUsername());
+        loginPage.enterPassword(User.valueOf("PSU_USER").getPassword());
+        clickContinueButton();
+        dashboard.getAndClaimCurrentCase();
     }
 }

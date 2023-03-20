@@ -20,6 +20,8 @@ Feature: PSU Triage
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to the "PSU Triage" stage
     And I choose to send the case back to IEDET
+    When I logout of the application
+    When I enter the login credentials of another user "IEDET_USER" and click the login button
     Then the case should be moved to the "IE Detention Triage" stage
     And the "Serious misconduct" radio button should be unselected
     And I click to view the case in the "My cases" workstack
@@ -40,7 +42,7 @@ Feature: PSU Triage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "<caseType>" case and move it to the "PSU_Triage" stage
     Then When I attempt to continue without selecting a PSU Triage Option an error message is displayed
-
+    When I logout of the application
     Examples:
       | caseType    |
       | COMP        |
@@ -54,7 +56,7 @@ Feature: PSU Triage
     And I move to the review complaint categories screen and check the options there are working correctly
     Then the case should be moved to the "PSU Outcome" stage
     And the read-only Case Details accordion should contain all case information entered during the "PSU Triage" stage
-
+    When I logout of the application
     Examples:
       | caseType    |
       | COMP        |
@@ -65,11 +67,14 @@ Feature: PSU Triage
   Scenario Outline: PSU User sends the case back to UKVI case from PSU Triage
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "<caseType>" case and move it to the "PSU_Triage" stage
-    Then I select "No - send back to UKVI" at "PSU Complaint Outcome" page
+    Then I select "No - send back to UKVI" at "PSU Triage" page
+    When I logout of the application
+    When I enter the login credentials of another user "COMP_USER" and click the login button
     And I click to view the case in the "<workstack>" workstack
     And the case stage should be "<newCaseStage>" and "Rejected by PSU" tag is appended to the case reference
     Then the case should be at the "<newCaseStage>" stage
     And the "Serious misconduct" radio button should be unselected
+
 
     Examples:
       | caseType    | workstack                | newCaseStage              |
@@ -83,6 +88,7 @@ Feature: PSU Triage
     When I create a "<caseType>" case and move it to the "PSU_Triage" stage
     And I choose to send the case to a team not on DECS
     Then the case should be closed
+    When I logout of the application
 
     Examples:
       | caseType    |
@@ -94,12 +100,16 @@ Feature: PSU Triage
   Scenario Outline: When a user selects a complaint type for a Recategorise case, it should be transferred to the correct team
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "<caseType>" case and move it to the "<caseStage>" stage
-    And I load and claim the current case
+    When I logout of the application
+    When I enter the login credentials of another user "PSU_USER" and click the login button
     Then I enter the PSU registration details and move to PSU Triage
-    Then I select "No - send back to UKVI" at "PSU Complaint Outcome" page
+    Then I select "No - send back to UKVI" at "PSU Triage" page
+    When I logout of the application
+    When I enter the login credentials of another user "COMP_USER" and click the login button
     Then the case should be at the "<newCaseStage>" stage
     And I select a Complaint Type
     And the case should be assigned to the corresponding team and move to the corresponding stage
+    When I logout of the application
     Examples:
       | caseType | caseStage            | newCaseStage              |
       | COMP     | TRANSFER_PSU         | UKVI Recategorise         |
@@ -122,7 +132,9 @@ Feature: PSU Triage
   Scenario Outline: PSU User sends the case back to BF case from PSU Triage
     Given I am logged into "CS" as user "BF_USER"
     When I create a "<caseType>" case and move it to the "PSU_Triage" stage
-    Then I select "No - send back to Border Force" at "PSU Complaint Outcome" page
+    Then I select "No - send back to Border Force" at "PSU Triage" page
+    When I logout of the application
+    When I enter the login credentials of another user "BF_USER" and click the login button
     And I click to view the case in the "<workstack>" workstack
     And the case stage should be "<newCaseStage>" and "Rejected by PSU" tag is appended to the case reference
     Then the case should be at the "<newCaseStage>" stage
@@ -148,12 +160,16 @@ Feature: PSU Triage
   Scenario Outline: When a user selects a complaint type for a Recategorise case, BF case should be transferred to the correct team
     Given I am logged into "CS" as user "BF_USER"
     When I create a "<caseType>" case and move it to the "<caseStage>" stage
-    And I load and claim the current case
+    When I logout of the application
+    When I enter the login credentials of another user "PSU_USER" and click the login button
     Then I enter the PSU registration details and move to PSU Triage
     Then I select "No - send back to Border Force" at "PSU Triage" page
+    When I logout of the application
+    When I enter the login credentials of another user "BF_USER" and click the login button
     Then the case should be at the "<newCaseStage>" stage
     And I select a Complaint Type
     And the case should be assigned to the corresponding team and move to the corresponding stage
+    When I logout of the application
     Examples:
       | caseType | caseStage            | newCaseStage            |
       | BF       | TRANSFER_PSU         | BF Recategorise         |
