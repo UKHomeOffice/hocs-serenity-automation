@@ -9,6 +9,7 @@ Feature: PSU Deadline
     And I click to view the case in the "<workstack>" workstack
     Then the case deadline date displayed in the "<workstack>" is "<amountOfDays>" workdays for a "<currentStage>" stage
     Then the case deadline date displayed in the summary is correct for a "<caseStage>" case
+    When I logout of the application
 
     Examples:
       | caseStage            | amountOfDays  | workstack                | currentStage        |
@@ -24,6 +25,8 @@ Feature: PSU Deadline
     Then the case deadline date displayed in the "PSU Complaints" is "60" workdays for a "PSU Outcome" stage
     Then the case deadline date displayed in the summary is correct for a "PSU Complaint Outcome" case
     Then I select "Not serious - send back to IE Detention" at "PSU Complaint Outcome" page
+    When I logout of the application
+    When I enter the login credentials of another user "IEDET_USER" and click the login button
     And I click to view the case in the "IE Detention" workstack
     Then the case deadline date displayed in the "IE Detention" is "20" workdays for a "IE Detention Triage" stage
     Then the case deadline date displayed in the summary is correct for a "IEDET" case
@@ -37,6 +40,7 @@ Feature: PSU Deadline
     And I click to view the case in the "<workstack>" workstack
     Then the case deadline date displayed in the "<workstack>" is "<amountOfDays>" workdays for a "<currentStage>" stage
     Then the case deadline date displayed in the summary is correct for a "<currentStage>" case
+    When I logout of the application
 
     Examples:
       | caseStage            | amountOfDays  | workstack                | currentStage        |
@@ -52,8 +56,12 @@ Feature: PSU Deadline
     Then the case deadline date displayed in the "PSU Complaints" is "60" workdays for a "PSU Outcome" stage
     Then the case deadline date displayed in the summary is correct for a "PSU Complaint Outcome" case
     Then I select "Not serious - send back to UKVI" at "Complaint Outcome" page
+    When I logout of the application
+    When I enter the login credentials of another user "COMP_USER" and click the login button
     And I click to view the case in the "Minor Misconduct" workstack
     Then the case deadline date displayed in the "Minor Misconduct" is "20" workdays for a "UKVI Recategorise" stage
+
+     #     BF COMPLAINTS
 
   @ComplaintsWorkflow @BFPSURegression @BFComplaints
   Scenario Outline: When a BF user escalates the case to PSU the SLA is amended to 60 working days at the PSU Outcome stage
@@ -62,6 +70,7 @@ Feature: PSU Deadline
     And I click to view the case in the "<workstack>" workstack
     Then the case deadline date displayed in the "<workstack>" is "<amountOfDays>" workdays for a "<currentStage>" stage
     Then the case deadline date displayed in the summary is correct for a "<currentStage>" case
+    When I logout of the application
 
     Examples:
       | caseStage            | amountOfDays  | workstack                | currentStage        |
@@ -77,7 +86,8 @@ Feature: PSU Deadline
     Then the case deadline date displayed in the "PSU Complaints" is "60" workdays for a "PSU Outcome" stage
     Then the case deadline date displayed in the summary is correct for a "PSU Complaint Outcome" case
     Then I select "Not serious - send back to Border Force" at "Complaint Outcome" page
-    And I click the "Submit" button
+    When I logout of the application
+    When I enter the login credentials of another user "BF_USER" and click the login button
     And I click to view the case in the "Border Force Complaints" workstack
     Then the case deadline date displayed in the "Border Force Complaints" is "20" workdays for a "BF Recategorise" stage
 

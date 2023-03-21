@@ -292,7 +292,8 @@ public class COMPProgressCase extends BasePage {
     }
 
     public void moveUKVICaseFromPSURegistrationToPSUTriage() {
-         complaintsRegistrationAndDataInput.enterAPSUReference();
+        complaintsRegistrationAndDataInput.switchToPSUUser();
+        complaintsRegistrationAndDataInput.enterAPSUReference();
          clickTheButton("Submit");
     }
 

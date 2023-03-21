@@ -217,6 +217,7 @@ public class BFProgressCase extends BasePage {
     }
 
     private void moveBFCaseFromPSURegistrationToPSUTriage() {
+        complaintsRegistrationAndDataInput.switchToPSUUser();
         complaintsRegistrationAndDataInput.enterAPSUReference();
         clickTheButton("Submit");
     }

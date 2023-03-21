@@ -155,6 +155,7 @@ public class IEDETProgressCase extends BasePage {
     }
 
     private void moveIEDETCaseFromPSURegistrationToPSUTriage() {
+        complaintsRegistrationAndDataInput.switchToPSUUser();
         complaintsRegistrationAndDataInput.enterAPSUReference();
         clickTheButton("Submit");
     }
