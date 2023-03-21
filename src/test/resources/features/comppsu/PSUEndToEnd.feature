@@ -11,6 +11,7 @@ Feature: PSU End to End
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "<caseType>" case and move it to the "PSU_CLOSED" stage
     Then the case should be closed
+    When I logout of the application
     Examples:
       | caseType |
       | COMP       |

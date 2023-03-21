@@ -86,7 +86,6 @@ Feature: PSU Deadline
     Then the case deadline date displayed in the "PSU Complaints" is "60" workdays for a "PSU Outcome" stage
     Then the case deadline date displayed in the summary is correct for a "PSU Complaint Outcome" case
     Then I select "Not serious - send back to Border Force" at "Complaint Outcome" page
-    And I click the "Submit" button
     When I logout of the application
     When I enter the login credentials of another user "BF_USER" and click the login button
     And I click to view the case in the "Border Force Complaints" workstack
