@@ -3,7 +3,7 @@ kind: pipeline
 type: kubernetes
 name: SMOKE
 trigger:
-   branch:
+  branch:
     - main
   event:
     - push
