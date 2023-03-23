@@ -47,6 +47,8 @@ public class BasePage extends PageObject {
 
     private static final SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
 
+    private static final SimpleDateFormat monthFormatInWord = new SimpleDateFormat("MMM");
+
     private static final SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
 
     @FindBy(className = "govuk-error-summary")
@@ -580,6 +582,12 @@ public class BasePage extends PageObject {
         Calendar cal = Calendar.getInstance();
 
         return monthFormat.format(cal.getTime());
+    }
+
+    public String getCurrentMonthInWord() {
+        Calendar cal = Calendar.getInstance();
+
+        return monthFormatInWord.format(cal.getTime());
     }
 
     public String getCurrentYear() {

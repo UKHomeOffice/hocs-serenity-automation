@@ -191,7 +191,12 @@ public class CreateCase extends BasePage {
     private boolean checkIfRandomStage1CaseEligibleForEscalationCanBeFound() {
         dashboard.selectSearchLinkFromMenuBar();
         selectStage1CaseTypeSearchCriteriaIfVisible();
-        search.enterSearchCriteria("Complainant Home Office Reference", getCurrentMonth() + "/" + getCurrentYear());
+        if((stage1CaseType.getCorrespondenceTypeLabel()).equalsIgnoreCase("Border Force Case")){
+            search.enterSearchCriteria("Complainant Home Office Reference", getCurrentMonthInWord() + "/" + getCurrentYear());
+        } else {
+            search.enterSearchCriteria("Complainant Home Office Reference", getCurrentMonth() + "/" + getCurrentYear());
+        }
+
         search.clickTheButton("Search");
         search.waitForResultsPage();
         return search.checkVisibilityOfEscalationHypertext();
