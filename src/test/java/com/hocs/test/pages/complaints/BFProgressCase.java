@@ -245,7 +245,7 @@ public class BFProgressCase extends BasePage {
         complaintsRegistrationAndDataInput.enterAdditionalDetails();
         if (!bfPsuOffTag && bfCase()) {
             complaintsRegistrationAndDataInput.selectASpecificComplaintType(complaintType);
-        } else if (bfPsuOffTag) {
+        } else if (bfPsuOffTag && bfCase()) {
             complaintsRegistrationAndDataInput.selectAComplaintType();
             clickContinueButton();
         }

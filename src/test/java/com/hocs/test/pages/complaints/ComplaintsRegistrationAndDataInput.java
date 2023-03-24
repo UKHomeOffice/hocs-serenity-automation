@@ -90,8 +90,10 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         if((ukviPsuOffTag || bfPsuOffTag) && (complaintType.equalsIgnoreCase("Minor misconduct"))){
             complaintType = "Minor Misconduct";
         }
-        if(iedetCase()||compCase()||comp2Case()||comp2DirectCase()||bfCase()||bf2Case()){
+        if(iedetCase()){
               recordCaseData.selectSpecificRadioButton(complaintType);
+        } else if ((!ukviPsuOffTag || !bfPsuOffTag) && (compCase()||comp2Case()||comp2DirectCase()||bfCase()||bf2Case())) {
+            recordCaseData.selectSpecificRadioButton(complaintType);
         } else if ((ukviPsuOffTag || bfPsuOffTag) && (compCase()||comp2Case()||comp2DirectCase() || bfCase())) {
             recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(complaintType, "Complaint Type");
         } else {

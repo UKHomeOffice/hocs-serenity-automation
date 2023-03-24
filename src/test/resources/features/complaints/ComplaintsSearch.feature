@@ -92,8 +92,8 @@ Feature: Complaints Search
     And I enter "SamMcTester@Test.com" into the "Correspondent Email Address" search field
     And I enter "01/01/2001" into the "Complainant date of birth" search field
     And I enter "Test entry for HO reference" into the "Complainant Home Office Reference" search field
-    And I select "Heathrow Airport" from the "Complaint origin" dropdown menu
-    And I select "Gatwick Airport" from the "Business area" dropdown menu
+    And I select "Heathrow Airport (Cayley House)" from the "Complaint origin" dropdown menu
+    And I select "Gatwick North Terminal" from the "Business area" dropdown menu
     And I enter the current case reference into the Case Reference field on the search screen
     And I click the search button on the search page
     Then the created case should be the only case visible in the search results

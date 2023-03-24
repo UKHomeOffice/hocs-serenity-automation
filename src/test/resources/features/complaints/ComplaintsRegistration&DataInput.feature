@@ -179,7 +179,7 @@ Feature: Registration
       | Yes - it’s a further stage 2 case                   |
       | Yes - it’s a complaint about an external contractor |
 
-  @ComplaintsWorkflow @COMPRegression @UKVIComplaints
+  @ComplaintsWorkflow @COMPPSURegression @UKVIComplaints
   Scenario Outline: User can create UKVI stage 2 complaint case directly for Serious misconduct
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2DIRECT" case and move it to the "Stage 2 Registration" stage
