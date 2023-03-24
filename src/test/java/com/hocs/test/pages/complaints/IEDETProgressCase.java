@@ -247,10 +247,10 @@ public class IEDETProgressCase extends BasePage {
                 complaintsRegistrationAndDataInput.selectASpecificComplaintType("Service");
                 complaintsTriageAndInvestigation.selectIEDETClaimCategory("Service");
                 clickContinueButton();
-                complaintsRegistrationAndDataInput.selectASpecificComplaintOrigin("Heathrow Airport");
+                complaintsRegistrationAndDataInput.selectASpecificComplaintOrigin("Heathrow Airport (Cayley House)");
                 complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
                 complaintsRegistrationAndDataInput.enterAThirdPartyReference();
-                complaintsTriageAndInvestigation.selectASpecificIEDETBusinessArea("Gatwick Airport");
+                complaintsTriageAndInvestigation.selectASpecificIEDETBusinessArea("Gatwick North Terminal");
                 clickContinueButton();
                 complaintsTriageAndInvestigation.selecIEDetentionComplianceTeam();
                 clickFinishButton();
