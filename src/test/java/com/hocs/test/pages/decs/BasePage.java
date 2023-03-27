@@ -23,7 +23,7 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;
 import org.junit.Assert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.ElementNotVisibleException;
+import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
@@ -220,7 +220,7 @@ public class BasePage extends PageObject {
         if (!tabIsCurrentlySelected) {
             try {
                 tab.click();
-            } catch (ElementNotVisibleException | StaleElementReferenceException ex) {
+            } catch (ElementNotInteractableException | StaleElementReferenceException ex) {
                 waitABit(500);
                 tab = getTabElementUsingTabName(tabName);
                 tab.click();
@@ -238,7 +238,7 @@ public class BasePage extends PageObject {
         nonActiveTab.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
         try {
             nonActiveTab.click();
-        } catch (ElementNotVisibleException | StaleElementReferenceException ex) {
+        } catch (ElementNotInteractableException | StaleElementReferenceException ex) {
             waitABit(500);
             nonActiveTab = findBy("//li[@class='govuk-tabs__list-item'][not(@class='govuk-tabs__list-item--selected')]");
             nonActiveTab.click();
@@ -262,14 +262,13 @@ public class BasePage extends PageObject {
 
     public String setCaseReferenceFromAssignedCase() {
         headerCaption1.waitUntilVisible().withTimeoutOf(Duration.ofSeconds(10));
-        waitFor(ExpectedConditions.textToBePresentInElement(headerCaption1, getCurrentCaseType().toString()))
-                .withTimeoutOf(Duration.ofSeconds(20));
+        withTimeoutOf(Duration.ofSeconds(20)).waitFor(ExpectedConditions.textToBePresentInElement(headerCaption1, getCurrentCaseType().toString()));
         setSessionVariable("caseReference").to(headerCaption1.getText());
         return headerCaption1.getText();
     }
 
     public String setCaseReferenceFromUnassignedCase() {
-        waitFor(ExpectedConditions.textToBePresentInElement(header1, getCurrentCaseType().toString())).withTimeoutOf(Duration.ofSeconds(20));
+        withTimeoutOf(Duration.ofSeconds(20)).waitFor(ExpectedConditions.textToBePresentInElement(header1, getCurrentCaseType().toString()));
         setSessionVariable("caseReference").to(header1.getText());
         return header1.getText();
     }
