@@ -56,18 +56,13 @@ steps:
     when:
       status:
         - failure
+
 services:
   - name: selenium
-    image: selenium/hub:4.5.3
-  - name: chrome22
-    image: selenium/node-chrome:4.5.2
+    image: selenium/standalone-chrome:4.7.2
     environment:
       DISPLAY: :99.0
-      HUB_PORT_4444_TCP_ADDR: selenium
-      HUB_PORT_4444_TCP_PORT: 4444
-      SE_EVENT_BUS_HOST: selenium
-      SE_EVENT_BUS_PUBLISH_PORT: 4442
-      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+
 ---
 kind: pipeline
 type: kubernetes
@@ -111,18 +106,13 @@ steps:
       status:
         - success
         - failure
+
 services:
   - name: selenium
-    image: selenium/hub:4.5.3
-  - name: chrome22
-    image: selenium/node-chrome:4.5.2
+    image: selenium/standalone-chrome:4.7.2
     environment:
       DISPLAY: :99.0
-      HUB_PORT_4444_TCP_ADDR: selenium
-      HUB_PORT_4444_TCP_PORT: 4444
-      SE_EVENT_BUS_HOST: selenium
-      SE_EVENT_BUS_PUBLISH_PORT: 4442
-      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+
 ---
 kind: pipeline
 type: kubernetes
@@ -166,18 +156,13 @@ steps:
       status:
         - success
         - failure
+
 services:
   - name: selenium
-    image: selenium/hub:4.5.3
-  - name: chrome22
-    image: selenium/node-chrome:4.5.2
+    image: selenium/standalone-chrome:4.7.2
     environment:
       DISPLAY: :99.0
-      HUB_PORT_4444_TCP_ADDR: selenium
-      HUB_PORT_4444_TCP_PORT: 4444
-      SE_EVENT_BUS_HOST: selenium
-      SE_EVENT_BUS_PUBLISH_PORT: 4442
-      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+
 ---
 kind: pipeline
 type: kubernetes
@@ -221,18 +206,13 @@ steps:
       status:
         - success
         - failure
+
 services:
   - name: selenium
-    image: selenium/hub:4.5.3
-  - name: chrome22
-    image: selenium/node-chrome:4.5.2
+    image: selenium/standalone-chrome:4.7.2
     environment:
       DISPLAY: :99.0
-      HUB_PORT_4444_TCP_ADDR: selenium
-      HUB_PORT_4444_TCP_PORT: 4444
-      SE_EVENT_BUS_HOST: selenium
-      SE_EVENT_BUS_PUBLISH_PORT: 4442
-      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+
 ---
 kind: pipeline
 type: kubernetes
@@ -276,18 +256,13 @@ steps:
       status:
         - success
         - failure
+
 services:
   - name: selenium
-    image: selenium/hub:4.5.3
-  - name: chrome22
-    image: selenium/node-chrome:4.5.2
+    image: selenium/standalone-chrome:4.7.2
     environment:
       DISPLAY: :99.0
-      HUB_PORT_4444_TCP_ADDR: selenium
-      HUB_PORT_4444_TCP_PORT: 4444
-      SE_EVENT_BUS_HOST: selenium
-      SE_EVENT_BUS_PUBLISH_PORT: 4442
-      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+
 ---
 kind: pipeline
 type: kubernetes
@@ -331,18 +306,13 @@ steps:
       status:
         - success
         - failure
+
 services:
   - name: selenium
-    image: selenium/hub:4.5.3
-  - name: chrome22
-    image: selenium/node-chrome:4.5.2
+    image: selenium/standalone-chrome:4.7.2
     environment:
       DISPLAY: :99.0
-      HUB_PORT_4444_TCP_ADDR: selenium
-      HUB_PORT_4444_TCP_PORT: 4444
-      SE_EVENT_BUS_HOST: selenium
-      SE_EVENT_BUS_PUBLISH_PORT: 4442
-      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+
 ---
 kind: pipeline
 type: kubernetes
@@ -386,18 +356,13 @@ steps:
       status:
         - success
         - failure
+
 services:
   - name: selenium
-    image: selenium/hub:4.5.3
-  - name: chrome22
-    image: selenium/node-chrome:4.5.2
+    image: selenium/standalone-chrome:4.7.2
     environment:
       DISPLAY: :99.0
-      HUB_PORT_4444_TCP_ADDR: selenium
-      HUB_PORT_4444_TCP_PORT: 4444
-      SE_EVENT_BUS_HOST: selenium
-      SE_EVENT_BUS_PUBLISH_PORT: 4442
-      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+
 ---
 kind: pipeline
 type: kubernetes
@@ -444,17 +409,9 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/hub:4.5.3
-
-  - name: chrome22
-    image: selenium/node-chrome:4.5.2
+    image: selenium/standalone-chrome:4.7.2
     environment:
       DISPLAY: :99.0
-      HUB_PORT_4444_TCP_ADDR: selenium
-      HUB_PORT_4444_TCP_PORT: 4444
-      SE_EVENT_BUS_HOST: selenium
-      SE_EVENT_BUS_PUBLISH_PORT: 4442
-      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
 
 ---
 kind: pipeline
@@ -503,17 +460,9 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/hub:4.5.3
-
-  - name: chrome22
-    image: selenium/node-chrome:4.5.2
+    image: selenium/standalone-chrome:4.7.2
     environment:
       DISPLAY: :99.0
-      HUB_PORT_4444_TCP_ADDR: selenium
-      HUB_PORT_4444_TCP_PORT: 4444
-      SE_EVENT_BUS_HOST: selenium
-      SE_EVENT_BUS_PUBLISH_PORT: 4442
-      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
 
 ---
 kind: pipeline
@@ -558,18 +507,13 @@ steps:
       status:
         - success
         - failure
+
 services:
   - name: selenium
-    image: selenium/hub:4.5.3
-  - name: chrome22
-    image: selenium/node-chrome:4.5.2
+    image: selenium/standalone-chrome:4.7.2
     environment:
       DISPLAY: :99.0
-      HUB_PORT_4444_TCP_ADDR: selenium
-      HUB_PORT_4444_TCP_PORT: 4444
-      SE_EVENT_BUS_HOST: selenium
-      SE_EVENT_BUS_PUBLISH_PORT: 4442
-      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+
 ---
 kind: pipeline
 type: kubernetes
@@ -613,18 +557,13 @@ steps:
       status:
         - success
         - failure
+
 services:
   - name: selenium
-    image: selenium/hub:4.5.3
-  - name: chrome22
-    image: selenium/node-chrome:4.5.2
+    image: selenium/standalone-chrome:4.7.2
     environment:
       DISPLAY: :99.0
-      HUB_PORT_4444_TCP_ADDR: selenium
-      HUB_PORT_4444_TCP_PORT: 4444
-      SE_EVENT_BUS_HOST: selenium
-      SE_EVENT_BUS_PUBLISH_PORT: 4442
-      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+
 ---
 kind: pipeline
 type: kubernetes
@@ -668,18 +607,13 @@ steps:
       status:
         - success
         - failure
+
 services:
   - name: selenium
-    image: selenium/hub:4.5.3
-  - name: chrome22
-    image: selenium/node-chrome:4.5.2
+    image: selenium/standalone-chrome:4.7.2
     environment:
       DISPLAY: :99.0
-      HUB_PORT_4444_TCP_ADDR: selenium
-      HUB_PORT_4444_TCP_PORT: 4444
-      SE_EVENT_BUS_HOST: selenium
-      SE_EVENT_BUS_PUBLISH_PORT: 4442
-      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+
 ---
 kind: pipeline
 type: kubernetes
@@ -723,15 +657,9 @@ steps:
       status:
         - success
         - failure
+
 services:
   - name: selenium
-    image: selenium/hub:4.5.3
-  - name: chrome22
-    image: selenium/node-chrome:4.5.2
+    image: selenium/standalone-chrome:4.7.2
     environment:
       DISPLAY: :99.0
-      HUB_PORT_4444_TCP_ADDR: selenium
-      HUB_PORT_4444_TCP_PORT: 4444
-      SE_EVENT_BUS_HOST: selenium
-      SE_EVENT_BUS_PUBLISH_PORT: 4442
-      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
