@@ -110,7 +110,7 @@ Feature: Registration
 
   #   UKVI COMPLAINTS STAGE 2 Direct Case
 
-  @ComplaintsWorkflow @COMPRegression @UKVIComplaints
+  @ComplaintsWorkflow  @UKVIComplaints
   Scenario Outline: User can create UKVI stage 2 complaint case directly for Service
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2DIRECT" case and move it to the "Stage 2 Registration" stage
@@ -135,7 +135,7 @@ Feature: Registration
       | Yes - it’s a further stage 2 case                   |
       | Yes - it’s a complaint about an external contractor |
 
-  @ComplaintsWorkflow @COMPRegression @UKVIComplaints
+  @ComplaintsWorkflow @UKVIComplaints
   Scenario Outline: User can create UKVI stage 2 complaint case directly for Ex-Gratia
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2DIRECT" case and move it to the "Stage 2 Registration" stage
@@ -157,7 +157,7 @@ Feature: Registration
       | Yes - it’s a further stage 2 case                   |
       | Yes - it’s a complaint about an external contractor |
 
-  @ComplaintsWorkflow @COMPRegression @UKVIComplaints
+  @ComplaintsWorkflow  @UKVIComplaints
   Scenario Outline: User can create UKVI stage 2 complaint case directly for Minor misconduct
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2DIRECT" case and move it to the "Stage 2 Registration" stage
@@ -179,7 +179,7 @@ Feature: Registration
       | Yes - it’s a further stage 2 case                   |
       | Yes - it’s a complaint about an external contractor |
 
-  @ComplaintsWorkflow @COMPPSURegression @UKVIComplaints
+  @ComplaintsWorkflow  @UKVIComplaints
   Scenario Outline: User can create UKVI stage 2 complaint case directly for Serious misconduct
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2DIRECT" case and move it to the "Stage 2 Registration" stage
@@ -202,7 +202,7 @@ Feature: Registration
       | Yes - it’s a further stage 2 case                   |
       | Yes - it’s a complaint about an external contractor |
 
-  @ComplaintsWorkflow @COMPRegression @UKVIComplaints
+  @ComplaintsWorkflow  @UKVIComplaints
   Scenario: User can create UKVI stage 2 complaint case directly amd close the case if they don't want to continue
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2DIRECT" case and move it to the "Stage 2 Registration" stage

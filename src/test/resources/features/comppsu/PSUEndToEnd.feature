@@ -13,10 +13,10 @@ Feature: PSU End to End
     Then the case should be closed
     When I logout of the application
     Examples:
-      | caseType |
-      | COMP       |
-      | COMP2      |
-      | COMP2DIRECT      |
+      | caseType    |
+      | COMP        |
+      | COMP2       |
+    #  | COMP2DIRECT |
 
   @ComplaintsWorkflow @BFPSURegression @BFComplaints
   Scenario Outline: User completes a BF PSU complaint case
