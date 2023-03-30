@@ -12,6 +12,7 @@ import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
 import config.CaseType;
+import java.util.Random;
 
 public class DCUProgressCase extends BasePage {
 
@@ -261,7 +262,10 @@ public class DCUProgressCase extends BasePage {
     }
 
     public void moveCaseFromMinisterialSignOffToDispatch() {
-        ministerialSignOff.selectToApproveResponse("Yes");
+        String[] validChoices = new String[]{"Yes - with a wet signature", "Yes - with a digital signature"};
+        int rnd = new Random().nextInt(validChoices.length);
+        String response = validChoices[rnd];
+        ministerialSignOff.selectToApproveResponse(response);
         clickContinueButton();
     }
 
