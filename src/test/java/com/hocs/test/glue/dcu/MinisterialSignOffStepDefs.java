@@ -19,7 +19,7 @@ public class MinisterialSignOffStepDefs extends BasePage {
 
     @And("I do not approve the response at the Ministerial Sign Off stage")
     public void iDoNotApproveTheResponseAtTheMinisterialSignOffStage() {
-        ministerialSignOff.selectToApproveResponse("No");
+        ministerialSignOff.selectToApproveResponse(" No - return to Initial Draft");
         clickContinueButton();
         ministerialSignOff.enterRejectionReason();
         clickContinueButton();
@@ -36,4 +36,11 @@ public class MinisterialSignOffStepDefs extends BasePage {
         ministerialSignOff.enterNotApplicableReason();
         clickContinueButton();
     }
+
+    @When("I approve the response {string} at the Ministerial Sign Off stage")
+    public void iApproveTheResponseAtTheMinisterialSignOffStage(String approve) {
+        ministerialSignOff.selectToApproveResponse(approve);
+        clickContinueButton();
+    }
+
 }
