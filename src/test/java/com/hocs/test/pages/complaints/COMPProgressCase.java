@@ -477,6 +477,24 @@ public class COMPProgressCase extends BasePage {
                 complaintsRegistrationAndDataInput.enterAPortReference();
                 clickContinueButton();
                 break;
+            case "PSU REFERENCE":
+                createCase.createCSCaseOfTypeWithDocument(CaseType.COMP);
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();
+                correspondents.addANonMemberCorrespondentOfType("Complainant");
+                correspondents.confirmPrimaryCorrespondent();
+                complaintsRegistrationAndDataInput.enterComplainantDetails();
+                complaintsRegistrationAndDataInput.selectASpecificComplaintType("Serious misconduct");
+                complaintsTriageAndInvestigation.selectUKVIClaimCategory("Serious misconduct");
+                clickContinueButton();
+                selectRandomRadioButtonFromGroupWithHeading("Channel");
+                complaintsRegistrationAndDataInput.enterAPreviousUKVIPSUComplaintReference();
+                complaintsRegistrationAndDataInput.enterAThirdPartyReferencePSU();
+                clickTheButton("Finish and escalate to PSU");
+                dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
+                complaintsRegistrationAndDataInput.enterASpecificPSUReference("123456789");
+                clickTheButton("Submit");
+                break;
             case "ALL":
                 createCase.createCSCaseOfTypeWithDocument(CaseType.COMP);
                 confirmationScreens.goToCaseFromConfirmationScreen();
