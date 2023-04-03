@@ -113,6 +113,8 @@ public class SearchStepDefs extends BasePage {
                 default:
                     pendingStep(caseTypeToGenerate + " is not defined within " + getMethodName());
             }
+            dashboard.goToDashboard();
+            waitABit(1000);
             dashboard.selectSearchLinkFromMenuBar();
             search.waitForSearchCriteriaPage();
             iEnterIntoTheSearchField(infoValue, criteria);

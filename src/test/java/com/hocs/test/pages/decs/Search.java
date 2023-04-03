@@ -257,7 +257,7 @@ public class Search extends BasePage {
         switch (criteria.toUpperCase()) {
             case "CASE TYPE":
             case "CASE REFERENCE":
-                caseTypesCriteriaCompatibleWith = Arrays.asList(CaseType.MIN, CaseType.DTEN, CaseType.TRO, CaseType.MPAM, CaseType.COMP, CaseType.IEDET, CaseType.SMC, CaseType.POGR, CaseType.SMC, CaseType.FOI, CaseType.TO);
+                caseTypesCriteriaCompatibleWith = Arrays.asList(CaseType.MIN, CaseType.DTEN, CaseType.TRO, CaseType.MPAM, CaseType.COMP, CaseType.IEDET, CaseType.POGR, CaseType.FOI, CaseType.TO);
                 break;
             case "ACTIVE CASES ONLY":
             case "RECEIVED ON OR AFTER DATE":
@@ -266,13 +266,13 @@ public class Search extends BasePage {
                 break;
             case "CORRESPONDENT FULL NAME":
             case "COMPLAINANT DATE OF BIRTH":
-                caseTypesCriteriaCompatibleWith = Arrays.asList(CaseType.COMP, CaseType.IEDET, CaseType.SMC, CaseType.POGR, CaseType.SMC, CaseType.TO);
+                caseTypesCriteriaCompatibleWith = Arrays.asList(CaseType.COMP, CaseType.IEDET, CaseType.SMC, CaseType.POGR, CaseType.TO);
                 break;
             case "CORRESPONDENT POSTCODE":
-                caseTypesCriteriaCompatibleWith = Arrays.asList(CaseType.MIN, CaseType.DTEN, CaseType.TRO, CaseType.COMP, CaseType.IEDET, CaseType.SMC, CaseType.POGR, CaseType.SMC, CaseType.TO);
+                caseTypesCriteriaCompatibleWith = Arrays.asList(CaseType.MIN, CaseType.DTEN, CaseType.TRO, CaseType.COMP, CaseType.IEDET, CaseType.POGR, CaseType.TO);
                 break;
             case "CORRESPONDENT EMAIL ADDRESS":
-                caseTypesCriteriaCompatibleWith = Arrays.asList(CaseType.MIN, CaseType.DTEN, CaseType.TRO, CaseType.COMP, CaseType.IEDET, CaseType.SMC, CaseType.POGR, CaseType.SMC, CaseType.FOI, CaseType.TO);
+                caseTypesCriteriaCompatibleWith = Arrays.asList(CaseType.MIN, CaseType.DTEN, CaseType.TRO, CaseType.COMP, CaseType.IEDET, CaseType.POGR, CaseType.FOI, CaseType.TO);
                 break;
             case "MEMBER OF PARLIAMENT NAME":
                 caseTypesCriteriaCompatibleWith = Arrays.asList(CaseType.MIN, CaseType.DTEN, CaseType.TRO, CaseType.MPAM);
@@ -292,10 +292,10 @@ public class Search extends BasePage {
                 caseTypesCriteriaCompatibleWith = Arrays.asList(CaseType.MPAM, CaseType.TO);
                 break;
             case "COMPLAINANT HOME OFFICE REFERENCE":
-                caseTypesCriteriaCompatibleWith = Arrays.asList(CaseType.COMP, CaseType.IEDET, CaseType.SMC, CaseType.SMC);
+                caseTypesCriteriaCompatibleWith = Arrays.asList(CaseType.COMP, CaseType.IEDET);
                 break;
             case "PSU REFERENCE":
-                caseTypesCriteriaCompatibleWith = Collections.singletonList(CaseType.SMC);
+                caseTypesCriteriaCompatibleWith = Arrays.asList(CaseType.BF, CaseType.IEDET, CaseType.COMP);
                 break;
             case "REFERENCE TYPE":
             case "MINISTERIAL SIGN OFF TEAM":
