@@ -10,7 +10,7 @@ Feature: Ministerial Sign-Off
     When I approve the response "Yes - with a wet signature" at the Ministerial Sign Off stage
     Then the case should be moved to the "Dispatch" stage
     And the summary should display the owning team as "Performance and Process Team"
-    And the read-only Case Details accordion should contain all case information entered during the "Ministerial Sign off" @DCUWorkflow @DCURegression
+    And the read-only Case Details accordion should contain all case information entered during the "Ministerial Sign off" stage
 
   @DCUWorkflow @DCURegression
   Scenario: User can select to approve the response with digital signature

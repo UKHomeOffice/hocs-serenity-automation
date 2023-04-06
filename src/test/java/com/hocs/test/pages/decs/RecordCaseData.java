@@ -127,7 +127,7 @@ public class RecordCaseData extends BasePage{
         if(compCase() || comp2Case() || comp2DirectCase()||bfCase()||bf2Case()){
             String complaintType = sessionVariableCalled("complaintType");
             String complaintCategory = sessionVariableCalled("complaintCategory");
-            if(complaintType.equalsIgnoreCase("Ex-Gratia")){
+            if(complaintType != null && complaintType.equalsIgnoreCase("Ex-Gratia")){
                 complaintCategory = "Ex-gratia";
             }
             addHeadingAndValueRecord( complaintCategory, checkboxLabelText);
