@@ -463,12 +463,12 @@ public class Search extends BasePage {
                 case "COMPLAINANT HOME OFFICE REFERENCE":
                     searchValue = sessionVariableCalled("searchComplainantHomeOfficeReference");
                     caseView.expandAllCaseDetailsAccordionSections();
-                    assertThat(caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenKey("Home Office Reference").get(0).equalsIgnoreCase(searchValue), is(true));
+                    assertThat(caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenKey("Home Office reference").get(0).equalsIgnoreCase(searchValue), is(true));
                     break;
                 case "PSU REFERENCE":
                     searchValue = sessionVariableCalled("searchPSUReference");
-                    openOrCloseAccordionSection("Triage");
-                    assertThat(caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenKey("PSU Reference").get(0).equalsIgnoreCase(searchValue), is(true));
+                    openOrCloseAccordionSection("PSU Registration");
+                    assertThat(caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenKey("PSU reference").get(0).equalsIgnoreCase(searchValue), is(true));
                     break;
                 case "REFERENCE TYPE":
                     searchValue = sessionVariableCalled("searchReferenceType");

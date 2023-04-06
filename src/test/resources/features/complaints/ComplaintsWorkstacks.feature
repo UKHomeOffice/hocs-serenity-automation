@@ -114,6 +114,7 @@ Feature: Complaints Workstacks
     When I create a single "<caseType>" case with the correspondence received date set <amountOfDays> workdays ago
     And I click to view the case in the "<workstack>" workstack
     Then the case deadline should be highlighted "yellow"
+    And I logout of the application
     Examples:
       | caseType | user       | amountOfDays | workstack                         |
       | COMP     | COMP_USER  | 15           | Complaint Registration            |
@@ -129,6 +130,7 @@ Feature: Complaints Workstacks
     When I create a single "<caseType>" case with the correspondence received date set <amountOfDays> workdays ago
     And I click to view the case in the "<workstack>" workstack
     Then the case deadline should be highlighted "red"
+    And I logout of the application
     Examples:
       | caseType | user       | amountOfDays | workstack                         |
       | COMP     | COMP_USER  | 21           | Complaint Registration            |
