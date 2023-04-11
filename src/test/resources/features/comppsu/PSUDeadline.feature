@@ -91,3 +91,74 @@ Feature: PSU Deadline
     And I click to view the case in the "Border Force Complaints" workstack
     Then the case deadline date displayed in the "Border Force Complaints" is "20" workdays for a "BF Recategorise" stage
 
+  @ComplaintsWorkflow @COMPPSURegression @UKVIComplaints
+  Scenario Outline: Complaints user is able to see a yellow highlighted deadline on a complaint case that is close to its deadline date
+    Given I am logged into "CS" as user "<user>"
+    When I create a single "<caseType>" case with the correspondence received date set <amountOfDays> workdays ago
+    And I move the case from "<currentStage>" stage to "<targetStage>" stage
+    And I click to view the case in the "PSU Complaints" workstack
+    Then the case deadline should be highlighted "yellow"
+    When I logout of the application
+    When I enter the login credentials of another user "PSU_USER" and click the login button
+    And I load and claim the current case
+    And I click to view the case in the "PSU Complaints" workstack
+    Then the case deadline should be highlighted "yellow"
+    And I logout of the application
+    Examples:
+      | caseType | user       | amountOfDays | currentStage              | targetStage      |
+      | COMP     | COMP_USER  | 15           | Registration              | PSU_Registration |
+      | COMP2    | COMP_USER  | 15           | STAGE_2_REGISTRATION      | PSU_Registration |
+      | IEDET    | IEDET_USER | 15           | IE DETENTION REGISTRATION | PSU Registration |
+      | BF       | BF_USER    | 15           | Registration              | PSU_Registration |
+
+  @ComplaintsWorkflow @BFPSURegression @BFComplaints
+  Scenario: BF2 user is able to see a yellow highlighted deadline on a complaint case that is close to its deadline date
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a single "BF2" case with the correspondence received date set 15 workdays ago
+    And I move the case from "Registration" stage to "TRANSFER_PSU" stage
+    And I click to view the case in the "PSU Complaints" workstack
+    Then the case deadline should be highlighted "yellow"
+    When I logout of the application
+    When I enter the login credentials of another user "PSU_USER" and click the login button
+    And I load and claim the current case
+    And I click to view the case in the "PSU Complaints" workstack
+    Then the case deadline should be highlighted "yellow"
+    And I logout of the application
+
+  @ComplaintsWorkflow @COMPPSURegression @UKVIComplaints
+  Scenario Outline: Complaints user is able to see a red highlighted deadline on an complaint case that is past its deadline date
+    Given I am logged into "CS" as user "<user>"
+    When I create a single "<caseType>" case with the correspondence received date set <amountOfDays> workdays ago
+    And I move the case from "<currentStage>" stage to "<targetStage>" stage
+    And I click to view the case in the "PSU Complaints" workstack
+    Then the case deadline should be highlighted "red"
+    When I logout of the application
+    When I enter the login credentials of another user "PSU_USER" and click the login button
+    And I load and claim the current case
+    And I click to view the case in the "PSU Complaints" workstack
+    Then the case deadline should be highlighted "red"
+    And I logout of the application
+    Examples:
+      | caseType | user       | amountOfDays | currentStage              | targetStage      |
+      | COMP     | COMP_USER  | 21           | Registration              | PSU_Registration |
+      | COMP2    | COMP_USER  | 21           | STAGE_2_REGISTRATION      | PSU_Registration |
+      | IEDET    | IEDET_USER | 21           | IE DETENTION REGISTRATION | PSU Registration |
+      | BF       | BF_USER    | 21           | Registration              | PSU_Registration |
+
+  @ComplaintsWorkflow @BFPSURegression @BFComplaints
+  Scenario: BF2 user is able to see a red highlighted deadline on an complaint case that is past its deadline date
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a single "BF2" case with the correspondence received date set 21 workdays ago
+    And I move the case from "Registration" stage to "TRANSFER_PSU" stage
+    And I click to view the case in the "PSU Complaints" workstack
+    Then the case deadline should be highlighted "red"
+    When I logout of the application
+    When I enter the login credentials of another user "PSU_USER" and click the login button
+    And I load and claim the current case
+    And I click to view the case in the "PSU Complaints" workstack
+    Then the case deadline should be highlighted "red"
+    And I logout of the application
+
+
+
+
