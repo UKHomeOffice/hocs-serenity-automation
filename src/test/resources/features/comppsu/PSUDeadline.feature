@@ -102,7 +102,7 @@ Feature: PSU Deadline
     When I enter the login credentials of another user "PSU_USER" and click the login button
     And I load and claim the current case
     And I click to view the case in the "PSU Complaints" workstack
-    Then the case deadline should be highlighted "red"
+    Then the case deadline should be highlighted "yellow"
     And I logout of the application
     Examples:
       | caseType | user       | amountOfDays | currentStage              | targetStage      |
