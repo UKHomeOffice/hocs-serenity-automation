@@ -39,9 +39,9 @@ public class BasePage extends PageObject {
 
     public static boolean keepAllCaseData = false;
 
-    public static boolean ukviPsuOffTag = false;
+    public static boolean ukviPsuOffTag = true;
 
-    public static boolean bfPsuOffTag = false;
+    public static boolean bfPsuOffTag = true;
 
     private static final SimpleDateFormat dayFormat = new SimpleDateFormat("dd");
 
