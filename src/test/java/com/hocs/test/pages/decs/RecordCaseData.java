@@ -43,6 +43,9 @@ public class RecordCaseData extends BasePage{
         if((ukviPsuOffTag || bfPsuOffTag) && (compCase()||comp2Case()||comp2DirectCase()||bfCase()) && (headingText.equalsIgnoreCase("Complaint Type"))){
                        headingText = "Complaint type";
         }
+        if((ukviPsuOffTag) && (compCase() || comp2Case() || comp2DirectCase()) && (radioButtonText.equalsIgnoreCase("Minor Misconduct"))){
+            radioButtonText = "Minor misconduct";
+        }
         if(comp2DirectCase()) {
             if(radioButtonText.equalsIgnoreCase("Yes - it’s a complaint about an external contractor")){
                        radioButtonText = "External contractor";
