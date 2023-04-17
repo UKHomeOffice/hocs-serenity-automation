@@ -109,6 +109,9 @@ public class SummaryTab extends BasePage {
     @FindBy(xpath = "//th[contains(text(), 'Complaint Category')]/following-sibling::td")
     public WebElementFacade complaintCategory;
 
+    @FindBy(xpath = "//th[contains(text(), 'Complaint type')]/following-sibling::td")
+    public WebElementFacade complaintType;
+
     @FindBy(xpath = "//th[contains(text(), 'Complaint Reason')]/following-sibling::td")
     public WebElementFacade complaintReason;
 
@@ -438,6 +441,12 @@ public class SummaryTab extends BasePage {
         assertThat(complaintCategoryText.equals(complaintCategory.getText()), is(true));
         String complaintReasonText = sessionVariableCalled("complaintReason");
         assertThat(complaintReasonText.equals(complaintReason.getText()), is(true));
+    }
+
+    public void assertComplaintType(String complaintTypeNew) {
+        selectSummaryTab();
+        assertThat(complaintTypeNew.equals(complaintType.getText()), is(true));
+
     }
 
      public void assertComplianceMeasures(String inputComplianceMeasures) {

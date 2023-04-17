@@ -191,4 +191,8 @@ public class RecordCaseData extends BasePage{
                 is(true));
     }
 
+    public void assertComplaintTypeInTheReadOnlyAccordion(String complaintType) {
+        assertThat(caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenKey("Complaint type").get(0).equalsIgnoreCase(complaintType),
+                is(true));
+    }
 }
