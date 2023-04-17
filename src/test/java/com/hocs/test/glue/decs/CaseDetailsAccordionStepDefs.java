@@ -68,4 +68,15 @@ public class CaseDetailsAccordionStepDefs extends BasePage {
         caseView.expandAllCaseDetailsAccordionSections();
         recordCaseData.assertAllRecordedCaseDataIsCurrentlyVisibleInTheReadOnlyAccordion();
     }
+
+    @And("the complaint type should be updated to {string} in the read only accordion and summary")
+    public void theComplaintTypeShouldBeUpdatedToInTheReadOnlyAccordionAndSummary(String complaintType) {
+        summaryTab.assertComplaintType(complaintType);
+        if(bfCase()){
+            openOrCloseAccordionSection("Border Force Registration");
+        } else if (bf2Case()) {
+            openOrCloseAccordionSection("Border Force Registration (Stage 2)");
+        }
+        recordCaseData.assertComplaintTypeInTheReadOnlyAccordion(complaintType);
+    }
 }

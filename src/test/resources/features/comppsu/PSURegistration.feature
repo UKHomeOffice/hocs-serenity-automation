@@ -114,6 +114,7 @@ Feature: PSU Registration
     And I click to view the case in the "PSU Complaints" workstack
     Then the created case should be visible in the workstack
     Then the case should be at the "PSU Registration" stage
+    And the complaint type should be updated to "Serious misconduct" in the read only accordion and summary
     When I logout of the application
 
     Examples:
@@ -130,6 +131,7 @@ Feature: PSU Registration
     And I click to view the case in the "PSU Complaints" workstack
     Then the created case should be visible in the workstack
     Then the case should be at the "PSU Registration" stage
+    And the complaint type should be updated to "Serious misconduct" in the read only accordion and summary
     When I logout of the application
 
     Examples:
@@ -147,6 +149,7 @@ Feature: PSU Registration
     And I click to view the case in the "PSU Complaints" workstack
     Then the created case should be visible in the workstack
     Then the case should be at the "PSU Registration" stage
+    And the complaint type should be updated to "Serious misconduct" in the read only accordion and summary
     When I logout of the application
 
     Examples:
@@ -164,6 +167,7 @@ Feature: PSU Registration
     And I click to view the case in the "PSU Complaints" workstack
     Then the created case should be visible in the workstack
     Then the case should be at the "PSU Registration" stage
+    And the complaint type should be updated to "Serious misconduct" in the read only accordion and summary
     When I logout of the application
 
     Examples:
