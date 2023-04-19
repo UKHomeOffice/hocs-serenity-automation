@@ -62,7 +62,7 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
 
     @And("I select a {string} Complaint Category")
     public void iSelectAComplaintCategory(String complaintCategory) {
-        if (!iedetCase()) {
+        if (!(iedetCase()) && !(compCase() || comp2Case() || comp2DirectCase())) {
             switch (complaintCategory.toUpperCase()) {
                 case "SERVICE":
                     complaintsRegistrationAndDataInput.openTheServiceComplaintCategoryAccordion();
@@ -82,8 +82,10 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
             waitABit(1000);
             setSessionVariable("complaintCategory").to(complaintCategory);
             complaintsRegistrationAndDataInput.selectAVisibleClaimCategory();
-        }
-        else {
+        } else if (compCase() || comp2Case() || comp2DirectCase()) {
+            complaintsTriageAndInvestigation.selectUKVIClaimCategory(complaintCategory);
+            clickTheButton("Continue");
+        } else {
             complaintsTriageAndInvestigation.selectIEDETClaimCategory(complaintCategory);
             clickTheButton("Continue");
             }

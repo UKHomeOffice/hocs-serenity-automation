@@ -131,13 +131,13 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
 
     @And("I accept the (previous )Claim Category selection")
     public void iAcceptThePreviousClaimCategorySelection() {
-        waitForDECSPageWithTitle("Complaint Category");
+        waitForDECSPageWithTitle("Complaint category");
         clickContinueButton();
     }
 
     @And("I accept the (previous )Case Details selection")
     public void iAcceptThePreviousSeveritySelection() {
-        waitForDECSPageWithTitle("Triage Case Details");
+        waitForDECSPageWithTitle("Triage case details");
         clickContinueButton();
     }
 

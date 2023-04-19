@@ -159,6 +159,42 @@ Feature: PSU Deadline
     Then the case deadline should be highlighted "red"
     And I logout of the application
 
+  @ComplaintsWorkflow @COMPPSURegression @UKVIComplaints
+  Scenario Outline: Once the PSU user accept a case the PSU Complaints user is able to see a yellow highlighted deadline on a complaint case that is
+  close to its deadline date
+    Given I am logged into "CS" as user "<user>"
+    When I create a single "<caseType>" case with the correspondence received date set <amountOfDays> workdays ago
+    And I move the case from "<currentStage>" stage to "<targetStage>" stage
+    When I logout of the application
+    When I enter the login credentials of another user "PSU_USER" and click the login button
+    Then I enter the PSU registration details and move to PSU Triage
+    And I move it to the PSU Outcome stage
+    And I click to view the case in the "PSU Complaints" workstack
+    Then the case deadline should be highlighted "yellow"
+    And I logout of the application
+    Examples:
+      | caseType | user       | amountOfDays | currentStage              | targetStage      |
+      | COMP     | COMP_USER  | 51           | Registration              | PSU_Registration |
+      | COMP2    | COMP_USER  | 51           | STAGE_2_REGISTRATION      | PSU_Registration |
+      | IEDET    | IEDET_USER | 51           | IE DETENTION REGISTRATION | PSU Registration |
+      | BF       | BF_USER    | 51           | Registration              | PSU_Registration |
 
-
-
+  @ComplaintsWorkflow @COMPPSURegression @UKVIComplaints
+  Scenario Outline: Once the PSU user accept the case PSU Complaints user is able to see a red highlighted deadline on an complaint case that is past
+  its deadline date
+    Given I am logged into "CS" as user "<user>"
+    When I create a single "<caseType>" case with the correspondence received date set <amountOfDays> workdays ago
+    And I move the case from "<currentStage>" stage to "<targetStage>" stage
+    When I logout of the application
+    When I enter the login credentials of another user "PSU_USER" and click the login button
+    Then I enter the PSU registration details and move to PSU Triage
+    And I move it to the PSU Outcome stage
+    And I click to view the case in the "PSU Complaints" workstack
+    Then the case deadline should be highlighted "red"
+    And I logout of the application
+    Examples:
+      | caseType | user       | amountOfDays | currentStage              | targetStage      |
+      | COMP     | COMP_USER  | 61          | Registration              | PSU_Registration |
+      | COMP2    | COMP_USER  | 61           | STAGE_2_REGISTRATION      | PSU_Registration |
+      | IEDET    | IEDET_USER | 61           | IE DETENTION REGISTRATION | PSU Registration |
+      | BF       | BF_USER    | 61           | Registration              | PSU_Registration |

@@ -57,8 +57,7 @@ Feature: Complaints Triage
     When I create a "COMP" case and move it to the "Minor Misconduct Triage" stage
     And I load and claim the current case
     And I accept the case at "Minor Misconduct" Triage stage
-    And I select a "Serious and Minor" Complaint Category
-    And I select a Owning CSU
+    And I select a "Serious and minor misconduct" Complaint Category
     And I click the "Continue" button
     And I accept the previous Case Details selection
     And I submit details on the Triage Capture Reason page
