@@ -198,3 +198,17 @@ Feature: PSU Deadline
       | COMP2    | COMP_USER  | 61           | STAGE_2_REGISTRATION      | PSU_Registration |
       | IEDET    | IEDET_USER | 61           | IE DETENTION REGISTRATION | PSU Registration |
       | BF       | BF_USER    | 61           | Registration              | PSU_Registration |
+
+  @ComplaintsWorkflow @BFPSURegression @BFComplaints
+  Scenario: Once the PSU user accept a BF2 case the PSU Complaints user is able to see a yellow highlighted deadline on a complaint case that is
+  close to its deadline date
+    Given I am logged into "CS" as user "BF_USER"
+    When I create a single "BF2" case with the correspondence received date set 53 workdays ago
+    And I move the case from "Registration" stage to "TRANSFER_PSU" stage
+    When I logout of the application
+    When I enter the login credentials of another user "PSU_USER" and click the login button
+    Then I enter the PSU registration details and move to PSU Triage
+    And I move it to the PSU Outcome stage
+    And I click to view the case in the "PSU Complaints" workstack
+    Then the case deadline should be highlighted "yellow"
+    And I logout of the application

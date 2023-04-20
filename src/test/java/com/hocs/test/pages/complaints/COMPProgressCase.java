@@ -263,12 +263,12 @@ public class COMPProgressCase extends BasePage {
             complaintsTriageAndInvestigation.enterDateOfAcceptance();
         }
         clickContinueButton();
-        waitForDECSPageWithTitle("Complaint Category");
+        waitForDECSPageWithTitle("Complaint category");
         complaintsTriageAndInvestigation.enterDetailsOnComplaintCategoryPage();
         clickContinueButton();
-        waitForDECSPageWithTitle("Triage Case Details");
+        waitForDECSPageWithTitle("Triage case details");
         clickContinueButton();
-        waitForDECSPageWithTitle("Triage Capture Reason");
+        waitForDECSPageWithTitle("Triage capture reason");
         complaintsTriageAndInvestigation.enterDetailsOnTriageCaptureReasonPage();
         clickContinueButton();
         complaintsTriageAndInvestigation.escalateToPSUFromTriage();
@@ -396,12 +396,12 @@ public class COMPProgressCase extends BasePage {
             complaintsTriageAndInvestigation.enterDateOfAcceptance();
         }
         clickContinueButton();
-        waitForDECSPageWithTitle("Complaint Category");
+        waitForDECSPageWithTitle("Complaint category");
         complaintsTriageAndInvestigation.enterDetailsOnComplaintCategoryPage();
         clickContinueButton();
-        waitForDECSPageWithTitle("Triage Case Details");
+        waitForDECSPageWithTitle("Triage case details");
         clickContinueButton();
-        waitForDECSPageWithTitle("Triage Capture Reason");
+        waitForDECSPageWithTitle("Triage capture reason");
         complaintsTriageAndInvestigation.enterDetailsOnTriageCaptureReasonPage();
         clickContinueButton();
         complaintsTriageAndInvestigation.escalateCaseToWFM();

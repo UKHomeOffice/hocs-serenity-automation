@@ -71,7 +71,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     }
 
     public void selectEnquiryReason(String enquiryReason) {
-        recordCaseData.selectSpecificOptionFromDropdownWithHeading(enquiryReason, "Enquiry Reason");
+        recordCaseData.selectSpecificOptionFromDropdownWithHeading(enquiryReason, "Enquiry reason");
     }
 
     public void selectTransferOfflineAndCloseTheCase() {

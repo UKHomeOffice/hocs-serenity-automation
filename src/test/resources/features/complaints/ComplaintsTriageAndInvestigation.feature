@@ -43,7 +43,6 @@ Feature: Complaints Triage
     And I load and claim the current case
     And I accept the case at "Ex-Gratia" Triage stage
     And I select a "Ex-Gratia" Complaint Category
-    And I accept the previous Claim Category selection
     And I accept the previous Case Details selection
     And I submit details on the Triage Capture Reason page
     And I send the case to drafting
@@ -89,7 +88,6 @@ Feature: Complaints Triage
     And I load and claim the current case
     And I accept the case at "Ex-Gratia" Triage stage
     And I select a "Ex-Gratia" Complaint Category
-    And I accept the previous Claim Category selection
     And I accept the previous Case Details selection
     And I submit details on the Triage Capture Reason page
     And I escalate the case to WFM at Triage stage
@@ -103,8 +101,7 @@ Feature: Complaints Triage
     When I create a "COMP" case and move it to the "Minor Misconduct Triage" stage
     And I load and claim the current case
     And I accept the case at "Minor Misconduct" Triage stage
-    And I select a "Serious and Minor" Complaint Category
-    And I select a Owning CSU
+    And I select a "Serious and minor misconduct" Complaint Category
     And I click the "Continue" button
     And I accept the previous Case Details selection
     And I submit details on the Triage Capture Reason page
@@ -138,7 +135,6 @@ Feature: Complaints Triage
     And I load and claim the current case
     And I accept the case at "Ex-Gratia" Triage stage
     And I select a "Ex-Gratia" Complaint Category
-    And I accept the previous Claim Category selection
     And I accept the previous Case Details selection
     And I submit details on the Triage Capture Reason page
     When I select to complete the case at Triage
@@ -155,10 +151,8 @@ Feature: Complaints Triage
     When I create a "COMP" case and move it to the "Minor Misconduct Triage" stage
     And I load and claim the current case
     And I accept the case at "Minor Misconduct" Triage stage
-    And I select a "Serious and Minor" Complaint Category
-    And I select a Owning CSU
+    And I select a "Serious and minor misconduct" Complaint Category
     And I click the "Continue" button
-    And I accept the previous Case Details selection
     And I submit details on the Triage Capture Reason page
     When I select to complete the case at Triage
     And I select a Close Reason
