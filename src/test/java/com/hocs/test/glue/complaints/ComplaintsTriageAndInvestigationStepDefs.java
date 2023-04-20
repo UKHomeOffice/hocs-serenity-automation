@@ -131,13 +131,13 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
 
     @And("I accept the (previous )Claim Category selection")
     public void iAcceptThePreviousClaimCategorySelection() {
-        waitForDECSPageWithTitle("Complaint Category");
+        waitForDECSPageWithTitle("Complaint category");
         clickContinueButton();
     }
 
     @And("I accept the (previous )Case Details selection")
     public void iAcceptThePreviousSeveritySelection() {
-        waitForDECSPageWithTitle("Triage Case Details");
+        waitForDECSPageWithTitle("Triage case details");
         clickContinueButton();
     }
 
@@ -207,7 +207,7 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
         String directorate = sessionVariableCalled("directorate");
         selectSpecificOptionFromDropdownWithHeading(directorate, "Directorate");
         String businessArea = sessionVariableCalled("businessAreaName");
-        selectSpecificOptionFromDropdownWithHeading(businessArea, "Business Area");
+        selectSpecificOptionFromDropdownWithHeading(businessArea, "Business area");
     }
 
     @And("I select {string} for has the complainant requested a payment")

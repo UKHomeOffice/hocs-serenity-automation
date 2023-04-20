@@ -71,7 +71,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     }
 
     public void selectEnquiryReason(String enquiryReason) {
-        recordCaseData.selectSpecificOptionFromDropdownWithHeading(enquiryReason, "Enquiry Reason");
+        recordCaseData.selectSpecificOptionFromDropdownWithHeading(enquiryReason, "Enquiry reason");
     }
 
     public void selectTransferOfflineAndCloseTheCase() {
@@ -100,7 +100,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
             }
             enteredText = enterTextIntoTextAreaWithHeading("Enter the reason for transfer");
         } else {
-            enteredText = enterTextIntoTextAreaWithHeading("Enter reason for transfer");
+           enteredText = recordCaseData.enterTextIntoTextAreaWithHeading("Reason for transfer");
         }
 
         if (bfCase() | bf2Case()) {
@@ -111,8 +111,8 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     }
 
     public void selectTransferToCCH() {
-        recordCaseData.selectSpecificRadioButton("CCH");
-        clickContinueButton();
+
+        clickTheButton("Submit");
     }
 
     public void selectTransferToPSU() {
@@ -222,13 +222,11 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     public void enterDetailsOnComplaintCategoryPage() {
         String complaintType = sessionVariableCalled("complaintType");
         if (complaintType.equalsIgnoreCase("MINOR MISCONDUCT")) {
-            selectOwningCSU();
-            openTheSeriousAndMinorComplaintCategoryAccordion();
-            selectAVisibleClaimCategory();
+              selectUKVIClaimCategory("Serious and minor misconduct");
+
         }
         if (complaintType.equalsIgnoreCase("EX-GRATIA")) {
-            openExGratiaAccordion();
-            selectAVisibleClaimCategory();
+            selectUKVIClaimCategory(complaintType);
         }
     }
 
@@ -276,12 +274,12 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
         } else if ((compCase() || comp2Case() || comp2DirectCase()) && (complaintType.equals("Service") || complaintType.equals("Minor misconduct"))) {
             recordCaseData.selectRandomOptionFromDropdownWithHeading("Directorate");
         }
-        String businessArea = recordCaseData.selectRandomOptionFromDropdownWithHeading("Business Area");
+        String businessArea = recordCaseData.selectRandomOptionFromDropdownWithHeading("Business area");
         if (iedetCase() && businessArea.equalsIgnoreCase("OTHER")) {
             recordCaseData.enterTextIntoTextFieldWithHeading("Other Business Area");
         }
         if (!iedetCase()) {
-            recordCaseData.selectRandomOptionFromDropdownWithHeading("Enquiry Reason");
+            recordCaseData.selectRandomOptionFromDropdownWithHeading("Enquiry reason");
         }
         selectIsLoARequired();
     }

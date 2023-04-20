@@ -263,12 +263,12 @@ public class COMPProgressCase extends BasePage {
             complaintsTriageAndInvestigation.enterDateOfAcceptance();
         }
         clickContinueButton();
-        waitForDECSPageWithTitle("Complaint Category");
+        waitForDECSPageWithTitle("Complaint category");
         complaintsTriageAndInvestigation.enterDetailsOnComplaintCategoryPage();
         clickContinueButton();
-        waitForDECSPageWithTitle("Triage Case Details");
+        waitForDECSPageWithTitle("Triage case details");
         clickContinueButton();
-        waitForDECSPageWithTitle("Triage Capture Reason");
+        waitForDECSPageWithTitle("Triage capture reason");
         complaintsTriageAndInvestigation.enterDetailsOnTriageCaptureReasonPage();
         clickContinueButton();
         complaintsTriageAndInvestigation.escalateToPSUFromTriage();
@@ -309,14 +309,13 @@ public class COMPProgressCase extends BasePage {
         correspondents.confirmPrimaryCorrespondent();
         complaintsRegistrationAndDataInput.enterComplainantDetails();
         complaintsRegistrationAndDataInput.selectASpecificComplaintType(complaintType);
-        complaintsRegistrationAndDataInput.enterComplaintDetails();
         if (complaintType.equalsIgnoreCase("SERVICE")) {
             clickContinueButton();
-            complaintsRegistrationAndDataInput.openTheServiceComplaintCategoryAccordion();
             waitABit(1000);
-            complaintsRegistrationAndDataInput.selectAVisibleClaimCategory();
-            complaintsRegistrationAndDataInput.selectAnOwningCSU();
+            complaintsTriageAndInvestigation.selectUKVIClaimCategory("Service");
+            clickContinueButton();
         }
+        complaintsRegistrationAndDataInput.enterComplaintDetails();
         if (complaintType.equalsIgnoreCase("Serious Misconduct")) {
             clickContinueButton();
             complaintsRegistrationAndDataInput.openTheServiceComplaintCategoryAccordion();
@@ -324,7 +323,12 @@ public class COMPProgressCase extends BasePage {
             complaintsRegistrationAndDataInput.selectAVisibleClaimCategory();
             complaintsRegistrationAndDataInput.selectAnOwningCSU();
         }
-        clickFinishButton();
+        if(complaintType.equalsIgnoreCase("SERVICE")){
+            clickContinueButton();
+        }else {
+            clickFinishButton();
+        }
+
     }
 
     public void moveCaseFromRegistrationToPSURegistration() {
@@ -367,12 +371,12 @@ public class COMPProgressCase extends BasePage {
             complaintsTriageAndInvestigation.enterDateOfAcceptance();
         }
         clickContinueButton();
-        waitForDECSPageWithTitle("Complaint Category");
+        waitForDECSPageWithTitle("Complaint category");
         complaintsTriageAndInvestigation.enterDetailsOnComplaintCategoryPage();
         clickContinueButton();
-        waitForDECSPageWithTitle("Triage Case Details");
+        waitForDECSPageWithTitle("Triage case details");
         clickContinueButton();
-        waitForDECSPageWithTitle("Triage Capture Reason");
+        waitForDECSPageWithTitle("Triage capture reason");
         complaintsTriageAndInvestigation.enterDetailsOnTriageCaptureReasonPage();
         clickContinueButton();
         if(ukviPsuOffTag){
@@ -392,12 +396,12 @@ public class COMPProgressCase extends BasePage {
             complaintsTriageAndInvestigation.enterDateOfAcceptance();
         }
         clickContinueButton();
-        waitForDECSPageWithTitle("Complaint Category");
+        waitForDECSPageWithTitle("Complaint category");
         complaintsTriageAndInvestigation.enterDetailsOnComplaintCategoryPage();
         clickContinueButton();
-        waitForDECSPageWithTitle("Triage Case Details");
+        waitForDECSPageWithTitle("Triage case details");
         clickContinueButton();
-        waitForDECSPageWithTitle("Triage Capture Reason");
+        waitForDECSPageWithTitle("Triage capture reason");
         complaintsTriageAndInvestigation.enterDetailsOnTriageCaptureReasonPage();
         clickContinueButton();
         complaintsTriageAndInvestigation.escalateCaseToWFM();

@@ -754,7 +754,6 @@ Feature: ManagementUI
     When I navigate to "CS"
     And I get a "COMP" case at the "Service Triage" stage
     And I accept the case at "Service" Triage stage
-    And I select "UKVI" as the Owning CSU
     And I accept the Claim Category selection
     And I accept the Case Details selection
     Then I should be able to select the new COMP Business Area

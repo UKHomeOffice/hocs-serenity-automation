@@ -13,11 +13,9 @@ Feature: Registration
     And I confirm the primary correspondent
     And I enter the Complainant Details
     And I select "Service" as the Complaint Type
+    And I select a "Service" Complaint Category
     And I enter the complaint details on the Complaint Input page
     And I click the "Continue" button
-    And I select a "Service" Complaint Category
-    And I select a Owning CSU
-    When I click the "Finish" button
     Then the case should be moved to the "UKVI Service Triage" stage
     And the summary should display the owning team as "CCT Stage 1 Triage Team"
     And the read-only Case Details accordion should contain all case information entered during the "UKVI Registration" stage
@@ -99,11 +97,9 @@ Feature: Registration
     And I confirm the primary correspondent
     And I enter the Complainant Details
     And I select "Service" as the Complaint Type
+    And I select a "Service" Complaint Category
     And I enter the complaint details on the Complaint Input page
     And I click the "Continue" button
-    And I select a "Service" Complaint Category
-    And I select a Owning CSU
-    When I click the "Finish" button
     Then the case should be moved to the "UKVI Stage 2 Service Triage" stage
     And the summary should display the owning team as "Stage 2 CCT Triage Team"
     And the read-only Case Details accordion should contain all case information entered during the "UKVI Stage 2 Registration" stage
@@ -120,11 +116,9 @@ Feature: Registration
     And I click the "Continue" button
     And I enter the Complainant Details
     And I select "Service" as the Complaint Type
+    And I select a "Service" Complaint Category
     And I enter the complaint details on the Complaint Input page
     And I click the "Continue" button
-    And I select a "Service" Complaint Category
-    And I select a Owning CSU
-    When I click the "Finish" button
     Then the case should be moved to the "UKVI Stage 2 Service Triage" stage
     And the summary should display the owning team as "Stage 2 CCT Triage Team"
     And the summary should contain details of the Complaint Origin
