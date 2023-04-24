@@ -323,11 +323,7 @@ public class COMPProgressCase extends BasePage {
             complaintsRegistrationAndDataInput.selectAVisibleClaimCategory();
             complaintsRegistrationAndDataInput.selectAnOwningCSU();
         }
-        if(complaintType.equalsIgnoreCase("SERVICE")){
-            clickContinueButton();
-        }else {
             clickFinishButton();
-        }
 
     }
 
