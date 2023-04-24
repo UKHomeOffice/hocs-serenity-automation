@@ -50,7 +50,7 @@ public class CaseView extends BasePage {
     }
 
     public List<String> getValuesFromOpenCaseDetailsAccordionSectionForGivenKey(String heading) {
-        List<WebElementFacade> valuesForMatchingHeadings = findAll("//Strong[contains(text(),'" + heading + "')]/parent::span");
+        List<WebElementFacade> valuesForMatchingHeadings = findAll("//Strong[contains(text(),'" + heading + "')]/parent::div");
         List<String> valuesText = new ArrayList<>();
         for (WebElementFacade value : valuesForMatchingHeadings) {
             if (value.isCurrentlyVisible()) {
