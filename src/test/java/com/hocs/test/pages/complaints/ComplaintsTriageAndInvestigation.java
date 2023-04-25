@@ -99,6 +99,8 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
                 waitABit(500);
             }
             enteredText = enterTextIntoTextAreaWithHeading("Enter the reason for transfer");
+        } else if (bfCase() || bf2Case()) {
+            enteredText = enterTextIntoTextAreaWithHeading("Enter reason for transfer");
         } else {
            enteredText = recordCaseData.enterTextIntoTextAreaWithHeading("Reason for transfer");
         }
