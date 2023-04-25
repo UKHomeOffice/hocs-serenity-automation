@@ -28,40 +28,40 @@ public class AccordionMPAM extends BasePage {
     @FindBy(xpath = "//span[text()='Draft']/parent::span/following-sibling::span")
     public WebElementFacade draftAccordionButton;
 
-    @FindBy(xpath = "//strong[contains(text(), 'Business Area')]/parent::span")
+    @FindBy(xpath = "//strong[contains(text(), 'Business Area')]/parent::div")
     public WebElementFacade creationAccordionBusinessArea;
 
-    @FindBy(xpath = "//strong[contains(text(), 'Ministerial response')]/parent::span")
+    @FindBy(xpath = "//strong[contains(text(), 'Ministerial response')]/parent::div")
     public WebElementFacade creationAccordionMinisterialResponse;
 
-    @FindBy(xpath = "//strong[contains(text(), 'Ministerial sign off team')]/parent::span")
+    @FindBy(xpath = "//strong[contains(text(), 'Ministerial sign off team')]/parent::div")
     public WebElementFacade creationMinisterialSignOffTeam;
 
-    @FindBy(xpath = "//strong[contains(text(), 'Urgency')]/parent::span")
+    @FindBy(xpath = "//strong[contains(text(), 'Urgency')]/parent::div")
     public WebElementFacade creationAccordionUrgency;
 
-    @FindBy(xpath = "//strong[contains(text(), 'Channel received')]/parent::span")
+    @FindBy(xpath = "//strong[contains(text(), 'Channel received')]/parent::div")
     public WebElementFacade creationAccordionChannelReceived;
 
-    @FindBy(xpath = "//strong[contains(text(), 'primary correspondent')]/parent::span")
+    @FindBy(xpath = "//strong[contains(text(), 'primary correspondent')]/parent::div")
     public WebElementFacade creationAccordionPrimaryCorrespondent;
 
-    @FindBy(xpath = "//strong[contains(text(), 'correspondence received')]/parent::span")
+    @FindBy(xpath = "//strong[contains(text(), 'correspondence received')]/parent::div")
     public WebElementFacade creationAccordionCorrespondenceReceivedDate;
 
-    @FindBy(xpath = "//strong[contains(text(), 'Enquiry subject')]/parent::span")
+    @FindBy(xpath = "//strong[contains(text(), 'Enquiry subject')]/parent::div")
     public WebElementFacade triageAccordionEnquirySubject;
 
-    @FindBy(xpath = "//strong[contains(text(), 'Enquiry reason')]/parent::span")
+    @FindBy(xpath = "//strong[contains(text(), 'Enquiry reason')]/parent::div")
     public WebElementFacade triageAccordionEnquiryReason;
 
-    @FindBy(xpath = "//strong[contains(text(), 'Business unit')]/parent::span")
+    @FindBy(xpath = "//strong[contains(text(), 'Business unit')]/parent::div")
     public WebElementFacade triageAccordionBusinessUnit;
 
-    @FindBy(xpath = "//span[text()='Triage']/ancestor::div/following-sibling::div//strong[contains(text(),'Actions')]/parent::span")
+    @FindBy(xpath = "//span[text()='Triage']/ancestor::div/following-sibling::div//strong[contains(text(),'Actions')]/parent::div")
     public WebElementFacade triageAccordionActions;
 
-    @FindBy(xpath = "//span[text()='Draft']/ancestor::div//div[@id='accordion-default-content-2']//strong[contains(text(), 'Actions')]/parent::span")
+    @FindBy(xpath = "//span[text()='Draft']/ancestor::div//div[@id='accordion-default-content-2']//strong[contains(text(), 'Actions')]/parent::div")
     public WebElementFacade draftAccordionActions;
 
     @FindBy(xpath = "//a[text()='Change business area']")
