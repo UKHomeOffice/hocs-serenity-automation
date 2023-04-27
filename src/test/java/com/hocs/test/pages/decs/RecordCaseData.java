@@ -40,12 +40,6 @@ public class RecordCaseData extends BasePage{
 
     public void selectSpecificRadioButtonFromGroupWithHeading(String radioButtonText, String headingText) {
         super.selectSpecificRadioButtonFromGroupWithHeading(radioButtonText, headingText);
-        if((ukviPsuOffTag || bfPsuOffTag) && (compCase()||comp2Case()||comp2DirectCase()||bfCase()) && (headingText.equalsIgnoreCase("Complaint Type"))){
-                       headingText = "Complaint type";
-        }
-        if((ukviPsuOffTag) && (compCase() || comp2Case() || comp2DirectCase()) && (radioButtonText.equalsIgnoreCase("Minor Misconduct"))){
-            radioButtonText = "Minor misconduct";
-        }
         if(comp2DirectCase()) {
             if(radioButtonText.equalsIgnoreCase("Yes - it’s a complaint about an external contractor")){
                        radioButtonText = "External contractor";
@@ -57,14 +51,13 @@ public class RecordCaseData extends BasePage{
                 radioButtonText = "Further stage 2 case";
                 headingText = "Complaint origin";
             }
-
         }
         addHeadingAndValueRecord(headingText, radioButtonText);
     }
 
     public void enterDateIntoDateFieldsWithHeading(String date, String headingText) {
         super.enterDateIntoDateFieldsWithHeading(date, headingText);
-        if((compCase() || comp2Case() || comp2DirectCase()) && !(ukviPsuOffTag) && (headingText.equalsIgnoreCase("Date of acceptance"))){
+        if((compCase() || comp2Case() || comp2DirectCase()) && (headingText.equalsIgnoreCase("Date of acceptance"))){
                 headingText = "Date of Acceptance";
         }
         addHeadingAndValueRecord(headingText, date);
@@ -100,20 +93,6 @@ public class RecordCaseData extends BasePage{
 
     public String selectRandomOptionFromDropdownWithHeading(String headingText) {
         String optionText = super.selectRandomOptionFromDropdownWithHeading(headingText);
-        if(bfPsuOffTag && (bfCase() || bf2Case()) && (headingText.equalsIgnoreCase("Business Area"))){
-            headingText = "Business area";
-        }
-        if(bfPsuOffTag && (bfCase() || bf2Case()) && (headingText.equalsIgnoreCase("Reason for Complaint 1"))){
-            headingText = "Complaint reason 1";
-        } else if (bfPsuOffTag && (bfCase() || bf2Case()) && (headingText.equalsIgnoreCase("Reason for Complaint 2"))) {
-            headingText = "Complaint reason 2";
-        }else if (bfPsuOffTag && (bfCase() || bf2Case()) && (headingText.equalsIgnoreCase("Reason for Complaint 3"))) {
-            headingText = "Complaint reason 3";
-        }else if (bfPsuOffTag && (bfCase() || bf2Case()) && (headingText.equalsIgnoreCase("Reason for Complaint 4"))) {
-            headingText = "Complaint reason 4";
-        }else if (bfPsuOffTag && (bfCase() || bf2Case()) && (headingText.equalsIgnoreCase("Reason for Complaint 5"))) {
-            headingText = "Complaint reason 5";
-        }
         addHeadingAndValueRecord(headingText,optionText);
         return optionText;
     }
