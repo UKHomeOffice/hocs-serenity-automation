@@ -56,7 +56,7 @@ public class BFProgressCase extends BasePage {
     }
 
     public void createCaseOfTypeAndMoveItToTargetStageWithSpecifiedComplaintType(CaseType caseType, String complaintType, String targetStage) {
-       if(complaintType.equalsIgnoreCase("Minor misconduct")) complaintType = "Minor misconduct";
+       if(complaintType.equalsIgnoreCase("Minor misconduct")){ complaintType = "Minor misconduct";}
         this.complaintType = complaintType;
         moveCaseOfTypeFromCurrentStageToTargetStage(caseType, "N/A", targetStage);
     }
@@ -238,7 +238,7 @@ public class BFProgressCase extends BasePage {
         correspondents.addANonMemberCorrespondentOfType("Complainant");
         clickContinueButton();
         complaintsRegistrationAndDataInput.enterAdditionalDetails();
-        complaintsRegistrationAndDataInput.selectASpecificComplaintType(complaintType);
+        if(bfCase()){complaintsRegistrationAndDataInput.selectASpecificComplaintType(complaintType);}
         System.out.println("Case moved from Case Registration to Case Triage");
     }
 
