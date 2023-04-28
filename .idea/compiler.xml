@@ -11,7 +11,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="serenity" target="1.8" />
+      <module name="serenity" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
