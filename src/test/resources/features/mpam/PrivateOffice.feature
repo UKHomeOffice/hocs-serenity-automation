@@ -71,7 +71,7 @@ Feature: PrivateOffice
     Then the case should be closed
 
   @MPAMWorkflow @MPAMRegression2
-  Scenario: As a Private Office user, I want to dispatch an eligible case with a follow-up action set, so that I record the need for the follow-up##
+  Scenario: As a Private Office user, I want to dispatch an eligible case with a follow-up action set, so that I record the need for the follow-up
     And I create a MPAM case with "EUSS" as the Business Area and "Ministerial" as the Reference Type and move it to the "Private Office" stage
     And I load and claim the current case
     When I select a response channel

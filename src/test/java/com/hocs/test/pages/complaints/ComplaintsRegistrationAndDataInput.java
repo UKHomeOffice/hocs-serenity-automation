@@ -380,6 +380,9 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         setSessionVariable("psuReference").to(psuReference);
     }
 
+    public void enterASpecificPSUReference(String psuRef) {
+        recordCaseData.enterSpecificTextIntoTextFieldWithHeading(psuRef,"PSU reference" );
+    }
     public void selectYesForSeriousCase() {
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Yes", "Is this serious misconduct case for PSU to investigate?");
     }

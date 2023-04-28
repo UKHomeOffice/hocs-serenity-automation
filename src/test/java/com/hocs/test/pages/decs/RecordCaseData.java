@@ -43,6 +43,9 @@ public class RecordCaseData extends BasePage{
         if((ukviPsuOffTag || bfPsuOffTag) && (compCase()||comp2Case()||comp2DirectCase()||bfCase()) && (headingText.equalsIgnoreCase("Complaint Type"))){
                        headingText = "Complaint type";
         }
+        if((ukviPsuOffTag) && (compCase() || comp2Case() || comp2DirectCase()) && (radioButtonText.equalsIgnoreCase("Minor Misconduct"))){
+            radioButtonText = "Minor misconduct";
+        }
         if(comp2DirectCase()) {
             if(radioButtonText.equalsIgnoreCase("Yes - it’s a complaint about an external contractor")){
                        radioButtonText = "External contractor";
@@ -127,7 +130,7 @@ public class RecordCaseData extends BasePage{
         if(compCase() || comp2Case() || comp2DirectCase()||bfCase()||bf2Case()){
             String complaintType = sessionVariableCalled("complaintType");
             String complaintCategory = sessionVariableCalled("complaintCategory");
-            if(complaintType.equalsIgnoreCase("Ex-Gratia")){
+            if(complaintType != null && complaintType.equalsIgnoreCase("Ex-Gratia")){
                 complaintCategory = "Ex-gratia";
             }
             addHeadingAndValueRecord( complaintCategory, checkboxLabelText);
@@ -188,4 +191,8 @@ public class RecordCaseData extends BasePage{
                 is(true));
     }
 
+    public void assertComplaintTypeInTheReadOnlyAccordion(String complaintType) {
+        assertThat(caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenKey("Complaint type").get(0).equalsIgnoreCase(complaintType),
+                is(true));
+    }
 }

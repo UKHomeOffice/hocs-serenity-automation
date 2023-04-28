@@ -7,24 +7,10 @@ trigger:
     - main
   event:
     - push
-steps:
-  - name: build & push
-    image: plugins/docker
-    settings:
-      registry: quay.io
-      repo: quay.io/ukhomeofficedigital/hocs-serenity-automation
-      tags:
-        - build_${DRONE_BUILD_NUMBER}
-        - ${DRONE_COMMIT_SHA}
-        - latest
-    environment:
-      DOCKER_PASSWORD:
-        from_secret: QUAY_ROBOT_PASSWORD
-      DOCKER_USERNAME: ukhomeofficedigital+hocs_quay_robot
-    depends_on: []
 
+steps:
   - name: execute tests
-    image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
+    image: maven:3.8.6-eclipse-temurin-17-focal
     commands:
       - sh bin/smoke.sh
     environment:
@@ -33,7 +19,7 @@ steps:
       ARTIFACTORY_USERNAME:
         from_secret: artifactory_username
     depends_on:
-      - build & push
+      - clone
 
   - name: upload serenity report
     image: amazon/aws-cli
@@ -74,9 +60,10 @@ trigger:
     - main
   event:
     - push
+
 steps:
   - name: execute tests
-    image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
+    image: maven:3.8.6-eclipse-temurin-17-focal
     commands:
       - sh bin/dcu.sh
     environment:
@@ -84,6 +71,9 @@ steps:
         from_secret: artifactory_password
       ARTIFACTORY_USERNAME:
         from_secret: artifactory_username
+    depends_on:
+      - clone
+
   - name: upload serenity report
     image: amazon/aws-cli
     commands:
@@ -124,9 +114,10 @@ trigger:
     - main
   event:
     - push
+
 steps:
   - name: execute tests
-    image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
+    image: maven:3.8.6-eclipse-temurin-17-focal
     commands:
       - sh bin/cs.sh
     environment:
@@ -134,6 +125,9 @@ steps:
         from_secret: artifactory_password
       ARTIFACTORY_USERNAME:
         from_secret: artifactory_username
+    depends_on:
+      - clone
+
   - name: upload serenity report
     image: amazon/aws-cli
     commands:
@@ -174,9 +168,10 @@ trigger:
     - main
   event:
     - push
+
 steps:
   - name: execute tests
-    image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
+    image: maven:3.8.6-eclipse-temurin-17-focal
     commands:
       - sh bin/mpam1.sh
     environment:
@@ -184,6 +179,9 @@ steps:
         from_secret: artifactory_password
       ARTIFACTORY_USERNAME:
         from_secret: artifactory_username
+    depends_on:
+      - clone
+
   - name: upload serenity report
     image: amazon/aws-cli
     commands:
@@ -224,9 +222,10 @@ trigger:
     - main
   event:
     - push
+
 steps:
   - name: execute tests
-    image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
+    image: maven:3.8.6-eclipse-temurin-17-focal
     commands:
       - sh bin/mpam2.sh
     environment:
@@ -234,6 +233,9 @@ steps:
         from_secret: artifactory_password
       ARTIFACTORY_USERNAME:
         from_secret: artifactory_username
+    depends_on:
+      - clone
+
   - name: upload serenity report
     image: amazon/aws-cli
     commands:
@@ -274,9 +276,10 @@ trigger:
     - main
   event:
     - push
+
 steps:
   - name: execute tests
-    image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
+    image: maven:3.8.6-eclipse-temurin-17-focal
     commands:
       - sh bin/comp.sh
     environment:
@@ -284,6 +287,9 @@ steps:
         from_secret: artifactory_password
       ARTIFACTORY_USERNAME:
         from_secret: artifactory_username
+    depends_on:
+      - clone
+
   - name: upload serenity report
     image: amazon/aws-cli
     commands:
@@ -324,9 +330,10 @@ trigger:
     - main
   event:
     - push
+
 steps:
   - name: execute tests
-    image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
+    image: maven:3.8.6-eclipse-temurin-17-focal
     commands:
       - sh bin/comppsu.sh
     environment:
@@ -334,6 +341,9 @@ steps:
         from_secret: artifactory_password
       ARTIFACTORY_USERNAME:
         from_secret: artifactory_username
+    depends_on:
+      - clone
+
   - name: upload serenity report
     image: amazon/aws-cli
     commands:
@@ -374,9 +384,10 @@ trigger:
     - main
   event:
     - push
+
 steps:
   - name: execute tests
-    image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
+    image: maven:3.8.6-eclipse-temurin-17-focal
     commands:
       - sh bin/bf.sh
     environment:
@@ -384,6 +395,9 @@ steps:
         from_secret: artifactory_password
       ARTIFACTORY_USERNAME:
         from_secret: artifactory_username
+    depends_on:
+      - clone
+
   - name: upload serenity report
     image: amazon/aws-cli
     commands:
@@ -427,7 +441,7 @@ trigger:
 
 steps:
   - name: execute tests
-    image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
+    image: maven:3.8.6-eclipse-temurin-17-focal
     commands:
       - sh bin/bfpsu.sh
     environment:
@@ -435,6 +449,9 @@ steps:
         from_secret: artifactory_password
       ARTIFACTORY_USERNAME:
         from_secret: artifactory_username
+    depends_on:
+      - clone
+
   - name: upload serenity report
     image: amazon/aws-cli
     commands:
@@ -475,9 +492,10 @@ trigger:
     - main
   event:
     - push
+
 steps:
   - name: execute tests
-    image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
+    image: maven:3.8.6-eclipse-temurin-17-focal
     commands:
       - sh bin/pogr.sh
     environment:
@@ -485,6 +503,9 @@ steps:
         from_secret: artifactory_password
       ARTIFACTORY_USERNAME:
         from_secret: artifactory_username
+    depends_on:
+      - clone
+
   - name: upload serenity report
     image: amazon/aws-cli
     commands:
@@ -525,9 +546,10 @@ trigger:
     - main
   event:
     - push
+
 steps:
   - name: execute tests
-    image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
+    image: maven:3.8.6-eclipse-temurin-17-focal
     commands:
       - sh bin/iedet.sh
     environment:
@@ -535,6 +557,7 @@ steps:
         from_secret: artifactory_password
       ARTIFACTORY_USERNAME:
         from_secret: artifactory_username
+
   - name: upload serenity report
     image: amazon/aws-cli
     commands:
@@ -575,9 +598,10 @@ trigger:
     - main
   event:
     - push
+
 steps:
   - name: execute tests
-    image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
+    image: maven:3.8.6-eclipse-temurin-17-focal
     commands:
       - sh bin/wcs.sh
     environment:
@@ -585,6 +609,7 @@ steps:
         from_secret: artifactory_password
       ARTIFACTORY_USERNAME:
         from_secret: artifactory_username
+
   - name: upload serenity report
     image: amazon/aws-cli
     commands:
@@ -625,9 +650,10 @@ trigger:
     - main
   event:
     - push
+
 steps:
   - name: execute tests
-    image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
+    image: maven:3.8.6-eclipse-temurin-17-focal
     commands:
       - sh bin/to.sh
     environment:
@@ -635,6 +661,9 @@ steps:
         from_secret: artifactory_password
       ARTIFACTORY_USERNAME:
         from_secret: artifactory_username
+    depends_on:
+      - clone
+
   - name: upload serenity report
     image: amazon/aws-cli
     commands:

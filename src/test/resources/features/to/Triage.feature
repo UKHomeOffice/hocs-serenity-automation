@@ -81,7 +81,7 @@ Feature: Triage
     Then the "case" contribution request should be marked as "overdue"
     And the overdue contribution request should be highlighted
 
-  @TORegression @Validation
+  @Validation
   Scenario: As a Triage user, I want to be warned if I try to progress a case with open contributions, so cases are not progressed prematurely
     When I get a "TO" case at "Triage" stage
     And I add a "Case" contribution request

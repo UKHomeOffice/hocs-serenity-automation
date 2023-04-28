@@ -231,6 +231,24 @@ public class IEDETProgressCase extends BasePage {
                 complaintsRegistrationAndDataInput.enterAPortReference();
                 clickFinishButton();
                 break;
+            case "PSU REFERENCE":
+                createCase.createCSCaseOfTypeWithDocument(CaseType.IEDET);
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();
+                correspondents.addANonMemberCorrespondentOfType("Complainant");
+                correspondents.confirmPrimaryCorrespondent();
+                complaintsRegistrationAndDataInput.enterComplainantDOB(getDatePlusMinusNDaysAgo(-14600));
+                complaintsRegistrationAndDataInput.selectANationality();
+                complaintsRegistrationAndDataInput.enterACompanyName();
+                complaintsRegistrationAndDataInput.enterAHomeOfficeReference(infoValue);
+                complaintsRegistrationAndDataInput.enterAPortReference();
+                clickFinishButton();
+                dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
+                moveIEDETCaseFromTriageToPSURegistration();
+                dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
+                complaintsRegistrationAndDataInput.enterASpecificPSUReference("123456789");
+                clickTheButton("Submit");
+                break;
             case "ALL":
                 createCase.createCSCaseOfTypeWithDocument(CaseType.IEDET);
                 confirmationScreens.goToCaseFromConfirmationScreen();

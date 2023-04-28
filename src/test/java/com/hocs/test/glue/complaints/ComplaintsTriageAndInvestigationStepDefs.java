@@ -14,6 +14,7 @@ import com.hocs.test.pages.decs.CaseView;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Documents;
 import com.hocs.test.pages.decs.RecordCaseData;
+import com.hocs.test.pages.decs.SummaryTab;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 
@@ -34,6 +35,8 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
     Dashboard dashboard;
 
     CaseView caseView;
+
+    SummaryTab summaryTab;
 
     @And("I accept the case at {string} Triage stage")
     public void iAcceptTheCaseAtServiceTriageStage(String complaintType) {
@@ -128,13 +131,13 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
 
     @And("I accept the (previous )Claim Category selection")
     public void iAcceptThePreviousClaimCategorySelection() {
-        waitForDECSPageWithTitle("Complaint Category");
+        waitForDECSPageWithTitle("Complaint category");
         clickContinueButton();
     }
 
     @And("I accept the (previous )Case Details selection")
     public void iAcceptThePreviousSeveritySelection() {
-        waitForDECSPageWithTitle("Triage Case Details");
+        waitForDECSPageWithTitle("Triage case details");
         clickContinueButton();
     }
 
@@ -204,7 +207,7 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
         String directorate = sessionVariableCalled("directorate");
         selectSpecificOptionFromDropdownWithHeading(directorate, "Directorate");
         String businessArea = sessionVariableCalled("businessAreaName");
-        selectSpecificOptionFromDropdownWithHeading(businessArea, "Business Area");
+        selectSpecificOptionFromDropdownWithHeading(businessArea, "Business area");
     }
 
     @And("I select {string} for has the complainant requested a payment")
@@ -381,6 +384,11 @@ public class ComplaintsTriageAndInvestigationStepDefs extends BasePage {
 
     @And("I select a Complaint Type")
     public void iSelectAComplaintType() {
+        if(bf2Case()){
+            summaryTab.assertComplaintType("Service");
+            openOrCloseAccordionSection("Border Force Registration (Stage 2)");
+            recordCaseData.assertComplaintTypeInTheReadOnlyAccordion("Service");
+        }
         caseView.clickAllocateToMeLink();
         if(compCase() || comp2Case() || comp2DirectCase()){
             complaintsTriageAndInvestigation.selectAComplaintTypeForRecategorisedUKVI();

@@ -59,7 +59,7 @@ public class ComplaintsDispatchAndSend extends BasePage {
 
     public void assertReasonsForComplaintAreVisible() {
         for (int i = 1; i <= 5; i++) {
-            String displayedReasonForComplaint = findBy("//strong[text()='Reason for Complaint " + i + "']/ancestor::span").getText();
+            String displayedReasonForComplaint = findBy("//strong[text()='Reason for Complaint " + i + "']/ancestor::div").getText();
             String expectedReasonForComplaint = sessionVariableCalled("reasonForComplaint" + i);
             if (!displayedReasonForComplaint.contains(expectedReasonForComplaint)) {
                 Assert.fail("Values do not match.\nExpected Reason for Complaint " + i + ": " + expectedReasonForComplaint + "\nDisplayed "

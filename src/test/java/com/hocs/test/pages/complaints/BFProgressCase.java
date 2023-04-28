@@ -328,6 +328,20 @@ public class BFProgressCase extends BasePage {
                 complaintsRegistrationAndDataInput.enterAPortReference();
                 clickContinueButton();
                 break;
+            case "PSU REFERENCE":
+                createCase.createCSCaseOfTypeWithDocument(CaseType.BF);
+                confirmationScreens.goToCaseFromConfirmationScreen();
+                caseView.clickAllocateToMeLink();
+                correspondents.addANonMemberCorrespondentOfType("Complainant");
+                correspondents.confirmPrimaryCorrespondent();
+                complaintsRegistrationAndDataInput.enterAdditionalDetails();
+                complaintsRegistrationAndDataInput.selectASpecificComplaintType("Serious misconduct");
+                complaintsTriageAndInvestigation.selectBFClaimCategory("Serious misconduct");
+                clickTheButton("Finish and escalate to PSU");
+                dashboard.ensureCurrentCaseIsLoadedAndAllocatedToCurrentUser();
+                complaintsRegistrationAndDataInput.enterASpecificPSUReference("123456789");
+                clickTheButton("Submit");
+                break;
             case "ALL":
                 createCase.createCSCaseOfTypeWithDocument(CaseType.BF);
                 confirmationScreens.goToCaseFromConfirmationScreen();

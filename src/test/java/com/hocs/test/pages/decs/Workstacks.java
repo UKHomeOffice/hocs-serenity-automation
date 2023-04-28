@@ -837,7 +837,7 @@ public class Workstacks extends BasePage {
                 requiredColumns.addAll(Arrays.asList("Select", "Reference", "Stage", "Complaint type", "Business area", "Deadline"));
                 break;
             case "IEDET SEARCH":
-                requiredColumns.addAll(Arrays.asList("Reference", "Stage", "Owner", "Team", "Complaint Origin", "Business area", "Deadline"));
+                requiredColumns.addAll(Arrays.asList("Reference", "Stage", "Owner", "Team", "Complaint origin", "Business area", "Deadline"));
                 break;
             case "PSU COMPLAINTS":
                 requiredColumns.addAll(Arrays.asList("Select", "Reference", "Name", "Stage", "PSU reference", "Owner", "Received",

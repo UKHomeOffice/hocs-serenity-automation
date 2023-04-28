@@ -197,5 +197,6 @@ Scenario Outline: When a user selects one of the Complaint Outcome and enters th
     When I logout of the application
 
     Examples:
-      | caseType | caseStage     | newCaseStage    |
-      | BF       | ESCALATED_PSU | BF Recategorise |
+      | caseType | caseStage     | newCaseStage                  |
+      | BF       | ESCALATED_PSU | BF Recategorise               |
+      | BF2      | ESCALATED_PSU | Border Force Triage (Stage 2) |
