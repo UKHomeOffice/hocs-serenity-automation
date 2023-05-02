@@ -74,11 +74,7 @@ public class COMPProgressCase extends BasePage {
         } else if (stringContainsCheckIgnoringCase(targetStage, "Ex-Gratia")) {
             complaintType = "Ex-Gratia";
         } else if (stringContainsCheckIgnoringCase(targetStage, "Minor Misconduct") || stringContainsCheckIgnoringCase(targetStage, "MM")) {
-            if(ukviPsuOffTag){
-                complaintType = "Minor Misconduct";
-            } else {
                 complaintType = "Minor misconduct";
-            }
         } else if (stringContainsCheckIgnoringCase(targetStage, "Serious Misconduct") ) {
             complaintType = "Serious misconduct";
 
@@ -138,11 +134,6 @@ public class COMPProgressCase extends BasePage {
     public void createCaseOfTypeAndMoveItToTargetStageWithSpecifiedComplaintType(CaseType caseType, String complaintType, String targetStage) {
         this.complaintType = complaintType;
         setCurrentCaseType(caseType);
-        if((ukviPsuOffTag) && (compCase() || comp2Case() || comp2DirectCase()) && (complaintType.equalsIgnoreCase("Minor misconduct"))){
-           this.complaintType = "Minor Misconduct";
-        } else if ((bfPsuOffTag) && (complaintType.equalsIgnoreCase("Minor misconduct"))) {
-            this.complaintType = "Minor Misconduct";
-        }
         moveCaseOfTypeFromCurrentStageToTargetStage(caseType, "N/A", targetStage);
     }
 
@@ -298,9 +289,6 @@ public class COMPProgressCase extends BasePage {
     }
 
     public void moveCaseFromRegistrationToTriage() {
-        if((ukviPsuOffTag || bfPsuOffTag) && (complaintType.equalsIgnoreCase("Minor misconduct"))){
-            complaintType = "Minor Misconduct";
-        }
         if(comp2DirectCase()){
            complaintsRegistrationAndDataInput.selectCOMP2CaseOption();
            clickTheButton("Submit");
@@ -375,11 +363,7 @@ public class COMPProgressCase extends BasePage {
         waitForDECSPageWithTitle("Triage capture reason");
         complaintsTriageAndInvestigation.enterDetailsOnTriageCaptureReasonPage();
         clickContinueButton();
-        if(ukviPsuOffTag){
-            waitForDECSPageWithTitle("Triage Contributions");
-        }else {
-            waitForDECSPageWithTitle("Triage contributions");
-        }
+        waitForDECSPageWithTitle("Triage contributions");
         if(sessionVariableCalled("isLoARequired").equals("Yes")) {
             complaintsTriageAndInvestigation.enterLoAReceivedDetails();
         }
