@@ -12,9 +12,9 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <restassured.version>5.3.0</restassured.version>
-    <serenity.version>3.5.1</serenity.version>
-    <serenity.maven.version>3.5.1</serenity.maven.version>
-    <serenity.cucumber.version>3.5.1</serenity.cucumber.version>
+    <serenity.version>2.6.0</serenity.version>
+    <serenity.maven.version>2.6.0</serenity.maven.version>
+    <serenity.cucumber.version>2.6.0</serenity.cucumber.version>
     <encoding>UTF-8</encoding>
     <tags> </tags>
     <maven.compiler.source>17</maven.compiler.source>
@@ -83,7 +83,7 @@
     </dependency>
     <dependency>
       <groupId>net.serenity-bdd</groupId>
-      <artifactId>serenity-cucumber</artifactId>
+      <artifactId>serenity-cucumber6</artifactId>
       <version>${serenity.cucumber.version}</version>
       <scope>test</scope>
     </dependency>
@@ -134,7 +134,7 @@
           <includes>
             <include>**/*.java</include>
           </includes>
-          <argLine>-Xmx512m</argLine>
+          <argLine>-Xmx768m</argLine>
           <parallel>classes</parallel>
           <threadCount>1</threadCount>
           <perCoreThreadCount>true</perCoreThreadCount>

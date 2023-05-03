@@ -23,7 +23,7 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;
 import org.junit.Assert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.ElementNotInteractableException;
+import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
@@ -216,7 +216,7 @@ public class BasePage extends PageObject {
         if (!tabIsCurrentlySelected) {
             try {
                 tab.click();
-            } catch (ElementNotInteractableException | StaleElementReferenceException ex) {
+            } catch (ElementNotVisibleException | StaleElementReferenceException ex) {
                 waitABit(500);
                 tab = getTabElementUsingTabName(tabName);
                 tab.click();
@@ -234,7 +234,7 @@ public class BasePage extends PageObject {
         nonActiveTab.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
         try {
             nonActiveTab.click();
-        } catch (ElementNotInteractableException | StaleElementReferenceException ex) {
+        } catch (ElementNotVisibleException | StaleElementReferenceException ex) {
             waitABit(500);
             nonActiveTab = findBy("//li[@class='govuk-tabs__list-item'][not(@class='govuk-tabs__list-item--selected')]");
             nonActiveTab.click();
