@@ -3,8 +3,8 @@ kind: pipeline
 type: kubernetes
 name: SMOKE
 trigger:
-  branch:
-    - main
+#  branch:
+#    - main
   event:
     - push
 steps:
@@ -75,8 +75,8 @@ name: DCU-Regression
 depends_on:
   - SMOKE
 trigger:
-  branch:
-    - main
+#  branch:
+#    - main
   event:
     - push
 steps:
@@ -130,8 +130,8 @@ name: CS-Regression
 depends_on:
   - SMOKE
 trigger:
-  branch:
-    - main
+#  branch:
+#    - main
   event:
     - push
 steps:
@@ -185,8 +185,8 @@ name: MPAM-1-Regression
 depends_on:
   - SMOKE
 trigger:
-  branch:
-    - main
+#  branch:
+#    - main
   event:
     - push
 steps:
@@ -240,8 +240,8 @@ name: MPAM-2-Regression
 depends_on:
   - SMOKE
 trigger:
-  branch:
-    - main
+#  branch:
+#    - main
   event:
     - push
 steps:
@@ -295,8 +295,8 @@ name: COMP-Regression
 depends_on:
   - SMOKE
 trigger:
-  branch:
-    - main
+#  branch:
+#    - main
   event:
     - push
 steps:
@@ -350,8 +350,8 @@ name: COMPPSU-Regression
 depends_on:
   - SMOKE
 trigger:
-  branch:
-    - main
+#  branch:
+#    - main
   event:
     - push
 steps:
@@ -405,8 +405,8 @@ name: BF-Regression
 depends_on:
   - SMOKE
 trigger:
-  branch:
-    - main
+#  branch:
+#    - main
   event:
     - push
 steps:
@@ -463,8 +463,8 @@ name: BFPSU-Regression
 depends_on:
   - SMOKE
 trigger:
-  branch:
-    - main
+#  branch:
+#    - main
   event:
     - push
 
@@ -522,8 +522,8 @@ name: POGR-Regression
 depends_on:
   - SMOKE
 trigger:
-  branch:
-    - main
+#  branch:
+#    - main
   event:
     - push
 steps:
@@ -577,8 +577,8 @@ name: IEDET-Regression
 depends_on:
   - SMOKE
 trigger:
-  branch:
-    - main
+#  branch:
+#    - main
   event:
     - push
 steps:
@@ -632,8 +632,8 @@ name: WCS-Regression
 depends_on:
   - SMOKE
 trigger:
-  branch:
-    - main
+#  branch:
+#    - main
   event:
     - push
 steps:
@@ -687,8 +687,8 @@ name: TO-Regression
 depends_on:
   - SMOKE
 trigger:
-  branch:
-    - main
+#  branch:
+#    - main
   event:
     - push
 steps:
