@@ -312,8 +312,6 @@ name: COMP-Regression
 depends_on:
   - SMOKE
 trigger:
- # branch:
-  #  - main
   event:
     - push
 
