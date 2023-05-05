@@ -40,6 +40,7 @@ public class CaseView extends BasePage {
     // Basic methods
 
     public void clickAllocateToMeLink() {
+        waitABit(500);
         safeClickOn(allocateToMeLink);
         allocateToMeLink.waitUntilNotVisible();
         tabs.waitUntilVisible();

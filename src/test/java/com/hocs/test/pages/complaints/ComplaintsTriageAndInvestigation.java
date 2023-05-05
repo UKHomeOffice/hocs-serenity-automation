@@ -182,16 +182,23 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
 
     public void selectIEDETClaimCategory(String category) {
         setSessionVariable("complaintCategory").to(category);
-        List<WebElementFacade> claimCategories = findAll("//span[text()='" + category + "']/parent::legend/following-sibling::div//label");
+        List<WebElementFacade> claimCategories;
+        claimCategories = findAll("//span[text()='" + category + "']/parent::legend/following-sibling::div//label");
+        if(claimCategories.isEmpty()){
+            waitABit(4000);
+            claimCategories = findAll("//span[text()='" + category + "']/parent::legend/following-sibling::div//label");
+        }
         String selectedClaimCategory = checkRandomCheckboxFromList(claimCategories);
         setSessionVariable("claimCategory").to(selectedClaimCategory);
     }
 
     public void selectUKVIClaimCategory(String category) {
         setSessionVariable("complaintCategory").to(category);
-        List<WebElementFacade> claimCategories = findAll("//span[text()='" + category + "']/parent::legend/following-sibling::div//label");
+        List<WebElementFacade> claimCategories;
+        claimCategories = findAll("//span[text()='" + category + "']/parent::legend/following-sibling::div//label");
         if(claimCategories.isEmpty()){
             waitABit(4000);
+            claimCategories = findAll("//span[text()='" + category + "']/parent::legend/following-sibling::div//label");
         }
         String selectedClaimCategory = checkRandomCheckboxFromList(claimCategories);
         setSessionVariable("claimCategory").to(selectedClaimCategory);
