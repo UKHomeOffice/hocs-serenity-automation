@@ -10,7 +10,7 @@ trigger:
 
 steps:
   - name: execute tests
-    image: maven:3.8.6-eclipse-temurin-17-focal
+    image: maven:3.9.1-eclipse-temurin-17-focal
     commands:
       - sh bin/smoke.sh
     environment:
@@ -45,9 +45,17 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/standalone-chrome:4.7.2
+    image: selenium/hub:4.5.3
+
+  - name: chrome22
+    image: selenium/node-chrome:4.5.3
     environment:
       DISPLAY: :99.0
+      HUB_PORT_4444_TCP_ADDR: selenium
+      HUB_PORT_4444_TCP_PORT: 4444
+      SE_EVENT_BUS_HOST: selenium
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
 
 ---
 kind: pipeline
@@ -63,7 +71,7 @@ trigger:
 
 steps:
   - name: execute tests
-    image: maven:3.8.6-eclipse-temurin-17-focal
+    image: maven:3.9.1-eclipse-temurin-17-focal
     commands:
       - sh bin/dcu.sh
     environment:
@@ -99,9 +107,17 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/standalone-chrome:4.7.2
+    image: selenium/hub:4.5.3
+
+  - name: chrome22
+    image: selenium/node-chrome:4.5.3
     environment:
       DISPLAY: :99.0
+      HUB_PORT_4444_TCP_ADDR: selenium
+      HUB_PORT_4444_TCP_PORT: 4444
+      SE_EVENT_BUS_HOST: selenium
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
 
 ---
 kind: pipeline
@@ -117,7 +133,7 @@ trigger:
 
 steps:
   - name: execute tests
-    image: maven:3.8.6-eclipse-temurin-17-focal
+    image: maven:3.9.1-eclipse-temurin-17-focal
     commands:
       - sh bin/cs.sh
     environment:
@@ -153,9 +169,17 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/standalone-chrome:4.7.2
+    image: selenium/hub:4.5.3
+
+  - name: chrome22
+    image: selenium/node-chrome:4.5.3
     environment:
       DISPLAY: :99.0
+      HUB_PORT_4444_TCP_ADDR: selenium
+      HUB_PORT_4444_TCP_PORT: 4444
+      SE_EVENT_BUS_HOST: selenium
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
 
 ---
 kind: pipeline
@@ -171,7 +195,7 @@ trigger:
 
 steps:
   - name: execute tests
-    image: maven:3.8.6-eclipse-temurin-17-focal
+    image: maven:3.9.1-eclipse-temurin-17-focal
     commands:
       - sh bin/mpam1.sh
     environment:
@@ -207,9 +231,17 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/standalone-chrome:4.7.2
+    image: selenium/hub:4.5.3
+
+  - name: chrome22
+    image: selenium/node-chrome:4.5.3
     environment:
       DISPLAY: :99.0
+      HUB_PORT_4444_TCP_ADDR: selenium
+      HUB_PORT_4444_TCP_PORT: 4444
+      SE_EVENT_BUS_HOST: selenium
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
 
 ---
 kind: pipeline
@@ -225,7 +257,7 @@ trigger:
 
 steps:
   - name: execute tests
-    image: maven:3.8.6-eclipse-temurin-17-focal
+    image: maven:3.9.1-eclipse-temurin-17-focal
     commands:
       - sh bin/mpam2.sh
     environment:
@@ -261,9 +293,17 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/standalone-chrome:4.7.2
+    image: selenium/hub:4.5.3
+
+  - name: chrome22
+    image: selenium/node-chrome:4.5.3
     environment:
       DISPLAY: :99.0
+      HUB_PORT_4444_TCP_ADDR: selenium
+      HUB_PORT_4444_TCP_PORT: 4444
+      SE_EVENT_BUS_HOST: selenium
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
 
 ---
 kind: pipeline
@@ -272,14 +312,12 @@ name: COMP-Regression
 depends_on:
   - SMOKE
 trigger:
-  branch:
-    - main
   event:
     - push
 
 steps:
   - name: execute tests
-    image: maven:3.8.6-eclipse-temurin-17-focal
+    image: maven:3.9.1-eclipse-temurin-17-focal
     commands:
       - sh bin/comp.sh
     environment:
@@ -315,9 +353,17 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/standalone-chrome:4.7.2
+    image: selenium/hub:4.5.3
+
+  - name: chrome22
+    image: selenium/node-chrome:4.5.3
     environment:
       DISPLAY: :99.0
+      HUB_PORT_4444_TCP_ADDR: selenium
+      HUB_PORT_4444_TCP_PORT: 4444
+      SE_EVENT_BUS_HOST: selenium
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
 
 ---
 kind: pipeline
@@ -333,7 +379,7 @@ trigger:
 
 steps:
   - name: execute tests
-    image: maven:3.8.6-eclipse-temurin-17-focal
+    image: maven:3.9.1-eclipse-temurin-17-focal
     commands:
       - sh bin/comppsu.sh
     environment:
@@ -369,9 +415,17 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/standalone-chrome:4.7.2
+    image: selenium/hub:4.5.3
+
+  - name: chrome22
+    image: selenium/node-chrome:4.5.3
     environment:
       DISPLAY: :99.0
+      HUB_PORT_4444_TCP_ADDR: selenium
+      HUB_PORT_4444_TCP_PORT: 4444
+      SE_EVENT_BUS_HOST: selenium
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
 
 ---
 kind: pipeline
@@ -387,7 +441,7 @@ trigger:
 
 steps:
   - name: execute tests
-    image: maven:3.8.6-eclipse-temurin-17-focal
+    image: maven:3.9.1-eclipse-temurin-17-focal
     commands:
       - sh bin/bf.sh
     environment:
@@ -423,9 +477,17 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/standalone-chrome:4.7.2
+    image: selenium/hub:4.5.3
+
+  - name: chrome22
+    image: selenium/node-chrome:4.5.3
     environment:
       DISPLAY: :99.0
+      HUB_PORT_4444_TCP_ADDR: selenium
+      HUB_PORT_4444_TCP_PORT: 4444
+      SE_EVENT_BUS_HOST: selenium
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
 
 ---
 kind: pipeline
@@ -441,7 +503,7 @@ trigger:
 
 steps:
   - name: execute tests
-    image: maven:3.8.6-eclipse-temurin-17-focal
+    image: maven:3.9.1-eclipse-temurin-17-focal
     commands:
       - sh bin/bfpsu.sh
     environment:
@@ -477,9 +539,17 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/standalone-chrome:4.7.2
+    image: selenium/hub:4.5.3
+
+  - name: chrome22
+    image: selenium/node-chrome:4.5.3
     environment:
       DISPLAY: :99.0
+      HUB_PORT_4444_TCP_ADDR: selenium
+      HUB_PORT_4444_TCP_PORT: 4444
+      SE_EVENT_BUS_HOST: selenium
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
 
 ---
 kind: pipeline
@@ -495,7 +565,7 @@ trigger:
 
 steps:
   - name: execute tests
-    image: maven:3.8.6-eclipse-temurin-17-focal
+    image: maven:3.9.1-eclipse-temurin-17-focal
     commands:
       - sh bin/pogr.sh
     environment:
@@ -531,9 +601,17 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/standalone-chrome:4.7.2
+    image: selenium/hub:4.5.3
+
+  - name: chrome22
+    image: selenium/node-chrome:4.5.3
     environment:
       DISPLAY: :99.0
+      HUB_PORT_4444_TCP_ADDR: selenium
+      HUB_PORT_4444_TCP_PORT: 4444
+      SE_EVENT_BUS_HOST: selenium
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
 
 ---
 kind: pipeline
@@ -549,7 +627,7 @@ trigger:
 
 steps:
   - name: execute tests
-    image: maven:3.8.6-eclipse-temurin-17-focal
+    image: maven:3.9.1-eclipse-temurin-17-focal
     commands:
       - sh bin/iedet.sh
     environment:
@@ -583,9 +661,17 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/standalone-chrome:4.7.2
+    image: selenium/hub:4.5.3
+
+  - name: chrome22
+    image: selenium/node-chrome:4.5.3
     environment:
       DISPLAY: :99.0
+      HUB_PORT_4444_TCP_ADDR: selenium
+      HUB_PORT_4444_TCP_PORT: 4444
+      SE_EVENT_BUS_HOST: selenium
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
 
 ---
 kind: pipeline
@@ -601,7 +687,7 @@ trigger:
 
 steps:
   - name: execute tests
-    image: maven:3.8.6-eclipse-temurin-17-focal
+    image: maven:3.9.1-eclipse-temurin-17-focal
     commands:
       - sh bin/wcs.sh
     environment:
@@ -635,9 +721,17 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/standalone-chrome:4.7.2
+    image: selenium/hub:4.5.3
+
+  - name: chrome22
+    image: selenium/node-chrome:4.5.3
     environment:
       DISPLAY: :99.0
+      HUB_PORT_4444_TCP_ADDR: selenium
+      HUB_PORT_4444_TCP_PORT: 4444
+      SE_EVENT_BUS_HOST: selenium
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
 
 ---
 kind: pipeline
@@ -653,7 +747,7 @@ trigger:
 
 steps:
   - name: execute tests
-    image: maven:3.8.6-eclipse-temurin-17-focal
+    image: maven:3.9.1-eclipse-temurin-17-focal
     commands:
       - sh bin/to.sh
     environment:
@@ -689,6 +783,14 @@ steps:
 
 services:
   - name: selenium
-    image: selenium/standalone-chrome:4.7.2
+    image: selenium/hub:4.5.3
+
+  - name: chrome22
+    image: selenium/node-chrome:4.5.3
     environment:
       DISPLAY: :99.0
+      HUB_PORT_4444_TCP_ADDR: selenium
+      HUB_PORT_4444_TCP_PORT: 4444
+      SE_EVENT_BUS_HOST: selenium
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
