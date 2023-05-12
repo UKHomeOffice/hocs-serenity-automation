@@ -343,7 +343,7 @@ services:
       SE_EVENT_BUS_HOST: selenium
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
----
+#---
 #kind: pipeline
 #type: kubernetes
 #name: COMPPSU-Regression
