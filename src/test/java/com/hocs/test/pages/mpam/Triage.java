@@ -89,7 +89,17 @@ public class Triage extends BasePage {
         setSessionVariable("enquiryReason").to(reason);
         clickContinueButton();
     }
+    public void selectSpecificEnquirySubject(String subject) {
+        recordCaseData.selectSpecificOptionFromDropdownWithHeading(subject, "Enquiry subject");
+        setSessionVariable("enquirySubject").to(subject);
 
+    }
+
+    public void selectSpecificEnquiryReason(String reason) {
+        recordCaseData.selectSpecificOptionFromDropdownWithHeading(reason, "Enquiry reason");
+        setSessionVariable("enquirySubject").to(reason);
+
+    }
     public void selectComplianceMeasure(String complianceMeasure) {
         checkSpecificCheckbox(complianceMeasure);
     }

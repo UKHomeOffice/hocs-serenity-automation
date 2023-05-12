@@ -23,9 +23,8 @@ public class CloseCaseTelephoneStepDefs extends BasePage {
         setSessionVariable("closeCaseTelephoneStage").to(stage.toUpperCase());
         switch (stage.toUpperCase()) {
             case "TRIAGE":
-                safeClickOn(triage.setEnquiryHypertext);
-                triage.selectEnquirySubject("Person Specific");
-                triage.selectEnquiryReason("Allowed appeal enquiry update");
+                triage.selectSpecificEnquirySubject("Person Specific");
+                triage.selectSpecificEnquiryReason("Allowed appeal enquiry update");
                 triage.setBusinessUnit();
                 break;
             case "DRAFT":

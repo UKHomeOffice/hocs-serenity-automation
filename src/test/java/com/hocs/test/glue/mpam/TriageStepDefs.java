@@ -40,9 +40,8 @@ public class TriageStepDefs extends BasePage {
                 triage.putTriageCaseOnHold();
                 break;
             case "CONTRIBUTIONS REQUESTED":
-                safeClickOn(triage.setEnquiryHypertext);
-                triage.selectEnquirySubject("Person Specific");
-                triage.selectEnquiryReason("Allowed appeal enquiry update");
+                triage.selectSpecificEnquirySubject("Person Specific");
+                triage.selectSpecificEnquiryReason("Allowed appeal enquiry update");
                 triage.setBusinessUnit();
                 MPAMMultipleContributions.sendMPAMCaseToContributionRequest();
                 break;
@@ -151,9 +150,8 @@ public class TriageStepDefs extends BasePage {
                 triage.selectToCloseEscalatedCase();
                 break;
             case "CONTRIBUTIONS REQUESTED":
-                safeClickOn(triage.setEnquiryHypertext);
-                triage.selectEnquirySubject("Person Specific");
-                triage.selectEnquiryReason("Allowed appeal enquiry update");
+                triage.selectSpecificEnquirySubject("Person Specific");
+                triage.selectSpecificEnquiryReason("Allowed appeal enquiry update");
                 triage.setBusinessUnit();
                 MPAMMultipleContributions.sendMPAMCaseToContributionRequest();
                 break;
