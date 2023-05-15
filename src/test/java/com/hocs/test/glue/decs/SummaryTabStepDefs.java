@@ -134,6 +134,12 @@ public class SummaryTabStepDefs extends BasePage {
         summaryTab.assertSummaryContainsExpectedValueForGivenHeader(teamName, "Team");
     }
 
+    @And("the summary should display the correct Private Office team")
+    public void theSummaryShouldDisplayThePOTeamAs() {
+        String privateOfficeTeam = "Minister for Lords";
+        summaryTab.assertSummaryContainsExpectedValueForGivenHeader(privateOfficeTeam, "Private Office Team");
+    }
+
     @And("the POGR case should be assigned to the correct investigating team")
     public void thePOGRCaseShouldBeAssignedToTheCorrectInvestigatingTeam() {
         String teamName = sessionVariableCalled("investigatingTeam");

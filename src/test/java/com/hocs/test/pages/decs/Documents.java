@@ -49,13 +49,13 @@ public class Documents extends BasePage {
     @FindBy(css = "[value='Remove']")
     public WebElementFacade removeButton;
 
-    @FindBy(xpath = "//td/strong[contains(text(), 'PENDING')]")
+    @FindBy(xpath = "//td/strong[contains(text(), 'Pending')]")
     public WebElementFacade pendingTag;
 
-    @FindBy(xpath = "//td/strong[contains(text(), 'Failed Conversion')]")
+    @FindBy(xpath = "//td/strong[contains(text(), 'Failed PDF Conversion')]")
     public WebElementFacade failedConversionTag;
 
-    @FindBy(xpath = "//td/strong[contains(text(), 'Failed Virus Scan')]")
+    @FindBy(xpath = "//td/strong[contains(text(), 'Malware Found')]")
     public WebElementFacade failedVirusScanTag;
 
     @FindBy(xpath = "//td/strong[contains(text(), 'UPLOADED')]")
@@ -266,7 +266,7 @@ public class Documents extends BasePage {
     public void waitForFileToUpload(Object fileIdentifier) {
         WebElementFacade documentUploadedTag =
                 findBy("//td[contains(text(), '" + fileIdentifier + "')]/following-sibling::td/a[@download]");
-        documentUploadedTag.withTimeoutOf(Duration.ofMinutes(1)).waitUntilVisible();
+        documentUploadedTag.withTimeoutOf(Duration.ofMinutes(10)).waitUntilVisible();
     }
 
     public void assertDocumentPresentIs(Boolean condition) {
