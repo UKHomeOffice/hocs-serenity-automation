@@ -33,11 +33,18 @@ public class DataInputStepDefs extends BasePage {
 
     @And("I select {string} for Home Secretary interest and complete the data input stage")
     public void completeDataInputStageWithSpecifiedHomeSecInterest(String interest) {
+        if (dtenCase()) {
+            dataInput.enterDTENDraftingDeadline(getDatePlusMinusNDaysAgo(+10));
+            dataInput.enterDTENDispatchDeadline(getDatePlusMinusNDaysAgo(+20));
+            clickContinueButton();
+        }
         setSessionVariable("homeSecInterest").to(interest);
         dataInput.enterCorrespondenceSentDate(getDatePlusMinusNDaysAgo(-2));
         dataInput.selectACorrespondenceReceivedChannel();
+        if(!dtenCase()){
         dataInput.selectASpecificCopyToNoTenOption("No");
         dataInput.selectASpecificHomeSecInterestOption(interest);
+        }
         if (minCase()) {
             dataInput.selectAHomeSecReplyOption();
         }

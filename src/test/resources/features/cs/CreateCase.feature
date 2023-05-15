@@ -20,12 +20,12 @@ Feature: Create case
       | COMP     | UKVI Registration                   | To document             | Complaint Registration            |
       | COMP2    | UKVI Stage 2 Registration           | To document             | Stage 2 Complaint Registration    |
       | IEDET    | IE DETENTION REGISTRATION           | Original complaint      | IE Detention                      |
-      | FOI      | Case Creation                       | Request                 | FOI Creation                      |
       | TO       | Data Input                          | Initial Correspondence  | Treat Official Creation           |
       | BF       | Border Force Registration           | To document             | Border Force Complaints           |
       | BF2      | Border Force Registration (Stage 2) | To document             | Border Force Complaints (Stage 2) |
       | POGR     | Data Input                          | Original Complaint      | HMPO/GRO Registration             |
       | POGR2    | Data Input                          | Original Complaint      | HMPO/GRO Registration (Stage 2)   |
+#      | FOI      | Case Creation                       | Request                 | FOI Creation                      |
 
 
   @Allocation

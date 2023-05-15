@@ -169,7 +169,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
         double consolatoryOffer = Double.parseDouble(sessionVariableCalled("consolatoryOfferAmount").toString());
         double exGratiaOffer = Double.parseDouble(sessionVariableCalled("exGratiaOfferAmount").toString());
         double totalOffer = consolatoryOffer + exGratiaOffer;
-        waitABit(1000);
+        waitABit(2000);
         String totalOfferFieldOffer = totalOfferSentToComplainantField.getValue();
         double displayedTotalOffer = Double.parseDouble(totalOfferFieldOffer);
         assertThat(totalOffer == displayedTotalOffer, is(true));

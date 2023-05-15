@@ -7,6 +7,7 @@ import static net.serenitybdd.core.Serenity.setSessionVariable;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.PeopleTab;
+import com.hocs.test.pages.decs.RecordCaseData;
 import com.hocs.test.pages.decs.SummaryTab;
 import com.hocs.test.pages.decs.TimelineTab;
 import com.hocs.test.pages.decs.CaseView;
@@ -30,6 +31,8 @@ public class BaseStepDefs extends BasePage {
     ActionsTab actionsTab;
 
     CaseView caseView;
+
+    RecordCaseData recordCaseData;
 
     @Then("the {string} page should be displayed")
     public void thePageShouldBeDisplayed(String pageTitle) {
@@ -83,6 +86,7 @@ public class BaseStepDefs extends BasePage {
         summaryTab.assertNoActiveStageVisible();
         timelineTab.assertCaseLogWithTitleIsVisible("Case Closed");
         System.out.println("The case is closed");
+        System.out.println("test1");
     }
 
     @Then("the case/claim should be at/moved/returned (to )(the ){string}( stage)")
@@ -167,6 +171,18 @@ public class BaseStepDefs extends BasePage {
     public void theRadioButtonShouldBeUnselected(String radioButtonText) {
         caseView.clickAllocateToMeLink();
         assertRadioButtonIsSelected(radioButtonText);
+    }
+    @And("I choose not to wipe the record data until the end")
+    public void doNotAutoWipeRecordData(){
+        keepAllCaseData =true;
+        System.out.println("Keeping all case data");
+    }
+    @And("I wipe the record data")
+    public void wipeRecordData(){
+        keepAllCaseData = false;
+        System.out.println("No longer keeping all case data");
+        RecordCaseData.checkIfDataRecordsShouldBeWiped();
+        System.out.println("Record data wiped");
     }
 }
 
