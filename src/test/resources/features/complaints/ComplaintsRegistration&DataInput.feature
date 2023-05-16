@@ -3,7 +3,7 @@ Feature: Registration
 
 #     UKVI COMPLAINTS
 
-  # HOCS-2999, HOCS-2858, HOCS-2859, HOCS-2860, HOCS-2862, HOCS-2881, HOCS-2899, HOCS-2648
+  # HOCS-2999, HOCS-2858, HOCS-2859, HOCS-2860, HOCS-2862, HOCS-2881, HOCS-2899, HOCS-2648, test
   @ComplaintsWorkflow @COMPRegression @UKVIComplaints
   Scenario: User can complete the Registration stage for a UKVI Service complaint case
     Given I am logged into "CS" as user "COMP_USER"
