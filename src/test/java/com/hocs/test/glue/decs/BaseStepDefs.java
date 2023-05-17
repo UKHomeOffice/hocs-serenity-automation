@@ -86,7 +86,6 @@ public class BaseStepDefs extends BasePage {
         summaryTab.assertNoActiveStageVisible();
         timelineTab.assertCaseLogWithTitleIsVisible("Case Closed");
         System.out.println("The case is closed");
-        System.out.println("test1");
     }
 
     @Then("the case/claim should be at/moved/returned (to )(the ){string}( stage)")

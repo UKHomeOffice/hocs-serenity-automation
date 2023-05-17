@@ -87,20 +87,15 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
     }
 
     public void selectASpecificComplaintType(String complaintType) {
-        if((ukviPsuOffTag || bfPsuOffTag) && (complaintType.equalsIgnoreCase("Minor misconduct"))){
-            complaintType = "Minor Misconduct";
-        }
         if(iedetCase()){
               recordCaseData.selectSpecificRadioButton(complaintType);
-        } else if ((!ukviPsuOffTag || !bfPsuOffTag) && (compCase()||comp2Case()||comp2DirectCase()||bfCase()||bf2Case())) {
+        } else if (compCase()||comp2Case()||comp2DirectCase()||bfCase()||bf2Case()) {
             recordCaseData.selectSpecificRadioButton(complaintType);
-        } else if ((ukviPsuOffTag || bfPsuOffTag) && (compCase()||comp2Case()||comp2DirectCase() || bfCase())) {
-            recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(complaintType, "Complaint Type");
         } else {
             recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(complaintType, "Complaint Type");
         }
         setSessionVariable("complaintType").to(complaintType);
-        if((bfCase()||bf2Case()) && !bfPsuOffTag){
+        if((bfCase()||bf2Case())){
             clickTheButton("Submit");
         } else {
             clickContinueButton();

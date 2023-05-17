@@ -63,11 +63,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     }
 
     public void enterDateOfAcceptance() {
-        if(ukviPsuOffTag){
-            recordCaseData.enterDateIntoDateFieldsWithHeading(getDatePlusMinusNDaysAgo(-5), "Date of Acceptance");
-        }else{
-            recordCaseData.enterDateIntoDateFieldsWithHeading(getDatePlusMinusNDaysAgo(-5), "Date of acceptance");
-        }
+        recordCaseData.enterDateIntoDateFieldsWithHeading(getDatePlusMinusNDaysAgo(-5), "Date of acceptance");
     }
 
     public void selectEnquiryReason(String enquiryReason) {
@@ -81,12 +77,8 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     }
 
     public void selectTransferComplaint() {
-        if(ukviPsuOffTag) {
-            recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No - transfer the complaint", "Can your team respond to this complaint?");
-        }else {
             recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No - transfer the complaint to CCH", "Can your team respond to this "
                     + "complaint?");
-        }
         clickContinueButton();
     }
 
@@ -243,12 +235,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
 
     public void enterDetailsOnBFTriageDetailsPage() {
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Region");
-        if(bfPsuOffTag){
-            recordCaseData.selectRandomOptionFromDropdownWithHeading("Business Area");
-        } else if (!bfPsuOffTag) {
-            recordCaseData.selectRandomOptionFromDropdownWithHeading("Business area");
-        }
-
+        recordCaseData.selectRandomOptionFromDropdownWithHeading("Business area");
         selectBFReasonsForComplaint();
         selectIsLoARequired();
         selectComplainantHasRequestedPayment("No");
@@ -258,14 +245,6 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
 
     private void selectBFReasonsForComplaint() {
         for (int i = 1; i <= 5; i++) {
-            if (bfPsuOffTag) {
-                String selectedReasonForComplaint = recordCaseData.selectRandomOptionFromDropdownWithHeading("Reason for Complaint " + i);
-                if (selectedReasonForComplaint.equals("Other")) {
-                    recordCaseData.enterTextIntoTextAreaWithHeading("Other - Details (Complaint Reason "+i+")");
-
-                }
-                setSessionVariable("reasonForComplaint" + i).to(selectedReasonForComplaint);
-            } else if(!bfPsuOffTag) {
                 String selectedReasonForComplaint = recordCaseData.selectRandomOptionFromDropdownWithHeading("Complaint reason " + i);
                 if (selectedReasonForComplaint.equals("Other")) {
                     recordCaseData.enterTextIntoTextAreaWithHeading("Other - details (complaint reason "+i+")");
@@ -273,16 +252,11 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
                 }
                 setSessionVariable("reasonForComplaint" + i).to(selectedReasonForComplaint);
             }
-        }
     }
 
     public void enterDetailsOnTriageCaptureReasonPage() {
         String complaintType = sessionVariableCalled("complaintType");
-        if(ukviPsuOffTag){
-            if ((compCase() || comp2Case() || comp2DirectCase()) && (complaintType.equals("Service") || complaintType.equals("Minor Misconduct"))) {
-                recordCaseData.selectRandomOptionFromDropdownWithHeading("Directorate");
-            }
-        } else if ((compCase() || comp2Case() || comp2DirectCase()) && (complaintType.equals("Service") || complaintType.equals("Minor misconduct"))) {
+         if ((compCase() || comp2Case() || comp2DirectCase()) && (complaintType.equals("Service") || complaintType.equals("Minor misconduct"))) {
             recordCaseData.selectRandomOptionFromDropdownWithHeading("Directorate");
         }
         String businessArea = recordCaseData.selectRandomOptionFromDropdownWithHeading("Business area");
