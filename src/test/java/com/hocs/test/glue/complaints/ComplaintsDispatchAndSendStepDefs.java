@@ -67,4 +67,13 @@ public class ComplaintsDispatchAndSendStepDefs extends BasePage {
         enterTextIntoTextAreaWithHeading("Enter note for case completion");
         clickTheButton("Complete case");
     }
+
+    @And("I select an action to {string}")
+    public void iSelectAnActionTo(String action) {
+        if(action.equalsIgnoreCase("Close the case")){
+            complaintsDispatchAndSend.selectAction(action);
+        } else if (action.equalsIgnoreCase("Return to triage" )) {
+            complaintsDispatchAndSend.selectAction(action);
+        }
+    }
 }

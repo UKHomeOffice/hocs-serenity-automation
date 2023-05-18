@@ -73,9 +73,21 @@ Feature: Complaints Dispatch & Send
     And I load the current case
     And I upload a copy of the Final Response
     And I select a Case Outcome
+    And I select an action to "Close the case"
     And I submit the Response details
     Then the case should be closed
 
+  @ComplaintsWorkflow @IEDETRegression @IEDETComplaints
+  Scenario: User can return a case to Triage at the Send stage for an IEDET complaint case
+    Given I am logged into "CS" as user "IEDET_USER"
+    When I create a "IEDET" case and move it to the "IE Detention Outcome" stage
+    And I load the current case
+    And I upload a copy of the Final Response
+    And I select a Case Outcome
+    And I select an action to "Return to triage"
+    And I submit the Response details
+    Then the case should be moved to the "IE Detention Triage" stage
+    And the timeline should show the return to triage
 
 #     BF COMPLAINTS
 

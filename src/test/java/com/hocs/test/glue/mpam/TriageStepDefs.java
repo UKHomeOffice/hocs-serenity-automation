@@ -58,12 +58,12 @@ public class TriageStepDefs extends BasePage {
 
     @And("I select the {string} enquiry subject and continue")
     public void iSelectAnEnquirySubjectAndContinue(String enquirySubject) {
-        triage.selectEnquirySubject(enquirySubject);
+        triage.selectSpecificEnquirySubject(enquirySubject);
     }
 
     @And("I select the {string} enquiry reason and continue")
     public void iSelectAnEnquiryReasonAndContinue(String enquiryReason) {
-        triage.selectEnquiryReason(enquiryReason);
+        triage.selectSpecificEnquiryReason(enquiryReason);
     }
 
     @And("I select the {string} compliance measure")
@@ -74,7 +74,7 @@ public class TriageStepDefs extends BasePage {
     @And("I enter details of the compliance measures and continue")
     public void iEnterDetailsOfTheComplianceMeasures() {
         triage.enterComplianceMeasureDetails();
-        clickContinueButton();
+
     }
 
     @Then("the summary tab should display {string} as a compliance measure")
@@ -183,12 +183,23 @@ public class TriageStepDefs extends BasePage {
 
     @And("I select the appropriate Enquiry Subject")
     public void iSelectTheAppropriateEnquirySubject() {
-        triage.selectEnquirySubject(sessionVariableCalled("enquirySubject"));
+        triage.selectSpecificEnquirySubject(sessionVariableCalled("enquirySubject"));
     }
 
     @Then("I should be able to select the new Enquiry Reason")
     public void iShouldBeAbleToSelectTheNewEnquiryReason() {
-        triage.selectEnquiryReason(sessionVariableCalled("enquiryReasonName"));
+        triage.selectSpecificEnquiryReason(sessionVariableCalled("enquiryReasonName"));
+    }
+
+    @And("I select the business unit")
+    public void iSelectTheBusinessUnit() {
+        triage.selectRandomOptionFromDropdownWithHeading("Business unit");
+    }
+
+    @And("I select the action {string}")
+    public void iSelectTheAction(String action) {
+        triage.selectSpecificRadioButton("Ready to draft");
+        clickConfirmButton();
     }
 }
 

@@ -577,7 +577,6 @@ Feature: ManagementUI
     And I have added a new "MPAM" Enquiry Reason in MUI
     When I navigate to "CS"
     And I get a "MPAM" case at the "Triage" stage
-    And I select to set the Enquiry Subject and Reason
     And I select the appropriate Enquiry Subject
     Then I should be able to select the new Enquiry Reason
 

@@ -97,7 +97,7 @@ public class Triage extends BasePage {
 
     public void selectSpecificEnquiryReason(String reason) {
         recordCaseData.selectSpecificOptionFromDropdownWithHeading(reason, "Enquiry reason");
-        setSessionVariable("enquirySubject").to(reason);
+        setSessionVariable("enquiryReason").to(reason);
 
     }
     public void selectComplianceMeasure(String complianceMeasure) {
@@ -171,9 +171,8 @@ public class Triage extends BasePage {
     }
 
     public void selectToCloseEscalatedCase() {
-        safeClickOn(setEnquiryHypertext);
-        selectEnquirySubject("Person Specific");
-        selectEnquiryReason("Allowed appeal enquiry update");
+        selectSpecificEnquirySubject("Person Specific");
+        selectSpecificEnquiryReason("Allowed appeal enquiry update");
         setBusinessUnit();
         safeClickOn(closeCaseRadioButton);
         clickConfirmButton();
