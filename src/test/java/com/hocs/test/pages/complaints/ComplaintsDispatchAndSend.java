@@ -83,4 +83,8 @@ public class ComplaintsDispatchAndSend extends BasePage {
             }
         }
     }
+
+    public void selectAction(String action) {
+        recordCaseData.selectSpecificRadioButton(action);
+    }
 }

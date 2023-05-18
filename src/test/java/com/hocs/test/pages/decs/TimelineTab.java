@@ -34,6 +34,11 @@ public class TimelineTab extends BasePage {
     @FindBy(xpath = "//div[@class='timeline']//li[2]/p[1]")
     public WebElementFacade secondNoteContents;
 
+    @FindBy(xpath = "//div[@class='timeline']//li[3]/p[1]")
+    public WebElementFacade fourthNoteContents;
+    @FindBy(xpath = "//div[@class='timeline']//li[2]/p[1]")
+    public WebElementFacade thirdNoteContents;
+
     @FindBy(xpath = "//a[text()='Edit'][1]")
     public WebElementFacade editButton;
 
@@ -144,6 +149,9 @@ public class TimelineTab extends BasePage {
     public void assertSecondNoteContainsEnteredText(String text) {
         secondNoteContents.shouldContainText(text);
     }
+    public void assertFourthNoteContainsEnteredText(String text) {
+        fourthNoteContents.shouldContainText(text);
+    }
 
     public void assertEditedCaseNoteAppearInCorrectStage(String stage) {
         String[] words = stage.split("\\s");
@@ -234,5 +242,9 @@ public class TimelineTab extends BasePage {
         if (logAttributedToUser.isCurrentlyVisible()) {
             Assert.fail("Logs attributed to " + user.getUsername() + " are visible in the timeline");
         }
+    }
+
+    public void assertThirdNoteContainsEnteredText(String text) {
+       thirdNoteContents.shouldContainText(text);
     }
 }

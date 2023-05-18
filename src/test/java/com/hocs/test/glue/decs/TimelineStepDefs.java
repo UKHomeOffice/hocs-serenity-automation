@@ -261,4 +261,11 @@ public class TimelineStepDefs extends BasePage {
     public void aCaseSuspensionAppliedLogShouldBeVisibleInTheTimeline() {
         timelineTab.assertCaseLogWithTitleIsVisible("Case Suspension Applied");
     }
+
+    @And("the timeline should show the return to triage")
+    public void theTimelineShouldShowToReturnToTriage() {
+        timelineTab.selectTimelineTab();
+        timelineTab.assertFourthNoteContainsEnteredText("Stage: IE Detention Outcome Completed");
+        timelineTab.assertThirdNoteContainsEnteredText("Stage: IE Detention Triage Started");
+    }
 }

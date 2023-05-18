@@ -348,6 +348,23 @@ Feature: Complaints End To End
     When I create a "POGR" case and move it to the "Case Closed" stage
     Then the case should be closed
 
+
+  Scenario: End to End workflow for HMPO POGR complaint case
+    Given I am logged into "CS" as user "POGR_USER"
+    And I choose not to wipe the record data until the end
+    When I get a "POGR" case with "HMPO" as the Business Area at the "Case Closed" stage
+    Then the case should be closed
+    And all case data should be visible in the read-only Case Details accordion
+    And I wipe the record data
+
+  Scenario: End to End workflow for GRO POGR complaint case
+    Given I am logged into "CS" as user "POGR_USER"
+    And I choose not to wipe the record data until the end
+    When I get a "POGR" case with "GRO" as the Business Area at the "Case Closed" stage
+    Then the case should be closed
+    And all case data should be visible in the read-only Case Details accordion
+    And I wipe the record data
+
 #     POGR (STAGE 2) COMPLAINTS
 
   @POGRComplaints
@@ -386,6 +403,21 @@ Feature: Complaints End To End
     When I create a "POGR2" case and move it to the "Case Closed" stage
     Then the case should be closed
 
+  Scenario: End to End workflow for HMPO POGR stage 2 complaint case
+    Given I am logged into "CS" as user "POGR_USER"
+    And I choose not to wipe the record data until the end
+    When I get a "POGR2" case with "HMPO" as the Business Area at the "Case Closed" stage
+    Then the case should be closed
+    And all case data should be visible in the read-only Case Details accordion
+    And I wipe the record data
+
+  Scenario: End to End workflow for GRO POGR stage 2 complaint case
+    Given I am logged into "CS" as user "POGR_USER"
+    And I choose not to wipe the record data until the end
+    When I get a "POGR2" case with "GRO" as the Business Area at the "Case Closed" stage
+    Then the case should be closed
+    And all case data should be visible in the read-only Case Details accordion
+    And I wipe the record data
 
 #  SMC workflow cancelled. Steps and code might be useful for future work implementing PSU specific sub-workflow into other complaints workflows
 

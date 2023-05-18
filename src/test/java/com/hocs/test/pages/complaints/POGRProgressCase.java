@@ -88,8 +88,11 @@ public class POGRProgressCase extends BasePage {
                 precedingStage = "INVESTIGATION";
                 break;
             case "QA":
-            case "DISPATCH":
+           // case "DISPATCH":
                 precedingStage = "DRAFT";
+                break;
+            case "DISPATCH":
+                precedingStage = "QA";
                 break;
             case "CASE CLOSED":
                 precedingStage = "DISPATCH";
@@ -117,14 +120,18 @@ public class POGRProgressCase extends BasePage {
                 }
                 break;
             case "DRAFT":
-                switch (targetStage.toUpperCase()) {
+                movePOGRCaseFromDraftToQA();
+              /*  switch (targetStage.toUpperCase()) {
                     case "QA":
                         movePOGRCaseFromDraftToQA();
                         break;
                     case "DISPATCH":
                         movePOGRCaseFromDraftToDispatch();
                         break;
-                }
+                } */
+                break;
+            case "QA":
+                movePOGRCaseFromQAToDispatch();
                 break;
             case "DISPATCH":
                 movePOGRCaseFromDispatchToClosed();
@@ -180,6 +187,9 @@ public class POGRProgressCase extends BasePage {
     public void movePOGRCaseFromDraftToQA() {
         documents.addADocumentOfDocumentType("Draft");
         complaintsDraft.selectActionAtDraft("Send to QA");
+    }
+ public void movePOGRCaseFromQAToDispatch() {
+       complaintsDraft.selectActionAtQA("Accept");
     }
 
     public void movePOGRCaseFromDraftToDispatch() {
