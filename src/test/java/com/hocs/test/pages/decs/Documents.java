@@ -266,7 +266,7 @@ public class Documents extends BasePage {
     public void waitForFileToUpload(Object fileIdentifier) {
         WebElementFacade documentUploadedTag =
                 findBy("//td[contains(text(), '" + fileIdentifier + "')]/following-sibling::td/a[@download]");
-        documentUploadedTag.withTimeoutOf(Duration.ofMinutes(10)).waitUntilVisible();
+        documentUploadedTag.withTimeoutOf(Duration.ofMinutes(1)).waitUntilVisible();
     }
 
     public void assertDocumentPresentIs(Boolean condition) {
