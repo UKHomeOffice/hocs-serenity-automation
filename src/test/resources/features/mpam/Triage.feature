@@ -34,7 +34,7 @@ Feature: Triage
     And I select the "EU National Compliance Measures" enquiry reason and continue
     Then the "EU National Compliance Measures" page should be displayed
 
-  @MPAMRegression2
+  @Validation
   Scenario: User can see the selected enquiry subject and reason on the MPAM Triage page
     And I select the "Other" enquiry subject and continue
     And I select the "DNA" enquiry reason and continue
