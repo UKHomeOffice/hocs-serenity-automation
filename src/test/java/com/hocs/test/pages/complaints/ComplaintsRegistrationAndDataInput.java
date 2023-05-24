@@ -52,7 +52,8 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         if (iedetCase() || bfCase() || bf2Case()){
             recordCaseData.enterTextIntoTextFieldWithHeading("Company name");
         }else{
-            recordCaseData.enterTextIntoTextFieldWithHeading("Company Name");
+            String companyName = recordCaseData.enterTextIntoTextFieldWithHeading("Company Name");
+            recordCaseData.addValueToAssertSummary("Company Name", companyName);
         }
     }
 
@@ -157,7 +158,8 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
     public void enterADescriptionOfTheComplaint() {
         String complaintType = sessionVariableCalled("complaintType");
         if (pogrCase() || pogr2Case()) {
-            recordCaseData.enterTextIntoTextAreaWithHeading("Description of Complaint");
+            String complaintDescription = recordCaseData.enterTextIntoTextAreaWithHeading("Description of Complaint");
+            recordCaseData.addValueToAssertSummary("Description of Complaint", complaintDescription);
         } else if (iedetCase()){
             recordCaseData.enterTextIntoTextAreaWithHeading("Case summary");
         } else if (compCase() || comp2Case() || comp2DirectCase()) {
@@ -204,7 +206,10 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
             recordCaseData.enterTextIntoTextFieldWithHeading("Third party reference");
         } else if(compCase() || comp2Case() || comp2DirectCase()) {
             recordCaseData.enterTextIntoTextFieldWithHeading("Third party reference");
-        } else {recordCaseData.enterTextIntoTextFieldWithHeading("Third Party Reference");}
+        } else {
+            String thirdPartyReference = recordCaseData.enterTextIntoTextFieldWithHeading("Third Party Reference");
+            recordCaseData.addValueToAssertSummary("Third Party Reference", thirdPartyReference);
+        }
     }
 
     public void enterAThirdPartyReferencePSU() {
@@ -259,6 +264,7 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
     public void selectSpecificBusinessArea(String businessArea) {
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(businessArea, "Business Area");
         setSessionVariable("businessArea").to(businessArea);
+        recordCaseData.addValueToAssertSummary("Business Area", businessArea);
         if (businessArea.equalsIgnoreCase("HMPO")) {
             setSessionVariable("investigatingTeam").to("HMPO Complaints");
         }
@@ -266,6 +272,7 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
 
     public void selectBusinessArea() {
         String businessArea = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Business Area");
+        recordCaseData.addValueToAssertSummary("Business Area", businessArea);
         setSessionVariable("businessArea").to(businessArea);
     }
 
@@ -276,11 +283,13 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
     public void enterApplicationReference() {
         String applicationRef = "APR"+getCurrentCaseReference().replace('/','0');
         recordCaseData.enterSpecificTextIntoTextFieldWithHeading(applicationRef,"Application Reference");
+        recordCaseData.addValueToAssertSummary("Application Reference", applicationRef);
         setSessionVariable("searchApplicationReference").to(applicationRef);
     }
 
     public void enterPassportNumber() {
-        recordCaseData.enterTextIntoTextFieldWithHeading("Passport Number");
+        String passportNumber = recordCaseData.enterTextIntoTextFieldWithHeading("Passport Number");
+        recordCaseData.addValueToAssertSummary("Passport Number", passportNumber);
     }
 
     public void enterAccountNumber() {
@@ -291,9 +300,15 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
 
     public void selectPOGRCategory() { recordCaseData.selectRandomOptionFromDropdownWithHeading("Category"); }
 
-    public void selectComplaintCategory() { recordCaseData.selectRandomOptionFromDropdownWithHeading("Complaint Category"); }
+    public void selectComplaintCategory() {
+       String complaintCategory = recordCaseData.selectRandomOptionFromDropdownWithHeading("Complaint Category");
+        recordCaseData.addValueToAssertSummary("Complaint Category", complaintCategory);
+    }
 
-    public void selectComplaintReason() { recordCaseData.selectRandomOptionFromDropdownWithHeading("Complaint Reason"); }
+    public void selectComplaintReason() {
+        String complaintReason = recordCaseData.selectRandomOptionFromDropdownWithHeading("Complaint Reason");
+        recordCaseData.addValueToAssertSummary("Complaint Reason", complaintReason);
+    }
 
     public void selectLocation() {
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Location");
@@ -301,11 +316,13 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
 
     public void checkPriorityCheckbox() {
         checkSpecificCheckbox("Yes");
+        recordCaseData.addValueToAssertSummary("Priority", "Yes");
     }
 
     public void selectIsLoARequired() {
         String selectedOption = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Is a Letter of Authority required?");
         setSessionVariable("isLoARequired").to(selectedOption);
+        recordCaseData.addValueToAssertSummary("Is a Letter of Authority required?", selectedOption);
     }
 
     public void completeDataInputScreen() {

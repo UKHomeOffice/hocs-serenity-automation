@@ -88,7 +88,6 @@ public class POGRProgressCase extends BasePage {
                 precedingStage = "INVESTIGATION";
                 break;
             case "QA":
-           // case "DISPATCH":
                 precedingStage = "DRAFT";
                 break;
             case "DISPATCH":
@@ -121,14 +120,6 @@ public class POGRProgressCase extends BasePage {
                 break;
             case "DRAFT":
                 movePOGRCaseFromDraftToQA();
-              /*  switch (targetStage.toUpperCase()) {
-                    case "QA":
-                        movePOGRCaseFromDraftToQA();
-                        break;
-                    case "DISPATCH":
-                        movePOGRCaseFromDraftToDispatch();
-                        break;
-                } */
                 break;
             case "QA":
                 movePOGRCaseFromQAToDispatch();

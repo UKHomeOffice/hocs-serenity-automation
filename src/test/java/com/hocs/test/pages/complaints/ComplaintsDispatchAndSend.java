@@ -21,6 +21,7 @@ public class ComplaintsDispatchAndSend extends BasePage {
             caseOutcome = recordCaseData.selectRandomOptionFromDropdownWithHeading("Case Outcome");
         } else {
             caseOutcome = recordCaseData.selectRandomOptionFromDropdownWithHeading("Dispatch Outcome");
+            recordCaseData.addValueToAssertSummary("Dispatch Outcome", caseOutcome);
             }
         if (iedetCase() && caseOutcome.equalsIgnoreCase("Other")) {
             recordCaseData.enterTextIntoTextAreaWithHeading("Please provide further details");

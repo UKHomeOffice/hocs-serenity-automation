@@ -355,6 +355,7 @@ Feature: Complaints End To End
     When I get a "POGR" case with "HMPO" as the Business Area at the "Case Closed" stage
     Then the case should be closed
     And all case data should be visible in the read-only Case Details accordion
+    And the summary tab should display the details entered at various stages
     And I wipe the record data
 
   Scenario: End to End workflow for GRO POGR complaint case
@@ -363,6 +364,7 @@ Feature: Complaints End To End
     When I get a "POGR" case with "GRO" as the Business Area at the "Case Closed" stage
     Then the case should be closed
     And all case data should be visible in the read-only Case Details accordion
+    And the summary tab should display the details entered at various stages
     And I wipe the record data
 
 #     POGR (STAGE 2) COMPLAINTS
@@ -409,6 +411,7 @@ Feature: Complaints End To End
     When I get a "POGR2" case with "HMPO" as the Business Area at the "Case Closed" stage
     Then the case should be closed
     And all case data should be visible in the read-only Case Details accordion
+    And the summary tab should display the details entered at various stages
     And I wipe the record data
 
   Scenario: End to End workflow for GRO POGR stage 2 complaint case
@@ -417,6 +420,7 @@ Feature: Complaints End To End
     When I get a "POGR2" case with "GRO" as the Business Area at the "Case Closed" stage
     Then the case should be closed
     And all case data should be visible in the read-only Case Details accordion
+    And the summary tab should display the details entered at various stages
     And I wipe the record data
 
 #  SMC workflow cancelled. Steps and code might be useful for future work implementing PSU specific sub-workflow into other complaints workflows

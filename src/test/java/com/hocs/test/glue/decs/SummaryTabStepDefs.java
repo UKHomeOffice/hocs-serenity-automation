@@ -366,4 +366,10 @@ public class SummaryTabStepDefs extends BasePage {
             summaryTab.assertSummaryContainsExpectedValueForGivenHeader(psuFinalResponseDate, "Final response sent");
 
     }
+
+    @And("the summary tab should display the details entered at various stages")
+    public void theSummaryTabShouldDisplayTheDetailsEnteredAtVariousStages() {
+        summaryTab.selectSummaryTab();
+        summaryTab.assertAllRecordedCaseDataCurrentlyVisibleInTheSummary();
+    }
 }
