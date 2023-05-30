@@ -258,13 +258,14 @@ public class BasePage extends PageObject {
 
     public String setCaseReferenceFromAssignedCase() {
         headerCaption1.waitUntilVisible().withTimeoutOf(Duration.ofSeconds(10));
-        withTimeoutOf(Duration.ofSeconds(20)).waitFor(ExpectedConditions.textToBePresentInElement(headerCaption1, getCurrentCaseType().toString()));
+        waitFor(ExpectedConditions.textToBePresentInElement(headerCaption1, getCurrentCaseType().toString()))
+                .withTimeoutOf(Duration.ofSeconds(20));
         setSessionVariable("caseReference").to(headerCaption1.getText());
         return headerCaption1.getText();
     }
 
     public String setCaseReferenceFromUnassignedCase() {
-        withTimeoutOf(Duration.ofSeconds(20)).waitFor(ExpectedConditions.textToBePresentInElement(header1, getCurrentCaseType().toString()));
+        waitFor(ExpectedConditions.textToBePresentInElement(header1, getCurrentCaseType().toString())).withTimeoutOf(Duration.ofSeconds(20));
         setSessionVariable("caseReference").to(header1.getText());
         return header1.getText();
     }

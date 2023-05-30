@@ -184,3 +184,4 @@ public class BaseStepDefs extends BasePage {
         System.out.println("Record data wiped");
     }
 }
+
