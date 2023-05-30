@@ -56,7 +56,7 @@ public class BFProgressCase extends BasePage {
     }
 
     public void createCaseOfTypeAndMoveItToTargetStageWithSpecifiedComplaintType(CaseType caseType, String complaintType, String targetStage) {
-       if(complaintType.equalsIgnoreCase("Minor misconduct")){ complaintType = "Minor misconduct";}
+       if(complaintType.equalsIgnoreCase("Minor misconduct")){complaintType = "Minor misconduct";}
         this.complaintType = complaintType;
         moveCaseOfTypeFromCurrentStageToTargetStage(caseType, "N/A", targetStage);
     }

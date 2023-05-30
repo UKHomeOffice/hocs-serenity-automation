@@ -242,7 +242,9 @@ public class CreateCase extends BasePage {
     }
 
     public void storeCorrespondenceReceivedDate() {
-        setSessionVariable("correspondenceReceivedDate").to(getDisplayedDateInDateFieldsWithHeading("When was the correspondence received?"));
+        String enterCorrespondenceReceivedDate = getDisplayedDateInDateFieldsWithHeading("When was the correspondence received?");
+        setSessionVariable("correspondenceReceivedDate").to(enterCorrespondenceReceivedDate);
+        recordCaseData.addValueToAssertSummary("When was the correspondence received?", enterCorrespondenceReceivedDate);
     }
 
     public boolean checkTargetUserIsLoggedInUsingCreateCasePage(User targetUser) {

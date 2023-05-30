@@ -2,6 +2,7 @@ package com.hocs.test.pages.decs;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -39,6 +40,7 @@ public class CaseView extends BasePage {
     // Basic methods
 
     public void clickAllocateToMeLink() {
+        waitABit(1000);
         safeClickOn(allocateToMeLink);
         allocateToMeLink.waitUntilNotVisible();
         tabs.waitUntilVisible();
@@ -129,5 +131,34 @@ public class CaseView extends BasePage {
                 n++;
             }
         }
+    }
+
+    public void assertExpectedValueIsVisibleInSummaryForGivenKey(String expectedAccordionValue, String accordionKey) {
+        List<String> visibleDisplayValues = getValuesFromSummarySectionForGivenKey(accordionKey);
+        boolean expectedValueIsDisplayed = false;
+        for (String visibleDisplayValue : visibleDisplayValues) {
+            if (visibleDisplayValue.contains(expectedAccordionValue)) {
+                expectedValueIsDisplayed = true;
+                break;
+            }
+        }
+        if (!expectedValueIsDisplayed) {
+            Assert.fail("'" + accordionKey + ": " + expectedAccordionValue + "' is not visible in summary");
+        }
+    }
+
+    public List<String> getValuesFromSummarySectionForGivenKey(String heading) {
+    //    List<WebElementFacade> valuesForMatchingHeadings = findAll("//Strong[contains(text(),'" + heading + "')]/parent::div");
+        List<WebElementFacade> valuesForMatchingHeadings = findAll("//th[contains(text(),'" + heading + "')]/following-sibling::td");
+        List<String> valuesText = new ArrayList<>();
+        for (WebElementFacade value : valuesForMatchingHeadings) {
+            if (value.isCurrentlyVisible()) {
+                String text = value.getText();
+            //    text = text.split(":")[1];
+            //    text = text.trim();
+                valuesText.add(text);
+            }
+        }
+        return valuesText;
     }
 }

@@ -88,9 +88,9 @@ public class TeamManagement extends BasePage {
     }
 
     public void selectATeam(String teamName) {
-        waitABit(1000);
+        waitABit(3000);
         teamSearchBar.withTimeoutOf(Duration.ofSeconds(60)).waitUntilVisible().sendKeys(teamName);
-        waitABit(1000);
+        waitABit(2000);
         setSessionVariable("teamName").to(teamName);
         teamSearchBar.sendKeys(Keys.ENTER);
         safeClickOn(viewTeamButton);
@@ -141,8 +141,10 @@ public class TeamManagement extends BasePage {
         String randomTeamValue = generateRandomString();
         String newTeamName = "Test Drafting Team - " + randomTeamValue;
         setSessionVariable("draftingTeamName").to(newTeamName);
+        waitABit(3000);
         typeInto(teamNameTextBox, newTeamName);
         unitTypeahead.sendKeys("Border Force");
+        waitABit(2000);
         unitTypeahead.sendKeys(Keys.ENTER);
         safeClickOn(addTeamButton);
     }
@@ -152,6 +154,7 @@ public class TeamManagement extends BasePage {
         setSessionVariable("initialDraftingTeamName").to(initialTeamName);
         selectATeam(initialTeamName);
         safeClickOn(editTeamButton);
+        waitABit(1000);
         String newTeamName = "Edited " + initialTeamName;
         setSessionVariable("newDraftingTeamName").to(newTeamName);
         typeInto(newTeamNameTextBox, newTeamName);

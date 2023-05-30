@@ -9,6 +9,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import config.User;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -18,6 +19,8 @@ import org.junit.Assert;
 public class SummaryTab extends BasePage {
 
     Workdays workdays;
+
+    RecordCaseData recordCaseData;
 
     @FindBy(xpath = "//th[text()='Deadline']/following-sibling::td")
     private WebElementFacade deadline;
@@ -524,5 +527,10 @@ public class SummaryTab extends BasePage {
                     "Summary was expected to contain " + expectedSummarySectionHeaders.toString() + ", but did not contain " + remainingHeadersToCheck
                             .toString());
         }
+    }
+
+    public void assertAllRecordedCaseDataCurrentlyVisibleInTheSummary() {
+
+        recordCaseData.assertAllRecordedCaseDataIsVisibleInTheSummaryTab();
     }
 }

@@ -77,7 +77,8 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     }
 
     public void selectTransferComplaint() {
-            recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No - transfer the complaint to CCH", "Can your team respond to this " + "complaint?");
+            recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("No - transfer the complaint to CCH", "Can your team respond to this "
+                    + "complaint?");
         clickContinueButton();
     }
 
@@ -160,7 +161,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
         double consolatoryOffer = Double.parseDouble(sessionVariableCalled("consolatoryOfferAmount").toString());
         double exGratiaOffer = Double.parseDouble(sessionVariableCalled("exGratiaOfferAmount").toString());
         double totalOffer = consolatoryOffer + exGratiaOffer;
-        waitABit(1000);
+        waitABit(2000);
         String totalOfferFieldOffer = totalOfferSentToComplainantField.getValue();
         double displayedTotalOffer = Double.parseDouble(totalOfferFieldOffer);
         assertThat(totalOffer == displayedTotalOffer, is(true));
@@ -173,16 +174,23 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
 
     public void selectIEDETClaimCategory(String category) {
         setSessionVariable("complaintCategory").to(category);
-        List<WebElementFacade> claimCategories = findAll("//span[text()='" + category + "']/parent::legend/following-sibling::div//label");
+        List<WebElementFacade> claimCategories;
+        claimCategories = findAll("//span[text()='" + category + "']/parent::legend/following-sibling::div//label");
+        if(claimCategories.isEmpty()){
+            waitABit(4000);
+            claimCategories = findAll("//span[text()='" + category + "']/parent::legend/following-sibling::div//label");
+        }
         String selectedClaimCategory = checkRandomCheckboxFromList(claimCategories);
         setSessionVariable("claimCategory").to(selectedClaimCategory);
     }
 
     public void selectUKVIClaimCategory(String category) {
         setSessionVariable("complaintCategory").to(category);
-        List<WebElementFacade> claimCategories = findAll("//span[text()='" + category + "']/parent::legend/following-sibling::div//label");
+        List<WebElementFacade> claimCategories;
+        claimCategories = findAll("//span[text()='" + category + "']/parent::legend/following-sibling::div//label");
         if(claimCategories.isEmpty()){
             waitABit(4000);
+            claimCategories = findAll("//span[text()='" + category + "']/parent::legend/following-sibling::div//label");
         }
         String selectedClaimCategory = checkRandomCheckboxFromList(claimCategories);
         setSessionVariable("claimCategory").to(selectedClaimCategory);
@@ -190,9 +198,11 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
 
     public void selectBFClaimCategory(String category) {
         setSessionVariable("complaintCategory").to(category);
-        List<WebElementFacade> claimCategories = findAll("//span[text()='" + category + "']/parent::legend/following-sibling::div//label");
+        List<WebElementFacade> claimCategories;
+                claimCategories = findAll("//span[text()='" + category + "']/parent::legend/following-sibling::div//label");
         if(claimCategories.isEmpty()){
             waitABit(4000);
+             claimCategories = findAll("//span[text()='" + category + "']/parent::legend/following-sibling::div//label");
         }
         String selectedClaimCategory = checkRandomCheckboxFromList(claimCategories);
         setSessionVariable("claimCategory").to(selectedClaimCategory);
@@ -241,12 +251,12 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
 
                 }
                 setSessionVariable("reasonForComplaint" + i).to(selectedReasonForComplaint);
-        }
+            }
     }
 
     public void enterDetailsOnTriageCaptureReasonPage() {
         String complaintType = sessionVariableCalled("complaintType");
-        if ((compCase() || comp2Case() || comp2DirectCase()) && (complaintType.equals("Service") || complaintType.equals("Minor misconduct"))) {
+         if ((compCase() || comp2Case() || comp2DirectCase()) && (complaintType.equals("Service") || complaintType.equals("Minor misconduct"))) {
             recordCaseData.selectRandomOptionFromDropdownWithHeading("Directorate");
         }
         String businessArea = recordCaseData.selectRandomOptionFromDropdownWithHeading("Business area");
@@ -395,6 +405,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
 
     public void acceptCaseAtInvestigation() {
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Yes - accept the complaint", "Can your team respond to this complaint?");
+        recordCaseData.addValueToAssertSummary("Can your team respond to this complaint?", "Yes - accept the complaint");
         clickContinueButton();
     }
 

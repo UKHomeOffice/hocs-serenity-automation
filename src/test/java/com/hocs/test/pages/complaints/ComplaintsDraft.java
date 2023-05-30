@@ -82,4 +82,9 @@ public class ComplaintsDraft extends BasePage {
         String callDetails = recordCaseData.enterTextIntoTextAreaWithHeading("Details of Phone Call");
         setSessionVariable("callDetails").to(callDetails);
     }
+
+    public void selectActionAtQA(String action) {
+        recordCaseData.selectSpecificRadioButton(action);
+        clickContinueButton();
+    }
 }

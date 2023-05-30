@@ -13,6 +13,8 @@ public class RecordCaseData extends BasePage{
 
     static HashMap<String, String> dataRecords = new HashMap<>();
 
+    static HashMap<String, String> summaryRecords = new HashMap<>();
+
     CaseView caseView;
 
     public static void checkIfDataRecordsShouldBeWiped() {
@@ -74,7 +76,7 @@ public class RecordCaseData extends BasePage{
     public void enterSpecificTextIntoTextFieldWithHeading(String textToEnter, String headingText) {
         super.enterSpecificTextIntoTextFieldWithHeading(textToEnter, headingText);
         addHeadingAndValueRecord(headingText, textToEnter);
-    }
+   }
 
     // Text areas
 
@@ -173,5 +175,17 @@ public class RecordCaseData extends BasePage{
     public void assertComplaintTypeInTheReadOnlyAccordion(String complaintType) {
         assertThat(caseView.getValuesFromOpenCaseDetailsAccordionSectionForGivenKey("Complaint type").get(0).equalsIgnoreCase(complaintType),
                 is(true));
+    }
+
+    public void assertAllRecordedCaseDataIsVisibleInTheSummaryTab() {
+        for(HashMap.Entry<String, String> entry : summaryRecords.entrySet()) {
+            String accordionKey = entry.getKey();
+            String expectedAccordionValue = entry.getValue();
+            caseView.assertExpectedValueIsVisibleInSummaryForGivenKey(expectedAccordionValue, accordionKey);
+        }
+    }
+
+    public void addValueToAssertSummary(String headingText, String optionValue) {
+        summaryRecords.put(headingText, optionValue);
     }
 }

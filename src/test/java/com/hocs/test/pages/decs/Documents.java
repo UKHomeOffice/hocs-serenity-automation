@@ -49,13 +49,13 @@ public class Documents extends BasePage {
     @FindBy(css = "[value='Remove']")
     public WebElementFacade removeButton;
 
-    @FindBy(xpath = "//td/strong[contains(text(), 'PENDING')]")
+    @FindBy(xpath = "//td/strong[contains(text(), 'Pending')]")
     public WebElementFacade pendingTag;
 
-    @FindBy(xpath = "//td/strong[contains(text(), 'Failed Conversion')]")
+    @FindBy(xpath = "//td/strong[contains(text(), 'Failed PDF Conversion')]")
     public WebElementFacade failedConversionTag;
 
-    @FindBy(xpath = "//td/strong[contains(text(), 'Failed Virus Scan')]")
+    @FindBy(xpath = "//td/strong[contains(text(), 'Malware Found')]")
     public WebElementFacade failedVirusScanTag;
 
     @FindBy(xpath = "//td/strong[contains(text(), 'UPLOADED')]")

@@ -172,7 +172,6 @@ Scenario Outline: When a user selects one of the Complaint Outcome and enters th
     Then I select Complaint Type at PSU Complaint Outcome Page page
     Then I enter the Final response and Final date
     Then the case should be closed
-  #  And  the summary should contain details of the Complaint Outcome selection
     And  the read-only Case Details accordion should contain all case information entered during the "PSU Outcome" stage
 
     Examples:

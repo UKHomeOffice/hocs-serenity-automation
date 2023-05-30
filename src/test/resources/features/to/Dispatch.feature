@@ -6,7 +6,7 @@ Feature: Dispatch
     And I get a "TO" case at the "Dispatch" stage
 
   @TOWorkflow @TORegression
-  Scenario: As a Disptach user, I want to be able to enter the details of dispatch, so the case can be closed
+  Scenario: As a Dispatch user, I want to be able to enter the details of dispatch, so the case can be closed
     When I add a "Final Response" type document to the case
     And I enter the details of the dispatch
     And I confirm the case is completed
