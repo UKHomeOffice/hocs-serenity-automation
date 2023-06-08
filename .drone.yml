@@ -185,8 +185,8 @@ name: MPAM-1-Regression
 depends_on:
   - SMOKE
 trigger:
-  #  branch:
-  #    - main
+  branch:
+    - main
   event:
     - push
 steps:
@@ -350,8 +350,8 @@ name: COMPPSU-Regression
 depends_on:
   - SMOKE
 trigger:
-  #  branch:
-  #    - main
+  branch:
+    - main
   event:
     - push
 steps:
@@ -577,8 +577,8 @@ name: IEDET-Regression
 depends_on:
   - SMOKE
 trigger:
-#  branch:
-#    - main
+  branch:
+    - main
   event:
     - push
 steps:
@@ -687,8 +687,8 @@ name: TO-Regression
 depends_on:
   - SMOKE
 trigger:
-  #  branch:
-  #    - main
+  branch:
+    - main
   event:
     - push
 steps:
