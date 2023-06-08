@@ -577,6 +577,7 @@ name: IEDET-Regression
 depends_on:
   - SMOKE
 trigger:
+
   branch:
     - main
   event:
