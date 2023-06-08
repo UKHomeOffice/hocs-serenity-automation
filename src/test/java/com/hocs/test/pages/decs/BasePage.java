@@ -828,28 +828,32 @@ public class BasePage extends PageObject {
         try {
             clickOn(typeahead);
         } catch (StaleElementReferenceException | NoSuchElementException e) {
+            waitABit(1500);
             typeahead = getTypeaheadElementWithSpecificHeading(headingText);
             clickOn(typeahead);
         }
-        waitABit(500);
+        waitABit(1500);
         try {
             typeahead.sendKeys(optionText);
         } catch (StaleElementReferenceException | NoSuchElementException e) {
+            waitABit(1500);
             typeahead = getTypeaheadElementWithSpecificHeading(headingText);
             typeahead.sendKeys(optionText);
         }
-        waitABit(500);
+        waitABit(1500);
         try {
             typeahead.sendKeys(Keys.RETURN);
         } catch (StaleElementReferenceException | NoSuchElementException e) {
+            waitABit(1500);
             typeahead = getTypeaheadElementWithSpecificHeading(headingText);
             typeahead.sendKeys(Keys.RETURN);
         }
-        waitABit(500);
+        waitABit(1500);
         String selectedOptionText;
         try {
             selectedOptionText = getCurrentlySelectedOptionFromTypeaheadWithHeading(headingText);
         } catch (StaleElementReferenceException | NoSuchElementException e) {
+            waitABit(1500);
             selectedOptionText = getCurrentlySelectedOptionFromTypeaheadWithHeading(headingText);
         }
         return selectedOptionText;
