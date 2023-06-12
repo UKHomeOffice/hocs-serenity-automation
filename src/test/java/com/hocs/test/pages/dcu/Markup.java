@@ -117,7 +117,9 @@ public class Markup extends BasePage {
     // Multi Step Methods
 
     public void addTopicToCase(String topic) {
+        waitABit(1000);
         clickAddTopicLink();
+        waitABit(1000);
         selectSpecificOptionFromTypeaheadWithHeading(topic, "Topic");
         waitABit(1000);
         clickAddButton();

@@ -4,7 +4,7 @@ Feature: End To End
   Background:
     Given I am logged into "WCS" as user "WCS_USER"
 
-  @Workflow @WCSRegression
+  @Workflow @WCSRegression @E2ETests
   Scenario: User moves a claim from creation to closed
     When I create a single "WCS" claim
     And I complete the "Registration" stage
