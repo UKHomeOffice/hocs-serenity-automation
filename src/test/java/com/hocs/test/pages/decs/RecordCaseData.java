@@ -20,6 +20,7 @@ public class RecordCaseData extends BasePage{
     public static void checkIfDataRecordsShouldBeWiped() {
         if (!keepAllCaseData) {
             dataRecords = new HashMap<>();
+            summaryRecords = new HashMap<>();
         }
     }
 
@@ -179,9 +180,9 @@ public class RecordCaseData extends BasePage{
 
     public void assertAllRecordedCaseDataIsVisibleInTheSummaryTab() {
         for(HashMap.Entry<String, String> entry : summaryRecords.entrySet()) {
-            String accordionKey = entry.getKey();
-            String expectedAccordionValue = entry.getValue();
-            caseView.assertExpectedValueIsVisibleInSummaryForGivenKey(expectedAccordionValue, accordionKey);
+            String summaryKey = entry.getKey();
+            String expectedSummaryValue = entry.getValue();
+            caseView.assertExpectedValueIsVisibleInSummaryForGivenKey(expectedSummaryValue, summaryKey);
         }
     }
 

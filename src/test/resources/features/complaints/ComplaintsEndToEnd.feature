@@ -264,6 +264,19 @@ Feature: Complaints End To End
       | Service          |
       | Minor misconduct |
 
+  Scenario Outline: End to End workflow for BF stage 1 complaint case
+    Given I am logged into "CS" as user "BF_USER"
+    And I choose not to wipe the record data until the end
+    When I create a "BF" case for a "<complaintType>" complaint and move it to "Case Closed"
+    Then the case should be closed
+    And all case data should be visible in the read-only Case Details accordion
+    And the summary tab should display the details entered at various stages
+    And I wipe the record data
+    Examples:
+      | complaintType    |
+      | Service          |
+      | Minor misconduct |
+
 
 #     BF STAGE 2 COMPLAINTS
 
@@ -309,6 +322,14 @@ Feature: Complaints End To End
     When I create a "BF2" case and move it to the "Case Closed" stage
     Then the case should be closed
 
+  Scenario: End to End workflow for BF stage 2 complaint case
+    Given I am logged into "CS" as user "BF_USER"
+    And I choose not to wipe the record data until the end
+    When I create a "BF2" case and move it to "Case Closed"
+    Then the case should be closed
+    And all case data should be visible in the read-only Case Details accordion
+    And the summary tab should display the details entered at various stages
+    And I wipe the record data
 
 #     POGR COMPLAINTS
 

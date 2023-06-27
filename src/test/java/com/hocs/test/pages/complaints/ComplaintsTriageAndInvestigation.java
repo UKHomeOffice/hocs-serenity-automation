@@ -234,8 +234,10 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     }
 
     public void enterDetailsOnBFTriageDetailsPage() {
-        recordCaseData.selectRandomOptionFromDropdownWithHeading("Region");
-        recordCaseData.selectRandomOptionFromDropdownWithHeading("Business area");
+        String region = recordCaseData.selectRandomOptionFromDropdownWithHeading("Region");
+        recordCaseData.addValueToAssertSummary("Region", region);
+        String businessArea = recordCaseData.selectRandomOptionFromDropdownWithHeading("Business area");
+        recordCaseData.addValueToAssertSummary("Business area", businessArea);
         selectBFReasonsForComplaint();
         selectIsLoARequired();
         selectComplainantHasRequestedPayment("No");
@@ -246,9 +248,10 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     private void selectBFReasonsForComplaint() {
         for (int i = 1; i <= 5; i++) {
                 String selectedReasonForComplaint = recordCaseData.selectRandomOptionFromDropdownWithHeading("Complaint reason " + i);
+                recordCaseData.addValueToAssertSummary("Reason for Complaint " + i, selectedReasonForComplaint);
                 if (selectedReasonForComplaint.equals("Other")) {
-                    recordCaseData.enterTextIntoTextAreaWithHeading("Other - details (complaint reason "+i+")");
-
+                    String otherReasonForComplaint = recordCaseData.enterTextIntoTextAreaWithHeading("Other - details (complaint reason "+i+")");
+                    recordCaseData.addValueToAssertSummary("Other - details (Complaint Reason "+i+")", otherReasonForComplaint);
                 }
                 setSessionVariable("reasonForComplaint" + i).to(selectedReasonForComplaint);
             }
@@ -271,6 +274,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
 
     public void selectIsLoARequired() {
         String selectedOption = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Is a Letter of Authority required?");
+        recordCaseData.addValueToAssertSummary("Is a Letter of Authority required?", selectedOption);
         setSessionVariable("isLoARequired").to(selectedOption);
         if ((bfCase() || bf2Case()) && selectedOption.equalsIgnoreCase("YES")) {
             enterLoAReceivedDetails();
