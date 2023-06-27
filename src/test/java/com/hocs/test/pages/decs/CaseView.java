@@ -148,8 +148,12 @@ public class CaseView extends BasePage {
     }
 
     public List<String> getValuesFromSummarySectionForGivenKey(String heading) {
-    //    List<WebElementFacade> valuesForMatchingHeadings = findAll("//Strong[contains(text(),'" + heading + "')]/parent::div");
-        List<WebElementFacade> valuesForMatchingHeadings = findAll("//th[contains(text(),'" + heading + "')]/following-sibling::td");
+        List<WebElementFacade> valuesForMatchingHeadings;
+        if(heading.equalsIgnoreCase("Complainant's nationality")){
+            valuesForMatchingHeadings = findAll("//th[contains(text(), \"Complainant's nationality\")]/following-sibling::td");
+        }else{
+            valuesForMatchingHeadings = findAll("//th[contains(text(),'" + heading + "')]/following-sibling::td");
+        }
         List<String> valuesText = new ArrayList<>();
         for (WebElementFacade value : valuesForMatchingHeadings) {
             if (value.isCurrentlyVisible()) {

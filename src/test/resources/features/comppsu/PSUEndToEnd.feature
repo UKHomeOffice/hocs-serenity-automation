@@ -27,3 +27,18 @@ Feature: PSU End to End
       | caseType |
       | BF       |
 
+   # HOCS- 6693
+  @E2ETests
+  Scenario Outline: End to End workflow for BF PSU complaint case
+    Given I am logged into "CS" as user "BF_USER"
+    And I choose not to wipe the record data until the end
+    When I create a "BF" case for a "<complaintType>" complaint and move it to "PSU_Closed"
+    Then the case should be closed
+    And all case data should be visible in the read-only Case Details accordion
+    And the summary tab should display the details entered at various stages
+    When I logout of the application
+    And I wipe the record data
+    Examples:
+      | complaintType    |
+      | Service          |
+      | Minor misconduct |
