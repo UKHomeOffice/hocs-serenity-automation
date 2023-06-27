@@ -27,6 +27,8 @@ Feature: PSU End to End
       | caseType |
       | BF       |
 
+   # HOCS- 6693
+  @E2ETests
   Scenario Outline: End to End workflow for BF PSU complaint case
     Given I am logged into "CS" as user "BF_USER"
     And I choose not to wipe the record data until the end
