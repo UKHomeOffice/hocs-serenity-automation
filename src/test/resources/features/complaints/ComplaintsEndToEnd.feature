@@ -195,6 +195,14 @@ Feature: Complaints End To End
     When I create a "IEDET" case and move it to "Case Closed"
     Then the case should be closed
 
+  Scenario: Robust End to End flow with IEDET CaseType
+    Given I am logged into "CS" as user "IEDET_USER"
+    And I choose not to wipe the record data until the end
+    When I create a "IEDET" case and move it to "Case Closed"
+    Then the case should be closed
+    And all case data should be visible in the read-only Case Details accordion
+    And the summary tab should display the details entered at various stages
+    And I wipe the record data
 
 #     BF COMPLAINTS
 

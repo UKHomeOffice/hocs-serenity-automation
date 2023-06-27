@@ -245,7 +245,12 @@ public class Correspondents extends BasePage {
         WebElementFacade selectedPrimaryCorrespondent = findBy("//input[@name='Correspondents'][@checked]/following-sibling::label");
         selectedPrimaryCorrespondent.waitUntilVisible();
         String primaryCorrespondentsName = selectedPrimaryCorrespondent.getText();
-        recordCaseData.addHeadingAndValueRecord("Which is the primary correspondent?", primaryCorrespondentsName);
+        if(iedetCase()){
+            recordCaseData.addHeadingAndValueRecord("Who is the primary correspondent?", primaryCorrespondentsName);
+        } else {
+            recordCaseData.addHeadingAndValueRecord("Which is the primary correspondent?", primaryCorrespondentsName);
+        }
+//        recordCaseData.addHeadingAndValueRecord("Which is the primary correspondent?", primaryCorrespondentsName);
         setSessionVariable("primaryCorrespondent").to(primaryCorrespondentsName);
         if (dcuCase()) {
             clickFinishButton();
