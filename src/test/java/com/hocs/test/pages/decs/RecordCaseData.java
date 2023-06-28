@@ -161,6 +161,7 @@ public class RecordCaseData extends BasePage{
         for(HashMap.Entry<String, String> entry : dataRecords.entrySet()) {
             String accordionKey = entry.getKey();
             String expectedAccordionValue = entry.getValue();
+            System.out.println("Checking "+accordionKey +" against "+expectedAccordionValue);
             caseView.assertExpectedValueIsVisibleInOpenCaseDetailsAccordionForGivenKey(expectedAccordionValue, accordionKey);
         }
     }
