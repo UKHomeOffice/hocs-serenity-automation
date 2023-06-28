@@ -45,12 +45,14 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         recordCaseData.selectRandomOptionFromDropdownWithHeading("Nationality");
     }
     public void selectAComplainantsNationality() {
-              selectRandomOptionFromDropdownWithHeading("Complainant's nationality");
+            String complainantsNationality = selectRandomOptionFromDropdownWithHeading("Complainant's nationality");
+            recordCaseData.addValueToAssertSummary("Complainant's nationality", complainantsNationality);
     }
 
     public void enterACompanyName() {
         if (iedetCase() || bfCase() || bf2Case()){
-            recordCaseData.enterTextIntoTextFieldWithHeading("Company name");
+            String companyName = recordCaseData.enterTextIntoTextFieldWithHeading("Company name");
+            recordCaseData.addValueToAssertSummary("Company name", companyName);
         }else{
             String companyName = recordCaseData.enterTextIntoTextFieldWithHeading("Company Name");
             recordCaseData.addValueToAssertSummary("Company Name", companyName);
@@ -60,6 +62,7 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
     public void enterAHomeOfficeReference(String HOReference) {
         if(iedetCase() || bfCase() || bf2Case()){
             recordCaseData.enterSpecificTextIntoTextFieldWithHeading(HOReference, "Home Office reference");
+            recordCaseData.addValueToAssertSummary( "Home Office reference", HOReference);
         } else {
             recordCaseData.enterSpecificTextIntoTextFieldWithHeading(HOReference, "Home Office Reference");
         }
@@ -67,7 +70,8 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
 
     public void enterAPortReference() {
         if(iedetCase() || bfCase() || bf2Case()){
-            recordCaseData.enterTextIntoTextFieldWithHeading("Port reference");
+            String portReference = recordCaseData.enterTextIntoTextFieldWithHeading("Port reference");
+            recordCaseData.addValueToAssertSummary("Port reference", portReference);
         } else {
             recordCaseData.enterTextIntoTextFieldWithHeading("Port Reference");
         }
@@ -91,7 +95,8 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         if(iedetCase()){
               recordCaseData.selectSpecificRadioButton(complaintType);
         } else if (compCase()||comp2Case()||comp2DirectCase()||bfCase()||bf2Case()) {
-            recordCaseData.selectSpecificRadioButton(complaintType);
+           recordCaseData.selectSpecificRadioButton(complaintType);
+           recordCaseData.addValueToAssertSummary("Complaint type", complaintType);
         } else {
             recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(complaintType, "Complaint Type");
         }
@@ -192,7 +197,8 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
     }
     public void enterAPreviousComplaintReference() {
         if(bfCase() || bf2Case()){
-            recordCaseData.enterTextIntoTextFieldWithHeading("Previous complaint reference");
+            String previousComplaintReference = recordCaseData.enterTextIntoTextFieldWithHeading("Previous complaint reference");
+            recordCaseData.addValueToAssertSummary("Previous complaint reference", previousComplaintReference);
         } else{
             recordCaseData.enterTextIntoTextFieldWithHeading("Previous Complaint Reference");
         }
@@ -205,7 +211,8 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         if (iedetCase() || bfCase() || bf2Case()) {
             recordCaseData.enterTextIntoTextFieldWithHeading("Third party reference");
         } else if(compCase() || comp2Case() || comp2DirectCase()) {
-            recordCaseData.enterTextIntoTextFieldWithHeading("Third party reference");
+            String thirdPartyReference = recordCaseData.enterTextIntoTextFieldWithHeading("Third party reference");
+            recordCaseData.addValueToAssertSummary("Third Party Reference", thirdPartyReference);
         } else {
             String thirdPartyReference = recordCaseData.enterTextIntoTextFieldWithHeading("Third Party Reference");
             recordCaseData.addValueToAssertSummary("Third Party Reference", thirdPartyReference);
@@ -389,6 +396,7 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
 
     public void enterAPSUReference() {
         String psuReference = recordCaseData.enterTextIntoTextFieldWithHeading("PSU reference");
+        recordCaseData.addValueToAssertSummary("PSU reference", psuReference);
         setSessionVariable("psuReference").to(psuReference);
     }
 

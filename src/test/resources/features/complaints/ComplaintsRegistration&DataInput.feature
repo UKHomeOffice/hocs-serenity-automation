@@ -318,7 +318,7 @@ Feature: Registration
 
 #     POGR Stage 2 Complaints
 
-  @ComplaintsWorkflow @ComplaintsRegression2 @POGRComplaints
+  @ComplaintsWorkflow @POGRRegression @POGRComplaints
   Scenario: User is able to complete the Data Input stage for a POGR stage 2 complaint case with HMPO as the business area
     Given I am logged into "CS" as user "POGR_USER"
     When I get a "POGR2" case with "HMPO" as the Business Area at the "Data Input" stage
@@ -331,7 +331,7 @@ Feature: Registration
     And the summary should display the owning team as "HMPO Complaints"
     And the read-only Case Details accordion should contain all case information entered during the "Data Input" stage
 
-  @ComplaintsWorkflow @ComplaintsRegression2 @POGRComplaints
+  @ComplaintsWorkflow @POGRRegression @POGRComplaints
   Scenario: User is able to complete the Data Input stage for a POGR stage 2 complaint case with GRO as the business area
     Given I am logged into "CS" as user "POGR_USER"
     When I get a "POGR2" case with "GRO" as the Business Area at the "Data Input" stage

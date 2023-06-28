@@ -20,6 +20,7 @@ public class RecordCaseData extends BasePage{
     public static void checkIfDataRecordsShouldBeWiped() {
         if (!keepAllCaseData) {
             dataRecords = new HashMap<>();
+            summaryRecords = new HashMap<>();
         }
     }
 

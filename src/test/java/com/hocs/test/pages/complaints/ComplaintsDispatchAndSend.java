@@ -36,7 +36,8 @@ public class ComplaintsDispatchAndSend extends BasePage {
 
     public void selectAResponseChannel() {
         if (!pogrCase() && !pogr2Case()) {
-            recordCaseData.selectRandomOptionFromDropdownWithHeading("Response Channel");
+            String responseChannel =  recordCaseData.selectRandomOptionFromDropdownWithHeading("Response Channel");
+            recordCaseData.addValueToAssertSummary("Response Channel", responseChannel);
         } else {
             recordCaseData.selectRandomOptionFromDropdownWithHeading("Dispatch Channel");
         }
@@ -52,6 +53,7 @@ public class ComplaintsDispatchAndSend extends BasePage {
             headerText = "Dispatch Date";
         }
         recordCaseData.enterDateIntoDateFieldsWithHeading(getDatePlusMinusNDaysAgo(-1), headerText);
+        recordCaseData.addValueToAssertSummary(headerText, getDatePlusMinusNDaysAgo(-1));
     }
 
     public void enterFinalResponseSentDate(){
@@ -75,6 +77,7 @@ public class ComplaintsDispatchAndSend extends BasePage {
 
     public void enterGratisOfferedDetails() {
         String gratisOffered = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Gratis Offered");
+        recordCaseData.addValueToAssertSummary("Gratis Offered", gratisOffered);
         if (gratisOffered.equalsIgnoreCase("YES")) {
             recordCaseData.selectRandomOptionFromDropdownWithHeading("Document lost or damaged");
             recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Document replaced/replacement ordered");
