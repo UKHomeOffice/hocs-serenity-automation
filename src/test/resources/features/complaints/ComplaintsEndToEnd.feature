@@ -195,6 +195,8 @@ Feature: Complaints End To End
     When I create a "IEDET" case and move it to "Case Closed"
     Then the case should be closed
 
+  #HOCS-6694
+  @E2ETests
   Scenario: Robust End to End flow with IEDET CaseType
     Given I am logged into "CS" as user "IEDET_USER"
     And I choose not to wipe the record data until the end

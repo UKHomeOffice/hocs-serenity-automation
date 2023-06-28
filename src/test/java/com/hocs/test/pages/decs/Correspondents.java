@@ -250,7 +250,6 @@ public class Correspondents extends BasePage {
         } else {
             recordCaseData.addHeadingAndValueRecord("Which is the primary correspondent?", primaryCorrespondentsName);
         }
-//        recordCaseData.addHeadingAndValueRecord("Which is the primary correspondent?", primaryCorrespondentsName);
         setSessionVariable("primaryCorrespondent").to(primaryCorrespondentsName);
         if (dcuCase()) {
             clickFinishButton();
