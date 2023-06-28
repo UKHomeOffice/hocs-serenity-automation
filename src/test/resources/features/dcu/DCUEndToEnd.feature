@@ -94,6 +94,8 @@ Feature: DCU End To End
     And I complete the "Dispatch" stage
     Then the case should be closed
 
+  #HOCS-6617
+  @E2ETests
   Scenario: Robust End to end flow with DCU MIN CaseType
     When I get a new "MIN" case
     And I choose not to wipe the record data until the end
@@ -123,6 +125,8 @@ Feature: DCU End To End
     And I complete the "Dispatch" stage
     Then the case should be closed
 
+  #HOCS-6617
+  @E2ETests
   Scenario: Robust End to end flow with DCU N10 CaseType
     When I get a new "DTEN" case
     And I choose not to wipe the record data until the end
@@ -148,6 +152,8 @@ Feature: DCU End To End
     And I complete the "Dispatch" stage
     Then the case should be closed
 
+  #HOCS-6617
+  @E2ETests
   Scenario: Robust End to end flow with DCU TRO CaseType
     When I get a new "TRO" case
     And I choose not to wipe the record data until the end

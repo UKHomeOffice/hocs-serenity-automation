@@ -186,7 +186,7 @@ public class IEDETProgressCase extends BasePage {
         documents.addADocumentOfDocumentType("Final response");
         complaintsDispatchAndSend.selectACaseOutcome();
         complaintsDispatchAndSend.enterADateOfResponse();
-        complaintsDispatchAndSend.selectAction("Close the case");
+        selectSpecificRadioButton("Close the case");
         clickTheButton("Complete");
         System.out.println("Case moved from Send to Closed");
     }
