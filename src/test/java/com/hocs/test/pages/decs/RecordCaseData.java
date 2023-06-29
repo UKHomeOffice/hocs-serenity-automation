@@ -63,7 +63,10 @@ public class RecordCaseData extends BasePage{
         if((compCase() || comp2Case() || comp2DirectCase()) && (headingText.equalsIgnoreCase("Date of acceptance"))){
                 headingText = "Date of Acceptance";
         }
-        addHeadingAndValueRecord(headingText, date);
+        if(headingText.equalsIgnoreCase("Date Letter Sent") && !pogr2Case()){
+            addHeadingAndValueRecord(headingText, date);
+        }
+
     }
 
     //Text fields
