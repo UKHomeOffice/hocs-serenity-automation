@@ -55,7 +55,9 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
             recordCaseData.addValueToAssertSummary("Company name", companyName);
         }else{
             String companyName = recordCaseData.enterTextIntoTextFieldWithHeading("Company Name");
-            recordCaseData.addValueToAssertSummary("Company Name", companyName);
+            if(!compCase()) {
+                recordCaseData.addValueToAssertSummary("Company Name", companyName);
+            }
         }
     }
 
@@ -177,6 +179,7 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
 
     public void selectASeverity() {
         String selectedSeverity = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Severity");
+        recordCaseData.addValueToAssertSummary("Severity", selectedSeverity);
         if (selectedSeverity.equalsIgnoreCase("Very high")| selectedSeverity.equalsIgnoreCase("High")) {
             recordCaseData.checkSpecificCheckbox("Safe guarding");
             recordCaseData.checkSpecificCheckbox("Vulnerable");
@@ -186,7 +189,8 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
     public void enterAPreviousUKVIComplaintReference() {
         String complaintType = sessionVariableCalled("complaintType");
         if(compCase() || comp2Case() || comp2DirectCase()){
-            recordCaseData.enterTextIntoTextFieldWithHeading("Previous UKVI complaint reference");
+            String previousUKVICompRef = recordCaseData.enterTextIntoTextFieldWithHeading("Previous UKVI complaint reference");
+            recordCaseData.addValueToAssertSummary("Previous UKVI complaint reference", previousUKVICompRef);
         }else {
             recordCaseData.enterTextIntoTextFieldWithHeading("Previous UKVI Complaint Ref");
         }
@@ -212,7 +216,7 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
             recordCaseData.enterTextIntoTextFieldWithHeading("Third party reference");
         } else if(compCase() || comp2Case() || comp2DirectCase()) {
             String thirdPartyReference = recordCaseData.enterTextIntoTextFieldWithHeading("Third party reference");
-            recordCaseData.addValueToAssertSummary("Third Party Reference", thirdPartyReference);
+            recordCaseData.addValueToAssertSummary("Third party reference", thirdPartyReference);
         } else {
             String thirdPartyReference = recordCaseData.enterTextIntoTextFieldWithHeading("Third Party Reference");
             recordCaseData.addValueToAssertSummary("Third Party Reference", thirdPartyReference);
