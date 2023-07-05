@@ -87,7 +87,8 @@ Feature: Complaints End To End
       | Ex-Gratia        |
       | Minor misconduct |
 
-  @E2ETests @HOCS-6700
+    # HOCS- 6700
+  @E2ETests
   Scenario Outline: End to End workflow for UKVI stage 1 complaint case
     Given I am logged into "CS" as user "COMP_USER"
     And I choose not to wipe the record data until the end
@@ -166,7 +167,8 @@ Feature: Complaints End To End
       | Ex-Gratia        |
       | Minor misconduct |
 
-  @E2ETests @HOCS-6700
+    # HOCS- 6700
+  @E2ETests
   Scenario Outline: End to End workflow for UKVI stage 2 complaint case
     Given I am logged into "CS" as user "COMP_USER"
     And I choose not to wipe the record data until the end
@@ -192,7 +194,8 @@ Feature: Complaints End To End
       | Ex-Gratia        |
       | Minor misconduct |
 
-  @E2ETests @HOCS-6700
+    # HOCS- 6700
+  @E2ETests
   Scenario Outline: End to End workflow for Direct UKVI stage 2 complaint case
     Given I am logged into "CS" as user "COMP_USER"
     And I choose not to wipe the record data until the end
