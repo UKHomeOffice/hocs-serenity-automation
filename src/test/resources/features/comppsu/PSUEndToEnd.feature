@@ -53,3 +53,20 @@ Feature: PSU End to End
       | complaintType    |
       | Service          |
       | Minor misconduct |
+
+   # HOCS- 6700
+  @E2ETests
+  Scenario Outline: End to End workflow for COMP PSU complaint case
+    Given I am logged into "CS" as user "COMP_USER"
+    And I choose not to wipe the record data until the end
+    When I create a "<caseType>" case and move it to the "PSU_CLOSED" stage
+    Then the case should be closed
+    And all case data should be visible in the read-only Case Details accordion
+    And the summary tab should display the details entered at various stages
+    When I logout of the application
+    And I wipe the record data
+    Examples:
+      | caseType    |
+      | COMP        |
+      | COMP2       |
+      | COMP2DIRECT |

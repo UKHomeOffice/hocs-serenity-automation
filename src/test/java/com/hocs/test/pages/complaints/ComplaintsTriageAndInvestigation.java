@@ -260,14 +260,17 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     public void enterDetailsOnTriageCaptureReasonPage() {
         String complaintType = sessionVariableCalled("complaintType");
          if ((compCase() || comp2Case() || comp2DirectCase()) && (complaintType.equals("Service") || complaintType.equals("Minor misconduct"))) {
-            recordCaseData.selectRandomOptionFromDropdownWithHeading("Directorate");
+             String directorate = recordCaseData.selectRandomOptionFromDropdownWithHeading("Directorate");
+             recordCaseData.addValueToAssertSummary("Directorate", directorate);
         }
         String businessArea = recordCaseData.selectRandomOptionFromDropdownWithHeading("Business area");
+        recordCaseData.addValueToAssertSummary("Business area", businessArea);
         if (iedetCase() && businessArea.equalsIgnoreCase("OTHER")) {
             recordCaseData.enterTextIntoTextFieldWithHeading("Other Business Area");
         }
         if (!iedetCase()) {
-            recordCaseData.selectRandomOptionFromDropdownWithHeading("Enquiry reason");
+            String enquiryReason = recordCaseData.selectRandomOptionFromDropdownWithHeading("Enquiry reason");
+            recordCaseData.addValueToAssertSummary("Enquiry reason", enquiryReason);
         }
         selectIsLoARequired();
     }
