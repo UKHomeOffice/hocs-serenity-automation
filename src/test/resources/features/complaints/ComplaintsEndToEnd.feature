@@ -87,6 +87,22 @@ Feature: Complaints End To End
       | Ex-Gratia        |
       | Minor misconduct |
 
+    # HOCS- 6700
+  @E2ETests
+  Scenario Outline: End to End workflow for UKVI stage 1 complaint case
+    Given I am logged into "CS" as user "COMP_USER"
+    And I choose not to wipe the record data until the end
+    When I create a "COMP" case for a "<complaintType>" complaint and move it to "Complaint Closed"
+    Then the case should be closed
+    And all case data should be visible in the read-only Case Details accordion
+    And the summary tab should display the details entered at various stages
+    And I wipe the record data
+    Examples:
+      | complaintType    |
+      | Service          |
+      | Ex-Gratia        |
+      | Minor misconduct |
+
 
 #     UKVI STAGE 2 COMPLAINTS
 
@@ -151,6 +167,22 @@ Feature: Complaints End To End
       | Ex-Gratia        |
       | Minor misconduct |
 
+    # HOCS- 6700
+  @E2ETests
+  Scenario Outline: End to End workflow for UKVI stage 2 complaint case
+    Given I am logged into "CS" as user "COMP_USER"
+    And I choose not to wipe the record data until the end
+    When I create a "COMP2" case for a "<complaintType>" complaint and move it to "Stage 2 Complaint Closed" stage
+    Then the case should be closed
+    And all case data should be visible in the read-only Case Details accordion
+    And the summary tab should display the details entered at various stages
+    And I wipe the record data
+    Examples:
+      | complaintType    |
+      | Service          |
+      | Ex-Gratia        |
+      | Minor misconduct |
+
   @COMPRegression @UKVIComplaints @E2ETests
   Scenario Outline: User is able to close a Direct UKVI stage 2 complaint case
     Given I am logged into "CS" as user "COMP_USER"
@@ -162,6 +194,21 @@ Feature: Complaints End To End
       | Ex-Gratia        |
       | Minor misconduct |
 
+    # HOCS- 6700
+  @E2ETests
+  Scenario Outline: End to End workflow for Direct UKVI stage 2 complaint case
+    Given I am logged into "CS" as user "COMP_USER"
+    And I choose not to wipe the record data until the end
+    When I create a "COMP2DIRECT" case for a "<complaintType>" complaint and move it to "Complaint Closed"
+    Then the case should be closed
+    And all case data should be visible in the read-only Case Details accordion
+    And the summary tab should display the details entered at various stages
+    And I wipe the record data
+    Examples:
+      | complaintType    |
+      | Service          |
+      | Ex-Gratia        |
+      | Minor misconduct |
 
 #     IEDET COMPLAINTS
 
@@ -288,7 +335,6 @@ Feature: Complaints End To End
       | complaintType    |
       | Service          |
       | Minor misconduct |
-
 
 #     BF STAGE 2 COMPLAINTS
 

@@ -115,7 +115,7 @@ Feature: MPAM End To End
       | HMPO                   | Official | Case Closed |
       | Windrush               | Official | Case Closed |
       | Coronavirus (COVID-19) | Official | Case Closed |
-
+      
  # HOCS- 6705
   @E2ETests
   Scenario Outline: End to End workflow for a Ministerial case with specific Business Area and Reference Type
@@ -125,7 +125,7 @@ Feature: MPAM End To End
     Then the case should be closed
     And all case data should be visible in the read-only Case Details accordion
     And the summary tab should display the details entered at various stages
-    Examples:
+Examples:
       | businessArea           | refType     | stage       |
       | UKVI                   | Ministerial | Case Closed |
       | BF                     | Ministerial | Case Closed |
@@ -134,6 +134,7 @@ Feature: MPAM End To End
       | HMPO                   | Ministerial | Case Closed |
       | Windrush               | Ministerial | Case Closed |
       | Coronavirus (COVID-19) | Ministerial | Case Closed |
+
 
  # HOCS- 6705
   @E2ETests
@@ -153,3 +154,4 @@ Feature: MPAM End To End
       | HMPO                   | Official | Case Closed |
       | Windrush               | Official | Case Closed |
       | Coronavirus (COVID-19) | Official | Case Closed |
+
