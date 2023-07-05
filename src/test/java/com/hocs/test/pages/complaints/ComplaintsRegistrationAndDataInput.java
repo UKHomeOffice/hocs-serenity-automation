@@ -300,7 +300,9 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
 
     public void enterPassportNumber() {
         String passportNumber = recordCaseData.enterTextIntoTextFieldWithHeading("Passport Number");
-        recordCaseData.addValueToAssertSummary("Passport Number", passportNumber);
+        if(!pogr2Case() &&  !(sessionVariableCalled("businessArea").toString().equalsIgnoreCase("GRO"))){
+            recordCaseData.addValueToAssertSummary("Passport Number", passportNumber);
+        }
     }
 
     public void enterAccountNumber() {

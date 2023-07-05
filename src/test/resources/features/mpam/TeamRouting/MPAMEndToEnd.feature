@@ -115,3 +115,29 @@ Feature: MPAM End To End
       | HMPO                   | Official | Case Closed |
       | Windrush               | Official | Case Closed |
       | Coronavirus (COVID-19) | Official | Case Closed |
+
+
+  Scenario Outline: End to End workflow for a Ministerial case with specific Business Area and Reference Type
+    And I choose not to wipe the record data until the end
+    When I create a MPAM case with "<businessArea>" as the Business Area and "<refType>" as the Reference Type and move it to the "<stage>" stage
+    Then the case should be closed
+    And all case data should be visible in the read-only Case Details accordion
+    And the summary tab should display the details entered at various stages
+    And I wipe the record data
+
+    Examples:
+      | businessArea           | refType     | stage       |
+      | UKVI                   | Ministerial | Case Closed |
+      | BF                     | Ministerial | Case Closed |
+      | IE                     | Ministerial | Case Closed |
+      | EUSS                   | Ministerial | Case Closed |
+      | HMPO                   | Ministerial | Case Closed |
+      | Windrush               | Ministerial | Case Closed |
+      | Coronavirus (COVID-19) | Ministerial | Case Closed |
+      | UKVI                   | Official    | Case Closed |
+      | BF                     | Official    | Case Closed |
+      | IE                     | Official    | Case Closed |
+      | EUSS                   | Official    | Case Closed |
+      | HMPO                   | Official    | Case Closed |
+      | Windrush               | Official    | Case Closed |
+      | Coronavirus (COVID-19) | Official    | Case Closed |

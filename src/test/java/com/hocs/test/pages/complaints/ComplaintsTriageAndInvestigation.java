@@ -412,7 +412,9 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
 
     public void acceptCaseAtInvestigation() {
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading("Yes - accept the complaint", "Can your team respond to this complaint?");
-        recordCaseData.addValueToAssertSummary("Can your team respond to this complaint?", "Yes - accept the complaint");
+        if(!pogr2Case()) {
+            recordCaseData.addValueToAssertSummary("Can your team respond to this complaint?", "Yes - accept the complaint");
+        }
         clickContinueButton();
     }
 
