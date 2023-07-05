@@ -53,11 +53,11 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         if (iedetCase() || bfCase() || bf2Case()){
             String companyName = recordCaseData.enterTextIntoTextFieldWithHeading("Company name");
             recordCaseData.addValueToAssertSummary("Company name", companyName);
-        }else{
-            String companyName = recordCaseData.enterTextIntoTextFieldWithHeading("Company Name");
-            if(!compCase()) {
+        }else if (compCase() || comp2Case() || comp2DirectCase()) {
+            recordCaseData.enterTextIntoTextFieldWithHeading("Company Name");
+        } else {
+                String companyName = recordCaseData.enterTextIntoTextFieldWithHeading("Company Name");
                 recordCaseData.addValueToAssertSummary("Company Name", companyName);
-            }
         }
     }
 
@@ -333,7 +333,9 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
     public void selectIsLoARequired() {
         String selectedOption = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Is a Letter of Authority required?");
         setSessionVariable("isLoARequired").to(selectedOption);
-        recordCaseData.addValueToAssertSummary("Is a Letter of Authority required?", selectedOption);
+        if(!comp2Case()) {
+            recordCaseData.addValueToAssertSummary("Is a Letter of Authority required?", selectedOption);
+        }
     }
 
     public void completeDataInputScreen() {
