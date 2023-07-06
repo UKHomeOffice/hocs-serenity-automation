@@ -1,6 +1,6 @@
 Feature: PSU End to End
 
-  @ComplaintsWorkflow @IEDETRegression @IEDETComplaint @E2ETests
+  @ComplaintsWorkflow @IEDETRegression @IEDETComplaint
   Scenario: User completes a IEDET PSU complaint case
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to the "PSU Case Closed" stage
@@ -17,7 +17,7 @@ Feature: PSU End to End
     And the summary tab should display the details entered at various stages
     And I wipe the record data
 
-  @ComplaintsWorkflow @COMPPSURegression @UKVIComplaints @E2ETests
+  @ComplaintsWorkflow @COMPPSURegression @UKVIComplaints
   Scenario Outline: User completes a UKVI PSU complaint case
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "<caseType>" case and move it to the "PSU_CLOSED" stage
@@ -29,7 +29,7 @@ Feature: PSU End to End
       | COMP2       |
       | COMP2DIRECT |
 
-  @ComplaintsWorkflow @BFPSURegression @BFComplaints @E2ETests
+  @ComplaintsWorkflow @BFPSURegression @BFComplaints
   Scenario Outline: User completes a BF PSU complaint case
     Given I am logged into "CS" as user "BF_USER"
     When I create a "<caseType>" case and move it to the "PSU_Closed" stage

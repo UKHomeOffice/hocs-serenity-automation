@@ -82,7 +82,7 @@ Feature: DCU End To End
     And I complete the "QA response" stage
     Then the case should be moved to the "Dispatch" stage
 
-  @DCUWorkflow @DCURegression @SmokeTests @E2ETests
+  @DCUWorkflow @DCURegression @SmokeTests
   Scenario: End to end flow with DCU MIN CaseType
     When I get a new "MIN" case
     And I complete the "Data Input" stage
@@ -114,7 +114,7 @@ Feature: DCU End To End
     Then I wipe the record data
 
 
-  @DCUWorkflow @DCURegression @SmokeTests @E2ETests
+  @DCUWorkflow @DCURegression @SmokeTests
   Scenario: End to end flow with DCU N10 CaseType
     When I get a new "DTEN" case
     And I complete the "Data Input" stage
@@ -142,7 +142,7 @@ Feature: DCU End To End
     And the summary should display "Animal alternatives (3Rs)" for "Primary topic"
     And I wipe the record data
 
-  @DCUWorkflow @DCURegression @SmokeTests @E2ETests
+  @DCUWorkflow @DCURegression @SmokeTests
   Scenario: End to end flow with DCU TRO CaseType
     When I get a new "TRO" case
     And I complete the "Data Input" stage

@@ -76,7 +76,7 @@ Feature: Complaints End To End
       | Ex-Gratia        |
       | Minor misconduct |
 
-  @COMPRegression @UKVIComplaints @E2ETests
+  @COMPRegression @UKVIComplaints
   Scenario Outline: User is able to close a UKVI stage 1 complaint case
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP" case for a "<complaintType>" complaint and move it to "Complaint Closed"
@@ -156,7 +156,7 @@ Feature: Complaints End To End
       | Ex-Gratia     |
       | MM            |
 
-  @COMPRegression @UKVIComplaints @E2ETests
+  @COMPRegression @UKVIComplaints
   Scenario Outline: User is able to close a UKVI stage 2 complaint case
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2" case for a "<complaintType>" complaint and move it to "Stage 2 Complaint Closed" stage
@@ -183,7 +183,7 @@ Feature: Complaints End To End
       | Ex-Gratia        |
       | Minor misconduct |
 
-  @COMPRegression @UKVIComplaints @E2ETests
+  @COMPRegression @UKVIComplaints
   Scenario Outline: User is able to close a Direct UKVI stage 2 complaint case
     Given I am logged into "CS" as user "COMP_USER"
     When I create a "COMP2DIRECT" case for a "<complaintType>" complaint and move it to "Complaint Closed"
@@ -236,7 +236,7 @@ Feature: Complaints End To End
     When I create a "IEDET" case and move it to the "IE Detention Outcome" stage
     Then the case should be moved to the "IE Detention Outcome" stage
 
-  @IEDETRegression @IEDETComplaints @E2ETests
+  @IEDETRegression @IEDETComplaints
   Scenario: User is able to close an IEDET complaint case
     Given I am logged into "CS" as user "IEDET_USER"
     When I create a "IEDET" case and move it to "Case Closed"
@@ -311,7 +311,7 @@ Feature: Complaints End To End
       | Service          |
       | Minor Misconduct |
 
-  @BFRegression @BFComplaints @E2ETests
+  @BFRegression @BFComplaints
   Scenario Outline: User is able to close a BF stage 1 complaint case
     Given I am logged into "CS" as user "BF_USER"
     When I create a "BF" case for a "<complaintType>" complaint and move it to "Case Closed"
@@ -374,7 +374,7 @@ Feature: Complaints End To End
     When I create a "BF2" case and move it to the "Send" stage
     Then the case should be moved to the "Send (Stage 2)" stage
 
-  @BFRegression @BFComplaints @E2ETests
+  @BFRegression @BFComplaints
   Scenario: User is able to close a BF stage 2 complaint case
     Given I am logged into "CS" as user "BF_USER"
     When I create a "BF2" case and move it to the "Case Closed" stage
@@ -424,7 +424,7 @@ Feature: Complaints End To End
     When I create a "POGR" case and move it to the "Dispatch" stage
     Then the case should be moved to the "Dispatch" stage
 
-  @POGRRegression @POGRComplaints @E2ETests
+  @POGRRegression @POGRComplaints
   Scenario: User is able to close a POGR complaint case
     Given I am logged into "CS" as user "POGR_USER"
     When I create a "POGR" case and move it to the "Case Closed" stage
@@ -479,7 +479,7 @@ Feature: Complaints End To End
     When I create a "POGR2" case and move it to the "Dispatch" stage
     Then the case should be moved to the "Dispatch" stage
 
-  @POGRRegression @POGRComplaints @E2ETests
+  @POGRRegression @POGRComplaints
   Scenario: User is able to close a POGR stage 2 complaint case
     Given I am logged into "CS" as user "POGR_USER"
     When I create a "POGR2" case and move it to the "Case Closed" stage
