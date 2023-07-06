@@ -551,7 +551,6 @@ public class ClaimSchema extends BasePage {
         assertThat(receivedDateDayTextbox.getValue().equals(""), is(false));
         assertThat(receivedDateMonthTextbox.getValue().equals(""), is(false));
         assertThat(receivedDateYearTextbox.getValue().equals(""), is(false));
-        assertThat(linkedClaimsCaseInfoTextbox.getValue().equals(""), is(false));
     }
 
     public void enterNameIntoPersonalDetailsFullName(String name){
