@@ -91,12 +91,14 @@ public class Triage extends BasePage {
     }
     public void selectSpecificEnquirySubject(String subject) {
         recordCaseData.selectSpecificOptionFromDropdownWithHeading(subject, "Enquiry subject");
+        recordCaseData.addValueToAssertSummary("Enquiry subject", subject);
         setSessionVariable("enquirySubject").to(subject);
 
     }
 
     public void selectSpecificEnquiryReason(String reason) {
         recordCaseData.selectSpecificOptionFromDropdownWithHeading(reason, "Enquiry reason");
+        recordCaseData.addValueToAssertSummary("Enquiry reason", reason);
         setSessionVariable("enquiryReason").to(reason);
 
     }
@@ -111,6 +113,7 @@ public class Triage extends BasePage {
 
     public void setBusinessUnit() {
         String businessUnit = recordCaseData.selectRandomOptionFromDropdownWithHeading("Business unit");
+        recordCaseData.addValueToAssertSummary("Business unit", businessUnit);
         setSessionVariable("businessUnit").to(businessUnit);
     }
 

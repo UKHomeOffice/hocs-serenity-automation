@@ -251,7 +251,7 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
                 recordCaseData.addValueToAssertSummary("Reason for Complaint " + i, selectedReasonForComplaint);
                 if (selectedReasonForComplaint.equals("Other")) {
                     String otherReasonForComplaint = recordCaseData.enterTextIntoTextAreaWithHeading("Other - details (complaint reason "+i+")");
-                    recordCaseData.addValueToAssertSummary("Other - details (Complaint Reason "+i+")", otherReasonForComplaint);
+                    recordCaseData.addValueToAssertSummary("Other - Details (Complaint Reason "+i+")", otherReasonForComplaint);
                 }
                 setSessionVariable("reasonForComplaint" + i).to(selectedReasonForComplaint);
             }

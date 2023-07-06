@@ -37,6 +37,7 @@ public class Creation extends BasePage {
 
     public void selectASpecificBusinessArea(String businessArea) {
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(businessArea, "Business Area");
+        recordCaseData.addValueToAssertSummary("Business Area", businessArea);
         setSessionVariable("businessArea").to(businessArea);
     }
 
@@ -44,10 +45,12 @@ public class Creation extends BasePage {
         switch(refType.toUpperCase()) {
             case "MINISTERIAL": {
                 recordCaseData.selectSpecificRadioButton("Yes (Ministerial)");
+                recordCaseData.addValueToAssertSummary("Does this correspondence need a Ministerial response?", "Yes (Ministerial)");
                 break;
             }
             case "OFFICIAL": {
                 recordCaseData.selectSpecificRadioButton("No (Official)");
+                recordCaseData.addValueToAssertSummary("Does this correspondence need a Ministerial response?", "No (Official)");
                 break;
             }
         }
@@ -83,6 +86,7 @@ public class Creation extends BasePage {
 
     public void selectASpecificUrgency(String urgency) {
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(urgency, "Urgency");
+        recordCaseData.addValueToAssertSummary("Urgency", urgency);
         setSessionVariable("urgency").to(urgency);
     }
 
@@ -93,6 +97,7 @@ public class Creation extends BasePage {
 
     public void selectASpecificInboundChannel(String inboundChannel) {
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(inboundChannel, "Channel received");
+        recordCaseData.addValueToAssertSummary( "Channel received", inboundChannel);
         setSessionVariable("inboundChannel").to(inboundChannel);
     }
 

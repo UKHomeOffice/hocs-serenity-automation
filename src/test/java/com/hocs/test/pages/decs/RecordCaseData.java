@@ -184,10 +184,10 @@ public class RecordCaseData extends BasePage{
 
     public void assertAllRecordedCaseDataIsVisibleInTheSummaryTab() {
         for(HashMap.Entry<String, String> entry : summaryRecords.entrySet()) {
-            String accordionKey = entry.getKey();
-            String expectedAccordionValue = entry.getValue();
-            System.out.println("Checking "+accordionKey +" against "+expectedAccordionValue);
-            caseView.assertExpectedValueIsVisibleInSummaryForGivenKey(expectedAccordionValue, accordionKey);
+            String summaryKey = entry.getKey();
+            String expectedSummaryValue = entry.getValue();
+            System.out.println("Checking "+summaryKey +" against "+expectedSummaryValue);
+            caseView.assertExpectedValueIsVisibleInSummaryForGivenKey(expectedSummaryValue, summaryKey);
         }
     }
 
