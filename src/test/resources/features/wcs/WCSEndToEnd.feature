@@ -23,6 +23,7 @@ Feature: End To End
 
   @E2ETests
   Scenario: Robust E2E Worklow with WCS Casetype
+    And I wipe the record data
     And I choose not to wipe the record data until the end
     And I get a "WCS" claim at the "Casework" stage
     And I enter some value into each possible field during the Casework stage
@@ -38,4 +39,3 @@ Feature: End To End
     Then the claim should be closed
     And the summary tab should display the details entered at various stages
     Then All fields should be populated in the read-only case info accordion
-    And I wipe the record data
