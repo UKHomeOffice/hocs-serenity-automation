@@ -97,6 +97,7 @@ Feature: Complaints End To End
     Then the case should be closed
     And all case data should be visible in the read-only Case Details accordion
     And the summary tab should display the details entered at various stages
+
     Examples:
       | complaintType    |
       | Service          |
@@ -177,6 +178,7 @@ Feature: Complaints End To End
     Then the case should be closed
     And all case data should be visible in the read-only Case Details accordion
     And the summary tab should display the details entered at various stages
+
     Examples:
       | complaintType    |
       | Service          |
@@ -204,6 +206,7 @@ Feature: Complaints End To End
     Then the case should be closed
     And all case data should be visible in the read-only Case Details accordion
     And the summary tab should display the details entered at various stages
+
     Examples:
       | complaintType    |
       | Service          |
@@ -252,6 +255,7 @@ Feature: Complaints End To End
     Then the case should be closed
     And all case data should be visible in the read-only Case Details accordion
     And the summary tab should display the details entered at various stages
+
 
 #     BF COMPLAINTS
 

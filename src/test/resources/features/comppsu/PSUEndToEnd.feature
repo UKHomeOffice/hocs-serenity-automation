@@ -17,6 +17,7 @@ Feature: PSU End to End
     And all case data should be visible in the read-only Case Details accordion
     And the summary tab should display the details entered at various stages
 
+
   @ComplaintsWorkflow @COMPPSURegression @UKVIComplaints
   Scenario Outline: User completes a UKVI PSU complaint case
     Given I am logged into "CS" as user "COMP_USER"
@@ -66,6 +67,7 @@ Feature: PSU End to End
     And all case data should be visible in the read-only Case Details accordion
     And the summary tab should display the details entered at various stages
     When I logout of the application
+
     Examples:
       | caseType    |
       | COMP        |
