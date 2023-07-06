@@ -98,6 +98,7 @@ Feature: DCU End To End
   @E2ETests
   Scenario: Robust End to end flow with DCU MIN CaseType
     When I get a new "MIN" case
+    And I wipe the record data
     And I choose not to wipe the record data until the end
     And I select "Yes" for Home Secretary interest and complete the data input stage
     And I complete the "Markup" stage
@@ -106,12 +107,11 @@ Feature: DCU End To End
     And I complete the "Private Office Approval" stage
     And I complete the "Ministerial Sign Off" stage
     And I complete the "Dispatch" stage
-    And the case should be closed
+    Then the case should be closed
     And all case data should be visible in the read-only Case Details accordion
     And the Home Secretary interest decision should match the one displayed in the summary tab
     And the summary should display the correct Private Office team
     And the summary should display "Animal alternatives (3Rs)" for "Primary topic"
-    Then I wipe the record data
 
 
   @DCUWorkflow @DCURegression @SmokeTests
@@ -129,6 +129,7 @@ Feature: DCU End To End
   @E2ETests
   Scenario: Robust End to end flow with DCU N10 CaseType
     When I get a new "DTEN" case
+    And I wipe the record data
     And I choose not to wipe the record data until the end
     And I select "Yes" for Home Secretary interest and complete the data input stage
     And I complete the "Markup" stage
@@ -140,7 +141,6 @@ Feature: DCU End To End
     And all case data should be visible in the read-only Case Details accordion
     And the summary should display the correct Private Office team
     And the summary should display "Animal alternatives (3Rs)" for "Primary topic"
-    And I wipe the record data
 
   @DCUWorkflow @DCURegression @SmokeTests
   Scenario: End to end flow with DCU TRO CaseType
@@ -156,6 +156,7 @@ Feature: DCU End To End
   @E2ETests
   Scenario: Robust End to end flow with DCU TRO CaseType
     When I get a new "TRO" case
+    And I wipe the record data
     And I choose not to wipe the record data until the end
     And I complete the "Data Input" stage
     And I complete the "Markup" stage
@@ -165,7 +166,6 @@ Feature: DCU End To End
     Then the case should be closed
     And all case data should be visible in the read-only Case Details accordion
     And the summary should display "Animal alternatives (3Rs)" for "Primary topic"
-    And I wipe the record data
 
   @DCUWorkflow
   Scenario Outline: User creates a case of each type and progresses the case through the workflow
