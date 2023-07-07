@@ -23,6 +23,7 @@ Feature: End To End
 
   @E2ETests
   Scenario: Robust E2E Worklow with WCS Casetype
+    And I wipe the record data
     And I choose not to wipe the record data until the end
     And I get a "WCS" claim at the "Casework" stage
     And I enter some value into each possible field during the Casework stage
