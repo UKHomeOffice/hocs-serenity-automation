@@ -39,4 +39,3 @@ Feature: End To End
     Then the claim should be closed
     And the summary tab should display the details entered at various stages
     Then All fields should be populated in the read-only case info accordion
-    And I wipe the record data

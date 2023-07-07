@@ -52,7 +52,9 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
     public void enterACompanyName() {
         if (iedetCase() || bfCase() || bf2Case()){
             String companyName = recordCaseData.enterTextIntoTextFieldWithHeading("Company name");
-            recordCaseData.addValueToAssertSummary("Company name", companyName);
+            if(!iedetCase()) {
+                recordCaseData.addValueToAssertSummary("Company name", companyName);
+            }
         }else if (compCase() || comp2Case() || comp2DirectCase()) {
             recordCaseData.enterTextIntoTextFieldWithHeading("Company Name");
         } else {
@@ -64,7 +66,9 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
     public void enterAHomeOfficeReference(String HOReference) {
         if(iedetCase() || bfCase() || bf2Case()){
             recordCaseData.enterSpecificTextIntoTextFieldWithHeading(HOReference, "Home Office reference");
-            recordCaseData.addValueToAssertSummary( "Home Office reference", HOReference);
+            if(!iedetCase()) {
+                recordCaseData.addValueToAssertSummary("Home Office reference", HOReference);
+            }
         } else {
             recordCaseData.enterSpecificTextIntoTextFieldWithHeading(HOReference, "Home Office Reference");
         }
@@ -73,7 +77,10 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
     public void enterAPortReference() {
         if(iedetCase() || bfCase() || bf2Case()){
             String portReference = recordCaseData.enterTextIntoTextFieldWithHeading("Port reference");
-            recordCaseData.addValueToAssertSummary("Port reference", portReference);
+            if(!iedetCase()){
+                recordCaseData.addValueToAssertSummary("Port reference", portReference);
+            }
+
         } else {
             recordCaseData.enterTextIntoTextFieldWithHeading("Port Reference");
         }
