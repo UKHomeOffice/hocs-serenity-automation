@@ -17,6 +17,7 @@ public class ComplaintsDispatchAndSend extends BasePage {
         String caseOutcome;
         if(iedetCase()) {
             caseOutcome = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Case outcome");
+            recordCaseData.addValueToAssertSummary("Case outcome",caseOutcome);
         }else if (!pogrCase() && !pogr2Case()) {
             caseOutcome = recordCaseData.selectRandomOptionFromDropdownWithHeading("Case Outcome");
         } else {
@@ -26,7 +27,8 @@ public class ComplaintsDispatchAndSend extends BasePage {
             }
             }
         if (iedetCase() && caseOutcome.equalsIgnoreCase("Other")) {
-            recordCaseData.enterTextIntoTextAreaWithHeading("Please provide further details");
+            String furtherDetails = recordCaseData.enterTextIntoTextAreaWithHeading("Please provide further details");
+            recordCaseData.addValueToAssertSummary("Please provide further details",furtherDetails);
         }
     }
 
@@ -55,6 +57,7 @@ public class ComplaintsDispatchAndSend extends BasePage {
             headerText = "Dispatch Date";
         }
         recordCaseData.enterDateIntoDateFieldsWithHeading(getDatePlusMinusNDaysAgo(-1), headerText);
+        recordCaseData.addValueToAssertSummary(headerText,getDatePlusMinusNDaysAgo(-1));
        if(bfCase() || bf2Case()) {
            recordCaseData.addValueToAssertSummary(headerText, getDatePlusMinusNDaysAgo(-1));
        }

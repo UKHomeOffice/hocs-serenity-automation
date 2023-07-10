@@ -108,6 +108,7 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
            recordCaseData.addValueToAssertSummary("Complaint type", complaintType);
         } else {
             recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(complaintType, "Complaint Type");
+            recordCaseData.addValueToAssertSummary("Complaint Type",complaintType);
         }
         setSessionVariable("complaintType").to(complaintType);
         if((bfCase()||bf2Case())){
@@ -150,6 +151,7 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         String selectedComplaintOrigin;
         if (iedetCase()){
             selectedComplaintOrigin = recordCaseData.selectRandomOptionFromDropdownWithHeading("Complaint origin");
+            recordCaseData.addValueToAssertSummary("Complaint origin",selectedComplaintOrigin);
         } else {
             selectedComplaintOrigin = recordCaseData.selectRandomOptionFromDropdownWithHeading("Complaint Origin");
         }

@@ -355,7 +355,8 @@ public class ComplaintsTriageAndInvestigation extends BasePage {
     }
 
     public void selectIEDETBusinessArea() {
-        recordCaseData.selectRandomOptionFromDropdownWithHeading("Business area");
+        String busArea = recordCaseData.selectRandomOptionFromDropdownWithHeading("Business area");
+        recordCaseData.addValueToAssertSummary("Business area", busArea);
     }
 
     public void selectASpecificIEDETBusinessArea(String optionText) {
