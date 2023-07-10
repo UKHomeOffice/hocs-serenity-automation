@@ -271,6 +271,7 @@ public class COMPProgressCase extends BasePage {
         documents.addADocumentOfDocumentType("Final Response");
         complaintsDispatchAndSend.enterFinalResponseSentDate();
         clickTheButton("Close case");
+        setCurrentCaseType(CaseType.valueOf("PSU"));
     }
 
     public void moveUKVICaseFromPSUTriageToPSUComplaintOutcome() {

@@ -173,6 +173,9 @@ public class SummaryTab extends BasePage {
         if (!displayedDeadline.equals(expectedDeadline)) {
             Assert.fail("Displayed deadline did not match deadline calculated for this case.\nExpected deadline was: " + expectedDeadline +
                     "\nDisplayed deadline was: " + displayedDeadline);
+        }else{
+            System.out.println("Displayed deadline match deadline calculated for this case.\nExpected deadline was: " + expectedDeadline +
+                                  "\nDisplayed deadline was: " + displayedDeadline);
         }
     }
 
@@ -201,6 +204,7 @@ public class SummaryTab extends BasePage {
                     break;
                 case "HOME SECRETARY SIGN-OFF":
                 case "POGR":
+                case "POGR2":
                 case "NON-PRIORITY, POST GRO COMPLAINT":
                     expectedNumberOfWorkdaysTillDeadline = 10;
                     break;
@@ -220,6 +224,7 @@ public class SummaryTab extends BasePage {
                     expectedNumberOfWorkdaysTillDeadline = 20;
                     break;
                 case "EX-GRATIA":
+                case "PSU":
                 case "PSU OUTCOME":
                 case "PSU COMPLAINT OUTCOME":
                     expectedNumberOfWorkdaysTillDeadline = 60;
@@ -530,7 +535,14 @@ public class SummaryTab extends BasePage {
     }
 
     public void assertAllRecordedCaseDataCurrentlyVisibleInTheSummary() {
-
+        String caseType = String.valueOf(getCurrentCaseType());
         recordCaseData.assertAllRecordedCaseDataIsVisibleInTheSummaryTab();
+        if((pogrCase() || pogr2Case()) && (sessionVariableCalled("businessArea").toString().equalsIgnoreCase("GRO"))){
+                assertDeadlineDateOfCaseIsCorrect("PRIORITY GRO COMPLAINT");
+        }else{
+            assertDeadlineDateOfCaseIsCorrect(caseType);
+        }
+
+
     }
 }
