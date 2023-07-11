@@ -22,16 +22,19 @@ public class DataInput extends BasePage {
     public void selectABusinessArea() {
         String selectedBusinessArea = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Business Area");
         setSessionVariable("businessArea").to(selectedBusinessArea);
+        recordCaseData.addValueToAssertSummary("Business Area",selectedBusinessArea);
     }
 
     public void selectSpecificBusinessArea(String businessArea) {
         recordCaseData.selectSpecificRadioButtonFromGroupWithHeading(businessArea, "Business Area");
         setSessionVariable("businessArea").to(businessArea);
+        recordCaseData.addValueToAssertSummary("Business Area",businessArea);
     }
 
     public void selectAChannelRecieved() {
         String selectedChannelRecieved = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Channel Received");
         setSessionVariable("channelReceived").to(selectedChannelRecieved);
+        recordCaseData.addValueToAssertSummary("Channel Received",selectedChannelRecieved);
     }
 
     public void selectASpecificHomeSecInterestOption(String radioButtonText) {

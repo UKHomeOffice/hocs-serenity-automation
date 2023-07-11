@@ -39,6 +39,8 @@ public class TOProgressCase extends BasePage {
 
     StopList stopList;
 
+    RecordCaseData recordCaseData;
+
     Boolean homeSecInterest = false;
 
     String businessArea = null;
@@ -159,8 +161,10 @@ public class TOProgressCase extends BasePage {
         dataInput.selectAChannelRecieved();
         if (homeSecInterest) {
             dataInput.selectASpecificHomeSecInterestOption("Yes");
+            recordCaseData.addValueToAssertSummary("Home Secretary Interest","Yes");
         } else {
             dataInput.selectASpecificHomeSecInterestOption("No");
+            recordCaseData.addValueToAssertSummary("Home Secretary Interest","No");
         }
         clickContinueButton();
         correspondents.addANonMemberCorrespondentOfType("Correspondent");
@@ -214,6 +218,7 @@ public class TOProgressCase extends BasePage {
 
     private void moveCaseFromQAToDispatch() {
         selectTheStageAction("Approve");
+        recordCaseData.addValueToAssertSummary("Approval Status","Approved");
         clickFinishButton();
     }
 
