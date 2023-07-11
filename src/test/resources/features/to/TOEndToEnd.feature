@@ -5,8 +5,8 @@ Feature: TOEndToEnd
 Scenario: Robust End to End test for TO Casetype
 Given I am logged into "CS" as user "TO_USER"
 And I wipe the record data
-And I get a "TO" case at the "Dispatch" stage
 And I choose not to wipe the record data until the end
+And I get a "TO" case at the "Dispatch" stage
 When I add a "Final Response" type document to the case
 And I enter the details of the dispatch
 And I confirm the case is completed

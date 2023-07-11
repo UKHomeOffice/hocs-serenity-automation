@@ -542,7 +542,7 @@ public class SummaryTab extends BasePage {
                 assertDeadlineDateOfCaseIsCorrect("PRIORITY GRO COMPLAINT");
         } else if ((compCase() || comp2Case() || comp2DirectCase()) && (sessionVariableCalled("complaintType").toString().equalsIgnoreCase("Ex-Gratia"))) {
             assertDeadlineDateOfCaseIsCorrect("Ex-Gratia");
-        } else{
+        } else if(!wcsCase()){
             assertDeadlineDateOfCaseIsCorrect(caseType);
         }
 

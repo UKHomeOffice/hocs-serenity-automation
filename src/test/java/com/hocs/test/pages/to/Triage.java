@@ -23,6 +23,7 @@ public class Triage extends BasePage {
     public void selectAnEnquirySubject() {
         String enquirySubject = recordCaseData.selectRandomOptionFromDropdownWithHeading("Enquiry subject");
         setSessionVariable("enquirySubject").to(enquirySubject);
+        recordCaseData.addValueToAssertSummary("Enquiry subject", enquirySubject);
     }
 
     public void selectAnEnquiryReason() {
@@ -40,6 +41,7 @@ public class Triage extends BasePage {
     public void selectABusinessUnit() {
         String businessUnit = recordCaseData.selectRandomOptionFromDropdownWithHeading("Business Unit");
         setSessionVariable("businessUnit").to(businessUnit);
+        recordCaseData.addValueToAssertSummary("Business Unit",businessUnit);
     }
 
     public void selectADifferentChannelReceived() {

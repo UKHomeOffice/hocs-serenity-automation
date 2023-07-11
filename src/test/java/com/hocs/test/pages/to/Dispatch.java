@@ -9,9 +9,11 @@ public class Dispatch extends BasePage {
 
     public void enterDateOfDispatch() {
         recordCaseData.enterDateIntoDateFieldsWithHeading(getTodaysDate(), "Date the final response was dispatched");
+        recordCaseData.addValueToAssertSummary("Date the final response was dispatched",getTodaysDate());
     }
 
     public void selectAFinalDispatchChannel() {
-        recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Final response channel");
+        String finalResponseChannel = recordCaseData.selectRandomRadioButtonFromGroupWithHeading("Final response channel");
+        recordCaseData.addValueToAssertSummary("Final response channel",finalResponseChannel);
     }
 }

@@ -103,6 +103,7 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
     public void selectASpecificComplaintType(String complaintType) {
         if(iedetCase()){
               recordCaseData.selectSpecificRadioButton(complaintType);
+              recordCaseData.addValueToAssertSummary("Complaint Type",complaintType);
         } else if (compCase()||comp2Case()||comp2DirectCase()||bfCase()||bf2Case()) {
            recordCaseData.selectSpecificRadioButton(complaintType);
            recordCaseData.addValueToAssertSummary("Complaint type", complaintType);
@@ -430,7 +431,10 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         String[] validChoices = new String[]{"Substantiated", "Partially substantiated","Unsubstantiated"};
         int rnd = new Random().nextInt(validChoices.length);
         setSessionVariable("complaintOutcome").to(validChoices[rnd]);
-        recordCaseData.selectSpecificRadioButton(validChoices[rnd]);
+        String compOutcome = recordCaseData.selectSpecificRadioButton(validChoices[rnd]);
+        if(!(bfCase()||bf2Case())){
+            recordCaseData.addValueToAssertSummary("Complaint outcome",compOutcome);
+        }
     }
 
     public void selectExternalContractor() {
