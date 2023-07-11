@@ -173,6 +173,7 @@ public class IEDETProgressCase extends BasePage {
         documents.addADocumentOfDocumentType("Final response");
         complaintsDispatchAndSend.enterFinalResponseSentDate();
         clickTheButton("Close case");
+        setCurrentCaseType(CaseType.valueOf("PSU"));
 
     }
 

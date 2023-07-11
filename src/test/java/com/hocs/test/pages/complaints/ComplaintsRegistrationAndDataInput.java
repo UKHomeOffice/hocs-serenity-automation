@@ -373,6 +373,8 @@ public class ComplaintsRegistrationAndDataInput extends BasePage {
         selectAComplaintChannel();
         if (pogrPriority) {
             checkPriorityCheckbox();
+            setSessionVariable("priority").to("PRIORITY GRO COMPLAINT");
+
         }
         enterAThirdPartyReference();
         selectIsLoARequired();

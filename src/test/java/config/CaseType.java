@@ -17,6 +17,7 @@ public enum CaseType {
     POGR("HMPO/GRO Complaint Case", 10, "POGR_USER", false),
     POGR2("HMPO/GRO Complaint Case - Stage 2", 10, "POGR_USER", true),
     IEDET("IE Detention Case", 20, "IEDET_USER", false),
+    PSU("PSU", 20, "PSU_USER", false),
     FOI("FOI Request", 20, "FOI_USER", false),
     SMC("Serious Misconduct Case", 60, "SMC_USER", false),
     WCS(null, 0, "WCS_USER", false);

@@ -244,6 +244,7 @@ public class CreateCase extends BasePage {
     public void storeCorrespondenceReceivedDate() {
         String enterCorrespondenceReceivedDate = getDisplayedDateInDateFieldsWithHeading("When was the correspondence received?");
         setSessionVariable("correspondenceReceivedDate").to(enterCorrespondenceReceivedDate);
+        recordCaseData.addValueToAssertSummary("Created", enterCorrespondenceReceivedDate);
         recordCaseData.addValueToAssertSummary("When was the correspondence received?", enterCorrespondenceReceivedDate);
     }
 
