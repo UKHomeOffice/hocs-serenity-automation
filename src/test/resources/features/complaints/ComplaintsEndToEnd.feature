@@ -88,7 +88,7 @@ Feature: Complaints End To End
       | Minor misconduct |
 
     # HOCS- 6700
-  @E2ETests
+  @COMPE2ETests
   Scenario Outline: End to End workflow for UKVI stage 1 complaint case
     Given I am logged into "CS" as user "COMP_USER"
     And I wipe the record data
@@ -169,7 +169,7 @@ Feature: Complaints End To End
       | Minor misconduct |
 
     # HOCS- 6700
-  @E2ETests
+  @COMPE2ETests
   Scenario Outline: End to End workflow for UKVI stage 2 complaint case
     Given I am logged into "CS" as user "COMP_USER"
     And I wipe the record data
@@ -197,7 +197,7 @@ Feature: Complaints End To End
       | Minor misconduct |
 
     # HOCS- 6700
-  @E2ETests
+  @COMPE2ETests
   Scenario Outline: End to End workflow for Direct UKVI stage 2 complaint case
     Given I am logged into "CS" as user "COMP_USER"
     And I wipe the record data
@@ -246,7 +246,7 @@ Feature: Complaints End To End
     Then the case should be closed
 
   #HOCS-6694
-  @E2ETests
+  @COMPE2ETests
   Scenario: Robust End to End flow with IEDET CaseType
     Given I am logged into "CS" as user "IEDET_USER"
     And I wipe the record data
@@ -326,7 +326,7 @@ Feature: Complaints End To End
       | Minor misconduct |
 
  # HOCS- 6693
-  @E2ETests
+  @COMPE2ETests
   Scenario Outline: End to End workflow for BF stage 1 complaint case
     Given I am logged into "CS" as user "BF_USER"
     And I wipe the record data
@@ -385,7 +385,7 @@ Feature: Complaints End To End
     Then the case should be closed
 
   # HOCS- 6693
-  @E2ETests
+  @COMPE2ETests
   Scenario: End to End workflow for BF stage 2 complaint case
     Given I am logged into "CS" as user "BF_USER"
     And I wipe the record data
@@ -435,7 +435,7 @@ Feature: Complaints End To End
     Then the case should be closed
 
  # HOCS- 6587
-  @E2ETests
+  @COMPE2ETests
   Scenario Outline: End to End workflow for HMPO POGR complaint case
     Given I am logged into "CS" as user "POGR_USER"
     And I wipe the record data
@@ -490,7 +490,7 @@ Feature: Complaints End To End
     Then the case should be closed
 
   # HOCS- 6587
-  @E2ETests
+  @COMPE2ETests
   Scenario Outline: End to End workflow for HMPO POGR stage 2 complaint case
     Given I am logged into "CS" as user "POGR_USER"
     And I wipe the record data
