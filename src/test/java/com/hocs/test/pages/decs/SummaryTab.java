@@ -214,6 +214,7 @@ public class SummaryTab extends BasePage {
                 case "MTS":
                 case "COMP":
                 case "COMP2":
+                case "COMP2DIRECT":
                 case "IEDET":
                 case "PSU REGISTRATION":
                 case "PSU TRIAGE":
@@ -539,7 +540,9 @@ public class SummaryTab extends BasePage {
         recordCaseData.assertAllRecordedCaseDataIsVisibleInTheSummaryTab();
         if((pogrCase() || pogr2Case()) && (sessionVariableCalled("businessArea").toString().equalsIgnoreCase("GRO"))){
                 assertDeadlineDateOfCaseIsCorrect("PRIORITY GRO COMPLAINT");
-        }else{
+        } else if ((compCase() || comp2Case() || comp2DirectCase()) && (sessionVariableCalled("complaintType").toString().equalsIgnoreCase("Ex-Gratia"))) {
+            assertDeadlineDateOfCaseIsCorrect("Ex-Gratia");
+        } else{
             assertDeadlineDateOfCaseIsCorrect(caseType);
         }
 

@@ -57,8 +57,7 @@ public class ComplaintsDispatchAndSend extends BasePage {
             headerText = "Dispatch Date";
         }
         recordCaseData.enterDateIntoDateFieldsWithHeading(getDatePlusMinusNDaysAgo(-1), headerText);
-        recordCaseData.addValueToAssertSummary(headerText,getDatePlusMinusNDaysAgo(-1));
-       if(bfCase() || bf2Case()) {
+        if(iedetCase() || bfCase() || bf2Case()) {
            recordCaseData.addValueToAssertSummary(headerText, getDatePlusMinusNDaysAgo(-1));
        }
     }
