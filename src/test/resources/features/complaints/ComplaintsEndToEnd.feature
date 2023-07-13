@@ -436,7 +436,7 @@ Feature: Complaints End To End
 
  # HOCS- 6587
   @COMPE2ETests
-  Scenario Outline: End to End workflow for HMPO POGR complaint case
+  Scenario Outline: End to End workflow for POGR complaint case
     Given I am logged into "CS" as user "POGR_USER"
     And I wipe the record data
     And I choose not to wipe the record data until the end

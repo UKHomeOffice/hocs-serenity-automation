@@ -65,6 +65,7 @@ public class CaseDetailsAccordionStepDefs extends BasePage {
 
     @Then("all case data should be visible in the read-only Case Details accordion")
     public void allCaseDataShouldBeVisibleInTheReadOnlyCaseDetailsAccordion() {
+        caseView.assertAccordionStageHeader();
         caseView.expandAllCaseDetailsAccordionSections();
         recordCaseData.assertAllRecordedCaseDataIsCurrentlyVisibleInTheReadOnlyAccordion();
     }
