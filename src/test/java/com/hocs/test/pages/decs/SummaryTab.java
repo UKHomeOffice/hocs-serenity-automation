@@ -225,7 +225,10 @@ public class SummaryTab extends BasePage {
                     expectedNumberOfWorkdaysTillDeadline = 20;
                     break;
                 case "EX-GRATIA":
-                case "PSU":
+                case "IEDETPSU":
+                case "BFPSU":
+                case "COMPPSU":
+                case "COMP2PSU":
                 case "PSU OUTCOME":
                 case "PSU COMPLAINT OUTCOME":
                     expectedNumberOfWorkdaysTillDeadline = 60;

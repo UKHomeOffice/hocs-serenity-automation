@@ -182,7 +182,7 @@ public class CaseView extends BasePage {
     public void assertAccordionStageHeader() {
         String caseType = String.valueOf(getCurrentCaseType());
         if(caseType.equalsIgnoreCase("COMP") || caseType.equalsIgnoreCase("COMP2") || caseType.equalsIgnoreCase("COMP2DIRECT")){
-           getTheSpecificCaseTypeForCOMP(caseType);
+            caseType = getTheSpecificCaseTypeForCOMP(caseType);
 
         }
         visibleAccordionStageHeader = getAccordionStageHeadersContent();
@@ -192,7 +192,7 @@ public class CaseView extends BasePage {
 
     }
 
-    private void getTheSpecificCaseTypeForCOMP(String caseType) {
+    private String getTheSpecificCaseTypeForCOMP(String caseType) {
         if(caseType.equalsIgnoreCase("COMP")){
 
             if(sessionVariableCalled("complaintType").toString().equalsIgnoreCase("Service")){
@@ -212,6 +212,7 @@ public class CaseView extends BasePage {
                 caseType = "COMP2 Minor misconduct";
             }
         }
+        return caseType;
     }
 
     private List<String> getExpectedStageHeaderContent(String caseType) {
@@ -226,6 +227,9 @@ public class CaseView extends BasePage {
                 break;
             case "IEDET":
                 accordionStageHeader.addAll(Arrays.asList("IE Detention Registration", "IE Detention Triage", "IE Detention Outcome"));
+                break;
+            case "IEDETPSU":
+                accordionStageHeader.addAll(Arrays.asList("IE Detention Registration", "IE Detention Triage", "PSU Registration", "PSU Triage", "PSU Outcome"));
                 break;
             case "MIN":
                 accordionStageHeader.addAll(Arrays.asList("Data Input", "Markup", "Initial Draft", "QA Response", "Private Office Approval",
@@ -249,6 +253,9 @@ public class CaseView extends BasePage {
                 accordionStageHeader.addAll(Arrays.asList("Border Force Registration (Stage 2)",  "Border Force Triage (Stage 2)", "Border "
                         + "Force Draft (Stage 2)", "Border Force QA (Stage 2)", "Border Force Send (Stage 2)"));
                 break;
+            case "BFPSU":
+                accordionStageHeader.addAll(Arrays.asList("Border Force Registration", "PSU Registration", "PSU Triage", "PSU Outcome"));
+                break;
             case "COMP SERVICE":
                 accordionStageHeader.addAll(Arrays.asList("UKVI Registration",  "UKVI Service Triage", "UKVI Service Draft", "UKVI Service QA",
                         "UKVI Service Send"));
@@ -260,6 +267,9 @@ public class CaseView extends BasePage {
             case "COMP MINOR MISCONDUCT":
                 accordionStageHeader.addAll(Arrays.asList("UKVI Registration",  "UKVI Minor Misconduct Triage", "UKVI Minor Misconduct Response "
                         + "Draft", "UKVI Minor Misconduct QA", "UKVI Minor Misconduct Send"));
+                break;
+            case "COMPPSU":
+                accordionStageHeader.addAll(Arrays.asList("UKVI Registration", "PSU Registration", "PSU Triage", "PSU Outcome"));
                 break;
             case "COMP2 SERVICE":
                 accordionStageHeader.addAll(Arrays.asList("UKVI Stage 2 Registration",  "UKVI Stage 2 Service Triage", "UKVI Stage 2 Service "
@@ -273,7 +283,9 @@ public class CaseView extends BasePage {
                 accordionStageHeader.addAll(Arrays.asList("UKVI Stage 2 Registration",  "UKVI Stage 2 Minor Misconduct Triage", "UKVI Stage 2 "
                         + "Minor Misconduct Response Draft", "UKVI Stage 2 Minor Misconduct QA", "UKVI Stage 2 Minor Misconduct Send"));
                 break;
-
+            case "COMP2PSU":
+                accordionStageHeader.addAll(Arrays.asList("UKVI Stage 2 Registration", "PSU Registration", "PSU Triage", "PSU Outcome"));
+                break;
             default:
                 pendingStep(" Accordion stage is not defined within " + caseType);
         }
