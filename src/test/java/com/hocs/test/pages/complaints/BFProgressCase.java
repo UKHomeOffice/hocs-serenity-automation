@@ -232,7 +232,7 @@ public class BFProgressCase extends BasePage {
         documents.addADocumentOfDocumentType("Final response");
         complaintsDispatchAndSend.enterFinalResponseSentDate();
         clickTheButton("Close case");
-        setCurrentCaseType(CaseType.valueOf("PSU"));
+        setCurrentCaseType(CaseType.valueOf("BFPSU"));
     }
 
     public void moveBFCaseFromRegistrationToTriage() {
