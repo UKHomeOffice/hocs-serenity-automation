@@ -304,7 +304,6 @@ public class COMPProgressCase extends BasePage {
         complaintsRegistrationAndDataInput.enterComplainantDetails();
         complaintsRegistrationAndDataInput.selectASpecificComplaintType(complaintType);
         if (complaintType.equalsIgnoreCase("SERVICE")) {
-            clickContinueButton();
             waitABit(1000);
             complaintsTriageAndInvestigation.selectUKVIClaimCategory("Service");
             clickContinueButton();
