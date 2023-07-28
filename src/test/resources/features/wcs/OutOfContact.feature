@@ -2,7 +2,7 @@
 Feature: Out Of Contact
 
   Background:
-    Given I am logged into "WCS" as user "WCS_USER"
+    Given I am logged into "WCS" as user "WCSOC_USER"
 
   @Workflow @WCSRegression
   Scenario: User sends a claim to the Pre-offer team and back to the original team

@@ -6,6 +6,7 @@ public enum User {
     MPAM_USER("mpam automated regression user", "Password1!", "MPAM Regression (mpamregression@test.com)"),
     DCU_USER("dcu automated regression user", "Password1!", "DCU Regression (dcuregression@test.com)"),
     WCS_USER("wcs automated regression user", "Password1!", "WCS Regression (wcsregression@test.com)"),
+    WCSOC_USER("wcs out of contact user", "testpass", "WCS Out of Contract Regression (wcsoutofcontact@test.com)"),
     COMP_USER("comp automated regression user", "Password1!", "COMP Regression (compregression@test.com)"),
     IEDET_USER("iedet automated regression user", "Password1!", "IEDET Regression (iedetregression@test.com)"),
     SMC_USER("smc automated regression user", "Password1!", "SMC Regression (smcregression@test.com)"),
