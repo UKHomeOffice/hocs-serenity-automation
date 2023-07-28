@@ -168,17 +168,3 @@ Feature: Complaints Dispatch & Send
     And I submit the Response details
     Then the case should be closed
     And the read-only Case Details accordion should contain all case information entered during the "Dispatch" stage
-
-
-#  SMC workflow cancelled. Steps and code might be useful for future work implementing PSU specific sub-workflow into other complaints workflows
-
-#     SMC COMPLAINTS
-
-  @ComplaintsWorkflow @SMCComplaints
-  Scenario: User can complete the Send stage for an SMC complaint case
-    Given I am logged into "CS" as user "SMC_USER"
-    When I get a "SMC" case at the "Send" stage
-    And I add a "Final Response" type document to the case
-    And I select a Case Outcome
-    And I submit the Response details
-    Then the case should be closed

@@ -11,7 +11,6 @@ import com.hocs.test.pages.complaints.BFProgressCase;
 import com.hocs.test.pages.complaints.COMPProgressCase;
 import com.hocs.test.pages.complaints.IEDETProgressCase;
 import com.hocs.test.pages.complaints.POGRProgressCase;
-import com.hocs.test.pages.complaints.SMCProgressCase;
 import com.hocs.test.pages.dcu.DCUProgressCase;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CreateCase;
@@ -57,8 +56,6 @@ public class SearchStepDefs extends BasePage {
 
     IEDETProgressCase iedetProgressCase;
 
-    SMCProgressCase smcProgressCase;
-
     POGRProgressCase pogrProgressCase;
 
     @And("I enter {string} into the {string} search field")
@@ -94,9 +91,6 @@ public class SearchStepDefs extends BasePage {
                     break;
                 case IEDET:
                     iedetProgressCase.generateIEDETSearchCaseData(infoValue, criteria);
-                    break;
-                case SMC:
-                    smcProgressCase.generateSMCSearchCaseData(infoValue, criteria);
                     break;
                 case POGR:
                     pogrProgressCase.generatePOGRSearchCaseData(infoValue, criteria);

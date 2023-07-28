@@ -461,25 +461,6 @@ public class WorkstacksStepDefs extends BasePage {
                     dashboard.selectPSUTeam();
                 }
                 break;
-
-            case "SERIOUS MISCONDUCT":
-                try {
-                    dashboard.selectSMCTeam();
-                } catch (NoSuchElementException e) {
-                    createCase.createCSCaseOfTypeWithDocument(CaseType.SMC);
-                    dashboard.goToDashboard();
-                    dashboard.selectSMCTeam();
-                }
-                break;
-            case "SERIOUS MISCONDUCT MY CASES":
-                if (dashboard.getNumberOfCasesInWorkstackFromDashboardCard("My Cases") == 0) {
-                    createCase.createCSCaseOfTypeWithDocument(CaseType.SMC);
-                    confirmationScreens.goToCaseFromConfirmationScreen();
-                    caseView.clickAllocateToMeLink();
-                    dashboard.goToDashboard();
-                }
-                dashboard.selectMyCases();
-                break;
             case "BORDER FORCE":
                 try {
                     dashboard.selectBFTeam();

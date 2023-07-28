@@ -30,7 +30,7 @@ public class ComplaintsDispatchAndSendStepDefs extends BasePage {
 
     @And("I submit the Response details")
     public void iEnterTheResponseDetails() {
-        if (!iedetCase() && !smcCase()) {
+        if (!iedetCase()) {
             complaintsDispatchAndSend.selectAResponseChannel();
         }
         complaintsDispatchAndSend.enterADateOfResponse();

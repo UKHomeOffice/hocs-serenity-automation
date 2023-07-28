@@ -2,18 +2,14 @@ package com.hocs.test.glue.decs;
 
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
-import static net.serenitybdd.core.Serenity.setSessionVariable;
 
 import com.hocs.test.pages.complaints.BFProgressCase;
 import com.hocs.test.pages.complaints.COMPProgressCase;
 import com.hocs.test.pages.complaints.IEDETProgressCase;
 import com.hocs.test.pages.complaints.POGRProgressCase;
-import com.hocs.test.pages.complaints.SMCProgressCase;
 import com.hocs.test.pages.dcu.DCUProgressCase;
 import com.hocs.test.pages.decs.BasePage;
 import com.hocs.test.pages.decs.CaseView;
-import com.hocs.test.pages.decs.ConfirmationScreens;
 import com.hocs.test.pages.decs.Dashboard;
 import com.hocs.test.pages.decs.Workdays;
 import com.hocs.test.pages.foi.FOIProgressCase;
@@ -38,8 +34,6 @@ public class ProgressCaseStepDefs extends BasePage {
     COMPProgressCase compProgressCase;
 
     IEDETProgressCase iedetProgressCase;
-
-    SMCProgressCase smcProgressCase;
 
     BFProgressCase bfProgressCase;
 
@@ -70,9 +64,6 @@ public class ProgressCaseStepDefs extends BasePage {
                 break;
             case IEDET:
                 iedetProgressCase.completeTheIEDETStage(stage,  "Happy Path");
-                break;
-            case SMC:
-                smcProgressCase.completeTheSMCStage(stage);
                 break;
             case BF:
             case BF2:
@@ -115,9 +106,6 @@ public class ProgressCaseStepDefs extends BasePage {
                 break;
             case IEDET:
                 iedetProgressCase.moveCaseFromCurrentStageToTargetStage(currentStage, targetStage);
-                break;
-            case SMC:
-                smcProgressCase.moveCaseFromCurrentStageToTargetStage(currentStage, targetStage);
                 break;
             case BF:
             case BF2:

@@ -8,7 +8,6 @@ import com.hocs.test.pages.complaints.BFProgressCase;
 import com.hocs.test.pages.complaints.COMPProgressCase;
 import com.hocs.test.pages.complaints.IEDETProgressCase;
 import com.hocs.test.pages.complaints.POGRProgressCase;
-import com.hocs.test.pages.complaints.SMCProgressCase;
 import com.hocs.test.pages.dcu.DCUProgressCase;
 import com.hocs.test.pages.decs.Correspondents;
 import com.hocs.test.pages.decs.BasePage;
@@ -48,8 +47,6 @@ public class CreateCaseStepDefs extends BasePage {
     COMPProgressCase compProgressCase;
 
     FOIProgressCase foiProgressCase;
-
-    SMCProgressCase smcProgressCase;
 
     IEDETProgressCase iedetProgressCase;
 
@@ -231,14 +228,6 @@ public class CreateCaseStepDefs extends BasePage {
         createCase.createCaseReceivedNWorkdaysAgo(CaseType.valueOf(caseTypeString), days);
     }
 
-    @And("I create an SMC case received {int} workdays in the past and move it to the {string} stage")
-    public void iCreateAnSMCCaseReceivedNWorkdaysAgo(int days, String stage) {
-        createCase.createCaseReceivedNWorkdaysAgo(CaseType.valueOf("SMC"), days);
-        if (!stage.equalsIgnoreCase("REGISTRATION")) {
-            smcProgressCase.moveCaseFromCurrentStageToTargetStage("Registration", stage);
-        }
-    }
-
     @And("I create a single {string} case with the correspondence received date set as today")
     public void iCreateACaseReceivedToday(String caseTypeString) {
         createCase.createCSCaseOfTypeWithDocument(CaseType.valueOf(caseTypeString));
@@ -339,9 +328,6 @@ public class CreateCaseStepDefs extends BasePage {
                 break;
             case "IEDET":
                 iedetProgressCase.generateIEDETSearchCaseData("N/A", "ALL");
-                break;
-            case "SMC":
-                smcProgressCase.generateSMCSearchCaseData("N/A", "ALL");
                 break;
             case "POGR":
                 pogrProgressCase.generatePOGRSearchCaseData("N/A", "ALL");

@@ -365,25 +365,3 @@ Feature: Registration
     And I chose not to upload an interim letter
     Then the "Investigation - Team Allocation" page should be displayed
     And the read-only Case Details accordion should contain all case information entered during the "Data Input" stage
-
-
-#  SMC workflow cancelled. Steps and code might be useful for future work implementing PSU specific sub-workflow into other complaints workflows
-
-#     SMC COMPLAINTS
-
-  @ComplaintsWorkflow @SMCComplaints
-  Scenario: User is able to complete the Registration stage for an SMC complaint case
-    Given I am logged into "CS" as user "SMC_USER"
-    And I create a single "SMC" case
-    And I allocate the case to myself via the successful case creation screen
-    And I add a "Complainant" correspondent
-    And I click the "Continue" button
-    And I enter the Complainant Details
-    And I enter the complaint details on the Complaint Input page
-    And I click the "Continue" button
-    And I select a "Serious" Complaint Category
-    And I select a Owning CSU
-    And I click the "Finish" button
-    Then the case should be moved to the "Triage" stage
-    And the summary should display the owning team as "Serious Misconduct"
-    And the read-only Case Details accordion should contain all case information entered during the "Registration" stage

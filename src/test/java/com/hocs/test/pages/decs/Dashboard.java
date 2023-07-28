@@ -205,10 +205,6 @@ public class Dashboard extends BasePage {
         safeClickOn(psuComplaintsWorkstack);
     }
 
-    public void selectSMCTeam() {
-        safeClickOn(seriousMisconductWorkstack);
-    }
-
     public void selectBFTeam() {
         safeClickOn(borderForceWorkstack);
     }
@@ -350,11 +346,6 @@ public class Dashboard extends BasePage {
                 break;
             case "IEDET_USER":
                 if (ieDetentionWorkstack.isVisible()) {
-                    correctUser = true;
-                }
-                break;
-            case "SMC_USER":
-                if (seriousMisconductWorkstack.isVisible()) {
                     correctUser = true;
                 }
                 break;

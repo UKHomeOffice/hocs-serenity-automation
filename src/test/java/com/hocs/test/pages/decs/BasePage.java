@@ -304,7 +304,7 @@ public class BasePage extends PageObject {
 
     public boolean mtsCase() { return getCurrentCaseType().equals(CaseType.MTS); }
 
-    public boolean complaintCase() { return compCase() | comp2Case() | comp2DirectCase() | iedetCase() | smcCase() | bfCase() | bf2Case() | pogrCase() | pogr2Case();}
+    public boolean complaintCase() { return compCase() | comp2Case() | comp2DirectCase() | iedetCase() | bfCase() | bf2Case() | pogrCase() | pogr2Case();}
 
     public boolean compCase() { return getCurrentCaseType().equals(CaseType.COMP); }
 
@@ -321,8 +321,6 @@ public class BasePage extends PageObject {
     public boolean pogrCase() { return getCurrentCaseType().equals(CaseType.POGR); }
 
     public boolean pogr2Case() { return getCurrentCaseType().equals(CaseType.POGR2); }
-
-    public boolean smcCase() { return getCurrentCaseType().equals(CaseType.SMC); }
 
     public boolean foiCase() {
         return getCurrentCaseType().equals(CaseType.FOI);

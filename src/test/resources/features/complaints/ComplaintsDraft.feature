@@ -508,19 +508,3 @@ Feature: Complaints Draft
       | businessArea |
       | HMPO         |
       | GRO          |
-
-
-#  SMC workflow cancelled. Steps and code might be useful for future work implementing PSU specific sub-workflow into other complaints workflows
-
-#     SMC COMPLAINTS
-
-  @ComplaintsWorkflow @SMCComplaints
-  Scenario: User completes the Draft stage for an SMC complaint case
-    Given I am logged into "CS" as user "SMC_USER"
-    When I create a "SMC" case and move it to the "Draft" stage
-    And I load and claim the current case
-    And I upload my Primary "DRAFT" document
-    And I click the "Response Ready" button
-    Then the case should be moved to the "Send" stage
-    And the summary should display the owning team as "Serious Misconduct"
-    And the selected document should be tagged as the primary draft

@@ -35,35 +35,3 @@ Feature: Actions
     And an Interest Updated log should be visible in the timeline for the interested party
 
 
-#  SMC workflow cancelled. Steps and code might be useful for future work implementing PSU specific sub-workflow into other complaints workflows
-
-#     SMC COMPLAINTS
-
-  @SMCComplaints
-  Scenario: As a SMC caseworker, I want to be able to suspend a case, so that the case and its SLA reflect its current status
-    Given I am logged into "CS" as user "SMC_USER"
-    And I get a new "SMC" case
-    And I select the actions tab
-    When I suspend the case
-    Then I should see a confirmation message stating that the case has been suspended
-    And the details of the current suspension should be visible in the actions tab
-    And a Case Suspension Applied log should be visible in the timeline
-    And the deadline of the case should be replaced with the word "Suspended" in the Summary tab
-    And the deadline of the case should be replaced with the word "Suspended" in the "SMC Registration" workstack
-    And the deadline of the case should be replaced with the word "Suspended" in the My Cases workstack
-
-  @SMCComplaints
-  Scenario: As a SMC caseworker, I want to be able to remove the suspension on a case, so that the case reflect its current status
-    Given I am logged into "CS" as user "SMC_USER"
-    And I get a new "SMC" case
-    And I select the actions tab
-    And I suspend the case
-    And I return to the case from the confirmation screen
-    And I remove the suspension from the case
-    Then I should see a confirmation message stating that the suspension has been removed from the case
-    And the details of the previous suspension should be visible in the actions tab
-    And the deadline of the case should be replaced with "N/A" in the Summary tab
-    And the deadline of the case should be replaced with "N/A" in the "SMC Registration" workstack
-    And the deadline of the case should be replaced with "N/A" in the My Cases workstack
-
-
