@@ -504,31 +504,3 @@ Feature: Complaints End To End
       | businessArea |
       | HMPO         |
       | GRO          |
-
-#  SMC workflow cancelled. Steps and code might be useful for future work implementing PSU specific sub-workflow into other complaints workflows
-
-#     SMC COMPLAINTS
-
-  @SMCComplaints
-  Scenario: User creates a SMC complaint case and it starts at the Registration stage
-    Given I am logged into "CS" as user "SMC_USER"
-    When I create a "SMC" case and move it to the "Registration" stage
-    Then the case should be moved to the "Registration" stage
-
-  @SMCComplaints
-  Scenario: User moves an SMC complaint case to the Triage stage
-    Given I am logged into "CS" as user "SMC_USER"
-    When I create a "SMC" case and move it to the "Triage" stage
-    Then the case should be moved to the "Triage" stage
-
-  @SMCComplaints
-  Scenario: User moves an SMC complaint case to the Send stage
-    Given I am logged into "CS" as user "SMC_USER"
-    When I create a "SMC" case and move it to the "Send" stage
-    Then the case should be moved to the "Send" stage
-
-  @SMCComplaints
-  Scenario: User is able to close an SMC complaint case
-    Given I am logged into "CS" as user "SMC_USER"
-    When I create a "SMC" case and move it to "Case Closed"
-    Then the case should be closed

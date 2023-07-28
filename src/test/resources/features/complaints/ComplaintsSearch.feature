@@ -150,22 +150,3 @@ Scenario: User is able to search for a POGR HMPO case by its Application referen
     And I navigate to the "Search" page
     And I search for the case by the Application Reference
     Then The Pogr case should be visible in the search results
-
-#  SMC workflow cancelled. Steps and code might be useful for future work implementing PSU specific sub-workflow into other complaints workflows
-
-#     SMC COMPLAINTS
-
-  @SMCComplaints
-  Scenario: User tests SMC complaints case search criteria
-    Given I am logged into "CS" as user "SMC_USER"
-    When I generate a "SMC" case to validate search functionality
-    And I navigate to the "Search" page
-    And I enter "Sam McTester" into the "Correspondent Full Name" search field
-    And I enter "AB1 2CD" into the "Correspondent Postcode" search field
-    And I enter "SamMcTester@Test.com" into the "Correspondent Email Address" search field
-    And I enter "01/01/2001" into the "Complainant Date of Birth" search field
-    And I enter "Test entry for HO Reference" into the "Complainant Home Office Reference" search field
-    And I enter "123456789" into the "PSU Reference" search field
-    And I enter the current case reference into the Case Reference field on the search screen
-    And I click the search button on the search page
-    Then the created case should be the only case visible in the search results
