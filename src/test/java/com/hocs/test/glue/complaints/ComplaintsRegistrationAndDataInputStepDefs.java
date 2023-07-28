@@ -37,18 +37,15 @@ public class ComplaintsRegistrationAndDataInputStepDefs extends BasePage {
         if (!iedetCase()) {
             complaintsRegistrationAndDataInput.selectAComplaintChannel();
         }
-        if (iedetCase() | smcCase()) {
+        if (iedetCase()) {
             complaintsRegistrationAndDataInput.selectComplaintOrigin();
         }
         if(iedetCase()){
             complaintsTriageAndInvestigation.selectIEDETBusinessArea();
         }
         complaintsRegistrationAndDataInput.enterADescriptionOfTheComplaint();
-        if (!iedetCase() && !bfCase() && !smcCase() && !bf2Case()) {
+        if (!iedetCase() && !bfCase() && !bf2Case()) {
             complaintsRegistrationAndDataInput.selectASeverity();
-            complaintsRegistrationAndDataInput.enterAPreviousUKVIComplaintReference();
-        } else if (smcCase()) {
-            complaintsRegistrationAndDataInput.selectAdditionalInformation();
             complaintsRegistrationAndDataInput.enterAPreviousUKVIComplaintReference();
         }
         if(comp2DirectCase()){

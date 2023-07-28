@@ -22,7 +22,6 @@ public enum CaseType {
     IEDET("IE Detention Case", 20, "IEDET_USER", false),
     IEDETPSU("IE Detention PSU", 20, "PSU_USER", false),
     FOI("FOI Request", 20, "FOI_USER", false),
-    SMC("Serious Misconduct Case", 60, "SMC_USER", false),
     WCS(null, 0, "WCS_USER", false);
 
     private final String correspondenceTypeLabel;

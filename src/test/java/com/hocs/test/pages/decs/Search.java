@@ -85,7 +85,6 @@ public class Search extends BasePage {
                     case "BF":
                     case "BF2":
                     case "IEDET":
-                    case "SMC":
                     case "POGR":
                     case "POGR2":
                     case "FOI":
@@ -266,7 +265,7 @@ public class Search extends BasePage {
                 break;
             case "CORRESPONDENT FULL NAME":
             case "COMPLAINANT DATE OF BIRTH":
-                caseTypesCriteriaCompatibleWith = Arrays.asList(CaseType.COMP, CaseType.IEDET, CaseType.SMC, CaseType.POGR, CaseType.TO);
+                caseTypesCriteriaCompatibleWith = Arrays.asList(CaseType.COMP, CaseType.IEDET, CaseType.POGR, CaseType.TO);
                 break;
             case "CORRESPONDENT POSTCODE":
                 caseTypesCriteriaCompatibleWith = Arrays.asList(CaseType.MIN, CaseType.DTEN, CaseType.TRO, CaseType.COMP, CaseType.IEDET, CaseType.POGR, CaseType.TO);

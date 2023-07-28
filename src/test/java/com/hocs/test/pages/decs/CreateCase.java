@@ -284,11 +284,6 @@ public class CreateCase extends BasePage {
                         correctUser = true;
                     }
                     break;
-                case "SMC_USER":
-                    if (caseTypeIsVisibleOptionOnCreateCaseScreen(CaseType.SMC)) {
-                        correctUser = true;
-                    }
-                    break;
                 case "FOI_USER":
                     if (caseTypeIsVisibleOptionOnCreateCaseScreen(CaseType.FOI)) {
                         correctUser = true;
