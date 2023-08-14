@@ -4,24 +4,24 @@ Feature: Workstacks
   Background:
     Given I am logged into "CS" as user "DECS_USER"
 
-  @CSRegression
+  @CSRegression @cse2eTests
   Scenario: User creates a case and allocates to another user using the top allocation dropdown menu
     And I create a new case and view it in the Performance and Process team workstack
     When I allocate the current case to "CASEY"
     Then the owner field should display "CASEY"
 
-  @CSRegression
+  @CSRegression @cse2eTests
   Scenario: User creates a case and allocates to another user using the bottom allocation dropdown menu
     And I create a new case and view it in the Performance and Process team workstack
     When I allocate the current case to "CASEY" using the bottom allocation dropdown menu
     Then the owner field should display "CASEY"
 
-  @CSRegression
+  @CSRegression @cse2eTests
   Scenario: User creates a case and assigns it to themselves from the workstack
     And I create a new case and view it in the Performance and Process team workstack
     When I assign this case to me, and check if it has been correctly allocated
 
-  @CSRegression
+  @CSRegression @cse2eTests
   Scenario: User creates 3 cases and allocates these cases to another User
     And I create three cases, and view them in performance and process workstack
     Then I assign these three cases to "CASEY"
@@ -33,13 +33,13 @@ Feature: Workstacks
     Then I view these cases in Performance and Process workstack, and unallocate from "CASEY"
     And I then check whether the correct cases have been unallocated
 
-  @CSRegression
+  @CSRegression @cse2eTests
   Scenario: User only sees cases of the selected Workflow after clicking a Workflow filter card
     And I enter a random team workstack from the dashboard
     When I select a Workflow filter card
     Then only cases of that Workflow should be displayed in the workstack
 
-  @CSRegression
+  @CSRegression @cse2eTests
   Scenario: User only sees cases at the selected stage after clicking a stage filter card
     And I enter a random team workstack from the dashboard
     When I select a Workflow filter card
