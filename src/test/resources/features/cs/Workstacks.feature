@@ -70,6 +70,7 @@ Feature: Workstacks
       | Rejected          | Highest to Lowest |
 
 
+  @cse2eTests
   Scenario Outline: User is able to order columns in my cases
     When I navigate to my cases and order the "<column>" column from "<order>"
     Then the "<column>" column is ordered from "<order>"
