@@ -326,6 +326,7 @@ public class COMPProgressCase extends BasePage {
         complaintsRegistrationAndDataInput.enterComplainantDetails();
         complaintsRegistrationAndDataInput.selectASpecificComplaintType("Serious misconduct");
         complaintsTriageAndInvestigation.selectUKVIClaimCategory("Serious misconduct");
+        complaintsRegistrationAndDataInput.selectAnOwningCSU();
         clickContinueButton();
         selectRandomRadioButtonFromGroupWithHeading("Channel");
         complaintsRegistrationAndDataInput.enterAPreviousUKVIPSUComplaintReference();
@@ -343,6 +344,7 @@ public class COMPProgressCase extends BasePage {
         complaintsRegistrationAndDataInput.enterComplainantDetails();
         complaintsRegistrationAndDataInput.selectASpecificComplaintType("Serious misconduct");
         complaintsTriageAndInvestigation.selectUKVIClaimCategory("Serious misconduct");
+        complaintsRegistrationAndDataInput.selectAnOwningCSU();
         clickContinueButton();
         selectRandomRadioButtonFromGroupWithHeading("Channel");
         complaintsRegistrationAndDataInput.enterAPreviousUKVIPSUComplaintReference();
