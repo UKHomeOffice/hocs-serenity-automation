@@ -4,7 +4,7 @@ Feature: Manage Documents
   Background:
     Given I am logged into "CS" as user "DECS_USER"
 
-  @CSRegression
+  @CSRegression @CSE2ETests
   Scenario Outline: As a Correspondence System user, I want to be able to upload, preview, and remove any document that is of an allowed filetype,
   so I can complete my work
     And I manage the documents of a new case
@@ -26,7 +26,7 @@ Feature: Manage Documents
       | bmp      |
       | doc      |
 
-  @CSRegression
+  @CSRegression @CSE2ETests
   Scenario Outline: As a DECS user, I want to be able to select the type of an uploaded document, so the document can be easily identified later
     And I manage the documents of a new "<caseType>" case
     When I click add documents
