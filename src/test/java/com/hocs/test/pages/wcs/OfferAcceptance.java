@@ -24,6 +24,21 @@ public class OfferAcceptance extends BasePage {
         clickConfirmButton();
     }
 
+    public void selectMoveToEligibility() {
+        selectSpecificRadioButton("Move to Eligibility");
+        clickConfirmButton();
+    }
+
+    public void selectMoveToTriage() {
+        selectSpecificRadioButton("Move to Triage");
+        clickConfirmButton();
+    }
+
+    public void selectMoveToCasework() {
+        selectSpecificRadioButton("Move to Casework");
+        clickConfirmButton();
+    }
+
     public void selectPaymentOfferRejected() {
         selectSpecificRadioButton("Offer rejected");
         clickConfirmButton();
