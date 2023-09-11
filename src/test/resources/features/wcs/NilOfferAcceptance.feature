@@ -15,6 +15,21 @@ Feature: Nil Offer Acceptance
     When I select that the nil offer was rejected by the claimant
     Then the claim should be moved to the "Tier 1" stage
 
+  @Workflow @WCSRegression
+  Scenario: User records that the claim is moved to Eligibility
+    When I select move claim to Eligibility
+    Then the claim should be moved to the "Eligibility" stage
+
+  @Workflow @WCSRegression
+  Scenario: User records that the claim is moved to Triage
+    When I select move claim to Triage
+    Then the claim should be moved to the "Triage" stage
+
+  @Workflow @WCSRegression
+  Scenario: User records that the claim is moved to Casework
+    When I select move claim to Casework
+    Then the claim should be moved to the "Casework" stage
+
   @Validation
   Scenario: User does not select an option at the Nil Offer Acceptance stage
     When I click the "Confirm" button

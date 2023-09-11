@@ -39,6 +39,24 @@ Feature: Tier 1
     When I select that the claimant rejected the final offer
     Then the claim should be moved to the "Tier 2" stage
 
+  @Workflow @WCSRegression
+  Scenario: User records that the claim is moved to Eligibility
+    And I complete the Tier 1 Review page
+    When I select move claim to Eligibility
+    Then the claim should be moved to the "Eligibility" stage
+
+  @Workflow @WCSRegression
+  Scenario: User records that the claim is moved to Triage
+    And I complete the Tier 1 Review page
+    When I select move claim to Triage
+    Then the claim should be moved to the "Triage" stage
+
+  @Workflow @WCSRegression
+  Scenario: User records that the claim is moved to Casework
+    And I complete the Tier 1 Review page
+    When I select move claim to Casework
+    Then the claim should be moved to the "Casework" stage
+
   @Validation
   Scenario: User does not select an option on the Tier 1 Awaiting Response page
     And I complete the Tier 1 Review page
