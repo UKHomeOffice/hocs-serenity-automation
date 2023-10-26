@@ -483,7 +483,7 @@ public class BasePage extends PageObject {
         WebElementFacade radioButtonElement = getRadioButtonLabelElementWithSpecifiedText(radioButtonText);
         safeClickOn(radioButtonElement);
         String heading =
-                findBy("//label[contains(text()," + sanitiseXpathAttributeString(radioButtonText) + ")]/ancestor::fieldset/legend/span").getText();
+                findBy("//label[contains(normalize-space(text())," + sanitiseXpathAttributeString(radioButtonText) + ")]/ancestor::fieldset/legend/span").getText();
         return heading;
     }
 
@@ -518,7 +518,7 @@ public class BasePage extends PageObject {
     }
 
     private WebElementFacade getRadioButtonLabelElementWithSpecifiedText(String elementText) {
-        return findBy("//input/following-sibling::label[text()=" + sanitiseXpathAttributeString(elementText) + "]");
+        return findBy("//input/following-sibling::label[normalize-space(text())=" + sanitiseXpathAttributeString(elementText) + "]");
     }
 
     private List<WebElementFacade> getRadioButtonElementsInGroupWithHeading(String headingText) {
