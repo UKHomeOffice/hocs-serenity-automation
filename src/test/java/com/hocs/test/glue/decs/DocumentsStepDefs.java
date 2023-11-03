@@ -125,11 +125,17 @@ public class DocumentsStepDefs extends BasePage {
         documents.clickVisibleAddDocumentsLink();
         documents.selectADocumentType();
         iUploadAFileThatIsMBInSize(fileSize1);
+        documents.refreshTheTab("Summary");
+        documents.refreshTheTab("Documents");
+        getDriver().navigate().refresh();
         documents.waitForFileToUpload(fileSize1);
         iClickManageDocuments();
         documents.clickVisibleAddDocumentsLink();
         documents.selectADocumentType();
         iUploadAFileThatIsMBInSize(fileSize2);
+        documents.refreshTheTab("Summary");
+        documents.refreshTheTab("Documents");
+        getDriver().navigate().refresh();
         documents.waitForFileToUpload(fileSize2);
     }
 

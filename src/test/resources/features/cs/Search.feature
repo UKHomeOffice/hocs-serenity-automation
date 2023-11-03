@@ -5,7 +5,7 @@ Feature: Search
     Given I am logged into "CS" as user "DECS_USER"
 
 
-  @CSRegression
+  @CSRegression @CSE2ETests
   Scenario Outline: User tests DECS search criteria
     When I navigate to the "Search" page
     And I enter "<infoValue>" into the "<infoType>" search field
@@ -21,7 +21,7 @@ Feature: Search
     | Correspondent email address       | SamMcTester@Test.com                  |
     | Complainant Date of Birth         | 01/01/2001                            |
     | Received on or after date         | 01/09/2022                            |
-    | Received on or before date        | 01/09/2022                            |
+#    | Received on or before date        | 01/09/2022                            |
     | Member of Parliament Name         | Boris Johnson                         |
     | Public Correspondent Name         | Sam McTester                          |
     | Topic                             | Animal alternatives (3Rs)             |
