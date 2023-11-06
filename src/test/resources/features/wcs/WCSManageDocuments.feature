@@ -42,6 +42,7 @@ Feature: WCS Manage Documents
   @WCSRegression
   Scenario: User can select which document to preview
     And I upload a 5MB and a 10MB file
+    And I click the preview button of the "5MB" file
     And the "5MB" document should be selected to be displayed in the preview pane
     And I click the preview button of the "10MB" file
     Then the "10MB" document should be selected to be displayed in the preview pane

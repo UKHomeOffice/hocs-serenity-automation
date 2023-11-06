@@ -87,6 +87,7 @@ Feature: Manage Documents
   Scenario: As a Correspondence System user, I want to be able to select which document to preview, so I can inspect different uploaded documents
     And I manage the documents of a new case
     And I upload a 5MB and a 10MB file
+    And I click the preview button of the "5MB" file
     And the "5MB" document should be selected to be displayed in the preview pane
     And I click the preview button of the "10MB" file
     Then the "10MB" document should be selected to be displayed in the preview pane
