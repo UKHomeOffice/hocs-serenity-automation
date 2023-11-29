@@ -212,7 +212,7 @@ public class Documents extends BasePage {
 
     public void assertFileIsVisible(String fileType) {
         WebElementFacade uploadedFile = findBy(
-                "//table//td[contains(text(), '." + fileType + "')]");
+                "//dd[contains(text(), '." + fileType + "')]");
         assertThat(uploadedFile.isVisible(), is(true));
     }
 
@@ -250,7 +250,7 @@ public class Documents extends BasePage {
 
     public void assertDocumentIsUnderHeader(String header) {
         WebElementFacade documentUnderHeader =
-                findBy("//h2[text()='" + header + "']/following-sibling::table[1]//a[@download]");
+                findBy("//h2[text()='" + header + "']/following-sibling::dl [1]//a[@download]");
         documentUnderHeader.withTimeoutOf(Duration.ofSeconds(10)).waitUntilVisible();
         assertThat(documentUnderHeader.isVisible(), is(true));
     }
@@ -265,7 +265,7 @@ public class Documents extends BasePage {
 
     public void waitForFileToUpload(Object fileIdentifier) {
         WebElementFacade documentUploadedTag =
-                findBy("//td[contains(text(), '" + fileIdentifier + "')]/following-sibling::td/a[@download]");
+                findBy("//dd[contains(text(), '" + fileIdentifier + "')]/parent::div//following-sibling::dd//a[@download]");
         documentUploadedTag.withTimeoutOf(Duration.ofMinutes(3)).waitUntilVisible();
     }
 
