@@ -53,7 +53,7 @@ Feature: ManagementUI
 
 #    ADD A STANDARD LINE
 
-  @StandardLines @DCURegression
+  @StandardLines @DCURegression @ManagmentUI2eTests
   Scenario: User can add a new Standard Line
     When I select to "Add a standard line"
     And I add a new Standard Line with "Animal alternatives (3Rs)" as the topic
@@ -249,7 +249,7 @@ Feature: ManagementUI
 
 #    ADD A USER
 
-  @UserManagement @CSRegression
+  @UserManagement @CSRegression @ManagmentUI2eTests
   Scenario: A new user can be created in DECS through User Management
     Given I select to "Add a user"
     When I submit the details for the new user
@@ -517,7 +517,7 @@ Feature: ManagementUI
 
 #    MANAGE EX-GRATIA BUSINESS AREA REPRESENTATIVES
 
-  @ListsManagement @COMPRegression
+  @ListsManagement @COMPRegression @ManagmentUI2eTests
   Scenario: User can add and delete an Ex-Gratia Business Area Representative through Lists Management
     When I select to "Manage Ex-Gratia Business Area Representatives"
     And I select to add a new representative
@@ -679,7 +679,7 @@ Feature: ManagementUI
     Then the success message for amending a recipient should be displayed
     And I should be able to view the renamed recipient in the table of recipients
 
-  @ListsManagement @TORegression
+  @ListsManagement @TORegression @ManagmentUI2eTests
   Scenario: User can add a Recipient that was added through Lists Management to a TO case in DECS
     And I have added a new recipient in MUI
     And I navigate to "CS"
@@ -714,7 +714,7 @@ Feature: ManagementUI
     Then the success message for amending an Enquiry Reason should be displayed
     And I should be able to view the renamed "COMP" Enquiry Reason in the table of Enquiry Reasons
 
-  @ListsManagement @COMPRegression
+  @ListsManagement @COMPRegression @ManagmentUI2eTests
   Scenario: User can select a new UKVI Complaints Enquiry Reason that was added through Lists Management when viewing a case in DECS
     And I have added a new "COMP" Enquiry Reason in MUI
     When I navigate to "CS"
