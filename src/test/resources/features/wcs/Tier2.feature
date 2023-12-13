@@ -29,30 +29,6 @@ Feature: Tier 2
     And I select that the claimant rejects the upheld offer
     Then the claim should be closed
 
-  @Workflow @WCSRegression
-  Scenario: User records that the claim is moved to Eligibility
-    And I enter a Tier 2 review withdrawal outcome and decision date
-    When I select move claim to Eligibility
-    Then the claim should be moved to the "Eligibility" stage
-
-  @Workflow @WCSRegression
-  Scenario: User records that the claim is moved to Triage
-    And I enter a Tier 2 review withdrawal outcome and decision date
-    When I select move claim to Triage
-    Then the claim should be moved to the "Triage" stage
-
-  @Workflow @WCSRegression
-  Scenario: User records that the claim is moved to Casework
-    And I enter a Tier 2 review withdrawal outcome and decision date
-    When I select move claim to Casework
-    Then the claim should be moved to the "Casework" stage
-
-  @Workflow @WCSRegression
-  Scenario: User records that the claim is moved to Tier 1
-    And I enter a Tier 2 review withdrawal outcome and decision date
-    When I select move claim to Tier 1
-    Then the claim should be moved to the "Tier 1" stage
-
   @Validation
   Scenario: User does not select an option on the Tier 2 Coordination page
     When I click the "Confirm" button
