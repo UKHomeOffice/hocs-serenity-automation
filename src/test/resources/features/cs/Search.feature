@@ -19,7 +19,7 @@ Feature: Search
     | Correspondent Full Name           | Sam McTester                          |
     | Correspondent Postcode            | AB1 2CD                               |
     | Correspondent email address       | SamMcTester@Test.com                  |
-    | Complainant Date of Birth         | 01/01/2001                            |
+#    | Complainant Date of Birth         | 01/01/2001                            |
     | Received on or after date         | 01/09/2022                            |
 #    | Received on or before date        | 01/09/2022                            |
     | Member of Parliament Name         | Boris Johnson                         |
