@@ -68,171 +68,171 @@ services:
       SE_EVENT_BUS_HOST: selenium
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
----
-kind: pipeline
-type: kubernetes
-name: e2eTests
-depends_on:
-  - SMOKE
-trigger:
-  branch:
-    - main
-  event:
-    - push
-steps:
-  - name: execute tests
-    image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
-    commands:
-      - sh bin/e2eTests.sh
-    environment:
-      ARTIFACTORY_PASSWORD:
-        from_secret: artifactory_password
-      ARTIFACTORY_USERNAME:
-        from_secret: artifactory_username
-  - name: upload serenity report
-    image: amazon/aws-cli
-    commands:
-      - > # yaml folded style
-        aws s3 cp
-        --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/$${DRONE_BUILD_NUMBER}_e2eTests/
-        --sse aws:kms
-        --sse-kms-key-id $${AWS_KMS_KEY}
-    environment:
-      AWS_DEFAULT_REGION: eu-west-2
-      AWS_ACCESS_KEY_ID:
-        from_secret: aws_access_key_id
-      AWS_SECRET_ACCESS_KEY:
-        from_secret: aws_secret_access_key
-      AWS_KMS_KEY:
-        from_secret: aws_kms_key_id
-    depends_on:
-      - execute tests
-    when:
-      status:
-        - success
-        - failure
-services:
-  - name: selenium
-    image: selenium/hub:4.5.3
-  - name: chrome22
-    image: selenium/node-chrome:4.5.2
-    environment:
-      DISPLAY: :99.0
-      HUB_PORT_4444_TCP_ADDR: selenium
-      HUB_PORT_4444_TCP_PORT: 4444
-      SE_EVENT_BUS_HOST: selenium
-      SE_EVENT_BUS_PUBLISH_PORT: 4442
-      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
----
-kind: pipeline
-type: kubernetes
-name: compe2eTests
-depends_on:
-  - SMOKE
-trigger:
-  branch:
-    - main
-  event:
-    - push
-steps:
-  - name: execute tests
-    image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
-    commands:
-      - sh bin/compe2eTests.sh
-    environment:
-      ARTIFACTORY_PASSWORD:
-        from_secret: artifactory_password
-      ARTIFACTORY_USERNAME:
-        from_secret: artifactory_username
-  - name: upload serenity report
-    image: amazon/aws-cli
-    commands:
-      - > # yaml folded style
-        aws s3 cp
-        --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/$${DRONE_BUILD_NUMBER}_compe2eTests/
-        --sse aws:kms
-        --sse-kms-key-id $${AWS_KMS_KEY}
-    environment:
-      AWS_DEFAULT_REGION: eu-west-2
-      AWS_ACCESS_KEY_ID:
-        from_secret: aws_access_key_id
-      AWS_SECRET_ACCESS_KEY:
-        from_secret: aws_secret_access_key
-      AWS_KMS_KEY:
-        from_secret: aws_kms_key_id
-    depends_on:
-      - execute tests
-    when:
-      status:
-        - success
-        - failure
-services:
-  - name: selenium
-    image: selenium/hub:4.5.3
-  - name: chrome22
-    image: selenium/node-chrome:4.5.2
-    environment:
-      DISPLAY: :99.0
-      HUB_PORT_4444_TCP_ADDR: selenium
-      HUB_PORT_4444_TCP_PORT: 4444
-      SE_EVENT_BUS_HOST: selenium
-      SE_EVENT_BUS_PUBLISH_PORT: 4442
-      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
----
-kind: pipeline
-type: kubernetes
-name: cse2eTests
-depends_on:
-  - SMOKE
-trigger:
-  branch:
-    - main
-  event:
-    - push
-steps:
-  - name: execute tests
-    image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
-    commands:
-      - sh bin/cse2eTests.sh
-    environment:
-      ARTIFACTORY_PASSWORD:
-        from_secret: artifactory_password
-      ARTIFACTORY_USERNAME:
-        from_secret: artifactory_username
-  - name: upload serenity report
-    image: amazon/aws-cli
-    commands:
-      - > # yaml folded style
-        aws s3 cp
-        --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/$${DRONE_BUILD_NUMBER}_cse2eTests/
-        --sse aws:kms
-        --sse-kms-key-id $${AWS_KMS_KEY}
-    environment:
-      AWS_DEFAULT_REGION: eu-west-2
-      AWS_ACCESS_KEY_ID:
-        from_secret: aws_access_key_id
-      AWS_SECRET_ACCESS_KEY:
-        from_secret: aws_secret_access_key
-      AWS_KMS_KEY:
-        from_secret: aws_kms_key_id
-    depends_on:
-      - execute tests
-    when:
-      status:
-        - success
-        - failure
-services:
-  - name: selenium
-    image: selenium/hub:4.5.3
-  - name: chrome22
-    image: selenium/node-chrome:4.5.2
-    environment:
-      DISPLAY: :99.0
-      HUB_PORT_4444_TCP_ADDR: selenium
-      HUB_PORT_4444_TCP_PORT: 4444
-      SE_EVENT_BUS_HOST: selenium
-      SE_EVENT_BUS_PUBLISH_PORT: 4442
-      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+#---
+#kind: pipeline
+#type: kubernetes
+#name: e2eTests
+#depends_on:
+#  - SMOKE
+#trigger:
+#  branch:
+#    - main
+#  event:
+#    - push
+#steps:
+#  - name: execute tests
+#    image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
+#    commands:
+#      - sh bin/e2eTests.sh
+#    environment:
+#      ARTIFACTORY_PASSWORD:
+#        from_secret: artifactory_password
+#      ARTIFACTORY_USERNAME:
+#        from_secret: artifactory_username
+#  - name: upload serenity report
+#    image: amazon/aws-cli
+#    commands:
+#      - > # yaml folded style
+#        aws s3 cp
+#        --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/$${DRONE_BUILD_NUMBER}_e2eTests/
+#        --sse aws:kms
+#        --sse-kms-key-id $${AWS_KMS_KEY}
+#    environment:
+#      AWS_DEFAULT_REGION: eu-west-2
+#      AWS_ACCESS_KEY_ID:
+#        from_secret: aws_access_key_id
+#      AWS_SECRET_ACCESS_KEY:
+#        from_secret: aws_secret_access_key
+#      AWS_KMS_KEY:
+#        from_secret: aws_kms_key_id
+#    depends_on:
+#      - execute tests
+#    when:
+#      status:
+#        - success
+#        - failure
+#services:
+#  - name: selenium
+#    image: selenium/hub:4.5.3
+#  - name: chrome22
+#    image: selenium/node-chrome:4.5.2
+#    environment:
+#      DISPLAY: :99.0
+#      HUB_PORT_4444_TCP_ADDR: selenium
+#      HUB_PORT_4444_TCP_PORT: 4444
+#      SE_EVENT_BUS_HOST: selenium
+#      SE_EVENT_BUS_PUBLISH_PORT: 4442
+#      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+#---
+#kind: pipeline
+#type: kubernetes
+#name: compe2eTests
+#depends_on:
+#  - SMOKE
+#trigger:
+#  branch:
+#    - main
+#  event:
+#    - push
+#steps:
+#  - name: execute tests
+#    image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
+#    commands:
+#      - sh bin/compe2eTests.sh
+#    environment:
+#      ARTIFACTORY_PASSWORD:
+#        from_secret: artifactory_password
+#      ARTIFACTORY_USERNAME:
+#        from_secret: artifactory_username
+#  - name: upload serenity report
+#    image: amazon/aws-cli
+#    commands:
+#      - > # yaml folded style
+#        aws s3 cp
+#        --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/$${DRONE_BUILD_NUMBER}_compe2eTests/
+#        --sse aws:kms
+#        --sse-kms-key-id $${AWS_KMS_KEY}
+#    environment:
+#      AWS_DEFAULT_REGION: eu-west-2
+#      AWS_ACCESS_KEY_ID:
+#        from_secret: aws_access_key_id
+#      AWS_SECRET_ACCESS_KEY:
+#        from_secret: aws_secret_access_key
+#      AWS_KMS_KEY:
+#        from_secret: aws_kms_key_id
+#    depends_on:
+#      - execute tests
+#    when:
+#      status:
+#        - success
+#        - failure
+#services:
+#  - name: selenium
+#    image: selenium/hub:4.5.3
+#  - name: chrome22
+#    image: selenium/node-chrome:4.5.2
+#    environment:
+#      DISPLAY: :99.0
+#      HUB_PORT_4444_TCP_ADDR: selenium
+#      HUB_PORT_4444_TCP_PORT: 4444
+#      SE_EVENT_BUS_HOST: selenium
+#      SE_EVENT_BUS_PUBLISH_PORT: 4442
+#      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+#---
+#kind: pipeline
+#type: kubernetes
+#name: cse2eTests
+#depends_on:
+#  - SMOKE
+#trigger:
+#  branch:
+#    - main
+#  event:
+#    - push
+#steps:
+#  - name: execute tests
+#    image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
+#    commands:
+#      - sh bin/cse2eTests.sh
+#    environment:
+#      ARTIFACTORY_PASSWORD:
+#        from_secret: artifactory_password
+#      ARTIFACTORY_USERNAME:
+#        from_secret: artifactory_username
+#  - name: upload serenity report
+#    image: amazon/aws-cli
+#    commands:
+#      - > # yaml folded style
+#        aws s3 cp
+#        --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/$${DRONE_BUILD_NUMBER}_cse2eTests/
+#        --sse aws:kms
+#        --sse-kms-key-id $${AWS_KMS_KEY}
+#    environment:
+#      AWS_DEFAULT_REGION: eu-west-2
+#      AWS_ACCESS_KEY_ID:
+#        from_secret: aws_access_key_id
+#      AWS_SECRET_ACCESS_KEY:
+#        from_secret: aws_secret_access_key
+#      AWS_KMS_KEY:
+#        from_secret: aws_kms_key_id
+#    depends_on:
+#      - execute tests
+#    when:
+#      status:
+#        - success
+#        - failure
+#services:
+#  - name: selenium
+#    image: selenium/hub:4.5.3
+#  - name: chrome22
+#    image: selenium/node-chrome:4.5.2
+#    environment:
+#      DISPLAY: :99.0
+#      HUB_PORT_4444_TCP_ADDR: selenium
+#      HUB_PORT_4444_TCP_PORT: 4444
+#      SE_EVENT_BUS_HOST: selenium
+#      SE_EVENT_BUS_PUBLISH_PORT: 4442
+#      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
 #---
 #kind: pipeline
 #type: kubernetes
@@ -846,61 +846,61 @@ services:
 #      SE_EVENT_BUS_HOST: selenium
 #      SE_EVENT_BUS_PUBLISH_PORT: 4442
 #      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
-#---
-#kind: pipeline
-#type: kubernetes
-#name: WCS-Regression
-#depends_on:
-#  - SMOKE
-#trigger:
-#  branch:
-#    - main
-#  event:
-#    - push
-#steps:
-#  - name: execute tests
-#    image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
-#    commands:
-#      - sh bin/wcs.sh
-#    environment:
-#      ARTIFACTORY_PASSWORD:
-#        from_secret: artifactory_password
-#      ARTIFACTORY_USERNAME:
-#        from_secret: artifactory_username
-#  - name: upload serenity report
-#    image: amazon/aws-cli
-#    commands:
-#      - > # yaml folded style
-#        aws s3 cp
-#        --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/$${DRONE_BUILD_NUMBER}_WCS/
-#        --sse aws:kms
-#        --sse-kms-key-id $${AWS_KMS_KEY}
-#    environment:
-#      AWS_DEFAULT_REGION: eu-west-2
-#      AWS_ACCESS_KEY_ID:
-#        from_secret: aws_access_key_id
-#      AWS_SECRET_ACCESS_KEY:
-#        from_secret: aws_secret_access_key
-#      AWS_KMS_KEY:
-#        from_secret: aws_kms_key_id
-#    depends_on:
-#      - execute tests
-#    when:
-#      status:
-#        - success
-#        - failure
-#services:
-#  - name: selenium
-#    image: selenium/hub:4.5.3
-#  - name: chrome22
-#    image: selenium/node-chrome:4.5.2
-#    environment:
-#      DISPLAY: :99.0
-#      HUB_PORT_4444_TCP_ADDR: selenium
-#      HUB_PORT_4444_TCP_PORT: 4444
-#      SE_EVENT_BUS_HOST: selenium
-#      SE_EVENT_BUS_PUBLISH_PORT: 4442
-#      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+---
+kind: pipeline
+type: kubernetes
+name: WCS-Regression
+depends_on:
+  - SMOKE
+trigger:
+  branch:
+    - main
+  event:
+    - push
+steps:
+  - name: execute tests
+    image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
+    commands:
+      - sh bin/wcs.sh
+    environment:
+      ARTIFACTORY_PASSWORD:
+        from_secret: artifactory_password
+      ARTIFACTORY_USERNAME:
+        from_secret: artifactory_username
+  - name: upload serenity report
+    image: amazon/aws-cli
+    commands:
+      - > # yaml folded style
+        aws s3 cp
+        --recursive /drone/src/target/site/serenity/ s3://cs-integration-testing-s3/serenity-reports/$${DRONE_BUILD_NUMBER}_WCS/
+        --sse aws:kms
+        --sse-kms-key-id $${AWS_KMS_KEY}
+    environment:
+      AWS_DEFAULT_REGION: eu-west-2
+      AWS_ACCESS_KEY_ID:
+        from_secret: aws_access_key_id
+      AWS_SECRET_ACCESS_KEY:
+        from_secret: aws_secret_access_key
+      AWS_KMS_KEY:
+        from_secret: aws_kms_key_id
+    depends_on:
+      - execute tests
+    when:
+      status:
+        - success
+        - failure
+services:
+  - name: selenium
+    image: selenium/hub:4.5.3
+  - name: chrome22
+    image: selenium/node-chrome:4.5.2
+    environment:
+      DISPLAY: :99.0
+      HUB_PORT_4444_TCP_ADDR: selenium
+      HUB_PORT_4444_TCP_PORT: 4444
+      SE_EVENT_BUS_HOST: selenium
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
 #---
 #kind: pipeline
 #type: kubernetes
