@@ -46,7 +46,7 @@ public class Markup extends BasePage {
     @FindBy(id = "POTeamName")
     public WebElementFacade privateOfficeTeamTextField;
 
-    @FindBy(xpath = "//a[text()='Add a ']")
+    @FindBy(xpath = "//a[text()='Add a topic']")
     public WebElementFacade addTopicLink;
 
     @FindBy(xpath = "//div[@class='govuk-typeahead__input']/input")
