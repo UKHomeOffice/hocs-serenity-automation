@@ -693,7 +693,7 @@ public class BasePage extends PageObject {
     // Text areas
 
     public String enterTextIntoTextAreaWithHeading(String headingText) {
-        String textToEnter = "Test entry for " + headingText +" 1\nTest entry for " + headingText + " 2\nTest entry for " + headingText +
+        String textToEnter = "Test entry " + headingText +" 1\nTest entry " + headingText + " 2\nTest entry " + headingText +
                 " 3";
         enterSpecificTextIntoTextAreaWithHeading(textToEnter, headingText);
         String sanitisedText = textToEnter.replace("\n", " ");
