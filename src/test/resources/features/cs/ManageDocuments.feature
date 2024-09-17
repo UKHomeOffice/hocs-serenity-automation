@@ -26,7 +26,7 @@ Feature: Manage Documents
       | bmp      |
       | doc      |
 
-  @CSRegression @CSE2ETests
+  @CSRegression
   Scenario Outline: As a DECS user, I want to be able to select the type of an uploaded document, so the document can be easily identified later
     And I manage the documents of a new "<caseType>" case
     When I click add documents
