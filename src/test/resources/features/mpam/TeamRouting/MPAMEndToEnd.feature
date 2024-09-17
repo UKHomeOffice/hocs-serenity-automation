@@ -117,7 +117,7 @@ Feature: MPAM End To End
       | Coronavirus (COVID-19) | Official | Case Closed |
       
  # HOCS- 6705
-  @E2ETests
+  @MPAMRegression1
   Scenario Outline: End to End workflow for a Ministerial case with specific Business Area and Reference Type
     And I wipe the record data
     And I choose not to wipe the record data until the end
@@ -137,7 +137,7 @@ Examples:
 
 
  # HOCS- 6705
-  @E2ETests
+  @MPAMRegression1
   Scenario Outline: End to End workflow for a Official case with specific Business Area and Reference Type
     And I wipe the record data
     And I choose not to wipe the record data until the end
