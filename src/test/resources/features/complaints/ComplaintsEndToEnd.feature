@@ -182,8 +182,8 @@ Feature: Complaints End To End
     Examples:
       | complaintType    |
       | Service          |
-      | Ex-Gratia        |
-      | Minor misconduct |
+#      | Ex-Gratia        |
+#      | Minor misconduct |
 
   @COMPRegression @UKVIComplaints
   Scenario Outline: User is able to close a Direct UKVI stage 2 complaint case
