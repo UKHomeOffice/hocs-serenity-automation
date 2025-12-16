@@ -271,6 +271,7 @@ public class DCUProgressCase extends BasePage {
 
     public void moveCaseFromDispatchToCaseClosedOrCopyToNumber10() {
         dispatch.selectAbleToDispatch("Yes");
+        dispatch.selectCheckBoxConfirmThatYouHaveEmailedTheResponse();
         clickContinueButton();
     }
 

@@ -26,6 +26,10 @@ public class Dispatch extends BasePage {
         recordCaseData.selectSpecificRadioButton(yesNo);
     }
 
+    public void selectCheckBoxConfirmThatYouHaveEmailedTheResponse() {
+        checkSpecificCheckbox("I confirm that I have emailed my response to DCU Public Responses for dispatch.");
+    }
+
     public void enterReasonUnableToDispatch() {
         String rejectionReason = recordCaseData.enterTextIntoTextAreaWithHeading("Why are you unable to dispatch this?");
         setSessionVariable("rejectionReason").to(rejectionReason);
