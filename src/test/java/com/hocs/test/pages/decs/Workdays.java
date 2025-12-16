@@ -23,16 +23,16 @@ public class Workdays extends BasePage{
 
     private void addEnglishAndWelshBankHolidays() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
-        bankHolidays.add(LocalDate.parse("25/12/2024", formatter));
-        bankHolidays.add(LocalDate.parse("26/12/2024", formatter));
-        bankHolidays.add(LocalDate.parse("01/01/2025", formatter));
-        bankHolidays.add(LocalDate.parse("18/04/2025", formatter));
-        bankHolidays.add(LocalDate.parse("21/04/2025", formatter));
-        bankHolidays.add(LocalDate.parse("05/05/2025", formatter));
-        bankHolidays.add(LocalDate.parse("26/05/2025", formatter));
-        bankHolidays.add(LocalDate.parse("25/08/2025", formatter));
         bankHolidays.add(LocalDate.parse("25/12/2025", formatter));
         bankHolidays.add(LocalDate.parse("26/12/2025", formatter));
+        bankHolidays.add(LocalDate.parse("01/01/2026", formatter));
+        bankHolidays.add(LocalDate.parse("03/04/2026", formatter));
+        bankHolidays.add(LocalDate.parse("06/04/2026", formatter));
+        bankHolidays.add(LocalDate.parse("04/05/2026", formatter));
+        bankHolidays.add(LocalDate.parse("25/05/2026", formatter));
+        bankHolidays.add(LocalDate.parse("31/08/2026", formatter));
+        bankHolidays.add(LocalDate.parse("25/12/2026", formatter));
+        bankHolidays.add(LocalDate.parse("26/12/2026", formatter));
     }
 
     private void addAdditionalScottishAndNIBankHolidays() {
