@@ -248,7 +248,7 @@ steps:
   - name: execute tests
     image: quay.io/ukhomeofficedigital/hocs-serenity-automation:${DRONE_COMMIT_SHA}
     commands:
-      - sh bin/cse2eTests.sh
+      - sh bin/managementuie2eTests.sh
     environment:
       ARTIFACTORY_PASSWORD:
         from_secret: artifactory_password
