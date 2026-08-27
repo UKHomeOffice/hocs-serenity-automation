@@ -714,7 +714,7 @@ Feature: ManagementUI
     Then the success message for amending an Enquiry Reason should be displayed
     And I should be able to view the renamed "COMP" Enquiry Reason in the table of Enquiry Reasons
 
-  @ListsManagement @COMPRegression @ManagmentUI2eTests
+  @ListsManagement @COMPRegression
   Scenario: User can select a new UKVI Complaints Enquiry Reason that was added through Lists Management when viewing a case in DECS
     And I have added a new "COMP" Enquiry Reason in MUI
     When I navigate to "CS"
