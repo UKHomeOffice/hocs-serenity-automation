@@ -22,11 +22,22 @@ For more information, please consult the project [Wiki](https://github.com/UKHom
     * Download the appropriate chromedriver version that is compatible with your Chrome version from here: https://googlechromelabs.github.io/chrome-for-testing/
     * Download the chromedriver Mac-x64.zip file, example: https://storage.googleapis.com/chrome-for-testing-public/151.0.7922.
       173/mac-x64/chromedriver-mac-x64.zip
-    * Extract the .zip file and then copy chromedriver.exe file to here: hocs-serenity-automation/src/test/resources/webdriver/mac
-    * Extract the .zip file and then copy chromedriver.exe file to here: hocs-serenity-automation/src/test/resources/webdriver/windows
-    * You will need to give chromedriver executable permission so in terminal, cd to hocs-serenity-automation/src/test/resources/webdriver/mac and
-      then type chmod 777 chromedriver
-* After completing the above, the tests should now be executable both in intellij and maven, here is an example maven command: mvn clean verify
+    * You will need to give chromedriver executable permission so in terminal. Open a terminal window, navigate to where your download chromdriver exe
+      is located and use the following: xattr -d com.apple.quarantine chromedriver
+    * Then copy the chromedriver from your downloads folder to hocs-serenity-automation/src/test/resources/webdriver/mac and overwrite the 
+      existing one.
+
+## Running the Tests Locally
+
+There a two ways to run a test
+
+First:
+* After completing the requirements above, you should now be able to execute scenarios individually. Navigate 
+
+
+Second
+* After completing the requirements above, the tests should now be executable both in intellij and maven, here is an example maven command: mvn clean 
+  verify
   "-Dcucumber.filter.tags=@@WCSRegression"
   -Dchrome.switches=--headless -Denvironment=QA
 
