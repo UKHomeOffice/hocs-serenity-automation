@@ -21,7 +21,7 @@ Feature: End To End
     And I complete the "Awaiting Payment Confirmation" stage
     Then the claim should be closed
 
-  @E2ETests
+  @E2ETests @WCSUI2eTests
   Scenario: Robust E2E Worklow with WCS Casetype
     And I wipe the record data
     And I choose not to wipe the record data until the end
