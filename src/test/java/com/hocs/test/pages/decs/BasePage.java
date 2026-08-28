@@ -20,6 +20,7 @@ import java.util.Random;
 import java.util.regex.Pattern;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import net.serenitybdd.screenplay.actions.Switch;
 import net.thucydides.core.pages.PageObject;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -44,6 +45,31 @@ public class BasePage extends PageObject {
     private static final SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
 
     private static final SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
+
+    private static final String LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private static final Random random = new Random();
+
+    private static final String[] FIRST_NAMES = {
+            "john", "emma", "michael", "sophia", "david", "olivia",
+            "daniel", "ava", "james", "isabella"
+    };
+
+    private static final String[] LAST_NAMES = {
+            "smith", "johnson", "brown", "taylor", "anderson",
+            "thomas", "jackson", "white", "harris", "martin"
+    };
+
+    private static final String[] DOMAINS = {
+            "gmail.com", "yahoo.com", "outlook.com", "hotmail.com"
+    };
+
+    private static final String[] AREA_CODES = {
+            "20",   // London
+            "121",  // Birmingham
+            "161",  // Manchester
+            "141",  // Glasgow
+            "131"   // Edinburgh
+    };
 
     @FindBy(className = "govuk-error-summary")
     protected WebElementFacade errorMessageList;
@@ -672,9 +698,125 @@ public class BasePage extends PageObject {
 
     public String enterTextIntoTextFieldWithHeading(String headingText) {
         waitForHeadingToBeVisible(headingText);
-        String textToEnter = "Test entry for " + headingText;
+        String textToEnter;
+        switch (headingText.toUpperCase()) {
+            case "POSTCODE":
+                textToEnter = generatePostcode();
+                break;
+            case "NATIONAL INSURANCE NUMBER":
+                Random random = new Random();
+                int number = 100000 + random.nextInt(900000);
+                textToEnter = "SP" + number + "D";
+                break;
+            case "EMAIL ADDRESS":
+            case "REPRESENTATIVE EMAIL ADDRESS":
+                textToEnter = generateEmail();
+                break;
+            case "TELEPHONE NUMBER":
+                textToEnter = generateUKNumber();
+                break;
+            case "PASSPORT NUMBER":
+//            case "EXPIRED PASSPORT NUMBERS":
+                textToEnter = generatePassportNumberAdvanced();
+                break;
+            default:
+                textToEnter = "Test entry for " + headingText;
+                break;
+        }
         enterSpecificTextIntoTextFieldWithHeading(textToEnter, headingText);
         return textToEnter;
+    }
+
+    public static String generateUKNumber() {
+        Random random = new Random();
+
+        boolean isMobile = random.nextBoolean();
+        String number;
+
+        if (isMobile) {
+            // Mobile format: +44 (0)7XXX XXXXXX
+            int prefix = 7000 + random.nextInt(1000); // 7000–7999
+            int lineNumber = 100000 + random.nextInt(900000);
+
+            number = String.format("+44 (0)%d %06d", prefix, lineNumber);
+
+        } else {
+            // Landline
+            String areaCode = AREA_CODES[random.nextInt(AREA_CODES.length)];
+            int subscriber = 1000000 + random.nextInt(9000000);
+
+            number = String.format("+44 (0)%s %07d", areaCode, subscriber);
+        }
+
+        return number;
+    }
+
+    public static String generatePassportNumberAdvanced() {
+        Random random = new Random();
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+        StringBuilder passport = new StringBuilder();
+
+        for (int i = 0; i < 9; i++) {
+            passport.append(chars.charAt(random.nextInt(chars.length())));
+        }
+
+        return passport.toString();
+    }
+
+    public static String generatePostcode() {
+
+        // Outward code (Area + District)
+        String area = "" + randomLetter();
+
+        if (random.nextBoolean()) {
+            area += randomLetter(); // optional second letter
+        }
+
+        int district = random.nextInt(10); // 0–9
+
+        // Inward code
+        int sector = random.nextInt(10); // 0–9
+        String unit = "" + randomLetter() + randomLetter();
+
+        return area + district + " " + sector + unit;
+    }
+
+    private static char randomLetter() {
+
+        return LETTERS.charAt(random.nextInt(LETTERS.length()));
+    }
+
+    public static String generateEmail() {
+        Random random = new Random();
+
+        String firstName = FIRST_NAMES[random.nextInt(FIRST_NAMES.length)];
+        String lastName = LAST_NAMES[random.nextInt(LAST_NAMES.length)];
+
+        StringBuilder email = new StringBuilder();
+
+        // Choose format style
+        int format = random.nextInt(4);
+
+        switch (format) {
+            case 0:
+                email.append(firstName).append(".").append(lastName);
+                break;
+            case 1:
+                email.append(firstName).append(lastName);
+                break;
+            case 2:
+                email.append(firstName.charAt(0)).append(lastName);
+                break;
+            case 3:
+                email.append(firstName).append(".").append(lastName)
+                        .append(random.nextInt(100)); // add number
+                break;
+        }
+
+        String domain = DOMAINS[random.nextInt(DOMAINS.length)];
+
+        return email + "@" + domain;
     }
 
     public void enterSpecificTextIntoTextFieldWithHeading(String textToEnter, String headingText) {
@@ -693,8 +835,17 @@ public class BasePage extends PageObject {
     // Text areas
 
     public String enterTextIntoTextAreaWithHeading(String headingText) {
-        String textToEnter = "Test entry " + headingText +" 1\nTest entry " + headingText + " 2\nTest entry " + headingText +
-                " 3";
+        String textToEnter;
+        switch (headingText.toUpperCase()) {
+            case "EXPIRED PASSPORT NUMBERS":
+            case "PREVIOUS PASSPORT NUMBERS":
+                textToEnter = generatePassportNumberAdvanced() + "\n" + generatePassportNumberAdvanced();
+                break;
+            default:
+                textToEnter = "Test entry " + headingText + " 1\nTest entry " + headingText + " 2\nTest entry " + headingText +
+                        " 3";
+                break;
+        }
         enterSpecificTextIntoTextAreaWithHeading(textToEnter, headingText);
         String sanitisedText = textToEnter.replace("\n", " ");
         return sanitisedText;
