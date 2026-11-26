@@ -1,26 +1,12 @@
 package com.hocs.test.pages.decs;
 
-import static net.serenitybdd.core.Serenity.sessionVariableCalled;
-import static net.serenitybdd.core.Serenity.setSessionVariable;
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
-
 import config.CaseType;
 import config.CurrentCaseType;
 import config.CurrentUser;
 import config.PreviousUser;
 import config.User;
-import java.text.SimpleDateFormat;
-import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Random;
-import java.util.regex.Pattern;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
-import net.serenitybdd.screenplay.actions.Switch;
 import net.thucydides.core.pages.PageObject;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -33,6 +19,19 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Random;
+import java.util.regex.Pattern;
+
+import static net.serenitybdd.core.Serenity.sessionVariableCalled;
+import static net.serenitybdd.core.Serenity.setSessionVariable;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 
 public class BasePage extends PageObject {
 
@@ -499,6 +498,12 @@ public class BasePage extends PageObject {
     public String selectRandomRadioButtonFromGroupWithHeading(String headingText) {
         waitForHeadingToBeVisible(headingText);
         List<WebElementFacade> radioButtonElements = getRadioButtonElementsInGroupWithHeading(headingText);
+        int attempts = 0;
+        while (attempts < 10 && radioButtonElements.stream().noneMatch(WebElementFacade::isCurrentlyVisible)) {
+            waitABit(500);
+            radioButtonElements = getRadioButtonElementsInGroupWithHeading(headingText);
+            attempts++;
+        }
         WebElementFacade radioButtonElementToSelect = getRandomCurrentlyVisibleElementFromList(radioButtonElements);
         safeClickOn(radioButtonElementToSelect);
         return radioButtonElementToSelect.getText();
@@ -549,7 +554,7 @@ public class BasePage extends PageObject {
 
     private List<WebElementFacade> getRadioButtonElementsInGroupWithHeading(String headingText) {
         return findAll("//span[contains(@class,'govuk-fieldset__heading')][text() =" + sanitiseXpathAttributeString(headingText) + "]/ancestor::fieldset"
-                        + "//input/following-sibling::label");
+                        + "//input[@type='radio']/following-sibling::label");
     }
 
     public List<String> getRadioButtonLabelsInGroupWithHeading(String headingText) {
@@ -923,6 +928,11 @@ public class BasePage extends PageObject {
     public String checkRandomCheckboxFromList(List<WebElementFacade> checkboxes) {
         WebElementFacade checkboxToCheck = getRandomCurrentlyVisibleElementFromList(checkboxes);
         safeClickOn(checkboxToCheck);
+        List<WebElementFacade> checkboxInputs = checkboxToCheck.thenFindAll("./preceding-sibling::input[@type='checkbox'][1]");
+        if (!checkboxInputs.isEmpty() && !checkboxInputs.get(0).isSelected()) {
+            waitABit(500);
+            safeClickOn(checkboxToCheck);
+        }
         return checkboxToCheck.getText();
     }
 

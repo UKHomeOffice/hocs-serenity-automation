@@ -1,21 +1,21 @@
 package com.hocs.test.pages.decs;
 
+import config.User;
+import net.serenitybdd.core.annotations.findby.FindBy;
+import net.serenitybdd.core.pages.WebElementFacade;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
+
+import java.time.Duration;
+import java.util.List;
+import java.util.Random;
+
 import static jnr.posix.util.MethodName.getMethodName;
 import static net.serenitybdd.core.Serenity.pendingStep;
 import static net.serenitybdd.core.Serenity.sessionVariableCalled;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-
-import config.User;
-import java.time.Duration;
-import java.util.List;
-import java.util.Random;
-import net.serenitybdd.core.annotations.findby.FindBy;
-import net.serenitybdd.core.pages.WebElementFacade;
-import org.hamcrest.core.Is;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.NoSuchElementException;
 
 public class Dashboard extends BasePage {
 
@@ -241,13 +241,14 @@ public class Dashboard extends BasePage {
     // Multi Step Methods
 
     public void loadCase(String caseReference) {
-        caseReferenceSearchBar.sendKeys(caseReference);
-        try {
-            assertThat(caseReferenceSearchBar.getValue().equals(caseReference), is(true));
-        } catch (AssertionError a) {
+        int attempts = 0;
+        do {
             caseReferenceSearchBar.clear();
             caseReferenceSearchBar.sendKeys(caseReference);
-        }
+            waitABit(500);
+            attempts++;
+        } while (!caseReference.equals(caseReferenceSearchBar.getValue()) && attempts < 5);
+        assertThat("Case reference could not be entered into the search bar", caseReferenceSearchBar.getValue(), is(caseReference));
         hitEnterCaseReferenceSearchBar();
         caseView.waitForCaseToLoad();
     }
