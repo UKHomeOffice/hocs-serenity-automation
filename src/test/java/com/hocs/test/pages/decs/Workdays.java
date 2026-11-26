@@ -1,9 +1,7 @@
 package com.hocs.test.pages.decs;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-
 import config.CaseType;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -12,7 +10,7 @@ import java.util.List;
 
 public class Workdays extends BasePage{
 
-    private List<LocalDate> bankHolidays = new ArrayList<>();
+    private final List<LocalDate> bankHolidays = new ArrayList<>();
 
     private void generateBankHolidaysForCaseType(CaseType caseType) {
         addEnglishAndWelshBankHolidays();
@@ -32,7 +30,7 @@ public class Workdays extends BasePage{
         bankHolidays.add(LocalDate.parse("25/05/2026", formatter));
         bankHolidays.add(LocalDate.parse("31/08/2026", formatter));
         bankHolidays.add(LocalDate.parse("25/12/2026", formatter));
-        bankHolidays.add(LocalDate.parse("26/12/2026", formatter));
+        bankHolidays.add(LocalDate.parse("28/12/2026", formatter));
     }
 
     private void addAdditionalScottishAndNIBankHolidays() {
